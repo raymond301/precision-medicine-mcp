@@ -655,13 +655,14 @@ def _calculate_morans_i(
     var_I = ((n * S1 - S2 + 3 * W ** 2) / (W ** 2 * (n ** 2 - 1))) - E_I ** 2
 
     if var_I <= 0:
-        return morans_i, 0.0, 1.0
+        return float(morans_i), 0.0, 1.0
 
     # Calculate z-score and p-value
     z_score = (morans_i - E_I) / np.sqrt(var_I)
     p_value = 2 * (1 - norm.cdf(abs(z_score)))  # Two-tailed test
 
-    return morans_i, z_score, p_value
+    # Return Python native float types (not numpy types)
+    return float(morans_i), float(z_score), float(p_value)
 
 
 @mcp.tool()
@@ -771,9 +772,9 @@ async def calculate_spatial_autocorrelation(
                 "morans_i": round(float(morans_i), 4),
                 "z_score": round(float(z_score), 3),
                 "p_value": round(float(p_value), 4),
-                "significant": p_value < 0.05,
+                "significant": bool(p_value < 0.05),  # Convert numpy.bool_ to Python bool
                 "interpretation": interpretation,
-                "distance_threshold": distance_threshold
+                "distance_threshold": float(distance_threshold)
             })
 
         # Summary statistics
@@ -789,15 +790,15 @@ async def calculate_spatial_autocorrelation(
         return {
             "status": "success",
             "method": method,
-            "genes_analyzed": len([r for r in autocorr_results if "morans_i" in r]),
-            "genes_not_found": len([r for r in autocorr_results if r.get("status") == "not_found"]),
-            "distance_threshold": distance_threshold,
-            "num_spots": len(coordinates),
+            "genes_analyzed": int(len([r for r in autocorr_results if "morans_i" in r])),
+            "genes_not_found": int(len([r for r in autocorr_results if r.get("status") == "not_found"])),
+            "distance_threshold": float(distance_threshold),
+            "num_spots": int(len(coordinates)),
             "results": autocorr_results,
             "summary": {
-                "significantly_clustered": significant_clustered,
-                "significantly_dispersed": significant_dispersed,
-                "random_pattern": len(autocorr_results) - significant_clustered - significant_dispersed
+                "significantly_clustered": int(significant_clustered),
+                "significantly_dispersed": int(significant_dispersed),
+                "random_pattern": int(len(autocorr_results) - significant_clustered - significant_dispersed)
             }
         }
 
