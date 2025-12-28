@@ -125,7 +125,7 @@ def main() -> None:
     """Run the MCP mcp-deepcell server."""
     logger.info("Starting mcp-deepcell server...")
 
-    if config.dry_run:
+    if DRY_RUN:
         logger.warning("=" * 80)
         logger.warning("⚠️  DRY_RUN MODE ENABLED - RETURNING SYNTHETIC DATA")
         logger.warning("⚠️  Results are MOCKED and do NOT represent real analysis")
