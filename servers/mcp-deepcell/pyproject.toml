@@ -4,12 +4,12 @@ version = "0.1.0"
 description = "MCP server for deep learning cell segmentation"
 authors = [{name = "Precision Medicine MCP Team"}]
 requires-python = ">=3.11"
+dependencies = ["fastmcp>=0.2.0", "pydantic>=2.0.0", "numpy>=1.26.0"]
 
 [project.urls]
 Homepage = "https://github.com/lynnlangit/precision-medicine-mcp"
 Issues = "https://github.com/lynnlangit/precision-medicine-mcp/issues"
 Documentation = "https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs"
-dependencies = ["fastmcp>=0.2.0", "pydantic>=2.0.0", "numpy>=1.26.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0.0", "black>=24.0.0"]

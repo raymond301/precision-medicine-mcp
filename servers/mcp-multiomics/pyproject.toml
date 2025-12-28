@@ -12,12 +12,6 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "Apache-2.0"}
-
-[project.urls]
-Homepage = "https://github.com/lynnlangit/precision-medicine-mcp"
-Issues = "https://github.com/lynnlangit/precision-medicine-mcp/issues"
-Documentation = "https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs"
-
 dependencies = [
     "fastmcp>=0.1.0",
     "pydantic>=2.0.0",
@@ -32,6 +26,11 @@ dependencies = [
     "rpy2>=3.5.0; platform_system != 'Windows'",
     "statsmodels>=0.14.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/lynnlangit/precision-medicine-mcp"
+Issues = "https://github.com/lynnlangit/precision-medicine-mcp/issues"
+Documentation = "https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs"
 
 [project.optional-dependencies]
 dev = [
