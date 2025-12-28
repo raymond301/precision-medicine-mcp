@@ -130,17 +130,10 @@ async def filter_quality(
     """
     _ensure_directories()
 
-    input_path = Path(input_file)
-    if not input_path.exists():
-        raise IOError(f"Input file not found: {input_file}")
-
-    if min_reads < 0 or min_genes < 0 or max_mt_percent < 0 or max_mt_percent > 100:
-        raise ValueError("Invalid QC parameters")
-
-    output_path = Path(output_dir) / f"{input_path.stem}_filtered.csv"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
+    # Check DRY_RUN mode first to avoid file checks
     if DRY_RUN:
+        input_path = Path(input_file)
+        output_path = Path(output_dir) / f"{input_path.stem}_filtered.csv"
         # Mock filtering results
         return {
             "output_file": str(output_path),
@@ -155,6 +148,17 @@ async def filter_quality(
                 "mode": "dry_run"
             }
         }
+
+    # Real mode - validate inputs
+    input_path = Path(input_file)
+    if not input_path.exists():
+        raise IOError(f"Input file not found: {input_file}")
+
+    if min_reads < 0 or min_genes < 0 or max_mt_percent < 0 or max_mt_percent > 100:
+        raise ValueError("Invalid QC parameters")
+
+    output_path = Path(output_dir) / f"{input_path.stem}_filtered.csv"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Real implementation would use scanpy or similar
     # For POC, simulate with pandas
