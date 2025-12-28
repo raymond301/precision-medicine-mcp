@@ -1,17 +1,27 @@
 """MCP Mock Epic server - Simulated EHR integration."""
 
 import json
+import logging
 import os
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 from fastmcp import FastMCP
 
+# Configure logging
+logger = logging.getLogger(__name__)
+
 mcp = FastMCP("mockepic")
+
+def _is_dry_run() -> bool:
+    """Check if DRY_RUN mode is enabled."""
+    return os.getenv("EPIC_DRY_RUN", "false").lower() == "true"
+
+DRY_RUN = _is_dry_run()
 
 # DRY_RUN warning wrapper
 def add_dry_run_warning(result: Any) -> Any:
     """Add warning banner to results when in DRY_RUN mode."""
-    if not config.dry_run:
+    if not DRY_RUN:
         return result
 
     warning = """

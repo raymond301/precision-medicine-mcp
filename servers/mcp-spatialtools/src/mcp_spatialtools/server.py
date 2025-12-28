@@ -6,6 +6,7 @@ including quality control, alignment, and spatial segmentation.
 
 import asyncio
 import json
+import logging
 import os
 import subprocess
 from pathlib import Path
@@ -14,6 +15,9 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 import pandas as pd
 from fastmcp import FastMCP
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Initialize the MCP server
 mcp = FastMCP("spatialtools")

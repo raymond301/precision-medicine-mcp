@@ -1,12 +1,16 @@
 """MCP Seqera Platform server - Nextflow workflow orchestration."""
 
 import json
+import logging
 import os
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from fastmcp import FastMCP
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Import retry utilities for external API calls
 _shared_utils_path = Path(__file__).resolve().parents[4] / "shared" / "utils"

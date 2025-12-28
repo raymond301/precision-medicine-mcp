@@ -1,6 +1,7 @@
 """MCP TCGA server - The Cancer Genome Atlas data integration."""
 
 import json
+import logging
 import os
 import sys
 from pathlib import Path
@@ -8,6 +9,9 @@ from typing import Any, Dict, List, Optional
 from fastmcp import FastMCP
 import pandas as pd
 import numpy as np
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Import retry utilities for external API calls
 _shared_utils_path = Path(__file__).resolve().parents[4] / "shared" / "utils"

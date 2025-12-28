@@ -5,6 +5,7 @@ spatial registration, and feature extraction.
 """
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -12,6 +13,9 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 from PIL import Image
 from fastmcp import FastMCP
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Initialize the MCP server
 mcp = FastMCP("openimagedata")

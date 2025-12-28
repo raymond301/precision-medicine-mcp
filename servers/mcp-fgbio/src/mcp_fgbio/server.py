@@ -34,7 +34,7 @@ if str(_shared_utils_path) not in sys.path:
 from api_retry import retry_with_backoff, optional_api_call
 
 # Initialize the MCP server
-mcp = FastMCP("fgbio", dependencies=["httpx", "aiofiles"])
+mcp = FastMCP("fgbio")
 
 # DRY_RUN warning wrapper
 def add_dry_run_warning(result: Any) -> Any:

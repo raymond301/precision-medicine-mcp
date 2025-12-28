@@ -1,17 +1,27 @@
 """MCP DeepCell server - Deep learning cell segmentation."""
 
 import json
+import logging
 import os
 import numpy as np
 from typing import Any, Dict, List
 from fastmcp import FastMCP
 
+# Configure logging
+logger = logging.getLogger(__name__)
+
 mcp = FastMCP("deepcell")
+
+def _is_dry_run() -> bool:
+    """Check if DRY_RUN mode is enabled."""
+    return os.getenv("DEEPCELL_DRY_RUN", "false").lower() == "true"
+
+DRY_RUN = _is_dry_run()
 
 # DRY_RUN warning wrapper
 def add_dry_run_warning(result: Any) -> Any:
     """Add warning banner to results when in DRY_RUN mode."""
-    if not config.dry_run:
+    if not DRY_RUN:
         return result
 
     warning = """

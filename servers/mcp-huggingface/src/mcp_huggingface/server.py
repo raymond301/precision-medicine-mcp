@@ -1,11 +1,15 @@
 """MCP Hugging Face server - ML models for genomics."""
 
 import json
+import logging
 import os
 import sys
 from pathlib import Path
 from typing import Any, Dict, List
 from fastmcp import FastMCP
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Import retry utilities for external API calls
 _shared_utils_path = Path(__file__).resolve().parents[4] / "shared" / "utils"
