@@ -209,9 +209,9 @@ cp ../../../configs/claude_desktop_config.json \
 | **HPC Clusters** | Nextflow workflows | 32GB+ RAM, 100GB+ disk | Large-scale spatial analysis with STAR |
 
 **Infrastructure Resources:**
-- **Cloud Setup:** [GCP Deployment Guide](infrastructure/README.md) - Healthcare API, FHIR stores, Vertex AI
+- **Cloud Setup:** [GCP Deployment Guide](infrastructure/GET_STARTED.md) - Healthcare API, FHIR stores, Vertex AI
 - **Config Files:** [Claude Desktop Config](configs/claude_desktop_config.json)
-- **Automated Testing:** [Verify All 9 Servers](tests/manual_testing/Solution-Testing/)
+- **Automated Testing:** [Verify All 9 Servers](tests/manual_testing/Solution-Testing/MANUAL_TESTING_GUIDE.md)
 - **STAR Installation:** [STAR Aligner Setup](servers/mcp-spatialtools/INSTALL_STAR.md) (for spatial analysis)
 
 ---
