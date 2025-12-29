@@ -26,7 +26,7 @@ The Precision Medicine MCP repository has achieved **56.9% overall test coverage
 | **mcp-deepcell** | 91 | 2 | 62% | 9 | ✅ Phase 1 |
 | **mcp-huggingface** | 127 | 3 | 56% | 12 | ✅ Phase 1 |
 | **mcp-seqera** | 145 | 3 | 56% | 6 | ✅ Phase 1 |
-| **mcp-mockepic** | 151 | 3 | 45% | 5 | ✅ Phase 1 |
+| **mcp-epic** | 151 | 3 | 45% | 5 | ✅ Phase 1 |
 | **mcp-openimagedata** | 365 | 3 | 35% | 5 | ✅ Phase 1 |
 | **mcp-tcga** | 397 | 5 | 35% | 5 | ✅ Phase 1 |
 | **mcp-spatialtools** | 200 | 8 | 23% | 5 | ✅ Phase 1 |
@@ -93,7 +93,7 @@ FGBIO_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
 cd servers/mcp-spatialtools
 SPATIAL_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
 
-# Other servers (deepcell, huggingface, seqera, mockepic, openimagedata, tcga)
+# Other servers (deepcell, huggingface, seqera, epic, openimagedata, tcga)
 cd servers/mcp-{server-name}
 {SERVER}_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
 ```
@@ -267,7 +267,7 @@ class TestPreprocessWithRealData:
 - Workflow status monitoring
 - Pipeline listing
 
-**mcp-mockepic** (45% coverage, 5 tests)
+**mcp-epic** (45% coverage, 5 tests)
 - Patient record queries
 - Clinical data linking
 - Diagnosis search
@@ -426,5 +426,5 @@ The repository is now well-positioned for continued development with reliable au
 
 ---
 
-*Last Updated: December 27, 2025*
+*Last Updated: December 29, 2025*
 *Phase 2 Testing Complete*

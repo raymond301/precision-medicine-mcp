@@ -145,7 +145,7 @@ pip install -e ".[dev]"
 | mcp-seqera | 3 | ✅ |
 | mcp-huggingface | 3 | ✅ |
 | mcp-deepcell | 2 | ✅ |
-| mcp-mockepic | 3 | ✅ |
+| mcp-epic | 3 | ✅ |
 | mcp-tcga | 5 | ✅ |
 | mcp-multiomics | 9 | ✅ |
 | **TOTAL** | **40** | **✅** |
@@ -160,7 +160,7 @@ A complete synthetic patient dataset for testing all 9 MCP servers:
 
 **Patient:** PAT001-OVC-2025 (Sarah Anderson, 58yo, Stage IV HGSOC)
 **Data:** 17 synthetic files (clinical, genomic, multi-omics, spatial, imaging)
-**Servers Tested:** All 9 (mockepic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, seqera, huggingface)
+**Servers Tested:** All 9 (epic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, seqera, huggingface)
 
 **Location:** `PatientOne-OvarianCancer/implementation/`
 
@@ -200,6 +200,6 @@ cat TEST_1_CLINICAL_GENOMIC.txt  # Copy and paste into Claude Desktop
 
 ---
 
-**Last Updated:** December 26, 2025
+**Last Updated:** December 29, 2025
 **Status:** ✅ Ready for Testing
 **New:** PatientOne v2.0 with enhanced multiomics analysis (9 tools, preprocessing + upstream regulators)

@@ -153,7 +153,7 @@ Please read the following files from /Users/lynnlangit/Documents/GitHub/precisio
 - PAT001_somatic_variants.vcf
 
 Then:
-1. Use MockEpic to summarize patient clinical profile
+1. Use Epic to summarize patient clinical profile
 2. Use FGbio to analyze somatic variants
 3. Use TCGA to compare mutations to ovarian cancer cohort
 4. Synthesize findings and identify molecular subtype
@@ -202,7 +202,7 @@ Run all modular tests sequentially for comprehensive precision medicine analysis
 ## Test Descriptions
 
 ### TEST_1: Clinical + Genomic Analysis
-**Servers:** MockEpic, FGbio, TCGA
+**Servers:** Epic, FGbio, TCGA
 **Files:** 3 (clinical_demographics.json, ca125_timeline.csv, PAT001_somatic_variants.vcf)
 
 **What it does:**
@@ -436,6 +436,6 @@ After completing PatientOne:
 
 ---
 
-**Last Updated:** December 26, 2025
+**Last Updated:** December 29, 2025
 **Testing Status:** All 5 tests validated with synthetic data
 **Data:** 100% synthetic for demonstration purposes

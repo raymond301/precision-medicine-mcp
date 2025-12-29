@@ -13,7 +13,7 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 **Purpose:** Production-ready configuration with full absolute paths to all 9 MCP servers.
 
 **Contains:**
-- All 9 MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, deepcell, mockepic, tcga, multiomics)
+- All 9 MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, deepcell, epic, tcga, multiomics)
 - Full absolute paths to Python 3.11 virtual environments
 - All required environment variables
 - DRY_RUN mode enabled by default for quick & safe testing
@@ -94,7 +94,7 @@ Each server requires specific environment variables:
 | **seqera** | `SEQERA_DRY_RUN` | Mock execution mode |
 | **huggingface** | `HF_DRY_RUN` | Mock execution mode |
 | **deepcell** | `DEEPCELL_DRY_RUN` | Mock execution mode |
-| **mockepic** | `EPIC_DRY_RUN` | Mock execution mode |
+| **epic** | `EPIC_DRY_RUN` | Mock execution mode |
 | **tcga** | `TCGA_DRY_RUN` | Mock execution mode |
 | **multiomics** | `MULTIOMICS_DATA_DIR`<br>`MULTIOMICS_CACHE_DIR`<br>`MULTIOMICS_DRY_RUN` | Multi-omics data directory<br>Cache location<br>Mock execution mode |
 
@@ -143,7 +143,7 @@ Expected output: Should show the config JSON
 
 ### Verify All Server Paths Exist
 ```bash
-for server in fgbio spatialtools openimagedata seqera huggingface deepcell mockepic tcga multiomics; do
+for server in fgbio spatialtools openimagedata seqera huggingface deepcell epic tcga multiomics; do
   echo "Checking mcp-$server..."
   ls /Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-$server/venv/bin/python
 done
@@ -258,12 +258,12 @@ cp ~/Desktop/claude_desktop_config_backup.json ~/Library/Application\ Support/Cl
 | mcp-seqera | 3 | ✅ Configured |
 | mcp-huggingface | 3 | ✅ Configured |
 | mcp-deepcell | 2 | ✅ Configured |
-| mcp-mockepic | 3 | ✅ Configured |
+| mcp-epic | 3 | ✅ Configured |
 | mcp-tcga | 5 | ✅ Configured |
 | mcp-multiomics | 9 | ✅ Configured |
 | **TOTAL** | **40** | **✅ All Ready** |
 
 ---
 
-**Last Updated:** December 26, 2025
+**Last Updated:** December 29, 2025
 **Status:** ✅ Ready for Claude Desktop - All 9 servers configured
