@@ -315,7 +315,3 @@ This project is dedicated to **PatientOne** - in memory of a dear friend who pas
 - [Scientific References & Publications](docs/REFERENCES.md)
 
 ---
-
-**Last Updated:** December 29, 2025
-**Status:** 3/9 servers production-ready (mcp-multiomics, mcp-fgbio, mcp-spatialtools @ 95%)
-**Built for the precision medicine community**
