@@ -1,88 +1,156 @@
 #!/usr/bin/env python3
-"""Test real spatial autocorrelation implementation."""
+"""Test script for spatial autocorrelation (Moran's I) implementation.
 
-import asyncio
+This script tests the calculate_spatial_autocorrelation function with Patient-001
+data to identify spatially variable genes.
+"""
+
 import os
 import sys
+from pathlib import Path
+import asyncio
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
-
-from mcp_spatialtools.server import calculate_spatial_autocorrelation
+# Add src to path
+src_path = Path(__file__).parent / "src"
+sys.path.insert(0, str(src_path))
 
 
 async def test_spatial_autocorrelation():
-    """Test Moran's I with real Patient 001 data."""
+    """Test spatial autocorrelation with Patient-001 data."""
+
+    # Import the server module
+    from mcp_spatialtools import server
+
+    # Ensure NOT in DRY_RUN mode
+    os.environ["SPATIAL_DRY_RUN"] = "false"
+
     print("=" * 80)
-    print("Testing Real Spatial Autocorrelation (Moran's I)")
+    print("SPATIAL AUTOCORRELATION TEST - Moran's I")
     print("=" * 80)
     print()
 
-    # Paths to Patient 001 spatial data
-    expression_file = "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv"
-    coordinates_file = "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv"
+    # Patient-001 data paths
+    data_dir = Path("/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/spatial")
+    expression_file = str(data_dir / "visium_gene_expression.csv")
+    coordinates_file = str(data_dir / "visium_spatial_coordinates.csv")
 
-    # Genes of interest for ovarian cancer patient (use actual gene names from data)
-    genes_to_test = ["MKI67", "CD8A", "VIM", "EPCAM", "TP53"]
-
+    print(f"Data directory: {data_dir}")
     print(f"Expression file: {expression_file}")
     print(f"Coordinates file: {coordinates_file}")
-    print(f"Genes to analyze: {genes_to_test}")
     print()
 
-    # Run spatial autocorrelation analysis
-    result = await calculate_spatial_autocorrelation.fn(
+    # Test 1: Proliferation markers (expected to be clustered in tumor regions)
+    print("Test 1: Proliferation Markers (Expected: Clustered)")
+    print("-" * 80)
+
+    proliferation_genes = ["MKI67", "PCNA", "TOP2A", "CCND1"]
+    print(f"Genes: {', '.join(proliferation_genes)}")
+    print()
+
+    result1 = await server.calculate_spatial_autocorrelation(
         expression_file=expression_file,
         coordinates_file=coordinates_file,
-        genes=genes_to_test,
+        genes=proliferation_genes,
         method="morans_i",
-        distance_threshold=1500.0  # Pixels - spots are ~1000 pixels apart
+        distance_threshold=150.0  # Neighbors within 150 units
     )
 
-    print(f"Status: {result.get('status')}")
-    print(f"Method: {result.get('method')}")
-    print(f"Genes analyzed: {result.get('genes_analyzed')}")
-    print(f"Number of spots: {result.get('num_spots')}")
-    print(f"Distance threshold: {result.get('distance_threshold')}")
+    print(f"✅ Status: {result1['status']}")
+    print(f"✅ Method: {result1['method']}")
+    print(f"✅ Spots analyzed: {result1['num_spots']}")
+    print(f"✅ Distance threshold: {result1['distance_threshold']}")
+    print(f"✅ Genes analyzed: {result1['genes_analyzed']}")
     print()
 
-    print("Results by Gene:")
-    print("-" * 80)
-    for gene_result in result.get("results", []):
-        gene = gene_result["gene"]
-        if "morans_i" in gene_result:
-            morans_i = gene_result["morans_i"]
-            z_score = gene_result["z_score"]
-            p_value = gene_result["p_value"]
-            interpretation = gene_result["interpretation"]
+    print("Summary:")
+    print(f"  Significantly clustered: {result1['summary']['significantly_clustered']}")
+    print(f"  Significantly dispersed: {result1['summary']['significantly_dispersed']}")
+    print(f"  Random pattern: {result1['summary']['random_pattern']}")
+    print()
 
-            sig = "***" if p_value < 0.001 else "**" if p_value < 0.01 else "*" if p_value < 0.05 else "ns"
-
-            print(f"{gene:12} | Moran's I: {morans_i:7.4f} | Z: {z_score:6.3f} | p: {p_value:.4f} {sig}")
-            print(f"{'':12} | {interpretation}")
-            print()
+    print("Results per gene:")
+    for res in result1['results']:
+        if 'morans_i' in res:
+            sig_marker = "***" if res['significant'] else ""
+            print(f"  {res['gene']:15s} | Moran's I: {res['morans_i']:6.3f} | "
+                  f"Z-score: {res['z_score']:6.2f} | P-value: {res['p_value']:.4f} | "
+                  f"{res['interpretation']:30s} {sig_marker}")
         else:
-            print(f"{gene:12} | {gene_result.get('message', 'Error')}")
-            print()
+            print(f"  {res['gene']:15s} | {res['message']}")
+    print()
 
+    # Test 2: Immune markers (expected spatial patterns)
+    print()
+    print("=" * 80)
+    print()
+    print("Test 2: Immune Markers (Expected: Variable)")
     print("-" * 80)
+
+    immune_genes = ["CD3D", "CD3E", "CD8A", "CD4"]
+    print(f"Genes: {', '.join(immune_genes)}")
     print()
 
-    if "summary" in result:
-        summary = result["summary"]
-        print("Summary:")
-        print(f"  Significantly clustered: {summary['significantly_clustered']}")
-        print(f"  Significantly dispersed: {summary['significantly_dispersed']}")
-        print(f"  Random pattern: {summary['random_pattern']}")
+    result2 = await server.calculate_spatial_autocorrelation(
+        expression_file=expression_file,
+        coordinates_file=coordinates_file,
+        genes=immune_genes,
+        distance_threshold=150.0
+    )
+
+    print(f"✅ Genes analyzed: {result2['genes_analyzed']}")
+    print(f"✅ Significantly clustered: {result2['summary']['significantly_clustered']}")
     print()
 
+    print("Results:")
+    for res in result2['results']:
+        if 'morans_i' in res:
+            sig_marker = "***" if res['significant'] else ""
+            print(f"  {res['gene']:15s} | Moran's I: {res['morans_i']:6.3f} | "
+                  f"Z-score: {res['z_score']:6.2f} | P-value: {res['p_value']:.4f} | "
+                  f"{res['interpretation']:30s} {sig_marker}")
+        else:
+            print(f"  {res['gene']:15s} | {res['message']}")
+    print()
+
+    # Test 3: Stromal markers (expected to cluster in stroma)
+    print()
     print("=" * 80)
-    print("Spatial Autocorrelation Testing Complete!")
+    print()
+    print("Test 3: Stromal/CAF Markers (Expected: Clustered in Stroma)")
+    print("-" * 80)
+
+    stromal_genes = ["FAP", "ACTA2", "COL1A1", "COL3A1", "VIM"]
+    print(f"Genes: {', '.join(stromal_genes)}")
+    print()
+
+    result3 = await server.calculate_spatial_autocorrelation(
+        expression_file=expression_file,
+        coordinates_file=coordinates_file,
+        genes=stromal_genes,
+        distance_threshold=150.0
+    )
+
+    print(f"✅ Genes analyzed: {result3['genes_analyzed']}")
+    print(f"✅ Significantly clustered: {result3['summary']['significantly_clustered']}")
+    print()
+
+    print("Results:")
+    for res in result3['results']:
+        if 'morans_i' in res:
+            sig_marker = "***" if res['significant'] else ""
+            print(f"  {res['gene']:15s} | Moran's I: {res['morans_i']:6.3f} | "
+                  f"Z-score: {res['z_score']:6.2f} | P-value: {res['p_value']:.4f} | "
+                  f"{res['interpretation']:30s} {sig_marker}")
+        else:
+            print(f"  {res['gene']:15s} | {res['message']}")
+    print()
+
+    print()
     print("=" * 80)
+    print("✅ Spatial autocorrelation tests completed!")
+    print("=" * 80)
+    print()
 
 
 if __name__ == "__main__":
-    # Set environment
-    os.environ["SPATIAL_DATA_DIR"] = "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data"
-    os.environ["SPATIAL_DRY_RUN"] = "false"
-
     asyncio.run(test_spatial_autocorrelation())
