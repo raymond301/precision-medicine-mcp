@@ -1,11 +1,11 @@
 # Precision Medicine MCP Servers
 
-AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Context Protocol
-
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-2025--06--18-green.svg)](https://modelcontextprotocol.io/)
 [![Claude Desktop](https://img.shields.io/badge/Claude-Desktop-orange.svg)](https://claude.ai/download)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+
+AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Context Protocol
 
 - Analyze complete patient profiles—from genomics to spatial transcriptomics—using natural language
 - Demonstrate end-to-end precision medicine workflows for Stage IV Ovarian Cancer
