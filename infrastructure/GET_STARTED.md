@@ -1,4 +1,4 @@
-# GCP Arch
+# GCP Architecture
 <img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/gcp-deploy.png">
 
 ## Phase 1A: Let's Get Started! 🚀
