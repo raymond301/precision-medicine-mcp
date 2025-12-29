@@ -290,7 +290,7 @@ This project is named in memory of a dear friend who passed from High-Grade Sero
 - **PatientOne Background:** [Case Study](architecture/patient-one/README.md)
 - **Patient-Friendly Materials:** [Summaries & Infographics](architecture/patient-one/patient-one-outputs/for-patient/) - Simplified reports, medication guides, visual summaries
 - **What is Precision Medicine:** [Overview](architecture/patient-one/README.md#what-is-precision-medicine) (coming soon)
-- **Educational Resources:** See [Resources](#resources) section below for peer-reviewed articles
+- **Educational Resources:** [Scientific References & Publications](docs/REFERENCES.md) - Peer-reviewed articles, clinical resources
 - **Clinical Trials:** [ClinicalTrials.gov - Ovarian Cancer](https://clinicaltrials.gov/)
 
 **Important Reminders:**
