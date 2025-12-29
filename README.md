@@ -292,26 +292,6 @@ This project is named in memory of a dear friend who passed from High-Grade Sero
 
 ---
 
-## ⚠️ Important: Production Readiness Status
-
-**Before using these servers for research or production:**
-
-**Production-Ready Servers (2/9):**
-- ✅ **mcp-multiomics** - Multi-omics integration (91 tests, 68% coverage)
-- ✅ **mcp-fgbio** - Genomic QC (29 tests, 77% coverage)
-
-**Conditionally Ready (1/9):**
-- ⚠️ **mcp-spatialtools** (95% real - STAR alignment, ComBat batch correction, pathway enrichment validated; see [Implementation Status](servers/mcp-spatialtools/SERVER_IMPLEMENTATION_STATUS.md))
-
-**Mocked/Partial Servers (6/9):**
-- ❌ mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0% real - fully mocked for workflow demonstration)
-- 🔶 mcp-openimagedata (30% real - basic features only)
-- Mock EHR by design: mcp-epic (FHIR mock for testing)
-
-**📋 Check detailed status before production use:** [Server Implementation Status Matrix →](docs/SERVER_IMPLEMENTATION_STATUS.md)
-
----
-
 ## Example Client Usage
 
 **MCP servers in action with Claude Desktop:**
