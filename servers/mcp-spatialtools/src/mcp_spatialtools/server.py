@@ -1181,7 +1181,8 @@ OVARIAN_CANCER_CELL_SIGNATURES = {
 async def deconvolve_cell_types(
     expression_file: str,
     signatures: Optional[Dict[str, List[str]]] = None,
-    normalize: bool = True
+    normalize: bool = True,
+    include_spot_scores: bool = False
 ) -> Dict[str, Any]:
     """Estimate cell type proportions from bulk spatial transcriptomics data.
 
@@ -1196,13 +1197,17 @@ async def deconvolve_cell_types(
         signatures: Optional custom cell type signatures dict {cell_type: [genes]}
                    If None, uses ovarian cancer-specific signatures
         normalize: Whether to z-score normalize signature scores (default: True)
+        include_spot_scores: Include per-spot scores in response (default: False)
+                           WARNING: For large datasets (>100 spots), this creates
+                           very large responses. Use False for token efficiency.
 
     Returns:
-        Dictionary with cell type scores per spot:
-        - cell_type_scores: Matrix of scores (spots × cell types)
-        - signatures_used: Cell type signatures applied
+        Dictionary with cell type analysis:
         - spots_analyzed: Number of spots
-        - summary_statistics: Mean/median scores per cell type
+        - cell_types: List of cell types analyzed
+        - summary_statistics: Mean/median/std scores per cell type
+        - dominant_cell_type_distribution: Count of spots per dominant cell type
+        - spot_scores: Per-spot scores (only if include_spot_scores=True)
 
     Example:
         >>> result = await deconvolve_cell_types(
@@ -1289,29 +1294,40 @@ async def deconvolve_cell_types(
         # Identify dominant cell type per spot
         dominant_cell_types = scores_df.idxmax(axis=1).value_counts()
 
-        # Prepare output with spot-level scores
-        spot_scores = []
-        for spot_id in scores_df.index:
-            spot_dict = {"spot_id": str(spot_id)}  # Ensure spot_id is string
-            for cell_type in scores_df.columns:
-                spot_dict[str(cell_type)] = round(float(scores_df.loc[spot_id, cell_type]), 4)
-            spot_scores.append(spot_dict)
-
-        return {
+        # Prepare base response
+        response = {
             "status": "success",
             "spots_analyzed": int(len(expr_data_genes)),
             "cell_types": [str(ct) for ct in signatures.keys()],  # Ensure strings
             "num_cell_types": int(len(signatures)),
             "normalized": bool(normalize),
-            "spot_scores": spot_scores,  # Per-spot cell type scores
             "summary_statistics": summary_stats,
-            "signatures_used": signatures_used,
             "dominant_cell_type_distribution": {
                 str(cell_type): int(count)
                 for cell_type, count in dominant_cell_types.items()
             },
             "mode": "real_analysis"
         }
+
+        # Only include spot-level scores if explicitly requested
+        # This prevents massive token usage for large datasets
+        if include_spot_scores:
+            spot_scores = []
+            for spot_id in scores_df.index:
+                spot_dict = {"spot_id": str(spot_id)}
+                for cell_type in scores_df.columns:
+                    spot_dict[str(cell_type)] = round(float(scores_df.loc[spot_id, cell_type]), 4)
+                spot_scores.append(spot_dict)
+            response["spot_scores"] = spot_scores
+            response["warning"] = f"Returning {len(spot_scores)} spot-level scores. For large datasets, consider using summary_statistics instead."
+        else:
+            # Provide guidance on how to get spot-level data if needed
+            response["note"] = "Spot-level scores excluded for token efficiency. Set include_spot_scores=True to include them."
+
+        # Always include signatures metadata for transparency
+        response["signatures_used"] = signatures_used
+
+        return response
 
     except Exception as e:
         logger.error(f"Error performing cell type deconvolution: {e}")
