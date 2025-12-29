@@ -57,12 +57,24 @@ After running the script, you'll get:
 ```
 results/
 └── patient-001/
-    ├── differential_expression.csv      # DEGs with log2FC and FDR
-    ├── spatial_autocorrelation.csv      # Moran's I for all genes
-    ├── cell_deconvolution.csv           # Cell type scores by region
-    ├── clinical_summary.txt             # Human-readable report
-    └── metadata.json                    # Analysis metadata
+    ├── differential_expression.csv           # DEGs with log2FC and FDR
+    ├── spatial_autocorrelation.csv           # Moran's I for all genes
+    ├── cell_deconvolution.csv                # Cell type scores by region
+    ├── clinical_summary.txt                  # Human-readable report
+    ├── metadata.json                         # Analysis metadata
+    ├── volcano_plot.png                      # Differential expression visualization
+    ├── spatial_heatmap.png                   # Spatial gene expression patterns (top 6 genes)
+    ├── cell_composition_heatmap.png          # Cell type enrichment by region
+    ├── spatial_autocorrelation_plot.png      # Moran's I bar plot (top 15 genes)
+    └── summary_figure.png                    # Multi-panel summary (publication-ready)
 ```
+
+**Visualizations (300 DPI, PNG format):**
+- ✅ **Volcano Plot** - Differential expression with labeled top genes
+- ✅ **Spatial Heatmaps** - Expression overlaid on tissue coordinates
+- ✅ **Cell Composition** - Heatmap of cell type signatures by region
+- ✅ **Spatial Autocorrelation** - Bar chart of Moran's I values
+- ✅ **Summary Figure** - 6-panel overview (DEGs, spatial patterns, cell types, stats)
 
 ## Example Output
 
@@ -403,6 +415,123 @@ analyze_patient --patient-id PAT042 --output-dir ./tumor_board/$(date +%Y%m%d)/
 # Review summary
 cat ./tumor_board/$(date +%Y%m%d)/PAT042/clinical_summary.txt
 ```
+
+## Visualizations Guide
+
+The automated report includes 5 publication-quality visualizations (300 DPI PNG files):
+
+### 1. Volcano Plot (volcano_plot.png)
+
+**Purpose:** Visualize differential expression results
+
+**Content:**
+- X-axis: log2(Fold Change) - tumor vs stroma
+- Y-axis: -log10(FDR) - statistical significance
+- Red points: Upregulated in tumor (log2FC > 1, FDR < 0.05)
+- Blue points: Downregulated in tumor (log2FC < -1, FDR < 0.05)
+- Gray points: Not significant
+- Top 10 genes labeled
+
+**Threshold lines:**
+- Vertical: |log2FC| = 1
+- Horizontal: FDR = 0.05
+
+**Clinical Use:** Quickly identify most significant molecular changes
+
+### 2. Spatial Heatmap (spatial_heatmap.png)
+
+**Purpose:** Show spatial expression patterns for top genes
+
+**Content:**
+- 6 panels (2×3 grid)
+- Top 6 spatially variable genes (highest Moran's I)
+- Each panel shows:
+  - Gene expression overlaid on tissue coordinates
+  - Viridis colormap (purple=low, yellow=high expression)
+  - Moran's I value in title
+  - Array row/column coordinates
+
+**Clinical Use:** Identify spatially organized gene expression (hypoxic zones, tumor boundaries, etc.)
+
+### 3. Cell Composition Heatmap (cell_composition_heatmap.png)
+
+**Purpose:** Visualize cell type enrichment across tissue regions
+
+**Content:**
+- Heatmap: Cell types (rows) × Tissue regions (columns)
+- Color intensity: Signature score (yellow-orange-red scale)
+- Annotated with numeric values
+- Cell types: fibroblasts, immune_cells, hypoxic, resistant
+
+**Clinical Use:** Understand tumor microenvironment composition
+
+### 4. Spatial Autocorrelation Plot (spatial_autocorrelation_plot.png)
+
+**Purpose:** Rank genes by spatial clustering strength
+
+**Content:**
+- Horizontal bar chart
+- Top 15 genes with highest Moran's I
+- Steel blue bars
+- Moran's I values labeled on bars
+- Genes sorted by spatial autocorrelation strength
+
+**Clinical Use:** Identify genes with strongest spatial organization
+
+### 5. Summary Figure (summary_figure.png)
+
+**Purpose:** Multi-panel overview for presentations/publications
+
+**Content (6 panels):**
+
+**Panel 1 (Top Left, 2/3 width):** Top 10 DEGs
+- Horizontal bar chart
+- Red = upregulated, Blue = downregulated
+- log2(Fold Change) values
+
+**Panel 2 (Top Right):** Cell Type Enrichment
+- Heatmap of cell type scores by region
+- Compact version of cell composition heatmap
+
+**Panel 3 & 4 (Middle Left/Center):** Top 2 Spatial Genes
+- Spatial expression patterns
+- HIF1A and BCL2L1 typically shown
+- Expression overlaid on coordinates
+
+**Panel 5 (Middle Right):** Top 8 Spatial Genes
+- Bar chart of Moran's I values
+- Compact version of autocorrelation plot
+
+**Panel 6 (Bottom Left):** Region Distribution
+- Pie chart showing proportion of spots in each tissue region
+
+**Panel 7 (Bottom Right):** Analysis Summary
+- Text box with key statistics:
+  - Number of genes/spots/regions
+  - Number of DEGs and SVGs
+  - Drug resistance markers detected
+  - Patient ID and date
+
+**Clinical Use:** Single-page summary for tumor boards, presentations, or publications
+
+## Visualization Specifications
+
+**Format:** PNG (Portable Network Graphics)
+**Resolution:** 300 DPI (publication quality)
+**Color Schemes:**
+- Differential expression: Red/Blue (diverging)
+- Spatial expression: Viridis (sequential, colorblind-friendly)
+- Cell composition: YlOrRd (yellow-orange-red, sequential)
+- Bar charts: Steel blue or red/blue
+
+**Size Estimates:**
+- Volcano plot: ~150 KB
+- Spatial heatmap: ~1.8 MB (6 panels, high resolution)
+- Cell composition: ~220 KB
+- Spatial autocorrelation: ~140 KB
+- Summary figure: ~1.0 MB (multi-panel)
+
+**Total:** ~3.3 MB for all visualizations
 
 ## API Reference
 

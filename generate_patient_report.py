@@ -21,6 +21,10 @@ import json
 import pandas as pd
 import numpy as np
 from scipy import stats
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Add servers to path
 sys.path.insert(0, str(Path(__file__).parent / "servers" / "mcp-spatialtools" / "src"))
@@ -365,6 +369,295 @@ class PatientReportGenerator:
         self.log(f"✅ Cell types: {len(signature_scores)} signatures analyzed")
         self.log(f"   Saved to: {output_file}")
 
+    def create_visualizations(self):
+        """Generate all visualizations for the report."""
+        self.log("Creating visualizations...")
+
+        # Set style
+        sns.set_style("whitegrid")
+        plt.rcParams['figure.dpi'] = 300
+        plt.rcParams['savefig.dpi'] = 300
+        plt.rcParams['font.size'] = 10
+
+        # Create individual plots
+        self.plot_volcano()
+        self.plot_spatial_heatmap()
+        self.plot_cell_composition()
+        self.plot_spatial_autocorrelation()
+        self.plot_summary_figure()
+
+        self.log(f"✅ Visualizations saved to: {self.patient_output_dir}")
+
+    def plot_volcano(self):
+        """Create volcano plot for differential expression."""
+        if 'differential_expression' not in self.analysis_results:
+            return
+
+        deg_df = self.analysis_results['differential_expression']
+
+        fig, ax = plt.subplots(figsize=(10, 8))
+
+        # Prepare data
+        deg_df['neg_log10_fdr'] = -np.log10(deg_df['fdr'] + 1e-300)
+        deg_df['significant'] = (deg_df['fdr'] < 0.05) & (np.abs(deg_df['log2_fold_change']) > 1.0)
+
+        # Color scheme
+        colors = ['lightgray' if not sig else 'red' if log2fc > 0 else 'blue'
+                  for sig, log2fc in zip(deg_df['significant'], deg_df['log2_fold_change'])]
+
+        # Scatter plot
+        ax.scatter(deg_df['log2_fold_change'], deg_df['neg_log10_fdr'],
+                  c=colors, alpha=0.6, s=50, edgecolors='none')
+
+        # Threshold lines
+        ax.axhline(-np.log10(0.05), color='gray', linestyle='--', linewidth=1, alpha=0.5)
+        ax.axvline(-1, color='gray', linestyle='--', linewidth=1, alpha=0.5)
+        ax.axvline(1, color='gray', linestyle='--', linewidth=1, alpha=0.5)
+
+        # Label top genes
+        sig_degs = deg_df[deg_df['significant']].sort_values('neg_log10_fdr', ascending=False).head(10)
+        for _, row in sig_degs.iterrows():
+            ax.text(row['log2_fold_change'], row['neg_log10_fdr'],
+                   row['gene'], fontsize=8, alpha=0.7)
+
+        # Labels
+        ax.set_xlabel('log2(Fold Change)', fontsize=12)
+        ax.set_ylabel('-log10(FDR)', fontsize=12)
+        ax.set_title(f'Differential Expression: Tumor Core vs Stroma\n({len(sig_degs)} significant DEGs)',
+                    fontsize=14, fontweight='bold')
+
+        # Legend
+        from matplotlib.patches import Patch
+        legend_elements = [
+            Patch(facecolor='red', label='Upregulated (tumor)'),
+            Patch(facecolor='blue', label='Downregulated (tumor)'),
+            Patch(facecolor='lightgray', label='Not significant')
+        ]
+        ax.legend(handles=legend_elements, loc='upper right')
+
+        plt.tight_layout()
+        output_file = self.patient_output_dir / "volcano_plot.png"
+        plt.savefig(output_file, bbox_inches='tight')
+        plt.close()
+
+    def plot_spatial_heatmap(self):
+        """Create spatial gene expression heatmaps for top genes."""
+        if 'spatially_variable_genes' not in self.analysis_results:
+            return
+
+        svgs = self.analysis_results['spatially_variable_genes'].head(6)
+        expr_data = self.spatial_data['expression']
+        coord_data = self.spatial_data['coordinates']
+
+        fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+        axes = axes.flatten()
+
+        for idx, (_, row) in enumerate(svgs.iterrows()):
+            gene = row['gene']
+            ax = axes[idx]
+
+            # Get expression values and coordinates
+            expression = expr_data.loc[gene].values
+            x = coord_data['array_col'].values
+            y = coord_data['array_row'].values
+
+            # Create scatter plot with color representing expression
+            scatter = ax.scatter(x, y, c=expression, cmap='viridis',
+                               s=30, alpha=0.8, edgecolors='none')
+
+            # Colorbar
+            cbar = plt.colorbar(scatter, ax=ax)
+            cbar.set_label('Expression', rotation=270, labelpad=15, fontsize=9)
+
+            # Title with Moran's I
+            ax.set_title(f"{gene}\nMoran's I = {row['morans_i']:.3f}",
+                        fontsize=11, fontweight='bold')
+            ax.set_xlabel('Array Column', fontsize=9)
+            ax.set_ylabel('Array Row', fontsize=9)
+            ax.invert_yaxis()  # Invert y-axis to match Visium orientation
+
+        plt.suptitle('Spatial Expression Patterns: Top 6 Spatially Variable Genes',
+                    fontsize=14, fontweight='bold', y=0.995)
+        plt.tight_layout()
+        output_file = self.patient_output_dir / "spatial_heatmap.png"
+        plt.savefig(output_file, bbox_inches='tight')
+        plt.close()
+
+    def plot_cell_composition(self):
+        """Create cell type composition heatmap by region."""
+        if 'region_cell_scores' not in self.analysis_results:
+            return
+
+        region_scores = self.analysis_results['region_cell_scores']
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        # Create heatmap
+        sns.heatmap(region_scores.T, annot=True, fmt='.1f', cmap='YlOrRd',
+                   cbar_kws={'label': 'Signature Score'}, ax=ax,
+                   linewidths=0.5, linecolor='white')
+
+        ax.set_title('Cell Type Enrichment by Tissue Region',
+                    fontsize=14, fontweight='bold')
+        ax.set_xlabel('Tissue Region', fontsize=12)
+        ax.set_ylabel('Cell Type', fontsize=12)
+        plt.xticks(rotation=45, ha='right')
+        plt.yticks(rotation=0)
+
+        plt.tight_layout()
+        output_file = self.patient_output_dir / "cell_composition_heatmap.png"
+        plt.savefig(output_file, bbox_inches='tight')
+        plt.close()
+
+    def plot_spatial_autocorrelation(self):
+        """Create bar plot of Moran's I values."""
+        if 'spatially_variable_genes' not in self.analysis_results:
+            return
+
+        svgs = self.analysis_results['spatially_variable_genes'].head(15)
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        # Create bar plot
+        colors = ['red' if i < 0 else 'steelblue' for i in svgs['morans_i']]
+        ax.barh(range(len(svgs)), svgs['morans_i'], color=colors, alpha=0.7)
+
+        # Labels
+        ax.set_yticks(range(len(svgs)))
+        ax.set_yticklabels(svgs['gene'])
+        ax.set_xlabel("Moran's I", fontsize=12)
+        ax.set_title("Spatial Autocorrelation: Top 15 Genes",
+                    fontsize=14, fontweight='bold')
+        ax.axvline(0, color='black', linestyle='-', linewidth=0.5)
+        ax.grid(axis='x', alpha=0.3)
+
+        # Annotate values
+        for i, (_, row) in enumerate(svgs.iterrows()):
+            ax.text(row['morans_i'] + 0.002, i, f"{row['morans_i']:.3f}",
+                   va='center', fontsize=8)
+
+        plt.tight_layout()
+        output_file = self.patient_output_dir / "spatial_autocorrelation_plot.png"
+        plt.savefig(output_file, bbox_inches='tight')
+        plt.close()
+
+    def plot_summary_figure(self):
+        """Create multi-panel summary figure."""
+        fig = plt.figure(figsize=(16, 12))
+        gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
+
+        # Panel 1: Top DEGs (bar plot)
+        ax1 = fig.add_subplot(gs[0, :2])
+        if 'significant_degs' in self.analysis_results:
+            degs = self.analysis_results['significant_degs'].sort_values('log2_fold_change', ascending=False).head(10)
+            colors = ['red' if x > 0 else 'blue' for x in degs['log2_fold_change']]
+            ax1.barh(range(len(degs)), degs['log2_fold_change'], color=colors, alpha=0.7)
+            ax1.set_yticks(range(len(degs)))
+            ax1.set_yticklabels(degs['gene'])
+            ax1.set_xlabel('log2(Fold Change)', fontsize=10)
+            ax1.set_title('Top 10 Differentially Expressed Genes', fontsize=11, fontweight='bold')
+            ax1.axvline(0, color='black', linestyle='-', linewidth=0.5)
+            ax1.grid(axis='x', alpha=0.3)
+
+        # Panel 2: Cell composition (heatmap)
+        ax2 = fig.add_subplot(gs[0, 2])
+        if 'region_cell_scores' in self.analysis_results:
+            region_scores = self.analysis_results['region_cell_scores']
+            sns.heatmap(region_scores.T, annot=False, cmap='YlOrRd', ax=ax2,
+                       cbar_kws={'label': 'Score'}, linewidths=0.5)
+            ax2.set_title('Cell Type Enrichment', fontsize=11, fontweight='bold')
+            ax2.set_xlabel('Region', fontsize=9)
+            ax2.set_ylabel('Cell Type', fontsize=9)
+            plt.setp(ax2.get_xticklabels(), rotation=45, ha='right', fontsize=8)
+            plt.setp(ax2.get_yticklabels(), rotation=0, fontsize=8)
+
+        # Panel 3: Spatial patterns (top 2 genes)
+        if 'spatially_variable_genes' in self.analysis_results:
+            svgs = self.analysis_results['spatially_variable_genes'].head(2)
+            expr_data = self.spatial_data['expression']
+            coord_data = self.spatial_data['coordinates']
+
+            for idx, (_, row) in enumerate(svgs.iterrows()):
+                ax = fig.add_subplot(gs[1, idx])
+                gene = row['gene']
+
+                expression = expr_data.loc[gene].values
+                x = coord_data['array_col'].values
+                y = coord_data['array_row'].values
+
+                scatter = ax.scatter(x, y, c=expression, cmap='viridis',
+                                   s=20, alpha=0.8, edgecolors='none')
+                plt.colorbar(scatter, ax=ax, label='Expr', pad=0.02)
+                ax.set_title(f"{gene} (I={row['morans_i']:.3f})", fontsize=10, fontweight='bold')
+                ax.set_xlabel('Col', fontsize=8)
+                ax.set_ylabel('Row', fontsize=8)
+                ax.invert_yaxis()
+                ax.tick_params(labelsize=7)
+
+        # Panel 4: Spatial autocorrelation (bar plot)
+        ax4 = fig.add_subplot(gs[1, 2])
+        if 'spatially_variable_genes' in self.analysis_results:
+            svgs = self.analysis_results['spatially_variable_genes'].head(8)
+            ax4.barh(range(len(svgs)), svgs['morans_i'], color='steelblue', alpha=0.7)
+            ax4.set_yticks(range(len(svgs)))
+            ax4.set_yticklabels(svgs['gene'], fontsize=8)
+            ax4.set_xlabel("Moran's I", fontsize=10)
+            ax4.set_title('Top Spatial Genes', fontsize=11, fontweight='bold')
+            ax4.grid(axis='x', alpha=0.3)
+
+        # Panel 5: Region distribution (pie chart)
+        ax5 = fig.add_subplot(gs[2, 0])
+        region_data = self.spatial_data['regions']
+        region_counts = region_data['region'].value_counts()
+        ax5.pie(region_counts.values, labels=region_counts.index, autopct='%1.1f%%',
+               startangle=90, textprops={'fontsize': 8})
+        ax5.set_title('Tissue Region Distribution', fontsize=11, fontweight='bold')
+
+        # Panel 6: Summary statistics (text)
+        ax6 = fig.add_subplot(gs[2, 1:])
+        ax6.axis('off')
+
+        summary_text = f"""
+ANALYSIS SUMMARY
+
+Dataset:
+  • {self.spatial_data['expression'].shape[0]} genes analyzed
+  • {self.spatial_data['expression'].shape[1]} spots profiled
+  • {len(self.spatial_data['regions']['region'].unique())} tissue regions
+
+Key Findings:
+"""
+
+        if 'significant_degs' in self.analysis_results:
+            degs = self.analysis_results['significant_degs']
+            upregulated = degs[degs['log2_fold_change'] > 0]
+            summary_text += f"  • {len(degs)} significant DEGs ({len(upregulated)} upregulated)\n"
+
+        if 'spatially_variable_genes' in self.analysis_results:
+            svgs = self.analysis_results['spatially_variable_genes']
+            summary_text += f"  • {len(svgs)} spatially variable genes (p < 0.01)\n"
+
+        # Check for resistance markers
+        if 'significant_degs' in self.analysis_results:
+            degs = self.analysis_results['significant_degs']
+            resistance_markers = degs[degs['gene'].isin(['ABCB1', 'PIK3CA', 'AKT1', 'MTOR'])]
+            if len(resistance_markers) > 0:
+                summary_text += f"  • {len(resistance_markers)} drug resistance markers detected\n"
+
+        summary_text += f"\nPatient ID: {self.patient_id}"
+        summary_text += f"\nReport Date: {datetime.now().strftime('%Y-%m-%d')}"
+
+        ax6.text(0.05, 0.95, summary_text, transform=ax6.transAxes,
+                fontsize=10, verticalalignment='top', family='monospace',
+                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.3))
+
+        # Main title
+        fig.suptitle(f'Spatial Transcriptomics Analysis Report: {self.patient_id}',
+                    fontsize=16, fontweight='bold', y=0.98)
+
+        plt.savefig(self.patient_output_dir / "summary_figure.png", bbox_inches='tight')
+        plt.close()
+
     def generate_clinical_summary(self):
         """Generate clinical interpretation summary."""
         self.log("Generating clinical summary...")
@@ -561,7 +854,11 @@ class PatientReportGenerator:
         self.perform_cell_deconvolution()
         self.log("")
 
-        # Step 4: Generate summary
+        # Step 4: Create visualizations
+        self.create_visualizations()
+        self.log("")
+
+        # Step 5: Generate summary
         self.generate_clinical_summary()
 
         # Step 5: Save metadata
