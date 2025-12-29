@@ -50,6 +50,9 @@ This repository serves multiple audiences in the precision medicine ecosystem. F
 2. [mcp-spatialtools Quick Start](servers/mcp-spatialtools/QUICKSTART.md) - Batch correction, pathway enrichment (95% real)
 3. [Cost Analysis](docs/COST_ANALYSIS.md) - $0.32 demo or $7-29 real analysis
 
+**Example Outputs for Researchers:**
+- [PatientOne Results](architecture/patient-one/patient-one-outputs/for-researchers/) - Complete analysis results with visualizations
+
 **Production-Ready Servers:**
 
 | Server | Tools | Status | Key Features |
@@ -137,6 +140,9 @@ graph TD
 - **Testing Guide:** [Solution Testing](tests/manual_testing/Solution-Testing/README.md)
 - **Status Matrix:** [All Server Implementation Details](docs/SERVER_IMPLEMENTATION_STATUS.md)
 
+**Example Outputs for Developers:**
+- [Technical Documentation](architecture/patient-one/patient-one-outputs/for-developer/) - Full test prompts, server reference guide, MCP reports
+
 ---
 
 ### 🏥 **Clinical Care Teams** *(Oncologists, Genetic Counselors)*
@@ -152,7 +158,7 @@ graph TD
 
 **Educational Resources:**
 - **Case Study:** [PatientOne - Stage IV HGSOC](architecture/patient-one/README.md)
-- **Sample Outputs:** [Clinical Reports & Visualizations](architecture/patient-one/patient-one-outputs/)
+- **Clinical Reports:** [Sample Outputs for Care Teams](architecture/patient-one/patient-one-outputs/for-care-team/) - MCP reports, spatial analysis, multi-omics figures
 - **Data Privacy:** [FHIR De-identification](tests/manual_testing/PatientOne-OvarianCancer/implementation/PHASE0_CLINICAL_FHIR.md)
 - **Workflow Overview:** See PatientOne graphic above for data flow
 
@@ -273,6 +279,7 @@ This project is named in memory of a dear friend who passed from High-Grade Sero
 
 **Learn More:**
 - **PatientOne Background:** [Case Study](architecture/patient-one/README.md)
+- **Patient-Friendly Materials:** [Summaries & Infographics](architecture/patient-one/patient-one-outputs/for-patient/) - Simplified reports, medication guides, visual summaries
 - **What is Precision Medicine:** [Overview](architecture/patient-one/README.md#what-is-precision-medicine) (coming soon)
 - **Educational Resources:** See [Resources](#resources) section below for peer-reviewed articles
 - **Clinical Trials:** [ClinicalTrials.gov - Ovarian Cancer](https://clinicaltrials.gov/)
