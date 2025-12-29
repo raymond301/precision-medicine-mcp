@@ -1,6 +1,6 @@
 # MCP Server Implementation Status Matrix
 
-**Last Updated:** December 27, 2025
+**Last Updated:** December 29, 2025
 **Purpose:** Clearly document what's real vs mocked in each server to prevent accidental use of synthetic data
 
 ---
@@ -24,7 +24,7 @@
 |--------|--------|--------|---------------------|--------------|
 | **mcp-multiomics** | **85%** | ✅ Production Ready | **YES** | Low - Extensively tested |
 | **mcp-fgbio** | **65%** | ✅ Production Ready | **YES** | Low - Core features real |
-| **mcp-spatialtools** | **40%** | ⚠️ Partial | **CONDITIONAL** | Medium - STAR alignment mocked |
+| **mcp-spatialtools** | **70%** | ⚠️ Partial | **CONDITIONAL** | Medium - STAR alignment mocked |
 | **mcp-openimagedata** | **30%** | ⚠️ Partial | **NO** | High - Advanced features mocked |
 | **mcp-tcga** | **0%** | ❌ Fully Mocked | **NO** | **CRITICAL - All synthetic** |
 | **mcp-deepcell** | **0%** | ❌ Fully Mocked | **NO** | **CRITICAL - All synthetic** |
@@ -161,9 +161,9 @@
 
 ---
 
-### ⚠️ mcp-spatialtools (40% Real Implementation)
+### ⚠️ mcp-spatialtools (70% Real Implementation)
 
-**Overall Status:** Partial implementation - basic features real, advanced analysis mocked
+**Overall Status:** Partial implementation - core analysis features real, alignment/batch correction mocked
 **Testing:** 5 smoke tests, 23% code coverage
 **Safe for Production:** **CONDITIONAL** (depends on use case)
 
@@ -174,48 +174,91 @@
 | `filter_quality` | ✅ 100% Real | Pandas-based quality filtering (min reads, min genes) |
 | `split_by_region` | ✅ 100% Real | Region segmentation using spatial coordinates |
 | `merge_tiles` | ✅ 80% Real | Combines spatial tiles with coordinate alignment |
+| `perform_differential_expression` | ✅ 100% Real | Mann-Whitney U test + Benjamini-Hochberg FDR correction (scipy) |
+| `calculate_spatial_autocorrelation` | ✅ 100% Real | Moran's I statistic with row-standardized spatial weights |
+| `deconvolve_cell_types` | ✅ 100% Real | Signature-based scoring using marker gene expression |
 
 #### Mocked Capabilities (Not Yet Implemented)
 
 | Tool | Status | Why Mocked | Path to Production |
 |------|--------|------------|-------------------|
 | `align_spatial_data` | ❌ 0% Real | Requires STAR aligner (external tool) | 1 week - Install STAR, wrap commands |
-| `perform_differential_expression` | ❌ 0% Real | Requires R/DESeq2 or Python scanpy | 1 week - Integrate DESeq2/scanpy |
 | `perform_batch_correction` | ❌ 0% Real | Requires ComBat/Harmony integration | 3-5 days - Add Python Combat |
 | `perform_pathway_enrichment` | ❌ 0% Real | Requires pathway databases (KEGG, GO) | 3-5 days - Add enrichr API |
-| `calculate_spatial_autocorrelation` | ❌ 0% Real | Needs Moran's I implementation | 2-3 days - Add squidpy/Moran's I |
 
 #### DRY_RUN Behavior
 
 **When `SPATIAL_DRY_RUN=true` (default):**
-- Quality filtering works (real)
-- Region splitting works (real)
-- Alignment, DE, batch correction return synthetic data
+- All tools return synthetic data immediately
+- No actual computation performed
+- Fast execution for demonstrations
 
 **When `SPATIAL_DRY_RUN=false`:**
-- Same as DRY_RUN=true currently (alignment still mocked)
-- Need to implement STAR integration first
+- Quality filtering: ✅ Real (pandas-based)
+- Region splitting: ✅ Real (coordinate-based)
+- Differential expression: ✅ Real (scipy statistical tests)
+- Spatial autocorrelation: ✅ Real (Moran's I calculation)
+- Cell deconvolution: ✅ Real (signature scoring)
+- Alignment: ❌ Still mocked (STAR not integrated)
+- Batch correction: ❌ Still mocked (ComBat not integrated)
+- Pathway enrichment: ❌ Still mocked (databases not integrated)
 
 #### Production Readiness Assessment
 
-**⚠️ CONDITIONAL**
+**⚠️ CONDITIONAL - SIGNIFICANTLY IMPROVED (December 29, 2025)**
 
 **Safe for Production IF:**
-- ✅ You only need quality filtering and region segmentation
-- ✅ You perform alignment/DE externally (e.g., using Space Ranger)
-- ✅ You use this for data preprocessing only
+- ✅ You need quality filtering and region segmentation
+- ✅ You need differential expression analysis (Mann-Whitney U, t-test)
+- ✅ You need spatial autocorrelation (Moran's I)
+- ✅ You need cell type deconvolution (signature-based)
+- ✅ You have pre-aligned data (e.g., from Space Ranger)
+- ✅ You can perform alignment externally
 
 **NOT Safe for Production IF:**
-- ❌ You need end-to-end spatial transcriptomics analysis
-- ❌ You require differential expression or batch correction
-- ❌ You need spatial autocorrelation statistics
+- ❌ You need end-to-end raw FASTQ alignment (STAR not integrated)
+- ❌ You require batch correction (ComBat not integrated)
+- ❌ You need pathway enrichment analysis (databases not integrated)
+
+**Recent Improvements (December 29, 2025):**
+- ✅ Added real differential expression analysis (scipy-based)
+- ✅ Added real Moran's I spatial autocorrelation
+- ✅ Added real cell type deconvolution with ovarian cancer signatures
+- 📊 Implementation jumped from 40% → 70% real
 
 **Recommended Action:**
-1. Use for basic spatial data handling NOW
-2. Implement STAR alignment before using for complete workflows (1 week effort)
-3. Add DE/batch correction for production spatial analysis (2-3 weeks total)
+1. ✅ **USE NOW** for spatial analysis with pre-aligned data (Space Ranger output)
+2. Implement STAR alignment for end-to-end workflows (1 week effort)
+3. Add batch correction for multi-sample studies (3-5 days)
 
-**Estimated Development Time:** 3-4 weeks to production-ready
+**Estimated Development Time:** 1-2 weeks to 100% production-ready
+
+#### Automated Patient Report Generator
+
+In addition to the MCP server tools, a standalone automated patient report generator script is available:
+
+**Script:** `scripts/generate_patient_report.py`
+**Documentation:** `docs/AUTOMATED_PATIENT_REPORTS.md`
+
+**Capabilities:**
+- ✅ Integrates FHIR clinical data from GCP Healthcare API
+- ✅ Performs differential expression (Mann-Whitney U + FDR)
+- ✅ Calculates spatial autocorrelation (Moran's I)
+- ✅ Cell type deconvolution (signature-based)
+- ✅ Generates publication-quality visualizations (300 DPI PNG)
+- ✅ Creates clinical summary reports (TXT/JSON/CSV)
+
+**Runtime:** ~12 seconds per patient
+**Output:** 10 files (5 data + 5 visualizations, ~3.4 MB total)
+
+**Usage:**
+```bash
+cd /path/to/spatial-mcp
+/path/to/servers/mcp-spatialtools/venv/bin/python3 \
+  scripts/generate_patient_report.py \
+  --patient-id patient-001 \
+  --output-dir ./results
+```
 
 ---
 
@@ -628,18 +671,20 @@ Before deploying any server to production:
 
 ## Summary & Recommendations
 
-### Current State (December 27, 2025)
+### Current State (December 29, 2025)
 
 **Production Ready:** 2/9 servers (22%)
-- ✅ mcp-multiomics
-- ✅ mcp-fgbio
+- ✅ mcp-multiomics (85% real)
+- ✅ mcp-fgbio (65% real)
+
+**Conditionally Ready:** 1/9 servers (11%)
+- ⚠️ mcp-spatialtools (70% real - **IMPROVED from 40%**) - Safe for pre-aligned spatial data analysis
 
 **Needs Development:** 5/9 servers (56%)
 - ❌ mcp-tcga (1 week to implement)
 - ❌ mcp-deepcell (1 week + GPU setup)
 - ❌ mcp-huggingface (3-5 days)
 - ❌ mcp-seqera (1 week)
-- ⚠️ mcp-spatialtools (3-4 weeks to complete)
 - ⚠️ mcp-openimagedata (1-2 weeks)
 
 **Intentional Mock:** 1/9 servers
@@ -653,9 +698,10 @@ Before deploying any server to production:
 3. ✅ Add warnings to README about mocked servers
 
 **Short-term (Next 2-4 Weeks):**
-1. Implement real TCGA GDC API integration (highest impact, 1 week)
-2. Complete mcp-spatialtools with STAR alignment (3-4 weeks)
-3. Test with 10 real PDX samples to validate
+1. ✅ **COMPLETED (Dec 29):** Real differential expression, Moran's I, cell deconvolution in spatialtools
+2. Implement real TCGA GDC API integration (highest impact, 1 week)
+3. Complete mcp-spatialtools with STAR alignment (1-2 weeks remaining)
+4. Test with 10 real PDX samples to validate
 
 **Medium-term (1-2 Months):**
 1. Add DeepCell GPU support (1 week)

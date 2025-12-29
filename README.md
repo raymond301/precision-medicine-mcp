@@ -24,8 +24,10 @@ AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Conte
 - ✅ **mcp-multiomics** - Multi-omics integration (91 tests, 68% coverage)
 - ✅ **mcp-fgbio** - Genomic QC (29 tests, 77% coverage)
 
-**Mocked/Partial Servers (7/9):**
-- 🔶 mcp-spatialtools (40% real - basic features only)
+**Conditionally Ready (1/9):**
+- ⚠️ **mcp-spatialtools** (70% real - DEG, Moran's I, deconvolution ready; alignment mocked)
+
+**Mocked/Partial Servers (6/9):**
 - ❌ mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0% real - fully mocked)
 - 🔶 mcp-openimagedata (30% real - basic features only)
 - Mock EHR by design: mcp-epic
@@ -95,7 +97,7 @@ graph TD
 | Server | Tools | Purpose | Status |
 |--------|-------|---------|--------|
 | **mcp-fgbio** | 4 | FASTQ/VCF processing, genome references | ✅ Production |
-| **mcp-spatialtools** | 10 | Spatial transcriptomics (QC, DEG, deconvolution, Moran's I) | 🔶 Partial |
+| **mcp-spatialtools** | 10 | Spatial transcriptomics (QC, DEG, deconvolution, Moran's I) | ⚠️ 70% Real |
 | **mcp-openimagedata** | 3 | Histology image retrieval and registration | 🔶 Partial |
 | **mcp-multiomics** | 9 | RNA/Protein/Phospho integration (HAllA, Stouffer) | ✅ Production |
 | **mcp-tcga** | 5 | Cancer atlas queries, cohort comparisons | ❌ Mocked |
@@ -147,7 +149,7 @@ cp ../../../configs/claude_desktop_config.json ~/Library/Application\ Support/Cl
 - [Spatial Transcriptomics Review](https://academic.oup.com/nar/article/53/12/gkaf536/8174767)
 
 **Cost & Performance Analysis:**
-- [Complete Cost Analysis & ROI](COST_ANALYSIS.md) - Detailed breakdown of DRY_RUN vs Real Data costs, time estimates, and return on investment calculations
+- [Complete Cost Analysis & ROI](docs/COST_ANALYSIS.md) - Detailed breakdown of DRY_RUN vs Real Data costs, time estimates, and return on investment calculations
 
 **Acknowledgments:** Model Context Protocol (Anthropic), BioinfoMCP, FGbio, TCGA, Seqera Platform
 

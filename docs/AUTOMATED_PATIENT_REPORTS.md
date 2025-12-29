@@ -9,10 +9,10 @@ Generate comprehensive molecular analysis reports integrating FHIR clinical data
 ```bash
 # Using spatialtools virtual environment (recommended)
 /Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-spatialtools/venv/bin/python3 \
-  generate_patient_report.py --patient-id patient-001 --output-dir ./results
+  scripts/generate_patient_report.py --patient-id patient-001 --output-dir ./results
 
 # Or create an alias for convenience
-alias analyze_patient='/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-spatialtools/venv/bin/python3 /Users/lynnlangit/Documents/GitHub/spatial-mcp/generate_patient_report.py'
+alias analyze_patient='/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-spatialtools/venv/bin/python3 /Users/lynnlangit/Documents/GitHub/spatial-mcp/scripts/generate_patient_report.py'
 
 # Then use it like this
 analyze_patient --patient-id patient-001 --output-dir ./results
@@ -262,7 +262,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
 ## Command-Line Options
 
 ```bash
-python generate_patient_report.py [OPTIONS]
+python scripts/generate_patient_report.py [OPTIONS]
 
 Required:
   --patient-id TEXT      Patient ID (e.g., patient-001)
@@ -283,7 +283,7 @@ def generate_report(patient_id, output_dir):
     """Generate patient report."""
     cmd = [
         "/path/to/venv/bin/python3",
-        "generate_patient_report.py",
+        "scripts/generate_patient_report.py",
         "--patient-id", patient_id,
         "--output-dir", output_dir
     ]
@@ -326,7 +326,7 @@ Claude can run the script and summarize the results for you.
 **Solution:** Use the spatialtools virtual environment:
 ```bash
 /Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-spatialtools/venv/bin/python3 \
-  generate_patient_report.py --patient-id patient-001 --output-dir ./results
+  scripts/generate_patient_report.py --patient-id patient-001 --output-dir ./results
 ```
 
 ### Issue: "Could not find spatial data for patient-XXX"
