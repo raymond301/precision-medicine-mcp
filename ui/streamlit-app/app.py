@@ -7,6 +7,11 @@ Provides a Claude Desktop-like experience for bioinformatics workflows.
 import streamlit as st
 import os
 from typing import List, Dict
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 from utils import (
     MCP_SERVERS,
     get_server_config,
