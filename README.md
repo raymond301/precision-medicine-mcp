@@ -73,6 +73,7 @@ This repository serves multiple audiences in the precision medicine ecosystem. F
 
 <details>
 <summary><h3>📊 Data Scientists / ML Engineers</h3></summary>
+    
 *You want to work with multi-omics data pipelines or build predictive models*
 
 **What you can analyze:**
@@ -102,6 +103,7 @@ This repository serves multiple audiences in the precision medicine ecosystem. F
 
 <details>
 <summary><h3>💻 MCP Developers</h3></summary>
+    
 *You want to build custom MCP servers or extend existing bioinformatics tools*
 
 **What you can learn:**
@@ -272,6 +274,7 @@ All 9 servers successfully deployed and tested on Google Cloud Platform:
 
 <details>
 <summary><h3>👥 Patients & Families</h3></summary>
+    
 *You want to understand precision medicine for ovarian cancer*
 
 **⚠️ IMPORTANT:** This is a **research demonstration**, not a clinical tool. Always consult qualified oncologists for medical decisions.
@@ -299,6 +302,7 @@ This project is named in memory of a dear friend who passed from High-Grade Sero
 
 <details>
 <summary><h3>🎓 Students & Educators</h3></summary>
+    
 *You want to learn or teach precision medicine and bioinformatics*
 
 **Why this is perfect for teaching:**
