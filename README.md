@@ -72,6 +72,35 @@ This repository serves multiple audiences in the precision medicine ecosystem. F
 </details>
 
 <details>
+<summary><h3>📊 Data Scientists / ML Engineers</h3></summary>
+*You want to work with multi-omics data pipelines or build predictive models*
+
+**What you can analyze:**
+
+**Data Modalities (PatientOne example):**
+- **Clinical:** FHIR resources (demographics, conditions, medications, biomarkers)
+- **Genomics:** VCF files (TP53, PIK3CA, PTEN, BRCA1 mutations)
+- **Multi-omics:** RNA-seq (15 samples) • Proteomics (15 samples) • Phosphoproteomics (15 samples)
+- **Spatial:** 900 spots × 31 genes (Visium format)
+- **Imaging:** H&E histology, multiplex IF (DAPI, CD3, CD8, Ki67, PanCK)
+
+**Analysis Workflows:**
+1. **Differential Expression** - Mann-Whitney U test + FDR correction
+2. **Pathway Enrichment** - Fisher's exact test on 44 curated pathways (KEGG, Hallmark, GO_BP, Drug_Resistance)
+3. **Spatial Autocorrelation** - Moran's I for spatially variable genes
+4. **Cell Type Deconvolution** - Signature-based scoring (tumor, fibroblasts, immune, hypoxic)
+5. **Batch Correction** - ComBat for removing technical variation
+6. **Multi-omics Integration** - HAllA association analysis, Stouffer meta-analysis
+
+**Start Here:**
+- **Synthetic Dataset:** [PAT001-OVC-2025](data/patient-data/PAT001-OVC-2025/README.md) - 100% synthetic, 5 modalities
+- **Multi-omics Examples:** [mcp-multiomics](servers/mcp-multiomics/README.md) - HAllA, Stouffer, upstream regulators
+- **Batch Correction:** [ComBat Workflow](servers/mcp-spatialtools/tests/test_batch_correction_spatial_format.py)
+- **ML Integration:** [mcp-huggingface](servers/mcp-huggingface/) (mocked - extensible for real models)
+
+</details>
+
+<details>
 <summary><h3>💻 MCP Developers</h3></summary>
 *You want to build custom MCP servers or extend existing bioinformatics tools*
 
@@ -240,31 +269,29 @@ All 9 servers successfully deployed and tested on Google Cloud Platform:
 </details>
 
 <details>
-<summary><h3>📊 Data Scientists / ML Engineers</h3></summary>
-*You want to work with multi-omics data pipelines or build predictive models*
+<summary><h3>👥 Patients & Families</h3></summary>
+*You want to understand precision medicine for ovarian cancer*
 
-**What you can analyze:**
+**⚠️ IMPORTANT:** This is a **research demonstration**, not a clinical tool. Always consult qualified oncologists for medical decisions.
 
-**Data Modalities (PatientOne example):**
-- **Clinical:** FHIR resources (demographics, conditions, medications, biomarkers)
-- **Genomics:** VCF files (TP53, PIK3CA, PTEN, BRCA1 mutations)
-- **Multi-omics:** RNA-seq (15 samples) • Proteomics (15 samples) • Phosphoproteomics (15 samples)
-- **Spatial:** 900 spots × 31 genes (Visium format)
-- **Imaging:** H&E histology, multiplex IF (DAPI, CD3, CD8, Ki67, PanCK)
+**What this demonstrates:**
+Precision medicine analyzes your unique cancer profile—genomics, transcriptomics, and imaging—to identify which treatments are most likely to work for you. This repository shows how bioinformatics can process this complex data, but it's research technology, not clinical care.
 
-**Analysis Workflows:**
-1. **Differential Expression** - Mann-Whitney U test + FDR correction
-2. **Pathway Enrichment** - Fisher's exact test on 44 curated pathways (KEGG, Hallmark, GO_BP, Drug_Resistance)
-3. **Spatial Autocorrelation** - Moran's I for spatially variable genes
-4. **Cell Type Deconvolution** - Signature-based scoring (tumor, fibroblasts, immune, hypoxic)
-5. **Batch Correction** - ComBat for removing technical variation
-6. **Multi-omics Integration** - HAllA association analysis, Stouffer meta-analysis
+**PatientOne Story:**
+This project is named in memory of a dear friend who passed from High-Grade Serous Ovarian Carcinoma (HGSOC) in 2025. Her journey inspired the development of these tools to help researchers understand and combat this devastating disease.
 
-**Start Here:**
-- **Synthetic Dataset:** [PAT001-OVC-2025](data/patient-data/PAT001-OVC-2025/README.md) - 100% synthetic, 5 modalities
-- **Multi-omics Examples:** [mcp-multiomics](servers/mcp-multiomics/README.md) - HAllA, Stouffer, upstream regulators
-- **Batch Correction:** [ComBat Workflow](servers/mcp-spatialtools/tests/test_batch_correction_spatial_format.py)
-- **ML Integration:** [mcp-huggingface](servers/mcp-huggingface/) (mocked - extensible for real models)
+**Learn More:**
+- **PatientOne Background:** [Case Study](architecture/patient-one/README.md)
+- **Patient-Friendly Materials:** [Summaries & Infographics](architecture/patient-one/patient-one-outputs/for-patient/) - Simplified reports, medication guides, visual summaries
+- **What is Precision Medicine:** [Overview](architecture/patient-one/README.md#what-is-precision-medicine) (coming soon)
+- **Educational Resources:** [Scientific References & Publications](docs/REFERENCES.md) - Peer-reviewed articles, clinical resources
+- **Clinical Trials:** [ClinicalTrials.gov - Ovarian Cancer](https://clinicaltrials.gov/)
+
+**Important Reminders:**
+- This repository is for **RESEARCH ONLY** - not for diagnosing or treating cancer
+- All treatment decisions must be made by qualified oncologists
+- The synthetic data is for demonstration purposes - not real patient data
+- Consult your healthcare team for personalized medical advice
 
 </details>
 
@@ -297,33 +324,6 @@ All 9 servers successfully deployed and tested on Google Cloud Platform:
 - Compare DRY_RUN vs real analysis results
 - Design custom precision medicine workflows
 - Extend servers with new bioinformatics tools
-
-</details>
-
-<details>
-<summary><h3>👥 Patients & Families</h3></summary>
-*You want to understand precision medicine for ovarian cancer*
-
-**⚠️ IMPORTANT:** This is a **research demonstration**, not a clinical tool. Always consult qualified oncologists for medical decisions.
-
-**What this demonstrates:**
-Precision medicine analyzes your unique cancer profile—genomics, transcriptomics, and imaging—to identify which treatments are most likely to work for you. This repository shows how bioinformatics can process this complex data, but it's research technology, not clinical care.
-
-**PatientOne Story:**
-This project is named in memory of a dear friend who passed from High-Grade Serous Ovarian Carcinoma (HGSOC) in 2025. Her journey inspired the development of these tools to help researchers understand and combat this devastating disease.
-
-**Learn More:**
-- **PatientOne Background:** [Case Study](architecture/patient-one/README.md)
-- **Patient-Friendly Materials:** [Summaries & Infographics](architecture/patient-one/patient-one-outputs/for-patient/) - Simplified reports, medication guides, visual summaries
-- **What is Precision Medicine:** [Overview](architecture/patient-one/README.md#what-is-precision-medicine) (coming soon)
-- **Educational Resources:** [Scientific References & Publications](docs/REFERENCES.md) - Peer-reviewed articles, clinical resources
-- **Clinical Trials:** [ClinicalTrials.gov - Ovarian Cancer](https://clinicaltrials.gov/)
-
-**Important Reminders:**
-- This repository is for **RESEARCH ONLY** - not for diagnosing or treating cancer
-- All treatment decisions must be made by qualified oncologists
-- The synthetic data is for demonstration purposes - not real patient data
-- Consult your healthcare team for personalized medical advice
 
 </details>
 
