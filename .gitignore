@@ -223,3 +223,4 @@ deployment_urls.txt
 .env.*.local
 **/*.pem
 **/*.key
+_shared_temp/

@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y \
 # Create directory structure
 RUN mkdir -p /app/servers/mcp-seqera /app/shared/utils
 
-# Copy shared utilities (from repo root)
-COPY shared/utils/ /app/shared/utils/
+# Copy temporarily staged shared utilities
+COPY _shared_temp/utils/ /app/shared/utils/
 
-# Copy server code (from repo root)
-COPY servers/mcp-seqera/ /app/servers/mcp-seqera/
+# Copy server code
+COPY . /app/servers/mcp-seqera/
 
 # Install Python dependencies
 WORKDIR /app/servers/mcp-seqera

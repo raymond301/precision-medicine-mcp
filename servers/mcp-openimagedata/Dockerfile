@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y \
 # Create directory structure
 RUN mkdir -p /app/servers/mcp-openimagedata /app/shared/utils
 
-# Copy shared utilities (from repo root)
-COPY shared/utils/ /app/shared/utils/
+# Copy temporarily staged shared utilities
+COPY _shared_temp/utils/ /app/shared/utils/
 
-# Copy server code (from repo root)
-COPY servers/mcp-openimagedata/ /app/servers/mcp-openimagedata/
+# Copy server code
+COPY . /app/servers/mcp-openimagedata/
 
 # Install Python dependencies
 WORKDIR /app/servers/mcp-openimagedata

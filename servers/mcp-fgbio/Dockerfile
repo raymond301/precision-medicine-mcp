@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y \
 # Create directory structure
 RUN mkdir -p /app/servers/mcp-fgbio /app/shared/utils
 
-# Copy shared utilities (from repo root)
-COPY shared/utils/ /app/shared/utils/
+# Copy temporarily staged shared utilities
+COPY _shared_temp/utils/ /app/shared/utils/
 
-# Copy server code (from repo root)
-COPY servers/mcp-fgbio/ /app/servers/mcp-fgbio/
+# Copy server code
+COPY . /app/servers/mcp-fgbio/
 
 # Install Python dependencies
 WORKDIR /app/servers/mcp-fgbio

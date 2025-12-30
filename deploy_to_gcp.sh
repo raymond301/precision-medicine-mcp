@@ -102,13 +102,14 @@ deploy_server() {
 
     print_info "Building and deploying from ${server_path}..."
 
+    # Copy shared utilities into server directory temporarily
+    if [ -d "${server_path}/../../shared" ]; then
+        cp -r "${server_path}/../../shared" "${server_path}/_shared_temp"
+    fi
+
     # Deploy to Cloud Run
-    # Note: Build from repo root to access shared/utils
-    # Dockerfile is at servers/${server_name}/Dockerfile
-    cd "${REPO_ROOT}"
     gcloud run deploy "${server_name}" \
-        --source "." \
-        --dockerfile "servers/${server_name}/Dockerfile" \
+        --source "${server_path}" \
         --platform managed \
         --region "${REGION}" \
         --allow-unauthenticated \
@@ -118,7 +119,11 @@ deploy_server() {
         --max-instances 10 \
         --timeout 300 \
         --quiet
-    cd - > /dev/null
+
+    # Clean up temporary shared directory
+    if [ -d "${server_path}/_shared_temp" ]; then
+        rm -rf "${server_path}/_shared_temp"
+    fi
 
     if [ $? -eq 0 ]; then
         # Get the service URL
