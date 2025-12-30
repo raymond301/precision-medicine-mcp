@@ -2,6 +2,8 @@
 
 A visual chat interface for testing deployed MCP servers on GCP Cloud Run. Provides a Claude Desktop-like experience for bioinformatics workflows.
 
+🌐 **Live Demo:** https://streamlit-mcp-chat-ondu7mwjpa-uc.a.run.app
+
 <img src="../../data/images/streamlit-ui-preview.png" width="800" alt="Streamlit Chat UI Preview">
 
 ## Features
@@ -114,7 +116,27 @@ For Patient-001 (ovarian cancer):
 
 ## Configuration
 
+### API Key Security
+
+**The ANTHROPIC_API_KEY is stored differently depending on environment:**
+
+| Environment | Storage Method | Security |
+|-------------|---------------|----------|
+| **Local Development** | `.env` file (gitignored) | Not committed to git, local machine only |
+| **GCP Cloud Run** | Environment variable (encrypted) | Encrypted at rest, managed by Google Cloud |
+| **Browser/Client** | Never exposed | Key stays on server, never sent to browser |
+
+**Important Security Notes:**
+- ✅ `.env` file is in `.gitignore` - never committed to git
+- ✅ Cloud Run environment variables are encrypted at rest
+- ✅ API key is only used server-side, never exposed to browser
+- ✅ Use separate API keys for development vs production
+- ❌ Never hardcode API keys in source code
+- ❌ Never commit `.env` files to git
+
 ### Environment Variables
+
+**For Local Development:**
 
 Create a `.env` file (from `.env.example`):
 
@@ -126,6 +148,17 @@ ANTHROPIC_API_KEY=your_key_here
 DEFAULT_MODEL=claude-sonnet-4-5
 DEFAULT_MAX_TOKENS=4096
 ```
+
+**For Cloud Run Deployment:**
+
+API key is passed as environment variable during deployment:
+
+```bash
+export ANTHROPIC_API_KEY=your_key_here
+./deploy.sh
+```
+
+The deployment script automatically sets the key as a Cloud Run environment variable (encrypted).
 
 ### MCP Server Configuration
 

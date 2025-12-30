@@ -245,6 +245,39 @@ All 9 servers successfully deployed and tested on Google Cloud Platform:
 - **Deployment Guide:** [GCP Cloud Run Setup](docs/deployment/DEPLOYMENT_STATUS.md)
 - **Test Script:** [Automated Testing](tests/integration/test_all_gcp_servers.py)
 
+**Streamlit Chat UI (Visual Interface):**
+
+Web-based chat interface for testing MCP servers (deployed on Cloud Run):
+
+🌐 **Live App:** https://streamlit-mcp-chat-ondu7mwjpa-uc.a.run.app
+
+**Features:**
+- Chat interface (Claude Desktop-like experience)
+- Select which MCP servers to use
+- Example prompts for common workflows
+- Token usage tracking
+- Real-time responses from deployed servers
+
+**API Key Security:**
+- **Local Development:** API key stored in `.env` file (gitignored, never committed)
+- **Cloud Deployment:** API key stored as Cloud Run environment variable (encrypted at rest)
+- **Never exposed:** API key not visible in logs, code, or browser
+- **Best Practice:** Use separate API keys for dev/prod environments
+
+**Quick Test:**
+```bash
+# Local testing
+cd ui/streamlit-app
+pip install -r requirements.txt
+export ANTHROPIC_API_KEY=your_key_here
+streamlit run app.py
+
+# Access at http://localhost:8501
+```
+
+- **UI Documentation:** [Streamlit App Guide](ui/streamlit-app/README.md)
+- **Deployment Script:** [deploy.sh](ui/streamlit-app/deploy.sh)
+
 </details>
 
 <details>
