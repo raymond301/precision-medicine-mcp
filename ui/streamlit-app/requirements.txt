@@ -1,0 +1,11 @@
+# Streamlit MCP Chat App Dependencies
+
+# Core dependencies
+streamlit>=1.30.0
+anthropic>=0.40.0
+
+# Optional: For loading .env files
+python-dotenv>=1.0.0
+
+# Optional: For better data display
+pandas>=2.0.0
