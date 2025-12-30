@@ -9,13 +9,20 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Create directory structure
+RUN mkdir -p /app/servers/mcp-openimagedata /app/shared/utils
+
+# Copy shared utilities
+COPY ../../shared/utils/ /app/shared/utils/
+
 # Copy server code
-COPY . .
+COPY . /app/servers/mcp-openimagedata/
 
 # Install Python dependencies
+WORKDIR /app/servers/mcp-openimagedata
 RUN pip install --no-cache-dir -e .
 
-# Set environment variables for HTTP/SSE transport
+# Set environment variables for SSE transport
 ENV MCP_TRANSPORT=sse
 ENV MCP_PORT=3004
 ENV IMAGE_DRY_RUN=false
@@ -28,9 +35,9 @@ RUN mkdir -p /app/data/images /app/data/cache/images
 # Expose port
 EXPOSE 3004
 
-# Health check
+# Health check commented out - FastMCP doesn't provide /health endpoint
 # HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-#         CMD curl -f http://localhost:3004/health || exit 1
+#     CMD curl -f http://localhost:3004/health || exit 1
 
 # Run the server
 CMD ["python", "-m", "mcp_openimagedata"]
