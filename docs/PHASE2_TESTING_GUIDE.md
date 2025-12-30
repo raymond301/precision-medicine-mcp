@@ -4,6 +4,19 @@
 
 ---
 
+## IMPORTANT: This Guide is for LOCAL Testing Only
+
+This guide describes testing MCP servers running **locally** with **Claude Desktop** using **STDIO transport**.
+
+**If you want to test GCP-deployed servers:**
+- Claude Desktop **cannot** connect to remote GCP Cloud Run servers
+- GCP servers use **SSE transport** over HTTP, not STDIO
+- You must use the **Claude API** (Python/TypeScript SDK) for testing deployed servers
+
+**See:** [GCP Testing Guide](deployment/GCP_TESTING_GUIDE.md) for instructions on testing Cloud Run deployments.
+
+---
+
 ## Prerequisites
 
 ✅ Both servers configured in Claude Desktop:

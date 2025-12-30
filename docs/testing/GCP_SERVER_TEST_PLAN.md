@@ -47,7 +47,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-fgbio-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse",
         "name": "fgbio",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "fgbio"}],
@@ -75,7 +75,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-multiomics-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
         "name": "multiomics",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "multiomics"}],
@@ -103,7 +103,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-spatialtools-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
         "name": "spatialtools",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "spatialtools"}],
@@ -131,7 +131,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-tcga-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
         "name": "tcga",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "tcga"}],
@@ -159,7 +159,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-openimagedata-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app/sse",
         "name": "openimagedata",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "openimagedata"}],
@@ -187,7 +187,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-seqera-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
         "name": "seqera",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "seqera"}],
@@ -215,7 +215,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-huggingface-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app/sse",
         "name": "huggingface",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "huggingface"}],
@@ -243,7 +243,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-deepcell-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
         "name": "deepcell",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "deepcell"}],
@@ -271,7 +271,7 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-mockepic-305650208648.us-central1.run.app/sse",
+        "url": "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app/sse",
         "name": "mockepic",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "mockepic"}],
@@ -301,15 +301,15 @@ import os
 import sys
 
 SERVERS = {
-    "fgbio": "https://mcp-fgbio-305650208648.us-central1.run.app/sse",
-    "multiomics": "https://mcp-multiomics-305650208648.us-central1.run.app/sse",
-    "spatialtools": "https://mcp-spatialtools-305650208648.us-central1.run.app/sse",
-    "tcga": "https://mcp-tcga-305650208648.us-central1.run.app/sse",
-    "openimagedata": "https://mcp-openimagedata-305650208648.us-central1.run.app/sse",
-    "seqera": "https://mcp-seqera-305650208648.us-central1.run.app/sse",
-    "huggingface": "https://mcp-huggingface-305650208648.us-central1.run.app/sse",
-    "deepcell": "https://mcp-deepcell-305650208648.us-central1.run.app/sse",
-    "mockepic": "https://mcp-mockepic-305650208648.us-central1.run.app/sse",
+    "fgbio": "https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse",
+    "multiomics": "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
+    "spatialtools": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
+    "tcga": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
+    "openimagedata": "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app/sse",
+    "seqera": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
+    "huggingface": "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app/sse",
+    "deepcell": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
+    "mockepic": "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app/sse",
 }
 
 def test_server(name, url):
@@ -402,7 +402,7 @@ gcloud run services describe mcp-<name> \
 
 3. Test with curl:
 ```bash
-curl https://mcp-<name>-305650208648.us-central1.run.app/sse
+curl https://mcp-<name>-ondu7mwjpa-uc.a.run.app/sse
 # Should return SSE event stream or 405
 ```
 

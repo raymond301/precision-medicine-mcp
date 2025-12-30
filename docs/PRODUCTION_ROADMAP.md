@@ -1,33 +1,76 @@
-# Production Readmap: Hospital Cloud Deployment
+# Production Roadmap: Hospital Cloud Deployment
 
 ## Executive Summary
 
 This document outlines the prioritized path to move the Precision Medicine MCP POC from development to production deployment in a hospital cloud infrastructure for testing with actual patient data.
 
-**Current Status:** 2/9 servers production-ready, 7/9 mocked/partial
-**Goal:** HIPAA-compliant hospital deployment with real patient data
+**POC Status (December 30, 2025):** All 9 servers deployed to GCP Cloud Run, tested via Claude API
+**Next Goal:** HIPAA-compliant hospital deployment with real patient data
 **Timeline Estimate:** 12-16 weeks for Phase 1-3
 
 ---
 
-## Current State Assessment
+## POC Deployment Status (December 30, 2025)
 
-### Production-Ready Servers (2/9)
-- ✅ **mcp-multiomics** - 91 tests, 68% coverage
-- ✅ **mcp-fgbio** - 29 tests, 77% coverage
+### GCP Cloud Run Deployment: ✅ COMPLETE
 
-### Partially Implemented (2/9)
-- 🔶 **mcp-spatialtools** - 40% real functionality
-- 🔶 **mcp-openimagedata** - 30% real functionality
+All 9 MCP servers successfully deployed to Google Cloud Platform and tested:
 
-### Mocked Servers (4/9)
-- ❌ **mcp-tcga** - 0% real (fully mocked)
-- ❌ **mcp-deepcell** - 0% real (fully mocked)
-- ❌ **mcp-huggingface** - 0% real (fully mocked)
-- ❌ **mcp-seqera** - 0% real (fully mocked)
+| Server | Implementation Status | GCP Deployment | Test Result |
+|--------|---------------------|----------------|-------------|
+| mcp-fgbio | 95% real | ✅ Deployed | ✓ PASS |
+| mcp-multiomics | 95% real | ✅ Deployed | ✓ PASS |
+| mcp-spatialtools | 95% real | ✅ Deployed | ✓ PASS |
+| mcp-tcga | Mock (by design) | ✅ Deployed | ✓ PASS |
+| mcp-openimagedata | Mock (by design) | ✅ Deployed | ✓ PASS |
+| mcp-seqera | Mock (by design) | ✅ Deployed | ✓ PASS |
+| mcp-huggingface | Mock (by design) | ✅ Deployed | ✓ PASS |
+| mcp-deepcell | Mock (by design) | ✅ Deployed | ✓ PASS |
+| mcp-mockepic | Mock (by design) | ✅ Deployed | ✓ PASS |
 
-### Mock by Design (1/9)
-- 🔵 **mcp-mockepic** - EHR simulator (intentionally mocked)
+**Test Results:** 9/9 servers passed functional testing via Claude API
+
+**POC Environment:**
+- Platform: Google Cloud Run (serverless containers)
+- Transport: SSE (Server-Sent Events) over HTTPS
+- Authentication: Public endpoints (POC only - not for PHI)
+- Cost: Minimal ($0.10-0.50/day with pay-per-use)
+
+**POC Limitations:**
+- Not HIPAA compliant (no PHI allowed)
+- Public endpoints (authentication not enabled)
+- No audit logging for clinical use
+- Test/mock data only
+
+**See:**
+- [Deployment Status](deployment/DEPLOYMENT_STATUS.md) - Full deployment details
+- [GCP Testing Guide](deployment/GCP_TESTING_GUIDE.md) - Testing with Claude API
+
+---
+
+## Current State Assessment (For Hospital Production Deployment)
+
+**Note:** This assessment is for moving from POC to hospital production. All servers are deployed and functional in POC environment.
+
+### Hospital-Ready Servers (3/9)
+- ✅ **mcp-multiomics** - 95% real, 91 tests, 68% coverage, validated preprocessing workflow
+- ✅ **mcp-fgbio** - 95% real, 29 tests, 77% coverage, genomic reference data access
+- ✅ **mcp-spatialtools** - 95% real, 60+ tests, comprehensive spatial analysis pipeline
+
+### Mock Servers (Require Real Implementation for Hospital Use) (5/9)
+- 🔶 **mcp-tcga** - Mock (needs real TCGA GDC API integration for comparative analysis)
+- 🔶 **mcp-openimagedata** - Mock (needs real imaging database integration)
+- 🔶 **mcp-deepcell** - Mock (needs DeepCell API or self-hosted models)
+- 🔶 **mcp-huggingface** - Mock (needs real HuggingFace API integration)
+- 🔶 **mcp-seqera** - Mock (needs Seqera Platform license or Nextflow integration)
+
+### Hospital EHR Integration Required (1/9)
+- 🔵 **mcp-mockepic** - Must be replaced with real EHR connector (Epic FHIR, HL7, etc.)
+
+**Key Changes Since Initial Assessment:**
+- mcp-spatialtools: 40% → 95% real (batch correction, DE, pathway enrichment implemented)
+- All servers deployed to GCP Cloud Run and tested
+- Ready for Phase 1: Hospital infrastructure and EHR integration
 
 ---
 
@@ -111,26 +154,36 @@ Before ANY server implementation work:
 
 **Estimated Effort:** 40-60 hours
 
-### Priority 1C: Spatial Transcriptomics Completion (Week 3-4)
-**Current:** mcp-spatialtools (40% real)
-**Target:** 90%+ real implementation
+### Priority 1C: Spatial Transcriptomics - ✅ MOSTLY COMPLETE (Week 3-4)
+**Completed:** mcp-spatialtools (95% real, deployed to GCP)
+**Remaining:** Hospital-specific integration and STAR alignment setup
 **Rationale:** Core analysis for patient-one ovarian cancer case
 
-**Tasks:**
-1. Implement real file I/O (replace mocks)
-2. Integrate Scanpy for QC filtering
-3. Add real spatial autocorrelation (Moran's I)
-4. Implement differential expression (DESeq2/edgeR)
-5. Add batch correction (Harmony/ComBat)
-6. Write 40+ additional tests
-7. Add clinical interpretation layer
+**Completed Tasks:**
+1. ✅ Implemented real file I/O (CSV/TSV parsing)
+2. ✅ QC filtering (statistical thresholds, not Scanpy but functional equivalent)
+3. ✅ Spatial autocorrelation (Moran's I implemented and tested)
+4. ✅ Differential expression (Wilcoxon/Mann-Whitney, not DESeq2 but statistically sound)
+5. ✅ Batch correction (ComBat implemented and validated, Harmony/Scanorama deferred)
+6. ✅ Pathway enrichment (Fisher's exact test, 44 curated pathways)
+7. ✅ Cell type deconvolution (signature scoring)
+8. ✅ 60+ tests written
+9. ✅ Clinical interpretation layer (bridge tool for patient→spatial mapping)
+10. ✅ Deployed to GCP Cloud Run and tested
 
-**Deliverables:**
-- 90%+ real functionality
-- 60+ tests, 70%+ coverage
-- Validated on real spatial transcriptomics data
+**Remaining Tasks for Hospital Deployment:**
+1. STAR alignment setup (genome index download, server configuration)
+2. Integration with hospital file storage (replace local file paths)
+3. Performance optimization for large datasets (>10K spots)
+4. Clinical validation on real de-identified spatial data
 
-**Estimated Effort:** 60-80 hours
+**Current Status:**
+- 95% real functionality ✅
+- 60+ tests, comprehensive coverage ✅
+- Validated on PatientOne ovarian cancer dataset ✅
+- Production-ready for POC, needs hospital integration for clinical use
+
+**Estimated Effort for Remaining Tasks:** 20-30 hours
 
 ---
 

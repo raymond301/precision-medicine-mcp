@@ -75,17 +75,17 @@ response = client.beta.messages.create(
     mcp_servers=[
         {
             "type": "url",
-            "url": "https://mcp-fgbio-xxxxx.run.app/sse",
+            "url": "https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse",
             "name": "fgbio",
         },
         {
             "type": "url",
-            "url": "https://mcp-multiomics-xxxxx.run.app/sse",
+            "url": "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
             "name": "multiomics",
         },
         {
             "type": "url",
-            "url": "https://mcp-spatialtools-xxxxx.run.app/sse",
+            "url": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
             "name": "spatialtools",
         },
         # ... add all 9 servers
@@ -110,10 +110,10 @@ Test each server's health endpoint:
 # After deployment, use the URLs from deployment_urls.txt
 
 # Test mcp-fgbio
-curl https://mcp-fgbio-xxxxx.run.app/health
+curl https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/health
 
 # Test mcp-multiomics
-curl https://mcp-multiomics-xxxxx.run.app/health
+curl https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/health
 
 # Test all servers
 while IFS='=' read -r server url; do
@@ -153,7 +153,7 @@ gcloud auth print-identity-token
 ```python
 mcp_servers=[{
     "type": "url",
-    "url": "https://mcp-multiomics-xxxxx.run.app/sse",
+    "url": "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
     "name": "multiomics",
     "authorization_token": "Bearer YOUR_GCP_TOKEN_HERE"
 }]
