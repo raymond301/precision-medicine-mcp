@@ -211,3 +211,15 @@ infrastructure/mcp-server-key.json
 infrastructure/*.json
 **/credentials.json
 **/*-key.json
+
+# Anthropic API Keys and Secrets
+**/.anthropic_key
+**/anthropic_api_key.txt
+**/*_api_key*
+**/*_secret*
+deployment_urls.txt
+.env.local
+.env.production
+.env.*.local
+**/*.pem
+**/*.key
