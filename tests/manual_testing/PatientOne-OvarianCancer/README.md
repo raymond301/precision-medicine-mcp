@@ -13,7 +13,6 @@ PatientOne demonstrates end-to-end precision medicine analysis integrating:
 
 **All synthetic data** for demonstration purposes.
 
-<kbd><img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/architecture/patient-one/patient-one-holistic.png" width=600></kbd>
 
 ---
 
