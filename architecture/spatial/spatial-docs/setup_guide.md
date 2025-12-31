@@ -2,7 +2,7 @@
 
 Complete setup guide for the Spatial Transcriptomics component of the Precision Medicine MCP suite.
 
-**Part of the Precision Medicine MCP suite.** This guide covers spatial transcriptomics setup. For the complete precision medicine workflow including genomics, multiomics, and imaging, see [PatientOne Quick Start](../../manual_testing/PatientOne-OvarianCancer/README.md).
+**Part of the Precision Medicine MCP suite.** This guide covers spatial transcriptomics setup. For the complete precision medicine workflow including genomics, multiomics, and imaging, see [PatientOne Quick Start](../../../tests/manual_testing/PatientOne-OvarianCancer/README.md).
 
 ## Table of Contents
 

@@ -332,7 +332,7 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 - **Demo Request:** Contact [Project Lead] to schedule live demonstration
 - **Technical Questions:** See [Technical Documentation](../README.md)
 - **Hospital Deployment:** See [Hospital Deployment Guide](../infrastructure/hospital-deployment/README.md)
-- **Cost Details:** See [Cost Analysis](COST_ANALYSIS.md)
+- **Cost Details:** See [Cost Analysis](operations/COST_ANALYSIS.md)
 
 ---
 

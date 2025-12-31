@@ -350,7 +350,6 @@ gcloud alpha monitoring policies create \
 
 - [Epic Connection Failure](epic-connection-failure.md)
 - [SSO Issues](sso-issues.md)
-- [High Costs](high-costs.md)
 
 ---
 

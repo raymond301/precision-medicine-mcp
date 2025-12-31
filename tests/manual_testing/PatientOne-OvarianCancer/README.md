@@ -189,7 +189,7 @@ Run all modular tests sequentially for comprehensive precision medicine analysis
 - **DRY_RUN:** Mainly Claude token usage (~30K tokens total)
 - **Real Data:** Computational processing ($14-30) + APIs ($0-5) + Claude tokens (~$0.50)
 
-📊 **[Full Cost Analysis & ROI →](../../../docs/COST_ANALYSIS.md)**
+📊 **[Full Cost Analysis & ROI →](../../../docs/operations/COST_ANALYSIS.md)**
 
 **Instructions:**
 1. Open each `TEST_*.txt` file in `implementation/` directory

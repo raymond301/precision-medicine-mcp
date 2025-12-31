@@ -13,7 +13,7 @@ This guide describes testing MCP servers running **locally** with **Claude Deskt
 - GCP servers use **SSE transport** over HTTP, not STDIO
 - You must use the **Claude API** (Python/TypeScript SDK) for testing deployed servers
 
-**See:** [GCP Testing Guide](deployment/GCP_TESTING_GUIDE.md) for instructions on testing Cloud Run deployments.
+**See:** [GCP Testing Guide](../deployment/GCP_TESTING_GUIDE.md) for instructions on testing Cloud Run deployments.
 
 ---
 

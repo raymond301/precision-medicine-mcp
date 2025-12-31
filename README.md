@@ -57,7 +57,7 @@ This repository serves multiple audiences in the precision medicine ecosystem. F
 **Quick Start:**
 1. [PatientOne Workflow Guide](tests/manual_testing/PatientOne-OvarianCancer/README.md) - Complete analysis in 25-35 min
 2. [mcp-spatialtools Quick Start](servers/mcp-spatialtools/QUICKSTART.md) - Batch correction, pathway enrichment (95% real)
-3. [Cost Analysis](docs/COST_ANALYSIS.md) - $0.32 demo or $7-29 real analysis
+3. [Cost Analysis](docs/operations/COST_ANALYSIS.md) - $0.32 demo or $7-29 real analysis
 
 **Example Outputs for Researchers:**
 - [PatientOne Results](architecture/patient-one/patient-one-outputs/for-researchers/) - Complete analysis results with visualizations

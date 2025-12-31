@@ -26,7 +26,7 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 - **DRY_RUN:** 25-35 min, ~$0.32 total
 - **Actual Data:** 2-4 hours, $15-45 total
 
-**[→ See Full Cost Analysis & ROI](../../../docs/COST_ANALYSIS.md)**
+**[→ See Full Cost Analysis & ROI](../../../docs/operations/COST_ANALYSIS.md)**
 
 ---
 
