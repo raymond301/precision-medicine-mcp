@@ -420,41 +420,50 @@ The Precision Medicine MCP system is **production-ready for HIPAA-compliant hosp
 
 **Deployment Configuration:**
 - **Budget**: ~$1,000/month during pilot phase
-- **Timeline**: 3 months (MVP → Pilot → Production)
+- **Timeline**: 6 months (MVP Foundation → Pilot Testing → Production Launch)
 - **Users**: Initial pilot with 5 testers (2 clinicians, 3 bioinformaticians)
 - **Data Scope**: 100 patients for ovarian cancer spatial genomics research
+- **Rationale**: Healthcare deployments require 2× longer due to HIPAA, IRB, and clinical validation
 
-**3-Month Deployment Timeline:**
+**6-Month Deployment Timeline:**
+
+Healthcare deployments require longer timelines due to HIPAA compliance, clinical validation, and practitioner review requirements.
 
 ```mermaid
 gantt
-    title Hospital Deployment Roadmap (3 Months to Production)
+    title Hospital Deployment Roadmap (6 Months to Production)
     dateFormat YYYY-MM-DD
-    axisFormat %b %d
+    axisFormat %b
 
-    section Month 1: MVP
-    Infrastructure Setup           :m1a, 2025-01-01, 7d
-    Azure AD SSO Integration       :m1b, after m1a, 7d
-    Deploy Core Servers (3)        :m1c, after m1a, 7d
-    Epic FHIR Integration          :m1d, after m1b, 7d
+    section Month 1-2: MVP Foundation
+    Infrastructure Setup           :m1a, 2025-01-01, 14d
+    Azure AD SSO Integration       :m1b, after m1a, 14d
+    Deploy Core Servers (3)        :m1c, after m1b, 14d
+    Epic FHIR Integration          :m1d, after m1c, 14d
 
-    section Month 2: Pilot
-    Deploy All Servers (9)         :m2a, 2025-02-01, 7d
-    Load Test Data (10-20 pts)     :m2b, after m2a, 7d
-    User Training                  :m2c, after m2b, 7d
-    Testing & Iteration            :m2d, after m2c, 7d
+    section Month 3-4: Pilot Testing
+    Deploy All Servers (9)         :m2a, 2025-03-01, 14d
+    Load Test Data (10-20 pts)     :m2b, after m2a, 14d
+    User Training                  :m2c, after m2b, 14d
+    Testing & Iteration            :m2d, after m2c, 14d
 
-    section Month 3: Production
-    Monitoring & Alerts            :m3a, 2025-03-01, 7d
-    Documentation & Compliance     :m3b, after m3a, 7d
-    Knowledge Transfer             :m3c, after m3b, 7d
-    Production Go-Live             :crit, m3d, after m3c, 7d
+    section Month 5-6: Production Launch
+    Monitoring & Alerts            :m3a, 2025-05-01, 14d
+    Documentation & Compliance     :m3b, after m3a, 14d
+    Knowledge Transfer             :m3c, after m3b, 14d
+    Production Go-Live             :crit, m3d, after m3c, 14d
 ```
 
 **Key Milestones:**
-- 🎯 **Week 4**: Core servers deployed, SSO working, Epic connected
-- 🎯 **Week 8**: All 9 servers operational, 5 users trained, security audit passed
-- 🎯 **Week 12**: Production launch with 100 patients, full monitoring, IT handoff complete
+- 🎯 **Week 8**: Core servers deployed, SSO working, Epic connected
+- 🎯 **Week 16**: All 9 servers operational, 5 users trained, security audit passed
+- 🎯 **Week 24**: Production launch with 100 patients, full monitoring, IT handoff complete
+
+**Why 6 months vs 3 months?**
+- HIPAA compliance reviews take 2-3× longer than standard IT security
+- Epic FHIR integration requires extensive testing with de-identification
+- Clinical validation by practitioners (oncologists, pathologists) for each analysis type
+- IRB approval processes for research use of the system
 
 </details>
 
