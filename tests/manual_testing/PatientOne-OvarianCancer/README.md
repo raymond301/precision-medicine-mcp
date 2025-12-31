@@ -175,18 +175,37 @@ This is TEST_1 from the PatientOne workflow.
 
 Run all modular tests sequentially for comprehensive precision medicine analysis:
 
-| Test | Focus | DRY_RUN Time | Real Data Time | DRY_RUN Cost | Real Data Cost |
-|------|-------|--------------|----------------|--------------|----------------|
-| **TEST_1** | Clinical + Genomic | 3-5 min | 10-15 min | $0.06 | $0.50-0.75 |
-| **TEST_2** | Multi-Omics Resistance | 5-8 min | 15-25 min | $0.07 | $2-4 |
-| **TEST_3** | Spatial Transcriptomics | 4-6 min | 45-90 min | $0.06 | $8-17 |
-| **TEST_4** | Histology & Imaging | 3-5 min | 20-40 min | $0.05 | $3-7 |
-| **TEST_5** | Integration & Recommendations | 5-7 min | 5-10 min | $0.09 | $0.25-0.50 |
-| **TOTAL** | Complete Analysis | **25-35 min** | **2-4 hours** | **~$0.32** | **$15-45** |
+#### Demonstration Data (Small Synthetic Files)
+
+| Test | Focus | DRY_RUN Time | Real Data Time | DRY_RUN Cost | Real Data Cost (Small Files) |
+|------|-------|--------------|----------------|--------------|------------------------------|
+| **TEST_1** | Clinical + Genomic | 3-5 min | 10-15 min | ~$1 | ~$1 |
+| **TEST_2** | Multi-Omics Resistance | 5-8 min | 15-25 min | ~$1 | $2-4 |
+| **TEST_3** | Spatial Transcriptomics | 4-6 min | 45-90 min | ~$1 | $8-17 |
+| **TEST_4** | Histology & Imaging | 3-5 min | 20-40 min | ~$1 | $3-7 |
+| **TEST_5** | Integration & Recommendations | 5-7 min | 5-10 min | ~$1 | ~$1 |
+| **TOTAL** | Complete Analysis | **25-35 min** | **2-4 hours** | **~$1** | **$15-45** |
+
+**Data sizes:** 315 KB spatial, 38 KB multi-omics, 4.1 MB imaging (placeholders)
+
+#### Production Data (Realistic Hospital Volumes)
+
+| Test | Focus | Real Data Time (Pre-aligned) | Real Data Time (Raw FASTQ) | Cost (Pre-aligned) | Cost (Raw FASTQ) |
+|------|-------|------------------------------|----------------------------|-------------------|------------------|
+| **TEST_1** | Clinical + Genomic | 15-30 min | 15-30 min | $2-4 | $2-4 |
+| **TEST_2** | Multi-Omics Resistance | 30-60 min | 30-60 min | $8-20 | $8-20 |
+| **TEST_3** | Spatial Transcriptomics | 45-120 min | 90-240 min | $15-50 | $30-80 |
+| **TEST_4** | Histology & Imaging | 40-90 min | 40-90 min | $10-25 | $10-25 |
+| **TEST_5** | Integration & Recommendations | 10-20 min | 10-20 min | $2-5 | $2-5 |
+| **TOTAL** | Complete Analysis | **2-4 hours** | **4-8 hours** | **$25-75** | **$50-120** |
+
+**Data sizes:** 100-500 MB spatial (3,000-5,000 spots × 18,000-30,000 genes), 15-20 MB multi-omics processed (or 2.7 GB raw), 500 MB - 2 GB imaging
 
 **Cost Breakdown:**
-- **DRY_RUN:** Mainly Claude token usage (~30K tokens total)
-- **Real Data:** Computational processing ($14-30) + APIs ($0-5) + Claude tokens (~$0.50)
+- **DRY_RUN:** Mainly Claude token usage (~30K tokens total) - rounded to ~$1 for scannability
+- **Real Data (Demonstration):** Computational processing ($14-30) + APIs ($0-5) + Claude tokens (~$1)
+- **Real Data (Production):** Computational processing ($37-134) + APIs (~$1) + Claude tokens (~$1)
+  - 3-4× more expensive due to 300-1500× larger data files
 
 📊 **[Full Cost Analysis & ROI →](../../../docs/operations/COST_ANALYSIS.md)**
 

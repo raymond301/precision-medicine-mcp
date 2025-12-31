@@ -64,22 +64,22 @@ estimator = CostEstimator()
 
 # Estimate RNA-seq analysis
 rna_cost = estimator.rna_seq_cost(num_samples=5)
-print(f"RNA-seq for 5 samples: ${rna_cost:.2f}")  # $2.50
+print(f"RNA-seq for 5 samples: ${rna_cost:.2f}")  # $2-8 (demo) or $8-25 (production)
 
 # Estimate variant calling
 variant_cost = estimator.variant_calling_cost(num_samples=3)
-print(f"Variant calling for 3 samples: ${variant_cost:.2f}")  # $3.60
+print(f"Variant calling for 3 samples: ${variant_cost:.2f}")  # $3-7 (demo) or $10-20 (production)
 
 # Estimate multi-omics integration
 multiomics_cost = estimator.multiomics_integration_cost(
     num_samples=10,
     num_modalities=3  # RNA + Protein + Phospho
 )
-print(f"Multi-omics integration: ${multiomics_cost:.2f}")  # $2.50
+print(f"Multi-omics integration: ${multiomics_cost:.2f}")  # $2-4 (demo) or $8-20 (production)
 
 # Estimate PatientOne full workflow
 patient_one_costs = estimator.patient_one_workflow_cost()
-print(f"PatientOne total: ${patient_one_costs['total']:.2f}")  # ~$7.20
+print(f"PatientOne total: ${patient_one_costs['total']:.2f}")  # ~$1 (DRY_RUN), $7-29 (small files), or $25-120 (production)
 ```
 
 ### Available Estimation Methods

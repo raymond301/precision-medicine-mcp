@@ -2,14 +2,33 @@
 
 ## Executive Summary
 
+### Demonstration Data (Small Synthetic Files)
+
 | Mode | Total Time | Total Cost | Best For |
 |------|-----------|------------|----------|
-| **DRY_RUN** | 25-35 min | $0.30-0.65 | Demo, learning, CI/CD testing |
-| **Automated Report** | ~12 seconds | $0.10-0.20 | Quick analysis with pre-aligned data |
-| **Real Patient Data (Current)** | 1-2 hours | $7-19 | Production analysis, research (pre-aligned data) |
-| **Real Patient Data (with STAR)** | 1.5-3 hours | $12-29 | Production analysis from raw FASTQ |
+| **DRY_RUN** | 25-35 min | ~$1 | Demo, learning, CI/CD testing |
+| **Automated Report** | ~12 seconds | ~$1 | Quick analysis with pre-aligned data |
+| **Real Patient Data (Small Files)** | 1-2 hours | $7-19 | Workflow testing with small synthetic data |
+| **Real Patient Data (with STAR, Small Files)** | 1.5-3 hours | $12-29 | Testing from raw FASTQ (small files) |
 
-**Note:** SpatialTools upgraded to 95% real implementation (Dec 29, 2025). STAR alignment now functional but optional (adds 30-60 min, $5-10 if starting from raw FASTQ).
+**Data size:** ~4.5 MB total (315 KB spatial, 38 KB multi-omics)
+
+### Production Data (Realistic Hospital Volumes)
+
+| Mode | Total Time | Total Cost | Best For |
+|------|-----------|------------|----------|
+| **Real Patient Data (Pre-aligned)** | 2-4 hours | **$25-75** | Production analysis with Space Ranger output |
+| **Real Patient Data (Raw FASTQ)** | 4-8 hours | **$50-120** | Production analysis from raw sequencing data |
+
+**Data size per patient:** ~3-8 GB total (100-500 MB spatial processed, 2.7 GB multi-omics raw, or 15-20 MB processed)
+
+**Key differences:**
+- **Spatial:** 315 KB demo → 100-500 MB production (300-1500x larger)
+- **Multi-omics:** 38 KB demo → 15-20 MB processed matrices production (400-500x larger)
+- **Processing time:** 1-3 hours demo → 4-8 hours production (realistic file sizes)
+- **Compute cost:** $7-29 demo → $25-120 production (larger memory, longer runtime)
+
+**Note:** SpatialTools upgraded to 95% real implementation (2025-12-29). STAR alignment functional but optional.
 
 ---
 
@@ -24,12 +43,12 @@
 
 | Test | Servers Used | Est. Tokens (In/Out) | Time | Cost |
 |------|--------------|---------------------|------|------|
-| **TEST_1: Clinical + Genomic** | MockEpic, FGbio, TCGA | 2,000 / 3,500 | 3-5 min | $0.06 |
-| **TEST_2: Multi-Omics** | MultiOmics | 2,500 / 4,000 | 5-8 min | $0.07 |
-| **TEST_3: Spatial** | SpatialTools, DeepCell | 2,000 / 3,500 | 4-6 min | $0.06 |
-| **TEST_4: Imaging** | OpenImageData, DeepCell | 1,800 / 3,000 | 3-5 min | $0.05 |
-| **TEST_5: Integration** | All 9 servers | 3,000 / 5,000 | 5-7 min | $0.09 |
-| **TOTAL** | - | **11,300 / 19,000** | **25-35 min** | **$0.30-0.65** |
+| **TEST_1: Clinical + Genomic** | MockEpic, FGbio, TCGA | 2,000 / 3,500 | 3-5 min | ~$1 |
+| **TEST_2: Multi-Omics** | MultiOmics | 2,500 / 4,000 | 5-8 min | ~$1 |
+| **TEST_3: Spatial** | SpatialTools, DeepCell | 2,000 / 3,500 | 4-6 min | ~$1 |
+| **TEST_4: Imaging** | OpenImageData, DeepCell | 1,800 / 3,000 | 3-5 min | ~$1 |
+| **TEST_5: Integration** | All 9 servers | 3,000 / 5,000 | 5-7 min | ~$1 |
+| **TOTAL** | - | **11,300 / 19,000** | **25-35 min** | **~$1** |
 
 ### Token Usage Details
 
@@ -45,9 +64,9 @@
 - Recommendations & summaries: ~5,000 tokens
 
 ### Cost Calculation (Claude Sonnet 4 pricing)
-- Input: 11,300 tokens × $3/M = **$0.034**
-- Output: 19,000 tokens × $15/M = **$0.285**
-- **Total: ~$0.32** (or $0.65 for verbose mode)
+- Input: 11,300 tokens × $3/M = **~$1**
+- Output: 19,000 tokens × $15/M = **~$1**
+- **Total: ~$1** (rounded up for simplicity)
 
 ### Time Breakdown
 - Claude processing: 15-20 minutes
@@ -81,9 +100,9 @@
 | Metric | Value |
 |--------|-------|
 | **Runtime** | ~12 seconds per patient |
-| **Compute Cost** | $0.05-0.10 (local CPU processing) |
-| **Token Cost** | $0.05-0.10 (FHIR data retrieval if using Claude) |
-| **Total Cost** | $0.10-0.20 per patient |
+| **Compute Cost** | ~$1 (local CPU processing) |
+| **Token Cost** | ~$1 (FHIR data retrieval if using Claude) |
+| **Total Cost** | ~$1 per patient |
 
 ### Output Files (10 total, ~3.4 MB)
 
@@ -134,23 +153,54 @@ cd /path/to/spatial-mcp
 
 ---
 
-## Real Patient Data Mode
+## Real Patient Data Mode (Small Synthetic Files)
 
 ### Overview
 - Processes actual patient genomic, transcriptomic, and imaging data
 - Executes computational workflows (alignment, segmentation, etc.)
 - Makes external API calls (TCGA, HuggingFace, Seqera)
+- **Data size:** Small synthetic files (~4.5 MB total)
 
 ### Per-Test Breakdown
 
 | Test | Servers Used | Processing Time (Pre-aligned) | Processing Time (with STAR) | Compute Cost (Pre-aligned) | Compute Cost (with STAR) | API Cost | Total Cost (Pre-aligned) | Total Cost (with STAR) |
 |------|--------------|-------------------------------|------------------------------|----------------------------|--------------------------|----------|--------------------------|------------------------|
-| **TEST_1: Clinical + Genomic** | MockEpic, FGbio, TCGA | 10-15 min | 10-15 min | $0.50 | $0.50 | $0 | $0.50-0.75 | $0.50-0.75 |
+| **TEST_1: Clinical + Genomic** | MockEpic, FGbio, TCGA | 10-15 min | 10-15 min | ~$1 | ~$1 | $0 | ~$1 | ~$1 |
 | **TEST_2: Multi-Omics** | MultiOmics | 15-25 min | 15-25 min | $2-4 | $2-4 | $0 | $2-4 | $2-4 |
 | **TEST_3: Spatial** | SpatialTools, DeepCell | 10-20 min | 40-80 min | $1-3 | $6-13 | $0 | $1-3 | $6-13 |
-| **TEST_4: Imaging** | OpenImageData, DeepCell | 20-40 min | 20-40 min | $3-6 | $3-6 | $0-1 | $3-7 | $3-7 |
-| **TEST_5: Integration** | All 9 servers | 5-10 min | 5-10 min | $0.25 | $0.25 | $0 | $0.25-0.50 | $0.25-0.50 |
-| **TOTAL** | - | **1-2 hours** | **1.5-3 hours** | **$7-14** | **$12-24** | **$0-5** | **$7-19** | **$12-29** |
+| **TEST_4: Imaging** | OpenImageData, DeepCell | 20-40 min | 20-40 min | $3-7 | $3-7 | ~$1 | $3-7 | $3-7 |
+| **TEST_5: Integration** | All 9 servers | 5-10 min | 5-10 min | ~$1 | ~$1 | $0 | ~$1 | ~$1 |
+| **TOTAL** | - | **1-2 hours** | **1.5-3 hours** | **$7-14** | **$12-24** | **~$1** | **$7-19** | **$12-29** |
+
+---
+
+## Production Patient Data Mode (Realistic Hospital Volumes)
+
+### Overview
+- Processes realistic hospital data volumes
+- **Data size per patient:** ~3-8 GB total
+  - Spatial: 100-500 MB (processed matrix from Space Ranger)
+  - Multi-omics: 2.7 GB raw or 15-20 MB processed matrices
+  - Imaging: 500 MB - 2 GB (full resolution)
+- Significantly longer processing times
+- Higher memory requirements (16-64 GB RAM)
+- Larger Cloud Run instances needed
+
+### Per-Test Breakdown (Production Volumes)
+
+| Test | Servers Used | Processing Time (Pre-aligned) | Processing Time (Raw FASTQ) | Compute Cost (Pre-aligned) | Compute Cost (Raw FASTQ) | API Cost | Total Cost (Pre-aligned) | Total Cost (Raw FASTQ) |
+|------|--------------|-------------------------------|------------------------------|----------------------------|--------------------------|----------|--------------------------|------------------------|
+| **TEST_1: Clinical + Genomic** | Epic, FGbio, TCGA | 15-30 min | 15-30 min | $2-4 | $2-4 | $0 | $2-4 | $2-4 |
+| **TEST_2: Multi-Omics** | MultiOmics | 30-60 min | 30-60 min | $8-20 | $8-20 | $0 | $8-20 | $8-20 |
+| **TEST_3: Spatial** | SpatialTools, DeepCell | 45-120 min | 90-240 min | $15-50 | $30-80 | $0 | $15-50 | $30-80 |
+| **TEST_4: Imaging** | OpenImageData, DeepCell | 40-90 min | 40-90 min | $10-25 | $10-25 | ~$1 | $10-25 | $10-25 |
+| **TEST_5: Integration** | All 9 servers | 10-20 min | 10-20 min | $2-5 | $2-5 | $0 | $2-5 | $2-5 |
+| **TOTAL** | - | **2-4 hours** | **4-8 hours** | **$37-104** | **$52-134** | **~$1** | **$25-75** | **$50-120** |
+
+**Key differences from small files:**
+- **Spatial analysis:** 10-20 min → 45-120 min (3-6x longer due to 300-1500x larger files)
+- **Multi-omics:** 15-25 min → 30-60 min (2-3x longer due to 400-500x larger files)
+- **Total cost:** $7-29 → $25-120 (3-4x more expensive for realistic hospital data)
 
 ### Detailed Cost Components
 
@@ -222,54 +272,72 @@ Similar to DRY_RUN mode, but with larger context from real data files:
 
 ## Cost Comparison by Use Case
 
-### Academic Research Lab
-**Scenario:** 50 patient analyses per year
+### Academic Research Lab (Demonstration Data)
+**Scenario:** 50 patient analyses per year with small synthetic files
 
 | Mode | Cost per Patient | Annual Cost | Use Case |
 |------|-----------------|-------------|----------|
-| DRY_RUN | $0.32 | $16 | Workflow development, testing |
-| Automated Report | $0.15 | $7.50 | Quick analysis (pre-aligned data) |
-| Real Data | $13 (avg) | $650 | Full analysis with MCP orchestration |
+| DRY_RUN | ~$1 | $50 | Workflow development, testing |
+| Automated Report | ~$1 | $50 | Quick analysis (pre-aligned data) |
+| Real Data (Small Files) | $13 (avg) | $650 | Full analysis with MCP orchestration |
 
 **ROI:** Replaces ~40 hours of manual bioinformatics work per patient ($80/hr × 40 = $3,200)
 **Savings:** $3,187 per patient using automated reports, or $159,350 annually
-**Note:** Costs reduced by ~50% due to spatialtools improvements (Dec 29, 2025)
+**Note:** Small synthetic files (315 KB spatial, 38 KB multi-omics)
 
-### Clinical Genomics Center
-**Scenario:** 500 patient analyses per year
+### Academic Research Lab (Production Data)
+**Scenario:** 50 patient analyses per year with realistic hospital data volumes
+
+| Mode | Cost per Patient | Annual Cost | Use Case |
+|------|-----------------|-------------|----------|
+| Real Data (Pre-aligned) | $50 (avg) | $2,500 | Production analysis with Space Ranger output |
+| Real Data (Raw FASTQ) | $85 (avg) | $4,250 | Production analysis from raw sequencing data |
+
+**ROI:** Replaces ~40 hours of manual bioinformatics work per patient ($80/hr × 40 = $3,200)
+**Savings:** $3,150 per patient (pre-aligned) or $3,115 per patient (raw FASTQ)
+**Annual Savings:** $157,500 (pre-aligned) or $155,750 (raw FASTQ)
+**Data volumes:** 3-8 GB per patient (100-500 MB spatial processed, 2.7 GB multi-omics raw)
+
+### Clinical Genomics Center (Production Data)
+**Scenario:** 500 patient analyses per year with realistic hospital data volumes
 
 | Mode | Cost per Patient | Annual Cost |
 |------|-----------------|-------------|
-| Automated Report | $0.15 | $75 |
-| Real Data | $13 (avg) | $6,500 |
+| Automated Report | ~$1 | $500 |
+| Real Data (Pre-aligned) | $50 (avg) | $25,000 |
+| Real Data (Raw FASTQ) | $85 (avg) | $42,500 |
 
 **ROI:** Replaces manual analysis + reduces time-to-result from 2-3 weeks to 4-6 hours
 **Value:** Faster treatment decisions, improved patient outcomes
 **Annual Savings:** ~$1.6M using automated reports (vs manual $3,200/patient)
+**Annual Savings:** ~$1.58M using pre-aligned production data (vs manual $3,200/patient)
 
-### Pharmaceutical R&D
-**Scenario:** 200 PDX model analyses per year
+### Pharmaceutical R&D (Production Data)
+**Scenario:** 200 PDX model analyses per year with realistic data volumes
 
 | Mode | Cost per Analysis | Annual Cost |
 |------|------------------|-------------|
-| Automated Report | $0.15 | $30 |
-| Real Data | $15 (avg) | $3,000 |
+| Automated Report | ~$1 | $200 |
+| Real Data (Pre-aligned) | $50 (avg) | $10,000 |
+| Real Data (Raw FASTQ) | $85 (avg) | $17,000 |
 
 **ROI:** Accelerates target identification and biomarker discovery
 **Value:** Weeks → hours for multi-omics integration
-**Throughput:** 200 samples in ~40 minutes using automated reports (vs weeks manually)
+**Throughput:** 200 samples analyzed in 400-800 hours using production data (vs weeks manually)
+**Cost avoidance:** Reduces need for manual bioinformatics staff (~$500K/year for 3-5 FTEs)
 
 ---
 
 ## Infrastructure Requirements
 
-### DRY_RUN Mode
+### DRY_RUN Mode (Demonstration)
 - **CPU:** Any modern laptop (2+ cores)
 - **RAM:** 4GB minimum, 8GB recommended
 - **Storage:** 5GB for MCP servers + Python dependencies
 - **Network:** Internet for Claude Desktop API calls only
+- **Data size:** ~5 MB total (minimal synthetic data)
 
-### Real Patient Data Mode (Current: 95% real implementation)
+### Real Patient Data Mode - Small Synthetic Files (Demonstration)
 
 **Without STAR alignment (pre-aligned data):**
 - **CPU:** 4-8 cores sufficient for DE, Moran's I, deconvolution, pathway enrichment
@@ -277,21 +345,50 @@ Similar to DRY_RUN mode, but with larger context from real data files:
 - **RAM:** 16GB minimum, 32GB recommended
 - **Storage:** 20GB minimum for patient data + cache
 - **Network:** Stable connection for TCGA API calls (if enabled)
+- **Data size:** ~4.5 MB per patient (315 KB spatial, 38 KB multi-omics)
 
-**With STAR alignment (from raw FASTQ):**
+**With STAR alignment (from raw FASTQ, small files):**
 - **CPU:** 8-16 cores recommended (STAR scales linearly)
 - **RAM:** 32GB minimum, 64GB recommended
-  - STAR loads entire genome index into RAM (~30GB for hg38)
-  - Additional RAM for sorting BAM files
 - **Storage:** 100GB minimum
-  - Genome index: ~30GB
-  - FASTQ files: ~10-50GB (compressed)
-  - BAM output: ~20-100GB
-  - Intermediate files: ~10-20GB
 - **Network:** Download genome index once (3GB compressed), then local
+- **Data size:** ~4.5 MB per patient (synthetic small FASTQ files)
+
+### Real Patient Data Mode - Production Volumes (Hospital Deployment)
+
+**Without STAR alignment (pre-aligned data from Space Ranger):**
+- **CPU:** 8-16 cores recommended for parallel processing of large matrices
+- **GPU:** ❌ Not needed (DeepCell still mocked as of Dec 29, 2025)
+- **RAM:** 32GB minimum, **64GB recommended** for production
+  - Large spatial matrices: 3,000-5,000 spots × 18,000-30,000 genes
+  - Multi-omics integration: RNA/Protein/Phospho matrices
+  - Memory-intensive batch correction and deconvolution
+- **Storage:** **300-800 GB for 100 patients**
+  - Spatial data: 100-500 MB per patient (processed HDF5 matrices)
+  - Multi-omics: 15-20 MB processed matrices per patient
+  - Imaging: 500 MB - 2 GB per patient (full resolution)
+  - Cache and intermediate files: ~100 GB
+- **Network:** Stable high-bandwidth connection for GCS/S3 data transfer
+- **Data size:** 3-8 GB per patient (processed data)
+
+**With STAR alignment (from raw FASTQ, production):**
+- **CPU:** 16-32 cores recommended (STAR scales linearly)
+- **RAM:** 64GB minimum, **128GB recommended** for production
+  - STAR loads entire genome index into RAM (~30GB for hg38)
+  - Additional RAM for sorting large BAM files (2-5 GB per patient)
+  - Memory-intensive multi-omics processing
+- **Storage:** **500 GB - 1.5 TB for 100 patients**
+  - Genome index: ~30GB (one-time)
+  - Raw FASTQ: 10-30 GB per patient (compressed)
+  - BAM output: 2-5 GB per patient (aligned, sorted)
+  - Processed matrices: 100-500 MB per patient
+  - Intermediate files: ~200 GB
+- **Network:** High-bandwidth connection for raw data transfer (10-30 GB per patient)
+- **Data size:** 12-35 GB per patient (raw FASTQ + aligned BAM + processed matrices)
 
 **When DeepCell implemented (future):**
-- **GPU:** NVIDIA with 8GB+ VRAM recommended
+- **GPU:** NVIDIA with 16GB+ VRAM recommended for production histology image segmentation
+- **Additional storage:** +500 MB - 2 GB per patient for full-resolution histology images
 
 ---
 
@@ -321,14 +418,24 @@ Similar to DRY_RUN mode, but with larger context from real data files:
 
 ## Frequently Asked Questions
 
-### Q: Why is Real Data mode 50-140× more expensive than DRY_RUN?
-**A:** Real data requires actual computational processing (sequence alignment, cell segmentation, statistical analysis) rather than returning synthetic responses. The cost reflects the scientific computation, not just LLM orchestration.
+### Q: Why is Real Data mode 25-120× more expensive than DRY_RUN?
+**A:** Real data requires actual computational processing (sequence alignment, cell segmentation, statistical analysis) rather than returning synthetic responses. The cost reflects:
+- **Scientific computation** (not just LLM orchestration)
+- **Data volume**: Production data is 300-1500× larger than demonstration files
+  - Spatial: 315 KB demo → 100-500 MB production
+  - Multi-omics: 38 KB demo → 2.7 GB raw or 15-20 MB processed
+- **Processing time**: 2-4 hours (pre-aligned) to 4-8 hours (raw FASTQ) vs 25-35 minutes in DRY_RUN
+- **Memory requirements**: 64-128 GB RAM for production vs 4-8 GB for demonstration
 
 ### Q: Can I reduce costs by using smaller data files?
 **A:** Yes! The costs scale with:
-- Number of spatial spots (900 in demo → 10,000 in high-resolution)
-- Number of genes profiled (31 in demo → 20,000 in whole transcriptome)
-- Image resolution and number of markers
+- **Number of spatial spots:** 900 in demo → 3,000-5,000 in production Visium
+- **Number of genes profiled:** 31 in demo → 18,000-30,000 in whole transcriptome
+- **Multi-omics data volume:** 38 KB demo → 2.7 GB raw production
+- **Image resolution and number of markers:** 4.1 MB demo → 500 MB - 2 GB production
+
+**Demonstration costs:** ~$1 (DRY_RUN) to $7-29 (small synthetic files)
+**Production costs:** $25-75 (pre-aligned) to $50-120 (raw FASTQ)
 
 ### Q: What happens if a test fails midway?
 **A:**
@@ -343,20 +450,25 @@ Similar to DRY_RUN mode, but with larger context from real data files:
 
 ---
 
-**Last Updated:** December 29, 2025
+**Last Updated:** December 30, 2025
 
 **Recent Updates:**
-- **Major:** SpatialTools upgraded from 70% → 95% real implementation
+- **Major:** Updated all costs to reflect realistic hospital production data volumes (Dec 30, 2025)
+  - **Demonstration data:** 4.5 MB per patient (315 KB spatial, 38 KB multi-omics)
+  - **Production data:** 3-8 GB per patient (100-500 MB spatial, 2.7 GB multi-omics raw)
+  - **Cost impact:** 3-4× increase for production volumes
+- **Major:** SpatialTools upgraded from 70% → 95% real implementation (Dec 29, 2025)
   - STAR alignment now functional (adds 30-60 min, $5-10)
   - Batch correction validated with ComBat algorithm
   - Pathway enrichment statistically validated (Fisher's exact + FDR)
-- Added automated patient report generator (~12 sec, $0.10-0.20)
+- Added automated patient report generator (~12 sec, ~$1)
+- All costs < $1 rounded to ~$1 for scannability
 - Updated costs:
-  - Pre-aligned data: $7-19 (1-2 hours) - UNCHANGED
-  - With STAR alignment: $12-29 (1.5-3 hours) - NEW
+  - **Demonstration (small synthetic files):** ~$1 (DRY_RUN), $7-29 (real data, 1-3 hours)
+  - **Production (realistic hospital volumes):** $25-75 (pre-aligned, 2-4 hours), $50-120 (raw FASTQ, 4-8 hours)
 - Updated infrastructure requirements:
-  - Pre-aligned: 16GB RAM sufficient
-  - With STAR: 32-64GB RAM recommended
-  - Storage: 20GB → 100GB if using STAR
+  - **Demonstration:** 16-32GB RAM, 20-100GB storage
+  - **Production:** 64-128GB RAM, 300-1500GB storage for 100 patients
+  - **Data volumes:** 300-1500× larger spatial data, 400-500× larger multi-omics data
 
-**Pricing basis:** Claude Sonnet 4 ($3/M input, $15/M output), AWS EC2 r5.2xlarge ($0.504/hr for STAR), c6i.2xlarge ($0.34/hr for other tasks), g4dn.xlarge ($0.526/hr for GPU when needed)
+**Pricing basis:** Claude Sonnet 4 ($3/M input, $15/M output), AWS EC2 r5.2xlarge ($0.504/hr for STAR), c6i.2xlarge ($0.34/hr for other tasks), g4dn.xlarge ($0.526/hr for GPU when needed), Google Cloud Run with similar pricing

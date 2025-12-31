@@ -23,8 +23,9 @@ Complete guide to running PatientOne in DRY_RUN mode (synthetic data) vs Actual 
 PatientOne supports two distinct operating modes to accommodate different use cases:
 
 **📊 Quick Cost Comparison:**
-- **DRY_RUN:** 25-35 min, ~$0.32 total
-- **Actual Data:** 2-4 hours, $15-45 total
+- **DRY_RUN:** 25-35 min, ~$1 total
+- **Actual Data (Small Files):** 2-4 hours, $15-45 total (demonstration)
+- **Actual Data (Production):** 2-4 hours (pre-aligned) or 4-8 hours (raw FASTQ), $25-120 total
 
 **[→ See Full Cost Analysis & ROI](../../../docs/operations/COST_ANALYSIS.md)**
 
@@ -54,13 +55,14 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 
 ### Feature Matrix
 
-| Feature | DRY_RUN Mode | Actual Data Mode |
-|---------|--------------|------------------|
-| **Data Source** | Synthetic responses | Your files in `/data/patient-data/` |
-| **External APIs** | None (mocked) | Real calls (TCGA, HuggingFace, etc.) |
-| **Execution Time** | Fast (25-35 min total) | Longer (2-4 hours total) |
-| **Cost** | **~$0.32 total** | **$15-45 total** |
-| **Cost Breakdown** | Claude tokens only (~30K tokens) | Compute ($14-30) + APIs ($0-5) + Claude tokens |
+| Feature | DRY_RUN Mode | Actual Data Mode (Small Files) | Actual Data Mode (Production) |
+|---------|--------------|--------------------------------|-------------------------------|
+| **Data Source** | Synthetic responses | Your small test files in `/data/patient-data/` | Production hospital data (3-8 GB per patient) |
+| **External APIs** | None (mocked) | Real calls (TCGA, HuggingFace, etc.) | Real calls (TCGA, HuggingFace, etc.) |
+| **Execution Time** | Fast (25-35 min total) | Longer (2-4 hours total) | 2-4 hours (pre-aligned) or 4-8 hours (raw FASTQ) |
+| **Cost** | **~$1 total** | **$15-45 total** | **$25-120 total** |
+| **Cost Breakdown** | Claude tokens only (~30K tokens) | Compute ($14-30) + APIs ($0-5) + Claude tokens | Compute ($37-134) + APIs (~$1) + Claude tokens |
+| **Data Volume** | Minimal (synthetic) | 4.5 MB (315 KB spatial, 38 KB multi-omics) | 3-8 GB (100-500 MB spatial, 2.7 GB multi-omics raw) |
 | **Setup Required** | Minimal | Data files + environment config |
 | **File I/O** | Minimal (no writes) | Full (reads/writes) |
 | **API Keys** | Not needed | May be required (HF_TOKEN, etc.) |

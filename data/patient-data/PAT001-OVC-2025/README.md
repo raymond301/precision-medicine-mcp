@@ -61,6 +61,8 @@ This directory contains **100% synthetic patient data** created for demonstratio
 
 ### 3. Multi-Omics Data (`multiomics/`)
 
+#### Demonstration Data (Simplified PDX Model)
+
 | File | Size | Description | Source |
 |------|------|-------------|--------|
 | `pdx_rna_expression.csv` | 15 KB | RNA-seq for 15 PDX samples | Synthetic |
@@ -68,7 +70,20 @@ This directory contains **100% synthetic patient data** created for demonstratio
 | `pdx_phospho.csv` | 11 KB | Phosphoproteomics for 15 PDX samples | Synthetic |
 | `pdx_metadata.csv` | 426 B | Sample annotations (resistant vs sensitive) | Synthetic |
 
-**Generation method:**
+**Demonstration specifications:**
+- 15 PDX samples (simplified comparative study)
+- Pre-processed counts matrices (not raw files)
+- Total size: ~38 KB
+
+#### Production Data (Realistic Per-Patient)
+
+**Typical hospital multi-omics dataset:**
+- **RNA-seq:** ~2 GB raw FASTQ, ~500 MB aligned BAM, ~5-10 MB counts
+- **Proteomics:** ~500 MB mass spec raw files
+- **Phosphoproteomics:** ~200 MB mass spec raw files
+- **Total per patient:** ~2.7 GB (raw files), ~15-20 MB (processed matrices)
+
+**Generation method (demonstration):**
 - Random sampling from log-normal distributions
 - Resistant samples: Elevated PI3K/AKT/mTOR pathway genes
 - Sensitive samples: Lower PI3K/AKT activation
@@ -83,6 +98,8 @@ This directory contains **100% synthetic patient data** created for demonstratio
 
 ### 4. Spatial Transcriptomics (`spatial/`)
 
+#### Demonstration Data (Simplified)
+
 | File | Size | Description | Source |
 |------|------|-------------|--------|
 | `visium_spots.csv` | 34 KB | Spatial coordinates for 900 spots | Synthetic |
@@ -90,7 +107,20 @@ This directory contains **100% synthetic patient data** created for demonstratio
 | `visium_regions.csv` | 18 KB | Tissue region annotations | Synthetic |
 | `visium_spatial_data.csv` | 146 KB | Combined coordinates + expression | Synthetic |
 
-**Generation method:**
+**Demonstration specifications:**
+- 900 spots (simplified from typical 3,000-5,000)
+- 31 curated genes (simplified from typical 18,000-30,000)
+- Total size: ~315 KB
+
+#### Production Data (Realistic Visium)
+
+**Typical hospital Visium dataset:**
+- **Spots:** 3,000-5,000 per tissue section
+- **Genes:** 18,000-30,000 (whole transcriptome)
+- **File size:** 100-500 MB per patient (HDF5 feature-barcode matrix)
+- **Histology image:** 500 MB - 1 GB (full resolution H&E)
+
+**Generation method (demonstration):**
 - Hexagonal Visium array layout (900 spots)
 - 31 curated cancer-related genes
 - Spatial patterns using Gaussian random fields:
@@ -230,12 +260,48 @@ For **actual** ovarian cancer datasets, use these public resources:
 
 ### Data Size
 
+#### Demonstration Data (This Synthetic Dataset)
+
 **Total:** ~4.5 MB uncompressed
 - Clinical: <1 KB
 - Genomics: 2.3 KB
-- Multi-omics: 38 KB
-- Spatial: 315 KB
+- Multi-omics: 38 KB (15 PDX samples, simplified)
+- Spatial: 315 KB (900 spots × 31 genes)
 - Imaging: 4.1 MB (placeholders)
+
+#### Production Data (Realistic Hospital Volumes)
+
+**Total per patient:** ~3-8 GB uncompressed
+
+| Modality | Demonstration | Production Reality | Notes |
+|----------|--------------|-------------------|-------|
+| **Clinical** | <1 KB | <1 KB | FHIR JSON, minimal |
+| **Genomics (VCF)** | 2.3 KB | 50-500 KB | WGS VCF larger, WES similar |
+| **Multi-omics** | 38 KB | **2.7 GB** | See breakdown below |
+| **Spatial** | 315 KB | **100-500 MB** | See breakdown below |
+| **Imaging** | 4.1 MB | **500 MB - 2 GB** | Full resolution histology |
+
+**Multi-omics Breakdown (Production):**
+- RNA-seq (raw FASTQ): ~2 GB per sample
+- RNA-seq (aligned BAM): ~500 MB per sample
+- RNA-seq (counts matrix): ~5-10 MB
+- Proteomics: ~500 MB (mass spec raw files)
+- Phosphoproteomics: ~200 MB (mass spec raw files)
+- **Total multi-omics:** ~2.7 GB per patient
+
+**Spatial Transcriptomics Breakdown (Production):**
+- **Visium standard:** 3,000-5,000 spots × 18,000-30,000 genes
+- Raw FASTQ: ~10-30 GB (not stored long-term)
+- Aligned BAM: ~2-5 GB
+- Feature-barcode matrix: ~100-500 MB (HDF5 format)
+- Spatial coordinates: ~100 KB
+- Histology image (H&E): ~500 MB - 1 GB (full resolution)
+- **Total spatial (processed):** ~100-500 MB per patient
+
+**Cost Implications:**
+- **Storage:** 100 patients × 3-8 GB = **300 GB - 800 GB** total
+- **Processing:** Larger files = longer compute time and higher Cloud Run costs
+- **Transfer:** Network egress costs for GCS → Cloud Run data movement
 
 ### Checksums
 
@@ -263,6 +329,6 @@ find . -type f -exec sha256sum {} \; > checksums.txt
 
 ---
 
-**Last Updated:** 2025-12-29
+**Last Updated:** 2025-12-30
 **Dataset Version:** 1.0
 **Status:** 100% Synthetic - Research/Demo Use Only

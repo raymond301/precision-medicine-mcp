@@ -42,14 +42,20 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 
 ### Operational Costs (Ongoing)
 
-**Demonstration/Testing:**
-- **Per Analysis**: $0.32 - $0.65
-- **Monthly (100 analyses)**: ~$50
+**Demonstration/Testing (Small Synthetic Files):**
+- **Per Analysis**: ~$1 (DRY_RUN or small files)
+- **Monthly (100 analyses)**: ~$100
 
-**Production (Real Patient Data):**
-- **Per Analysis**: $7 - $29 (depending on complexity)
-- **Monthly Pilot** (5 users, 100 patients): ~$1,000
-- **Annual Production** (20 users, 500 patients): ~$15,000
+**Production - Small Files (Testing/Development):**
+- **Per Analysis**: $7 - $29 (small synthetic files for workflow testing)
+- **Monthly Pilot** (5 users, 100 analyses): ~$1,300
+
+**Production - Realistic Hospital Volumes:**
+- **Per Analysis**: $25 - $120 (realistic 3-8 GB patient data)
+  - Pre-aligned data (Space Ranger output): $25-75 per analysis
+  - Raw FASTQ (full pipeline): $50-120 per analysis
+- **Monthly Pilot** (5 users, 100 patients): ~$2,500 - $7,500
+- **Annual Production** (20 users, 500 patients): ~$12,500 - $60,000
 
 ### Return on Investment
 
@@ -58,15 +64,23 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 - Error rate: 15-20% requiring re-analysis
 - Timeline: 2-4 weeks per patient
 
-**MCP-Orchestrated Analysis:**
+**MCP-Orchestrated Analysis (Demonstration - Small Files):**
 - Automated integration: 1-3 hours @ $150/hr = $150 - $450
 - AI orchestration cost: $7 - $29
 - Total cost: $157 - $479 per patient
 - Timeline: Same day to 2 days
+- **Savings per Patient:** $3,187 (average)
 
-**Savings per Patient:** $3,187 (average)
-**Payback Period:** First 3 patients analyzed
-**Annual ROI** (100 patients): $318,700 savings
+**MCP-Orchestrated Analysis (Production - Realistic Hospital Volumes):**
+- Automated integration: 2-4 hours @ $150/hr = $300 - $600
+- AI orchestration cost: $25 - $120
+- Total cost: $325 - $720 per patient
+- Timeline: Same day to 2 days (despite larger data, parallel processing maintains speed)
+- **Savings per Patient:** $3,115 - $3,150 (average: $3,130)
+
+**Payback Period:** First 2-3 patients analyzed
+**Annual ROI** (100 patients, production volumes): ~$313,000 savings
+**Annual ROI** (500 patients, production volumes): ~$1.6M savings
 
 ---
 
@@ -148,25 +162,27 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 
 ### Deployment Timeline
 
-**3-Month Phased Deployment:**
+**6-Month Phased Deployment:**
 
-**Month 1 - MVP Foundation:**
-- Infrastructure setup in hospital GCP organization
-- Azure AD SSO integration
-- Core 3 servers deployed (fgbio, multiomics, spatialtools)
-- Epic FHIR integration with de-identification
+Healthcare deployments require longer timelines than AdTech/FinTech due to HIPAA compliance, clinical validation, and practitioner review requirements.
 
-**Month 2 - Pilot Testing:**
-- All 9 servers deployed
-- 10-20 test patients analyzed
-- User training (5 testers: 2 clinicians, 3 bioinformaticians)
-- Security audit and optimization
+**Month 1-2 - MVP Foundation:**
+- Infrastructure setup in hospital GCP organization (2-4 weeks)
+- Azure AD SSO integration (2-4 weeks)
+- Core 3 servers deployed (fgbio, multiomics, spatialtools) (2-4 weeks)
+- Epic FHIR integration with de-identification (2-4 weeks)
 
-**Month 3 - Production Launch:**
-- Monitoring and alerting configured
-- Documentation and compliance validation
-- Knowledge transfer to hospital IT
-- Full production deployment (100 patients)
+**Month 3-4 - Pilot Testing:**
+- All 9 servers deployed (2-4 weeks)
+- 10-20 test patients analyzed (2-4 weeks)
+- User training (5 testers: 2 clinicians, 3 bioinformaticians) (2-4 weeks)
+- Security audit and optimization (2-4 weeks)
+
+**Month 5-6 - Production Launch:**
+- Monitoring and alerting configured (2-4 weeks)
+- Documentation and compliance validation (2-4 weeks)
+- Knowledge transfer to hospital IT (2-4 weeks)
+- Final validation and full production deployment (100 patients) (2-4 weeks)
 
 ### Hospital Requirements
 
@@ -265,7 +281,9 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 
 ### vs. Commercial Genomic Platforms
 - ✅ Open-source and customizable
-- ✅ 90% cost reduction ($29 vs. $300+ per analysis)
+- ✅ 75-90% cost reduction
+  - Demonstration: $29 vs. $300+ per analysis (90% reduction)
+  - Production: $25-120 vs. $300-500 per analysis (75-85% reduction)
 - ✅ Multi-modal data integration (not just genomics)
 - ✅ Hospital deployment control (data never leaves institution)
 

@@ -6,7 +6,9 @@ This document outlines the prioritized path to move the Precision Medicine MCP P
 
 **POC Status (2025-12-30):** All 9 servers deployed to GCP Cloud Run, tested via Claude API
 **Next Goal:** HIPAA-compliant hospital deployment with real patient data
-**Timeline Estimate:** 12-16 weeks for Phase 1-3
+**Timeline Estimate:** 24 weeks (6 months) for Phase 1-3
+
+**Note:** Healthcare deployments require longer timelines than typical AdTech/FinTech projects due to HIPAA compliance, clinical validation, and practitioner review requirements.
 
 ---
 
@@ -424,7 +426,7 @@ Before proceeding, please confirm:
 
 1. **Infrastructure:** Which cloud provider? (Azure/AWS/GCP)
 2. **EHR System:** Epic, Cerner, other? API access available?
-3. **Timeline:** Is 12-16 weeks acceptable?
+3. **Timeline:** Is 24 weeks (6 months) acceptable?
 4. **Resources:** Team availability for work?
 5. **Clinical Partner:** Hospital/clinic identified and engaged?
 6. **Regulatory:** IRB submission timeline?
