@@ -372,8 +372,6 @@ print(f"Cost: ${result['usage']['estimated_cost_usd']:.4f}")
 - **Notebook Documentation:** [Jupyter Notebook Guide](ui/jupyter-notebook/README.md)
 - **Deployment Script:** [deploy.sh](ui/jupyter-notebook/deploy.sh)
 
-</details>
-
 ---
 
 ## 🏥 Hospital Deployment Ready
@@ -433,6 +431,8 @@ gantt
 - 🎯 **Week 4**: Core servers deployed, SSO working, Epic connected
 - 🎯 **Week 8**: All 9 servers operational, 5 users trained, security audit passed
 - 🎯 **Week 12**: Production launch with 100 patients, full monitoring, IT handoff complete
+
+</details>
 
 ---
 
