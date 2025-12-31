@@ -188,19 +188,29 @@ cd /path/to/spatial-mcp
 
 ### Per-Test Breakdown (Production Volumes)
 
-| Test | Servers Used | Processing Time (Pre-aligned) | Processing Time (Raw FASTQ) | Compute Cost (Pre-aligned) | Compute Cost (Raw FASTQ) | API Cost | Total Cost (Pre-aligned) | Total Cost (Raw FASTQ) |
-|------|--------------|-------------------------------|------------------------------|----------------------------|--------------------------|----------|--------------------------|------------------------|
-| **TEST_1: Clinical + Genomic** | Epic, FGbio, TCGA | 15-30 min | 15-30 min | $2-4 | $2-4 | $0 | $2-4 | $2-4 |
-| **TEST_2: Multi-Omics** | MultiOmics | 30-60 min | 30-60 min | $8-20 | $8-20 | $0 | $8-20 | $8-20 |
-| **TEST_3: Spatial** | SpatialTools, DeepCell | 45-120 min | 90-240 min | $15-50 | $30-80 | $0 | $15-50 | $30-80 |
-| **TEST_4: Imaging** | OpenImageData, DeepCell | 40-90 min | 40-90 min | $10-25 | $10-25 | ~$1 | $10-25 | $10-25 |
-| **TEST_5: Integration** | All 9 servers | 10-20 min | 10-20 min | $2-5 | $2-5 | $0 | $2-5 | $2-5 |
-| **TOTAL** | - | **2-4 hours** | **4-8 hours** | **$37-104** | **$52-134** | **~$1** | **$25-75** | **$50-120** |
+| Test | Servers Used | Processing Time (Pre-aligned) | Processing Time (Raw FASTQ) | Compute Cost (Pre-aligned) | Compute Cost (Raw FASTQ) | API Cost | Per-Test Cost (Pre-aligned) | Per-Test Cost (Raw FASTQ) |
+|------|--------------|-------------------------------|------------------------------|----------------------------|--------------------------|----------|----------------------------|--------------------------|
+| **TEST_1: Clinical + Genomic** | Epic, FGbio, TCGA | 15-30 min | 15-30 min | ~$1-2 | ~$1-2 | $0 | ~$1-2 | ~$1-2 |
+| **TEST_2: Multi-Omics** | MultiOmics | 30-60 min | 30-60 min | $6-20 | $6-20 | $0 | $6-20 | $6-20 |
+| **TEST_3: Spatial** | SpatialTools, DeepCell | 45-120 min | 90-240 min | $5-30 | $10-40 | $0 | $5-30 | $10-40 |
+| **TEST_4: Imaging** | OpenImageData, DeepCell | 40-90 min | 40-90 min | $9-35 | $9-35 | ~$1 | $10-36 | $10-36 |
+| **TEST_5: Integration** | All 9 servers | 10-20 min | 10-20 min | ~$1-2 | ~$1-2 | $0 | ~$1-2 | ~$1-2 |
+| **Subtotal (Compute + API)** | - | **2-4 hours** | **4-8 hours** | **$22-89** | **$27-99** | **~$1** | **$23-90** | **$28-100** |
+| **+ Claude Tokens** | - | - | - | - | - | - | **~$1-2** | **~$1-2** |
+| **TOTAL** | - | **2-4 hours** | **4-8 hours** | - | - | - | **$24-92** | **$29-102** |
+
+**Claude Token Usage (Production):**
+- Input: 35-75K tokens × $3/M = $0.11-0.23
+- Output: 40-80K tokens × $15/M = $0.60-1.20
+- **Token total: ~$0.71-1.43** → rounds to **~$1-2**
+- Note: MCP servers return summaries, not raw 3-8 GB files, so token costs stay low!
 
 **Key differences from small files:**
-- **Spatial analysis:** 10-20 min → 45-120 min (3-6x longer due to 300-1500x larger files)
-- **Multi-omics:** 15-25 min → 30-60 min (2-3x longer due to 400-500x larger files)
-- **Total cost:** $7-29 → $25-120 (3-4x more expensive for realistic hospital data)
+- **Data volumes:** 300-1500× larger spatial, 400-500× larger multi-omics
+- **Processing time:** 2-6× longer (not 300× due to optimized algorithms)
+- **Compute costs:** 3-5× higher due to longer processing, larger memory requirements
+- **Token costs:** Only ~2× higher despite massive data increase (servers return summaries!)
+- **Total cost:** $7-29 → **$24-102** (3-4× more expensive for realistic hospital data)
 
 ### Detailed Cost Components
 

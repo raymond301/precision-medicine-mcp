@@ -192,20 +192,23 @@ Run all modular tests sequentially for comprehensive precision medicine analysis
 
 | Test | Focus | Real Data Time (Pre-aligned) | Real Data Time (Raw FASTQ) | Cost (Pre-aligned) | Cost (Raw FASTQ) |
 |------|-------|------------------------------|----------------------------|-------------------|------------------|
-| **TEST_1** | Clinical + Genomic | 15-30 min | 15-30 min | $2-4 | $2-4 |
-| **TEST_2** | Multi-Omics Resistance | 30-60 min | 30-60 min | $8-20 | $8-20 |
-| **TEST_3** | Spatial Transcriptomics | 45-120 min | 90-240 min | $15-50 | $30-80 |
-| **TEST_4** | Histology & Imaging | 40-90 min | 40-90 min | $10-25 | $10-25 |
-| **TEST_5** | Integration & Recommendations | 10-20 min | 10-20 min | $2-5 | $2-5 |
-| **TOTAL** | Complete Analysis | **2-4 hours** | **4-8 hours** | **$25-75** | **$50-120** |
+| **TEST_1** | Clinical + Genomic | 15-30 min | 15-30 min | ~$1-2 | ~$1-2 |
+| **TEST_2** | Multi-Omics Resistance | 30-60 min | 30-60 min | $6-20 | $6-20 |
+| **TEST_3** | Spatial Transcriptomics | 45-120 min | 90-240 min | $5-30 | $10-40 |
+| **TEST_4** | Histology & Imaging | 40-90 min | 40-90 min | $10-36 | $10-36 |
+| **TEST_5** | Integration & Recommendations | 10-20 min | 10-20 min | ~$1-2 | ~$1-2 |
+| **TOTAL (Compute + API)** | Complete Analysis | **2-4 hours** | **4-8 hours** | **$23-90** | **$28-100** |
+| **+ Claude Tokens** | - | - | - | **~$1-2** | **~$1-2** |
+| **GRAND TOTAL** | - | **2-4 hours** | **4-8 hours** | **$24-92** | **$29-102** |
 
 **Data sizes:** 100-500 MB spatial (3,000-5,000 spots × 18,000-30,000 genes), 15-20 MB multi-omics processed (or 2.7 GB raw), 500 MB - 2 GB imaging
 
 **Cost Breakdown:**
-- **DRY_RUN:** Mainly Claude token usage (~30K tokens total) - rounded to ~$1 for scannability
-- **Real Data (Demonstration):** Computational processing ($14-30) + APIs ($0-5) + Claude tokens (~$1)
-- **Real Data (Production):** Computational processing ($37-134) + APIs (~$1) + Claude tokens (~$1)
+- **DRY_RUN:** Claude token usage only (~30K tokens) - ~$1
+- **Real Data (Demonstration):** Compute ($7-24) + APIs (~$1) + Claude tokens (~$1) = **$8-26 total**
+- **Real Data (Production):** Compute ($22-99) + APIs (~$1) + Claude tokens (~$1-2) = **$24-102 total**
   - 3-4× more expensive due to 300-1500× larger data files
+  - **Token costs stay low** (~$1-2) because MCP servers return summaries, not raw 3-8 GB files!
 
 📊 **[Full Cost Analysis & ROI →](../../../docs/operations/COST_ANALYSIS.md)**
 

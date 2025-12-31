@@ -51,11 +51,12 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 - **Monthly Pilot** (5 users, 100 analyses): ~$1,300
 
 **Production - Realistic Hospital Volumes:**
-- **Per Analysis**: $25 - $120 (realistic 3-8 GB patient data)
-  - Pre-aligned data (Space Ranger output): $25-75 per analysis
-  - Raw FASTQ (full pipeline): $50-120 per analysis
-- **Monthly Pilot** (5 users, 100 patients): ~$2,500 - $7,500
-- **Annual Production** (20 users, 500 patients): ~$12,500 - $60,000
+- **Per Analysis**: $24 - $102 (realistic 3-8 GB patient data)
+  - Pre-aligned data (Space Ranger output): $24-92 per analysis
+  - Raw FASTQ (full pipeline): $29-102 per analysis
+  - Includes: Compute ($22-99) + APIs (~$1) + Claude tokens (~$1-2)
+- **Monthly Pilot** (5 users, 100 patients): ~$2,400 - $9,200
+- **Annual Production** (20 users, 500 patients): ~$12,000 - $51,000
 
 ### Return on Investment
 
@@ -73,10 +74,10 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 
 **MCP-Orchestrated Analysis (Production - Realistic Hospital Volumes):**
 - Automated integration: 2-4 hours @ $150/hr = $300 - $600
-- AI orchestration cost: $25 - $120
-- Total cost: $325 - $720 per patient
+- AI orchestration cost: $24 - $102 (compute + API + tokens)
+- Total cost: $324 - $702 per patient
 - Timeline: Same day to 2 days (despite larger data, parallel processing maintains speed)
-- **Savings per Patient:** $3,115 - $3,150 (average: $3,130)
+- **Savings per Patient:** $3,098 - $3,176 (average: $3,137)
 
 **Payback Period:** First 2-3 patients analyzed
 **Annual ROI** (100 patients, production volumes): ~$313,000 savings

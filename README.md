@@ -22,9 +22,10 @@ AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Conte
 - **Patient:** Stage IV HGSOC, platinum-resistant, BRCA1 mutation
 - **Data Modalities:** Clinical (Epic FHIR) → Genomic (FGbio, TCGA) → Multi-omics (RNA/Protein/Phospho) → Spatial (Visium) → Imaging (H&E, multiplex IF)
 - **Cost:**
-  - **Demonstration:** DRY_RUN demo in 25-35 min (~$1) or small files in 1-3 hours ($7-29)
-  - **Production:** Realistic hospital data in 2-4 hours ($25-75 pre-aligned) or 4-8 hours ($50-120 raw FASTQ)
-- **ROI:** Replaces ~40 hours of manual bioinformatics work per patient ($3,200 value)
+  - **Demonstration:** DRY_RUN demo in 25-35 min (~$1 tokens only) or small files in 1-3 hours ($7-29)
+  - **Production:** Realistic hospital data in 2-4 hours ($24-92 pre-aligned) or 4-8 hours ($29-102 raw FASTQ)
+  - Includes: Compute + APIs + Claude tokens (~$1-2, stays low because servers return summaries!)
+- **ROI:** Replaces ~40 hours of manual bioinformatics work per patient ($3,200 value), saves $3,098-3,176 per patient
 
 **📖 Learn More:** [PatientOne Documentation →](architecture/patient-one/README.md) | [Quick Start →](tests/manual_testing/PatientOne-OvarianCancer/README.md) | [Sample Outputs →](architecture/patient-one/patient-one-outputs/)
 
@@ -33,9 +34,10 @@ AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Conte
 > **💼 For Funders & Decision-Makers:**
 >
 > **See the [Executive Summary](docs/EXECUTIVE_SUMMARY.md)** for:
-> - ROI Analysis: $3,150-3,187 savings per patient (production), $288,700+ net benefit Year 1
+> - ROI Analysis: $3,098-3,176 savings per patient (production), $310,000+ net benefit Year 1
 > - Production Readiness: HIPAA-compliant hospital deployment in 6 months
-> - Budget: $15,000 pilot (6 months), $30,000/year production - for tokens and cloud services only
+> - Budget: $15,000 pilot (6 months), $30,000/year production - for compute and cloud services
+> - Claude Token Costs: Only ~$1-2 per analysis (MCP servers return summaries, not raw 3-8 GB files!)
 > - Risk Assessment: Comprehensive mitigation strategies
 > - Success Metrics: Technical, business, and research outcomes
 
@@ -109,7 +111,7 @@ graph LR
 2. [Synthetic Dataset: PAT001-OVC-2025](data/patient-data/PAT001-OVC-2025/README.md) - 100% synthetic, 5 modalities
 3. [mcp-spatialtools Quick Start](servers/mcp-spatialtools/QUICKSTART.md) - Batch correction, pathway enrichment (95% real)
 4. [mcp-multiomics Examples](servers/mcp-multiomics/README.md) - HAllA, Stouffer, upstream regulators
-5. [Cost Analysis](docs/operations/COST_ANALYSIS.md) - ~$1 demo, $7-29 small files, or $25-120 production
+5. [Cost Analysis](docs/operations/COST_ANALYSIS.md) - ~$1 demo, $7-29 small files, or $24-102 production (tokens stay low!)
 
 **Production-Ready Servers:**
 
