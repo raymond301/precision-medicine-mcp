@@ -44,50 +44,16 @@ AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Conte
 This repository serves multiple audiences in the precision medicine ecosystem. Find your role below to get started quickly:
 
 <details>
-<summary><h3>🔬 Bioinformatics Researchers</h3></summary>
+<summary><h3>🔬 Bioinformaticians</h3></summary>
 
-*You want to analyze multi-omics cancer data and validate precision medicine hypotheses*
+*You want to analyze multi-omics cancer data, build data pipelines, or develop predictive models*
 
 **What you can do with this repository:**
 - Analyze spatial transcriptomics data (STAR alignment, batch correction, pathway enrichment)
 - Integrate multi-omics datasets (RNA, protein, phosphoproteomics)
 - Map tumor microenvironment heterogeneity
 - Identify drug resistance mechanisms
-
-**Quick Start:**
-1. [PatientOne Workflow Guide](tests/manual_testing/PatientOne-OvarianCancer/README.md) - Complete analysis in 25-35 min
-2. [mcp-spatialtools Quick Start](servers/mcp-spatialtools/QUICKSTART.md) - Batch correction, pathway enrichment (95% real)
-3. [Cost Analysis](docs/operations/COST_ANALYSIS.md) - $0.32 demo or $7-29 real analysis
-
-**Example Outputs for Researchers:**
-- [PatientOne Results](architecture/patient-one/patient-one-outputs/for-researchers/) - Complete analysis results with visualizations
-
-**Scientific References:**
-- [Publications & Datasets](docs/REFERENCES.md) - Peer-reviewed papers, TCGA datasets, spatial transcriptomics resources
-
-**Production-Ready Servers:**
-
-| Server | Tools | Status | Key Features |
-|--------|-------|--------|--------------|
-| **mcp-multiomics** | 9 | ✅ Production | HAllA integration, Stouffer meta-analysis, upstream regulators |
-| **mcp-fgbio** | 4 | ✅ Production | FASTQ/VCF QC, genome reference management |
-| **mcp-spatialtools** | 10 | ⚠️ 95% Real | STAR alignment, ComBat batch correction, pathway enrichment, Moran's I |
-
-**Mocked Servers** (workflow demonstration only):
-- mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0% real)
-- mcp-openimagedata (30% real - basic features only)
-- mcp-epic (mock FHIR by design)
-
-**Use cases:** PDX model analysis • Tumor microenvironment mapping • Drug resistance mechanisms • Pathway enrichment
-
-</details>
-
-<details>
-<summary><h3>📊 Data Scientists / ML Engineers</h3></summary>
-    
-*You want to work with multi-omics data pipelines or build predictive models*
-
-**What you can analyze:**
+- Build reproducible data pipelines and ML workflows
 
 **Data Modalities (PatientOne example):**
 - **Clinical:** FHIR resources (demographics, conditions, medications, biomarkers)
@@ -104,11 +70,33 @@ This repository serves multiple audiences in the precision medicine ecosystem. F
 5. **Batch Correction** - ComBat for removing technical variation
 6. **Multi-omics Integration** - HAllA association analysis, Stouffer meta-analysis
 
-**Start Here:**
-- **Synthetic Dataset:** [PAT001-OVC-2025](data/patient-data/PAT001-OVC-2025/README.md) - 100% synthetic, 5 modalities
-- **Multi-omics Examples:** [mcp-multiomics](servers/mcp-multiomics/README.md) - HAllA, Stouffer, upstream regulators
-- **Batch Correction:** [ComBat Workflow](servers/mcp-spatialtools/tests/test_batch_correction_spatial_format.py)
+**Quick Start:**
+1. [PatientOne Workflow Guide](tests/manual_testing/PatientOne-OvarianCancer/README.md) - Complete analysis in 25-35 min
+2. [Synthetic Dataset: PAT001-OVC-2025](data/patient-data/PAT001-OVC-2025/README.md) - 100% synthetic, 5 modalities
+3. [mcp-spatialtools Quick Start](servers/mcp-spatialtools/QUICKSTART.md) - Batch correction, pathway enrichment (95% real)
+4. [mcp-multiomics Examples](servers/mcp-multiomics/README.md) - HAllA, Stouffer, upstream regulators
+5. [Cost Analysis](docs/operations/COST_ANALYSIS.md) - $0.32 demo or $7-29 real analysis
+
+**Production-Ready Servers:**
+
+| Server | Tools | Status | Key Features |
+|--------|-------|--------|--------------|
+| **mcp-multiomics** | 9 | ✅ Production | HAllA integration, Stouffer meta-analysis, upstream regulators |
+| **mcp-fgbio** | 4 | ✅ Production | FASTQ/VCF QC, genome reference management |
+| **mcp-spatialtools** | 10 | ✅ 95% Real | STAR alignment, ComBat batch correction, pathway enrichment, Moran's I |
+
+**Mocked Servers** (workflow demonstration only):
+- mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0% real)
+- mcp-openimagedata (30% real - basic features only)
+- mcp-epic (mock FHIR by design)
+
+**Resources:**
+- **Example Outputs:** [PatientOne Results](architecture/patient-one/patient-one-outputs/for-researchers/) - Complete analysis with visualizations
+- **Scientific References:** [Publications & Datasets](docs/REFERENCES.md) - Peer-reviewed papers, TCGA datasets
+- **Batch Correction Workflow:** [ComBat Example](servers/mcp-spatialtools/tests/test_batch_correction_spatial_format.py)
 - **ML Integration:** [mcp-huggingface](servers/mcp-huggingface/) (mocked - extensible for real models)
+
+**Use Cases:** PDX model analysis • Tumor microenvironment mapping • Drug resistance mechanisms • Pathway enrichment • Multi-omics integration
 
 </details>
 
