@@ -5,27 +5,29 @@
 [![Claude Desktop](https://img.shields.io/badge/Claude-Desktop-orange.svg)](https://claude.ai/download)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
-AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Context Protocol
-
-- Analyze complete patient profiles—from genomics to spatial transcriptomics—using **natural language**
-- Demonstrate end-to-end precision medicine workflows for Stage IV Ovarian Cancer
-- Use 9 specialized MCP servers and 40+ analysis tools
+*AI-Orchestrated Clinical Bioinformatics for Precision Oncology using Model Context Protocol*
 
 ---
 
 ## Featured Use Case: PatientOne
+
+- Analyze complete patient profiles—from genomics to spatial transcriptomics—using **natural language**
+- Demonstrate end-to-end precision medicine workflows for Stage IV Ovarian Cancer
+- Use 9 specialized MCP servers and 40+ analysis tools
 
 **Comprehensive Precision Medicine Workflow for Stage IV Ovarian Cancer**
 
 <kbd><img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/architecture/patient-one/patient-one-holistic.png" width=800></kbd>
 
 - **Patient:** Stage IV HGSOC, platinum-resistant, BRCA1 mutation
-- **Data Modalities:** Clinical (Epic FHIR) → Genomic (FGbio, TCGA) → Multi-omics (RNA/Protein/Phospho) → Spatial (Visium) → Imaging (H&E, multiplex IF)
+- **Data Modalities:**
+  - Clinical (Epic FHIR) →
+  - Genomic (FGbio, TCGA) → Multi-omics (RNA/Protein/Phospho) →
+  - Spatial (Visium) → Imaging (H&E, multiplex IF)
 - **Cost:**
   - **Demonstration:** DRY_RUN demo in 25-35 min (~$1 tokens only) or small files in 1-3 hours ($7-29)
   - **Production:** Realistic hospital data in 2-4 hours ($24-92 pre-aligned) or 4-8 hours ($29-102 raw FASTQ)
   - Includes: Compute + APIs + Claude tokens (~$1-2, stays low because servers return summaries!)
-- **ROI:** Replaces ~40 hours of manual bioinformatics work per patient ($3,200 value), saves $3,098-3,176 per patient
 
 **📖 Learn More:** [PatientOne Documentation →](architecture/patient-one/README.md) | [Quick Start →](tests/manual_testing/PatientOne-OvarianCancer/README.md) | [Sample Outputs →](architecture/patient-one/patient-one-outputs/)
 
