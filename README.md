@@ -14,7 +14,7 @@
   - System coordinates disparate servers and stitches results together after being given a natural-language prompt
 - What it is NOT: Not clinically validated yet
 - Who it’s for: Researchers, Clinicians, Platform Builders, Workflow Architects
-- See it / Try it: <5 minute demo - [recording](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [code](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer)
+- See it / Try it: <5 minute local demo - [recording](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [code](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer)
 
 ---
 
@@ -36,7 +36,10 @@
     - Production: Realistic hospital data in 2-4 hours ($24-92 pre-aligned) or 4-8 hours ($29-102 raw FASTQ)
     - Includes: Compute + APIs + Claude tokens (~$1-2, stays low because servers return summaries!)
 
-**📖 Learn More:** [PatientOne Documentation →](architecture/patient-one/README.md) | [Quick Start →](tests/manual_testing/PatientOne-OvarianCancer/README.md) | [Sample Outputs →](architecture/patient-one/patient-one-outputs/)
+**📖 Learn More:** 
+- [PatientOne Documentation →](architecture/patient-one/README.md)
+- [Quick Start →](tests/manual_testing/PatientOne-OvarianCancer/README.md)
+- [Sample Outputs →](architecture/patient-one/patient-one-outputs/)
 
 ---
 
