@@ -272,20 +272,31 @@ All synthetic patient data located in: `/data/patient-data/PAT001-OVC-2025/`
 
 ## Outputs by Stakeholder
 
+### For Bioinformaticians (`patient-one-outputs/for-researchers/`)
+- **Integrated_Analysis_Report.pdf:** Complete multi-omics integration results with statistical analysis (p-values, FDR, effect sizes)
+- **Spatial_Analysis_Notebook.ipynb:** Reproducible Jupyter notebook with cell type deconvolution, differential expression, and visualization code
+- **Pathway_Enrichment_Results.csv:** Gene set enrichment analysis for all dysregulated pathways (GO_BP, KEGG, Reactome)
+- **QC_Metrics_Summary.pdf:** Data quality metrics across all modalities (alignment rates, sequencing depth, batch effects)
+- **Raw_Data_Matrices.zip:** Processed count matrices, normalized expression values, and metadata for downstream analysis
+- **Workflow_Manifest.json:** Complete computational workflow with tool versions, parameters, and execution logs
+
 ### For Developers (`patient-one-outputs/for-developer/`)
 - **MCP_Report_PAT001.pdf:** Technical validation report showing all MCP server calls, data flows, and integration points
 - **MCP_Servers_Reference_Guide.pdf:** Complete documentation of 9 servers and 40 tools used
 - **Full_Test_Prompt.pdf:** End-to-end prompt that reproduces entire analysis
+- **API_Call_Logs.json:** Timestamped logs of all Anthropic API calls with token usage and costs
 
 ### For Care Teams (`patient-one-outputs/for-care-team/`)
 - **Spatial_Transcriptomics_Analysis.pdf:** Tissue region maps, immune landscape, spatial heterogeneity
-- **Histology_Imaging_Analysis.pdf:** Cell segmentation, Ki67 proliferation, CD8 quantification
-- **Multiomics_Resistance_Analysis.pdf:** PI3K/AKT pathway activation, resistance gene signatures
+- **Histology_Imaging_Analysis.pdf:** Cell segmentation, Ki67 proliferation index, CD8+ T cell quantification
+- **Multiomics_Resistance_Analysis.pdf:** PI3K/AKT/mTOR pathway activation, drug resistance gene signatures
+- **Clinical_Actionability_Report.pdf:** Targetable alterations, clinical trial matching, evidence-based treatment recommendations
 
 ### For Patients (`patient-one-outputs/for-patient/`)
-- **Medication_Guide.pdf:** Plain-language explanation of recommended therapies
-- **Patient_Summary.pdf:** Disease status, test results, next steps
+- **Medication_Guide.pdf:** Plain-language explanation of recommended therapies and how they work
+- **Patient_Summary.pdf:** Disease status, test results, next steps in accessible language
 - **Patient_Infographic.pdf:** Visual summary of tumor profile and treatment strategy
+- **FAQ_Sheet.pdf:** Common questions about ovarian cancer, treatment options, and clinical trials
 
 ---
 
