@@ -12,8 +12,12 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend for server use
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from fastmcp import FastMCP
 from scipy.spatial.distance import cdist
 from scipy.stats import norm, fisher_exact
@@ -64,6 +68,7 @@ To enable real data processing, set: SPATIAL_DRY_RUN=false
 # Configuration
 DATA_DIR = Path(os.getenv("SPATIAL_DATA_DIR", "/workspace/data"))
 CACHE_DIR = Path(os.getenv("SPATIAL_CACHE_DIR", "/workspace/cache"))
+OUTPUT_DIR = Path(os.getenv("SPATIAL_OUTPUT_DIR", "/workspace/output"))
 STAR_PATH = os.getenv("STAR_PATH", "STAR")
 SAMTOOLS_PATH = os.getenv("SAMTOOLS_PATH", "samtools")
 BEDTOOLS_PATH = os.getenv("BEDTOOLS_PATH", "bedtools")
@@ -91,6 +96,13 @@ def _ensure_directories() -> None:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
     except (OSError, PermissionError):
         # If CACHE_DIR can't be created (e.g., using default /workspace path), skip
+        pass
+
+    try:
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        (OUTPUT_DIR / "visualizations").mkdir(exist_ok=True)
+    except (OSError, PermissionError):
+        # If OUTPUT_DIR can't be created (e.g., using default /workspace path), skip
         pass
 
 
@@ -2226,6 +2238,540 @@ async def get_spatial_data_for_patient(
     result["data_ready"] = len(available_files) > 0
 
     return result
+
+
+# ============================================================================
+# VISUALIZATION TOOLS
+# ============================================================================
+
+
+@mcp.tool()
+async def generate_spatial_heatmap(
+    expression_file: str,
+    coordinates_file: str,
+    genes: List[str],
+    output_filename: Optional[str] = None,
+    colormap: str = "viridis"
+) -> Dict[str, Any]:
+    """Generate spatial heatmaps showing gene expression overlaid on tissue coordinates.
+
+    Creates separate heatmap plots for each gene, showing expression intensity
+    spatially distributed across the tissue. Useful for visualizing spatial
+    expression patterns and identifying regional differences.
+
+    Args:
+        expression_file: Path to gene expression CSV (spots × genes)
+        coordinates_file: Path to spatial coordinates CSV (spot_id, x, y)
+        genes: List of gene names to visualize (max 6 recommended)
+        output_filename: Custom output filename (default: spatial_heatmap_TIMESTAMP.png)
+        colormap: Matplotlib colormap name (default: "viridis")
+
+    Returns:
+        Dictionary with:
+        - output_file: Path to saved visualization
+        - genes_plotted: List of genes successfully plotted
+        - genes_not_found: List of requested genes not in data
+        - description: Text description of the visualization
+
+    Example:
+        >>> result = await generate_spatial_heatmap(
+        ...     expression_file="/data/expression.csv",
+        ...     coordinates_file="/data/coordinates.csv",
+        ...     genes=["Ki67", "CD8A", "VEGFA"],
+        ...     colormap="plasma"
+        ... )
+        >>> print(result["output_file"])
+        /workspace/output/visualizations/spatial_heatmap_20250108_123456.png
+    """
+    if DRY_RUN:
+        return add_dry_run_warning({
+            "output_file": str(OUTPUT_DIR / "visualizations" / f"spatial_heatmap_dryrun.png"),
+            "genes_plotted": genes[:6],
+            "genes_not_found": [],
+            "description": "DRY_RUN: Would generate spatial heatmap for " + ", ".join(genes[:6]),
+            "message": "Set SPATIAL_DRY_RUN=false to generate real visualizations"
+        })
+
+    try:
+        # Load data
+        expr_data = pd.read_csv(expression_file, index_col=0)
+        coord_data = pd.read_csv(coordinates_file, index_col=0)
+
+        # Merge coordinates with expression
+        merged = coord_data.join(expr_data, how="inner")
+
+        # Identify available genes
+        genes_plotted = [g for g in genes if g in expr_data.columns]
+        genes_not_found = [g for g in genes if g not in expr_data.columns]
+
+        if not genes_plotted:
+            return {
+                "status": "error",
+                "error": "None of the requested genes found in expression data",
+                "genes_requested": genes,
+                "available_genes": list(expr_data.columns[:20])  # Show first 20
+            }
+
+        # Limit to max 6 genes for readability
+        genes_to_plot = genes_plotted[:6]
+
+        # Create subplot grid
+        n_genes = len(genes_to_plot)
+        n_cols = 3 if n_genes > 3 else n_genes
+        n_rows = (n_genes + n_cols - 1) // n_cols
+
+        fig, axes = plt.subplots(n_rows, n_cols, figsize=(5 * n_cols, 4 * n_rows))
+        if n_genes == 1:
+            axes = np.array([axes])
+        axes = axes.flatten()
+
+        # Plot each gene
+        for idx, gene in enumerate(genes_to_plot):
+            ax = axes[idx]
+            scatter = ax.scatter(
+                merged['x'],
+                merged['y'],
+                c=merged[gene],
+                cmap=colormap,
+                s=50,
+                alpha=0.8,
+                edgecolors='none'
+            )
+            ax.set_title(f'{gene} Expression', fontsize=12, fontweight='bold')
+            ax.set_xlabel('X Coordinate')
+            ax.set_ylabel('Y Coordinate')
+            ax.set_aspect('equal')
+            plt.colorbar(scatter, ax=ax, label='Expression Level')
+
+        # Hide unused subplots
+        for idx in range(n_genes, len(axes)):
+            axes[idx].axis('off')
+
+        plt.tight_layout()
+
+        # Save figure
+        timestamp = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
+        if output_filename is None:
+            output_filename = f"spatial_heatmap_{timestamp}.png"
+
+        output_path = OUTPUT_DIR / "visualizations" / output_filename
+        fig.savefig(output_path, dpi=300, bbox_inches='tight')
+        plt.close(fig)
+
+        # Generate description
+        description = f"Spatial heatmap showing expression of {len(genes_to_plot)} genes across tissue coordinates. "
+        description += f"Genes plotted: {', '.join(genes_to_plot)}. "
+        if genes_not_found:
+            description += f"Genes not found: {', '.join(genes_not_found)}."
+
+        return {
+            "status": "success",
+            "output_file": str(output_path),
+            "genes_plotted": genes_to_plot,
+            "genes_not_found": genes_not_found,
+            "num_spots": len(merged),
+            "description": description,
+            "visualization_type": "spatial_heatmap",
+            "colormap": colormap
+        }
+
+    except Exception as e:
+        logger.error(f"Error generating spatial heatmap: {e}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "message": "Failed to generate spatial heatmap. Check file paths and formats."
+        }
+
+
+@mcp.tool()
+async def generate_gene_expression_heatmap(
+    expression_file: str,
+    regions_file: str,
+    genes: List[str],
+    output_filename: Optional[str] = None,
+    colormap: str = "RdYlBu_r"
+) -> Dict[str, Any]:
+    """Generate gene × region expression heatmap matrix.
+
+    Creates a heatmap showing mean expression of selected genes across
+    different tissue regions. Rows = genes, columns = regions, cell color =
+    mean expression level. Useful for comparing regional gene expression patterns.
+
+    Args:
+        expression_file: Path to gene expression CSV (spots × genes)
+        regions_file: Path to region annotations CSV (spot_id, region)
+        genes: List of gene names to include in heatmap
+        output_filename: Custom output filename (default: gene_region_heatmap_TIMESTAMP.png)
+        colormap: Matplotlib colormap name (default: "RdYlBu_r")
+
+    Returns:
+        Dictionary with:
+        - output_file: Path to saved visualization
+        - genes_plotted: List of genes included
+        - regions: List of tissue regions
+        - expression_matrix: Gene × region mean expression values
+        - description: Text description of the visualization
+
+    Example:
+        >>> result = await generate_gene_expression_heatmap(
+        ...     expression_file="/data/expression.csv",
+        ...     regions_file="/data/regions.csv",
+        ...     genes=["Ki67", "PCNA", "CD8A", "CD68"],
+        ...     colormap="coolwarm"
+        ... )
+    """
+    if DRY_RUN:
+        return add_dry_run_warning({
+            "output_file": str(OUTPUT_DIR / "visualizations" / f"gene_region_heatmap_dryrun.png"),
+            "genes_plotted": genes,
+            "regions": ["tumor_core", "stroma", "necrotic"],
+            "description": "DRY_RUN: Would generate gene × region expression heatmap",
+            "message": "Set SPATIAL_DRY_RUN=false to generate real visualizations"
+        })
+
+    try:
+        # Load data
+        expr_data = pd.read_csv(expression_file, index_col=0)
+        region_data = pd.read_csv(regions_file, index_col=0)
+
+        # Merge expression with regions
+        merged = expr_data.join(region_data, how="inner")
+
+        # Identify available genes
+        genes_available = [g for g in genes if g in expr_data.columns]
+        if not genes_available:
+            return {
+                "status": "error",
+                "error": "None of the requested genes found in expression data",
+                "genes_requested": genes
+            }
+
+        # Get region column (usually named 'region' or first column)
+        region_col = 'region' if 'region' in merged.columns else merged.columns[-1]
+
+        # Calculate mean expression per gene per region
+        mean_expr = merged.groupby(region_col)[genes_available].mean()
+
+        # Create heatmap
+        fig, ax = plt.subplots(figsize=(max(8, len(mean_expr.columns) * 0.8),
+                                        max(6, len(mean_expr) * 0.5)))
+
+        sns.heatmap(
+            mean_expr.T,  # Transpose so genes are rows, regions are columns
+            annot=True,
+            fmt='.2f',
+            cmap=colormap,
+            cbar_kws={'label': 'Mean Expression'},
+            linewidths=0.5,
+            linecolor='gray',
+            ax=ax
+        )
+
+        ax.set_xlabel('Tissue Region', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Gene', fontsize=12, fontweight='bold')
+        ax.set_title('Gene Expression by Tissue Region', fontsize=14, fontweight='bold')
+        plt.tight_layout()
+
+        # Save figure
+        timestamp = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
+        if output_filename is None:
+            output_filename = f"gene_region_heatmap_{timestamp}.png"
+
+        output_path = OUTPUT_DIR / "visualizations" / output_filename
+        fig.savefig(output_path, dpi=300, bbox_inches='tight')
+        plt.close(fig)
+
+        # Generate description
+        regions_list = list(mean_expr.index)
+        description = f"Gene expression heatmap showing mean expression of {len(genes_available)} genes across {len(regions_list)} tissue regions. "
+        description += f"Genes: {', '.join(genes_available)}. "
+        description += f"Regions: {', '.join(regions_list)}."
+
+        return {
+            "status": "success",
+            "output_file": str(output_path),
+            "genes_plotted": genes_available,
+            "regions": regions_list,
+            "expression_matrix": mean_expr.T.to_dict(),
+            "description": description,
+            "visualization_type": "gene_region_heatmap",
+            "colormap": colormap
+        }
+
+    except Exception as e:
+        logger.error(f"Error generating gene expression heatmap: {e}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "message": "Failed to generate gene expression heatmap. Check file paths and formats."
+        }
+
+
+@mcp.tool()
+async def generate_region_composition_chart(
+    regions_file: str,
+    output_filename: Optional[str] = None,
+    colormap: str = "Set3"
+) -> Dict[str, Any]:
+    """Generate bar chart showing number of spots per tissue region.
+
+    Creates a bar chart displaying the distribution of spatial spots across
+    different tissue regions. Useful for understanding tissue composition and
+    ensuring adequate sampling of each region.
+
+    Args:
+        regions_file: Path to region annotations CSV (spot_id, region)
+        output_filename: Custom output filename (default: region_composition_TIMESTAMP.png)
+        colormap: Matplotlib colormap name for bar colors (default: "Set3")
+
+    Returns:
+        Dictionary with:
+        - output_file: Path to saved visualization
+        - region_counts: Dict of region names to spot counts
+        - total_spots: Total number of spots
+        - description: Text description of the visualization
+
+    Example:
+        >>> result = await generate_region_composition_chart(
+        ...     regions_file="/data/regions.csv",
+        ...     colormap="pastel"
+        ... )
+        >>> print(result["region_counts"])
+        {'tumor_core': 156, 'stroma': 312, 'necrotic': 87}
+    """
+    if DRY_RUN:
+        return add_dry_run_warning({
+            "output_file": str(OUTPUT_DIR / "visualizations" / f"region_composition_dryrun.png"),
+            "region_counts": {"tumor_core": 150, "stroma": 300, "necrotic": 100},
+            "total_spots": 550,
+            "description": "DRY_RUN: Would generate region composition bar chart",
+            "message": "Set SPATIAL_DRY_RUN=false to generate real visualizations"
+        })
+
+    try:
+        # Load region data
+        region_data = pd.read_csv(regions_file, index_col=0)
+
+        # Get region column
+        region_col = 'region' if 'region' in region_data.columns else region_data.columns[0]
+
+        # Count spots per region
+        region_counts = region_data[region_col].value_counts().sort_index()
+
+        # Create bar chart
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        colors = plt.cm.get_cmap(colormap)(np.linspace(0, 1, len(region_counts)))
+
+        bars = ax.bar(
+            range(len(region_counts)),
+            region_counts.values,
+            color=colors,
+            edgecolor='black',
+            linewidth=1.5
+        )
+
+        ax.set_xticks(range(len(region_counts)))
+        ax.set_xticklabels(region_counts.index, rotation=45, ha='right')
+        ax.set_xlabel('Tissue Region', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Number of Spots', fontsize=12, fontweight='bold')
+        ax.set_title('Tissue Region Composition', fontsize=14, fontweight='bold')
+
+        # Add value labels on bars
+        for bar in bars:
+            height = bar.get_height()
+            ax.text(
+                bar.get_x() + bar.get_width() / 2.,
+                height,
+                f'{int(height)}',
+                ha='center',
+                va='bottom',
+                fontsize=10,
+                fontweight='bold'
+            )
+
+        ax.grid(axis='y', alpha=0.3, linestyle='--')
+        plt.tight_layout()
+
+        # Save figure
+        timestamp = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
+        if output_filename is None:
+            output_filename = f"region_composition_{timestamp}.png"
+
+        output_path = OUTPUT_DIR / "visualizations" / output_filename
+        fig.savefig(output_path, dpi=300, bbox_inches='tight')
+        plt.close(fig)
+
+        # Generate description
+        total_spots = int(region_counts.sum())
+        description = f"Region composition bar chart showing distribution of {total_spots} spots across {len(region_counts)} tissue regions. "
+        description += "Spot counts: " + ", ".join([f"{region}={count}" for region, count in region_counts.items()])
+
+        return {
+            "status": "success",
+            "output_file": str(output_path),
+            "region_counts": region_counts.to_dict(),
+            "total_spots": total_spots,
+            "num_regions": len(region_counts),
+            "description": description,
+            "visualization_type": "region_composition_bar_chart",
+            "colormap": colormap
+        }
+
+    except Exception as e:
+        logger.error(f"Error generating region composition chart: {e}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "message": "Failed to generate region composition chart. Check file path and format."
+        }
+
+
+@mcp.tool()
+async def visualize_spatial_autocorrelation(
+    autocorrelation_results: Dict[str, Any],
+    output_filename: Optional[str] = None,
+    top_n: int = 15
+) -> Dict[str, Any]:
+    """Generate bar chart of Moran's I spatial autocorrelation statistics.
+
+    Creates a bar chart showing Moran's I values for genes, sorted by
+    autocorrelation strength. Positive values = clustered, negative = dispersed.
+    Useful for identifying which genes have the strongest spatial patterns.
+
+    Args:
+        autocorrelation_results: Output from calculate_spatial_autocorrelation tool
+        output_filename: Custom output filename (default: morans_i_plot_TIMESTAMP.png)
+        top_n: Number of top genes to display (default: 15)
+
+    Returns:
+        Dictionary with:
+        - output_file: Path to saved visualization
+        - genes_plotted: List of genes included in plot
+        - description: Text description of the visualization
+
+    Example:
+        >>> autocorr = await calculate_spatial_autocorrelation(...)
+        >>> result = await visualize_spatial_autocorrelation(
+        ...     autocorrelation_results=autocorr,
+        ...     top_n=10
+        ... )
+    """
+    if DRY_RUN:
+        return add_dry_run_warning({
+            "output_file": str(OUTPUT_DIR / "visualizations" / f"morans_i_plot_dryrun.png"),
+            "genes_plotted": ["Ki67", "CD8A", "VEGFA"],
+            "description": "DRY_RUN: Would generate Moran's I bar chart",
+            "message": "Set SPATIAL_DRY_RUN=false to generate real visualizations"
+        })
+
+    try:
+        # Extract results from autocorrelation output
+        if "results" not in autocorrelation_results:
+            return {
+                "status": "error",
+                "error": "Invalid autocorrelation_results format. Expected 'results' key.",
+                "message": "Provide output from calculate_spatial_autocorrelation tool"
+            }
+
+        results = autocorrelation_results["results"]
+
+        # Convert to DataFrame
+        df = pd.DataFrame(results)
+
+        # Filter out genes not found
+        df = df[df.get("morans_i").notna()].copy()
+
+        if len(df) == 0:
+            return {
+                "status": "error",
+                "error": "No valid Moran's I results found",
+                "message": "All genes may be missing from expression data"
+            }
+
+        # Sort by absolute Moran's I value and take top N
+        df['abs_morans_i'] = df['morans_i'].abs()
+        df = df.sort_values('abs_morans_i', ascending=False).head(top_n)
+
+        # Create bar chart
+        fig, ax = plt.subplots(figsize=(10, max(6, len(df) * 0.4)))
+
+        # Color bars based on sign (positive = clustered, negative = dispersed)
+        colors = ['#d62728' if x < 0 else '#2ca02c' for x in df['morans_i']]
+
+        bars = ax.barh(range(len(df)), df['morans_i'], color=colors, edgecolor='black', linewidth=1.2)
+
+        ax.set_yticks(range(len(df)))
+        ax.set_yticklabels(df['gene'])
+        ax.set_xlabel("Moran's I Statistic", fontsize=12, fontweight='bold')
+        ax.set_ylabel('Gene', fontsize=12, fontweight='bold')
+        ax.set_title("Spatial Autocorrelation (Moran's I)", fontsize=14, fontweight='bold')
+
+        # Add vertical line at 0
+        ax.axvline(x=0, color='black', linestyle='-', linewidth=1.5)
+
+        # Add value labels
+        for idx, (bar, value) in enumerate(zip(bars, df['morans_i'])):
+            x_pos = value + (0.02 if value > 0 else -0.02)
+            ha = 'left' if value > 0 else 'right'
+            ax.text(
+                x_pos,
+                bar.get_y() + bar.get_height() / 2.,
+                f'{value:.3f}',
+                ha=ha,
+                va='center',
+                fontsize=9,
+                fontweight='bold'
+            )
+
+        # Add legend
+        from matplotlib.patches import Patch
+        legend_elements = [
+            Patch(facecolor='#2ca02c', edgecolor='black', label='Clustered (I > 0)'),
+            Patch(facecolor='#d62728', edgecolor='black', label='Dispersed (I < 0)')
+        ]
+        ax.legend(handles=legend_elements, loc='lower right')
+
+        ax.grid(axis='x', alpha=0.3, linestyle='--')
+        plt.tight_layout()
+
+        # Save figure
+        timestamp = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
+        if output_filename is None:
+            output_filename = f"morans_i_plot_{timestamp}.png"
+
+        output_path = OUTPUT_DIR / "visualizations" / output_filename
+        fig.savefig(output_path, dpi=300, bbox_inches='tight')
+        plt.close(fig)
+
+        # Generate description
+        genes_plotted = df['gene'].tolist()
+        clustered_genes = df[df['morans_i'] > 0.3]['gene'].tolist()
+        dispersed_genes = df[df['morans_i'] < -0.3]['gene'].tolist()
+
+        description = f"Moran's I spatial autocorrelation plot showing top {len(genes_plotted)} genes. "
+        if clustered_genes:
+            description += f"Significantly clustered: {', '.join(clustered_genes)}. "
+        if dispersed_genes:
+            description += f"Significantly dispersed: {', '.join(dispersed_genes)}."
+
+        return {
+            "status": "success",
+            "output_file": str(output_path),
+            "genes_plotted": genes_plotted,
+            "num_genes": len(genes_plotted),
+            "description": description,
+            "visualization_type": "morans_i_bar_chart"
+        }
+
+    except Exception as e:
+        logger.error(f"Error visualizing spatial autocorrelation: {e}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "message": "Failed to visualize spatial autocorrelation. Check input format."
+        }
 
 
 # ============================================================================
