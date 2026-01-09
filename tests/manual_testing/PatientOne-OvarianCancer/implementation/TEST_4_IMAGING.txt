@@ -84,48 +84,111 @@ Before starting analysis, verify image quality:
 
 5. **Generate visualizations** (CRITICAL for validation):
 
+   **Use mcp-openimagedata and mcp-deepcell visualization tools:**
+
    **For CD8 IF image:**
-   - **Segmentation overlay:** Original IF image with cell boundaries outlined
+   - **Segmentation overlay** (use tool: `generate_segmentation_overlay` from mcp-deepcell):
+     * Original IF image with cell boundaries outlined
      * CD8+ cells marked in one color (e.g., green)
      * CD8- cells marked in different color (e.g., red)
      * Expected: Few green cells, mostly at periphery
 
-   - **Spatial distribution map:** Heatmap showing CD8+ cell density across tissue
+     ```
+     Tool: generate_segmentation_overlay (mcp-deepcell)
+     Inputs:
+     - image_path: PAT001_tumor_IF_CD8.tiff
+     - marker_name: "CD8"
+     - overlay_color: "green"
+     ```
+
+   - **Phenotype visualization** (use tool: `generate_phenotype_visualization` from mcp-deepcell):
+     * Heatmap showing CD8+ cell density across tissue
      * Hotspots indicate immune infiltration
      * Expected: Peripheral clustering, central exclusion
 
+     ```
+     Tool: generate_phenotype_visualization (mcp-deepcell)
+     Inputs:
+     - segmentation_results: (output from segment_cells)
+     - phenotype_name: "CD8+"
+     - visualization_type: "heatmap"
+     ```
+
    **For Ki67 IF image:**
-   - **Segmentation overlay:** Original IF image with nuclear segmentation boundaries
+   - **Segmentation overlay** (use tool: `generate_segmentation_overlay` from mcp-deepcell):
+     * Original IF image with nuclear segmentation boundaries
      * Ki67+ nuclei marked (e.g., yellow)
      * Ki67- nuclei marked (e.g., blue)
      * Expected: ~50% yellow nuclei (high proliferation)
 
-   - **Proliferation heatmap:** Spatial map of Ki67+ cell density
+     ```
+     Tool: generate_segmentation_overlay (mcp-deepcell)
+     Inputs:
+     - image_path: PAT001_tumor_IF_KI67.tiff
+     - marker_name: "Ki67"
+     - overlay_color: "yellow"
+     ```
+
+   - **Phenotype visualization** (use tool: `generate_phenotype_visualization` from mcp-deepcell):
+     * Spatial map of Ki67+ cell density
      * Expected: Heterogeneous distribution, higher in some regions
 
+     ```
+     Tool: generate_phenotype_visualization (mcp-deepcell)
+     Inputs:
+     - segmentation_results: (output from segment_cells)
+     - phenotype_name: "Ki67+"
+     - visualization_type: "heatmap"
+     ```
+
    **For Multiplex IF image:**
-   - **Channel composite:** RGB overlay showing all 3 channels
+   - **Channel composite** (use tool: `generate_multiplex_composite` from mcp-openimagedata):
+     * RGB overlay showing all 3 channels
      * Red (TP53) + Green (KI67) + Blue (DAPI)
      * Yellow cells = TP53+/KI67+ double-positive
      * Expected: Many yellow cells (TP53-mutant cells proliferating)
 
-   - **Cell phenotype segmentation:** Cells colored by phenotype
+     ```
+     Tool: generate_multiplex_composite (mcp-openimagedata)
+     Inputs:
+     - channel_paths: [TP53.tiff, KI67.tiff, DAPI.tiff]
+     - channel_names: ["TP53", "KI67", "DAPI"]
+     - channel_colors: ["red", "green", "blue"]
+     - normalize: true
+     ```
+
+   - **Cell phenotype segmentation** (use tool: `generate_phenotype_visualization` from mcp-deepcell):
+     * Cells colored by phenotype
      * TP53+/KI67+ = yellow
      * TP53+/KI67- = red
      * TP53-/KI67+ = green
      * TP53-/KI67- = gray
      * Expected: Dominant yellow population (~40-50%)
 
-   - **Quantification scatter plot:** TP53 intensity (x-axis) vs KI67 intensity (y-axis)
-     * Each point = one cell
-     * Quadrant analysis shows double-positive population
-     * Expected: Upper-right quadrant enrichment
+     ```
+     Tool: generate_phenotype_visualization (mcp-deepcell)
+     Inputs:
+     - segmentation_results: (output from classify_cell_states)
+     - phenotype_categories: ["TP53+/KI67+", "TP53+/KI67-", "TP53-/KI67+", "TP53-/KI67-"]
+     - visualization_type: "phenotype_map"
+     ```
 
    **For H&E image:**
-   - **Annotated morphology:** H&E image with regions highlighted
-     * Necrotic areas outlined in one color
-     * High cellularity regions outlined in another color
+   - **Annotated morphology** (use tool: `generate_he_annotation` from mcp-openimagedata):
+     * H&E image with regions highlighted
+     * Necrotic areas outlined in red dashed boxes
+     * High cellularity regions outlined in green solid boxes
      * Expected: ~15-20% necrotic area, ~70-80% high cellularity
+
+     ```
+     Tool: generate_he_annotation (mcp-openimagedata)
+     Inputs:
+     - he_image_path: PAT001_tumor_HE_20x.tiff
+     - necrotic_regions: [{"x": 500, "y": 300, "width": 200, "height": 150}, ...]
+     - high_cellularity_regions: [{"x": 200, "y": 200, "width": 250, "height": 200}, ...]
+     - necrotic_color: "red"
+     - cellularity_color: "green"
+     ```
 
    **Note:** If servers cannot generate image outputs, provide detailed text descriptions including:
    - Cell counts and percentages

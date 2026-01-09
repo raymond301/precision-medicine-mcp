@@ -131,11 +131,11 @@ graph LR
 |--------|-------|--------|--------------|
 | **mcp-multiomics** | 9 | ✅ Production | HAllA integration, Stouffer meta-analysis, upstream regulators |
 | **mcp-fgbio** | 4 | ✅ Production | FASTQ/VCF QC, genome reference management |
-| **mcp-spatialtools** | 10 | ✅ 95% Real | STAR alignment, ComBat batch correction, pathway enrichment, Moran's I |
+| **mcp-spatialtools** | 14 | ✅ 95% Real | STAR alignment, ComBat batch correction, pathway enrichment, Moran's I, 4 visualizations |
 
 **Mocked Servers** (workflow demonstration only):
 - mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0% real)
-- mcp-openimagedata (30% real - basic features only)
+- mcp-openimagedata (60% real - image loading, visualization; registration/features mocked)
 - mcp-epic (mock FHIR by design)
 
 **Resources:**
@@ -186,7 +186,7 @@ graph TB
 
         subgraph "Spatial Biology"
             SPATIAL[mcp-spatialtools<br/>Spatial RNA-seq<br/>✅ 95% Real]
-            IMAGE[mcp-openimagedata<br/>Histology<br/>🔶 30% Real]
+            IMAGE[mcp-openimagedata<br/>Histology<br/>🔶 60% Real]
             DEEPCELL[mcp-deepcell<br/>Segmentation<br/>❌ Mocked]
         end
 
@@ -249,7 +249,7 @@ graph TB
 **Server Status:**
 - ✅ **Production Ready** (2/9): mcp-fgbio, mcp-multiomics
 - ⚠️ **95% Real** (1/9): mcp-spatialtools
-- 🔶 **30% Real** (1/9): mcp-openimagedata
+- 🔶 **60% Real** (1/9): mcp-openimagedata
 - ❌ **Mocked** (4/9): mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera
 - **Mock by Design** (1/9): mcp-mockepic (intentionally synthetic FHIR data)
 

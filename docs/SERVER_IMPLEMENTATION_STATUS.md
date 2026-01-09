@@ -26,7 +26,7 @@
 | **mcp-fgbio** | **95%** | ✅ Production Ready | **YES** | Low - Core features real |
 | **mcp-spatialtools** | **95%** | ✅ Production Ready | **YES** | Low - All core features implemented |
 | **mcp-epic** | **100%** | ✅ Production Ready | **YES** | Low - Real Epic FHIR with de-identification |
-| **mcp-openimagedata** | **30%** | ⚠️ Partial | **NO** | High - Advanced features mocked |
+| **mcp-openimagedata** | **60%** | ⚠️ Partial | **NO** | Medium - Registration/features mocked |
 | **mcp-tcga** | **0%** | ❌ Fully Mocked | **NO** | **CRITICAL - All synthetic** |
 | **mcp-deepcell** | **0%** | ❌ Fully Mocked | **NO** | **CRITICAL - All synthetic** |
 | **mcp-huggingface** | **0%** | ❌ Fully Mocked | **NO** | **CRITICAL - All synthetic** |
@@ -280,6 +280,10 @@ See [Hospital Deployment Plan](hospital-deployment/DEPLOYMENT_PLAN.md) for compl
 | `perform_differential_expression` | ✅ 100% Real | Mann-Whitney U test + Benjamini-Hochberg FDR correction (scipy) |
 | `calculate_spatial_autocorrelation` | ✅ 100% Real | Moran's I statistic with row-standardized spatial weights |
 | `deconvolve_cell_types` | ✅ 100% Real | Signature-based scoring using marker gene expression |
+| `generate_spatial_heatmap` | ✅ 100% Real | Matplotlib-based spatial gene expression visualization |
+| `generate_gene_expression_heatmap` | ✅ 100% Real | Seaborn heatmap for genes × regions matrix |
+| `generate_region_composition_chart` | ✅ 100% Real | Bar chart showing spot counts per tissue region |
+| `visualize_spatial_autocorrelation` | ✅ 100% Real | Bar chart of Moran's I statistics for genes |
 
 #### Limited/Mocked Capabilities (5% of functionality)
 
@@ -471,17 +475,19 @@ cd /path/to/spatial-mcp
 
 ---
 
-### ⚠️ mcp-openimagedata (30% Real Implementation)
+### ⚠️ mcp-openimagedata (60% Real Implementation)
 
-**Overall Status:** Basic image handling ready, advanced features mocked
+**Overall Status:** Image loading and visualization ready, registration/feature extraction mocked
 **Testing:** 5 smoke tests, 35% code coverage
-**Safe for Production:** **NO**
+**Safe for Production:** **NO** (conditional - see below)
 
 #### Real Capabilities (Fully Implemented)
 
 | Tool | Status | Implementation Details |
 |------|--------|------------------------|
 | `fetch_histology_image` | ✅ 100% Real | PIL-based image loading (PNG, TIFF, JPEG) |
+| `generate_multiplex_composite` | ✅ 100% Real | RGB overlay for multiplex IF channels (PIL/numpy) |
+| `generate_he_annotation` | ✅ 100% Real | H&E morphology annotation with region highlighting |
 | Image metadata extraction | ✅ 100% Real | EXIF/TIFF tag parsing |
 | Basic image manipulation | ✅ 80% Real | Resize, crop, format conversion |
 
@@ -505,17 +511,23 @@ cd /path/to/spatial-mcp
 
 #### Production Readiness Assessment
 
-**❌ NOT READY FOR PRODUCTION**
+**⚠️ CONDITIONAL - PARTIAL PRODUCTION USE**
 
-**Reason:**
-- Critical features (registration, feature extraction) are mocked
-- Cannot perform meaningful histology analysis yet
-- Only suitable for basic image viewing/metadata extraction
+**SAFE for Production:**
+- ✅ Image loading (H&E, immunofluorescence TIFF/PNG)
+- ✅ Multiplex composite generation (RGB overlays for IF channels)
+- ✅ H&E morphology annotation (region highlighting)
+- ✅ Metadata extraction
+
+**NOT SAFE for Production:**
+- ❌ Image registration to spatial coordinates (still mocked)
+- ❌ Feature extraction (texture, morphology analysis - still mocked)
 
 **Recommended Action:**
-- Do NOT use for research decisions requiring image analysis
-- OK for basic image handling and format conversion
-- Implement OpenCV integration before production use (1-2 weeks)
+- ✅ **USE NOW** for visualization and basic image handling
+- ✅ Safe for TEST_4 imaging workflow (multiplex IF composites, H&E annotations)
+- ❌ Do NOT use for image registration or automated feature analysis
+- Implement OpenCV integration for registration/features (1-2 weeks)
 
 ---
 

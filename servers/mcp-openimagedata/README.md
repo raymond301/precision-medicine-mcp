@@ -4,15 +4,15 @@ MCP server for histology and immunofluorescence image processing, spatial regist
 
 ## Overview
 
-`mcp-openimagedata` provides AI-accessible histology image processing tools through the Model Context Protocol (MCP). This server enables automated image registration, quality assessment, multiplex channel compositing, and morphology annotation for H&E and immunofluorescence microscopy.
+`mcp-openimagedata` provides AI-accessible histology image processing tools through the Model Context Protocol (MCP). This server enables image fetching, spatial registration with transcriptomics data, feature extraction, multiplex channel compositing, and morphology annotation for H&E and immunofluorescence microscopy.
 
 ### Key Features
 
-- 🖼️ **Image Registration** - Align H&E with IF images for spatial correlation
-- ✅ **Quality Assessment** - Evaluate image quality and detect artifacts
+- 📥 **Image Fetching** - Retrieve H&E and immunofluorescence histology images
+- 🖼️ **Spatial Registration** - Align histology images with spatial transcriptomics coordinates
+- 🔍 **Feature Extraction** - Extract texture, morphology, and intensity features from images
 - 🎨 **Multiplex Compositing** - Combine 2-7 fluorescence channels into RGB composites
 - 📍 **Morphology Annotation** - Annotate necrotic regions and high cellularity areas on H&E
-- 🔬 **Format Conversion** - Convert between imaging formats
 - ⚡ **DRY_RUN Mode** - Test workflows with synthetic data
 
 ## Installation
@@ -93,101 +93,128 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 
 ## Available Tools
 
-### 1. register_images
+### 1. fetch_histology_image
 
-Spatially register H&E and IF images for correlation analysis.
+Retrieve tissue histology images (H&E or immunofluorescence).
 
 **Parameters:**
-- `fixed_image_path` (string): Path to reference image (e.g., H&E)
-- `moving_image_path` (string): Path to image to be aligned (e.g., IF)
-- `registration_method` (string, optional): Method - "affine", "rigid", or "deformable" (default: "affine")
-- `output_path` (string, optional): Path for registered output
+- `image_id` (string): Unique identifier for the image
+- `stain_type` (string, optional): Type of staining - "he" (H&E) or "if" (immunofluorescence) (default: "he")
+- `resolution` (string, optional): Image resolution - "high", "medium", or "low" (default: "high")
 
 **Returns:**
 ```json
 {
-  "registered_image": "/output/IF_registered.tiff",
-  "transformation_matrix": [[1.02, 0.01, 15], [0.01, 1.01, -8], [0, 0, 1]],
+  "image_path": "/images/he/sample_001_high.tif",
+  "dimensions": {"width": 4096, "height": 4096},
+  "file_size_mb": 50.0,
+  "metadata": {
+    "stain_type": "he",
+    "magnification": "20x",
+    "format": "TIFF"
+  }
+}
+```
+
+**Example usage with Claude:**
+```
+Fetch the H&E histology image for patient PAT001:
+- Image ID: PAT001_tumor_HE_20x
+- Stain type: he
+- Resolution: high
+```
+
+**Output:** Downloaded image file with metadata.
+
+---
+
+### 2. register_image_to_spatial
+
+Align histology images with spatial transcriptomics spot coordinates.
+
+**Parameters:**
+- `image_path` (string): Path to histology image
+- `spatial_coordinates_file` (string): Path to CSV file with spatial spot coordinates
+- `output_file` (string): Path for registered image output
+- `registration_method` (string, optional): Registration method - "affine", "rigid", or "deformable" (default: "affine")
+
+**Returns:**
+```json
+{
+  "registered_image": "/output/registered_image.tif",
+  "transformation_matrix": {
+    "scale_x": 1.02,
+    "scale_y": 0.98,
+    "rotation_degrees": 2.5,
+    "translation_x": 12.3,
+    "translation_y": -8.7
+  },
   "registration_quality": {
-    "correlation": 0.87,
-    "mutual_information": 1.24
-  },
-  "method_used": "affine"
+    "rmse": 1.85,
+    "correlation": 0.94,
+    "matched_points": 450,
+    "method": "affine"
+  }
 }
 ```
 
 **Example usage with Claude:**
 ```
-Register the Ki67 IF image to the H&E reference:
-- Fixed (H&E): /data/HE_slide.tif
-- Moving (IF): /data/IF_Ki67.tiff
-- Use affine registration
+Register H&E image to spatial transcriptomics coordinates:
+- Image: /images/PAT001_HE.tif
+- Coordinates: /data/spatial/visium_coordinates.csv
+- Output: /images/registered/PAT001_HE_registered.tif
+- Method: affine
 ```
 
-**Output:** Registered image aligned to reference coordinate system.
+**Output:** Spatially registered image aligned to transcriptomics spot coordinates.
+
+**Use cases:**
+- Correlate tissue morphology with gene expression patterns
+- Overlay H&E features on spatial transcriptomics heatmaps
+- Identify regions of interest for spatial analysis
 
 ---
 
-### 2. assess_image_quality
+### 3. extract_image_features
 
-Evaluate image quality and detect common artifacts.
+Extract computer vision features from histology images for analysis.
 
 **Parameters:**
-- `image_path` (string): Path to microscopy image
-- `modality` (string, optional): Imaging modality - "brightfield" or "fluorescence" (default: "fluorescence")
+- `image_path` (string): Path to histology image
+- `feature_type` (string, optional): Type of features - "texture", "morphology", or "intensity" (default: "texture")
+- `roi_coordinates` (list, optional): List of ROI bounding boxes `[(x1,y1,x2,y2), ...]` (default: whole image)
 
 **Returns:**
 ```json
 {
-  "quality_score": 0.85,
-  "metrics": {
-    "sharpness": 0.89,
-    "signal_to_noise": 23.4,
-    "dynamic_range": 0.78
-  },
-  "artifacts_detected": ["edge_effects", "out_of_focus_regions"],
-  "recommendation": "Good quality - minor edge effects in upper-left corner"
+  "features": [0.45, 0.67, 0.23, ...],
+  "feature_names": ["texture_feature_0", "texture_feature_1", ...],
+  "roi_count": 5,
+  "processing_time_seconds": 2.5,
+  "feature_statistics": {
+    "mean": 0.5,
+    "std": 0.15,
+    "min": 0.05,
+    "max": 0.95
+  }
 }
 ```
 
 **Example usage with Claude:**
 ```
-Assess quality of the CD8 IF image:
-- Image: /data/IF_CD8.tiff
-- Modality: fluorescence
+Extract texture features from tumor regions:
+- Image: /images/PAT001_HE.tif
+- Feature type: texture
+- ROI coordinates: [(100,100,300,300), (500,200,700,400)]
 ```
 
-**Detectable artifacts:** out_of_focus, photobleaching, saturation, edge_effects, tissue_folding
+**Feature types:**
+- **texture**: Haralick texture features (contrast, correlation, energy, homogeneity)
+- **morphology**: Shape and structural features (eccentricity, solidity, area)
+- **intensity**: Pixel intensity statistics (mean, std, skewness, entropy)
 
----
-
-### 3. convert_format
-
-Convert between imaging file formats.
-
-**Parameters:**
-- `input_path` (string): Path to input image
-- `output_format` (string): Target format - "tiff", "png", "ome-tiff"
-- `compression` (string, optional): Compression - "none", "lzw", "jpeg" (default: "lzw")
-
-**Returns:**
-```json
-{
-  "output_file": "/output/converted_image.tiff",
-  "input_format": "png",
-  "output_format": "tiff",
-  "compression": "lzw",
-  "file_size_mb": 45.2
-}
-```
-
-**Example usage with Claude:**
-```
-Convert H&E slide from PNG to OME-TIFF:
-- Input: /data/HE_slide.png
-- Format: ome-tiff
-- Compression: lzw
-```
+**Output:** Feature vectors for downstream analysis (correlation with spatial expression, clustering)
 
 ---
 
@@ -511,15 +538,15 @@ mypy src/
 
 ## Architecture
 
-### Implementation Status: 30% Real (Mocked for Demonstration)
+### Implementation Status: 60% Real (3 of 5 tools fully implemented)
 
-- **register_images**: 30% real (basic registration implemented, uses simplified algorithm)
-- **assess_image_quality**: 30% real (basic metrics implemented)
-- **convert_format**: 30% real (PIL-based conversion)
-- **generate_multiplex_composite**: 100% real (full implementation with color blending)
-- **generate_he_annotation**: 100% real (matplotlib bounding box overlay)
+- **fetch_histology_image**: 100% real (PIL-based image loading for H&E and IF)
+- **register_image_to_spatial**: 0% real (mocked - requires OpenCV/ITK for spatial alignment)
+- **extract_image_features**: 0% real (mocked - requires computer vision libraries)
+- **generate_multiplex_composite**: 100% real (full implementation with RGB channel blending)
+- **generate_he_annotation**: 100% real (matplotlib-based morphology annotation)
 
-**Note:** Full image registration requires OpenCV or ITK. Current implementation uses simplified methods for demonstration. Visualization tools are fully functional.
+**Note:** Full image registration and feature extraction require OpenCV or scikit-image integration (1-2 weeks development). Image loading and visualization tools are fully functional and production-ready.
 
 ### Design Principles
 

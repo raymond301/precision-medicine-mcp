@@ -63,22 +63,60 @@ Before starting analysis, verify data quality:
    - Tumor-stroma interface patterns?
 
 5. **Generate visualizations** (CRITICAL for validation):
-   - **Spatial heatmap:** Show expression of top 6 spatially variable genes overlaid on tissue coordinates
+
+   **Use mcp-spatialtools visualization tools:**
+
+   - **Spatial heatmap** (use tool: `generate_spatial_heatmap`):
+     * Show expression of top 6 spatially variable genes overlaid on tissue coordinates
      * Use different color scale for each gene
      * Include spatial coordinates (x, y) to show tissue layout
      * Expected: MKI67 high in tumor_proliferative, CD8A high in stroma_immune
 
-   - **Region composition bar chart:** Show number of spots per tissue region
+     ```
+     Tool: generate_spatial_heatmap
+     Inputs:
+     - expression_file: visium_gene_expression.csv
+     - coordinates_file: visium_spatial_coordinates.csv
+     - genes: ["MKI67", "PCNA", "PIK3CA", "AKT1", "CD8A", "CD68"]
+     - colormap: "viridis"
+     ```
+
+   - **Region composition bar chart** (use tool: `generate_region_composition_chart`):
+     * Show number of spots per tissue region
      * 6 regions on x-axis, spot count on y-axis
      * Expected: stroma_immune has most spots (~212), tumor_core has fewest (~69)
 
-   - **Gene expression heatmap:** 8 genes (rows) × 6 regions (columns)
+     ```
+     Tool: generate_region_composition_chart
+     Inputs:
+     - regions_file: visium_region_annotations.csv
+     - colormap: "tab10"
+     ```
+
+   - **Gene expression heatmap** (use tool: `generate_gene_expression_heatmap`):
+     * 8 genes (rows) × 6 regions (columns)
      * Color intensity = mean expression level per region
      * Expected: MKI67/PCNA high in tumor_proliferative, CD3D/CD8A/CD68 high in stroma_immune
 
-   - **Spatial autocorrelation plot:** Moran's I for top spatially variable genes
+     ```
+     Tool: generate_gene_expression_heatmap
+     Inputs:
+     - expression_file: visium_gene_expression.csv
+     - regions_file: visium_region_annotations.csv
+     - genes: ["MKI67", "PCNA", "PIK3CA", "AKT1", "ABCB1", "CD3D", "CD8A", "CD68"]
+     - colormap: "RdYlBu_r"
+     ```
+
+   - **Spatial autocorrelation plot** (use tool: `visualize_spatial_autocorrelation`):
      * Bar chart showing Moran's I statistic for each gene
      * Expected: High autocorrelation (I > 0.5) for regionalized markers
+
+     ```
+     Tool: visualize_spatial_autocorrelation
+     Inputs:
+     - autocorrelation_results: (output from calculate_spatial_autocorrelation tool)
+     - top_n: 10
+     ```
 
    **Note:** If spatialtools cannot generate images, provide detailed text descriptions of what each plot would show, including:
    - Which genes/regions would be highlighted
