@@ -2,6 +2,26 @@
 
 Comprehensive test coverage for all 9 MCP servers with **167 automated tests** covering 40 tools.
 
+## Directory Structure
+
+All tests have been organized into a centralized `/tests/` directory:
+
+```
+/tests/
+├── unit/                  # Unit tests for all servers (pytest)
+│   ├── mcp-fgbio/        # 29 tests (77% coverage)
+│   ├── mcp-multiomics/   # 91 tests (68% coverage)
+│   ├── mcp-spatialtools/ # 17 tests + orphaned tests
+│   ├── mcp-epic/         # 12 tests (58% coverage)
+│   └── ...               # Other servers
+├── integration/          # Integration & GCP deployment tests
+├── manual_testing/       # End-to-end manual test suites
+│   ├── PatientOne-OvarianCancer/  # Full patient workflow (TESTS 1-5)
+│   └── Solution-Testing/          # Server verification scripts
+├── verification/         # Server verification utilities
+└── docs/                 # Testing documentation
+```
+
 ## Quick Stats
 
 | Metric | Value | Status |
@@ -35,31 +55,32 @@ Comprehensive test coverage for all 9 MCP servers with **167 automated tests** c
 
 ### Quick Start - Run All Tests for a Server
 
+**From repository root:**
+
 ```bash
-# Production servers
-cd servers/mcp-multiomics
-MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
+# Production servers (using their venvs)
+MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest tests/unit/mcp-multiomics/ -v
 
-cd servers/mcp-fgbio
-FGBIO_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
+FGBIO_DRY_RUN="true" servers/mcp-fgbio/venv/bin/python -m pytest tests/unit/mcp-fgbio/ -v
 
-cd servers/mcp-spatialtools
-SPATIAL_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
+SPATIAL_DRY_RUN="true" servers/mcp-spatialtools/venv/bin/python -m pytest tests/unit/mcp-spatialtools/ -v
 
-cd servers/mcp-epic
-EPIC_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
+EPIC_DRY_RUN="true" servers/mcp-epic/venv/bin/python -m pytest tests/unit/mcp-epic/ -v
 
 # Mocked servers (smoke tests only)
-cd servers/mcp-{deepcell|huggingface|seqera|tcga|openimagedata}
-{SERVER}_DRY_RUN="true" venv/bin/python -m pytest tests/ -v
+DEEPCELL_DRY_RUN="true" servers/mcp-deepcell/venv/bin/python -m pytest tests/unit/mcp-deepcell/ -v
+TCGA_DRY_RUN="true" servers/mcp-tcga/venv/bin/python -m pytest tests/unit/mcp-tcga/ -v
+IMAGE_DRY_RUN="true" servers/mcp-openimagedata/venv/bin/python -m pytest tests/unit/mcp-openimagedata/ -v
 ```
+
+**Note:** Tests have been moved to `/tests/unit/` but still use the server venvs for dependencies.
 
 ### With Coverage Report
 
 ```bash
-cd servers/mcp-multiomics
-MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest tests/ \
-  --cov=src/mcp_multiomics \
+# From repository root
+MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest tests/unit/mcp-multiomics/ \
+  --cov=servers/mcp-multiomics/src/mcp_multiomics \
   --cov-report=term-missing \
   -v
 ```
@@ -68,11 +89,11 @@ MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest tests/ \
 
 ```bash
 # Specific file
-MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest tests/test_preprocessing.py -v
+MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest tests/unit/mcp-multiomics/test_preprocessing.py -v
 
 # Specific test function
-MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest \
-  tests/test_preprocessing.py::TestValidateWithRealData::test_validate_with_real_rna_data -v
+MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest \
+  tests/unit/mcp-multiomics/test_preprocessing.py::TestValidateWithRealData::test_validate_with_real_rna_data -v
 ```
 
 ---
@@ -89,7 +110,7 @@ MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest \
 - Tool registration
 - Server initialization
 
-**Location:** `/servers/mcp-{server}/tests/test_server.py`
+**Location:** `/tests/unit/mcp-{server}/test_server.py`
 
 ### 2. Functional Tests (Production Servers)
 
@@ -102,7 +123,9 @@ MULTIOMICS_DRY_RUN="true" venv/bin/python -m pytest \
 - File I/O and output generation
 - Edge cases and error handling
 
-**Best example:** `mcp-multiomics` - 91 tests with real fixture data (580KB+)
+**Best example:** `tests/unit/mcp-multiomics/` - 91 tests with real fixture data (580KB+)
+
+**Location:** `/tests/unit/mcp-{server}/` (e.g., `test_preprocessing.py`, `test_integration.py`)
 
 ### 3. Integration Tests
 
@@ -210,16 +233,22 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 ### Adding Tests
 
 **For new servers (smoke tests):**
-1. Create `tests/test_server.py` with 3 test classes
+1. Create `/tests/unit/mcp-{server}/test_server.py` with 3 test classes
 2. Test imports, configuration, tool registration
 3. Target: 35-60% coverage with 5-12 tests
 
 **For production servers (functional tests):**
-1. Create test fixtures with realistic data
+1. Create test fixtures in `/tests/unit/mcp-{server}/fixtures/` with realistic data
 2. Test with `DRY_RUN=False` using monkeypatch
 3. Validate actual calculations and outputs
 4. Test edge cases and error handling
 5. Target: 70%+ coverage on critical modules
+
+**Test Organization:**
+- All unit tests go in `/tests/unit/mcp-{server}/`
+- Integration tests go in `/tests/integration/`
+- Manual test suites go in `/tests/manual_testing/`
+- Verification scripts go in `/tests/verification/`
 
 ### Best Practices
 
@@ -260,5 +289,32 @@ To reach 60% overall coverage (+3.1 points):
 
 ---
 
-**Last Updated:** 2025-12-30
-**Status:** 9/9 servers tested | 4/9 production-ready | All deployed to GCP Cloud Run
+## Recent Changes
+
+### Test Reorganization (2026-01-09)
+
+All tests have been consolidated into a centralized `/tests/` directory:
+
+**Changes:**
+- ✅ Moved all server tests from `servers/mcp-*/tests/` to `/tests/unit/mcp-*/`
+- ✅ Moved 14 orphaned test files to proper locations
+- ✅ Created `/tests/docs/` and `/tests/verification/` directories
+- ✅ Updated TEST_5_INTEGRATION.txt with visualization synthesis
+- ✅ Updated all documentation to reflect new paths
+
+**Benefits:**
+- Single source of truth for all tests
+- Easier test discovery and navigation
+- Better separation of concerns (tests vs implementation)
+- Consistent test organization across all servers
+
+**Migration Impact:**
+- All tests still use server venvs for dependencies
+- Import statements unchanged (using absolute imports)
+- pytest discovery works from repository root
+- No breaking changes to test execution
+
+---
+
+**Last Updated:** 2026-01-09
+**Status:** 9/9 servers tested | 4/9 production-ready | All deployed to GCP Cloud Run | Tests reorganized

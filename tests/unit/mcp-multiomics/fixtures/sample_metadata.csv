@@ -1,0 +1,16 @@
+Sample,Response,Batch,Age,Sex
+Sample_01,Resistant,1,77,F
+Sample_02,Resistant,1,49,M
+Sample_03,Resistant,2,74,F
+Sample_04,Resistant,2,63,F
+Sample_05,Resistant,3,73,F
+Sample_06,Resistant,3,48,F
+Sample_07,Resistant,4,66,F
+Sample_08,Sensitive,1,73,M
+Sample_09,Sensitive,1,54,F
+Sample_10,Sensitive,2,66,F
+Sample_11,Sensitive,2,66,F
+Sample_12,Sensitive,3,71,F
+Sample_13,Sensitive,3,66,F
+Sample_14,Sensitive,4,65,F
+Sample_15,Sensitive,4,56,F
