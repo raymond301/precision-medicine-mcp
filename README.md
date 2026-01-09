@@ -133,10 +133,13 @@ graph LR
 | **mcp-fgbio** | 4 | ✅ Production | FASTQ/VCF QC, genome reference management |
 | **mcp-spatialtools** | 14 | ✅ 95% Real | STAR alignment, ComBat batch correction, pathway enrichment, Moran's I, 4 visualizations |
 
+**Additional Production-Ready Servers:**
+- mcp-epic (100% real - Epic FHIR with de-identification)
+
 **Mocked Servers** (workflow demonstration only):
 - mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0% real)
 - mcp-openimagedata (60% real - image loading, visualization; registration/features mocked)
-- mcp-epic (mock FHIR by design)
+- mcp-mockepic (intentional mock EHR by design)
 
 **Resources:**
 - **Example Outputs:** [PatientOne Results](architecture/patient-one/patient-one-outputs/for-researchers/) - Complete analysis with visualizations
@@ -247,8 +250,7 @@ graph TB
 - **Analysis Workflow:** PatientOne precision medicine analysis
 
 **Server Status:**
-- ✅ **Production Ready** (2/9): mcp-fgbio, mcp-multiomics
-- ⚠️ **95% Real** (1/9): mcp-spatialtools
+- ✅ **Production Ready** (4/9): mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic
 - 🔶 **60% Real** (1/9): mcp-openimagedata
 - ❌ **Mocked** (4/9): mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera
 - **Mock by Design** (1/9): mcp-mockepic (intentionally synthetic FHIR data)
