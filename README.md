@@ -148,7 +148,7 @@ graph LR
 - Integration patterns for external tools (STAR, ComBat, HAllA)
 - Real vs mocked implementation strategies
 
-**Complete System Architecture:**
+**Complete System Architecture (10 MCP Servers):**
 
 ```mermaid
 graph TB
@@ -162,9 +162,13 @@ graph TB
         API[🤖 Claude API<br/>Anthropic Sonnet 4.5<br/>MCP Client Support]
     end
 
-    subgraph "GCP Cloud Run - MCP Servers"
+    subgraph "Local-Only Servers"
+        REALEPIC[mcp-epic<br/>Real Epic FHIR<br/>✅ Production<br/>🏥 HIPAA-compliant]
+    end
+
+    subgraph "GCP Cloud Run - 9 Deployed MCP Servers"
         subgraph "Clinical & Genomic"
-            EPIC[mcp-mockepic<br/>Mock FHIR<br/>❌ Demo]
+            MOCKEPIC[mcp-mockepic<br/>Mock FHIR<br/>🎭 Demo Only]
             FGBIO[mcp-fgbio<br/>FASTQ/VCF<br/>✅ Production]
             TCGA[mcp-tcga<br/>Cancer Data<br/>❌ Mocked]
         end
@@ -196,7 +200,8 @@ graph TB
     API ==> FGBIO
     API ==> MULTI
     API --> SPATIAL
-    API -.-> EPIC
+    API ==> REALEPIC
+    API -.-> MOCKEPIC
     API -.-> TCGA
     API -.-> IMAGE
     API -.-> DEEPCELL
@@ -206,7 +211,8 @@ graph TB
     FGBIO ==> PATIENT
     MULTI ==> PATIENT
     SPATIAL --> PATIENT
-    EPIC -.-> PATIENT
+    REALEPIC ==> PATIENT
+    MOCKEPIC -.-> PATIENT
     TCGA -.-> PATIENT
     IMAGE -.-> PATIENT
     DEEPCELL -.-> PATIENT
@@ -221,25 +227,41 @@ graph TB
     style FGBIO fill:#d4edda,stroke:#28a745,stroke-width:2px
     style MULTI fill:#d4edda,stroke:#28a745,stroke-width:2px
     style SPATIAL fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style REALEPIC fill:#d4edda,stroke:#28a745,stroke-width:3px
     style IMAGE fill:#fff3cd,stroke:#ffc107,stroke-width:1px
     style TCGA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style DEEPCELL fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style HF fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style SEQERA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
-    style EPIC fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
+    style MOCKEPIC fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
 ```
 
 **Architecture Layers:**
 - **User Interfaces:** Streamlit UI (web) • Jupyter Notebook (data science) • Claude Desktop (local)
 - **AI Orchestration:** Claude API with MCP client support (connects to 10 MCP servers)
-- **MCP Servers:** 9 servers deployed on GCP Cloud Run + mcp-epic local (SSE transport)
+- **MCP Servers:** 9 deployed on GCP Cloud Run (SSE transport) + mcp-epic local-only (STDIO)
 - **Analysis Workflow:** PatientOne precision medicine analysis
+
+**Why Two Epic Servers?**
+- **mcp-epic (Real FHIR):** 100% production-ready Epic integration via Google Cloud Healthcare API
+  - 🏥 Runs **locally only** (STDIO transport) for HIPAA compliance
+  - ✅ Real patient data with built-in de-identification
+  - 🔐 Requires hospital credentials (Epic FHIR API + GCP Healthcare API)
+  - 4 tools: get_patient_demographics, get_patient_conditions, get_patient_observations, get_patient_medications
+  - **Use for:** Production hospital deployment with real patient data
+
+- **mcp-mockepic (Mock FHIR):** Intentional mock for demonstration/education
+  - 🌐 Deployed to **GCP Cloud Run** (public SSE endpoint)
+  - 🎭 Synthetic patient data by design (no real PHI)
+  - 🚀 No credentials needed - instant demos
+  - 3 tools: query_patient_records, link_spatial_to_clinical, search_diagnoses
+  - **Use for:** Public demos, workflow development, education
 
 **Server Status:**
 - ✅ **Production Ready** (4/10): mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic (local)
 - 🔶 **60% Real** (1/10): mcp-openimagedata
 - ❌ **Mocked** (4/10): mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera
-- **Mock by Design** (1/10): mcp-mockepic (intentionally synthetic FHIR data)
+- 🎭 **Mock by Design** (1/10): mcp-mockepic (intentionally synthetic for public demos)
 
 **Development Resources:**
 - **Architecture:** [System Design](architecture/README.md) • [PatientOne Architecture](architecture/patient-one/README.md)
