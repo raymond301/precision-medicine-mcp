@@ -21,7 +21,7 @@ Complete documentation for the Precision Medicine MCP system, organized by audie
 | Document | Description |
 |----------|-------------|
 | [Claude Desktop Quickstart](guides/CLAUDE_DESKTOP_QUICKSTART.md) | Set up and run MCP servers locally with Claude Desktop |
-| [Test Prompts](testing/TEST_PROMPTS.md) | Sample queries to test each MCP server |
+| [Quick Test Prompts](../tests/manual_testing/QUICK_TEST_PROMPTS.md) | Sample queries to test each MCP server |
 | [Automated Patient Reports](guides/AUTOMATED_PATIENT_REPORTS.md) | Generate comprehensive patient analysis reports |
 
 ### Deployment & Operations
@@ -39,16 +39,6 @@ Complete documentation for the Precision Medicine MCP system, organized by audie
 | └─ [HIPAA Compliance](hospital-deployment/HIPAA_COMPLIANCE.md) | Compliance validation and procedures |
 | └─ [Audit Log Guide](hospital-deployment/AUDIT_LOG_GUIDE.md) | 10-year retention and reporting |
 | └─ [Runbooks](hospital-deployment/RUNBOOKS/) | Troubleshooting procedures |
-
-### Testing & Quality Assurance
-
-| Document | Description |
-|----------|-------------|
-| **[testing/](testing/)** | Testing guides and verification |
-| └─ [GCP Server Test Plan](testing/GCP_SERVER_TEST_PLAN.md) | Comprehensive testing strategy for deployed servers |
-| └─ [Verify Servers](testing/VERIFY_SERVERS.md) | Server verification procedures |
-| └─ [Test Prompts](testing/TEST_PROMPTS.md) | Sample queries to test each MCP server |
-| └─ [Phase 2 Testing Guide](testing/PHASE2_TESTING_GUIDE.md) | Testing guide for next development phase |
 
 ### Cost & Governance
 
@@ -80,7 +70,7 @@ Complete documentation for the Precision Medicine MCP system, organized by audie
 
 ## 📂 Documentation Organization
 
-**New organized structure (6 files at root + 6 subdirectories):**
+**Organized structure (6 files at root + 5 subdirectories):**
 
 ```
 docs/
@@ -112,26 +102,22 @@ docs/
 │   ├── GCP_TESTING_GUIDE.md
 │   └── SECURITY.md
 │
-├── hospital-deployment/ (5 files + runbooks)
-│   ├── OPERATIONS_MANUAL.md
-│   ├── ADMIN_GUIDE.md
-│   ├── USER_GUIDE.md
-│   ├── HIPAA_COMPLIANCE.md
-│   ├── AUDIT_LOG_GUIDE.md
-│   └── RUNBOOKS/
-│       ├── server-down.md
-│       ├── epic-connection-failure.md
-│       └── sso-issues.md
-│
-└── testing/ (4 files)
-    ├── GCP_SERVER_TEST_PLAN.md
-    ├── VERIFY_SERVERS.md
-    ├── TEST_PROMPTS.md
-    └── PHASE2_TESTING_GUIDE.md
+└── hospital-deployment/ (5 files + runbooks)
+    ├── OPERATIONS_MANUAL.md
+    ├── ADMIN_GUIDE.md
+    ├── USER_GUIDE.md
+    ├── HIPAA_COMPLIANCE.md
+    ├── AUDIT_LOG_GUIDE.md
+    └── RUNBOOKS/
+        ├── server-down.md
+        ├── epic-connection-failure.md
+        └── sso-issues.md
 ```
 
-**Total:** 30 documentation files
-**Root Level:** 6 files (down from 14) + 6 subdirectories
+**Total:** 26 documentation files
+**Root Level:** 6 files (down from 14) + 5 subdirectories
+
+**Note:** Testing documentation has been consolidated into [tests/](../tests/) directory.
 
 ---
 
@@ -163,10 +149,11 @@ docs/
 5. [Error Handling & Retry Logic](technical/ERROR_HANDLING_RETRY_LOGIC.md) - Resilience patterns
 
 ### For QA & Testing
-1. [GCP Server Test Plan](testing/GCP_SERVER_TEST_PLAN.md) - Comprehensive testing
-2. [Test Prompts](testing/TEST_PROMPTS.md) - Sample queries
-3. [Phase 2 Testing Guide](testing/PHASE2_TESTING_GUIDE.md) - Next phase testing
-4. [Verify Servers](testing/VERIFY_SERVERS.md) - Verification procedures
+1. [Testing Overview](../tests/README.md) - Complete testing documentation (167 automated tests)
+2. [GCP Testing Guide](../tests/integration/GCP_TESTING_GUIDE.md) - Test deployed servers via Claude API
+3. [Quick Test Prompts](../tests/manual_testing/QUICK_TEST_PROMPTS.md) - Copy-paste queries for rapid testing
+4. [Phase 2 Features Guide](../tests/manual_testing/PHASE2_FEATURES_GUIDE.md) - Cell type deconvolution & DE testing
+5. [PatientOne Tests](../tests/manual_testing/PatientOne-OvarianCancer/) - End-to-end integration tests
 
 ### For IT Operations
 1. [Operations Manual](hospital-deployment/OPERATIONS_MANUAL.md) - System operations
@@ -201,9 +188,10 @@ docs/
 - [Audit Log Guide](hospital-deployment/AUDIT_LOG_GUIDE.md) - 10-year retention
 
 ### Testing
-- [GCP Server Test Plan](testing/GCP_SERVER_TEST_PLAN.md) - 9 deployed servers tested ✅
-- [Test Prompts](testing/TEST_PROMPTS.md) - Sample queries for each server
-- [Verify Servers](testing/VERIFY_SERVERS.md) - Verification procedures
+- [Testing Overview](../tests/README.md) - 167 automated tests across all servers ✅
+- [GCP Testing Guide](../tests/integration/GCP_TESTING_GUIDE.md) - Test 9 deployed servers via Claude API
+- [Quick Test Prompts](../tests/manual_testing/QUICK_TEST_PROMPTS.md) - 10 copy-paste queries for rapid testing
+- [PatientOne Integration Tests](../tests/manual_testing/PatientOne-OvarianCancer/) - End-to-end workflows
 
 ---
 
