@@ -10,7 +10,7 @@ I have three key documents that define this project:
 
 1. **Architecture Document** (`Spatial_MCP_POC_Architecture.md`) - Complete technical architecture with 60+ pages of specifications
 2. **Visual Diagram** (`Spatial_MCP_Architecture_Diagram.html`) - One-page visual overview 
-3. **Example Prompts** (`MCP_POC_Example_Prompts.md`) - 18 example prompts showing how bioinformaticians will use the system
+3. **Example Prompts** ([`EXAMPLE_PROMPTS_SPATIAL.md`](../../tests/manual_testing/EXAMPLE_PROMPTS_SPATIAL.md)) - 18 example prompts showing how bioinformaticians will use the system
 
 Please read all three documents to understand the full scope before we begin.
 
@@ -23,8 +23,8 @@ precision-medicine-mcp-poc/
 ├── README.md
 ├── docs/
 │   ├── architecture.md
-│   ├── setup_guide.md
 │   └── developer_guide.md
+│   # setup_guide.md moved to /docs/guides/SPATIAL_SETUP.md
 ├── servers/
 │   ├── mcp-fgbio/
 │   │   ├── src/

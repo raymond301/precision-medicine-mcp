@@ -18,8 +18,11 @@ This directory contains documentation for the core spatial transcriptomics workf
 
 | File | Description |
 |------|-------------|
-| **MCP_POC_Example_Prompts.md** | 18 ready-to-use test prompts for Claude Desktop |
-| **setup_guide.md** | Detailed installation and configuration guide |
+| **FINAL_TEST_RESULTS.md** | Comprehensive test results for Phase 1 |
+
+**Note:** Testing and setup docs have been moved:
+- **Example Prompts:** Now at `/tests/manual_testing/EXAMPLE_PROMPTS_SPATIAL.md`
+- **Setup Guide:** Now at `/docs/guides/SPATIAL_SETUP.md`
 
 ---
 
@@ -44,7 +47,7 @@ Spatial transcriptomics combines gene expression profiling with spatial informat
 
 ### Example Workflows
 
-For complete workflow examples, see **MCP_POC_Example_Prompts.md** which includes:
+For complete workflow examples, see [EXAMPLE_PROMPTS_SPATIAL.md](../../../tests/manual_testing/EXAMPLE_PROMPTS_SPATIAL.md) which includes:
 - FASTQ validation and QC
 - UMI extraction
 - Spatial barcode processing
@@ -100,7 +103,7 @@ Documentation for these servers is in their respective directories.
    ```
 
 3. **Try example prompts:**
-   - Open `MCP_POC_Example_Prompts.md`
+   - Open [EXAMPLE_PROMPTS_SPATIAL.md](../../../tests/manual_testing/EXAMPLE_PROMPTS_SPATIAL.md)
    - Copy a prompt to Claude Desktop
    - Watch the multi-server orchestration
 
@@ -110,9 +113,11 @@ Documentation for these servers is in their respective directories.
 
 | Document | Created | Phase | Status |
 |----------|---------|-------|--------|
-| setup_guide.md | Oct 24, 2025 | Phase 1 | ✅ Current |
 | FINAL_TEST_RESULTS.md | Oct 24, 2025 | Phase 1 | ✅ Complete |
-| MCP_POC_Example_Prompts.md | Oct 24, 2025 | All Phases | ✅ Current (updated for 10 servers) |
+
+**Moved (Jan 10, 2026):**
+- setup_guide.md → [/docs/guides/SPATIAL_SETUP.md](../../../docs/guides/SPATIAL_SETUP.md)
+- MCP_POC_Example_Prompts.md → [/tests/manual_testing/EXAMPLE_PROMPTS_SPATIAL.md](../../../tests/manual_testing/EXAMPLE_PROMPTS_SPATIAL.md)
 
 **Archived and removed (Jan 10, 2026):** FINAL_IMPLEMENTATION_SUMMARY.md, PHASE_2_SUMMARY.md
 
