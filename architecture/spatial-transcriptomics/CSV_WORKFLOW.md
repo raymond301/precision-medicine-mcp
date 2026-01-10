@@ -154,7 +154,7 @@ Remove technical batch effects when analyzing multiple samples.
 **Note:** PatientOne uses single patient, so batch correction not needed in current tests.
 
 ### Step 6: Visualization
-**Tools:** 4 visualization tools (see [TOOL_REFERENCE.md](TOOL_REFERENCE.md) for details)
+**Tools:** 4 visualization tools (see [mcp-spatialtools README](../../servers/mcp-spatialtools/README.md) for details)
 
 1. **Spatial Heatmap** - Expression overlaid on (x,y) coordinates
 2. **Gene Expression Heatmap** - Clustered heatmap (genes × regions)
@@ -234,6 +234,6 @@ pytest tests/ -v
 ---
 
 ## See Also
-- [TOOL_REFERENCE.md](TOOL_REFERENCE.md) - Detailed tool documentation
+- [mcp-spatialtools README](../../servers/mcp-spatialtools/README.md) - Detailed tool documentation
 - [OVERVIEW.md](OVERVIEW.md) - System architecture
 - [PatientOne README](../../tests/manual_testing/PatientOne-OvarianCancer/README.md) - Complete end-to-end workflow
