@@ -1,11 +1,11 @@
-# Precision Medicine MCP 
+# Precision Medicine w/ AI-orchestrated MCP Servers
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-2025--06--18-green.svg)](https://modelcontextprotocol.io/)
 [![Claude Desktop](https://img.shields.io/badge/Claude-Desktop-orange.svg)](https://claude.ai/download)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
-*AI-Orchestrated Clinical Bioinformatics for Precision Oncology using custom Model Context Protocol (MCP) servers*
+*AI-Orchestrated Clinical Bioinformatics for Precision Oncology using custom MCP servers*
 <img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/repo-image.png">
 
 ## What and Why
