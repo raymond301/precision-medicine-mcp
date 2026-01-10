@@ -29,8 +29,9 @@ Complete analysis outputs for Patient-001, including:
 
 3. **cell_deconvolution.csv** (566 B)
    - Cell type signature scores by tissue region
-   - 4 cell types × 6 tissue regions
+   - 6 tissue regions × 4 cell type scores
    - Cell types: fibroblasts, immune_cells, hypoxic, resistant
+   - Format: Each row is a region, columns are cell type scores
 
 4. **clinical_summary.txt** (2.9 KB)
    - Human-readable clinical analysis report

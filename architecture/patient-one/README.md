@@ -2,7 +2,7 @@
 
 ## Overview
 
-PatientOne demonstrates how Claude orchestrates 9 specialized MCP servers to deliver comprehensive precision medicine analysis for a patient with Stage IV Ovarian Cancer. This end-to-end workflow integrates clinical, genomic, multiomics, spatial, and imaging data to identify resistance mechanisms and actionable treatment targets.
+PatientOne demonstrates how Claude orchestrates 10 MCP servers (9 deployed + mcp-epic local) to deliver comprehensive precision medicine analysis for a patient with Stage IV Ovarian Cancer. This end-to-end workflow integrates clinical, genomic, multiomics, spatial, and imaging data to identify resistance mechanisms and actionable treatment targets.
 
 **What makes PatientOne unique:** Unlike traditional bioinformatics pipelines that analyze individual data types in isolation, PatientOne shows how AI can seamlessly integrate across all modalities through **natural language**—replacing weeks of glue code with conversational requests.
 
@@ -68,7 +68,7 @@ How do we integrate:
 - Available therapeutic options
 
 **Traditional Approach:** Weeks of custom scripts, multiple software tools, manual data wrangling, siloed analysis
-**PatientOne with MCP:** Conversational requests that orchestrate 36 tools across 9 servers automatically
+**PatientOne with MCP:** Conversational requests that orchestrate 55 tools across 10 servers automatically
 
 ### Data Integration Flow
 
@@ -83,7 +83,7 @@ flowchart LR
     end
 
     subgraph Integration["AI Integration Layer"]
-        CLAUDE[Claude Desktop<br/>MCP Orchestration<br/>9 Servers • 40 Tools]
+        CLAUDE[Claude Desktop<br/>MCP Orchestration<br/>10 Servers • 55 Tools]
     end
 
     subgraph Output["Precision Medicine Output"]
@@ -291,7 +291,7 @@ All synthetic patient data located in: `/data/patient-data/PAT001-OVC-2025/`
 ### For Developers (`patient-one-outputs/for-developer/`)
 - **MCP_Report_PAT001.pdf:** Technical validation report showing all MCP server calls, data flows, and integration points
 - **MCP_Report_PAT001_v2.0_NewSections.pdf:** Enhanced version with additional sections and analysis details
-- **MCP_Servers_Reference_Guide.pdf:** Complete documentation of 9 servers and 40 tools used
+- **MCP_Servers_Reference_Guide.pdf:** Complete documentation of 10 servers and 55 tools used
 - **Full_Test_Prompt.pdf:** End-to-end prompt that reproduces entire analysis
 
 ### For Care Teams (`patient-one-outputs/for-care-team/`)
