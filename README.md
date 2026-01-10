@@ -40,7 +40,7 @@
 - [PatientOne Documentation →](architecture/patient-one/README.md)
 - [Quick Start →](tests/manual_testing/PatientOne-OvarianCancer/README.md)
 - [Sample Outputs →](architecture/patient-one/patient-one-outputs/)
-- **See the [Executive Summary](docs/EXECUTIVE_SUMMARY.md)** for **💼 For Funders & Decision-Makers:**
+- [Executive Summary →](docs/EXECUTIVE_SUMMARY.md) for **💼 For Funders & Decision-Makers:**
 
 ## Who is this For?
 
