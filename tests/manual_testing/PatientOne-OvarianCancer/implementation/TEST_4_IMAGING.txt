@@ -5,10 +5,14 @@ Patient ID: PAT001-OVC-2025
 
 ⚠️ IMPORTANT: This test uses MICROSCOPY IMAGES (TIFF files).
 - H&E images use BRIGHTFIELD microscopy (chromogenic stains)
-- IF images use FLUORESCENCE microscopy (fluorescent antibodies)
-Use openimagedata and deepcell servers to read and analyze images.
+- IF/MxIF images use FLUORESCENCE microscopy (fluorescent antibodies)
 
-## Imaging Analysis (use mcp-openimagedata and mcp-deepcell)
+**SERVER WORKFLOW:**
+- **H&E analysis:** Use mcp-openimagedata ONLY (visual morphology assessment)
+- **IF/MxIF analysis:** Use mcp-openimagedata (loading/compositing) + mcp-deepcell (segmentation)
+- **DeepCell:** Used for MxIF cell segmentation using DeepCell-TF library (fluorescence images only)
+
+## Imaging Analysis
 
 For patient PAT001-OVC-2025, analyze histology and immunofluorescence images:
 

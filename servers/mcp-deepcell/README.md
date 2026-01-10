@@ -1,17 +1,25 @@
-# mcp-deepcell: Deep Learning Cell Segmentation
+# mcp-deepcell: Deep Learning Cell Segmentation for MxIF
 
-MCP server for deep learning-based cell segmentation in microscopy images, with visualization tools for validating segmentation quality and phenotype analysis.
+MCP server for deep learning-based cell segmentation in multiplexed immunofluorescence (MxIF) and other fluorescence microscopy images, with visualization tools for validating segmentation quality and phenotype analysis.
 
 ## Overview
 
-`mcp-deepcell` provides AI-accessible cell segmentation and classification tools through the Model Context Protocol (MCP). This server enables automated cell detection, phenotype classification, and visualization generation for immunofluorescence and brightfield microscopy.
+`mcp-deepcell` provides AI-accessible cell segmentation and classification tools through the Model Context Protocol (MCP). This server uses the **open-source DeepCell-TF library** (https://github.com/vanvalenlab/deepcell-tf) to enable automated cell detection, phenotype classification, and visualization generation for MxIF workflows.
+
+### Primary Use Case: MxIF Analysis
+
+**MxIF (Multiplexed Immunofluorescence)** enables imaging of multiple protein markers (2-7+) on a single tissue section. DeepCell segments cells from fluorescence channels (e.g., DAPI nuclear stain) and enables quantitative phenotyping:
+- Single-cell marker quantification (CD8+, Ki67+, TP53+, etc.)
+- Multi-marker co-expression analysis (e.g., TP53+/Ki67+ double-positive cells)
+- Spatial distribution of cell phenotypes
+- Cell counting and density measurements
 
 ### Key Features
 
-- 🔬 **Cell Segmentation** - Deep learning-based membrane, nuclear, and cytoplasm segmentation
-- 🎨 **Segmentation Overlays** - Visualize cell boundaries overlaid on original images
-- 📊 **Phenotype Visualization** - Color cells by marker expression (positive/negative)
-- 🧬 **Cell Classification** - Classify cell states (proliferating, quiescent, apoptotic, etc.)
+- 🔬 **MxIF Cell Segmentation** - Deep learning-based nuclear, membrane, and cytoplasm segmentation for fluorescence images
+- 🎨 **Segmentation Overlays** - Visualize cell boundaries overlaid on original fluorescence images
+- 📊 **Phenotype Visualization** - Color cells by marker expression (positive/negative, co-expression patterns)
+- 🧬 **Cell Classification** - Classify cell states based on fluorescence intensity (proliferating, quiescent, apoptotic, etc.)
 - ⚡ **DRY_RUN Mode** - Test workflows with synthetic data
 
 ## Installation

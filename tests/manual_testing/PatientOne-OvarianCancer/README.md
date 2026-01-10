@@ -229,17 +229,25 @@ Understanding the difference between imaging types is critical for correct analy
 |------------|----------------|-----------------|-------------------|----------|
 | **H&E** | Brightfield | Chromogenic (Hematoxylin=blue nuclei, Eosin=pink cytoplasm) | OpenImageData | Tissue architecture, morphology, cellularity assessment |
 | **IF (single-plex)** | Fluorescence | Single fluorescent antibody | OpenImageData + DeepCell | Protein marker quantification (CD8, Ki67, etc.) |
-| **IF (multiplex)** | Fluorescence | Multiple fluorophores (2-7 colors) | OpenImageData + DeepCell | Cell phenotyping, protein co-localization |
+| **MxIF (multiplex)** | Fluorescence | Multiple fluorophores (2-7 colors) | OpenImageData + DeepCell | Cell phenotyping, protein co-localization, co-expression analysis |
 | **Spatial RNA-seq** | N/A (sequencing) | Tabular CSV data (no images) | SpatialTools only | Gene expression patterns across tissue |
 
 **Key Differences:**
 - **H&E:** Brightfield microscopy with colored (chromogenic) stains - NOT fluorescence
-- **IF:** Fluorescence microscopy with fluorescent antibodies - requires different analysis
+- **IF/MxIF:** Fluorescence microscopy with fluorescent antibodies - requires different analysis
 - **Spatial data:** No images, just CSV files with coordinates and expression values
 
-**When to use DeepCell:**
-- ✅ IF images requiring cell segmentation
-- ✅ H&E images requiring nuclear/cell segmentation
+**What is MxIF?**
+MxIF (Multiplexed Immunofluorescence) enables imaging of multiple protein markers (2-7+) on a single tissue section through repeated rounds of staining, imaging, dye inactivation, and background subtraction. This provides:
+- High-dimensional single-cell data (multiple markers per cell)
+- Spatial context preserved across all markers (same cells in all images)
+- Quantitative phenotyping (e.g., TP53+/Ki67+ double-positive cells)
+
+The PatientOne workflow uses the **open-source DeepCell-TF library** (https://github.com/vanvalenlab/deepcell-tf) for AI-based cell segmentation in MxIF images.
+
+**When to use DeepCell in PatientOne Workflow:**
+- ✅ MxIF/IF images requiring cell segmentation and quantification (CD8, Ki67, TP53/Ki67/DAPI multiplex)
+- ❌ H&E images (used for visual morphology assessment only in this workflow)
 - ❌ Tabular spatial data (CSV files) - use SpatialTools instead
 
 ---

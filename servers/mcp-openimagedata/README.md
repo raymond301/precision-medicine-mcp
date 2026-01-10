@@ -1,18 +1,32 @@
-# mcp-openimagedata: Histology Image Processing
+# mcp-openimagedata: Histology and MxIF Image Processing
 
-MCP server for histology and immunofluorescence image processing, spatial registration, and visualization generation for microscopy analysis.
+MCP server for histology (H&E) and multiplexed immunofluorescence (MxIF) image processing, spatial registration, and visualization generation for microscopy analysis.
 
 ## Overview
 
-`mcp-openimagedata` provides AI-accessible histology image processing tools through the Model Context Protocol (MCP). This server enables image fetching, spatial registration with transcriptomics data, feature extraction, multiplex channel compositing, and morphology annotation for H&E and immunofluorescence microscopy.
+`mcp-openimagedata` provides AI-accessible image processing tools through the Model Context Protocol (MCP). This server enables image fetching, spatial registration with transcriptomics data, feature extraction, MxIF channel compositing, and morphology annotation for brightfield and fluorescence microscopy.
+
+### Imaging Workflows
+
+**H&E (Brightfield Microscopy):**
+- Chromogenic stains (Hematoxylin=blue nuclei, Eosin=pink cytoplasm)
+- Use for: Tissue morphology assessment, necrosis identification, cellularity estimation
+- Workflow: Load image → Annotate regions (`generate_he_annotation`) → Visual assessment
+- **No cell segmentation required** for morphology assessment
+
+**MxIF (Fluorescence Microscopy):**
+- Multiple fluorescent antibody markers on single tissue section
+- Use for: Quantitative cell phenotyping, marker co-expression analysis
+- Workflow: Load channels → Composite (`generate_multiplex_composite`) → Segment with mcp-deepcell → Quantify
+- **Requires mcp-deepcell** for cell segmentation and counting
 
 ### Key Features
 
-- 📥 **Image Fetching** - Retrieve H&E and immunofluorescence histology images
+- 📥 **Image Fetching** - Retrieve H&E and MxIF histology images
 - 🖼️ **Spatial Registration** - Align histology images with spatial transcriptomics coordinates
 - 🔍 **Feature Extraction** - Extract texture, morphology, and intensity features from images
-- 🎨 **Multiplex Compositing** - Combine 2-7 fluorescence channels into RGB composites
-- 📍 **Morphology Annotation** - Annotate necrotic regions and high cellularity areas on H&E
+- 🎨 **MxIF Compositing** - Combine 2-7 fluorescence channels into RGB composites (fluorescence only)
+- 📍 **H&E Annotation** - Annotate necrotic regions and high cellularity areas on brightfield H&E
 - ⚡ **DRY_RUN Mode** - Test workflows with synthetic data
 
 ## Installation
@@ -224,10 +238,12 @@ The following visualization tools generate publication-quality PNG images:
 
 ### 4. generate_multiplex_composite
 
-Generate RGB composite from multiplex immunofluorescence channels.
+Generate RGB composite from multiplex immunofluorescence (MxIF) channels.
+
+**⚠️ FLUORESCENCE ONLY:** This tool is designed for MxIF fluorescence images. Do NOT use with H&E brightfield images.
 
 **Parameters:**
-- `channel_paths` (list): List of paths to channel images (1-7 channels, grayscale TIFF/PNG)
+- `channel_paths` (list): List of paths to fluorescence channel images (1-7 channels, grayscale TIFF/PNG)
 - `channel_names` (list): List of marker names matching channel order (e.g., ["DAPI", "Ki67", "TP53"])
 - `channel_colors` (list, optional): List of colors for each channel - "blue", "green", "red", "cyan", "magenta", "yellow", "white" (default: ["blue", "green", "red", ...])
 - `output_filename` (string, optional): Custom output filename (default: auto-generated with timestamp)

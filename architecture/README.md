@@ -246,21 +246,21 @@ Key Features:
 │  ────────────    │    │   ────────────     │    │  ─────────────     │
 │                  │    │                    │    │                    │
 │ mcp-spatialtools │    │ mcp-openimagedata  │    │ Integration of     │
-│ • Visium data    │    │ • H&E histology    │    │ ALL data streams   │
-│ • 900 spots      │    │ • Immunofluorescence│   │                    │
-│ • 31 genes       │    │   (CD3, CD8, KI67) │    │ • Treatment        │
-│ • 6 regions      │    │                    │    │   recommendations  │
-│                  │    │ mcp-deepcell       │    │ • Pathway targets  │
-│ • Spatial        │    │ • Cell segmentation│    │   (PI3K/AKT/mTOR)  │
-│   heterogeneity  │    │ • Cell counting    │    │ • Clinical trials  │
-│ • Immune         │    │                    │    │ • Monitoring plan  │
-│   localization   │    │ Output:            │    │                    │
-│                  │    │ • Tissue           │    │ • Synthetic results│
-│ Output:          │    │   architecture     │    │   across all       │
-│ • Expression     │    │ • Cell phenotypes  │    │   modalities       │
-│   maps           │    │ • Immune infiltrate│    │                    │
-│ • Region         │    │                    │    │                    │
-│   analysis       │    │                    │    │                    │
+│ • Visium data    │    │ • H&E (brightfield)│    │ ALL data streams   │
+│ • 900 spots      │    │   - Morphology     │    │                    │
+│ • 31 genes       │    │   - Necrosis ID    │    │ • Treatment        │
+│ • 6 regions      │    │ • MxIF (fluoresc.) │    │   recommendations  │
+│                  │    │   - Load channels  │    │ • Pathway targets  │
+│ • Spatial        │    │   - Compositing    │    │   (PI3K/AKT/mTOR)  │
+│   heterogeneity  │    │                    │    │ • Clinical trials  │
+│ • Immune         │    │ mcp-deepcell       │    │ • Monitoring plan  │
+│   localization   │    │ • MxIF segmentation│    │                    │
+│                  │    │   (fluoresc. only) │    │ • Synthetic results│
+│ Output:          │    │ • Cell counting    │    │   across all       │
+│ • Expression     │    │   (CD8, Ki67)      │    │   modalities       │
+│   maps           │    │                    │    │                    │
+│ • Region         │    │ Output:            │    │                    │
+│   analysis       │    │ • Immune infiltrate│    │                    │
 └──────────────────┘    └────────────────────┘    └────────────────────┘
         │                           │                           │
         └───────────────────────────┼───────────────────────────┘
@@ -294,6 +294,21 @@ Key Features:
                     │  • Imaging every 6 weeks  │
                     │  • PDX model validation   │
                     └───────────────────────────┘
+
+**Key Imaging Workflow Distinction:**
+
+**H&E (Hematoxylin & Eosin):**
+- Brightfield microscopy with chromogenic stains (NOT fluorescence)
+- Server: mcp-openimagedata only
+- Purpose: Morphology assessment, necrosis identification, cellularity estimation
+- No cell segmentation required for PatientOne workflow (visual assessment)
+
+**MxIF (Multiplexed Immunofluorescence):**
+- Fluorescence microscopy with multiple antibody markers
+- Servers: mcp-openimagedata (loading, compositing) → mcp-deepcell (segmentation)
+- Purpose: Quantitative cell phenotyping (CD8+ T cells, Ki67+ proliferation, TP53 expression)
+- DeepCell uses the open-source DeepCell-TF library for AI-based cell segmentation
+- Enables single-cell spatial analysis with multiple marker co-expression
 
 ┌──────────────────────────────────────────────────────────────────────────┐
 │  ALL 9 MCP Servers Utilized:                                             │
