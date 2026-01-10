@@ -40,20 +40,7 @@
 - [PatientOne Documentation →](architecture/patient-one/README.md)
 - [Quick Start →](tests/manual_testing/PatientOne-OvarianCancer/README.md)
 - [Sample Outputs →](architecture/patient-one/patient-one-outputs/)
-
----
-
-> **💼 For Funders & Decision-Makers:**
->
-> **See the [Executive Summary](docs/EXECUTIVE_SUMMARY.md)** for:
-> - ROI Analysis: $3,098-3,176 savings per patient (production), $310,000+ net benefit Year 1
-> - Production Readiness: HIPAA-compliant hospital deployment in 6 months
-> - Budget: $15,000 pilot (6 months), $30,000/year production - for compute and cloud services
-> - Claude Token Costs: Only ~$1-2 per analysis (MCP servers return summaries, not raw 3-8 GB files!)
-> - Risk Assessment: Comprehensive mitigation strategies
-> - Success Metrics: Technical, business, and research outcomes
-
----
+- **See the [Executive Summary](docs/EXECUTIVE_SUMMARY.md)** for **💼 For Funders & Decision-Makers:**
 
 ## Who is this For?
 
