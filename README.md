@@ -15,7 +15,7 @@
   - Solution is extensible for other comorbidity types (i.e. other cancers, other diseases)
   - "What is an MCP Server?" [(article)](https://medium.com/@elisowski/mcp-explained-the-new-standard-connecting-ai-to-everything-79c5a1c98288)
 - What it is NOT: Not clinically validated yet
-- See it / Try it: <5 minute local demo - [recording](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [code](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer)
+- See it / Try it: <5 minute local demo (small subset of full example) - [recording](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [code](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer)
 
 ## Featured Use Case: PatientOne
 
