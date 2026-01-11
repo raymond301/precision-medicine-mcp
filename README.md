@@ -39,7 +39,7 @@ Find your role below and click the associated link to see more information about
 
 **What you can do:** Spatial transcriptomics • Multi-omics integration • Tumor microenvironment mapping • Drug resistance mechanisms • Reproducible data pipelines
 
-**📖 [Full Details & Resources →](docs/README.md#bioinformaticians)**
+**📖 [Full Details & Resources →](docs/guides/personas/bioinformaticians.md)**
 
 ---
 
@@ -48,7 +48,7 @@ Find your role below and click the associated link to see more information about
 
 **What you'll learn:** MCP server architecture • Testing best practices • External tool integration • Real vs mocked implementation strategies
 
-**📖 [Full Details & Resources →](docs/README.md#mcp-developers)**
+**📖 [Full Details & Resources →](docs/guides/personas/mcp-developers.md)**
 
 ---
 
@@ -59,7 +59,7 @@ Find your role below and click the associated link to see more information about
 
 **Deployment options:** Local development • GCP Cloud Run (9 servers deployed ✅) • HPC clusters • Hospital production
 
-**📖 [Full Details & Resources →](docs/README.md#software-engineers)**
+**📖 [Full Details & Resources →](docs/guides/personas/software-engineers.md)**
 
 ---
 
@@ -70,7 +70,7 @@ Find your role below and click the associated link to see more information about
 
 **Educational value:** Precision medicine workflows • Multi-omics integration • Pathway analysis • FHIR & de-identification
 
-**📖 [Full Details & Resources →](docs/README.md#clinical-care-teams-oncologists-genetic-counselors)**
+**📖 [Full Details & Resources →](docs/guides/personas/clinical-care-teams.md)**
 
 ---
 
@@ -81,7 +81,7 @@ Find your role below and click the associated link to see more information about
 
 **PatientOne Story:** Named in memory of a friend who passed from HGSOC in 2025, inspiring tools to help researchers understand and combat this disease.
 
-**📖 [Full Details & Resources →](docs/README.md#patients--families)**
+**📖 [Full Details & Resources →](docs/guides/personas/patients-and-families.md)**
 
 ---
 
@@ -92,7 +92,7 @@ Find your role below and click the associated link to see more information about
 
 **Topics covered:** Precision oncology • Multi-omics integration • Spatial transcriptomics • AI orchestration • Statistical methods • Cloud deployment
 
-**📖 [Full Details & Resources →](docs/README.md#students--educators)**
+**📖 [Full Details & Resources →](docs/guides/personas/students-and-educators.md)**
 
 ---
 
