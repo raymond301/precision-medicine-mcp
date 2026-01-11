@@ -51,20 +51,6 @@ After:  "/Users/yourname/projects/precision-medicine-mcp/servers/mcp-fgbio/venv/
 
 ---
 
-### `claude_desktop_config.json.OLD` 🗄️ ARCHIVED
-
-**Status:** ❌ Deprecated - Do not use
-
-**Purpose:** Old configuration with only 3 servers (Phase 1).
-
-**Issues:**
-- Incomplete: Only has fgbio, spatialtools, openimagedata
-- Broken: Uses `"command": "python"` which doesn't work in Claude Desktop
-- Missing: 5 servers from Phases 2-3
-
-**Kept for reference only.**
-
----
 
 ## 🔧 Configuration Details
 
@@ -238,32 +224,5 @@ cp ~/Desktop/claude_desktop_config_backup.json ~/Library/Application\ Support/Cl
 
 ---
 
-## 📚 Related Documentation
 
-- **Installation Guide:** `../manual_testing/README.md`
-- **Test Prompts:** `../manual_testing/PatientOne-OvarianCancer/implementation/` (TEST_1 through TEST_5)
-- **Pre-flight Checklist:** `../manual_testing/Solution-Testing/PRE_FLIGHT_CHECKLIST.md`
-- **Testing Status:** `../manual_testing/Solution-Testing/TESTING_STATUS.md`
-- **Main README:** `../README.md`
 
----
-
-## 📊 Server Status
-
-| Server | Tools | Config Status |
-|--------|-------|---------------|
-| mcp-fgbio | 4 | ✅ Configured |
-| mcp-spatialtools | 8 | ✅ Configured |
-| mcp-openimagedata | 3 | ✅ Configured |
-| mcp-seqera | 3 | ✅ Configured |
-| mcp-huggingface | 3 | ✅ Configured |
-| mcp-deepcell | 2 | ✅ Configured |
-| mcp-epic | 3 | ✅ Configured |
-| mcp-tcga | 5 | ✅ Configured |
-| mcp-multiomics | 9 | ✅ Configured |
-| **TOTAL** | **40** | **✅ All Ready** |
-
----
-
-**Last Updated:** December 29, 2025
-**Status:** ✅ Ready for Claude Desktop - All 9 servers configured
