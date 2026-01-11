@@ -19,4 +19,4 @@ This includes:
 
 ---
 
-**See also:** [PatientOne Architecture →](../architecture/patient-one/README.md)
+**See also:** [PatientOne Architecture →](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer/architecture)
