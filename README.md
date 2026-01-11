@@ -9,8 +9,8 @@
 
 ## What and Why
 - The Problem: multi-modal precision medicine is siloed and code-heavy
-- What the set of custom MCP servers does (PatientOne use case example):
-  - Makes complex analysis significantly faster and easier
+- This Solution: a set of custom MCP servers for analysis and data retrieval (PatientOne use case example):
+  - Makes complex analysis significantly faster and easier by presenting a customized, single interface for tools and data
   - System coordinates disparate servers and stitches results together after being given a natural-language prompt
   - "What is an MCP Server?" [(article)](https://medium.com/@elisowski/mcp-explained-the-new-standard-connecting-ai-to-everything-79c5a1c98288)
 - What it is NOT: Not clinically validated yet
