@@ -39,7 +39,7 @@
 - LEARN More:
   - [PatientOne Documentation](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer/architecture)
   - [Quick Start](tests/manual_testing/PatientOne-OvarianCancer/README.md)
-  - [Sample Outputs](architecture/patient-one/patient-one-outputs/)
+  - [Sample Outputs](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer/architecture/patient-one-outputs)
   - [Executive Summary](docs/EXECUTIVE_SUMMARY.md) 
 
 ## Who is this For?
