@@ -1,349 +1,112 @@
-# Precision Medicine MCP Servers
+# Precision Medicine MCP Servers - Architecture
 
-See each subfolder for architectures. See also main Repo README.md for list of tools for each custom MCP server
+**Purpose:** Architecture documentation for modality-specific analysis workflows
 
 **⚠️ Important:** Not all servers are production-ready. Check [Server Implementation Status](../docs/SERVER_IMPLEMENTATION_STATUS.md) before using for research or production.
 
-## Architecture Workflows
+---
 
-### 1) Multiomics (custom mcp servers + tools)
+## Architecture by Analysis Modality
+
+This directory contains high-level architecture documentation organized by **analysis type** (not by use case):
+
+| Modality | Servers | Tools | Status | Documentation |
+|----------|---------|-------|--------|---------------|
+| **Imaging** | mcp-openimagedata, mcp-deepcell | 9 | Partial (60%/0%) | [imaging/README.md](imaging/README.md) |
+| **Multiomics** | mcp-multiomics | 10 | Production (85%) | [multiomics/README.md](multiomics/README.md) |
+| **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 | Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
+
+**Total:** 3 analysis modalities, 5 specialized servers, 37 tools
+
+---
+
+## 1. Imaging Analysis
+
+**Purpose:** Histology and multiplexed immunofluorescence (MxIF) image processing
+
+**Servers:**
+- **mcp-openimagedata** (5 tools, 60% real) - Image loading, spatial registration, MxIF compositing, H&E annotation
+- **mcp-deepcell** (4 tools, mocked) - Cell segmentation and phenotyping (future: DeepCell-TF)
+
+**Key Workflows:**
+- **H&E (Brightfield):** Morphology assessment, necrosis identification (chromogenic stains, RGB TIFF)
+- **MxIF (Fluorescence):** Cell segmentation and quantification (fluorescent antibodies, multi-channel TIFF)
+
+**See:** [imaging/README.md](imaging/README.md) for detailed architecture
+
+---
+
+## 2. Multiomics Integration
 
 **Purpose:** PDX multi-omics data integration with preprocessing, association testing, and therapeutic target prediction
 
+**Server:**
+- **mcp-multiomics** (10 tools, 85% real) - Data validation, batch correction, HAllA, Stouffer's meta-analysis, upstream regulators
+
+**Key Features:**
+- **Preprocessing Pipeline:** Batch correction, KNN imputation, QC visualization (MANDATORY first step)
+- **Association Testing:** HAllA with chunking (1000 features/chunk = ~5 min vs days)
+- **Meta-Analysis:** Stouffer's method with correct FDR timing (AFTER combination, not before)
+- **Therapeutic Targets:** Kinase/TF/drug prediction based on dysregulated pathways
+
+**Workflow:**
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│         MULTIOMICS WORKFLOW ARCHITECTURE (10 tools)                      │
-│         Enhanced with bioinformatician feedback (2025)                   │
-└─────────────────────────────────────────────────────────────────────────┘
-
-                         Claude Desktop (MCP Host)
-                                    │
-                    ┌───────────────┼───────────────┐
-                    │                               │
-                    ▼                               ▼
-         ┌──────────────────────┐        ┌──────────────────────┐
-         │  mcp-multiomics      │        │  mcp-epic            │
-         │  ─────────────────   │        │  ───────────────     │
-         │  PREPROCESSING:      │        │  • Patient Data      │
-         │  • Validate Data ⭐  │        │  • Clinical Metadata │
-         │  • Batch Correction  │        │  • Batch Info        │
-         │  • KNN Imputation    │        └──────────────────────┘
-         │  • QC Visualization  │
-         │                      │
-         │  ANALYSIS:           │
-         │  • Data Integration  │
-         │  • HAllA (chunked)   │
-         │  • Stouffer's Meta   │
-         │  • Upstream Regs ⭐  │
-         │  • Visualizations    │
-         └──────────┬───────────┘
-                    │
-    ┌───────────────┼───────────────────────┐
-    │               │                       │
-    ▼               ▼                       ▼
-┌────────┐    ┌──────────┐         ┌────────────┐
-│  RNA   │    │ Protein  │         │  Phospho   │
-│  Data  │    │   Data   │         │    Data    │
-│ (raw)  │    │ (raw)    │         │   (raw)    │
-└────────┘    └──────────┘         └────────────┘
-    │               │                       │
-    │  STEP 1: VALIDATE (batch effects, missing values)
-    └───────────────┼───────────────────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  Data Validation ⭐ │
-         │  • Batch detection  │
-         │  • Missing patterns │
-         │  • Outliers         │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  Preprocessing ⭐   │
-         │  • ComBat batch cor │
-         │  • KNN imputation   │
-         │  • Normalization    │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  QC Visualization ⭐│
-         │  • PCA before/after │
-         │  • Verify batch fix │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  Data Integration   │
-         │  • Align samples    │
-         │  • Normalize        │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  HAllA Analysis     │
-         │  • Chunked (1000)   │
-         │  • NOMINAL p-values │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  Stouffer's Meta    │
-         │  • Combine p-values │
-         │  • FDR AFTER ✓      │
-         │  • Directionality   │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  Upstream Regs ⭐   │
-         │  • Kinases          │
-         │  • TFs              │
-         │  • Drug targets     │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │   Visualization     │
-         │  • Heatmaps         │
-         │  • PCA plots        │
-         │  • Pathway results  │
-         └─────────────────────┘
-
-Key Features:
-  ⭐ NEW: Preprocessing pipeline (validate → preprocess → visualize)
-  ⭐ NEW: Upstream regulator prediction (IPA-like kinase/TF/drug analysis)
-  • Enhanced HAllA with chunking (1000 features/chunk = ~5 min vs days)
-  • Correct FDR workflow (applied AFTER Stouffer's combination)
-  • Integrates RNA, Protein, Phosphorylation data
-  • Statistical meta-analysis across modalities
-  • Identifies multi-modal resistance signatures & therapeutic targets
-  • Suitable for clinical PDX treatment response studies
+RNA + Protein + Phospho Data
+  ↓ Validate (batch effects, missing values)
+  ↓ Preprocess (ComBat, KNN imputation)
+  ↓ Visualize QC (PCA before/after)
+  ↓ Integrate (align samples, normalize)
+  ↓ HAllA (find associations, chunked)
+  ↓ Stouffer's Meta-Analysis (combine p-values)
+  ↓ FDR Correction (AFTER meta-analysis)
+  ↓ Upstream Regulators (kinases, TFs, drugs)
+  ↓ Visualizations (heatmaps, PCA)
 ```
 
-### 2) Spatial (custom mcp servers + tools)
+**See:** [multiomics/README.md](multiomics/README.md) for detailed architecture
 
-**Purpose:** Spatial transcriptomics bioinformatics pipeline
+---
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│               SPATIAL TRANSCRIPTOMICS WORKFLOW ARCHITECTURE              │
-└─────────────────────────────────────────────────────────────────────────┘
+## 3. Spatial Transcriptomics
 
-                         Claude Desktop (MCP Host)
-                      AI-Orchestrated Workflow Execution
-                                    │
-        ┌───────────────────────────┼───────────────────────────┐
-        │                           │                           │
-┌───────▼──────────┐    ┌──────────▼─────────┐    ┌───────────▼────────┐
-│  STAGE 1:        │    │   STAGE 2:         │    │   STAGE 3:         │
-│  Data Ingestion  │───▶│   Spatial          │───▶│   Sequence         │
-│  & QC            │    │   Segmentation     │    │   Alignment        │
-└──────────────────┘    └────────────────────┘    └────────────────────┘
-│ • mcp-fgbio      │    │ • mcp-spatialtools │    │ • mcp-fgbio        │
-│   - validate_    │    │   - split_by_      │    │   - fetch_ref      │
-│     fastq        │    │     region         │    │ • mcp-spatialtools │
-│   - extract_     │    │ • mcp-openimagedata│    │   - align_spatial  │
-│     umis         │    │   - fetch_         │    │ • mcp-seqera       │
-│ • mcp-spatial    │    │     histology      │    │   - launch_nf      │
-│   - filter_      │    │   - register_      │    │                    │
-│     quality      │    │     image          │    │ Output: BAM files  │
-│                  │    │                    │    │         w/ spatial │
-│ Input: FASTQ +   │    │ Output: Segmented  │    │         tags       │
-│        barcodes  │    │         regions    │    │                    │
-└──────────────────┘    └────────────────────┘    └────────────────────┘
-        │                           │                           │
-        └───────────────────────────┼───────────────────────────┘
-                                    │
-        ┌───────────────────────────┼───────────────────────────┐
-        │                           │                           │
-┌───────▼──────────┐    ┌──────────▼─────────┐                │
-│  STAGE 4:        │    │   STAGE 5:         │                │
-│  Expression      │───▶│   Analysis &       │                │
-│  Quantification  │    │   Integration      │                │
-└──────────────────┘    └────────────────────┘                │
-│ • mcp-spatialtools│   │ • mcp-seqera       │                │
-│   - count_umis    │   │   - run_rnaseq     │                │
-│ • mcp-deepcell    │   │ • mcp-huggingface  │                │
-│   - segment_cells │   │   - predict_cell   │                │
-│ • mcp-huggingface │   │     _type          │                │
-│   - embed_        │   │ • mcp-mockepic     │                │
-│     sequences     │   │   - link_spatial   │                │
-│                   │   │ • mcp-tcga         │                │
-│ Output: Gene x    │   │   - compare_to     │                │
-│         Spot/Cell │   │     _tcga          │                │
-│         matrix    │   │                    │                │
-│                   │   │ Output: Analysis   │                │
-│                   │   │         results,   │                │
-│                   │   │         reports    │                │
-└───────────────────┘   └────────────────────┘                │
-                                    │                          │
-                                    ▼                          │
-                        ┌────────────────────┐                 │
-                        │  Final Deliverable │                 │
-                        │  ────────────────  │                 │
-                        │  • Spatial maps    │                 │
-                        │  • Differential    │                 │
-                        │    expression      │                 │
-                        │  • Cell types      │                 │
-                        │  • Visualizations  │                 │
-                        └────────────────────┘                 │
-                                                               │
-┌──────────────────────────────────────────────────────────────┘
-│  MCP Servers Used (8):
-│  ├─ mcp-fgbio          (Reference data, FASTQ validation)
-│  ├─ mcp-tcga           (Cancer genomics reference)
-│  ├─ mcp-spatialtools   (Core spatial processing)
-│  ├─ mcp-huggingface    (ML models)
-│  ├─ mcp-epic           (Clinical data)
-│  ├─ mcp-openimagedata  (Histology images)
-│  ├─ mcp-seqera         (Workflow orchestration)
-│  └─ mcp-deepcell       (Cell segmentation)
-└──────────────────────────────────────────────────────────────┘
+**Purpose:** Spatial gene expression analysis with tissue context
 
-Key Features:
-  • End-to-end FASTQ → Analysis pipeline
-  • Spatial coordinate preservation throughout
-  • Integration with histology images
-  • AI-assisted cell type identification
-  • Comparison to TCGA reference cohorts
-```
+**Servers:**
+- **mcp-fgbio** (4 tools, 95% real) - Reference genomes, FASTQ validation, UMI extraction, gene annotations
+- **mcp-spatialtools** (14 tools, 95% real) - Spatial analysis, differential expression, pathway enrichment, visualizations
 
-### 3) PatientOne (combine spatial + multiomics mcp servers) - end-to-end use case
+**Key Features:**
+- **Analysis Tools (10):** Quality filtering, region segmentation, spatial autocorrelation (Moran's I), differential expression, batch correction, pathway enrichment, cell type deconvolution
+- **Visualization Tools (4):** Spatial heatmaps, gene expression heatmaps, region composition charts, autocorrelation plots
+- **Bridge Tool:** Integrates spatial findings with mcp-multiomics for cross-modality analysis
 
-**Purpose:** Comprehensive precision medicine analysis (Stage IV Ovarian Cancer)
+**Workflows:**
+- **CSV Workflow** (current implementation) - Pre-processed tabular data (coordinates, expression, annotations)
+- **FASTQ Workflow** (implemented, not tested) - Raw sequencing alignment with STAR
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│            PATIENTONE END-TO-END WORKFLOW ARCHITECTURE                   │
-│              (Stage IV Ovarian Cancer Use Case)                          │
-└─────────────────────────────────────────────────────────────────────────┘
+**See:** [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) for detailed architecture
 
-                         Claude Desktop (MCP Host)
-                  Complete Precision Medicine Workflow Orchestration
-                                    │
-        ┌───────────────────────────┼───────────────────────────┐
-        │                           │                           │
-        │                           │                           │
-┌───────▼──────────┐    ┌──────────▼─────────┐    ┌───────────▼────────┐
-│  CLINICAL DATA   │    │   GENOMIC DATA     │    │  MULTIOMICS DATA   │
-│  ──────────────  │    │   ────────────     │    │  ──────────────    │
-│                  │    │                    │    │                    │
-│ mcp-epic         │    │ mcp-fgbio          │    │ mcp-multiomics     │
-│ • Demographics   │    │ • FASTQ validation │    │ • RNA-seq (PDX)    │
-│ • CA-125 trends  │    │ • VCF processing   │    │ • Proteomics       │
-│ • Treatment Hx   │    │                    │    │ • Phosphoproteomics│
-│                  │    │ mcp-tcga           │    │ • Integration      │
-│ Output:          │    │ • TCGA comparison  │    │ • Stouffer's meta  │
-│ • Patient profile│    │ • Mutation data    │    │                    │
-│ • Clinical       │    │                    │    │ Output:            │
-│   context        │    │ Output:            │    │ • Resistance genes │
-│                  │    │ • Mutations        │    │ • Pathway analysis │
-│                  │    │   (TP53, BRCA1,    │    │ • Multi-modal      │
-│                  │    │    PIK3CA)         │    │   signatures       │
-│                  │    │ • TCGA subtype     │    │                    │
-└──────────────────┘    └────────────────────┘    └────────────────────┘
-        │                           │                           │
-        └───────────────────────────┼───────────────────────────┘
-                                    │
-        ┌───────────────────────────┼───────────────────────────┐
-        │                           │                           │
-┌───────▼──────────┐    ┌──────────▼─────────┐    ┌───────────▼────────┐
-│  SPATIAL DATA    │    │   IMAGING DATA     │    │  ANALYSIS & Rx     │
-│  ────────────    │    │   ────────────     │    │  ─────────────     │
-│                  │    │                    │    │                    │
-│ mcp-spatialtools │    │ mcp-openimagedata  │    │ Integration of     │
-│ • Visium data    │    │ • H&E (brightfield)│    │ ALL data streams   │
-│ • 900 spots      │    │   - Morphology     │    │                    │
-│ • 31 genes       │    │   - Necrosis ID    │    │ • Treatment        │
-│ • 6 regions      │    │ • MxIF (fluoresc.) │    │   recommendations  │
-│                  │    │   - Load channels  │    │ • Pathway targets  │
-│ • Spatial        │    │   - Compositing    │    │   (PI3K/AKT/mTOR)  │
-│   heterogeneity  │    │                    │    │ • Clinical trials  │
-│ • Immune         │    │ mcp-deepcell       │    │ • Monitoring plan  │
-│   localization   │    │ • MxIF segmentation│    │                    │
-│                  │    │   (fluoresc. only) │    │ • Synthetic results│
-│ Output:          │    │ • Cell counting    │    │   across all       │
-│ • Expression     │    │   (CD8, Ki67)      │    │   modalities       │
-│   maps           │    │                    │    │                    │
-│ • Region         │    │ Output:            │    │                    │
-│   analysis       │    │ • Immune infiltrate│    │                    │
-└──────────────────┘    └────────────────────┘    └────────────────────┘
-        │                           │                           │
-        └───────────────────────────┼───────────────────────────┘
-                                    │
-                                    ▼
-                    ┌───────────────────────────┐
-                    │  PRECISION MEDICINE       │
-                    │  RECOMMENDATIONS          │
-                    │  ───────────────────────  │
-                    │                           │
-                    │  Molecular Profile:       │
-                    │  • TP53 R175H (hotspot)   │
-                    │  • BRCA1 germline mut     │
-                    │  • PIK3CA E545K (resist)  │
-                    │                           │
-                    │  Resistance Mechanisms:   │
-                    │  • PI3K/AKT activation    │
-                    │  • MDR1 upregulation      │
-                    │  • Anti-apoptotic signals │
-                    │                           │
-                    │  Treatment Recommendations│
-                    │  • PI3K inhibitors        │
-                    │    (alpelisib)            │
-                    │  • AKT inhibitors         │
-                    │    (capivasertib)         │
-                    │  • mTOR inhibitors        │
-                    │  • Clinical trials        │
-                    │                           │
-                    │  Monitoring Strategy:     │
-                    │  • CA-125 every 3 weeks   │
-                    │  • Imaging every 6 weeks  │
-                    │  • PDX model validation   │
-                    └───────────────────────────┘
+---
 
-**Key Imaging Workflow Distinction:**
+## End-to-End Example: PatientOne Precision Medicine Workflow
 
-**H&E (Hematoxylin & Eosin):**
-- Brightfield microscopy with chromogenic stains (NOT fluorescence)
-- Server: mcp-openimagedata only
-- Purpose: Morphology assessment, necrosis identification, cellularity estimation
-- No cell segmentation required for PatientOne workflow (visual assessment)
+For a complete example combining **all 10 MCP servers** across all modalities (imaging, multiomics, spatial, clinical, genomic):
 
-**MxIF (Multiplexed Immunofluorescence):**
-- Fluorescence microscopy with multiple antibody markers
-- Servers: mcp-openimagedata (loading, compositing) → mcp-deepcell (segmentation)
-- Purpose: Quantitative cell phenotyping (CD8+ T cells, Ki67+ proliferation, TP53 expression)
-- DeepCell uses the open-source DeepCell-TF library for AI-based cell segmentation
-- Enables single-cell spatial analysis with multiple marker co-expression
+**See:** [PatientOne Workflow](../tests/manual_testing/PatientOne-OvarianCancer/README.md)
 
-┌──────────────────────────────────────────────────────────────────────────┐
-│  ALL 10 MCP Servers:                                                     │
-│  ├─ mcp-epic           (Real Epic FHIR - local only)                    │
-│  ├─ mcp-mockepic       (Mock EHR - deployed to GCP)                     │
-│  ├─ mcp-fgbio          (Genomic QC & validation)                        │
-│  ├─ mcp-tcga           (TCGA cohort comparison)                         │
-│  ├─ mcp-multiomics     (PDX multi-omics integration)                    │
-│  ├─ mcp-spatialtools   (Spatial transcriptomics)                        │
-│  ├─ mcp-openimagedata  (Histology imaging)                              │
-│  ├─ mcp-deepcell       (AI cell segmentation)                           │
-│  ├─ mcp-seqera         (Workflow orchestration)                         │
-│  └─ mcp-huggingface    (ML model inference)                             │
-│                                                                           │
-│  Note: mcp-epic runs locally for hospital production with real Epic     │
-│        FHIR. mcp-mockepic runs on GCP for demos with synthetic data.    │
-│                                                                           │
-│  Synthetic Data (17 files):                                              │
-│  • Clinical: 2 files (demographics, labs)                                │
-│  • Genomics: 1 file (VCF with mutations)                                 │
-│  • Multiomics: 4 files (RNA/Protein/Phospho + metadata)                  │
-│  • Spatial: 3 files (coordinates, expression, annotations)               │
-│  • Imaging: 7 files (H&E, IF markers, multiplex)                         │
-│                                                                           │
-│  Test Location: /tests/manual_testing/PatientOne-OvarianCancer/          │
-└──────────────────────────────────────────────────────────────────────────┘
+**Use Case:** Stage IV High-Grade Serous Ovarian Cancer (HGSOC), platinum-resistant
+**Patient:** PAT001-OVC-2025 (synthetic test case)
+**Data Modalities:** Clinical (FHIR), Genomic (VCF), Multiomics (RNA/Protein/Phospho), Spatial (Visium), Imaging (H&E, MxIF)
+**Test Location:** `/tests/manual_testing/PatientOne-OvarianCancer/`
 
-Key Features:
-  • Complete precision medicine workflow
-  • Synthetic patient: PAT001-OVC-2025 (58yo, Stage IV HGSOC)
-  • Integration of 5 data modalities
-  • Resistance mechanism identification
-  • Treatment recommendations based on molecular profile
-  • Demonstrates all MCP servers working together
-```
+**Architecture Documentation:** [PatientOne Architecture](../tests/manual_testing/PatientOne-OvarianCancer/architecture/README.md)
+
+**Tests:**
+- TEST_1: Clinical data retrieval (mcp-epic)
+- TEST_2: Multiomics integration (mcp-multiomics)
+- TEST_3: Spatial transcriptomics (mcp-spatialtools)
+- TEST_4: Imaging analysis (mcp-openimagedata, mcp-deepcell)
+- TEST_5: Complete end-to-end workflow
 
 ---
 
@@ -359,32 +122,37 @@ For deployment, testing, and production operations, see:
 
 ---
 
-**See subfolder READMEs for detailed architecture documentation:**
-- `multiomics/README.md` - Multiomics server architecture (TEST_2)
-- `spatial-transcriptomics/README.md` - Spatial transcriptomics pipeline architecture (TEST_3)
-- `imaging/README.md` - Imaging analysis architecture (TEST_4)
-- `patient-one/README.md` - PatientOne end-to-end use case (TEST_1-5)
+## Complete Server Inventory
+
+| Server | Tools | Status | Primary Use |
+|--------|-------|--------|-------------|
+| **mcp-fgbio** | 4 | ✅ 95% real | Reference genomes, FASTQ QC |
+| **mcp-multiomics** | 10 | ✅ 85% real | Multi-omics integration, preprocessing |
+| **mcp-spatialtools** | 14 | ✅ 95% real | Spatial transcriptomics analysis |
+| **mcp-openimagedata** | 5 | ⚠️ 60% real | Histology image processing |
+| **mcp-deepcell** | 4 | ❌ Mocked | Cell segmentation (future) |
+| **mcp-tcga** | 5 | ❌ Mocked | TCGA cohort comparison |
+| **mcp-seqera** | 3 | ❌ Mocked | Nextflow workflows |
+| **mcp-huggingface** | 3 | ❌ Mocked | ML model inference |
+| **mcp-epic** | 4 | ✅ 100% real | Real Epic FHIR (local only) |
+| **mcp-mockepic** | 3 | 🎭 Mock by design | Synthetic FHIR (GCP deployed) |
+
+**TOTAL: 55 tools across 10 servers**
+
+**Deployment:**
+- **9 servers on GCP Cloud Run** (all except mcp-epic)
+- **1 server local only** (mcp-epic - HIPAA compliance)
+
+For detailed server specifications: See `/servers/*/README.md` for each server
 
 ---
 
 **Last Updated:** 2026-01-10
-**Status:** Architecture documentation complete for 10 MCP servers
+**Organization:** Architecture by modality (imaging, multiomics, spatial)
+**Use Case Examples:** See `/tests/manual_testing/PatientOne-OvarianCancer/`
 
-**⚠️ Note on Tool References:** ASCII diagrams above may show abbreviated tool names. For complete tool counts from source code:
-
-| Server | Tools | Implementation Status |
-|--------|-------|----------------------|
-| **mcp-fgbio** | **4** | 95% real - Reference genome, FASTQ validation, UMI extraction, gene annotations |
-| **mcp-multiomics** | **10** | 85% real - Integration, validation, preprocessing, HAllA, Stouffer, upstream regulators, visualizations, cost estimation |
-| **mcp-spatialtools** | **14** | 95% real - 10 analysis + 4 visualization tools (batch correction, pathway enrichment, spatial autocorrelation, cell deconvolution) |
-| **mcp-tcga** | **5** | 0% mocked - TCGA cohort queries, expression data, survival data, mutation data |
-| **mcp-openimagedata** | **5** | 60% real - Image loading, multiplex composite, H&E annotation (3 real); registration, feature extraction (2 mocked) |
-| **mcp-deepcell** | **4** | 0% mocked - Cell segmentation, phenotype classification, overlay generation |
-| **mcp-seqera** | **3** | 0% mocked - Nextflow pipeline launch, workflow monitoring |
-| **mcp-huggingface** | **3** | 0% mocked - Model loading, cell type prediction, sequence embedding |
-| **mcp-epic** | **4** | 100% real (local only) - Patient demographics, conditions, observations, medications from Epic FHIR API |
-| **mcp-mockepic** | **3** | 0% by design - Synthetic patient records, spatial-clinical linking, diagnosis search |
-
-**TOTAL: 55 tools across 10 servers**
-
-See each server's README or source code for detailed tool documentation.
+**Principle:**
+- `architecture/` = High-level design & workflows by modality
+- `servers/` = Detailed tool specifications & implementation
+- `docs/` = Operational guides & deployment
+- `tests/` = End-to-end use cases & validation

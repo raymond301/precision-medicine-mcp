@@ -319,8 +319,8 @@ For detailed implementation information, see:
 
 - [Spatial Transcriptomics](../spatial-transcriptomics/README.md) - Gene expression spatial patterns (TEST_3)
 - [Imaging Analysis](../imaging/README.md) - Histology and cell segmentation (TEST_4)
-- [PatientOne Workflow](../patient-one/README.md) - Complete precision medicine workflow
+- [PatientOne Workflow](../../tests/manual_testing/PatientOne-OvarianCancer/README.md) - Complete precision medicine workflow
 
 ---
 
-**See also:** [Main Architecture](../README.md) | [PatientOne README](../patient-one/README.md)
+**See also:** [Main Architecture](../README.md) | [PatientOne Workflow](../../tests/manual_testing/PatientOne-OvarianCancer/README.md)
