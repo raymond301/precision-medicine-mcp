@@ -12,6 +12,7 @@
 - What the set of custom MCP servers does (PatientOne use case example):
   - Makes complex analysis significantly faster and easier
   - System coordinates disparate servers and stitches results together after being given a natural-language prompt
+  - "What is an MCP Server?" [(article)](https://medium.com/@elisowski/mcp-explained-the-new-standard-connecting-ai-to-everything-79c5a1c98288)
 - What it is NOT: Not clinically validated yet
 - Who it’s for: Researchers, Clinicians, Platform Builders, Workflow Architects
 - See it / Try it: <5 minute local demo - [recording](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [code](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/manual_testing/PatientOne-OvarianCancer)
