@@ -45,13 +45,15 @@ streamlit run streamlit_app.py
 - Token distribution (input vs output)
 - Workflow execution summary
 
-![Overview](https://via.placeholder.com/800x400?text=Overview+Dashboard)
+![Overview](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-1.png)
 
 ### 💰 Cost Analysis
 - Detailed cost breakdown by server and tool
 - Top 10 most expensive tool calls
 - Model cost comparison (Sonnet vs Opus vs Haiku)
 - Monthly/annual cost projections
+
+![Cost Analysis](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-2.png)
 
 ### ⚡ Performance
 - Latency analysis by server
@@ -64,6 +66,8 @@ streamlit run streamlit_app.py
 - Potential savings calculator
 - Strategy comparison (caching, batching, model switching)
 - Export reports for planning
+
+![Optimization](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-4.png)
 
 ---
 
