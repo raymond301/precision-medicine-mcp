@@ -1,0 +1,362 @@
+# Sample Metrics: PatientOne Complete Workflow
+# Simulates token usage across all 9 MCP servers during end-to-end analysis
+# Analysis Date: 2025-12-29
+# Patient: PAT001-OVC-2025 (Stage IV HGSOC)
+
+workflow_metadata:
+  name: "PatientOne Complete Analysis"
+  patient_id: "patient-001"
+  diagnosis: "Stage IV High-Grade Serous Ovarian Carcinoma, Platinum-Resistant"
+  analysis_date: "2025-12-29T11:30:00Z"
+  total_duration_seconds: 127
+  model: "claude-sonnet-4-5-20250929"
+
+# Tool calls across all servers
+tool_calls:
+  # Phase 1: Clinical Data Retrieval (mcp-epic)
+  - server: "mcp-epic"
+    tool: "get_patient_demographics"
+    timestamp: "2025-12-29T11:30:05Z"
+    input_tokens: 2800
+    output_tokens: 450
+    latency_ms: 1200
+    status: "success"
+
+  - server: "mcp-epic"
+    tool: "get_patient_conditions"
+    timestamp: "2025-12-29T11:30:08Z"
+    input_tokens: 3100
+    output_tokens: 820
+    latency_ms: 1450
+    status: "success"
+
+  - server: "mcp-epic"
+    tool: "get_patient_observations"
+    timestamp: "2025-12-29T11:30:12Z"
+    input_tokens: 3500
+    output_tokens: 1200
+    latency_ms: 1800
+    status: "success"
+
+  - server: "mcp-epic"
+    tool: "get_patient_medications"
+    timestamp: "2025-12-29T11:30:15Z"
+    input_tokens: 2900
+    output_tokens: 650
+    latency_ms: 1300
+    status: "success"
+
+  # Phase 2: Spatial Transcriptomics Analysis (mcp-spatialtools)
+  - server: "mcp-spatialtools"
+    tool: "perform_differential_expression"
+    timestamp: "2025-12-29T11:30:22Z"
+    input_tokens: 8500
+    output_tokens: 2100
+    latency_ms: 3500
+    status: "success"
+
+  - server: "mcp-spatialtools"
+    tool: "calculate_spatial_autocorrelation"
+    timestamp: "2025-12-29T11:30:32Z"
+    input_tokens: 12000
+    output_tokens: 3200
+    latency_ms: 5200
+    status: "success"
+
+  - server: "mcp-spatialtools"
+    tool: "perform_cell_type_deconvolution"
+    timestamp: "2025-12-29T11:30:45Z"
+    input_tokens: 10500
+    output_tokens: 2800
+    latency_ms: 4100
+    status: "success"
+
+  - server: "mcp-spatialtools"
+    tool: "perform_pathway_enrichment"
+    timestamp: "2025-12-29T11:30:58Z"
+    input_tokens: 5500
+    output_tokens: 4200
+    latency_ms: 6800
+    status: "success"
+
+  - server: "mcp-spatialtools"
+    tool: "generate_spatial_heatmap"
+    timestamp: "2025-12-29T11:31:12Z"
+    input_tokens: 6800
+    output_tokens: 1500
+    latency_ms: 2800
+    status: "success"
+
+  - server: "mcp-spatialtools"
+    tool: "generate_gene_expression_heatmap"
+    timestamp: "2025-12-29T11:31:20Z"
+    input_tokens: 7200
+    output_tokens: 1400
+    latency_ms: 2600
+    status: "success"
+
+  # Phase 3: Multiomics Integration (mcp-multiomics)
+  - server: "mcp-multiomics"
+    tool: "validate_multiomics_data"
+    timestamp: "2025-12-29T11:31:28Z"
+    input_tokens: 4200
+    output_tokens: 1100
+    latency_ms: 1900
+    status: "success"
+
+  - server: "mcp-multiomics"
+    tool: "preprocess_multiomics"
+    timestamp: "2025-12-29T11:31:35Z"
+    input_tokens: 9500
+    output_tokens: 2400
+    latency_ms: 4200
+    status: "success"
+
+  - server: "mcp-multiomics"
+    tool: "integrate_multiomics_datasets"
+    timestamp: "2025-12-29T11:31:48Z"
+    input_tokens: 15000
+    output_tokens: 5200
+    latency_ms: 8900
+    status: "success"
+
+  - server: "mcp-multiomics"
+    tool: "perform_halla_analysis"
+    timestamp: "2025-12-29T11:32:10Z"
+    input_tokens: 18000
+    output_tokens: 6800
+    latency_ms: 12000
+    status: "success"
+
+  # Phase 4: Genomic Reference (mcp-fgbio)
+  - server: "mcp-fgbio"
+    tool: "get_reference_genome_info"
+    timestamp: "2025-12-29T11:32:28Z"
+    input_tokens: 2200
+    output_tokens: 800
+    latency_ms: 1100
+    status: "success"
+
+  - server: "mcp-fgbio"
+    tool: "validate_fastq_quality"
+    timestamp: "2025-12-29T11:32:32Z"
+    input_tokens: 3800
+    output_tokens: 1200
+    latency_ms: 1600
+    status: "success"
+
+  # Phase 5: Imaging Analysis (mcp-openimagedata)
+  - server: "mcp-openimagedata"
+    tool: "analyze_he_image"
+    timestamp: "2025-12-29T11:32:40Z"
+    input_tokens: 7500
+    output_tokens: 2800
+    latency_ms: 4500
+    status: "success"
+
+  - server: "mcp-openimagedata"
+    tool: "quantify_mxif_markers"
+    timestamp: "2025-12-29T11:32:52Z"
+    input_tokens: 9200
+    output_tokens: 3400
+    latency_ms: 5800
+    status: "success"
+
+  - server: "mcp-openimagedata"
+    tool: "generate_multiplex_composite"
+    timestamp: "2025-12-29T11:33:05Z"
+    input_tokens: 6500
+    output_tokens: 1800
+    latency_ms: 3200
+    status: "success"
+
+  # Phase 6: TCGA Cohort Comparison (mcp-tcga)
+  - server: "mcp-tcga"
+    tool: "compare_gene_expression"
+    timestamp: "2025-12-29T11:33:15Z"
+    input_tokens: 6800
+    output_tokens: 2900
+    latency_ms: 4200
+    status: "success"
+
+  - server: "mcp-tcga"
+    tool: "query_mutation_frequency"
+    timestamp: "2025-12-29T11:33:25Z"
+    input_tokens: 4500
+    output_tokens: 1800
+    latency_ms: 2600
+    status: "success"
+
+  # Phase 7: AI/ML Model Inference (mcp-huggingface) - DRY_RUN
+  - server: "mcp-huggingface"
+    tool: "predict_cell_types"
+    timestamp: "2025-12-29T11:33:32Z"
+    input_tokens: 3200
+    output_tokens: 900
+    latency_ms: 1400
+    status: "dry_run"
+    note: "Mocked - would call DNABERT-2 in production"
+
+  # Phase 8: Workflow Orchestration (mcp-seqera) - DRY_RUN
+  - server: "mcp-seqera"
+    tool: "submit_nf_core_pipeline"
+    timestamp: "2025-12-29T11:33:38Z"
+    input_tokens: 4800
+    output_tokens: 1500
+    latency_ms: 2100
+    status: "dry_run"
+    note: "Mocked - would submit to Seqera Platform in production"
+
+  # Phase 9: Cell Segmentation (mcp-deepcell) - DRY_RUN
+  - server: "mcp-deepcell"
+    tool: "segment_cells"
+    timestamp: "2025-12-29T11:33:45Z"
+    input_tokens: 5500
+    output_tokens: 2100
+    latency_ms: 3200
+    status: "dry_run"
+    note: "Mocked - would call DeepCell API in production"
+
+# Summary statistics (auto-calculated from tool_calls)
+summary:
+  total_tool_calls: 27
+  successful_calls: 24
+  dry_run_calls: 3
+  total_input_tokens: 180000
+  total_output_tokens: 60500
+  total_latency_ms: 97050
+  avg_latency_ms: 3594
+  servers_used: 9
+
+# Per-server aggregation
+server_metrics:
+  mcp-epic:
+    tool_calls: 4
+    input_tokens: 12300
+    output_tokens: 3120
+    total_latency_ms: 5750
+    avg_latency_ms: 1438
+    status: "production"
+
+  mcp-spatialtools:
+    tool_calls: 6
+    input_tokens: 50500
+    output_tokens: 15200
+    total_latency_ms: 25000
+    avg_latency_ms: 4167
+    status: "production"
+
+  mcp-multiomics:
+    tool_calls: 4
+    input_tokens: 46700
+    output_tokens: 15500
+    total_latency_ms: 27000
+    avg_latency_ms: 6750
+    status: "production"
+
+  mcp-fgbio:
+    tool_calls: 2
+    input_tokens: 6000
+    output_tokens: 2000
+    total_latency_ms: 2700
+    avg_latency_ms: 1350
+    status: "production"
+
+  mcp-openimagedata:
+    tool_calls: 3
+    input_tokens: 23200
+    output_tokens: 8000
+    total_latency_ms: 13500
+    avg_latency_ms: 4500
+    status: "partial_production"
+
+  mcp-tcga:
+    tool_calls: 2
+    input_tokens: 11300
+    output_tokens: 4700
+    total_latency_ms: 6800
+    avg_latency_ms: 3400
+    status: "mocked"
+
+  mcp-huggingface:
+    tool_calls: 1
+    input_tokens: 3200
+    output_tokens: 900
+    total_latency_ms: 1400
+    avg_latency_ms: 1400
+    status: "mocked"
+
+  mcp-seqera:
+    tool_calls: 1
+    input_tokens: 4800
+    output_tokens: 1500
+    total_latency_ms: 2100
+    avg_latency_ms: 2100
+    status: "mocked"
+
+  mcp-deepcell:
+    tool_calls: 1
+    input_tokens: 5500
+    output_tokens: 2100
+    total_latency_ms: 3200
+    avg_latency_ms: 3200
+    status: "mocked"
+
+# Cost analysis (will be calculated by dashboard)
+# Using Claude Sonnet 4.5 pricing: $3/M input, $15/M output
+estimated_costs:
+  total_input_cost: 0.540  # (180000/1000000) * 3
+  total_output_cost: 0.908  # (60500/1000000) * 15
+  total_cost: 1.448
+  cost_per_tool_call: 0.054
+  cost_per_insight: 0.145  # 10 major insights generated
+
+# Insights generated (for cost-per-insight calculation)
+insights_generated:
+  - name: "Differential Expression Analysis"
+    genes_analyzed: 17
+    tool: "perform_differential_expression"
+
+  - name: "Spatial Autocorrelation"
+    genes_analyzed: 31
+    tool: "calculate_spatial_autocorrelation"
+
+  - name: "Cell Type Deconvolution"
+    regions_analyzed: 6
+    tool: "perform_cell_type_deconvolution"
+
+  - name: "Pathway Enrichment"
+    pathways_found: 8
+    tool: "perform_pathway_enrichment"
+
+  - name: "Clinical Profile"
+    data_points: 12
+    tool: "get_patient_observations"
+
+  - name: "Multiomics Integration"
+    datasets_integrated: 3
+    tool: "integrate_multiomics_datasets"
+
+  - name: "HAllA Association Analysis"
+    associations_found: 42
+    tool: "perform_halla_analysis"
+
+  - name: "H&E Image Analysis"
+    regions_identified: 4
+    tool: "analyze_he_image"
+
+  - name: "MxIF Quantification"
+    markers_quantified: 6
+    tool: "quantify_mxif_markers"
+
+  - name: "TCGA Cohort Comparison"
+    genes_compared: 17
+    tool: "compare_gene_expression"
+
+# Optimization opportunities
+optimization_notes:
+  - "mcp-multiomics has highest token usage (62.2K total) - consider caching HAllA results"
+  - "mcp-spatialtools generates 6 visualizations - consider batch generation to reduce overhead"
+  - "mcp-tcga, mcp-huggingface, mcp-seqera, mcp-deepcell are mocked - cost will increase in production"
+  - "Average latency is 3.6s per tool call - acceptable for research workflows"
+  - "Consider using Haiku for simple queries (mcp-fgbio reference lookups could save 92%)"
