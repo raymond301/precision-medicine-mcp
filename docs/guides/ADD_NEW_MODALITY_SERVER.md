@@ -776,7 +776,7 @@ python tests/integration/test_gcp_server.py --server metabolomics
 ## Example: Metabolomics Server
 
 See complete worked example in:
-- `/templates/mcp-server-boilerplate/` - Reusable template
+- `/docs/mcp-server-boilerplate/` - Reusable template
 - `/docs/examples/metabolomics-server/` - Concrete implementation
 
 ---
@@ -843,7 +843,7 @@ Use this checklist when adding your new server:
 
 ### Code Examples
 - [Existing Servers](../../servers/) - Study patterns from mcp-multiomics, mcp-spatialtools
-- [Server Template](../../templates/mcp-server-boilerplate/) - Reusable boilerplate
+- [Server Template](../mcp-server-boilerplate/) - Reusable boilerplate
 
 ### Testing
 - [Test Examples](../../tests/unit/) - Learn from existing test suites

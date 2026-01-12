@@ -175,7 +175,7 @@ Architecture documentation for modality-specific analysis workflows.
 
 ### 🔧 Extensibility
 - **[ADD_NEW_MODALITY_SERVER.md](../docs/guides/ADD_NEW_MODALITY_SERVER.md)** - Step-by-step guide for adding new modalities (metabolomics, radiomics, etc.)
-- **[Server Template](../templates/mcp-server-boilerplate/)** - Reusable boilerplate with FastMCP patterns
+- **[Server Template](../docs/mcp-server-boilerplate/)** - Reusable boilerplate with FastMCP patterns
 - **Time estimate:** 4-8 hours from template to deployed server
 
 ### 📚 Main Docs

@@ -15,7 +15,7 @@
 
 📖 **[ADD_NEW_MODALITY_SERVER.md](../ADD_NEW_MODALITY_SERVER.md)** - Comprehensive 500+ line guide with:
 - Step-by-step implementation (planning → deployment)
-- Reusable boilerplate template ([templates/mcp-server-boilerplate](../../../templates/mcp-server-boilerplate/))
+- Reusable boilerplate template ([mcp-server-boilerplate](../../mcp-server-boilerplate/))
 - Integration checklist
 - Testing requirements
 - Example: Adding an 11th server (metabolomics)

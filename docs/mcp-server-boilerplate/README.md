@@ -10,7 +10,7 @@
 
 ```bash
 # 1. Copy template
-cp -r templates/mcp-server-boilerplate servers/mcp-{your-modality}
+cp -r docs/mcp-server-boilerplate servers/mcp-{your-modality}
 
 # 2. Find and replace placeholders
 cd servers/mcp-{your-modality}
