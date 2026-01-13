@@ -302,8 +302,7 @@ For detailed implementation information, see:
 - **GCP Deployment:** [deployment/DEPLOYMENT_STATUS.md](../../docs/deployment/DEPLOYMENT_STATUS.md)
 
 ### Additional Resources
-- **Detailed Guide:** [multiomics-docs/DETAILED_GUIDE.md](multiomics-docs/DETAILED_GUIDE.md)
-- **Historical Archive:** [multiomics-docs/archive/](multiomics-docs/archive/)
+- **Data Governance:** [DATA_GOVERNANCE.md](../../docs/operations/DATA_GOVERNANCE.md)
 
 ---
 
@@ -311,7 +310,7 @@ For detailed implementation information, see:
 
 **For users:** Read the [mcp-multiomics README](../../servers/mcp-multiomics/README.md) → Run [PatientOne TEST_2](../../tests/manual_testing/PatientOne-OvarianCancer/implementation/TEST_2_MULTIOMICS.txt)
 
-**For developers:** See [server README](../../servers/mcp-multiomics/README.md) for tool details and [DETAILED_GUIDE.md](multiomics-docs/DETAILED_GUIDE.md) for architecture
+**For developers:** See [server README](../../servers/mcp-multiomics/README.md) for tool details and implementation
 
 ---
 
