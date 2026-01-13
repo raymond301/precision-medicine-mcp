@@ -190,6 +190,60 @@
 
 ---
 
+### Clinician Review Events (CitL)
+
+**Event:** `citl_review`
+
+**Logged Information:**
+- Patient ID hash (SHA-256)
+- Report ID
+- Reviewer name, credentials, role
+- Reviewer email hash
+- Decision (APPROVE / REVISE / REJECT)
+- Rationale
+- Digital signature hash (SHA-256)
+- Findings validated count
+- Findings confirmed/uncertain/rejected counts
+- Guideline compliance status
+- Quality flags count
+- Revision count
+- Timestamp
+
+**Example:**
+```json
+{
+  "event": "citl_review",
+  "timestamp": "2026-01-13T14:55:00Z",
+  "patient_id_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "report_id": "PAT001-OVC-2025-2026-01-13T14:00:00Z",
+  "reviewer": {
+    "email_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "name": "Dr. Sarah Johnson",
+    "credentials": "MD, Gynecologic Oncology",
+    "role": "oncologist"
+  },
+  "decision": {
+    "status": "APPROVE",
+    "rationale": "All findings consistent with clinical presentation and imaging..."
+  },
+  "signature_hash": "a1b2c3d4e5f6789012345678901234567890123456789012345678901234abcd",
+  "findings_validated": 10,
+  "findings_confirmed": 10,
+  "findings_uncertain": 0,
+  "findings_rejected": 0,
+  "guideline_compliance": {
+    "nccn_aligned": "ALIGNED",
+    "institutional_aligned": "ALIGNED"
+  },
+  "quality_flags_count": 0,
+  "revision_count": 0
+}
+```
+
+**Retention:** 10 years (HIPAA requirement)
+
+---
+
 ## How to Access Logs
 
 ### Via Cloud Console (Web UI)
@@ -410,6 +464,48 @@ gcloud logging read \
 gcloud logging read \
   'jsonPayload.event="deidentification"
    AND jsonPayload.success=false' \
+  --limit=50
+```
+
+---
+
+### Clinician Review Reports (CitL)
+
+**All reviews (last 30 days):**
+```bash
+gcloud logging read \
+  'jsonPayload.event="citl_review"
+   AND timestamp>="$(date -d '30 days ago' -I)T00:00:00Z"' \
+  --format='table(timestamp, jsonPayload.reviewer.name, jsonPayload.decision.status)' \
+  --limit=100
+```
+
+**Approval rate:**
+```bash
+gcloud logging read \
+  'jsonPayload.event="citl_review"
+   AND timestamp>="$(date -d '90 days ago' -I)T00:00:00Z"' \
+  --format=json | \
+  jq '[.[] | .jsonPayload.decision.status] | [group_by(.)[] | {status: .[0], count: length}]'
+```
+
+**Reviews by oncologist:**
+```bash
+gcloud logging read \
+  'jsonPayload.event="citl_review"
+   AND timestamp>="$(date -d '30 days ago' -I)T00:00:00Z"' \
+  --format=json | \
+  jq -r '.[] | .jsonPayload.reviewer.name' | \
+  sort | uniq -c | sort -rn
+```
+
+**Revisions/rejections (require follow-up):**
+```bash
+gcloud logging read \
+  'jsonPayload.event="citl_review"
+   AND (jsonPayload.decision.status="REVISE" OR jsonPayload.decision.status="REJECT")
+   AND timestamp>="$(date -d '30 days ago' -I)T00:00:00Z"' \
+  --format='table(timestamp, jsonPayload.reviewer.name, jsonPayload.decision.status, jsonPayload.report_id)' \
   --limit=50
 ```
 

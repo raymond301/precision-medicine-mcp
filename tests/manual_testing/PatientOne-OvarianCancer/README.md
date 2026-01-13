@@ -185,7 +185,8 @@ Run all modular tests sequentially for comprehensive precision medicine analysis
 | **TEST_3** | Spatial Transcriptomics | 4-6 min | 45-90 min | ~$1 | $8-17 |
 | **TEST_4** | Histology & Imaging | 3-5 min | 20-40 min | ~$1 | $3-7 |
 | **TEST_5** | Integration & Recommendations | 5-7 min | 5-10 min | ~$1 | ~$1 |
-| **TOTAL** | Complete Analysis | **25-35 min** | **2-4 hours** | **~$1** | **$15-45** |
+| **TEST_6** | CitL Review & Approval | 20-30 min | ~1 min | $0 | $0 |
+| **TOTAL** | Complete Analysis | **45-65 min** | **2-4 hours** | **~$1** | **$15-45** |
 
 **Data sizes:** 315 KB spatial, 505 KB multi-omics, 4.1 MB imaging (total ~4.9 MB)
 
@@ -368,6 +369,29 @@ The PatientOne workflow uses the **open-source DeepCell-TF library** (https://gi
 - **Secondary:** Anti-PD-1 immunotherapy to overcome immune exclusion
 - **Tertiary:** PARP inhibitor consideration (BRCA1 mutation, but PIK3CA pathway may limit efficacy)
 - **Clinical trial:** NCT03602859 (alpelisib + paclitaxel in ovarian cancer)
+
+---
+
+### TEST_6: Clinician-in-the-Loop (CitL) Review
+**Servers:** None (clinician validation)
+**Files:** `draft_report.json` (generated from TEST_1-5)
+
+**What it does:**
+- Generates draft report with quality gates (4 automated checks)
+- Clinician validates 10 molecular findings (CONFIRM/UNCERTAIN/INCORRECT)
+- Assesses NCCN + institutional guideline compliance
+- Reviews quality flags, makes decision: APPROVE / REVISE / REJECT
+- Creates HIPAA-compliant audit trail with digital signature (10-year retention)
+
+**Workflow:**
+1. Generate draft (~30s)
+2. Clinician review (20-30 min)
+3. Submit review (~5s)
+4. Finalize approved report (~10s)
+
+**Result:** `final_report_approved.json` ready for clinical decision-making
+
+See: `implementation/TEST_6_CITL_REVIEW.txt` for complete workflow
 
 ---
 

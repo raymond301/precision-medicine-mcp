@@ -690,6 +690,63 @@ Next Audit: 2026-04-12 (Q2)
 
 ---
 
+## Clinician-in-the-Loop (CitL) Review Procedures
+
+### Overview
+
+AI-generated precision medicine reports require formal clinician validation before clinical use. CitL workflow ensures human oversight with quality gates, structured review, and HIPAA-compliant audit trail.
+
+### Workflow
+
+**Step 1: Generate Draft Report** (Automated, ~30 seconds)
+```bash
+python scripts/generate_patient_report.py \
+  --patient-id PAT001-OVC-2025 \
+  --output-dir ./results \
+  --generate-draft
+```
+
+**Outputs:** `draft_report.json`, `quality_checks.json`, `clinical_summary.txt`
+
+**Step 2: Clinician Review** (Manual, 20-30 minutes)
+- Reviewing oncologist validates 10 molecular findings
+- Assesses NCCN + institutional guideline compliance
+- Reviews quality flags (sample size, FDR thresholds, data completeness)
+- Makes decision: APPROVE / REVISE / REJECT
+- Completes review form: `docs/clinical/CITL_REVIEW_TEMPLATE.md`
+
+**Step 3: Submit Review** (Automated, ~5 seconds)
+```bash
+python scripts/citl_submit_review.py \
+  --patient-id PAT001-OVC-2025 \
+  --review-file ./results/PAT001-OVC-2025/citl_review_completed.json
+```
+
+**Actions:** SHA-256 signature, Cloud Logging audit entry, 10-year retention
+
+**Step 4: Finalize Report** (Automated, ~10 seconds, if APPROVED)
+```bash
+python scripts/finalize_patient_report.py --patient-id PAT001-OVC-2025
+```
+
+**Output:** `final_report_approved.json` with status "clinically_approved"
+
+### Key Contacts
+
+| Role | Contact | Responsibility |
+|------|---------|----------------|
+| **Reviewing Oncologists** | Dr. Sarah Johnson, Dr. Jennifer Martinez | Clinical validation, APPROVE/REVISE/REJECT decisions |
+| **Bioinformatics Team** | bioinformatics@hospital.org | Re-analysis for REVISE, technical support |
+| **PI/Clinical Lead** | Dr. Jennifer Martinez | Escalation for REJECT, protocol changes |
+
+### Related Documentation
+
+- [CITL_WORKFLOW_GUIDE.md](../clinical/CITL_WORKFLOW_GUIDE.md) - Complete reviewer training
+- [CITL_EXAMPLES.md](../clinical/CITL_EXAMPLES.md) - Example APPROVE/REVISE/REJECT reviews
+- [TEST_6_CITL_REVIEW.txt](../../tests/manual_testing/PatientOne-OvarianCancer/implementation/TEST_6_CITL_REVIEW.txt) - End-to-end test
+
+---
+
 ## Security Operations
 
 ### Access Control

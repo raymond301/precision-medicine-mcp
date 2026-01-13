@@ -640,13 +640,59 @@ The automated report includes 5 publication-quality visualizations (300 DPI PNG 
 
 **Total:** ~3.3 MB for all visualizations
 
+## Clinician-in-the-Loop (CitL) Review Workflow
+
+For high-stakes clinical decision-making, generate draft reports that require clinician approval before finalization.
+
+### Enable Draft Mode
+
+```bash
+analyze_patient --patient-id PAT001-OVC-2025 --output-dir ./results --generate-draft
+```
+
+**Additional Outputs:**
+- `draft_report.json` - Structured findings for review
+- `quality_checks.json` - Automated QC results with flags
+
+**Quality Gates (4 automated checks):**
+1. Sample size (≥30 spots per region, ≥50 ideal)
+2. FDR thresholds (<0.05, flags if >50% marginal)
+3. Data completeness (>95% required)
+4. Cross-modal consistency (molecular vs clinical)
+
+### Review & Approval Workflow
+
+```bash
+# Step 1: Generate draft report (~30 seconds)
+analyze_patient --patient-id PAT001-OVC-2025 --output-dir ./results --generate-draft
+
+# Step 2: Clinician completes review form (20-30 minutes)
+# See: docs/clinical/CITL_REVIEW_TEMPLATE.md
+# Complete 7 sections: Decision, Findings validation, Guidelines, Quality flags, Treatments, Attestation
+
+# Step 3: Submit review with digital signature (~5 seconds)
+python scripts/citl_submit_review.py \
+  --patient-id PAT001-OVC-2025 \
+  --review-file ./results/PAT001-OVC-2025/citl_review_completed.json
+
+# Step 4: Finalize approved report (~10 seconds)
+python scripts/finalize_patient_report.py --patient-id PAT001-OVC-2025
+```
+
+**Result:** `final_report_approved.json` with status "clinically_approved" + 10-year HIPAA audit trail
+
+**Documentation:**
+- **[CITL_WORKFLOW_GUIDE.md](../clinical/CITL_WORKFLOW_GUIDE.md)** - Complete clinician training
+- **[CITL_EXAMPLES.md](../clinical/CITL_EXAMPLES.md)** - Example APPROVE/REVISE/REJECT scenarios
+- **[TEST_6_CITL_REVIEW.txt](../../tests/manual_testing/PatientOne-OvarianCancer/implementation/TEST_6_CITL_REVIEW.txt)** - End-to-end test workflow
+
 ## API Reference
 
 ### PatientReportGenerator Class
 
 ```python
 class PatientReportGenerator:
-    def __init__(self, patient_id: str, output_dir: str):
+    def __init__(self, patient_id: str, output_dir: str, generate_draft: bool = False):
         """Initialize report generator."""
 
     def fetch_fhir_data(self):
@@ -663,6 +709,12 @@ class PatientReportGenerator:
 
     def perform_cell_deconvolution(self):
         """Perform cell type deconvolution."""
+
+    def run_quality_checks(self):
+        """Run automated quality gates (CitL workflow)."""
+
+    def generate_draft_report_json(self):
+        """Generate structured draft report for review (CitL workflow)."""
 
     def generate_clinical_summary(self):
         """Generate clinical interpretation summary."""

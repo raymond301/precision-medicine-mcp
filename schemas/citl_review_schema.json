@@ -1,0 +1,351 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://precision-medicine-mcp.org/schemas/citl_review_schema.json",
+  "title": "Clinician-in-the-Loop (CitL) Review Schema",
+  "description": "JSON schema for validating clinician review forms in the Precision Medicine MCP system. Ensures all required review components are captured with proper data types and constraints.",
+  "type": "object",
+  "required": ["patient_id", "report_date", "reviewer", "review_date", "decision", "attestation"],
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "Unique patient identifier (e.g., PAT001-OVC-2025)",
+      "pattern": "^PAT[0-9]{3}-[A-Z]{3}-[0-9]{4}$",
+      "examples": ["PAT001-OVC-2025", "PAT002-BRC-2025"]
+    },
+    "report_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the draft report was generated"
+    },
+    "reviewer": {
+      "type": "object",
+      "required": ["name", "email", "credentials"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full name of the reviewing clinician",
+          "examples": ["Dr. Sarah Johnson", "Dr. Michael Chen"]
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the reviewer"
+        },
+        "credentials": {
+          "type": "string",
+          "description": "Professional credentials (e.g., MD, PhD, MD/PhD)",
+          "examples": ["MD, Gynecologic Oncology", "MD, PhD, Medical Oncology"]
+        },
+        "role": {
+          "type": "string",
+          "enum": ["oncologist", "pathologist", "radiologist", "bioinformatician", "genetic_counselor"],
+          "description": "Reviewer's role in the clinical workflow"
+        }
+      }
+    },
+    "review_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the review was completed"
+    },
+    "decision": {
+      "type": "object",
+      "required": ["status", "rationale"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["APPROVE", "REVISE", "REJECT"],
+          "description": "High-level decision on the report"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000,
+          "description": "2-3 sentence explanation of the decision"
+        }
+      }
+    },
+    "per_finding_validation": {
+      "type": "array",
+      "description": "Validation status for each major molecular finding",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "validation_status"],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "description": "Unique identifier for the finding (e.g., DEG_1, MUT_1)"
+          },
+          "gene": {
+            "type": "string",
+            "description": "Gene symbol (e.g., TP53, PIK3CA)"
+          },
+          "validation_status": {
+            "type": "string",
+            "enum": ["CONFIRMED", "UNCERTAIN", "INCORRECT"],
+            "description": "Clinician's assessment of the finding validity"
+          },
+          "comments": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Optional comments explaining the validation decision"
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 20
+    },
+    "guideline_compliance": {
+      "type": "object",
+      "description": "Assessment of alignment with clinical guidelines",
+      "properties": {
+        "nccn_aligned": {
+          "type": "string",
+          "enum": ["ALIGNED", "PARTIAL", "NOT_ALIGNED"],
+          "description": "Alignment with NCCN (National Comprehensive Cancer Network) guidelines"
+        },
+        "nccn_deviations": {
+          "type": "array",
+          "description": "Specific deviations from NCCN guidelines",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "institutional_aligned": {
+          "type": "string",
+          "enum": ["ALIGNED", "PARTIAL", "NOT_ALIGNED"],
+          "description": "Alignment with institutional protocols"
+        },
+        "institutional_deviations": {
+          "type": "array",
+          "description": "Specific deviations from institutional protocols",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "quality_flags_assessment": {
+      "type": "array",
+      "description": "Clinician's assessment of automated quality flags",
+      "items": {
+        "type": "object",
+        "required": ["flag_id", "reviewer_assessment"],
+        "properties": {
+          "flag_id": {
+            "type": "string",
+            "description": "ID of the quality flag (e.g., sample_size_warning)"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "warning", "info"],
+            "description": "Severity of the quality flag"
+          },
+          "reviewer_assessment": {
+            "type": "string",
+            "enum": ["ACCEPTABLE", "REQUIRES_ACTION"],
+            "description": "Whether the flag is acceptable or requires action"
+          },
+          "comments": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Comments explaining the assessment"
+          }
+        }
+      }
+    },
+    "treatment_recommendations_review": {
+      "type": "array",
+      "description": "Review of treatment recommendations",
+      "items": {
+        "type": "object",
+        "required": ["recommendation_id", "agreement"],
+        "properties": {
+          "recommendation_id": {
+            "type": "string",
+            "description": "ID of the treatment recommendation (e.g., REC_1)"
+          },
+          "therapy_name": {
+            "type": "string",
+            "description": "Name of the recommended therapy"
+          },
+          "agreement": {
+            "type": "string",
+            "enum": ["AGREE", "DISAGREE"],
+            "description": "Whether the clinician agrees with the recommendation"
+          },
+          "comments": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Comments on the recommendation"
+          }
+        }
+      }
+    },
+    "attestation": {
+      "type": "object",
+      "required": ["reviewed_all_findings", "assessed_compliance", "clinical_judgment"],
+      "properties": {
+        "reviewed_all_findings": {
+          "type": "boolean",
+          "const": true,
+          "description": "Clinician attests to reviewing all findings (must be true)"
+        },
+        "assessed_compliance": {
+          "type": "boolean",
+          "const": true,
+          "description": "Clinician attests to assessing guideline compliance (must be true)"
+        },
+        "clinical_judgment": {
+          "type": "boolean",
+          "const": true,
+          "description": "Clinician attests that decision reflects clinical judgment (must be true)"
+        },
+        "medical_record_acknowledgment": {
+          "type": "boolean",
+          "const": true,
+          "description": "Clinician acknowledges this review is part of the medical record"
+        },
+        "signature_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 hash of the review (auto-generated by citl_submit_review.py)"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of attestation (auto-generated by citl_submit_review.py)"
+        }
+      }
+    },
+    "revision_instructions": {
+      "type": "object",
+      "description": "Instructions for revision (required if status is REVISE or REJECT)",
+      "properties": {
+        "issues_to_address": {
+          "type": "array",
+          "description": "List of specific issues that need to be addressed",
+          "items": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 500
+          },
+          "minItems": 1
+        },
+        "reanalysis_parameters": {
+          "type": "object",
+          "description": "Suggested parameter adjustments for re-analysis",
+          "properties": {
+            "regions_to_exclude": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "fdr_threshold": {
+              "type": "number",
+              "minimum": 0.001,
+              "maximum": 0.1
+            },
+            "min_spots_per_region": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 100
+            },
+            "additional_tests_required": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        },
+        "resubmission_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Expected date for resubmission"
+        }
+      }
+    },
+    "revision_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of times this report has been revised (0 for initial submission)"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "status": {"enum": ["REVISE", "REJECT"]}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["revision_instructions"],
+        "properties": {
+          "revision_instructions": {
+            "required": ["issues_to_address"]
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "patient_id": "PAT001-OVC-2025",
+      "report_date": "2026-01-13T14:00:00Z",
+      "reviewer": {
+        "name": "Dr. Sarah Johnson",
+        "email": "sarah.johnson@hospital.org",
+        "credentials": "MD, Gynecologic Oncology",
+        "role": "oncologist"
+      },
+      "review_date": "2026-01-13T14:30:00Z",
+      "decision": {
+        "status": "APPROVE",
+        "rationale": "All findings are consistent with clinical presentation and imaging. Molecular results align with observed platinum resistance. NCCN guidelines followed."
+      },
+      "per_finding_validation": [
+        {
+          "finding_id": "DEG_1",
+          "gene": "TP53",
+          "validation_status": "CONFIRMED",
+          "comments": "TP53 mutation confirmed by both genomics and IHC imaging. High confidence."
+        },
+        {
+          "finding_id": "DEG_2",
+          "gene": "PIK3CA",
+          "validation_status": "CONFIRMED",
+          "comments": "PIK3CA activation consistent with pathway analysis."
+        }
+      ],
+      "guideline_compliance": {
+        "nccn_aligned": "ALIGNED",
+        "nccn_deviations": [],
+        "institutional_aligned": "ALIGNED",
+        "institutional_deviations": []
+      },
+      "quality_flags_assessment": [],
+      "treatment_recommendations_review": [
+        {
+          "recommendation_id": "REC_1",
+          "therapy_name": "PI3K inhibitor (alpelisib) + PARP inhibitor (olaparib)",
+          "agreement": "AGREE",
+          "comments": "PI3K inhibitor + PARP inhibitor combination is appropriate given molecular profile and BRCA1 status."
+        }
+      ],
+      "attestation": {
+        "reviewed_all_findings": true,
+        "assessed_compliance": true,
+        "clinical_judgment": true,
+        "medical_record_acknowledgment": true,
+        "signature_hash": "abc123def456789012345678901234567890123456789012345678901234567",
+        "timestamp": "2026-01-13T14:55:00Z"
+      },
+      "revision_count": 0
+    }
+  ]
+}

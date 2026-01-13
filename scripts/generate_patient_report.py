@@ -36,11 +36,12 @@ from mcp_spatialtools.server import _calculate_morans_i
 class PatientReportGenerator:
     """Generate comprehensive patient analysis reports."""
 
-    def __init__(self, patient_id: str, output_dir: str):
+    def __init__(self, patient_id: str, output_dir: str, generate_draft: bool = False):
         self.patient_id = patient_id
         self.output_dir = Path(output_dir)
         self.patient_output_dir = self.output_dir / patient_id
         self.patient_output_dir.mkdir(parents=True, exist_ok=True)
+        self.generate_draft = generate_draft
 
         # Data paths
         self.data_dir = Path("/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data")
@@ -829,6 +830,448 @@ Key Findings:
 
         self.log(f"✅ Metadata saved to: {output_file}")
 
+    # ==================================================================================
+    # QUALITY CHECK METHODS (for CitL workflow)
+    # ==================================================================================
+
+    def run_quality_checks(self):
+        """
+        Run automated quality gates before clinician review.
+
+        Returns:
+            Dict with quality check results and flags
+        """
+        self.log("Running quality checks...")
+
+        checks = {
+            'sample_size_adequate': self._check_sample_sizes(),
+            'fdr_thresholds_met': self._check_statistical_thresholds(),
+            'data_completeness': self._check_data_completeness(),
+            'consistency_cross_modal': self._check_cross_modal_consistency(),
+        }
+
+        # Collect flags from failed checks
+        flags = []
+        for check_name, result in checks.items():
+            if not result['passed']:
+                flags.append({
+                    'check': check_name,
+                    'severity': result['severity'],
+                    'message': result['message'],
+                    'recommendation': result['recommendation']
+                })
+
+        all_passed = all(c['passed'] for c in checks.values())
+
+        self.log(f"   Quality checks: {'✅ ALL PASSED' if all_passed else f'⚠️  {len(flags)} flag(s) raised'}")
+
+        return {
+            'all_checks_passed': all_passed,
+            'flags': flags,
+            'timestamp': datetime.now().isoformat(),
+            'checks_detail': checks
+        }
+
+    def _check_sample_sizes(self):
+        """Check that each region has adequate sample size (≥30 spots)."""
+        region_data = self.spatial_data.get('regions')
+        if region_data is None:
+            return {'passed': True, 'severity': 'info', 'message': 'No region data', 'recommendation': 'N/A'}
+
+        region_counts = region_data['region'].value_counts()
+        min_threshold = 30
+        ideal_threshold = 50
+
+        # Find regions below threshold
+        small_regions = region_counts[region_counts < min_threshold]
+        marginal_regions = region_counts[(region_counts >= min_threshold) & (region_counts < ideal_threshold)]
+
+        if len(small_regions) > 0:
+            # Critical: regions below minimum threshold
+            region_list = ', '.join([f"{r} (n={region_counts[r]})" for r in small_regions.index])
+            return {
+                'passed': False,
+                'severity': 'critical',
+                'message': f"Regions below minimum threshold ({min_threshold} spots): {region_list}",
+                'recommendation': f"Exclude regions with <{min_threshold} spots or interpret with extreme caution. Consider increasing minimum spots per region to {ideal_threshold}."
+            }
+        elif len(marginal_regions) > 0:
+            # Warning: regions below ideal threshold but above minimum
+            region_list = ', '.join([f"{r} (n={region_counts[r]})" for r in marginal_regions.index])
+            return {
+                'passed': False,
+                'severity': 'warning',
+                'message': f"Regions below ideal threshold ({ideal_threshold} spots): {region_list}",
+                'recommendation': f"Prefer ≥{ideal_threshold} spots for robust statistical power. Consider excluding small regions or interpreting results with caution. Verify that FDR values are very low (< 1e-10) to compensate for smaller sample size."
+            }
+        else:
+            return {
+                'passed': True,
+                'severity': 'info',
+                'message': f"All regions have adequate sample sizes (≥{ideal_threshold} spots)",
+                'recommendation': 'N/A'
+            }
+
+    def _check_statistical_thresholds(self):
+        """Check that FDR thresholds are appropriate."""
+        deg_df = self.analysis_results.get('differential_expression')
+        if deg_df is None or len(deg_df) == 0:
+            return {'passed': True, 'severity': 'info', 'message': 'No DEG data', 'recommendation': 'N/A'}
+
+        sig_degs = self.analysis_results.get('significant_degs', pd.DataFrame())
+
+        if len(sig_degs) == 0:
+            return {
+                'passed': False,
+                'severity': 'warning',
+                'message': 'No significant DEGs found (FDR < 0.05, |log2FC| > 1.0)',
+                'recommendation': 'Verify that analysis parameters are appropriate. Consider lowering log2FC threshold if biologically justified, or check if sample size is adequate.'
+            }
+
+        # Check FDR distribution of significant genes
+        marginal_sig = sig_degs[(sig_degs['fdr'] >= 0.01) & (sig_degs['fdr'] < 0.05)]
+
+        if len(marginal_sig) > len(sig_degs) * 0.5:
+            # More than 50% of significant genes have marginal FDR (0.01-0.05)
+            return {
+                'passed': False,
+                'severity': 'warning',
+                'message': f"{len(marginal_sig)}/{len(sig_degs)} significant DEGs have marginal FDR values (0.01-0.05)",
+                'recommendation': 'Consider using stricter FDR threshold (< 0.01) for high-confidence findings. Marginal FDR values may indicate borderline statistical power or high noise.'
+            }
+        else:
+            return {
+                'passed': True,
+                'severity': 'info',
+                'message': f"{len(sig_degs)} significant DEGs with appropriate FDR distribution",
+                'recommendation': 'N/A'
+            }
+
+    def _check_data_completeness(self):
+        """Check for missing data patterns."""
+        expr_data = self.spatial_data.get('expression')
+        if expr_data is None:
+            return {'passed': True, 'severity': 'info', 'message': 'No expression data', 'recommendation': 'N/A'}
+
+        # Count missing values (NaN or zero)
+        total_values = expr_data.size
+        missing_values = expr_data.isna().sum().sum()
+        zero_values = (expr_data == 0).sum().sum()
+
+        missing_pct = (missing_values / total_values) * 100
+        zero_pct = (zero_values / total_values) * 100
+
+        # Check missing data threshold
+        if missing_pct > 10:
+            return {
+                'passed': False,
+                'severity': 'critical',
+                'message': f"High missing data rate: {missing_pct:.1f}% of values are NaN",
+                'recommendation': 'Missing data rate >10% indicates poor data quality. Review data preprocessing and QC. Consider imputation or excluding problematic spots/genes.'
+            }
+        elif missing_pct > 5:
+            return {
+                'passed': False,
+                'severity': 'warning',
+                'message': f"Moderate missing data rate: {missing_pct:.1f}% of values are NaN",
+                'recommendation': 'Missing data rate 5-10% is acceptable if values were imputed using appropriate method (k-NN, MAGIC). Document imputation method in report.'
+            }
+        else:
+            completeness_pct = 100 - missing_pct
+            return {
+                'passed': True,
+                'severity': 'info',
+                'message': f"Data completeness: {completeness_pct:.1f}% (missing: {missing_pct:.2f}%, zero: {zero_pct:.1f}%)",
+                'recommendation': 'N/A'
+            }
+
+    def _check_cross_modal_consistency(self):
+        """Check consistency between spatial findings and clinical data."""
+        # This is a placeholder for more sophisticated multi-modal consistency checks
+        # In a full implementation, this would check:
+        # - Genomic findings vs protein expression (IHC)
+        # - Spatial patterns vs imaging features
+        # - Clinical phenotype vs molecular profile
+
+        deg_df = self.analysis_results.get('significant_degs')
+        conditions = self.fhir_data.get('conditions', [])
+
+        if deg_df is None or len(deg_df) == 0:
+            return {'passed': True, 'severity': 'info', 'message': 'No molecular data for consistency check', 'recommendation': 'N/A'}
+
+        if len(conditions) == 0:
+            return {
+                'passed': True,
+                'severity': 'info',
+                'message': 'No clinical data available for cross-modal consistency check',
+                'recommendation': 'Consider integrating FHIR clinical data for comprehensive validation'
+            }
+
+        # Simple check: Look for expected markers based on condition
+        # This is a simplified example - full implementation would be more sophisticated
+        condition_text = ' '.join([c['resource']['code']['text'].lower() for c in conditions])
+
+        # Check for ovarian cancer markers if condition mentions ovarian
+        if 'ovarian' in condition_text:
+            expected_markers = ['TP53', 'BRCA1', 'BRCA2', 'PIK3CA']
+            found_markers = [g for g in expected_markers if g in deg_df['gene'].values]
+
+            if len(found_markers) >= 2:
+                return {
+                    'passed': True,
+                    'severity': 'info',
+                    'message': f"Molecular findings consistent with clinical diagnosis (found {len(found_markers)} expected markers: {', '.join(found_markers)})",
+                    'recommendation': 'N/A'
+                }
+            else:
+                return {
+                    'passed': False,
+                    'severity': 'warning',
+                    'message': f"Limited expected markers found for ovarian cancer ({len(found_markers)}/4: {', '.join(found_markers) if found_markers else 'none'})",
+                    'recommendation': 'Review molecular findings for consistency with clinical diagnosis. Consider if tumor sample quality or subtype explains discrepancy.'
+                }
+
+        # Default: no specific consistency check available
+        return {
+            'passed': True,
+            'severity': 'info',
+            'message': 'Cross-modal consistency check not applicable for this condition',
+            'recommendation': 'N/A'
+        }
+
+    # ==================================================================================
+    # DRAFT REPORT JSON GENERATION (for CitL workflow)
+    # ==================================================================================
+
+    def generate_draft_report_json(self):
+        """
+        Generate structured draft report JSON for CitL review workflow.
+
+        Returns:
+            Dict containing draft report with quality checks and findings
+        """
+        self.log("Generating draft report JSON...")
+
+        # Run quality checks
+        quality_checks = self.run_quality_checks()
+
+        # Build draft report structure
+        draft_report = {
+            'report_metadata': {
+                'patient_id': self.patient_id,
+                'report_date': datetime.now().isoformat(),
+                'status': 'pending_review',
+                'version': '1.0',
+                'tests_included': ['TEST_3_SPATIAL'],  # Would include TEST_1, TEST_2, TEST_4, TEST_5 in full workflow
+                'generated_by': 'generate_patient_report.py (automated)'
+            },
+            'quality_checks': quality_checks,
+            'clinical_findings': {
+                'test_1_clinical': self._extract_test1_findings(),
+                'test_3_spatial': self._extract_test3_findings(),
+            },
+            'key_molecular_findings': self._extract_key_molecular_findings(),
+            'treatment_recommendations': self._generate_treatment_recommendations(),
+            'flags_for_review': quality_checks['flags']
+        }
+
+        # Save draft report
+        output_file = self.patient_output_dir / "draft_report.json"
+        with open(output_file, 'w') as f:
+            json.dump(draft_report, f, indent=2)
+
+        self.log(f"✅ Draft report saved: {output_file}")
+
+        # Save quality checks separately for easy review
+        qc_file = self.patient_output_dir / "quality_checks.json"
+        with open(qc_file, 'w') as f:
+            json.dump(quality_checks, f, indent=2)
+
+        self.log(f"✅ Quality checks saved: {qc_file}")
+
+        return draft_report
+
+    def _extract_test1_findings(self):
+        """Extract clinical findings from FHIR data (TEST_1)."""
+        if not self.fhir_data.get('patient'):
+            return {'status': 'not_available', 'reason': 'FHIR data not loaded'}
+
+        findings = {
+            'patient_demographics': {},
+            'conditions': [],
+            'medications': [],
+            'observations': []
+        }
+
+        # Patient demographics
+        if self.fhir_data.get('patient'):
+            patient = self.fhir_data['patient']
+            name = patient.get('name', [{}])[0]
+            findings['patient_demographics'] = {
+                'name': f"{name.get('given', [''])[0]} {name.get('family', '')}",
+                'gender': patient.get('gender', 'unknown'),
+                'birth_date': patient.get('birthDate', 'unknown')
+            }
+
+        # Conditions
+        for entry in self.fhir_data.get('conditions', []):
+            condition = entry.get('resource', {})
+            findings['conditions'].append({
+                'code': condition.get('code', {}).get('text', 'Unknown'),
+                'onset': condition.get('onsetDateTime', 'Unknown')
+            })
+
+        # Medications
+        for entry in self.fhir_data.get('medications', []):
+            med = entry.get('resource', {})
+            findings['medications'].append({
+                'medication': med.get('medicationCodeableConcept', {}).get('text', 'Unknown'),
+                'status': med.get('status', 'unknown')
+            })
+
+        # Observations (CA-125, etc.)
+        for entry in self.fhir_data.get('observations', []):
+            obs = entry.get('resource', {})
+            findings['observations'].append({
+                'code': obs.get('code', {}).get('text', 'Unknown'),
+                'value': obs.get('valueQuantity', {}).get('value', 'N/A'),
+                'unit': obs.get('valueQuantity', {}).get('unit', '')
+            })
+
+        return findings
+
+    def _extract_test3_findings(self):
+        """Extract spatial transcriptomics findings (TEST_3)."""
+        findings = {
+            'dataset_summary': {
+                'num_genes': self.spatial_data['expression'].shape[0] if 'expression' in self.spatial_data else 0,
+                'num_spots': self.spatial_data['expression'].shape[1] if 'expression' in self.spatial_data else 0,
+                'num_regions': len(self.spatial_data['regions']['region'].unique()) if 'regions' in self.spatial_data else 0
+            },
+            'differential_expression': {
+                'num_significant': len(self.analysis_results.get('significant_degs', [])),
+                'num_upregulated': len(self.analysis_results.get('significant_degs', pd.DataFrame())[
+                    self.analysis_results.get('significant_degs', pd.DataFrame()).get('log2_fold_change', pd.Series()) > 0
+                ]) if 'significant_degs' in self.analysis_results else 0,
+                'num_downregulated': len(self.analysis_results.get('significant_degs', pd.DataFrame())[
+                    self.analysis_results.get('significant_degs', pd.DataFrame()).get('log2_fold_change', pd.Series()) < 0
+                ]) if 'significant_degs' in self.analysis_results else 0
+            },
+            'spatial_patterns': {
+                'num_svgs': len(self.analysis_results.get('spatially_variable_genes', []))
+            }
+        }
+
+        return findings
+
+    def _extract_key_molecular_findings(self):
+        """Extract top 10 molecular findings for clinician validation."""
+        sig_degs = self.analysis_results.get('significant_degs', pd.DataFrame())
+
+        if len(sig_degs) == 0:
+            return []
+
+        # Sort by FDR (most significant first)
+        top_findings = sig_degs.sort_values('fdr').head(10)
+
+        findings = []
+        for idx, (_, row) in enumerate(top_findings.iterrows(), 1):
+            finding = {
+                'finding_id': f'DEG_{idx}',
+                'gene': row['gene'],
+                'finding_type': 'Differential Expression',
+                'log2_fold_change': float(row['log2_fold_change']),
+                'fdr': float(row['fdr']),
+                'confidence': 'high' if row['fdr'] < 0.01 else 'medium' if row['fdr'] < 0.05 else 'low',
+                'clinical_significance': self._assess_clinical_significance(row['gene']),
+                'requires_validation': row['fdr'] > 0.01  # Flag marginal findings for extra scrutiny
+            }
+            findings.append(finding)
+
+        return findings
+
+    def _assess_clinical_significance(self, gene):
+        """Assess clinical significance of a gene finding."""
+        # Database of gene functions and clinical relevance
+        # This is a simplified example - full implementation would use comprehensive gene database
+        gene_db = {
+            'TP53': 'Tumor suppressor loss, TP53 pathway disrupted',
+            'BRCA1': 'DNA repair deficiency, PARP inhibitor sensitivity',
+            'BRCA2': 'DNA repair deficiency, PARP inhibitor sensitivity',
+            'PIK3CA': 'PI3K pathway activation, PI3K inhibitor targetable',
+            'ABCB1': 'Drug efflux pump overexpression, platinum resistance',
+            'BCL2L1': 'Anti-apoptotic signaling, therapy resistance',
+            'CD8A': 'T-cell marker, immune infiltration',
+            'VEGFA': 'Angiogenesis, bevacizumab targetable',
+            'MKI67': 'Proliferation marker, aggressive phenotype',
+            'AKT1': 'PI3K/AKT pathway activation, AKT inhibitor targetable',
+            'MTOR': 'mTOR signaling activation, mTOR inhibitor targetable',
+            'HIF1A': 'Hypoxia response, poor prognosis',
+            'CA9': 'Hypoxia marker, carbonic anhydrase inhibitor targetable',
+            'ESR1': 'Estrogen receptor, endocrine therapy targetable',
+            'ERBB2': 'HER2 receptor, trastuzumab/pertuzumab targetable',
+            'EGFR': 'EGFR receptor, EGFR TKI targetable'
+        }
+
+        return gene_db.get(gene, 'Unknown clinical significance - requires literature review')
+
+    def _generate_treatment_recommendations(self):
+        """Generate preliminary treatment recommendations based on molecular findings."""
+        sig_degs = self.analysis_results.get('significant_degs', pd.DataFrame())
+
+        if len(sig_degs) == 0:
+            return []
+
+        recommendations = []
+        gene_set = set(sig_degs['gene'].values)
+
+        # Check for targetable alterations
+        # PI3K pathway activation
+        if 'PIK3CA' in gene_set or 'AKT1' in gene_set:
+            recommendations.append({
+                'recommendation_id': 'REC_1',
+                'therapy_name': 'PI3K inhibitor (e.g., Alpelisib)',
+                'molecular_target': 'PIK3CA activation or AKT1 upregulation',
+                'expected_efficacy': '30-40% ORR in PIK3CA-mutant tumors',
+                'evidence_level': 'NCCN Category 2B',
+                'notes': 'Consider clinical trial enrollment if available'
+            })
+
+        # PARP inhibitor for HR deficiency
+        if 'BRCA1' in gene_set or 'BRCA2' in gene_set:
+            recommendations.append({
+                'recommendation_id': 'REC_2',
+                'therapy_name': 'PARP inhibitor (e.g., Olaparib, Niraparib)',
+                'molecular_target': 'BRCA1/2 deficiency, homologous recombination deficiency',
+                'expected_efficacy': '60-70% ORR in BRCA-mutant ovarian cancer',
+                'evidence_level': 'NCCN Category 1',
+                'notes': 'FDA approved for BRCA-mutant ovarian cancer'
+            })
+
+        # Anti-angiogenic therapy
+        if 'VEGFA' in gene_set:
+            recommendations.append({
+                'recommendation_id': 'REC_3',
+                'therapy_name': 'VEGF inhibitor (e.g., Bevacizumab)',
+                'molecular_target': 'VEGFA overexpression, angiogenic phenotype',
+                'expected_efficacy': '3-4 month PFS benefit in ovarian cancer',
+                'evidence_level': 'NCCN Category 1',
+                'notes': 'Approved for first-line and recurrent ovarian cancer'
+            })
+
+        # BCL2 inhibitor
+        if 'BCL2L1' in gene_set:
+            recommendations.append({
+                'recommendation_id': 'REC_4',
+                'therapy_name': 'BCL2 inhibitor (e.g., Venetoclax)',
+                'molecular_target': 'BCL2L1 overexpression, anti-apoptotic signaling',
+                'expected_efficacy': 'Investigational in solid tumors',
+                'evidence_level': 'Clinical trial only',
+                'notes': 'FDA approved for hematologic malignancies, investigational for solid tumors'
+            })
+
+        return recommendations
+
     def generate_report(self):
         """Run complete analysis pipeline."""
         self.log("=" * 80)
@@ -861,12 +1304,28 @@ Key Findings:
         # Step 5: Generate summary
         self.generate_clinical_summary()
 
-        # Step 5: Save metadata
+        # Step 6: Save metadata
         self.save_metadata()
+
+        # Step 7: Generate draft report JSON for CitL workflow (if requested)
+        if self.generate_draft:
+            self.log("")
+            self.generate_draft_report_json()
 
         self.log("")
         self.log("=" * 80)
-        self.log(f"✅ REPORT COMPLETE!")
+        if self.generate_draft:
+            self.log(f"✅ DRAFT REPORT COMPLETE! Ready for CitL review.")
+            self.log(f"   Draft report: {self.patient_output_dir / 'draft_report.json'}")
+            self.log(f"   Quality checks: {self.patient_output_dir / 'quality_checks.json'}")
+            self.log(f"   Clinical summary: {self.patient_output_dir / 'clinical_summary.txt'}")
+            self.log("")
+            self.log(f"📍 Next Steps:")
+            self.log(f"   1. Review draft report and quality checks")
+            self.log(f"   2. Complete CitL review form: docs/clinical/CITL_REVIEW_TEMPLATE.md")
+            self.log(f"   3. Submit review: python scripts/citl_submit_review.py --patient-id {self.patient_id}")
+        else:
+            self.log(f"✅ REPORT COMPLETE!")
         self.log(f"   Output directory: {self.patient_output_dir}")
         self.log("=" * 80)
 
@@ -878,8 +1337,11 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Analyze Patient-001
+  # Analyze Patient-001 (standard report)
   python generate_patient_report.py --patient-id patient-001 --output-dir ./results
+
+  # Generate draft report for CitL review workflow
+  python generate_patient_report.py --patient-id PAT001-OVC-2025 --output-dir ./results --generate-draft
 
   # Specify custom output directory
   python generate_patient_report.py --patient-id PAT002-OVC-2025 --output-dir /path/to/results
@@ -898,10 +1360,16 @@ Examples:
         help='Output directory for results (default: ./results)'
     )
 
+    parser.add_argument(
+        '--generate-draft',
+        action='store_true',
+        help='Generate draft report with quality checks for CitL review workflow (default: False)'
+    )
+
     args = parser.parse_args()
 
     # Generate report
-    generator = PatientReportGenerator(args.patient_id, args.output_dir)
+    generator = PatientReportGenerator(args.patient_id, args.output_dir, args.generate_draft)
     generator.generate_report()
 
 
