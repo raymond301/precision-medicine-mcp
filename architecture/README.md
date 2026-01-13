@@ -4,6 +4,60 @@ Architecture documentation for modality-specific analysis workflows.
 
 ---
 
+## System Overview
+
+```mermaid
+graph LR
+    subgraph Input["📁 Data Sources"]
+        EHR[Clinical<br/>Epic FHIR]
+        SEQ[Genomics<br/>VCF/FASTQ]
+        OMICS[Multiomics<br/>RNA/Protein]
+        SPATIAL[Spatial<br/>Visium]
+        IMG[Imaging<br/>H&E/MxIF]
+    end
+
+    subgraph MCP["🔧 10 MCP Servers (55 Tools)"]
+        direction TB
+        S1[Clinical<br/>epic/mockepic]
+        S2[Genomic<br/>fgbio/tcga]
+        S3[Spatial<br/>spatialtools]
+        S4[Multiomics<br/>multiomics]
+        S5[Imaging<br/>openimagedata<br/>deepcell]
+        S6[AI/ML<br/>huggingface<br/>seqera]
+    end
+
+    subgraph Output["📊 Analysis Outputs"]
+        TREAT[Treatment<br/>Recommendations]
+        VIZ[Visualizations<br/>& Reports]
+        INSIGHTS[Therapeutic<br/>Targets]
+    end
+
+    EHR --> S1
+    SEQ --> S2
+    OMICS --> S4
+    SPATIAL --> S3
+    IMG --> S5
+
+    S1 --> MCP
+    S2 --> MCP
+    S3 --> MCP
+    S4 --> MCP
+    S5 --> MCP
+    S6 --> MCP
+
+    MCP --> TREAT
+    MCP --> VIZ
+    MCP --> INSIGHTS
+
+    style Input fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
+    style MCP fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Output fill:#f1f8e9,stroke:#689f38,stroke-width:2px
+```
+
+**7 Modalities • 10 Servers • 55 Tools** | [See detailed server status →](../servers/README.md#-server-status)
+
+---
+
 ## 📊 Architecture by Analysis Modality
 
 📋 **[See Individual Server Status →](../servers/README.md#-server-status)** - Detailed tools and documentation for all 10 servers
