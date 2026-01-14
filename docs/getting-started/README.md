@@ -12,7 +12,7 @@ Quick start guides for new users of the Precision Medicine MCP system.
 
 - [Main Documentation Index](/docs/INDEX.md)
 - [Architecture Overview](/docs/architecture/README.md)
-- [User Guides](/docs/guides/README.md)
+
 
 ---
 
