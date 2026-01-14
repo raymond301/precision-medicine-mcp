@@ -839,7 +839,7 @@ Use this checklist when adding your new server:
 ### Documentation
 - [FastMCP Documentation](https://gofastmcp.com)
 - [MCP Protocol Specification](https://modelcontextprotocol.io/)
-- [Claude Desktop Integration Guide](../CLAUDE_DESKTOP_QUICKSTART.md)
+- [Installation Guide](../getting-started/installation.md)
 
 ### Code Examples
 - [Existing Servers](../../servers/) - Study patterns from mcp-multiomics, mcp-spatialtools

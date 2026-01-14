@@ -10,7 +10,7 @@ Complete documentation for the Precision Medicine MCP system.
 |----------|---------|
 | **[Executive Summary](EXECUTIVE_SUMMARY.md)** | ROI analysis, budget, timeline ($3,187 savings/patient) |
 | **[Production Roadmap](PRODUCTION_ROADMAP.md)** | 12-16 week path to production deployment |
-| **[Server Implementation Status](SERVER_IMPLEMENTATION_STATUS.md)** | All 10 servers status (167 tests ✅) |
+| **[Server Implementation Status](architecture/servers.md)** | All 10 servers status (167 tests ✅) |
 
 ---
 
@@ -31,7 +31,7 @@ Each guide includes workflows, examples, tools, and resources tailored to your n
 ## 📚 Documentation by Topic
 
 ### 🚀 Getting Started
-- [Claude Desktop Quickstart](guides/CLAUDE_DESKTOP_QUICKSTART.md) - Local setup (5 min)
+- [Installation Guide](getting-started/installation.md) - Complete setup (Quick Start: 5 min)
 - [Quick Test Prompts](../tests/manual_testing/QUICK_TEST_PROMPTS.md) - Copy-paste queries
 - [Automated Patient Reports](guides/AUTOMATED_PATIENT_REPORTS.md) - Generate analysis reports
 
@@ -49,8 +49,7 @@ Each guide includes workflows, examples, tools, and resources tailored to your n
 - [Runbooks](hospital-deployment/RUNBOOKS/) - Incident response (server-down, SSO, Epic)
 
 ### 💰 Cost & Governance
-- [Cost Analysis](operations/COST_ANALYSIS.md) - $0.32-$102 per analysis breakdown
-- [Cost Tracking & Monitoring](operations/COST_TRACKING_MONITORING.md) - Real-time budget
+- [Cost and Budget Management](operations/cost-and-budget.md) - Cost analysis, tracking, and optimization
 - [Data Governance](operations/DATA_GOVERNANCE.md) - Privacy, retention policies
 - [Risk Mitigation](operations/RISK_MITIGATION_SUMMARY.md) - Risk assessment
 

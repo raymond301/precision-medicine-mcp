@@ -599,7 +599,7 @@ Track retry statistics for monitoring:
 
 - **Risk Matrix:** `RISK_MATRIX.md` - See R4 (External API failures)
 - **Risk Mitigation Workplan:** `RISK_MITIGATION_WORKPLAN.md` - WI-5
-- **Server Implementation Status:** `docs/SERVER_IMPLEMENTATION_STATUS.md`
+- **Server Implementation Status:** `/docs/architecture/servers.md`
 - **API Retry Utilities Source:** `shared/utils/api_retry.py`
 
 ---
