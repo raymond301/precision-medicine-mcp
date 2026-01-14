@@ -24,7 +24,7 @@
 - LEARN More:
   - [PatientOne Documentation](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/test-docs/patient-one-scenario/architecture/overview.md)
   - [Quick Start](docs/test-docs/patient-one-scenario/README.md)
-  - [Sample Outputs](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/test-docs/patient-one-scenario/architecture)
+  - [Sample Outputs](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/test-docs/patient-one-scenario/architecture/overview.md#outputs-by-stakeholder)
   - [Executive Summary](docs/EXECUTIVE_SUMMARY.md)
 
  ---
