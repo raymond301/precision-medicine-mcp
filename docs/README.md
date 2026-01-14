@@ -8,9 +8,9 @@ Complete documentation for the Precision Medicine MCP system.
 
 | Document | Purpose |
 |----------|---------|
-| **[Executive Summary](EXECUTIVE_SUMMARY.md)** | ROI analysis, budget, timeline ($3,187 savings/patient) |
-| **[Production Roadmap](PRODUCTION_ROADMAP.md)** | 12-16 week path to production deployment |
+| **[Executive Summary](EXECUTIVE_SUMMARY.md)** | ROI analysis, budget, timeline |
 | **[Server Implementation Status](architecture/servers.md)** | All 10 servers status (167 tests ✅) |
+| **[Server Details](../servers/)** | Individual server docs (10 mcp servers) |
 
 ---
 
@@ -62,10 +62,6 @@ Each guide includes workflows, examples, tools, and resources tailored to your n
 - [Error Handling & Retry Logic](technical/ERROR_HANDLING_RETRY_LOGIC.md) - Resilience patterns
 - [Clinical-Spatial Integration](guides/CLINICAL_SPATIAL_INTEGRATION.md) - Data integration
 
-### 📖 Reference
-- [Disclaimers](DISCLAIMERS.md) - Research use only, liability
-- [References](REFERENCES.md) - Citations, publications
-
 ---
 
 ## 🏗️ Architecture by Modality
@@ -88,12 +84,3 @@ Detailed workflow architectures for each analysis type:
 
 ---
 
-## 🔗 Related
-
-- 📖 [Main README](../README.md) - Project overview
-- 🧬 [Servers](../servers/) - Individual server docs (10 servers)
-- 🧪 [Tests](../tests/) - Test implementations (167 tests ✅)
-
----
-
-**Last Updated:** 2026-01-11
