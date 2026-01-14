@@ -224,3 +224,7 @@ deployment_urls.txt
 **/*.pem
 **/*.key
 _shared_temp/
+
+# Analysis Results
+# Patient analysis outputs from CitL workflows and test scenarios
+results/
