@@ -124,6 +124,12 @@ precision-medicine-mcp/
 
 **See it / Try it:** [<5 minute demo video](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [Code](docs/test-docs/patient-one-scenario)
 
+**Quick Links:**
+- 💰 [Funding Opportunities](FUNDING.md)
+- 📚 [Documentation Hub](docs/README.md)
+- 🏗️ [Architecture Details](docs/architecture/README.md)
+- 🧪 [Testing Guide](tests/README.md)
+
 ---
 
 ## License & Acknowledgments
@@ -138,9 +144,5 @@ This project is dedicated to **PatientOne** - in memory of a dear friend who pas
 
 ---
 
-**Quick Links:**
-- 💰 [Funding Opportunities](FUNDING.md)
-- 📚 [Documentation Hub](docs/README.md)
-- 🏗️ [Architecture Details](docs/architecture/README.md)
-- 🧪 [Testing Guide](tests/README.md)
-- 🏥 [Hospital Deployment](docs/hospital-deployment/README.md)
+
+
