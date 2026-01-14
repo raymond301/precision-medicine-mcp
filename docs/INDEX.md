@@ -71,6 +71,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 **Deployment guides and infrastructure:**
 
 - **[Deployment Roadmap](./deployment/roadmap.md)** - Production deployment planning
+- **[Security Guide](./deployment/security.md)** - API keys, secrets management, GCP Secret Manager
 - **[POC Deployment](./deployment/poc-deployment/)** - Proof-of-concept deployment guides
 - **[Hospital Deployment](./deployment/hospital-deployment/)** - Enterprise deployment
   - [Operations Manual](./deployment/hospital-deployment/operations-manual.md)
