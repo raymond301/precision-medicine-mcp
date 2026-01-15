@@ -91,21 +91,36 @@ graph LR
 
 ```
 precision-medicine-mcp/
-├── FUNDING.md           # Investment opportunities & ROI
-├── docs/                # Documentation by audience
-│   ├── architecture/    # System design & modality workflows
-│   ├── guides/          # User guides (for-clinicians, for-developers, etc.)
-│   ├── hospital-deployment/  # HIPAA compliance, operations
-│   └── test-docs/       # Testing guides & PatientOne scenarios
-├── servers/             # 10 MCP servers (Python)
-│   ├── mcp-fgbio/       # Reference genomes, FASTQ QC
-│   ├── mcp-multiomics/  # Multi-omics integration
-│   ├── mcp-spatialtools/  # Spatial transcriptomics
-│   └── [7 more servers]
-├── data/                # Synthetic patient data (100% safe)
-├── infrastructure/      # GCP deployment scripts
-├── tests/               # 167 automated tests
-└── ui/                  # Streamlit chat, Jupyter notebook
+├── FUNDING.md              # Investment opportunities & ROI
+├── docs/                   # Documentation organized by audience
+│   ├── for-funders/        # ROI analysis, competitive landscape, grant talking points
+│   ├── for-hospitals/      # Deployment checklist, security overview
+│   ├── for-developers/     # Architecture, contributing guide, quick reference
+│   ├── for-researchers/    # Analysis workflows, bioinformatics methods
+│   ├── for-educators/      # Classroom guides, learning objectives
+│   ├── for-patients/       # Patient-friendly resources
+│   ├── demos/              # 90-second pitch, full PatientOne demo
+│   ├── prompt-library/     # 20+ ready-to-use clinical prompts
+│   ├── getting-started/    # Installation & quick start guide
+│   ├── architecture/       # System design & modality workflows
+│   ├── hospital-deployment/  # HIPAA compliance, operations manual
+│   ├── deployment/         # GCP deployment status & guides
+│   └── test-docs/          # Testing guides & PatientOne scenarios
+├── servers/                # 10 MCP servers (Python)
+│   ├── mcp-fgbio/          # Reference genomes, FASTQ QC
+│   ├── mcp-multiomics/     # Multi-omics integration
+│   ├── mcp-spatialtools/   # Spatial transcriptomics
+│   ├── mcp-epic/           # Epic FHIR integration
+│   ├── mcp-mockepic/       # Mock Epic for testing
+│   ├── mcp-tcga/           # TCGA cohort data
+│   ├── mcp-openimagedata/  # Imaging data (H&E, MxIF)
+│   ├── mcp-deepcell/       # Cell segmentation
+│   ├── mcp-huggingface/    # AI/ML inference
+│   └── mcp-seqera/         # Workflow orchestration
+├── data/                   # Synthetic patient data (100% safe for demos)
+├── infrastructure/         # GCP deployment scripts (Cloud Run, VPC, IAM)
+├── tests/                  # 167 automated tests
+└── ui/                     # Streamlit chat, Jupyter notebook
 ```
 
 ---
