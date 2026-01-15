@@ -96,7 +96,6 @@ precision-medicine-mcp/
 ├── LICENSE                 # Apache 2.0 License
 ├── README.md               # This file
 ├── data/                   # Synthetic patient data (100% safe for demos)
-├── desktop-configs/        # Claude Desktop MCP configuration files
 ├── docs/                   # Documentation organized by audience
 │   ├── for-funders/        # ROI analysis, competitive landscape, grant talking points
 │   ├── for-hospitals/      # Deployment checklist, security overview
@@ -106,14 +105,15 @@ precision-medicine-mcp/
 │   ├── for-patients/       # Patient-friendly resources
 │   ├── demos/              # 90-second pitch, full PatientOne demo
 │   ├── prompt-library/     # 20+ ready-to-use clinical prompts
-│   ├── getting-started/    # Installation & quick start guide
+│   ├── getting-started/    # Installation, quick start, desktop-configs
 │   ├── architecture/       # System design & modality workflows
 │   ├── hospital-deployment/  # HIPAA compliance, operations manual
 │   ├── deployment/         # GCP deployment status & guides
 │   └── test-docs/          # Testing guides & PatientOne scenarios
-├── infrastructure/         # GCP deployment scripts (Cloud Run, VPC, IAM)
-├── schemas/                # JSON schemas (e.g., CitL review schema)
-├── scripts/                # Python automation scripts (reports, deployment, audit)
+├── infrastructure/         # Deployment, audit, environment setup
+│   ├── deployment/         # GCP deployment scripts
+│   ├── audit/              # Bias detection and audit tools
+│   └── hospital-deployment/  # Hospital-specific infrastructure
 ├── servers/                # 10 MCP servers (Python)
 │   ├── mcp-deepcell/       # Cell segmentation
 │   ├── mcp-epic/           # Epic FHIR integration
@@ -125,8 +125,14 @@ precision-medicine-mcp/
 │   ├── mcp-seqera/         # Workflow orchestration
 │   ├── mcp-spatialtools/   # Spatial transcriptomics
 │   └── mcp-tcga/           # TCGA cohort data
-├── shared/                 # Shared Python code (common utilities, models)
+├── shared/                 # Shared Python packages
+│   ├── common/             # Common utilities
+│   ├── models/             # Data models
+│   ├── schemas/            # JSON schemas (CitL review, etc.)
+│   └── utils/              # Helper functions
 ├── tests/                  # 167 automated tests
+├── tools/                  # Automation & reporting tools
+│   └── reports/            # Patient report generation, CitL submission
 └── ui/                     # Streamlit chat, Jupyter notebook
 ```
 
