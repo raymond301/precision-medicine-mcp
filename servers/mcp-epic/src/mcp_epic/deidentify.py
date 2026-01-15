@@ -356,6 +356,34 @@ def deidentify_bundle(bundle: Dict[str, Any]) -> Dict[str, Any]:
     return deidentified
 
 
+def deidentify_resource(resource: Dict[str, Any]) -> Dict[str, Any]:
+    """Apply de-identification to any FHIR resource.
+
+    Automatically detects resource type and applies appropriate de-identification.
+    Falls back to generic de-identification for unknown resource types.
+
+    Args:
+        resource: FHIR resource of any type
+
+    Returns:
+        De-identified resource
+    """
+    resource_type = resource.get("resourceType")
+
+    # Apply type-specific de-identification if available
+    if resource_type == "Patient":
+        return deidentify_patient(resource)
+    elif resource_type == "Observation":
+        return deidentify_observation(resource)
+    elif resource_type == "Condition":
+        return deidentify_condition(resource)
+    elif resource_type == "MedicationStatement":
+        return deidentify_medication_statement(resource)
+    else:
+        # Generic de-identification for other resource types
+        return _deidentify_generic_resource(resource)
+
+
 def _deidentify_generic_resource(resource: Dict[str, Any]) -> Dict[str, Any]:
     """Apply generic de-identification to unknown resource types.
 

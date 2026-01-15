@@ -22,7 +22,7 @@ from typing import Any, Dict, Optional
 from fastmcp import FastMCP
 
 from .epic_fhir_client import get_epic_client
-from .deidentify import deidentify_patient, deidentify_bundle
+from .deidentify import deidentify_patient, deidentify_resource, deidentify_bundle
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
