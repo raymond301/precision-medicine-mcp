@@ -21,7 +21,7 @@
 
 1. **Set up environment** → [Installation Guide](../getting-started/installation.md) (10 min)
 2. **Run PatientOne workflow** → [PatientOne Guide](../test-docs/patient-one-scenario/README.md) (25-35 min)
-3. **Review results** → [Example Outputs](../test-docs/patient-one-scenario/architecture/outputs.md)
+3. **Review results** → results depend on which mcp servers are used in analysis, see detail below  
 
 **What you'll analyze:**
 - Clinical: Stage IV HGSOC, platinum-resistant
