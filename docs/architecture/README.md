@@ -54,8 +54,6 @@ graph LR
     style Output fill:#f1f8e9,stroke:#689f38,stroke-width:2px
 ```
 
-**7 Modalities • 10 Servers • 55 Tools** | [See detailed server status →](../../../servers/README.md#-server-status)
-
 ---
 
 ## 📚 Cross-Cutting Architecture
