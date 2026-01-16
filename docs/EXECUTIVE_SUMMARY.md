@@ -158,15 +158,11 @@ graph TB
 
 ## Risk Assessment
 
-**Technical Risks:** LOW - Auto-scaling, fallback to mock data, comprehensive error handling
-
-**Financial Risks:** LOW - Daily monitoring, cost alerts at 80%, model optimization (Haiku)
-
-**Compliance Risks:** LOW - Built-in de-identification, audit logging, VPC isolation, encrypted secrets
-
-**Adoption Risks:** MEDIUM - Mitigated through extensive training, Streamlit UI for clinicians, Jupyter for bioinformaticians
-
-**Overall Risk:** LOW - Technical and compliance risks well-mitigated; adoption risks addressable
+- **Technical Risks:** LOW - Auto-scaling, fallback to mock data, comprehensive error handling
+- **Financial Risks:** LOW - Daily monitoring, cost alerts at 80%, model optimization (Haiku)
+- **Compliance Risks:** LOW - Built-in de-identification, audit logging, VPC isolation, encrypted secrets
+- **Adoption Risks:** MEDIUM - Mitigated through extensive training, Streamlit UI for clinicians, Jupyter for bioinformaticians
+- **Overall Risk:** LOW - Technical and compliance risks well-mitigated; adoption risks addressable
 
 ---
 
