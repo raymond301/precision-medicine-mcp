@@ -153,7 +153,6 @@ precision-medicine-mcp/
 **See it / Try it:** [<5 minute demo video](https://www.youtube.com/watch?v=LUldOHHX5Yo) | [Code](docs/test-docs/patient-one-scenario)
 
 **Quick Links:**
-- 💰 [Funding Opportunities](FUNDING.md)
 - 🤔 [Why MCP for Healthcare?](docs/WHY_MCP_FOR_HEALTHCARE.md)
 - 📚 [Documentation Hub](docs/README.md)
 - 🏗️ [Architecture Details](docs/architecture/README.md)
