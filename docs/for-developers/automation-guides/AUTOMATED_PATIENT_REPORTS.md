@@ -682,9 +682,9 @@ python tools/reports/finalize_patient_report.py --patient-id PAT001-OVC-2025
 **Result:** `final_report_approved.json` with status "clinically_approved" + 10-year HIPAA audit trail
 
 **Documentation:**
-- **[CITL_WORKFLOW_GUIDE.md](../clinical/CITL_WORKFLOW_GUIDE.md)** - Complete clinician training
-- **[CITL_EXAMPLES.md](../clinical/CITL_EXAMPLES.md)** - Example APPROVE/REVISE/REJECT scenarios
-- **[TEST_6_CITL_REVIEW](../test-docs/patient-one-scenario/test-prompts/test-6-citl-review.md)** - End-to-end test workflow
+- **[CITL_WORKFLOW_GUIDE.md](../../hospital-deployment/citl-workflows/CITL_WORKFLOW_GUIDE.md)** - Complete clinician training
+- **[CITL_EXAMPLES.md](../../hospital-deployment/citl-workflows/CITL_EXAMPLES.md)** - Example APPROVE/REVISE/REJECT scenarios
+- **[TEST_6_CITL_REVIEW](../../test-docs/patient-one-scenario/test-prompts/test-6-citl-review.md)** - End-to-end test workflow
 
 ## API Reference
 

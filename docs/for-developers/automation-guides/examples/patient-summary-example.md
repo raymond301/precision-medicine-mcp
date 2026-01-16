@@ -606,7 +606,6 @@ the rationale for considering clinical trials. The analogies ('drug pump',
 - **[GENERATE_PATIENT_SUMMARIES.md](../GENERATE_PATIENT_SUMMARIES.md)** - Complete guide to creating patient summaries
 - **[patient-disease-summary-template.md](../prompts/patient-disease-summary-template.md)** - Prompt template used in this example
 - **[AUTOMATED_PATIENT_REPORTS.md](../AUTOMATED_PATIENT_REPORTS.md)** - Technical report generation (Step 1)
-- **[PatientOne Outputs](../../test-docs/patient-one-scenario/architecture/outputs.md)** - Complete analysis results
 
 ---
 

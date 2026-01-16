@@ -485,9 +485,8 @@ raise ValueError(
 
 **Related Resources:**
 - **[ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md)** - Step-by-step guide for building new servers
-- **[Architecture Docs](../../architecture/README.md)** - Detailed technical documentation
+- **[Architecture Docs](../architecture/README.md)** - Detailed technical documentation
 - **[Server Implementations](../../servers/README.md)** - Code examples
-- **[PatientOne Workflow](../../tests/manual_testing/PatientOne-OvarianCancer/architecture/README.md)** - Real-world example
 
 ---
 

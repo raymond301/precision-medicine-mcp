@@ -385,7 +385,6 @@ if __name__ == "__main__":
 - **[AUTOMATED_PATIENT_REPORTS.md](AUTOMATED_PATIENT_REPORTS.md)** - Technical report generation (Step 1)
 - **[Prompt Templates](prompts/)** - Three fill-in-the-blank LLM prompts
 - **[Example Workflow](examples/patient-summary-example.md)** - Complete PatientOne example
-- **[PatientOne Outputs](../test-docs/patient-one-scenario/architecture/outputs.md)** - Sample technical and patient materials
 
 ---
 

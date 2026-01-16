@@ -32,7 +32,7 @@
 
 1. **System overview** → [ARCHITECTURE.md](ARCHITECTURE.md) (15 min)
 2. **Best reference implementation** → [mcp-multiomics README](../../servers/mcp-multiomics/README.md) (15 min)
-3. **PatientOne workflow** → [Architecture docs](../../tests/manual_testing/PatientOne-OvarianCancer/architecture/README.md) (30 min)
+3. **Architecture details** → [Architecture docs](../architecture/README.md) (30 min)
 
 **Total Time:** 30-60 minutes for full understanding
 
@@ -56,17 +56,9 @@
 
 ### Building New Servers
 - **[ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md)** - Comprehensive guide (planning → deployment)
-- **[SERVER_TEMPLATE.md](SERVER_TEMPLATE.md)** - Boilerplate code patterns
-- **[TESTING_GUIDE.md](TESTING_GUIDE.md)** - Unit tests, integration tests, coverage requirements
 
 ### Contributing
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - PR guidelines, coding standards, review process
-- **[CODING_STANDARDS.md](CODING_STANDARDS.md)** - Python style, FastMCP patterns, error handling
-- **[DEBUGGING_GUIDE.md](DEBUGGING_GUIDE.md)** - Common issues and troubleshooting
-
-### Deployment
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - GCP Cloud Run deployment, Docker, environment variables
-- **[MONITORING.md](MONITORING.md)** - Cloud Monitoring, logging, alerting
 
 ---
 
@@ -238,18 +230,15 @@ graph TB
 3. **mcp-fgbio** ([README](../../servers/mcp-fgbio/README.md)) - Simple, focused, excellent for learning basics
 
 ### Architecture Documentation
-- **System Design:** [Architecture Overview](../../architecture/README.md)
-- **PatientOne Workflow:** [Test Architecture](../../tests/manual_testing/PatientOne-OvarianCancer/architecture/README.md)
-- **Data Flow:** [Clinical-Spatial Integration](../../architecture/clinical-spatial-bridge.md)
+- **System Design:** [Architecture Overview](../architecture/README.md)
+- **Data Flow:** [Clinical-Spatial Integration](../architecture/clinical-spatial-bridge.md)
 
 ### Testing Resources
-- **Manual Testing Guide:** [Manual Testing](../../tests/manual_testing/Solution-Testing/MANUAL_TESTING_GUIDE.md)
 - **Unit Tests:** [Test Examples](../../tests/unit/)
 - **Integration Tests:** [GCP Testing](../../tests/integration/)
 
 ### Code Examples
 - **Server Template:** [Boilerplate](../../servers/mcp-server-boilerplate/)
-- **Example Outputs:** [PatientOne Developer Docs](../../tests/manual_testing/PatientOne-OvarianCancer/architecture/patient-one-outputs/for-developer)
 
 ---
 
@@ -448,9 +437,9 @@ See: [CONTRIBUTING.md](CONTRIBUTING.md) for PR guidelines
 ---
 
 **Related Resources:**
-- 🏥 [Hospital Deployment Guide](../for-hospitals/README.md) - For IT teams deploying to production
+- 🏥 [Hospital Operations Manual](../hospital-deployment/OPERATIONS_MANUAL.md) - For IT teams deploying to production
 - 🔬 [Researcher Guide](../for-researchers/README.md) - For bioinformaticians using the platform
-- 📊 [Architecture Documentation](../../architecture/README.md) - Deep technical dive
+- 📊 [Architecture Documentation](../architecture/README.md) - Deep technical dive
 - 🏠 [Back to Main Documentation](../README.md)
 
 ---
