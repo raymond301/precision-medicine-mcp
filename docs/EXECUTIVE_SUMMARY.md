@@ -219,27 +219,6 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 ---
 
-## Next Steps
-
-### For Funding Decision (Week 0)
-1. ✅ Review executive summary and documentation
-2. ⏳ Schedule demo with hospital stakeholders
-3. ⏳ Approve pilot budget ($150,000)
-4. ⏳ Identify GCP project and Azure AD tenant
-
-### For Deployment Kickoff (Week 1)
-1. Create GCP project in hospital organization
-2. Request Azure AD app registration
-3. Schedule Epic FHIR credentials meeting
-4. Identify 5 pilot users and 10-20 test patients
-
-### For Communication
-- **Demo Request:** Contact Lynn Langit
-- **Technical Details:** [Technical Documentation](../README.md)
-- **Hospital Deployment:** [Deployment Guide](../infrastructure/hospital-deployment/README.md)
-- **Ethics Framework:** [Ethics & Bias](ethics/ETHICS_AND_BIAS.md)
-
----
 
 ## Conclusion
 
