@@ -92,31 +92,4 @@
 
 ---
 
-## Contact & Next Steps
 
-**For Grant Applications:**
-- Full budget breakdown available in [FUNDING.md](../../FUNDING.md)
-- IRB-ready bias audit reports: [Ethics Framework](../for-hospitals/ethics/README.md)
-- Technical specifications: [Architecture](../architecture/README.md)
-
-**For Institutional Partnerships:**
-- Schedule 30-minute technical deep dive
-- Review hospital deployment requirements: [Hospital Guide](../for-hospitals/README.md)
-- Discuss multi-site research collaborations
-
-**For Venture Investment:**
-- Review competitive landscape: [COMPETITIVE_LANDSCAPE.md](COMPETITIVE_LANDSCAPE.md)
-- Assess market opportunity and scalability
-- Discuss commercialization strategy
-
----
-
-**Related Resources:**
-- 📊 [Executive Summary](../EXECUTIVE_SUMMARY.md) - Comprehensive technical/financial overview
-- 🏥 [Hospital Deployment Guide](../for-hospitals/README.md) - For hospital IT and administrators
-- 🔬 [Researcher Guide](../for-researchers/README.md) - For bioinformaticians evaluating technical approach
-- 🏠 [Back to Main Documentation](../README.md)
-
----
-
-**Last Updated:** 2026-01-14
