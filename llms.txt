@@ -1,0 +1,55 @@
+Precision Medicine MCP (PatientOne)
+An AI-orchestrated framework for multi-modal bioinformatics analysis focusing on a Stage IV Ovarian Cancer case study. This repository demonstrates the use of the Model Context Protocol (MCP) to "stitch" together clinical, genomic, and spatial data.
+
+Core Project Goals
+PatientOne Case Study: A synthetic clinical scenario used to teach AI-orchestrated precision medicine.
+
+Modular MCP Architecture: 9 specialized servers acting as domain experts for specific data modalities.
+
+Human-in-the-Loop (CitL): Explicit validation steps for oncologists and clinicians within the AI workflow.
+
+Teaching/Example First: Optimized for clear documentation, persona-based navigation, and low-cost "DRY_RUN" execution.
+
+Key Repository Structure
+/servers/: The logic for the 9 custom MCP servers.
+
+/clinical/: FHIR and Epic patient history servers.
+
+/omics/: Genomic (TCGA), Transcriptomic, and Spatial (Visium) servers.
+
+/analysis/: Pathway enrichment (Reactome) and stitching logic.
+
+/docs/: Human-consumable documentation.
+
+patient-one-tutorial.md: Narrative walkthrough of the cancer case study.
+
+architecture.md: Visual map of the MCP orchestration and SSE transport on GCP.
+
+/data/: Anonymized synthetic datasets for "PatientOne."
+
+/prompts/: Versioned system prompts for medical reasoning and CitL validation.
+
+/infrastructure/: Deployment scripts for GCP Cloud Run and Docker-based local development.
+
+Technical Stack
+Protocol: Model Context Protocol (MCP) using SSE (Server-Sent Events) transport.
+
+Cloud: Google Cloud Platform (GCP) - Cloud Run, Cloud Functions.
+
+AI Orchestration: Gemini 2.0 / Claude 3.5 Sonnet acting as the central "Stitcher."
+
+Bioinformatics: STAR Aligner, TCGA analysis, Visium spatial transcriptomics processing.
+
+Prompting Guidelines for AI
+Domain: When generating code or analysis, adhere to HIPAA-principled data handling (even for synthetic data).
+
+Style: Maintain a "Co-pilot" persona—prioritize Clinician-in-the-Loop validation over fully autonomous decision-making.
+
+Orchestration: Always consider how a request might be distributed across the 9 existing MCP servers before proposing new standalone logic.
+
+Why this is effective
+Context Efficiency: Instead of an LLM reading every README.md and script, it reads this single file to build a mental model.
+
+Navigation: It explicitly links the /servers and /prompts folders, which are the most important for an AI developer tool to understand.
+
+Persona Alignment: It reinforces the "Co-pilot" and "Teaching" nature of the repo, preventing the AI from suggesting overly complex or "black box" solutions.
