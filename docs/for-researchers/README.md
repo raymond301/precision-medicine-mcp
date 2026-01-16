@@ -267,7 +267,7 @@ to identify concordant pathway activations.
 
 ---
 
-## Cost Analysis
+## Estimated Cost Analysis
 
 ### Per-Patient Analysis Costs
 
@@ -289,7 +289,6 @@ to identify concordant pathway activations.
 
 **Annual savings:** $577,600-585,500 (96% cost reduction)
 
-See: [Cost Analysis](../operations/cost-and-budget.md) for detailed breakdown
 
 ---
 
