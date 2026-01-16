@@ -136,8 +136,6 @@ We've built a platform that analyzes all your cancer data together - medical rec
 - Right to know who accessed your data
 - Right to opt out of research use
 
-**See:** [HIPAA Compliance Guide](../compliance/hipaa.md) for technical details
-
 ### How Your Data Might Help Others
 
 **Research Use (Optional)**
@@ -413,16 +411,6 @@ We're building a patient advisory board to:
 ---
 
 ## Hope Through Precision Medicine
-
-### Success Stories (Future)
-
-*[Note: These will be added once platform is used in clinical settings. All will be de-identified and used with patient consent.]*
-
-**What patients have said about precision medicine:**
-- "It gave me hope when standard treatments weren't working."
-- "I felt empowered knowing my doctors had all the information."
-- "Finding a clinical trial I qualified for extended my life."
-- "Even though the results didn't find a 'magic bullet,' understanding my cancer better helped me make peace with my treatment decisions."
 
 ### The Future of Cancer Care
 
