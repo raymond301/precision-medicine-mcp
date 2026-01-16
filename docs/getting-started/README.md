@@ -8,10 +8,7 @@ Quick start guides for new users of the Precision Medicine MCP system.
 - **First Analysis** - Run your first patient analysis
 - **Common Issues** - Troubleshooting guide
 
-## Quick Links
 
-- [Main Documentation Index](INDEX.md)
-- [Architecture Overview](../architecture/README.md)
 
 
 ---
