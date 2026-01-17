@@ -20,7 +20,10 @@ from utils import (
     get_tools_config,
     get_server_categories,
     EXAMPLE_PROMPTS,
-    ChatHandler
+    ChatHandler,
+    build_orchestration_trace,
+    render_trace,
+    render_trace_export
 )
 
 # Import authentication and audit logging
@@ -89,6 +92,10 @@ def initialize_session_state():
     # Initialize audit logger
     if "audit_logger" not in st.session_state:
         st.session_state.audit_logger = get_audit_logger()
+
+    # Initialize trace storage
+    if "traces" not in st.session_state:
+        st.session_state.traces = {}  # message_index -> OrchestrationTrace
 
 
 def render_sidebar():
@@ -173,6 +180,30 @@ def render_sidebar():
 
         st.markdown("---")
 
+        # Orchestration Trace Settings
+        st.subheader("🔍 Orchestration Trace")
+        show_trace = st.toggle(
+            "Show trace for responses",
+            value=False,
+            help="Display which MCP servers were called and in what order"
+        )
+
+        trace_style = "log"  # Default
+        if show_trace:
+            trace_style = st.selectbox(
+                "Trace style",
+                options=["log", "cards", "timeline", "mermaid"],
+                format_func=lambda x: {
+                    "log": "📝 Log View",
+                    "cards": "🎴 Card View",
+                    "timeline": "📈 Timeline View",
+                    "mermaid": "📊 Sequence Diagram"
+                }.get(x, x),
+                help="Choose how to display the orchestration trace"
+            )
+
+        st.markdown("---")
+
         # Example prompts
         st.subheader("Example Prompts")
         selected_example = st.selectbox(
@@ -204,9 +235,10 @@ def render_sidebar():
         # Clear chat button
         if st.button("🗑️ Clear Chat", use_container_width=True):
             st.session_state.messages = []
+            st.session_state.traces = {}  # Clear traces too
             st.rerun()
 
-    return model, max_tokens
+    return model, max_tokens, show_trace, trace_style
 
 
 def render_server_status():
@@ -231,9 +263,14 @@ def render_server_status():
             """, unsafe_allow_html=True)
 
 
-def render_chat_history():
-    """Render chat message history."""
-    for message in st.session_state.messages:
+def render_chat_history(show_trace: bool = False, trace_style: str = "log"):
+    """Render chat message history.
+
+    Args:
+        show_trace: Whether to show orchestration traces
+        trace_style: Style for rendering traces
+    """
+    for i, message in enumerate(st.session_state.messages):
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
@@ -245,6 +282,16 @@ def render_chat_history():
                     col1.metric("Input", usage.get("input_tokens", 0))
                     col2.metric("Output", usage.get("output_tokens", 0))
                     col3.metric("Total", usage.get("total_tokens", 0))
+
+            # Show trace for assistant messages if enabled
+            if message["role"] == "assistant" and show_trace:
+                if i in st.session_state.traces:
+                    trace = st.session_state.traces[i]
+                    render_trace(trace, style=trace_style)
+
+                    # Add export buttons if trace has data
+                    if trace.tool_calls:
+                        render_trace_export(trace)
 
 
 def handle_user_input(prompt: str, model: str, max_tokens: int):
@@ -293,7 +340,9 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
     )
 
     # Track query start time
+    import time
     query_start_time = datetime.utcnow()
+    start_time = time.time()
 
     # Show thinking indicator
     with st.chat_message("assistant"):
@@ -307,6 +356,9 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
                     model=model,
                     max_tokens=max_tokens
                 )
+
+                # Calculate response time
+                duration_ms = (time.time() - start_time) * 1000
 
                 # Format response
                 response_text = st.session_state.chat_handler.format_response(response)
@@ -354,6 +406,21 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
                         if usage.get("total_tokens", 0) > 0:
                             st.caption(f"Est. cost: ${estimated_cost:.4f}")
 
+                # Build orchestration trace
+                message_index = len(st.session_state.messages)  # Index where this message will be stored
+                trace = build_orchestration_trace(
+                    query=prompt,
+                    response=response,
+                    messages=[{"role": msg["role"], "content": msg["content"]}
+                             for msg in st.session_state.messages],
+                    duration_ms=duration_ms,
+                    tokens=usage.get("total_tokens", 0),
+                    cost_usd=estimated_cost if usage else 0
+                )
+
+                # Store trace in session state
+                st.session_state.traces[message_index] = trace
+
                 # Add to history
                 st.session_state.messages.append({
                     "role": "assistant",
@@ -399,7 +466,7 @@ def main():
         st.session_state.session_logged = True
 
     # Render sidebar and get settings
-    model, max_tokens = render_sidebar()
+    model, max_tokens, show_trace, trace_style = render_sidebar()
 
     # Main content area
     st.title("🧬 Precision Medicine MCP Chat")
@@ -426,7 +493,7 @@ def main():
     st.markdown("---")
 
     # Render chat history
-    render_chat_history()
+    render_chat_history(show_trace=show_trace, trace_style=trace_style)
 
     # Chat input
     # Check for example prompt loaded

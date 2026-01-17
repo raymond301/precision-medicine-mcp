@@ -14,6 +14,7 @@ A visual chat interface for testing deployed MCP servers on GCP Cloud Run. Provi
 - 📊 **Token Usage** - Track API usage per message
 - 🎨 **Clean UI** - Simple, Claude Desktop-like interface
 - ⚡ **Real-time** - Instant responses from deployed servers
+- 🔍 **Orchestration Trace** - See which servers were called and in what order (NEW!)
 
 ## Quick Start (2 minutes)
 
@@ -80,6 +81,76 @@ Type your question or:
 - Chat history shows full conversation
 - Token usage displayed per message
 - Server status cards show active servers
+
+## Orchestration Trace Feature
+
+The Streamlit UI includes an "Orchestration Trace" feature that shows which MCP servers were called during each query. This makes the "invisible orchestration" visible, helping users understand:
+
+- **How** Claude orchestrates multiple specialized servers
+- **Which** data sources contributed to each recommendation
+- **The flow** of data through the precision medicine pipeline
+
+### Enabling the Trace
+
+1. In the sidebar, toggle **"Show trace for responses"**
+2. Select your preferred trace style:
+   - **Log View (📝)** - Simple text-based step-by-step log
+   - **Card View (🎴)** - Visual cards for each server call
+   - **Timeline View (📈)** - Horizontal timeline showing the flow
+   - **Sequence Diagram (📊)** - Mermaid diagram (copyable)
+
+### What the Trace Shows
+
+For each server call, you'll see:
+- Which MCP server was called (with icon and description)
+- What tool was invoked
+- Input parameters passed to the tool
+- Result summary
+- Timing metrics (duration, tokens, estimated cost)
+
+### Example Trace Output
+
+```
+🔍 Orchestration Trace (3 server calls)
+
+Step 1: 🧬 Genomics (FGbio)
+- Tool: validate_fastq
+- Input: {'file': 'patient_001.fastq'}
+- Result: Valid FASTQ, 1.2M reads
+
+Step 2: 🔬 Multi-Omics
+- Tool: run_halla_analysis
+- Input: {'data_file': 'multiomics.tsv'}
+- Result: 42 significant associations found
+
+Step 3: 🗺️ Spatial Transcriptomics
+- Tool: cell_type_deconvolution
+- Input: {'spatial_data': 'visium_data.h5ad'}
+- Result: Identified 8 cell types, CD8+ T-cells enriched in margin
+```
+
+### Exporting Traces
+
+Click the download buttons to export:
+- **📥 Download JSON** - Complete trace data for programmatic use
+- **📥 Download Mermaid** - Sequence diagram for documentation
+
+### Educational Value
+
+The trace feature helps:
+- **Students** - See how agentic AI actually works
+- **Funders** - Demos become self-explanatory
+- **Clinicians** - Understand which data sources contributed
+- **Developers** - Debug when something goes wrong
+- **Hospital IT** - Audit trail for compliance
+
+### Use Cases
+
+1. **Education** - Teaching bioinformatics workflows
+2. **Demos** - Showing platform capabilities to funders
+3. **Debugging** - Understanding why a query failed
+4. **Compliance** - Audit trail of data access
+5. **Documentation** - Creating workflow diagrams
 
 ## Example Workflows
 
@@ -256,7 +327,11 @@ ui/streamlit-app/
 └── utils/
     ├── __init__.py       # Package init
     ├── mcp_config.py     # MCP server configurations
-    └── chat_handler.py   # Claude API integration
+    ├── chat_handler.py   # Claude API integration
+    ├── trace_utils.py    # Orchestration trace extraction
+    ├── trace_display.py  # Trace visualization components
+    ├── auth.py           # Authentication (SSO)
+    └── audit_logger.py   # Audit logging
 ```
 
 ### Adding New Features
