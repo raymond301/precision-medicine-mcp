@@ -36,7 +36,7 @@ gcloud run deploy "$SERVICE_NAME" \
     --min-instances 0 \
     --max-instances 5 \
     --timeout 300 \
-    --set-env-vars ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" \
+    --set-env-vars ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY",ENVIRONMENT=development \
     --port 8501 \
     --quiet
 
