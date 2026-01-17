@@ -2,6 +2,8 @@
 
 > **Understanding how Model Context Protocol (MCP) transforms precision medicine workflows**
 
+<img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/why-mcp.jpeg">
+
 ---
 
 ## The Orchestration Problem
