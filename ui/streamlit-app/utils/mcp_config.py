@@ -15,25 +15,29 @@ class MCPServerConfig(TypedDict):
     tools_count: int
 
 
-# All 9 deployed MCP servers on GCP Cloud Run
+# MCP Server URLs - Set to local for testing, Cloud Run for production
+# LOCAL: http://localhost:PORT/sse (requires ngrok/tunnel for Claude API to reach)
+# CLOUD RUN: https://mcp-SERVER-ondu7mwjpa-uc.a.run.app/sse
+USE_LOCAL_SERVERS = False  # Must be False when using Claude API beta MCP client
+
 MCP_SERVERS: Dict[str, MCPServerConfig] = {
     "fgbio": {
         "name": "fgbio",
-        "url": "https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse",
+        "url": "http://localhost:8001/sse" if USE_LOCAL_SERVERS else "https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Genomic reference data and FASTQ validation",
         "status": "production",
         "tools_count": 4
     },
     "multiomics": {
         "name": "multiomics",
-        "url": "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
+        "url": "http://localhost:8002/sse" if USE_LOCAL_SERVERS else "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Multi-omics integration (RNA/Protein/Phospho)",
         "status": "production",
         "tools_count": 9
     },
     "spatialtools": {
         "name": "spatialtools",
-        "url": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
+        "url": "http://localhost:8000/sse" if USE_LOCAL_SERVERS else "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Spatial transcriptomics analysis",
         "status": "production",
         "tools_count": 10
