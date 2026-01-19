@@ -29,7 +29,8 @@ class ChatHandler:
         mcp_servers: List[Dict],
         model: str = "claude-sonnet-4-5",
         max_tokens: int = 4096,
-        temperature: float = 1.0
+        temperature: float = 1.0,
+        uploaded_files: Optional[Dict] = None
     ) -> anthropic.types.Message:
         """Send message to Claude with MCP servers enabled.
 
@@ -39,6 +40,7 @@ class ChatHandler:
             model: Claude model to use
             max_tokens: Maximum response tokens
             temperature: Sampling temperature
+            uploaded_files: Dict of uploaded files with paths and metadata
 
         Returns:
             Claude API response message
@@ -69,6 +71,33 @@ Guidelines:
 - If you don't have access to a required tool, let the user know
 
 Do not simulate or describe what an analysis would show - actually perform it using the available tools."""
+
+        # Add uploaded file information to system prompt
+        if uploaded_files and len(uploaded_files) > 0:
+            file_descriptions = []
+            for filename, file_info in uploaded_files.items():
+                metadata = file_info['metadata']
+                path = file_info['path']
+                original_name = file_info.get('original_name', filename)
+
+                file_desc = f"""- **{original_name}**
+  - File path: {path}
+  - Type: {metadata['extension']}
+  - Size: {metadata['size_mb']:.2f} MB"""
+
+                if not metadata.get('is_binary', False):
+                    file_desc += f"\n  - Lines: {metadata.get('line_count', 'N/A')}"
+
+                file_descriptions.append(file_desc)
+
+            system_prompt += f"""
+
+UPLOADED FILES AVAILABLE:
+The user has uploaded {len(uploaded_files)} file(s) for analysis. When the user refers to "the uploaded file" or "my file", use these file paths in your MCP tool calls:
+
+{chr(10).join(file_descriptions)}
+
+When performing analysis, use the file path shown above as the input to MCP tools."""
 
         try:
             response = self.client.beta.messages.create(

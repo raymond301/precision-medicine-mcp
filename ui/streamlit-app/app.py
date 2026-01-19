@@ -454,13 +454,14 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
-                # Send message to Claude API
+                # Send message to Claude API (include uploaded files info)
                 response = st.session_state.chat_handler.send_message(
                     messages=[{"role": msg["role"], "content": msg["content"]}
                              for msg in st.session_state.messages],
                     mcp_servers=mcp_servers,
                     model=model,
-                    max_tokens=max_tokens
+                    max_tokens=max_tokens,
+                    uploaded_files=st.session_state.uploaded_files
                 )
 
                 # Calculate response time
