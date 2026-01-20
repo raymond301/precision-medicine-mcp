@@ -84,6 +84,7 @@ SERVERS=(
     "mcp-huggingface:3006:2Gi:1:HF_LOG_LEVEL=INFO:HF_DRY_RUN=true"
     "mcp-deepcell:3007:2Gi:1:DEEPCELL_LOG_LEVEL=INFO:DEEPCELL_DRY_RUN=true"
     "mcp-mockepic:3008:2Gi:1:EPIC_LOG_LEVEL=INFO:DEIDENTIFY_ENABLED=true"
+    "mcp-perturbation:3009:4Gi:2:PERTURBATION_LOG_LEVEL=INFO:PERTURBATION_DRY_RUN=false"
 )
 
 # Server-specific secrets (production only)
@@ -102,6 +103,7 @@ SERVICE_ACCOUNTS["mcp-huggingface"]="mcp-huggingface-sa"
 SERVICE_ACCOUNTS["mcp-deepcell"]="mcp-deepcell-sa"
 SERVICE_ACCOUNTS["mcp-epic"]="mcp-epic-sa"
 SERVICE_ACCOUNTS["mcp-mockepic"]="mcp-mockepic-sa"
+SERVICE_ACCOUNTS["mcp-perturbation"]="mcp-perturbation-sa"
 
 # Functions
 print_header() {
