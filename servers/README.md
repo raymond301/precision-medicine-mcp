@@ -1,6 +1,6 @@
 # 🧬 MCP Server Implementation
 
-10 specialized MCP servers for precision medicine analysis with 55 tools.
+11 specialized MCP servers for precision medicine analysis with 63 tools.
 
 ---
 
@@ -13,13 +13,14 @@
 | 🧬 **mcp-fgbio** | 4 | ✅ 95% real | [README →](mcp-fgbio/README.md) |
 | 🔬 **mcp-multiomics** | 10 | ✅ 85% real | [README →](mcp-multiomics/README.md) |
 | 📍 **mcp-spatialtools** | 14 | ✅ 95% real | [README →](mcp-spatialtools/README.md) |
+| 🧪 **mcp-perturbation** | 8 | ✅ 100% real | [README →](mcp-perturbation/README.md) |
 | 🖼️ **mcp-openimagedata** | 5 | ⚠️ 60% real | [README →](mcp-openimagedata/README.md) |
 | 🖼️ **mcp-deepcell** | 4 | ❌ Mocked | [README →](mcp-deepcell/README.md) |
 | 🧪 **mcp-tcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-tcga/README.md) |
 | 🤖 **mcp-huggingface** | 3 | ❌ Mocked (HF-ready) | — |
 | ⚙️ **mcp-seqera** | 3 | ❌ Mocked (Seqera-ready) | — |
 
-**Production Ready:** 4/10 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools)
+**Production Ready:** 5/11 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation)
 
 ---
 
@@ -31,6 +32,7 @@ Use these for real analysis:
 - 🧬 **mcp-fgbio** - Reference genomes, FASTQ QC ([README](mcp-fgbio/README.md))
 - 🔬 **mcp-multiomics** - RNA/Protein/Phospho integration - 91 tests ✅ ([README](mcp-multiomics/README.md))
 - 📍 **mcp-spatialtools** - Spatial transcriptomics analysis ([README](mcp-spatialtools/README.md))
+- 🧪 **mcp-perturbation** - Single-cell perturbation prediction using scGen ([README](mcp-perturbation/README.md))
 
 ### ⚠️ Partial Implementation
 - 🖼️ **mcp-openimagedata** - Image loading (60% real) ([README](mcp-openimagedata/README.md))
