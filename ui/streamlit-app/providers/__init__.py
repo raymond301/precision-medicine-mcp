@@ -89,9 +89,10 @@ def get_available_providers() -> dict:
         "name": "Gemini",
         "available": GEMINI_AVAILABLE and bool(gemini_key),
         "models": [
-            {"id": "gemini-1.5-flash", "name": "Gemini 1.5 Flash"}
+            {"id": "gemini-3-flash-preview", "name": "Gemini 3 Flash (Preview)"},
+            {"id": "gemini-2.5-flash", "name": "Gemini 2.5 Flash"}
         ],
-        "default_model": "gemini-1.5-flash",
+        "default_model": "gemini-3-flash-preview",
         "note": "Gemini API key required" if GEMINI_AVAILABLE else "Install google-genai package"
     }
 

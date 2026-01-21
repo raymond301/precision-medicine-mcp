@@ -44,7 +44,7 @@ class GeminiProvider(LLMProvider):
         self,
         messages: List[ChatMessage],
         mcp_servers: List[Dict],
-        model: str = "gemini-1.5-flash",
+        model: str = "gemini-3-flash-preview",
         max_tokens: int = 4096,
         temperature: float = 1.0,
         uploaded_files: Optional[Dict] = None
@@ -155,8 +155,10 @@ class GeminiProvider(LLMProvider):
     def get_model_display_name(self, model: str) -> str:
         """Get human-readable model name."""
         model_names = {
-            "gemini-1.5-flash": "Gemini 1.5 Flash",
-            "gemini-1.5-pro": "Gemini 1.5 Pro",
+            "gemini-3-flash-preview": "Gemini 3 Flash (Preview)",
+            "gemini-3-pro-preview": "Gemini 3 Pro (Preview)",
+            "gemini-2.5-flash": "Gemini 2.5 Flash",
+            "gemini-2.5-flash-preview-09-2025": "Gemini 2.5 Flash (Preview)",
         }
         return model_names.get(model, model)
 
