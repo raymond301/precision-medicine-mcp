@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "mcp-perturbation-local": {
+      "command": "python",
+      "args": ["-m", "mcp_perturbation"],
+      "env": {
+        "MCP_TRANSPORT": "stdio",
+        "PERTURBATION_DRY_RUN": "false",
+        "PERTURBATION_LOG_LEVEL": "INFO"
+      }
+    },
+    "mcp-perturbation-remote": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/client-sse",
+        "https://mcp-perturbation-ondu7mwjpa-uc.a.run.app/sse"
+      ],
+      "env": {
+        "NODE_OPTIONS": "--max-old-space-size=4096"
+      }
+    }
+  }
+}
