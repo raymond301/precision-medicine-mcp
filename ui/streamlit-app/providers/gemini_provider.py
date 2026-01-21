@@ -75,12 +75,12 @@ class GeminiProvider(LLMProvider):
         if system_prompt:
             input_messages.insert(0, {
                 "role": "user",
-                "content": [{"type": "text", "text": system_prompt}]
+                "content": system_prompt  # Use string directly
             })
             # Add a system-style response
             input_messages.insert(1, {
                 "role": "model",
-                "content": [{"type": "text", "text": "Understood. I will use the available MCP tools to perform actual analyses."}]
+                "content": "Understood. I will use the available MCP tools to perform actual analyses."  # Use string directly
             })
 
         try:
@@ -184,10 +184,10 @@ class GeminiProvider(LLMProvider):
     def _convert_messages_to_gemini_format(self, messages: List[ChatMessage]) -> List[Dict]:
         """Convert ChatMessage objects to Gemini format.
 
-        Gemini expects:
+        Gemini Interactions API expects:
         [
-            {"role": "user", "content": [{"type": "text", "text": "..."}]},
-            {"role": "model", "content": [{"type": "text", "text": "..."}]}
+            {"role": "user", "content": "..."},
+            {"role": "model", "content": "..."}
         ]
 
         Args:
@@ -203,7 +203,7 @@ class GeminiProvider(LLMProvider):
 
             gemini_messages.append({
                 "role": role,
-                "content": [{"type": "text", "text": msg.content}]
+                "content": msg.content  # Use string directly, not array
             })
 
         return gemini_messages
@@ -269,10 +269,16 @@ When analyzing these files, use the appropriate MCP tools with the file paths pr
             if hasattr(output, 'text'):
                 parts.append(output.text)
             elif hasattr(output, 'content'):
-                # Handle structured content
-                for content_part in output.content:
-                    if hasattr(content_part, 'text'):
-                        parts.append(content_part.text)
+                # Handle both string and structured content
+                if isinstance(output.content, str):
+                    parts.append(output.content)
+                else:
+                    # Handle array of content parts
+                    for content_part in output.content:
+                        if hasattr(content_part, 'text'):
+                            parts.append(content_part.text)
+                        elif isinstance(content_part, str):
+                            parts.append(content_part)
 
         return "\n\n".join(parts) if parts else "Empty response"
 
