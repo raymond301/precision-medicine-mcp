@@ -23,10 +23,8 @@ COPY . /app/servers/mcp-perturbation/
 WORKDIR /app/servers/mcp-perturbation
 # Upgrade pip and setuptools first
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
-# Install the package (this will pull in all dependencies)
+# Install the package (this will pull in all dependencies including fastmcp>=0.2.0)
 RUN pip install --no-cache-dir -e .
-# Force upgrade mcp and fastmcp to latest versions
-RUN pip install --no-cache-dir --upgrade mcp fastmcp
 
 # Set environment variables for SSE transport
 ENV MCP_TRANSPORT=sse
