@@ -1,10 +1,11 @@
-"""Google Gemini provider implementation.
+"""Google Gemini provider implementation with MCP tool calling support.
 
-Uses Google's Interactions API with remote MCP server support.
+Uses Google's standard Gemini API with manual MCP client management.
 """
 
 import os
 import asyncio
+import sys
 from typing import List, Dict, Optional, Any
 
 try:
@@ -20,7 +21,7 @@ from .base import LLMProvider, ChatMessage, ChatResponse, UsageInfo
 
 
 class GeminiProvider(LLMProvider):
-    """Google Gemini provider with MCP support via Interactions API."""
+    """Google Gemini provider with MCP support via manual tool calling."""
 
     def __init__(self, api_key: Optional[str] = None):
         """Initialize Gemini provider.
@@ -49,7 +50,7 @@ class GeminiProvider(LLMProvider):
         temperature: float = 1.0,
         uploaded_files: Optional[Dict] = None
     ) -> ChatResponse:
-        """Send message to Gemini with MCP servers.
+        """Send message to Gemini with MCP tool calling.
 
         Args:
             messages: Chat message history
@@ -62,96 +63,297 @@ class GeminiProvider(LLMProvider):
         Returns:
             ChatResponse with standardized format
         """
-        # Format MCP servers for Gemini
-        formatted_servers = self.format_mcp_servers(mcp_servers)
+        # Run async tool calling in sync context
+        return asyncio.run(
+            self._send_message_async(
+                messages=messages,
+                mcp_servers=mcp_servers,
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                uploaded_files=uploaded_files
+            )
+        )
 
-        # Convert messages to Gemini format
-        input_messages = self._convert_messages_to_gemini_format(messages)
+    async def _send_message_async(
+        self,
+        messages: List[ChatMessage],
+        mcp_servers: List[Dict],
+        model: str,
+        max_tokens: int,
+        temperature: float,
+        uploaded_files: Optional[Dict]
+    ) -> ChatResponse:
+        """Async implementation of message sending with tool calling.
 
-        # Build system prompt
-        system_prompt = self._build_system_prompt(formatted_servers, uploaded_files)
-
-        # Add system prompt as first message
-        if system_prompt:
-            input_messages.insert(0, {
-                "role": "user",
-                "content": system_prompt  # Use string directly
-            })
-            # Add a system-style response
-            input_messages.insert(1, {
-                "role": "model",
-                "content": "Understood. I will use the available MCP tools to perform actual analyses."  # Use string directly
-            })
-
+        This implements the agentic loop:
+        1. Connect to MCP servers and discover tools
+        2. Send message to Gemini with tool declarations
+        3. If Gemini calls tools, execute them via MCP
+        4. Feed results back to Gemini
+        5. Repeat until Gemini responds without tool calls
+        """
         try:
-            # NOTE: The Interactions API does NOT support tool_config parameter
-            # This is a limitation of the experimental Interactions API
-            # It doesn't support FunctionCallingConfig like the standard Gemini API
+            # Import MCP client manager
+            # Add parent directory to sys.path to enable absolute imports
+            parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            if parent_dir not in sys.path:
+                sys.path.insert(0, parent_dir)
 
-            # Debug logging
-            import sys
-            print(f"DEBUG: Formatted MCP servers: {formatted_servers}", file=sys.stderr)
-            print(f"DEBUG: Model: {model}", file=sys.stderr)
-            print(f"DEBUG: Number of messages: {len(input_messages)}", file=sys.stderr)
+            from utils.mcp_client import MCPClientManager
 
-            # Use asyncio to run the async interaction
-            interaction = asyncio.run(
-                self._create_interaction_async(
-                    model=model,
-                    input_messages=input_messages,
-                    tools=formatted_servers
+            # Connect to MCP servers using context manager
+            print(f"DEBUG: Connecting to {len(mcp_servers)} MCP servers", file=sys.stderr)
+
+            async with MCPClientManager(mcp_servers) as mcp_manager:
+                # Get Gemini-formatted tools
+                gemini_tools = mcp_manager.convert_tools_to_gemini_format()
+                print(f"DEBUG: Discovered {len(gemini_tools)} total tools", file=sys.stderr)
+
+                # Convert messages to Gemini format
+                gemini_messages = self._convert_messages_to_gemini_format(messages)
+
+                # Build system instruction
+                system_instruction = self._build_system_instruction(mcp_servers, uploaded_files)
+
+                # Agentic loop: keep calling until no more tool calls
+                max_iterations = 10
+                iteration = 0
+                conversation_history = gemini_messages.copy()
+
+                while iteration < max_iterations:
+                    iteration += 1
+                    print(f"DEBUG: Iteration {iteration}", file=sys.stderr)
+
+                    # Call Gemini with current conversation and tools
+                    response = await self._call_gemini(
+                        model=model,
+                        messages=conversation_history,
+                        tools=gemini_tools,
+                        system_instruction=system_instruction,
+                        max_tokens=max_tokens,
+                        temperature=temperature
+                    )
+
+                    # Check if response contains tool calls
+                    tool_calls, original_parts = self._extract_tool_calls(response)
+
+                    # Debug: log response structure
+                    print(f"DEBUG: Response candidates: {len(response.candidates) if hasattr(response, 'candidates') else 0}", file=sys.stderr)
+                    if hasattr(response, 'candidates') and response.candidates:
+                        cand = response.candidates[0]
+                        if hasattr(cand, 'content') and hasattr(cand.content, 'parts'):
+                            print(f"DEBUG: Response parts: {len(cand.content.parts)}", file=sys.stderr)
+                            for i, part in enumerate(cand.content.parts):
+                                print(f"DEBUG: Part {i} type: {type(part).__name__}", file=sys.stderr)
+                                if hasattr(part, 'function_call'):
+                                    print(f"DEBUG: Part {i} has function_call: {part.function_call}", file=sys.stderr)
+
+                    if not tool_calls:
+                        # No more tool calls - we're done
+                        print(f"DEBUG: No tool calls, finishing after {iteration} iterations", file=sys.stderr)
+
+                        # Extract final response
+                        content = self._format_response(response)
+                        usage = self._get_usage_info(response)
+
+                        return ChatResponse(
+                            content=content,
+                            usage=usage,
+                            raw_response=response
+                        )
+
+                    # Execute tool calls
+                    print(f"DEBUG: Executing {len(tool_calls)} tool calls", file=sys.stderr)
+                    tool_results = await self._execute_tool_calls(mcp_manager, tool_calls)
+
+                    # Add tool calls and results to conversation history
+                    # CRITICAL: Use original Part objects directly to preserve thought_signature
+                    conversation_history.append({
+                        "role": "model",
+                        "parts": original_parts  # Use Part objects directly, not wrapped
+                    })
+
+                    # Add tool results
+                    for result in tool_results:
+                        conversation_history.append({
+                            "role": "function",
+                            "parts": [{
+                                "functionResponse": {
+                                    "name": result["name"],
+                                    "response": result["response"]
+                                }
+                            }]
+                        })
+
+                # Max iterations reached
+                print(f"WARNING: Max iterations ({max_iterations}) reached", file=sys.stderr)
+                return ChatResponse(
+                    content="Error: Maximum tool calling iterations reached. Please try a simpler query.",
+                    usage=None,
+                    raw_response=None
                 )
-            )
-
-            # Debug: check interaction response structure
-            print(f"DEBUG: Interaction type: {type(interaction)}", file=sys.stderr)
-            print(f"DEBUG: Interaction dir: {dir(interaction)}", file=sys.stderr)
-            print(f"DEBUG: Interaction repr: {repr(interaction)}", file=sys.stderr)
-
-            # Check various possible response attributes
-            for attr in ['outputs', 'text', 'content', 'response', 'result', 'messages']:
-                if hasattr(interaction, attr):
-                    val = getattr(interaction, attr)
-                    print(f"DEBUG: interaction.{attr} = {val}", file=sys.stderr)
-
-            # Extract content from interaction outputs
-            content = self._format_response(interaction)
-
-            # Extract usage info (Gemini may not provide this in the same way)
-            usage = self._get_usage_info(interaction)
-
-            return ChatResponse(
-                content=content,
-                usage=usage,
-                raw_response=interaction
-            )
 
         except Exception as e:
             import traceback
             traceback.print_exc()
             raise Exception(f"Gemini API error: {str(e)}")
 
-    async def _create_interaction_async(
+    async def _call_gemini(
         self,
         model: str,
-        input_messages: List[Dict],
-        tools: List[Dict]
-    ):
-        """Create interaction with Gemini API (async).
+        messages: List[Dict],
+        tools: List[Dict],
+        system_instruction: str,
+        max_tokens: int,
+        temperature: float
+    ) -> Any:
+        """Call Gemini API with tools.
 
         Args:
             model: Model identifier
-            input_messages: Formatted messages
-            tools: MCP server tools
+            messages: Conversation history
+            tools: Tool declarations
+            system_instruction: System prompt
+            max_tokens: Max output tokens
+            temperature: Sampling temperature
 
         Returns:
-            Interaction response
+            Gemini response
         """
-        return self.client.interactions.create(
+        # Convert tools to Gemini format
+        gemini_tools = [
+            types.Tool(
+                function_declarations=[
+                    types.FunctionDeclaration(
+                        name=tool["name"],
+                        description=tool["description"],
+                        parameters=tool["parameters"]
+                    )
+                    for tool in tools
+                ]
+            )
+        ] if tools else None
+
+        # Build content from messages
+        contents = []
+        for msg in messages:
+            contents.append(types.Content(
+                role=msg["role"],
+                parts=[types.Part(text=msg["content"])] if "content" in msg else msg.get("parts", [])
+            ))
+
+        # Configure function calling to encourage tool usage
+        tool_config = None
+        if gemini_tools:
+            tool_config = types.ToolConfig(
+                function_calling_config=types.FunctionCallingConfig(
+                    mode="AUTO"  # Let Gemini decide when to call tools
+                )
+            )
+
+        # Call Gemini
+        response = self.client.models.generate_content(
             model=model,
-            input=input_messages,
-            tools=tools
+            contents=contents,
+            config=types.GenerateContentConfig(
+                system_instruction=system_instruction,
+                max_output_tokens=max_tokens,
+                temperature=temperature,
+                tools=gemini_tools,
+                tool_config=tool_config
+            )
         )
+
+        return response
+
+    def _extract_tool_calls(self, response: Any) -> tuple[List[Dict], List[Any]]:
+        """Extract tool calls from Gemini response.
+
+        Args:
+            response: Gemini API response
+
+        Returns:
+            Tuple of (parsed_tool_calls, original_parts)
+            - parsed_tool_calls: List with name and args for execution
+            - original_parts: Original Part objects to preserve thought_signature
+        """
+        parsed_calls = []
+        original_parts = []
+
+        if not hasattr(response, 'candidates'):
+            return parsed_calls, original_parts
+
+        for candidate in response.candidates:
+            if not hasattr(candidate, 'content'):
+                continue
+
+            for part in candidate.content.parts:
+                if hasattr(part, 'function_call') and part.function_call is not None:
+                    fc = part.function_call
+                    # Make sure fc has a name attribute and it's not None
+                    if hasattr(fc, 'name') and fc.name:
+                        parsed_calls.append({
+                            "name": fc.name,
+                            "args": dict(fc.args) if hasattr(fc, 'args') else {}
+                        })
+                        # Preserve the ENTIRE Part object (includes thought_signature)
+                        original_parts.append(part)
+
+        return parsed_calls, original_parts
+
+    async def _execute_tool_calls(self, mcp_manager, tool_calls: List[Dict]) -> List[Dict]:
+        """Execute MCP tool calls.
+
+        Args:
+            mcp_manager: MCP client manager instance
+            tool_calls: List of tool calls from Gemini
+
+        Returns:
+            List of tool results
+        """
+        results = []
+
+        for tool_call in tool_calls:
+            # Parse server name and tool name (format: servername_toolname)
+            full_name = tool_call["name"]
+            parts = full_name.split("_", 1)
+
+            if len(parts) != 2:
+                print(f"ERROR: Invalid tool name format: {full_name}", file=sys.stderr)
+                results.append({
+                    "name": full_name,
+                    "response": {"error": f"Invalid tool name format: {full_name}"}
+                })
+                continue
+
+            server_name, tool_name = parts
+
+            # Call the tool via MCP manager
+            try:
+                result = await mcp_manager.call_tool(
+                    server_name=server_name,
+                    tool_name=tool_name,
+                    arguments=tool_call["args"]
+                )
+
+                # Format result for Gemini
+                results.append({
+                    "name": full_name,
+                    "response": {
+                        "content": result["content"],
+                        "isError": result.get("isError", False)
+                    }
+                })
+
+            except Exception as e:
+                print(f"ERROR: Tool execution failed: {e}", file=sys.stderr)
+                results.append({
+                    "name": full_name,
+                    "response": {"error": str(e)}
+                })
+
+        return results
 
     def get_provider_name(self) -> str:
         """Get provider name."""
@@ -168,35 +370,19 @@ class GeminiProvider(LLMProvider):
         return model_names.get(model, model)
 
     def format_mcp_servers(self, server_configs: List[Dict]) -> List[Dict]:
-        """Format MCP servers for Gemini Interactions API.
+        """Format MCP servers for Gemini (pass-through).
 
-        Gemini expects:
-        {
-            "type": "mcp_server",
-            "name": "server_name",
-            "url": "https://server/sse"
-        }
+        Note: With the SSE-based approach, MCP server formatting
+        is handled by the MCPClientManager, so this just returns
+        the configs as-is.
 
         Args:
             server_configs: Standard MCP server configs
 
         Returns:
-            Gemini-formatted server configs
+            Server configs (unchanged)
         """
-        formatted = []
-        for server in server_configs:
-            url = server["url"]
-            # Ensure URL has /sse suffix
-            if not url.endswith("/sse"):
-                url = url + "/sse"
-
-            formatted.append({
-                "type": "mcp_server",
-                "name": server["name"],
-                "url": url
-            })
-
-        return formatted
+        return server_configs
 
     def is_available(self) -> bool:
         """Check if Gemini provider is available."""
@@ -204,12 +390,6 @@ class GeminiProvider(LLMProvider):
 
     def _convert_messages_to_gemini_format(self, messages: List[ChatMessage]) -> List[Dict]:
         """Convert ChatMessage objects to Gemini format.
-
-        Gemini Interactions API expects:
-        [
-            {"role": "user", "content": "..."},
-            {"role": "model", "content": "..."}
-        ]
 
         Args:
             messages: List of ChatMessage objects
@@ -224,137 +404,95 @@ class GeminiProvider(LLMProvider):
 
             gemini_messages.append({
                 "role": role,
-                "content": msg.content  # Use string directly, not array
+                "content": msg.content
             })
 
         return gemini_messages
 
-    def _build_system_prompt(
+    def _build_system_instruction(
         self,
         mcp_servers: List[Dict],
         uploaded_files: Optional[Dict] = None
     ) -> str:
-        """Build system prompt for Gemini."""
+        """Build system instruction for Gemini."""
         server_descriptions = [
             f"- {server['name']}: Available for bioinformatics analysis"
             for server in mcp_servers
         ]
 
-        system_prompt = f"""You are a bioinformatics assistant with access to specialized analysis tools via MCP servers.
-
-IMPORTANT: When users ask you to perform analysis, you MUST use the appropriate MCP tool rather than providing theoretical responses.
+        system_instruction = f"""You are a bioinformatics assistant with access to specialized analysis tools via MCP servers.
 
 Available MCP servers:
 {chr(10).join(server_descriptions)}
 
-Guidelines:
-- When asked to perform pathway enrichment, spatial analysis, or other bioinformatics tasks, USE THE TOOLS
-- Call the appropriate MCP tool to get real analysis results
-- After receiving tool results, interpret and explain them to the user
-- Provide actionable insights based on the actual analysis output
-- If you don't have access to a required tool, let the user know
+When to use tools:
+- For ANY analysis request (pathway enrichment, spatial analysis, genomic analysis, etc.) - call the appropriate tool
+- For validating or inspecting data files - use the validation tools
+- For computational tasks - execute the relevant tool
+- Prefer calling tools over providing theoretical responses
 
-Do not simulate or describe what an analysis would show - actually perform it using the available tools."""
+When NOT to use tools:
+- Simple questions about capabilities or available tools
+- Clarifying questions about parameters or requirements
+- Explaining tool outputs you've already received
 
-        # Add file information if present (similar to Anthropic)
+After receiving tool results:
+- Interpret and explain the results clearly to the user
+- Provide actionable insights based on the analysis output
+- Stop calling tools once you have sufficient information to answer the query"""
+
+        # Add file information if present
         if uploaded_files and len(uploaded_files) > 0:
             file_count = len(uploaded_files)
-            file_list = []
-            for filename, file_info in uploaded_files.items():
-                original_name = file_info.get('original_name', filename)
-                file_list.append(f"- {original_name}")
+            file_list = [
+                f"- {file_info.get('original_name', filename)}"
+                for filename, file_info in uploaded_files.items()
+            ]
 
-            system_prompt += f"""
+            system_instruction += f"""
 
 UPLOADED FILES:
 The user has uploaded {file_count} file(s): {', '.join(file_list)}
 When analyzing these files, use the appropriate MCP tools with the file paths provided."""
 
-        return system_prompt
+        return system_instruction
 
-    def _format_response(self, interaction) -> str:
+    def _format_response(self, response) -> str:
         """Format Gemini response for display.
 
         Args:
-            interaction: Gemini interaction response
+            response: Gemini response object
 
         Returns:
             Formatted text response
         """
-        import sys
+        if not hasattr(response, 'candidates'):
+            return str(response)
 
-        # Try multiple possible response formats
         parts = []
+        for candidate in response.candidates:
+            if hasattr(candidate, 'content'):
+                for part in candidate.content.parts:
+                    if hasattr(part, 'text'):
+                        parts.append(part.text)
 
-        # Check for text attribute (direct response)
-        if hasattr(interaction, 'text') and interaction.text:
-            print(f"DEBUG: Found interaction.text", file=sys.stderr)
-            return interaction.text
+        return "\n\n".join(parts) if parts else "No response generated"
 
-        # Check for content attribute
-        if hasattr(interaction, 'content') and interaction.content:
-            print(f"DEBUG: Found interaction.content", file=sys.stderr)
-            if isinstance(interaction.content, str):
-                return interaction.content
-            elif isinstance(interaction.content, list):
-                for item in interaction.content:
-                    if hasattr(item, 'text'):
-                        parts.append(item.text)
-                    elif isinstance(item, str):
-                        parts.append(item)
-
-        # Check for outputs attribute
-        if hasattr(interaction, 'outputs') and interaction.outputs:
-            print(f"DEBUG: Found interaction.outputs", file=sys.stderr)
-            for output in interaction.outputs:
-                if hasattr(output, 'text'):
-                    parts.append(output.text)
-                elif hasattr(output, 'content'):
-                    if isinstance(output.content, str):
-                        parts.append(output.content)
-                    else:
-                        for content_part in output.content:
-                            if hasattr(content_part, 'text'):
-                                parts.append(content_part.text)
-                            elif isinstance(content_part, str):
-                                parts.append(content_part)
-
-        # Check for messages attribute
-        if hasattr(interaction, 'messages') and interaction.messages:
-            print(f"DEBUG: Found interaction.messages", file=sys.stderr)
-            for msg in interaction.messages:
-                if hasattr(msg, 'content'):
-                    parts.append(str(msg.content))
-
-        if parts:
-            return "\n\n".join(parts)
-
-        # Last resort: convert to string
-        print(f"DEBUG: No standard attributes found, using repr", file=sys.stderr)
-        return f"Debug - Interaction object: {repr(interaction)}"
-
-    def _get_usage_info(self, interaction) -> Optional[UsageInfo]:
+    def _get_usage_info(self, response) -> Optional[UsageInfo]:
         """Extract usage information from Gemini response.
 
-        Note: Gemini's usage reporting may differ from Anthropic.
-        This is a best-effort extraction.
-
         Args:
-            interaction: Gemini interaction response
+            response: Gemini response object
 
         Returns:
             UsageInfo if available, None otherwise
         """
-        # Gemini may provide usage info differently
-        # Check for usage metadata in the interaction
-        if hasattr(interaction, 'metadata') and hasattr(interaction.metadata, 'usage'):
-            usage = interaction.metadata.usage
-            if hasattr(usage, 'prompt_token_count') and hasattr(usage, 'candidates_token_count'):
-                return UsageInfo(
-                    input_tokens=usage.prompt_token_count,
-                    output_tokens=usage.candidates_token_count,
-                    total_tokens=usage.prompt_token_count + usage.candidates_token_count
-                )
+        if hasattr(response, 'usage_metadata'):
+            usage = response.usage_metadata
+            return UsageInfo(
+                input_tokens=getattr(usage, 'prompt_token_count', 0),
+                output_tokens=getattr(usage, 'candidates_token_count', 0),
+                total_tokens=getattr(usage, 'total_token_count', 0)
+            )
 
-        # If usage info not available, return None
         return None
