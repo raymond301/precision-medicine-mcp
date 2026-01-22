@@ -264,9 +264,6 @@ assert response.content
 
 ## Future Enhancements
 
-- [ ] OpenAI provider (HTTP-based MCP adapter)
-- [ ] Azure OpenAI provider
-- [ ] AWS Bedrock provider
 - [ ] Provider-specific error handling
 - [ ] Retry logic with exponential backoff
 - [ ] Rate limiting per provider
