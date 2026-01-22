@@ -22,12 +22,13 @@ graph TB
         CLAUDE[Claude API<br/>Natural Language<br/>Orchestration]
     end
 
-    subgraph Servers["🔧 10 MCP Servers (55+ Tools)"]
+    subgraph Servers["🔧 10 MCP Servers (63 Tools)"]
         direction LR
-        subgraph Production["✅ Production Ready (4)"]
+        subgraph Production["✅ Production Ready (5)"]
             FGBIO[mcp-fgbio<br/>4 tools]
             MULTI[mcp-multiomics<br/>10 tools]
             SPATIAL[mcp-spatialtools<br/>14 tools]
+            PERTURB[mcp-perturbation<br/>8 tools<br/>GEARS]
             EPIC[mcp-epic<br/>4 tools<br/>Local Only]
         end
 
@@ -80,8 +81,8 @@ graph TB
 
 **Key Points:**
 - **AI Orchestration**: Claude API coordinates 10 MCP servers via natural language
-- **55+ Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, and imaging
-- **Production Ready**: 4 servers (40%) ready for hospital deployment
+- **63 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, and perturbation prediction
+- **Production Ready**: 5 servers (50%) ready for hospital deployment
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
 ---
@@ -95,7 +96,7 @@ graph TB
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 55+ bioinformatics tools across 10 MCP servers
+- Unified platform for 63 bioinformatics tools across 10 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 
@@ -124,8 +125,8 @@ graph TB
 
 ## Technical Capabilities
 
-**9 MCP Servers Deployed:**
-- ✅ **4 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic
+**10 MCP Servers Deployed:**
+- ✅ **5 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-epic
 - ⚙️ **5 Mock/Partial**: mcp-tcga, mcp-openimagedata (30% real), mcp-seqera, mcp-huggingface, mcp-deepcell
 
 **Data Integration:**
@@ -145,7 +146,7 @@ graph TB
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration
-- **Month 3-4**: All 9 servers deployed, 10-20 test patients, user training, security audit
+- **Month 3-4**: All 10 servers deployed, 10-20 test patients, user training, security audit
 - **Month 5-6**: Monitoring/alerting, compliance validation, knowledge transfer, production launch (100 patients)
 
 ### Requirements
