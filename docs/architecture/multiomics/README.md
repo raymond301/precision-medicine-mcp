@@ -6,7 +6,7 @@
 
 The **mcp-multiomics** server integrates RNA, protein, and phosphorylation data from Patient-Derived Xenograft (PDX) models to identify therapeutic resistance mechanisms and predict treatment targets.
 
-**Enhanced Features (2025):**
+**Enhanced Features (2026):**
 - ✅ **Preprocessing Pipeline**: Batch correction, imputation, QC visualization
 - ✅ **Upstream Regulator Analysis**: Kinase/TF/drug target prediction
 - ✅ **Enhanced HAllA**: Chunking strategy for large datasets (1000 features/chunk = 5 min vs days)
@@ -160,37 +160,35 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 
 ## Server Architecture
 
-### Tools (10 total)
+### Tools (9 total)
 
 **Preprocessing (3 tools)** - Run FIRST:
 1. `validate_multiomics_data` - QC checks for missing values, batch effects
 2. `preprocess_multiomics_data` - Batch correction, KNN imputation
-3. `visualize_data_quality` - PCA plots, correlation heatmaps
+3. `visualize_data_quality` - PCA plots, correlation heatmaps  
 
-**Core Analysis (5 tools)**:
-4. `integrate_omics_data` - Align and normalize RNA, protein, phospho
-5. `run_halla_analysis` - Find associations (1000 features/chunk)
-6. `calculate_stouffer_meta` - Meta-analysis + FDR correction
-7. `predict_upstream_regulators` - Kinase/TF/drug target prediction
+**Core Analysis (5 tools)**:  
+4. `integrate_omics_data` - Align and normalize RNA, protein, phospho  
+5. `run_halla_analysis` - Find associations (1000 features/chunk)  
+6. `calculate_stouffer_meta` - Meta-analysis + FDR correction  
+7. `predict_upstream_regulators` - Kinase/TF/drug target prediction  
 
-**Visualization (2 tools)**:
-8. `create_multiomics_heatmap` - Multi-omics association heatmap
-9. `run_multiomics_pca` - PCA dimensionality reduction
+**Visualization (2 tools)**:  
+8. `create_multiomics_heatmap` - Multi-omics association heatmap  
+9. `run_multiomics_pca` - PCA dimensionality reduction  
 
-**Note:** Tool 10 is a duplicate/deprecated tool not counted in primary workflow.
+**For detailed tool specifications:** See [mcp-multiomics README](../../../servers/mcp-multiomics/README.md)  
 
-**For detailed tool specifications:** See [mcp-multiomics README](../../../servers/mcp-multiomics/README.md)
+### Resources (4 total)  
+- `multiomics://config` - Server configuration and preprocessing settings  
+- `multiomics://example-data` - Sample PDX datasets for testing  
+- `multiomics://integrated/all_features` - Integrated omics data matrix  
+- `multiomics://significant/combined` - Significant associations post-FDR  
 
-### Resources (4 total)
-- `multiomics://config` - Server configuration and preprocessing settings
-- `multiomics://example-data` - Sample PDX datasets for testing
-- `multiomics://integrated/all_features` - Integrated omics data matrix
-- `multiomics://significant/combined` - Significant associations post-FDR
-
-### Prompts (3 total)
-- `analyze_resistance_signature` - Identify platinum resistance mechanisms
-- `create_integrated_visualization` - Generate multi-omics heatmaps
-- `explore_multimodal_concordance` - Find concordant RNA-Protein features
+### Prompts (3 total)  
+- `analyze_resistance_signature` - Identify platinum resistance mechanisms  
+- `create_integrated_visualization` - Generate multi-omics heatmaps  
+- `explore_multimodal_concordance` - Find concordant RNA-Protein features  
 
 ---
 
@@ -205,8 +203,8 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 - Impute missing values: KNN imputation for <20% missingness per feature
 
 ### 2. Correct FDR Timing (CRITICAL)
-**❌ WRONG:** Apply FDR to RNA p-values → Apply FDR to Protein p-values → Combine
-**✅ CORRECT:** Calculate Stouffer's combined p-values → THEN apply FDR
+**❌ WRONG:** Apply FDR to RNA p-values → Apply FDR to Protein p-values → Combine  
+**✅ CORRECT:** Calculate Stouffer's combined p-values → THEN apply FDR  
 
 **Why:** Applying FDR before meta-analysis inflates false positives by treating each omics layer independently.
 
