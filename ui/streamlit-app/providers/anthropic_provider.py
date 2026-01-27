@@ -217,12 +217,18 @@ The user has uploaded {len(uploaded_files)} file(s) for analysis.
 
 {chr(10).join(file_descriptions)}
 
-FILE ACCESS GUIDELINES:
-1. **Small text files with content preview**: Analyze the content directly without calling MCP tools
-2. **GCS files (gs://...)**: MCP servers on Cloud Run can access these directly - pass the GCS URI to MCP tool calls
-3. **Local file paths**: MCP servers may not access these - prefer analyzing inline content
+FILE ACCESS INSTRUCTIONS - READ CAREFULLY:
 
-When calling MCP tools with GCS files, use the GCS URI (gs://bucket/path) as the file path parameter."""
+For GCS files (gs://bucket/path/file):
+✅ MCP servers CAN and WILL access GCS URIs directly - this works and is tested
+✅ Pass the full GCS URI (e.g., "gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv") as the file parameter to MCP tools
+✅ The multiomics server has fsspec and gcsfs installed and can read from GCS
+✅ DO NOT apologize about file access - just call the tool with the GCS URI
+
+For files with content preview:
+- You can analyze the content directly without calling tools
+
+CRITICAL: When the user asks you to analyze GCS files, you MUST call the MCP tools with the GCS URIs shown above. Do not provide theoretical responses or apologize about file access. The infrastructure is configured and working."""
 
         return system_prompt
 
