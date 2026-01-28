@@ -22,13 +22,14 @@ graph TB
         CLAUDE[Claude API<br/>Natural Language<br/>Orchestration]
     end
 
-    subgraph Servers["🔧 10 MCP Servers (63 Tools)"]
+    subgraph Servers["🔧 12 MCP Servers (69 Tools)"]
         direction LR
-        subgraph Production["✅ Production Ready (5)"]
+        subgraph Production["✅ Production Ready (6)"]
             FGBIO[mcp-fgbio<br/>4 tools]
             MULTI[mcp-multiomics<br/>10 tools]
             SPATIAL[mcp-spatialtools<br/>14 tools]
             PERTURB[mcp-perturbation<br/>8 tools<br/>GEARS]
+            QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit]
             EPIC[mcp-epic<br/>4 tools<br/>Local Only]
         end
 
@@ -80,9 +81,9 @@ graph TB
 ```
 
 **Key Points:**
-- **AI Orchestration**: Claude API coordinates 10 MCP servers via natural language
-- **63 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, and perturbation prediction
-- **Production Ready**: 5 servers (50%) ready for hospital deployment
+- **AI Orchestration**: Claude API coordinates 12 MCP servers via natural language
+- **69 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, perturbation prediction, and quantum computing
+- **Production Ready**: 6 servers (50%) ready for hospital deployment
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
 ---
@@ -96,7 +97,7 @@ graph TB
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 63 bioinformatics tools across 10 MCP servers
+- Unified platform for 69 bioinformatics tools across 12 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 
@@ -125,9 +126,9 @@ graph TB
 
 ## Technical Capabilities
 
-**10 MCP Servers Deployed:**
-- ✅ **5 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-epic
-- ⚙️ **5 Mock/Partial**: mcp-tcga, mcp-openimagedata (30% real), mcp-seqera, mcp-huggingface, mcp-deepcell
+**12 MCP Servers Deployed:**
+- ✅ **6 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-epic
+- ⚙️ **6 Mock/Partial**: mcp-tcga, mcp-openimagedata (30% real), mcp-seqera, mcp-huggingface, mcp-deepcell, mcp-mockepic
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
@@ -146,7 +147,7 @@ graph TB
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration
-- **Month 3-4**: All 10 servers deployed, 10-20 test patients, user training, security audit
+- **Month 3-4**: All 12 servers deployed, 10-20 test patients, user training, security audit
 - **Month 5-6**: Monitoring/alerting, compliance validation, knowledge transfer, production launch (100 patients)
 
 ### Requirements

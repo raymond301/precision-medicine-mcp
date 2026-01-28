@@ -9,7 +9,7 @@
 
 > **40 hours of manual bioinformatics → 35 minutes AI-orchestrated**
 >
-> 10 specialized MCP servers | 60+ analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
+> 12 specialized MCP servers | 69 analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
 
 ---
 
@@ -46,12 +46,13 @@ graph LR
         GEMINI[Gemini<br/>SSE-based MCP]
     end
 
-    subgraph Servers["🔧 10 MCP Servers"]
+    subgraph Servers["🔧 12 MCP Servers"]
         S1[Clinical<br/>FHIR]
         S2[Genomics<br/>VCF/FASTQ]
         S3[Multi-omics<br/>Integration]
         S4[Spatial<br/>Visium]
         S5[Perturbation<br/>GEARS]
+        S6[Quantum<br/>Qiskit]
     end
 
     subgraph Output["📊 Outputs"]
