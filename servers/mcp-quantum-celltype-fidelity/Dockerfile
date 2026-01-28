@@ -22,8 +22,12 @@ COPY . /app/servers/mcp-quantum-celltype-fidelity/
 # Install Python dependencies
 WORKDIR /app/servers/mcp-quantum-celltype-fidelity
 
-# Upgrade pip, setuptools, and wheel
-RUN pip install --no-cache-dir --upgrade "pip>=24.0" "setuptools>=69.0" "wheel>=0.42.0"
+# Fix importlib.metadata issue by installing compatible versions
+RUN pip install --no-cache-dir --upgrade \
+    "pip>=24.0" \
+    "importlib-metadata>=6.0.0" \
+    "setuptools==68.2.2" \
+    "wheel>=0.42.0"
 
 # Install core dependencies first to avoid conflicts
 # Note: qiskit-aer removed to avoid build issues; CPU simulation via qiskit works fine
