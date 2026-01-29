@@ -356,6 +356,27 @@ AnnData object with n_obs × n_vars = 5000 × 2000
 2. GEARS predicts regional treatment responses
 3. Spatial heterogeneity informs combination therapy
 
+### With Quantum Cell Type Fidelity (`mcp-quantum-celltype-fidelity`)
+
+**Combined Quantum + GEARS Analysis:**
+1. GEARS predicts gene expression changes from perturbation
+2. Quantum encodes predicted expression into quantum states
+3. Fidelity change computation validates GEARS predictions
+4. Dual validation of treatment response predictions
+
+**Workflow:**
+```
+Patient scRNA-seq
+    ↓
+GEARS → Predict perturbation effect → New gene expression
+    ↓
+Quantum → Encode as quantum state → Compute fidelity change
+    ↓
+Combined Report: GEARS prediction + Quantum validation
+```
+
+📖 **[Quantum Architecture →](../quantum/README.md)**
+
 ### With Clinical Data (`mcp-epic`)
 
 **Patient Stratification:**
@@ -495,6 +516,7 @@ AnnData object with n_obs × n_vars = 5000 × 2000
 - **[PatientOne Workflow →](../../test-docs/patient-one-scenario/README.md)**
 - **[Server Status →](../servers.md)**
 - **[Multiomics Integration →](../multiomics/README.md)**
+- **[Quantum Cell Type Fidelity →](../quantum/README.md)** (Combined quantum + GEARS validation)
 
 ---
 

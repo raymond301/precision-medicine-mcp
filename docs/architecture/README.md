@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 10 MCP Servers (63 Tools)"]
+    subgraph MCP["🔧 12 MCP Servers (69 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga]
@@ -26,6 +26,7 @@ graph LR
         S5[Imaging<br/>openimagedata<br/>deepcell]
         S6[AI/ML<br/>huggingface<br/>seqera]
         S7[Perturbation<br/>perturbation<br/>GEARS]
+        S8[Quantum<br/>quantum-celltype-fidelity]
     end
 
     subgraph Output["📊 Analysis Outputs"]
@@ -49,6 +50,7 @@ graph LR
     S5 --> MCP
     S6 --> MCP
     S7 --> MCP
+    S8 --> MCP
 
     MCP --> TREAT
     MCP --> PREDICT
@@ -75,7 +77,7 @@ Technical system design documentation:
 
 ## 📊 Architecture by Analysis Modality
 
-8 analysis modalities, 10 specialized servers, 63 tools:
+9 analysis modalities, 12 specialized servers, 69 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
@@ -85,6 +87,7 @@ Technical system design documentation:
 | 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
 | 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation/README.md](perturbation/README.md) |
+| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit) | [quantum/README.md](quantum/README.md) |
 | 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
 | ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
 
@@ -217,6 +220,35 @@ Technical system design documentation:
 
 ---
 
+## ⚛️ 7. Quantum Cell Type Fidelity
+
+**Quantum computing for cell type validation and immune evasion detection**
+
+**Server:** mcp-quantum-celltype-fidelity (6 tools, production)
+
+**Key Features:**
+- **Quantum Embeddings:** Parameterized quantum circuits (PQCs) with 8-10 qubits
+- **Fidelity Computation:** Quantum state overlap F = |⟨ψ_a|ψ_b⟩|² for cell similarity
+- **Immune Evasion Detection:** Identify tumor cells evading immune surveillance
+- **TLS Analysis:** Characterize tertiary lymphoid structures with quantum signatures
+- **Perturbation Prediction:** Simulate drug effects on quantum cell states
+
+**Workflow:** `Spatial Data → Feature Encoding → Quantum Circuits → Contrastive Training → Fidelity Analysis → Immune Evasion Detection`
+
+**Use Cases:**
+- Detect tumor cells mimicking immune cells (low fidelity to canonical types)
+- Characterize TLS immune organization via quantum coherence
+- Validate GEARS perturbation predictions with quantum state changes
+- Spatial mapping of cell type fidelity across tissue
+
+**Technology:** Qiskit 1.0+ with parameter-shift rule for exact gradients
+
+**Integration:** Works with mcp-perturbation for dual quantum+GEARS validation
+
+📖 **[Detailed Architecture →](quantum/README.md)**
+
+---
+
 ## ⚙️ 8. Workflow Orchestration
 
 **Nextflow pipeline execution and monitoring via Seqera Platform**
@@ -240,14 +272,16 @@ Technical system design documentation:
 
 **Use Case:** Stage IV High-Grade Serous Ovarian Cancer (HGSOC), platinum-resistant
 **Patient:** PAT001-OVC-2025 (synthetic test case)
-**Data Modalities:** Clinical (FHIR) • Genomic (VCF) • Multiomics (RNA/Protein/Phospho) • Spatial (Visium) • Imaging (H&E, MxIF)
+**Data Modalities:** Clinical (FHIR) • Genomic (VCF) • Multiomics (RNA/Protein/Phospho) • Spatial (Visium) • Imaging (H&E, MxIF) • Perturbation (scRNA-seq)
 
 **Tests:**
 - 🧬 TEST_1: Clinical data retrieval (mcp-epic)
 - 🔬 TEST_2: Multiomics integration (mcp-multiomics)
 - 📍 TEST_3: Spatial transcriptomics (mcp-spatialtools)
 - 🖼️ TEST_4: Imaging analysis (mcp-openimagedata, mcp-deepcell)
-- 🎯 TEST_5: Complete end-to-end workflow
+- 🎯 TEST_5: Perturbation prediction (mcp-perturbation)
+- ⚛️ TEST_6: Quantum cell type fidelity (mcp-quantum-celltype-fidelity)
+- 🔄 TEST_7: Complete end-to-end workflow
 
 📖 **[PatientOne Workflow →](../test-docs/patient-one-scenario/README.md)**
 📖 **[PatientOne Architecture →](../test-docs/patient-one-scenario/architecture/overview.md)**
