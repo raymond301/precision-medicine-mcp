@@ -613,6 +613,10 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
     # Add user message to history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
+    # Display user message immediately (before spinner starts)
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
     # Get MCP server config
     mcp_servers = get_server_config(st.session_state.selected_servers)
 

@@ -252,6 +252,26 @@ class MCPClientManager:
 
         return gemini_tools
 
+    def convert_tools_to_claude_format(self) -> List[Dict]:
+        """Convert MCP tools to Claude tool format.
+
+        Returns:
+            List of Claude tool declarations
+        """
+        claude_tools = []
+
+        for tool in self.get_all_tools():
+            # Claude uses the same schema format as MCP (JSON Schema)
+            tool_declaration = {
+                "name": f"{tool['server_name']}_{tool['name']}",  # Prefix with server name
+                "description": tool['description'],
+                "input_schema": tool['input_schema']
+            }
+
+            claude_tools.append(tool_declaration)
+
+        return claude_tools
+
     def _clean_schema_for_gemini(self, schema: Dict[str, Any]) -> Dict[str, Any]:
         """Clean JSON schema to remove properties Gemini doesn't support.
 
