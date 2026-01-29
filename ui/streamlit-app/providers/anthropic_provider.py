@@ -80,12 +80,19 @@ class AnthropicProvider(LLMProvider):
         5. Repeat until Claude responds without tool calls
         """
         try:
-            # Import MCP client manager
+            # Import MCP client manager (mock or real based on environment)
             parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             if parent_dir not in sys.path:
                 sys.path.insert(0, parent_dir)
 
-            from utils.mcp_client import MCPClientManager
+            # Check if mock mode is enabled
+            use_mock_mcp = os.getenv("USE_MOCK_MCP", "false").lower() == "true"
+
+            if use_mock_mcp:
+                print("DEBUG: Using MOCK MCP client for Claude provider", file=sys.stderr)
+                from utils.mcp_mock import MCPClientManager
+            else:
+                from utils.mcp_client import MCPClientManager
 
             # Connect to MCP servers using context manager
             print(f"DEBUG: Connecting to {len(mcp_servers)} MCP servers", file=sys.stderr)
