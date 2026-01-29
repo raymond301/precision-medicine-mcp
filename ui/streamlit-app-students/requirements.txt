@@ -1,0 +1,21 @@
+# Streamlit MCP Chat App Dependencies
+
+# Core dependencies
+streamlit>=1.30.0
+anthropic>=0.42.0
+
+# LLM Provider SDKs
+google-genai>=1.40.0  # Optional: Gemini provider support
+
+# MCP (Model Context Protocol) client
+mcp>=1.0.0  # For SSE-based MCP server connections
+
+# Google Cloud integration
+google-cloud-logging>=3.8.0  # HIPAA-compliant audit logging
+google-cloud-storage>=2.10.0  # GCS file access
+
+# Optional: For loading .env files
+python-dotenv>=1.0.0
+
+# Optional: For better data display
+pandas>=2.0.0
