@@ -33,7 +33,7 @@ graph TB
     end
 
     subgraph Analysis["🔬 Quantum Analysis"]
-        FIDELITY[Compute Fidelity<br/>F = |⟨ψ_a|ψ_b⟩|²]
+        FIDELITY[Compute Fidelity<br/>Quantum State Overlap]
         EVASION[Immune Evasion<br/>Detection]
         TLS[TLS Signature<br/>Analysis]
         PERTURB[Perturbation<br/>Prediction]
