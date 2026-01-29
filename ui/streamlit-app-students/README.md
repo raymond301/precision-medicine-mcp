@@ -18,22 +18,30 @@ This is a **safety-limited version** of the MCP Chat app designed for the bioinf
 
 Both apps use:
 - ✅ **Same MCP servers** (no duplication)
-- ✅ **Same provider code** (via symlinks)
-- ✅ **Same utilities** (via symlinks)
+- ✅ **Same provider code** (copied from main app)
+- ✅ **Same utilities** (copied from main app)
 
 Only `app.py` differs (~100 lines of safety code).
+
+**Note**: `providers/` and `utils/` are copied from `../streamlit-app/` to ensure Docker builds work correctly (symlinks don't work in Docker build context).
 
 ## 📁 Directory Structure
 
 ```
 streamlit-app-students/
 ├── app.py                    # Student app with guardrails
-├── providers/ -> ../streamlit-app/providers/  # Symlink (shared)
-├── utils/ -> ../streamlit-app/utils/          # Symlink (shared)
+├── providers/                # Copied from ../streamlit-app/providers/
+├── utils/                    # Copied from ../streamlit-app/utils/
 ├── .env.example              # Student-specific config
 ├── deploy.sh                 # Deploys to different service
 ├── STUDENT_GUIDE.md          # Student documentation
 └── README.md                 # This file
+```
+
+**Maintenance Note**: When updating providers or utils in the main app, copy changes to student app:
+```bash
+cp -r ../streamlit-app/providers .
+cp -r ../streamlit-app/utils .
 ```
 
 ## 🚀 For Students
