@@ -47,7 +47,7 @@ gcloud run deploy "$SERVICE_NAME" \
     --min-instances 0 \
     --max-instances 5 \
     --timeout 300 \
-    --set-env-vars ${GEMINI_ENV}ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY",ENVIRONMENT=student,STUDENT_MODE=true,USE_MOCK_MCP=false \
+    --set-env-vars ${GEMINI_ENV}ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY",ENVIRONMENT=development,STUDENT_MODE=true,USE_MOCK_MCP=false \
     --port 8501 \
     --quiet
 
