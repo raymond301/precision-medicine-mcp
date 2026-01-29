@@ -208,64 +208,63 @@ def render_sidebar():
 
         st.markdown("---")
 
-        # Provider selection (Cloud Run only)
-        if is_cloud_run():
-            st.subheader("LLM Provider")
+        # Provider selection (available in all modes)
+        st.subheader("LLM Provider")
 
-            available_providers = get_available_providers()
+        available_providers = get_available_providers()
 
-            # Build provider options - show ALL providers, not just available ones
-            provider_options = []
-            provider_mapping = {}
-            for provider_key, provider_info in available_providers.items():
-                display_name = provider_info["name"]
-                # Add indicator if API key is missing
-                if not provider_info["available"]:
-                    display_name += " (API key required)"
-                provider_options.append(display_name)
-                provider_mapping[display_name] = provider_key
+        # Build provider options - show ALL providers, not just available ones
+        provider_options = []
+        provider_mapping = {}
+        for provider_key, provider_info in available_providers.items():
+            display_name = provider_info["name"]
+            # Add indicator if API key is missing
+            if not provider_info["available"]:
+                display_name += " (API key required)"
+            provider_options.append(display_name)
+            provider_mapping[display_name] = provider_key
 
-            if not provider_options:
-                st.error("No LLM providers configured.")
+        if not provider_options:
+            st.error("No LLM providers configured.")
+            st.stop()
+
+        # Provider dropdown
+        current_provider_display = available_providers[st.session_state.llm_provider]["name"]
+        selected_provider_display = st.selectbox(
+            "Select Provider",
+            options=provider_options,
+            index=provider_options.index(current_provider_display) if current_provider_display in provider_options else 0,
+            help="Choose LLM provider for analysis"
+        )
+
+        # Update provider if changed
+        selected_provider_key = provider_mapping[selected_provider_display]
+        if selected_provider_key != st.session_state.llm_provider:
+            # Check if provider is available before switching
+            provider_info = available_providers[selected_provider_key]
+            if not provider_info["available"]:
+                st.error(f"⚠️ {provider_info['name']} API key not configured")
+                if "note" in provider_info:
+                    st.info(provider_info["note"])
+                st.info("Configure API key in deployment environment variables and redeploy")
                 st.stop()
 
-            # Provider dropdown
-            current_provider_display = available_providers[st.session_state.llm_provider]["name"]
-            selected_provider_display = st.selectbox(
-                "Select Provider",
-                options=provider_options,
-                index=provider_options.index(current_provider_display) if current_provider_display in provider_options else 0,
-                help="Choose LLM provider for analysis"
-            )
+            st.session_state.llm_provider = selected_provider_key
+            try:
+                st.session_state.provider_instance = get_provider(provider_name=selected_provider_key)
+                st.success(f"✅ Switched to {selected_provider_display}")
+                st.rerun()
+            except (ValueError, ImportError) as e:
+                st.error(f"❌ Failed to initialize {selected_provider_display}: {str(e)}")
+                st.stop()
 
-            # Update provider if changed
-            selected_provider_key = provider_mapping[selected_provider_display]
-            if selected_provider_key != st.session_state.llm_provider:
-                # Check if provider is available before switching
-                provider_info = available_providers[selected_provider_key]
-                if not provider_info["available"]:
-                    st.error(f"⚠️ {provider_info['name']} API key not configured")
-                    if "note" in provider_info:
-                        st.info(provider_info["note"])
-                    st.info("Configure API key in deployment environment variables and redeploy")
-                    st.stop()
-
-                st.session_state.llm_provider = selected_provider_key
-                try:
-                    st.session_state.provider_instance = get_provider(provider_name=selected_provider_key)
-                    st.success(f"✅ Switched to {selected_provider_display}")
-                    st.rerun()
-                except (ValueError, ImportError) as e:
-                    st.error(f"❌ Failed to initialize {selected_provider_display}: {str(e)}")
-                    st.stop()
-
-            st.markdown("---")
+        st.markdown("---")
 
         # Model selection
         st.subheader("Model Settings")
 
-        # Dynamic model selection based on provider (Cloud Run)
-        if is_cloud_run() and st.session_state.provider_instance:
+        # Dynamic model selection based on provider
+        if st.session_state.provider_instance:
             available_providers = get_available_providers()
             provider_info = available_providers.get(st.session_state.llm_provider, {})
             available_models = provider_info.get("models", [])
@@ -645,8 +644,8 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
     # Show thinking indicator (outside chat message so it shows before rerun)
     with st.spinner("🤔 Thinking..."):
         try:
-            # Use provider abstraction (Cloud Run) or ChatHandler (local)
-            if is_cloud_run() and st.session_state.provider_instance:
+            # Use provider abstraction for all modes (supports mock MCP)
+            if st.session_state.provider_instance:
                 # Convert messages to ChatMessage objects
                 chat_messages = [
                     ChatMessage(role=msg["role"], content=msg["content"])
@@ -731,10 +730,10 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
             message_index = len(st.session_state.messages)  # Index where this message will be stored
 
             # Get provider name for trace
-            if is_cloud_run() and st.session_state.provider_instance:
+            if st.session_state.provider_instance:
                 provider_name = st.session_state.provider_instance.get_provider_name()
             else:
-                provider_name = "Claude"  # Default for local development
+                provider_name = "Claude"  # Fallback
 
             trace = build_orchestration_trace(
                 query=prompt,
