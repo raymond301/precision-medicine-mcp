@@ -332,6 +332,7 @@ Each student session costs ~$0.50-1.50 max:
 |---------|------------|----------------|
 | **Token Limits** | ✅ 50K per session | ❌ Unlimited |
 | **Request Limits** | ✅ 50 per session | ❌ Unlimited |
+| **Authentication** | ✅ None (public) | ℹ️ Optional SSO |
 | **Usage Tracking** | ✅ Visible sidebar | ℹ️ Optional |
 | **Warnings** | ✅ At 80% usage | ❌ None |
 | **Cost Protection** | ✅ Auto-stops | ❌ None |

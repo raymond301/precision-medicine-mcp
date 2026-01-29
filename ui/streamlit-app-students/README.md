@@ -10,8 +10,8 @@ This is a **safety-limited version** of the MCP Chat app designed for the bioinf
 | **Token Limit** | 50,000 per session | Unlimited |
 | **Request Limit** | 50 per session | Unlimited |
 | **Cost Cap** | ~$1.50 per session | No limit |
+| **Authentication** | None (public access) | Optional SSO |
 | **Usage Display** | Always visible | Optional |
-| **API Keys** | Shared student keys | Instructor's keys |
 | **Service Name** | `streamlit-mcp-chat-students` | `streamlit-mcp-chat` |
 
 ## 🔗 Shared Infrastructure
@@ -53,11 +53,13 @@ See **[STUDENT_GUIDE.md](STUDENT_GUIDE.md)** for complete instructions.
 ### Deploy Student App
 
 ```bash
-export ANTHROPIC_API_KEY="sk-ant-student-..."
-export GEMINI_API_KEY="..."
+export ANTHROPIC_API_KEY="your-key-here"
+export GEMINI_API_KEY="your-key-here"
 cd ui/streamlit-app-students
 ./deploy.sh
 ```
+
+Deploys to: `streamlit-mcp-chat-students` service (separate from instructor app)
 
 ### Adjust Safety Limits
 
@@ -76,10 +78,9 @@ Then redeploy: `./deploy.sh`
 
 ## ⚙️ Safety Features
 
-- ✅ Token limits per session
-- ✅ Request limits per session
-- ✅ Real-time usage tracking
+- ✅ Token limits per session (50K max)
+- ✅ Request limits per session (50 max)
+- ✅ Real-time usage tracking in sidebar
 - ✅ Automatic warnings at 80%
-- ✅ Easy reset (clear conversation)
-
-See README for full details.
+- ✅ Easy reset (clear conversation or refresh)
+- ✅ No authentication required (public access)
