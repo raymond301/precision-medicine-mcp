@@ -140,6 +140,12 @@ class QuCoWETrainer:
         self.loss_history: List[float] = []
         self.current_epoch = 0
 
+        # Gradient history for Bayesian UQ
+        self.gradient_history: Dict[str, List[np.ndarray]] = {
+            ct: [] for ct in self.embedding.cell_types
+        }
+        self.track_gradients = True  # Enable gradient tracking for UQ
+
         # Optimizer state (for Adam)
         self.optimizer_state: Dict[str, Any] = {}
         if self.config.optimizer == "adam":
@@ -381,6 +387,10 @@ class QuCoWETrainer:
         # Estimate gradient
         gradient = self.gradient_estimator.estimate_full_gradient(loss_fn, theta)
 
+        # Track gradients for Bayesian UQ
+        if self.track_gradients:
+            self.gradient_history[cell_type].append(gradient.copy())
+
         # Update parameters based on optimizer
         if self.config.optimizer == "sgd":
             theta_new = theta - self.config.learning_rate * gradient
@@ -482,3 +492,33 @@ class QuCoWETrainer:
             print(f"Total time: {total_time:.1f}s")
 
         return summary
+
+    def get_bayesian_parameter_distributions(self) -> Dict[str, 'BayesianParameterDistribution']:
+        """Get Bayesian parameter distributions for each cell type.
+
+        Uses gradient history to estimate parameter uncertainties.
+
+        Returns:
+            Dict mapping cell_type -> BayesianParameterDistribution
+        """
+        from .bayesian_uq import BayesianParameterDistribution
+
+        distributions = {}
+
+        for cell_type in self.embedding.cell_types:
+            # Get final parameter values
+            param_mean = self.embedding.get_parameters(cell_type)
+
+            # Initialize distribution
+            param_dist = BayesianParameterDistribution(param_mean)
+
+            # Update covariance from gradient history if available
+            if self.track_gradients and len(self.gradient_history.get(cell_type, [])) > 1:
+                param_dist.update_from_gradient_history(
+                    gradient_history=self.gradient_history[cell_type],
+                    learning_rate=self.config.learning_rate
+                )
+
+            distributions[cell_type] = param_dist
+
+        return distributions
