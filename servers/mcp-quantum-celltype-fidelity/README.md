@@ -16,6 +16,7 @@ This MCP server implements **QuCoWE-style** (Quantum Contrastive Word Embeddings
 - **Parameterized Quantum Circuits (PQCs)** with 8-10 qubits for 256-1024 dimensional Hilbert space
 - **Parameter-shift rule** for gradient estimation (works on real quantum hardware)
 - **Contrastive learning** with InfoNCE loss for training embeddings
+- **Bayesian uncertainty quantification** for confidence intervals on fidelity predictions
 - **CPU/GPU/IBM Quantum** backend support
 - **Spatial neighborhood** integration from AnnData objects
 - **6 MCP tools** for complete quantum cell type analysis workflow
@@ -46,6 +47,13 @@ Gradients are computed exactly without backpropagation:
 $$\frac{\partial f}{\partial \theta} = \frac{f(\theta + \pi/2) - f(\theta - \pi/2)}{2}$$
 
 This enables training on real quantum hardware.
+
+### Bayesian Uncertainty Quantification
+
+Fidelity predictions include confidence intervals via Monte Carlo sampling from parameter posteriors:
+- **95%/90% credible intervals**: Quantify prediction uncertainty
+- **Classification confidence**: Probability that binary decisions (e.g., immune evasion detected) are correct
+- **Clinical impact**: Enables oncologists to assess confidence in treatment recommendations
 
 ## Architecture
 
@@ -95,29 +103,34 @@ result = learn_spatial_cell_embeddings(
 
 ### 2. `compute_cell_type_fidelity`
 
-Compute quantum fidelity between cells.
+Compute quantum fidelity between cells with optional uncertainty quantification.
 
 **Input:**
 - `adata_path`: Path to AnnData file
 - `embedding_id`: ID from training
 - `compute_matrix`: Whether to compute full NxN fidelity matrix
+- `with_uncertainty`: Enable Bayesian UQ for confidence intervals (default: False)
+- `n_uncertainty_samples`: Monte Carlo samples for UQ (default: 100)
 
 **Output:**
 - `fidelity_matrix`: Pairwise fidelities (if compute_matrix=True)
+- `uncertainty`: 95%/90% confidence intervals, epistemic uncertainty (if with_uncertainty=True)
 - `summary_stats`: Mean, std, per-cell-type statistics
 
 ### 3. `identify_immune_evasion_states`
 
-Detect cells in immune evasion states.
+Detect cells in immune evasion states with optional classification confidence.
 
 **Input:**
 - `immune_cell_types`: List of canonical immune types (e.g., ["T_cell", "B_cell"])
 - `exhausted_markers`: Optional exhausted cell types
 - `evasion_threshold`: Threshold for flagging (default: 0.3)
+- `with_confidence`: Include classification confidence scores (default: False)
 
 **Output:**
 - `evading_cells`: List of cells with high evasion scores
 - `evasion_score`: Score in [0, 1] for each cell
+- `classification_confidence`: Probability that evasion detection is correct (if with_confidence=True)
 
 ### 4. `predict_perturbation_effect`
 

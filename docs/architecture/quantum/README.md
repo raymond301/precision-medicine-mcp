@@ -12,7 +12,9 @@ The quantum cell type fidelity modality uses **parameterized quantum circuits (P
 
 **Server:** `mcp-quantum-celltype-fidelity` (6 tools, production-ready)
 
-**Key Capability:** Detect tumor cells evading immune surveillance using quantum fidelity measures
+**Key Capabilities:**
+- Detect tumor cells evading immune surveillance using quantum fidelity measures
+- Bayesian uncertainty quantification for confidence intervals on predictions
 
 ---
 

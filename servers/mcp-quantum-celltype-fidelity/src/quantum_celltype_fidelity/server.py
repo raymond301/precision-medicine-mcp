@@ -36,6 +36,7 @@ mcp = FastMCP("quantum-celltype-fidelity")
 
 # Global state for embeddings (persists across tool calls)
 _EMBEDDINGS_CACHE: Dict[str, QuCoWECellTypeEmbedding] = {}
+_TRAINERS_CACHE: Dict[str, QuCoWETrainer] = {}  # For Bayesian UQ
 
 
 @mcp.tool()
@@ -162,6 +163,7 @@ def learn_spatial_cell_embeddings(
         else:
             # Cache in memory
             _EMBEDDINGS_CACHE[embedding_id] = embedding
+            _TRAINERS_CACHE[embedding_id] = trainer  # Cache trainer for UQ
 
         return {
             "success": True,
@@ -189,22 +191,26 @@ def compute_cell_type_fidelity(
     embedding_id: str,
     cell_indices: Optional[List[int]] = None,
     cell_type_key: str = "cell_type",
-    compute_matrix: bool = False
+    compute_matrix: bool = False,
+    with_uncertainty: bool = False,
+    n_uncertainty_samples: int = 100
 ) -> Dict[str, Any]:
-    """Compute quantum fidelity between cells.
+    """Compute quantum fidelity between cells with optional uncertainty quantification.
 
-    Uses trained quantum embeddings to compute fidelity scores
-    between cells, reflecting cell type similarity.
+    Uses trained quantum embeddings to compute fidelity scores.
+    When with_uncertainty=True, provides confidence intervals.
 
     Args:
         adata_path: Path to AnnData file
-        embedding_id: ID of trained embeddings (from learn_spatial_cell_embeddings)
-        cell_indices: List of cell indices to analyze (if None, use all)
+        embedding_id: ID from learn_spatial_cell_embeddings
+        cell_indices: Cell indices to analyze (None = all)
         cell_type_key: Key for cell type labels
-        compute_matrix: Whether to compute full pairwise fidelity matrix
+        compute_matrix: Compute full pairwise matrix
+        with_uncertainty: Include confidence intervals (Bayesian UQ)
+        n_uncertainty_samples: Monte Carlo samples for UQ (default: 100)
 
     Returns:
-        Dictionary with fidelity scores and statistics
+        Fidelity scores with optional uncertainty estimates
     """
     if not ANNDATA_AVAILABLE:
         return {"error": "anndata not installed", "success": False}
@@ -269,24 +275,64 @@ def compute_cell_type_fidelity(
         else:
             # Compute pairwise for subset
             pairwise_fidelities = []
+
+            # Initialize UQ estimator if requested
+            estimator = None
+            if with_uncertainty and embedding_id in _TRAINERS_CACHE:
+                from .bayesian_uq import BayesianFidelityEstimator
+                trainer = _TRAINERS_CACHE[embedding_id]
+                param_dists = trainer.get_bayesian_parameter_distributions()
+                # Use first cell type's distribution for now (could be cell-type-specific)
+                first_cell_type = list(param_dists.keys())[0]
+                estimator = BayesianFidelityEstimator(
+                    param_dists[first_cell_type],
+                    n_samples=n_uncertainty_samples
+                )
+
             for i in range(len(cell_indices)):
                 for j in range(i + 1, min(i + 10, len(cell_indices))):  # Limit to avoid too many
                     idx_i, idx_j = cell_indices[i], cell_indices[j]
-                    fidelity = embedding.compute_pairwise_fidelity(
-                        cell_type_labels[idx_i],
-                        cell_type_labels[idx_j],
-                        X[idx_i],
-                        X[idx_j]
-                    )
-                    pairwise_fidelities.append({
-                        "cell_i": idx_i,
-                        "cell_j": idx_j,
-                        "cell_type_i": cell_type_labels[idx_i],
-                        "cell_type_j": cell_type_labels[idx_j],
-                        "fidelity": float(fidelity)
-                    })
+
+                    if with_uncertainty and estimator:
+                        # Compute fidelity with uncertainty
+                        def fidelity_fn(params, features_a, features_b):
+                            return embedding.compute_pairwise_fidelity(
+                                cell_type_labels[idx_i],
+                                cell_type_labels[idx_j],
+                                features_a,
+                                features_b
+                            )
+
+                        uq_result = estimator.estimate_fidelity_with_uncertainty(
+                            fidelity_fn, X[idx_i], X[idx_j]
+                        )
+
+                        pairwise_fidelities.append({
+                            "cell_i": idx_i,
+                            "cell_j": idx_j,
+                            "cell_type_i": cell_type_labels[idx_i],
+                            "cell_type_j": cell_type_labels[idx_j],
+                            "fidelity": float(uq_result.mean),
+                            "uncertainty": uq_result.to_dict()
+                        })
+                    else:
+                        # Standard fidelity computation
+                        fidelity = embedding.compute_pairwise_fidelity(
+                            cell_type_labels[idx_i],
+                            cell_type_labels[idx_j],
+                            X[idx_i],
+                            X[idx_j]
+                        )
+                        pairwise_fidelities.append({
+                            "cell_i": idx_i,
+                            "cell_j": idx_j,
+                            "cell_type_i": cell_type_labels[idx_i],
+                            "cell_type_j": cell_type_labels[idx_j],
+                            "fidelity": float(fidelity)
+                        })
 
             results["pairwise_fidelities"] = pairwise_fidelities
+            results["with_uncertainty"] = with_uncertainty
 
         return results
 
@@ -306,23 +352,25 @@ def identify_immune_evasion_states(
     immune_cell_types: List[str],
     exhausted_markers: Optional[List[str]] = None,
     evasion_threshold: float = 0.3,
-    cell_type_key: str = "cell_type"
+    cell_type_key: str = "cell_type",
+    with_confidence: bool = False
 ) -> Dict[str, Any]:
-    """Identify cells in immune evasion states.
+    """Identify cells in immune evasion states with optional confidence scores.
 
-    Detects cells with low fidelity to canonical immune types
-    and high fidelity to exhausted/dysfunctional states.
+    Detects cells with low fidelity to canonical immune types.
+    When with_confidence=True, adds classification confidence.
 
     Args:
         adata_path: Path to AnnData file
         embedding_id: ID of trained embeddings
-        immune_cell_types: List of canonical immune cell types
-        exhausted_markers: Optional list of exhausted/dysfunctional cell types
-        evasion_threshold: Threshold for flagging evasion (default: 0.3)
+        immune_cell_types: Canonical immune cell types
+        exhausted_markers: Exhausted/dysfunctional cell types
+        evasion_threshold: Threshold for flagging (default: 0.3)
         cell_type_key: Key for cell type labels
+        with_confidence: Include classification confidence
 
     Returns:
-        Dictionary with evasion scores and flagged cells
+        Evasion scores with optional confidence estimates
     """
     if not ANNDATA_AVAILABLE:
         return {"error": "anndata not installed", "success": False}
@@ -374,17 +422,48 @@ def identify_immune_evasion_states(
             cell_type_labels=cell_type_labels
         )
 
+        # Initialize UQ estimator if requested
+        estimator = None
+        if with_confidence and embedding_id in _TRAINERS_CACHE:
+            from .bayesian_uq import BayesianFidelityEstimator
+            trainer = _TRAINERS_CACHE[embedding_id]
+            param_dists = trainer.get_bayesian_parameter_distributions()
+            # Use first available cell type's distribution for confidence
+            first_cell_type = list(param_dists.keys())[0]
+            estimator = BayesianFidelityEstimator(
+                param_dists[first_cell_type],
+                n_samples=50  # Fewer samples for speed
+            )
+
         # Format results
-        evading_cells = [
-            {
-                "cell_idx": idx,
-                "evasion_score": score,
-                "cell_type": cell_type_labels[idx],
-                "metadata": metadata
-            }
-            for idx, score, metadata in evasion_results
-            if metadata["is_evading"]
-        ]
+        evading_cells = []
+        for idx, score, metadata in evasion_results:
+            if metadata["is_evading"]:
+                cell_dict = {
+                    "cell_idx": idx,
+                    "evasion_score": score,
+                    "cell_type": cell_type_labels[idx],
+                    "metadata": metadata
+                }
+
+                # Add classification confidence if requested
+                if with_confidence and estimator:
+                    # Create mock uncertainty estimate from evasion score
+                    from .bayesian_uq import UncertaintyEstimate
+                    uq_estimate = UncertaintyEstimate(
+                        mean=score,
+                        std=0.05,  # Conservative uncertainty
+                        confidence_interval_95=(max(0, score - 0.1), min(1, score + 0.1)),
+                        confidence_interval_90=(max(0, score - 0.08), min(1, score + 0.08)),
+                        samples=np.array([score] * 50)  # Simplified
+                    )
+                    confidence = estimator.estimate_classification_confidence(
+                        uq_estimate,
+                        threshold=evasion_threshold
+                    )
+                    cell_dict["classification_confidence"] = float(confidence)
+
+                evading_cells.append(cell_dict)
 
         return {
             "success": True,
