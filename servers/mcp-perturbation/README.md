@@ -6,7 +6,7 @@ Predicts how patient cancer cells might respond to immunotherapy *in silico* usi
 
 > **Powered by GEARS**: Uses GEARS (Graph-Enhanced Gene Activation and Repression Simulator), a state-of-the-art graph neural network approach published in Nature Biotechnology 2024.
 
-<video src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/animated-perturb.mp4" width="100%" height="auto" autoplay loop muted playsinline></video>
+<video src="https://github.com/lynnlangit/precision-medicine-mcp/raw/main/data/images/animated-perturb.mp4" width="100%" height="auto" autoplay loop muted playsinline></video>
 
 ---
 
