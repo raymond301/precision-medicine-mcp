@@ -1,8 +1,8 @@
 # Student App - Token Usage & Cost Forecast (REVISED)
 
-**Study Group**: 4 students + 1 instructor
-**Duration**: 6 weeks (2 sessions/month + homework)
-**Pricing**: Claude Sonnet 4.5 (~$0.009/1K tokens average)
+**Study Group**: 4 students + 1 instructor  
+**Duration**: 6 weeks (2 sessions/month + homework)  
+**Pricing**: Claude Sonnet 4.5 (~$0.009/1K tokens average)  
 
 ⚠️ **IMPORTANT**: Token usage is ~10x higher than initially estimated due to tool schema overhead. See TOKEN_ANALYSIS.md for details.
 
@@ -158,13 +158,13 @@ See **TOKEN_ANALYSIS.md** for full details:
 - Complex workflows need **multiple resets** to complete
 - **50K limit is appropriate** - caps cost at $0.45/session
 
-## Recommendations (REVISED)
+## Recommendations (REVISED)  
 
-✅ **Budget $30-35** - realistic for 4 students + instructor
-✅ **Use mock mode weeks 1-2** - build confidence for free (crucial!)
-✅ **Set expectations** - explain students will hit limits after 2-3 queries
-✅ **Normalize resets** - "Clear conversation" is a normal part of the workflow
-✅ **Start with simple queries** - build up to complex workflows gradually
-✅ **Consider fewer servers** - reduce from 3 default to 1-2 (saves ~7K tokens/query)
+✅ **Budget $30-35** - realistic for 4 students + instructor  
+✅ **Use mock mode weeks 1-2** - build confidence for free (crucial!)  
+✅ **Set expectations** - explain students will hit limits after 2-3 queries  
+✅ **Normalize resets** - "Clear conversation" is a normal part of the workflow  
+✅ **Start with simple queries** - build up to complex workflows gradually  
+✅ **Consider fewer servers** - reduce from 3 default to 1-2 (saves ~7K tokens/query)  
 
 With 4 students following the curriculum, expect **$25-30 total cost** for the entire 6-week program.
