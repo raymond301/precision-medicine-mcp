@@ -4,26 +4,22 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Install system dependencies
+# build-essential: C compiler and build tools (needed for deepcell-toolbox)
 # libgomp1: Required by TensorFlow for OpenMP support
 # libhdf5-dev: Required for DeepCell model loading
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    build-essential \
     libgomp1 \
     libhdf5-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Create directory structure
-RUN mkdir -p /app/servers/mcp-deepcell /app/shared/utils
-
-# Copy temporarily staged shared utilities
-COPY _shared_temp/utils/ /app/shared/utils/
-
 # Copy server code
-COPY . /app/servers/mcp-deepcell/
+COPY . /app
 
 # Install Python dependencies
-WORKDIR /app/servers/mcp-deepcell
+WORKDIR /app
 RUN pip install --no-cache-dir -e .
 
 # Set environment variables for SSE transport
