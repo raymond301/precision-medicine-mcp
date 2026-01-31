@@ -1,0 +1,68 @@
+{
+  "description": "Synthetic microscopy test dataset for mcp-deepcell",
+  "generated": "2026-01-31",
+  "image_format": "16-bit TIFF",
+  "pixel_type": "grayscale",
+  "datasets": [
+    {
+      "size": "512x512",
+      "num_cells": 30,
+      "files": {
+        "nuclear": "dapi_512x512.tif",
+        "ki67": "ki67_512x512.tif",
+        "tp53": "tp53_512x512.tif",
+        "membrane": "membrane_512x512.tif"
+      },
+      "expected_results": {
+        "segmentation": {
+          "approximate_cell_count": 30,
+          "min_cell_size": 100
+        },
+        "classification": {
+          "ki67_positive_fraction": 0.25,
+          "tp53_positive_fraction": 0.4
+        }
+      }
+    },
+    {
+      "size": "1024x1024",
+      "num_cells": 120,
+      "files": {
+        "nuclear": "dapi_1024x1024.tif",
+        "ki67": "ki67_1024x1024.tif",
+        "tp53": "tp53_1024x1024.tif",
+        "membrane": "membrane_1024x1024.tif"
+      },
+      "expected_results": {
+        "segmentation": {
+          "approximate_cell_count": 120,
+          "min_cell_size": 100
+        },
+        "classification": {
+          "ki67_positive_fraction": 0.25,
+          "tp53_positive_fraction": 0.4
+        }
+      }
+    },
+    {
+      "size": "2048x2048",
+      "num_cells": 480,
+      "files": {
+        "nuclear": "dapi_2048x2048.tif",
+        "ki67": "ki67_2048x2048.tif",
+        "tp53": "tp53_2048x2048.tif",
+        "membrane": "membrane_2048x2048.tif"
+      },
+      "expected_results": {
+        "segmentation": {
+          "approximate_cell_count": 480,
+          "min_cell_size": 100
+        },
+        "classification": {
+          "ki67_positive_fraction": 0.25,
+          "tp53_positive_fraction": 0.4
+        }
+      }
+    }
+  ]
+}

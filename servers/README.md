@@ -16,12 +16,12 @@
 | 🧪 **mcp-perturbation** | 8 | ✅ 100% real (GEARS) | [README →](mcp-perturbation/README.md) |
 | ⚛️ **mcp-quantum-celltype-fidelity** | 6 | ✅ 100% real (Qiskit) | [README →](mcp-quantum-celltype-fidelity/README.md) |
 | 🖼️ **mcp-openimagedata** | 5 | ⚠️ 60% real | [README →](mcp-openimagedata/README.md) |
-| 🖼️ **mcp-deepcell** | 4 | ❌ Mocked | [README →](mcp-deepcell/README.md) |
+| 🖼️ **mcp-deepcell** | 4 | ✅ 100% real (Cloud Run) | [README →](mcp-deepcell/README.md) |
 | 🧪 **mcp-tcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-tcga/README.md) |
 | 🤖 **mcp-huggingface** | 3 | ❌ Mocked (HF-ready) | — |
 | ⚙️ **mcp-seqera** | 3 | ❌ Mocked (Seqera-ready) | — |
 
-**Production Ready:** 6/12 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity)
+**Production Ready:** 7/12 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell)
 
 ---
 
@@ -35,6 +35,7 @@ Use these for real analysis:
 - 📍 **mcp-spatialtools** - Spatial transcriptomics analysis ([README](mcp-spatialtools/README.md))
 - 🧪 **mcp-perturbation** - Perturbation prediction using GEARS (GNN, Nature Biotech 2024) ([README](mcp-perturbation/README.md))
 - ⚛️ **mcp-quantum-celltype-fidelity** - Quantum computing-based cell type fidelity analysis using Qiskit - 56 tests ✅ ([README](mcp-quantum-celltype-fidelity/README.md))
+- 🖼️ **mcp-deepcell** - DeepCell-TF cell segmentation on Cloud Run ☁️ ([README](mcp-deepcell/README.md))
 
 ### ⚠️ Partial Implementation
 - 🖼️ **mcp-openimagedata** - Image loading (60% real) ([README](mcp-openimagedata/README.md))
@@ -42,7 +43,6 @@ Use these for real analysis:
 ### 🎭 Development/Demo Servers
 Mock implementations for workflow demonstration:
 - 🎭 **mcp-mockepic** - Synthetic FHIR data (by design)
-- 🖼️ **mcp-deepcell** - Cell segmentation (future) ([README](mcp-deepcell/README.md))
 - 🧪 **mcp-tcga** - TCGA cohort comparison ([README](mcp-tcga/README.md))
 - 🤖 **mcp-huggingface** - ML model inference
 - ⚙️ **mcp-seqera** - Nextflow workflows

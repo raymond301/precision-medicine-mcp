@@ -7,18 +7,10 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/mcp-deepcell:$COMMIT_SHA'
-      - '-t'
       - 'gcr.io/$PROJECT_ID/mcp-deepcell:latest'
       - '.'
-    dir: 'servers/mcp-deepcell'
 
   # Push the container image to Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'push'
-      - 'gcr.io/$PROJECT_ID/mcp-deepcell:$COMMIT_SHA'
-
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
@@ -30,7 +22,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'mcp-deepcell'
-      - '--image=gcr.io/$PROJECT_ID/mcp-deepcell:$COMMIT_SHA'
+      - '--image=gcr.io/$PROJECT_ID/mcp-deepcell:latest'
       - '--region=us-central1'
       - '--platform=managed'
       - '--allow-unauthenticated'
@@ -41,9 +33,8 @@ steps:
       - '--set-env-vars=DEEPCELL_DRY_RUN=false,MCP_TRANSPORT=sse,DEEPCELL_USE_GPU=false'
 
 images:
-  - 'gcr.io/$PROJECT_ID/mcp-deepcell:$COMMIT_SHA'
   - 'gcr.io/$PROJECT_ID/mcp-deepcell:latest'
 
+timeout: '1200s'
 options:
   machineType: 'N1_HIGHCPU_8'
-  timeout: '1200s'
