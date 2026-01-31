@@ -15,6 +15,9 @@ from fastmcp import FastMCP
 from PIL import Image
 from skimage import color, measure
 
+from .deepcell_engine import DeepCellEngine
+from .intensity_classifier import IntensityClassifier
+
 # Configure logging
 logger = logging.getLogger(__name__)
 
@@ -59,35 +62,78 @@ To enable real data processing, set: DEEPCELL_DRY_RUN=false
 
 DRY_RUN = os.getenv("DEEPCELL_DRY_RUN", "true").lower() == "true"
 OUTPUT_DIR = Path(os.getenv("DEEPCELL_OUTPUT_DIR", "/workspace/output"))
+MODEL_CACHE_DIR = Path(os.getenv("DEEPCELL_MODEL_CACHE_DIR", Path.home() / ".deepcell" / "models"))
+USE_GPU = os.getenv("DEEPCELL_USE_GPU", "true").lower() == "true"
 
 def _ensure_output_dir() -> None:
     """Ensure output directory exists."""
     try:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         (OUTPUT_DIR / "visualizations").mkdir(exist_ok=True)
+        (OUTPUT_DIR / "segmentations").mkdir(exist_ok=True)
+        (OUTPUT_DIR / "classifications").mkdir(exist_ok=True)
     except (OSError, PermissionError):
         pass
 
 _ensure_output_dir()
 
+# Initialize DeepCell engine and classifier (lazy loading)
+_deepcell_engine: Optional[DeepCellEngine] = None
+_intensity_classifier: Optional[IntensityClassifier] = None
+
+def _get_deepcell_engine() -> DeepCellEngine:
+    """Get or create DeepCell engine instance (singleton pattern)."""
+    global _deepcell_engine
+    if _deepcell_engine is None:
+        logger.info("Initializing DeepCell engine...")
+        _deepcell_engine = DeepCellEngine(model_cache_dir=MODEL_CACHE_DIR, use_gpu=USE_GPU)
+    return _deepcell_engine
+
+def _get_intensity_classifier() -> IntensityClassifier:
+    """Get or create IntensityClassifier instance (singleton pattern)."""
+    global _intensity_classifier
+    if _intensity_classifier is None:
+        logger.info("Initializing IntensityClassifier...")
+        _intensity_classifier = IntensityClassifier()
+    return _intensity_classifier
+
 @mcp.tool()
 async def segment_cells(
     image_path: str,
-    model_type: str = "membrane",
-    min_cell_size: int = 100
+    model_type: str = "nuclear",
+    min_cell_size: int = 100,
+    image_mpp: Optional[float] = None
 ) -> Dict[str, Any]:
-    """Deep learning-based cell segmentation.
+    """Deep learning-based cell segmentation using DeepCell models.
 
     Args:
-        image_path: Path to microscopy image
-        model_type: Model to use - "membrane", "nuclear", "cytoplasm"
-        min_cell_size: Minimum cell size in pixels
+        image_path: Path to microscopy image (TIFF, PNG, or other formats)
+        model_type: Model to use - "nuclear" or "membrane" (default: "nuclear")
+        min_cell_size: Minimum cell size in pixels (default: 100)
+        image_mpp: Microns per pixel for physical size calculation (optional)
 
     Returns:
-        Dictionary with segmentation masks, cell counts, statistics
+        Dictionary with:
+        - segmentation_mask: Path to saved segmentation mask (TIFF)
+        - cells_detected: Number of cells found
+        - cells_filtered: Number of small cells filtered out
+        - mean_cell_area: Mean cell area in pixels
+        - median_cell_area: Median cell area in pixels
+        - processing_time_seconds: Time taken for segmentation
+        - model_used: Which model was used
+        - gpu_used: Whether GPU acceleration was used
+
+    Example:
+        >>> result = await segment_cells(
+        ...     image_path="/data/DAPI_nuclear.tiff",
+        ...     model_type="nuclear",
+        ...     min_cell_size=100
+        ... )
+        >>> print(f"Found {result['cells_detected']} cells")
+        >>> # Use result['segmentation_mask'] for downstream analysis
     """
     if DRY_RUN:
-        return {
+        return add_dry_run_warning({
             "segmentation_mask": f"{image_path}.seg.tif",
             "cells_detected": 1247,
             "mean_cell_area": 850,
@@ -98,35 +144,223 @@ async def segment_cells(
                 "cells_filtered": 23
             },
             "mode": "dry_run"
+        })
+
+    try:
+        # Load image
+        logger.info(f"Loading image: {image_path}")
+        image = np.array(Image.open(image_path))
+        logger.info(f"Image loaded: shape={image.shape}, dtype={image.dtype}")
+
+        # Get DeepCell engine
+        engine = _get_deepcell_engine()
+
+        # Segment image
+        logger.info(f"Segmenting with {model_type} model...")
+        segmentation_mask, metadata = engine.segment_image(
+            image=image,
+            model_type=model_type,
+            min_cell_size=min_cell_size,
+            image_mpp=image_mpp
+        )
+
+        # Save segmentation mask as TIFF
+        mask_filename = f"{Path(image_path).stem}_segmentation_{model_type}.tif"
+        mask_path = OUTPUT_DIR / "segmentations" / mask_filename
+        mask_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Save as 16-bit TIFF (supports up to 65535 cells)
+        mask_img = Image.fromarray(segmentation_mask.astype(np.uint16))
+        mask_img.save(mask_path)
+        logger.info(f"Segmentation mask saved to: {mask_path}")
+
+        result = {
+            "status": "success",
+            "segmentation_mask": str(mask_path),
+            "cells_detected": metadata["cells_detected"],
+            "cells_filtered": metadata["cells_filtered"],
+            "mean_cell_area": metadata["mean_cell_area"],
+            "median_cell_area": metadata["median_cell_area"],
+            "min_cell_area": metadata["min_cell_area"],
+            "max_cell_area": metadata["max_cell_area"],
+            "processing_time_seconds": metadata["processing_time_seconds"],
+            "model_used": metadata["model_used"],
+            "gpu_used": metadata["gpu_used"],
+            "image_mpp": metadata.get("image_mpp"),
+            "description": f"Segmented {metadata['cells_detected']} cells using {model_type} model in {metadata['processing_time_seconds']:.1f}s"
         }
-    return {"cells_detected": 0}
+
+        logger.info(f"✅ Segmentation complete: {result['cells_detected']} cells detected")
+        return result
+
+    except FileNotFoundError:
+        error_msg = f"Image file not found: {image_path}"
+        logger.error(error_msg)
+        return {
+            "status": "error",
+            "error": error_msg,
+            "message": "Please check the file path and try again."
+        }
+    except ValueError as e:
+        error_msg = f"Invalid parameter: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "status": "error",
+            "error": error_msg,
+            "message": "Please check your parameters (model_type should be 'nuclear' or 'membrane')"
+        }
+    except Exception as e:
+        error_msg = f"Segmentation failed: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        return {
+            "status": "error",
+            "error": error_msg,
+            "message": "An unexpected error occurred during segmentation. Check logs for details."
+        }
 
 @mcp.tool()
 async def classify_cell_states(
-    segmentation_mask: str,
-    expression_data: str
+    segmentation_mask_path: str,
+    intensity_image_path: str,
+    marker_name: str = "Ki67",
+    threshold_proliferating: float = 50.0,
+    threshold_quiescent: float = 20.0
 ) -> Dict[str, Any]:
-    """Cell state/phenotype classification.
+    """Classify cells into functional states based on marker intensity.
+
+    Classifies cells as proliferating, quiescent, or intermediate based on
+    marker expression (e.g., Ki67 for proliferation).
 
     Args:
-        segmentation_mask: Path to segmentation mask
-        expression_data: Path to expression matrix
+        segmentation_mask_path: Path to segmentation mask (TIFF from segment_cells)
+        intensity_image_path: Path to marker intensity image (TIFF, PNG, etc.)
+        marker_name: Name of the marker (default: "Ki67")
+        threshold_proliferating: Intensity threshold for proliferating cells (default: 50)
+        threshold_quiescent: Intensity threshold for quiescent cells (default: 20)
 
     Returns:
-        Dictionary with cell states and phenotypes
+        Dictionary with:
+        - classifications: List of cell states with cell_id, state, confidence
+        - total_cells: Total number of cells classified
+        - state_counts: Number of cells in each state
+        - classifications_csv: Path to exported CSV file
+        - description: Summary description
+
+    Example:
+        >>> result = await classify_cell_states(
+        ...     segmentation_mask_path="/output/segmentations/DAPI_nuclear_seg.tif",
+        ...     intensity_image_path="/data/Ki67_intensity.tiff",
+        ...     marker_name="Ki67",
+        ...     threshold_proliferating=50,
+        ...     threshold_quiescent=20
+        ... )
+        >>> print(f"{result['state_counts']['proliferating']} proliferating cells")
     """
     if DRY_RUN:
-        return {
+        return add_dry_run_warning({
             "classifications": [
-                {"cell_id": 1, "state": "proliferating", "confidence": 0.92},
-                {"cell_id": 2, "state": "quiescent", "confidence": 0.87},
-                {"cell_id": 3, "state": "apoptotic", "confidence": 0.95}
+                {"cell_id": 1, "state": "proliferating", "confidence": 0.92, "Ki67_intensity": 85.3},
+                {"cell_id": 2, "state": "quiescent", "confidence": 0.87, "Ki67_intensity": 12.1},
+                {"cell_id": 3, "state": "intermediate", "confidence": 0.75, "Ki67_intensity": 35.2}
             ],
             "total_cells": 1247,
-            "states_identified": ["proliferating", "quiescent", "apoptotic", "senescent"],
+            "state_counts": {
+                "proliferating": 523,
+                "quiescent": 612,
+                "intermediate": 112
+            },
             "mode": "dry_run"
+        })
+
+    try:
+        # Load segmentation mask
+        logger.info(f"Loading segmentation mask: {segmentation_mask_path}")
+        seg_mask = np.array(Image.open(segmentation_mask_path))
+
+        # Load intensity image
+        logger.info(f"Loading intensity image: {intensity_image_path}")
+        intensity_image = np.array(Image.open(intensity_image_path))
+
+        logger.info(f"Mask shape: {seg_mask.shape}, Intensity shape: {intensity_image.shape}")
+
+        # Get classifier
+        classifier = _get_intensity_classifier()
+
+        # Measure cell intensities
+        logger.info("Measuring cell intensities...")
+        intensities_df = classifier.measure_cell_intensities(
+            image=intensity_image,
+            segmentation_mask=seg_mask
+        )
+
+        # Classify cell states
+        logger.info(f"Classifying cells using {marker_name} marker...")
+        classifications = classifier.classify_cell_states(
+            intensities=intensities_df,
+            marker_name=marker_name,
+            threshold_proliferating=threshold_proliferating,
+            threshold_quiescent=threshold_quiescent
+        )
+
+        # Save classifications to CSV
+        csv_filename = f"classifications_{marker_name}_{Path(segmentation_mask_path).stem}.csv"
+        csv_path = OUTPUT_DIR / "classifications" / csv_filename
+        csv_path.parent.mkdir(parents=True, exist_ok=True)
+
+        classifications_df = pd.DataFrame(classifications)
+        classifications_df.to_csv(csv_path, index=False)
+        logger.info(f"Classifications saved to: {csv_path}")
+
+        # Calculate state counts
+        state_counts = {}
+        for c in classifications:
+            state = c["state"]
+            state_counts[state] = state_counts.get(state, 0) + 1
+
+        # Create summary
+        total_cells = len(classifications)
+        states_list = list(state_counts.keys())
+
+        result = {
+            "status": "success",
+            "classifications": classifications[:100],  # Return first 100 for brevity
+            "total_cells": total_cells,
+            "state_counts": state_counts,
+            "states_identified": states_list,
+            "classifications_csv": str(csv_path),
+            "marker_used": marker_name,
+            "threshold_proliferating": threshold_proliferating,
+            "threshold_quiescent": threshold_quiescent,
+            "description": f"Classified {total_cells} cells: {state_counts.get('proliferating', 0)} proliferating, {state_counts.get('quiescent', 0)} quiescent, {state_counts.get('intermediate', 0)} intermediate"
         }
-    return {"classifications": []}
+
+        logger.info(f"✅ Classification complete: {total_cells} cells classified")
+        return result
+
+    except FileNotFoundError as e:
+        error_msg = f"File not found: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "status": "error",
+            "error": error_msg,
+            "message": "Please check that both the segmentation mask and intensity image paths are correct."
+        }
+    except ValueError as e:
+        error_msg = f"Invalid data: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "status": "error",
+            "error": error_msg,
+            "message": "Image and segmentation mask shapes don't match or invalid parameters."
+        }
+    except Exception as e:
+        error_msg = f"Classification failed: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        return {
+            "status": "error",
+            "error": error_msg,
+            "message": "An unexpected error occurred during classification. Check logs for details."
+        }
 
 
 # ============================================================================
