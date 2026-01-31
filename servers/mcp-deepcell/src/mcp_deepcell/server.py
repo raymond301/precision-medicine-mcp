@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -12,6 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from fastmcp import FastMCP
+from google.cloud import storage
 from PIL import Image
 from skimage import color, measure
 
@@ -76,6 +78,59 @@ def _ensure_output_dir() -> None:
         pass
 
 _ensure_output_dir()
+
+def _download_from_gcs(gcs_path: str) -> str:
+    """Download file from GCS to temporary location.
+
+    Args:
+        gcs_path: GCS path in format gs://bucket/path/to/file
+
+    Returns:
+        Local temporary file path
+
+    Raises:
+        ValueError: If path is not a valid GCS path
+        Exception: If download fails
+    """
+    if not gcs_path.startswith("gs://"):
+        # Return as-is if not a GCS path
+        return gcs_path
+
+    try:
+        # Parse GCS path: gs://bucket/path/to/file
+        path_parts = gcs_path[5:].split("/", 1)
+        if len(path_parts) != 2:
+            raise ValueError(f"Invalid GCS path format: {gcs_path}")
+
+        bucket_name, blob_name = path_parts
+
+        logger.info(f"Downloading from GCS: {gcs_path}")
+
+        # Initialize GCS client (uses default credentials)
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+
+        # Create temp file with same extension
+        suffix = Path(blob_name).suffix
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+        temp_path = temp_file.name
+        temp_file.close()
+
+        # Download file
+        blob.download_to_filename(temp_path)
+        logger.info(f"Downloaded to: {temp_path}")
+
+        return temp_path
+
+    except Exception as e:
+        logger.error(f"Failed to download from GCS: {e}")
+        raise Exception(
+            f"The cell segmentation tool was unable to find the image at the provided path: {gcs_path}.\n\n"
+            f"Please verify that the path is correct and accessible. "
+            f"If you are running this in an environment that requires local file paths, "
+            f"you may need to download the file first or provide a local path to the image."
+        )
 
 # Initialize DeepCell engine and classifier (lazy loading)
 _deepcell_engine: Optional[DeepCellEngine] = None
@@ -147,9 +202,12 @@ async def segment_cells(
         })
 
     try:
+        # Download from GCS if needed
+        local_image_path = _download_from_gcs(image_path)
+
         # Load image
-        logger.info(f"Loading image: {image_path}")
-        image = np.array(Image.open(image_path))
+        logger.info(f"Loading image: {local_image_path}")
+        image = np.array(Image.open(local_image_path))
         logger.info(f"Image loaded: shape={image.shape}, dtype={image.dtype}")
 
         # Get DeepCell engine
@@ -273,13 +331,17 @@ async def classify_cell_states(
         })
 
     try:
+        # Download from GCS if needed
+        local_seg_mask_path = _download_from_gcs(segmentation_mask_path)
+        local_intensity_path = _download_from_gcs(intensity_image_path)
+
         # Load segmentation mask
-        logger.info(f"Loading segmentation mask: {segmentation_mask_path}")
-        seg_mask = np.array(Image.open(segmentation_mask_path))
+        logger.info(f"Loading segmentation mask: {local_seg_mask_path}")
+        seg_mask = np.array(Image.open(local_seg_mask_path))
 
         # Load intensity image
-        logger.info(f"Loading intensity image: {intensity_image_path}")
-        intensity_image = np.array(Image.open(intensity_image_path))
+        logger.info(f"Loading intensity image: {local_intensity_path}")
+        intensity_image = np.array(Image.open(local_intensity_path))
 
         logger.info(f"Mask shape: {seg_mask.shape}, Intensity shape: {intensity_image.shape}")
 
@@ -410,8 +472,12 @@ async def generate_segmentation_overlay(
         })
 
     try:
+        # Download from GCS if needed
+        local_original_path = _download_from_gcs(original_image_path)
+        local_seg_mask_path = _download_from_gcs(segmentation_mask_path)
+
         # Load original image
-        original_img = Image.open(original_image_path)
+        original_img = Image.open(local_original_path)
         original_arr = np.array(original_img)
 
         # Convert grayscale to RGB if needed
@@ -423,7 +489,7 @@ async def generate_segmentation_overlay(
             original_rgb = original_arr[:, :, :3]
 
         # Load segmentation mask
-        seg_mask = np.array(Image.open(segmentation_mask_path))
+        seg_mask = np.array(Image.open(local_seg_mask_path))
 
         # Find cell boundaries
         boundaries = measure.find_boundaries(seg_mask, mode='outer')
@@ -540,9 +606,13 @@ async def generate_phenotype_visualization(
         })
 
     try:
+        # Download from GCS if needed
+        local_original_path = _download_from_gcs(original_image_path)
+        local_seg_mask_path = _download_from_gcs(segmentation_mask_path)
+
         # Load images
-        original_img = np.array(Image.open(original_image_path))
-        seg_mask = np.array(Image.open(segmentation_mask_path))
+        original_img = np.array(Image.open(local_original_path))
+        seg_mask = np.array(Image.open(local_seg_mask_path))
 
         # Get unique cell IDs
         cell_ids = np.unique(seg_mask)[1:]  # Exclude background (0)
