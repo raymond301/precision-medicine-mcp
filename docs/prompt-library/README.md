@@ -56,6 +56,19 @@ Analysis of Visium spatial RNA-seq data
 
 ---
 
+### [Imaging Analysis Prompts](imaging.md)
+Cell segmentation and phenotyping for H&E and MxIF images
+
+**Examples:**
+- Nuclear and membrane segmentation
+- Single and multi-marker phenotyping
+- Large image processing with tiling
+- Segmentation overlays and visualizations
+
+**Servers used:** mcp-deepcell, mcp-openimagedata
+
+---
+
 ### [Complete Workflow Prompts](workflows.md)
 End-to-end multi-modal analyses
 
