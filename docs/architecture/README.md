@@ -83,7 +83,7 @@ Technical system design documentation:
 |----------|---------|-------|--------|---------------|
 | 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 16 | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
 | 🧪 **Genomic Cohorts** | mcp-tcga | 11 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
-| 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell | 16 | ⚠️ Partial (60%/0%) | [imaging/README.md](imaging/README.md) |
+| 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell | 13 | ✅ Mostly Real (60%/100%) | [imaging/README.md](imaging/README.md) |
 | 🔬 **Multiomics** | mcp-multiomics | 21 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
 | 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 32 | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation/README.md](perturbation/README.md) |
@@ -133,7 +133,7 @@ Technical system design documentation:
 
 **Histology and multiplexed immunofluorescence (MxIF) image processing**
 
-**Servers:** mcp-openimagedata (60% real) • mcp-deepcell (mocked)
+**Servers:** mcp-openimagedata (60% real) • mcp-deepcell (100% real)
 
 **Key Workflows:**
 - **H&E (Brightfield):** Morphology assessment, necrosis identification

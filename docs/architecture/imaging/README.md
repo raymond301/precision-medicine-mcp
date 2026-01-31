@@ -1,7 +1,7 @@
 # Imaging Analysis Architecture
 
-**Status:** Partial Implementation (openimagedata: 60% real, deepcell: 0% mocked)
-**Last Updated:** 2026-01-10
+**Status:** Mostly Implemented (openimagedata: 60% real, deepcell: 100% real)
+**Last Updated:** 2026-01-31
 
 ---
 
@@ -22,7 +22,7 @@ graph TB
         Anno[Annotate<br/>H&E]
     end
 
-    subgraph DC["🔬 mcp-deepcell<br/>(4 tools, 0% mocked)"]
+    subgraph DC["🔬 mcp-deepcell<br/>(4 tools, 100% real)"]
         Seg[Segment<br/>Cells]
         Class[Classify<br/>Phenotypes]
         Viz[Generate<br/>Overlay]
@@ -75,7 +75,7 @@ graph TB
 
 ### Servers
 - **[mcp-openimagedata README](../../../servers/mcp-openimagedata/README.md)** - Image loading and visualization (5 tools, 60% real)
-- **[mcp-deepcell README](../../../servers/mcp-deepcell/README.md)** - Cell segmentation and phenotyping (4 tools, mocked)
+- **[mcp-deepcell README](../../../servers/mcp-deepcell/README.md)** - Cell segmentation and phenotyping (4 tools, 100% real)
 
 ### Reference
 - **[GLOSSARY.md](GLOSSARY.md)** - Imaging terminology (H&E, MxIF, DeepCell, segmentation)
@@ -92,7 +92,7 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 
 **Servers:**
 - mcp-openimagedata (60% real - loading + visualization)
-- mcp-deepcell (0% mocked - segmentation + phenotyping)
+- mcp-deepcell (100% real - segmentation + phenotyping)
 
 ---
 

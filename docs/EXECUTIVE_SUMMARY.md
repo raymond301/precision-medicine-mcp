@@ -24,12 +24,13 @@ graph TB
 
     subgraph Servers["🔧 12 MCP Servers (124 Tools)"]
         direction LR
-        subgraph Production["✅ Production Ready (6)"]
+        subgraph Production["✅ Production Ready (7)"]
             FGBIO[mcp-fgbio<br/>9 tools]
             MULTI[mcp-multiomics<br/>21 tools]
             SPATIAL[mcp-spatialtools<br/>23 tools]
             PERTURB[mcp-perturbation<br/>8 tools<br/>GEARS]
             QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit + Bayesian UQ]
+            DEEP[mcp-deepcell<br/>4 tools<br/>DeepCell-TF]
             EPIC[mcp-epic<br/>9 tools<br/>Local Only]
         end
 
@@ -37,9 +38,8 @@ graph TB
             IMAGE[mcp-openimagedata<br/>9 tools<br/>60% real]
         end
 
-        subgraph Mocked["❌ Mocked (5)"]
+        subgraph Mocked["❌ Mocked (4)"]
             TCGA[mcp-tcga<br/>11 tools]
-            DEEP[mcp-deepcell<br/>7 tools]
             HF[mcp-huggingface<br/>7 tools]
             SEQ[mcp-seqera<br/>7 tools]
             MOCK[mcp-mockepic<br/>7 tools]
@@ -82,8 +82,8 @@ graph TB
 
 **Key Points:**
 - **AI Orchestration**: Claude API coordinates 12 MCP servers via natural language
-- **124 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, perturbation prediction, and quantum computing with Bayesian uncertainty quantification
-- **Production Ready**: 6 servers (50%) ready for hospital deployment
+- **124 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, and quantum computing with Bayesian uncertainty quantification
+- **Production Ready**: 7 servers (58%) ready for hospital deployment
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
 ---
@@ -128,8 +128,8 @@ graph TB
 ## Technical Capabilities
 
 **12 MCP Servers Deployed:**
-- ✅ **6 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-epic
-- ⚙️ **6 Mock/Partial**: mcp-tcga, mcp-openimagedata (30% real), mcp-seqera, mcp-huggingface, mcp-deepcell, mcp-mockepic
+- ✅ **7 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-epic
+- ⚙️ **5 Mock/Partial**: mcp-tcga, mcp-openimagedata (30% real), mcp-seqera, mcp-huggingface, mcp-mockepic
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
