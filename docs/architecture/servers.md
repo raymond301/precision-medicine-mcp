@@ -1,6 +1,6 @@
 # MCP Server Implementation Status Matrix
 
-**Last Updated:** 2026-01-10
+**Last Updated:** 2026-01-30
 **Purpose:** Clearly document what's real vs mocked in each server to prevent accidental use of synthetic data
 
 ---
@@ -20,13 +20,13 @@
 
 ## Quick Reference
 
-📋 **[See Server Status Table →](../../servers/README.md#-server-status)** - Tools, status, and documentation for all 10 servers
+📋 **[See Server Status Table →](../../servers/README.md#-server-status)** - Tools, status, and documentation for all 12 servers
 
-**Production Ready Count:** 4/10 servers (40%)
-**Fully Mocked Count:** 5/10 servers (50%)
-**Partial Implementation:** 1/10 servers (10%)
+**Production Ready Count:** 6/12 servers (50%)
+**Fully Mocked Count:** 5/12 servers (42%)
+**Partial Implementation:** 1/12 servers (8%)
 
-**Total MCP Servers:** 10 (9 deployed to GCP + mcp-epic local only)
+**Total MCP Servers:** 12 (11 deployed to GCP + mcp-epic local only)
 
 **🎉 GCP Cloud Run Deployment:** 9 servers deployed to production infrastructure (2025-12-30)
 
@@ -34,7 +34,7 @@
 
 | Safe for Production? | Servers | Risk Level |
 |---------------------|---------|------------|
-| **YES** | mcp-multiomics (85%), mcp-fgbio (95%), mcp-spatialtools (95%), mcp-epic (100% local) | ✅ Low - Extensively tested |
+| **YES** | mcp-multiomics (85%), mcp-fgbio (95%), mcp-spatialtools (95%), mcp-perturbation (100%), mcp-quantum-celltype-fidelity (100%), mcp-epic (100% local) | ✅ Low - Extensively tested |
 | **NO** | mcp-openimagedata (60%) | ⚠️ Medium - Registration/features mocked |
 | **NO** | mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera (0%) | ❌ **CRITICAL - All synthetic** |
 | **N/A** | mcp-mockepic (0%) | ✅ Low - Mock EHR by design |
@@ -46,26 +46,28 @@
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {'fontSize':'14px'}}}%%
 graph LR
-    subgraph Production["✅ Production Ready (4/10 = 40%)"]
+    subgraph Production["✅ Production Ready (6/12 = 50%)"]
         direction TB
-        FGBIO["mcp-fgbio<br/>95% Real<br/>4 tools"]
-        MULTI["mcp-multiomics<br/>85% Real<br/>10 tools"]
-        SPATIAL["mcp-spatialtools<br/>95% Real<br/>14 tools"]
-        EPIC["mcp-epic<br/>100% Real<br/>4 tools<br/>(Local Only)"]
+        FGBIO["mcp-fgbio<br/>95% Real<br/>9 tools"]
+        MULTI["mcp-multiomics<br/>85% Real<br/>21 tools"]
+        SPATIAL["mcp-spatialtools<br/>95% Real<br/>23 tools"]
+        PERTURB["mcp-perturbation<br/>100% Real<br/>8 tools<br/>GEARS"]
+        QUANTUM["mcp-quantum-celltype-fidelity<br/>100% Real<br/>6 tools<br/>Qiskit + Bayesian UQ"]
+        EPIC["mcp-epic<br/>100% Real<br/>9 tools<br/>(Local Only)"]
     end
 
-    subgraph Partial["⚠️ Partial Implementation (1/10 = 10%)"]
+    subgraph Partial["⚠️ Partial Implementation (1/12 = 8%)"]
         direction TB
-        IMAGE["mcp-openimagedata<br/>60% Real<br/>5 tools<br/>(3 real, 2 mocked)"]
+        IMAGE["mcp-openimagedata<br/>60% Real<br/>9 tools<br/>(5 real, 4 mocked)"]
     end
 
-    subgraph Mocked["❌ Fully Mocked (5/10 = 50%)"]
+    subgraph Mocked["❌ Fully Mocked (5/12 = 42%)"]
         direction TB
-        TCGA["mcp-tcga<br/>0% Real<br/>5 tools"]
-        DEEP["mcp-deepcell<br/>0% Real<br/>4 tools"]
-        HF["mcp-huggingface<br/>0% Real<br/>3 tools"]
-        SEQ["mcp-seqera<br/>0% Real<br/>3 tools"]
-        MOCK["mcp-mockepic<br/>0% by Design<br/>3 tools"]
+        TCGA["mcp-tcga<br/>0% Real<br/>11 tools"]
+        DEEP["mcp-deepcell<br/>0% Real<br/>7 tools"]
+        HF["mcp-huggingface<br/>0% Real<br/>7 tools"]
+        SEQ["mcp-seqera<br/>0% Real<br/>7 tools"]
+        MOCK["mcp-mockepic<br/>0% by Design<br/>7 tools"]
     end
 
     style Production fill:#d4edda,stroke:#28a745,stroke-width:3px
@@ -75,6 +77,8 @@ graph LR
     style FGBIO fill:#d4edda,stroke:#155724,stroke-width:2px
     style MULTI fill:#d4edda,stroke:#155724,stroke-width:2px
     style SPATIAL fill:#d4edda,stroke:#155724,stroke-width:2px
+    style PERTURB fill:#d4edda,stroke:#155724,stroke-width:2px
+    style QUANTUM fill:#d4edda,stroke:#155724,stroke-width:2px
     style EPIC fill:#d4edda,stroke:#155724,stroke-width:2px
 
     style IMAGE fill:#fff3cd,stroke:#856404,stroke-width:2px
@@ -91,7 +95,7 @@ graph LR
 - 🟡 **Yellow**: Partial implementation - verify which tools are real
 - 🔴 **Red**: Mocked - synthetic data only, NOT for research decisions
 
-**Total Tools: 55 tools across 10 servers**
+**Total Tools: 124 tools across 12 servers**
 
 ---
 

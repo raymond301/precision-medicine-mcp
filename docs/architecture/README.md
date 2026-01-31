@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 12 MCP Servers (69 Tools)"]
+    subgraph MCP["🔧 12 MCP Servers (124 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga]
@@ -68,7 +68,7 @@ graph LR
 
 Technical system design documentation:
 
-- **[Server Status](servers.md)** - Implementation status and capabilities matrix for all 10 servers
+- **[Server Status](servers.md)** - Implementation status and capabilities matrix for all 12 servers
 - **[Clinical-Spatial Bridge](clinical-spatial-bridge.md)** - Integration between clinical and spatial data
 - **[Error Handling](error-handling.md)** - Error handling and retry logic patterns
 - **[References](references.md)** - Technical references and citations
@@ -77,19 +77,19 @@ Technical system design documentation:
 
 ## 📊 Architecture by Analysis Modality
 
-9 analysis modalities, 12 specialized servers, 69 tools:
+9 analysis modalities, 12 specialized servers, 124 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
-| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
-| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
-| 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell | 9 | ⚠️ Partial (60%/0%) | [imaging/README.md](imaging/README.md) |
-| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
-| 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
+| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 16 | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
+| 🧪 **Genomic Cohorts** | mcp-tcga | 11 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
+| 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell | 16 | ⚠️ Partial (60%/0%) | [imaging/README.md](imaging/README.md) |
+| 🔬 **Multiomics** | mcp-multiomics | 21 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
+| 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 32 | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation/README.md](perturbation/README.md) |
-| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit) | [quantum/README.md](quantum/README.md) |
-| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
-| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
+| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum/README.md](quantum/README.md) |
+| 🤖 **AI/ML Inference** | mcp-huggingface | 7 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
+| ⚙️ **Workflow Orchestration** | mcp-seqera | 7 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
 
 **⚠️ Important:** Not all servers are production-ready. Check [Server Implementation Status](servers.md) before using.
 
@@ -147,7 +147,7 @@ Technical system design documentation:
 
 **PDX multi-omics data integration with preprocessing and therapeutic target prediction**
 
-**Server:** mcp-multiomics (10 tools, 85% real)
+**Server:** mcp-multiomics (21 tools, 85% real)
 
 **Key Features:**
 - Preprocessing pipeline (batch correction, KNN imputation, QC visualization)
@@ -229,6 +229,7 @@ Technical system design documentation:
 **Key Features:**
 - **Quantum Embeddings:** Parameterized quantum circuits (PQCs) with 8-10 qubits
 - **Fidelity Computation:** Quantum state overlap F = |⟨ψ_a|ψ_b⟩|² for cell similarity
+- **Bayesian Uncertainty Quantification:** 95%/90% confidence intervals for clinical decisions (Phase 1, Jan 2026)
 - **Immune Evasion Detection:** Identify tumor cells evading immune surveillance
 - **TLS Analysis:** Characterize tertiary lymphoid structures with quantum signatures
 - **Perturbation Prediction:** Simulate drug effects on quantum cell states
@@ -268,7 +269,7 @@ Technical system design documentation:
 
 ## 🏥 End-to-End Example: PatientOne
 
-**Complete precision medicine workflow combining all 10 MCP servers**
+**Complete precision medicine workflow combining all 12 MCP servers**
 
 **Use Case:** Stage IV High-Grade Serous Ovarian Cancer (HGSOC), platinum-resistant
 **Patient:** PAT001-OVC-2025 (synthetic test case)
