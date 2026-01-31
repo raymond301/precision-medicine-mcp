@@ -77,12 +77,19 @@
       }
     },
     "deepcell": {
-      "command": "npx",
+      "command": "uv",
       "args": [
-        "-y",
-        "@modelcontextprotocol/server-fetch",
-        "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse"
-      ]
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-deepcell",
+        "python",
+        "-m",
+        "mcp_deepcell"
+      ],
+      "env": {
+        "DEEPCELL_OUTPUT_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/output",
+        "DEEPCELL_DRY_RUN": "true"
+      }
     },
     "mockepic": {
       "command": "uv",
