@@ -73,9 +73,9 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
     "deepcell": {
         "name": "deepcell",
         "url": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "Cell segmentation",
-        "status": "mock",
-        "tools_count": 3
+        "description": "DeepCell-TF cell segmentation and phenotyping for MxIF",
+        "status": "production",
+        "tools_count": 4
     },
     "mockepic": {
         "name": "mockepic",
@@ -149,14 +149,14 @@ def get_server_categories() -> Dict[str, List[str]]:
             "multiomics",
             "spatialtools",
             "perturbation",
-            "quantum-celltype-fidelity"
+            "quantum-celltype-fidelity",
+            "deepcell"
         ],
         "Mock Servers (Workflow Demo)": [
             "tcga",
             "openimagedata",
             "seqera",
             "huggingface",
-            "deepcell",
             "mockepic"
         ]
     }

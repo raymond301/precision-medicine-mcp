@@ -76,21 +76,6 @@
         "HF_DRY_RUN": "true"
       }
     },
-    "deepcell": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-deepcell",
-        "python",
-        "-m",
-        "mcp_deepcell"
-      ],
-      "env": {
-        "DEEPCELL_OUTPUT_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/output",
-        "DEEPCELL_DRY_RUN": "true"
-      }
-    },
     "mockepic": {
       "command": "uv",
       "args": [
