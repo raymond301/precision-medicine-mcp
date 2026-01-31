@@ -22,27 +22,27 @@ graph TB
         CLAUDE[Claude API<br/>Natural Language<br/>Orchestration]
     end
 
-    subgraph Servers["🔧 12 MCP Servers (69 Tools)"]
+    subgraph Servers["🔧 12 MCP Servers (124 Tools)"]
         direction LR
         subgraph Production["✅ Production Ready (6)"]
-            FGBIO[mcp-fgbio<br/>4 tools]
-            MULTI[mcp-multiomics<br/>10 tools]
-            SPATIAL[mcp-spatialtools<br/>14 tools]
+            FGBIO[mcp-fgbio<br/>9 tools]
+            MULTI[mcp-multiomics<br/>21 tools]
+            SPATIAL[mcp-spatialtools<br/>23 tools]
             PERTURB[mcp-perturbation<br/>8 tools<br/>GEARS]
-            QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit]
-            EPIC[mcp-epic<br/>4 tools<br/>Local Only]
+            QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit + Bayesian UQ]
+            EPIC[mcp-epic<br/>9 tools<br/>Local Only]
         end
 
         subgraph Partial["⚠️ Partial (1)"]
-            IMAGE[mcp-openimagedata<br/>5 tools<br/>60% real]
+            IMAGE[mcp-openimagedata<br/>9 tools<br/>60% real]
         end
 
         subgraph Mocked["❌ Mocked (5)"]
-            TCGA[mcp-tcga<br/>5 tools]
-            DEEP[mcp-deepcell<br/>4 tools]
-            HF[mcp-huggingface<br/>3 tools]
-            SEQ[mcp-seqera<br/>3 tools]
-            MOCK[mcp-mockepic<br/>3 tools]
+            TCGA[mcp-tcga<br/>11 tools]
+            DEEP[mcp-deepcell<br/>7 tools]
+            HF[mcp-huggingface<br/>7 tools]
+            SEQ[mcp-seqera<br/>7 tools]
+            MOCK[mcp-mockepic<br/>7 tools]
         end
     end
 
@@ -82,7 +82,7 @@ graph TB
 
 **Key Points:**
 - **AI Orchestration**: Claude API coordinates 12 MCP servers via natural language
-- **69 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, perturbation prediction, and quantum computing
+- **124 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, perturbation prediction, and quantum computing with Bayesian uncertainty quantification
 - **Production Ready**: 6 servers (50%) ready for hospital deployment
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
@@ -97,9 +97,10 @@ graph TB
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 69 bioinformatics tools across 12 MCP servers
+- Unified platform for 124 bioinformatics tools across 12 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
+- Bayesian uncertainty quantification for confident clinical decisions
 
 ---
 
@@ -231,7 +232,11 @@ Ready for immediate pilot deployment with clear path to institutional scale.
 
 ---
 
-**Document Version:** 1.1
-**Date:** 2026-01-12
+**Document Version:** 1.2
+**Date:** 2026-01-30
 **Status:** Ready for Funding Review
 **Contact:** Lynn Langit
+
+**Recent Updates:**
+- Phase 1: Bayesian uncertainty quantification for quantum fidelity predictions (Jan 2026)
+- Updated tool counts: 124 tools across 12 servers

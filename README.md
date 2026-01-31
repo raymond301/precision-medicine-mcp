@@ -9,7 +9,7 @@
 
 > **40 hours of manual bioinformatics → 35 minutes AI-orchestrated**
 >
-> 12 specialized MCP servers | 69 analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
+> 12 specialized MCP servers | 124 analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
 
 ---
 
@@ -86,10 +86,12 @@ ___
 - Natural language queries → AI orchestration → 35-minute analysis
 
 **Learn More**
-- 📖 [Full Case Study:PatientOne Documentation →](docs/test-docs/patient-one-scenario/README.md)
+- 📖 [Full Case Study: PatientOne Documentation →](docs/test-docs/patient-one-scenario/README.md)
 - 📚 [Prompt Library](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/prompt-library)
 - 🏗️ [Architecture Details](docs/architecture/README.md)
 - 📚 [Documentation Hub](docs/INDEX.md)
+
+**Latest Feature (Jan 2026):** [Bayesian Uncertainty Quantification](servers/mcp-quantum-celltype-fidelity/PHASE1_IMPLEMENTATION_SUMMARY.md) for quantum fidelity predictions - enables confident clinical decisions with 95% confidence intervals
 
 ---
 
