@@ -38,16 +38,19 @@
 ```mermaid
 graph LR
     subgraph Users["👥 Users"]
+        direction TB
         U[Clinicians<br/>Bioinformaticians<br/>Researchers]
     end
 
     subgraph AI["🤖 AI Orchestration"]
+        direction TB
         CLAUDE[Claude<br/>Native MCP]
         GEMINI[Gemini<br/>SSE-based MCP]
         CUSTOM[Custom<br/>Custom MCP]
     end
 
     subgraph ServerTypes["🔧 MCP ServerTypes"]
+        direction TB
         S1[Clinical<br/>FHIR]
         S2[Genomics<br/>VCF/FASTQ]
         S3[Multi-omics<br/>RNA/Protein/Phospho]
@@ -58,6 +61,7 @@ graph LR
     end
 
     subgraph Output["📊 Orchestrated Outputs"]
+        direction TB
         O[Treatment Targets<br/>Predictions<br/>Visualizations]
     end
 
@@ -80,9 +84,8 @@ graph LR
     style ServerTypes fill:#d4edda
     style Output fill:#d1ecf1
 ```
-
-
-___
+    
+---
 
 ## Featured Use Case: PatientOne
 
