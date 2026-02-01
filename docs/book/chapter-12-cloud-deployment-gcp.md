@@ -150,6 +150,11 @@ graph TB
 - **Timeout**: 300s (5 min) for all services
 - **Concurrency**: 80 requests per container instance
 
+<kbd><img src="../../data/images/gcp-deploy.png" width="700"></kbd>
+
+**Figure 12.2: Google Cloud Run Services List**
+*GCP Console showing deployed MCP servers. Each service runs independently with auto-scaling, health monitoring, and HTTPS endpoints for SSE transport.*
+
 ---
 
 ## Deployment Option 1: Quick Deploy Script

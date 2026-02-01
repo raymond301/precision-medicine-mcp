@@ -274,6 +274,11 @@ Full advanced prompts: [`docs/prompt-library/educational-prompts.md#advanced-lev
 
 **Each book chapter has a corresponding notebook with hands-on exercises**:
 
+<kbd><img src="../../data/images/jupyter-preview.png" width="700"></kbd>
+
+**Figure 16.1: Jupyter Notebook Teaching Interface**
+*Interactive Python notebooks for hands-on learning with executable code cells, visualizations, and explanatory markdown. Students can modify parameters, run analyses, and see results in real-time.*
+
 **IMPORTANT**: These notebooks require you to deploy your own MCP servers to GCP Cloud Run. See **Appendix: Setup Guide** for complete deployment instructions.
 
 ### All 18 Notebooks

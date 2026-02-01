@@ -113,6 +113,13 @@ Correlate with overall survival and platinum response status.
 
 Full workflow: [`docs/for-researchers/README.md#biomarker-discovery--validation`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-researchers/README.md#biomarker-discovery--validation)
 
+### Research Interface
+
+<kbd><img src="../../data/images/streamlit-ui-preview.png" width="700"></kbd>
+
+**Figure 15.1: Streamlit Research Interface**
+*Web-based chat interface for exploratory analysis. Researchers can interact with all 12 MCP servers through natural language, visualize results, and export data for publications. Supports both Claude and Gemini AI models.*
+
 ---
 
 ## Prompt Engineering Patterns

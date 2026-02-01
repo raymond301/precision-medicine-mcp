@@ -18,6 +18,11 @@ Chapter 12 deployed MCP servers to public Cloud Run with `--allow-unauthenticate
 
 **Architecture change**: Public internet → Hospital VPN → VPC → Cloud Run → Epic FHIR (research endpoint only).
 
+<kbd><img src="../../data/images/clinical-personna.jpeg" width="600"></kbd>
+
+**Figure 13.1: Clinical User Personas**
+*Hospital deployment serves multiple user types with different access needs: clinical researchers, bioinformaticians, oncologists, and administrators. Each role has specific permissions and workflows within the HIPAA-compliant infrastructure.*
+
 ### HIPAA-Compliant Hospital Deployment Architecture
 
 ```mermaid
@@ -103,7 +108,7 @@ graph TB
     style LOGS fill:#fef3cd
 ```
 
-**Figure 13.1: HIPAA-Compliant Hospital Deployment Architecture**
+**Figure 13.2: HIPAA-Compliant Hospital Deployment Architecture**
 *Multi-layer security architecture: (1) Network Security: Hospital VPN + Cloud Firewall restricts access to authorized IPs only, (2) Authentication: Azure AD SSO with OAuth2 Proxy for token validation, (3) Private Networking: VPC-isolated Cloud Run services with private IPs and internal load balancer (no public internet access), (4) Data Protection: Secret Manager for credentials, AES-256 encrypted Cloud Storage with optional CSEK, 10-year immutable audit logs, (5) Compliance Controls: HIPAA Safe Harbor de-identification (18 identifiers removed), comprehensive audit logging, customer-managed encryption keys (CMEK), and signed Google Cloud HIPAA BAA.*
 
 **HIPAA Compliance Layers:**
