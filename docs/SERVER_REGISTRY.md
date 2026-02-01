@@ -2,7 +2,6 @@
 
 **Total Servers:** 12 | **Production Ready:** 7 (58%) | **Total Tools:** 124
 
-📋 **[Full Implementation Status Matrix →](architecture/servers.md)**
 📁 **[Individual Server Documentation →](../servers/README.md)**
 
 ---
@@ -70,10 +69,10 @@
 
 ## GCP Deployment Status
 
-**Deployed to Cloud Run:** 11/12 servers (mcp-epic is local-only)
-**Region:** us-central1
-**Transport:** SSE (Server-Sent Events) over HTTPS
-**Last Deployment:** 2026-01-31
+**Deployed to Cloud Run:** 11/12 servers (mcp-epic is local-only)  
+**Region:** us-central1  
+**Transport:** SSE (Server-Sent Events) over HTTPS  
+**Last Deployment:** 2026-01-31  
 
 See [Hospital Deployment Guide](for-hospitals/README.md) for HIPAA-compliant production setup.
 
