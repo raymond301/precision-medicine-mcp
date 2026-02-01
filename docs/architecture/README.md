@@ -287,6 +287,46 @@ Technical system design documentation:
 📖 **[PatientOne Workflow →](../test-docs/patient-one-scenario/README.md)**
 📖 **[PatientOne Architecture →](../test-docs/patient-one-scenario/architecture/overview.md)**
 
+___
+
+```mermaid
+
+sequenceDiagram
+    autonumber
+    actor User as Clinician / Researcher
+    participant AI as AI Orchestrator (Claude/Gemini)
+    box Silver MCP Server Layer
+        participant Clinical as Clinical (FHIR)
+        participant Bio as Omics/Imaging/Spatial
+        participant Quantum as Quantum/Perturbation
+    end
+    participant Output as Orchestrated Outputs
+
+    User->>AI: Submit complex query (e.g., "Predict target for Patient X")
+    
+    activate AI
+    AI->>AI: Analyze query & route to tools
+    
+    par Parallel Data Retrieval
+        AI->>Clinical: Request EHR/FHIR data
+        Clinical-->>AI: Patient history
+        AI->>Bio: Fetch VCF/Imaging/Spatial data
+        Bio-->>AI: Genomic & Spatial profiles
+    end
+
+    opt Advanced Modeling
+        AI->>Quantum: Run Qiskit simulation / GEARS GNN
+        Quantum-->>AI: Perturbation results
+    end
+
+    AI->>AI: Synthesize & Aggregate Data
+    
+    AI->>Output: Generate Targets & Visualizations
+    Output-->>User: Present Final Insights
+    deactivate AI
+
+```
+
 ---
 
 **Organization Principle:**
