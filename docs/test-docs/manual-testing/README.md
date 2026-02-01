@@ -180,27 +180,6 @@ cat TEST_1_CLINICAL_GENOMIC.txt  # Copy and paste into Claude Desktop
 
 ---
 
-## 🎯 Next Steps After Installation
-
-1. ✅ Run installation scripts (this folder)
-2. ✅ Verify all servers working
-3. 📋 Configure Claude Desktop (`../configs/`)
-4. 📋 Test with example prompts (`../docs/spatial/MCP_POC_Example_Prompts.md`)
-5. 📋 **Test end-to-end patient scenario** (`PatientOne-OvarianCancer/`)
-
----
-
-## 📚 Related Documentation
-
-- `../docs/spatial/MCP_POC_Example_Prompts.md` - 18 test prompts
-- `../../architecture/spatial-transcriptomics/README.md` - Spatial transcriptomics architecture
-- `../../architecture/imaging/README.md` - Imaging analysis architecture
-- `../patient-one-scenario/architecture/overview.md` - Patient-one scenario architecture
-- `../README.md` - Main project README
-- `PatientOne-OvarianCancer/implementation/` - End-to-end test data (17 files)
-
----
-
 **Last Updated:** December 29, 2025
 **Status:** ✅ Ready for Testing
 **New:** PatientOne v2.0 with enhanced multiomics analysis (9 tools, preprocessing + upstream regulators)
