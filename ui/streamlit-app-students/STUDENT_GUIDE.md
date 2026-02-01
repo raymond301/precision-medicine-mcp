@@ -6,11 +6,11 @@ Welcome to the **Student MCP Chat App**! This app is designed for the bioinforma
 
 This is **not** the full production app. It has safety features:
 
-✅ **Token Limits**: Max 50,000 tokens per session (~$1.50 max cost)
-✅ **Request Limits**: Max 50 requests per session
-✅ **Usage Tracking**: See your usage in real-time
-✅ **Auto-Warnings**: Alerts at 80% usage
-✅ **Easy Reset**: Clear conversation to reset limits
+✅ **Token Limits**: Max 50,000 tokens per session (~$1.50 max cost)  
+✅ **Request Limits**: Max 50 requests per session  
+✅ **Usage Tracking**: See your usage in real-time  
+✅ **Auto-Warnings**: Alerts at 80% usage  
+✅ **Easy Reset**: Clear conversation to reset limits  
 
 **Your instructor's app has NO limits** - this lets them test freely while you learn safely.
 
@@ -409,4 +409,3 @@ Track your progress:
 
 ---
 
-**Questions?** Ask in the study group channel! 💬
