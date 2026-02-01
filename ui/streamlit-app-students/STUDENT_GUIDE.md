@@ -388,15 +388,6 @@ Track your progress:
 
 ---
 
-## 📖 Additional Resources
-
-- **DEVELOPMENT.md** - Technical setup guide
-- **README.md** - Project overview
-- **MCP Server docs** - `servers/*/README.md`
-- **Instructor's Slack** - Questions channel
-
----
-
 ## 🚀 Ready to Start?
 
 1. Open the student app URL (or run locally)
