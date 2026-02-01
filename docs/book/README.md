@@ -255,15 +255,14 @@ Read chapters 1-18 in order. Each chapter builds on previous concepts.
 
 **Issues/Bugs**: https://github.com/lynnlangit/precision-medicine-mcp/issues
 **Documentation**: https://github.com/lynnlangit/precision-medicine-mcp
-**Discussions**: GitHub Discussions (coming soon)
 
 ---
 
 ## License
 
-**Book content**: Copyright © 2026 Lynn Langit. All rights reserved.
-**Code examples**: Apache License 2.0
-**Sample data**: CC0 1.0 Universal (Public Domain)
+**Book content**: Copyright © 2026 Lynn Langit. All rights reserved.  
+**Code examples**: Apache License 2.0  
+**Sample data**: CC0 1.0 Universal (Public Domain)  
 
 You may:
 - Use all code for commercial or non-commercial projects
@@ -290,7 +289,7 @@ Special thanks to the precision medicine research community for defining the wor
 
 ## About the Author
 
-**Lynn Langit** is a cloud architect specializing in bioinformatics and genomic-scale data analysis. She works with bioinformatics researchers worldwide to build and optimize genomic data pipelines on GCP, AWS, and Azure. Lynn is an AWS Community Hero, Google Cloud Developer Expert, and Microsoft Regional Director. She has authored 30 LinkedIn Learning courses on cloud computing and AI with over 5 million student views.
+**Lynn Langit** is a cloud architect specializing in bioinformatics and genomic-scale data analysis. She works with bioinformatics researchers worldwide to build and optimize genomic data pipelines on GCP, AWS, and Azure. Lynn is a Google AI & Cloud Developer Expert, and Microsoft Regional Director. She has authored 30 LinkedIn Learning courses on cloud computing and AI with over 5 million student views.
 
 **Contact**:
 - GitHub: [@lynnlangit](https://github.com/lynnlangit)
