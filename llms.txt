@@ -11,13 +11,7 @@ Human-in-the-Loop (CitL): Explicit validation steps for oncologists and clinicia
 Teaching/Example First: Optimized for clear documentation, persona-based navigation, and low-cost "DRY_RUN" execution.
 
 Key Repository Structure
-/servers/: The logic for the 9 custom MCP servers.
-
-/clinical/: FHIR and Epic patient history servers.
-
-/omics/: Genomic (TCGA), Transcriptomic, and Spatial (Visium) servers.
-
-/analysis/: Pathway enrichment (Reactome) and stitching logic.
+/servers/: The logic for the 10 custom MCP servers.
 
 /docs/: Human-consumable documentation.
 
@@ -36,7 +30,7 @@ Protocol: Model Context Protocol (MCP) using SSE (Server-Sent Events) transport.
 
 Cloud: Google Cloud Platform (GCP) - Cloud Run, Cloud Functions.
 
-AI Orchestration: Gemini 2.0 / Claude 3.5 Sonnet acting as the central "Stitcher."
+AI Orchestration: Gemini 3.0 / Claude 4.5 Opus acting as the central "Stitcher."
 
 Bioinformatics: STAR Aligner, TCGA analysis, Visium spatial transcriptomics processing.
 
@@ -45,7 +39,7 @@ Domain: When generating code or analysis, adhere to HIPAA-principled data handli
 
 Style: Maintain a "Co-pilot" persona—prioritize Clinician-in-the-Loop validation over fully autonomous decision-making.
 
-Orchestration: Always consider how a request might be distributed across the 9 existing MCP servers before proposing new standalone logic.
+Orchestration: Always consider how a request might be distributed across the 10 existing MCP servers before proposing new standalone logic.
 
 Why this is effective
 Context Efficiency: Instead of an LLM reading every README.md and script, it reads this single file to build a mental model.
