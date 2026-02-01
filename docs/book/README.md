@@ -302,7 +302,7 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 
 **Last Updated**: 2026-01-31
 **Version**: 1.0 (Draft)
-**Status**: In progress (Chapters 1-7 complete, Part 2 finished!)
+**Status**: In progress (Chapters 1-10 complete, almost done with Part 3!)
 
 ## Writing Progress
 
@@ -317,10 +317,10 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 - ✅ Chapter 6: Multi-Omics Integration (14 pages)
 - ✅ Chapter 7: Spatial Transcriptomics (15 pages)
 
-📝 **Part 3: Advanced Capabilities** (Coming next)
-- ⏳ Chapter 8: Cell Segmentation with DeepCell
-- ⏳ Chapter 9: Treatment Response Prediction
-- ⏳ Chapter 10: Quantum Cell-Type Fidelity
+📝 **Part 3: Advanced Capabilities** (In progress)
+- ✅ Chapter 8: Cell Segmentation with DeepCell (15 pages)
+- ✅ Chapter 9: Treatment Response Prediction (15 pages)
+- ✅ Chapter 10: Quantum Cell-Type Fidelity (16 pages)
 - ⏳ Chapter 11: Imaging and Histopathology
 
-**Progress**: 103 pages written (~34% of target 300 pages)
+**Progress**: 149 pages written (~50% of target 300 pages)
