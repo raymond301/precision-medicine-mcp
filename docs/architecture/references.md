@@ -178,10 +178,10 @@ Curated list of key publications, datasets, and technical resources for precisio
 If you use any of these references in your research with this repository, please cite both the original publication and this repository:
 
 ```bibtex
-@software{langit2025precision,
+@software{langit2026precision,
   author = {Langit, Lynn},
   title = {Precision Medicine MCP Servers: AI-Orchestrated Clinical Bioinformatics},
-  year = {2025},
+  year = {2026},
   url = {https://github.com/lynnlangit/precision-medicine-mcp},
   note = {PatientOne - In memory of a dear friend}
 }
@@ -189,6 +189,6 @@ If you use any of these references in your research with this repository, please
 
 ---
 
-**Last Updated:** December 29, 2025
-**Maintained by:** Lynn Langit
-**Contributions:** Pull requests welcome to add relevant publications
+**Last Updated:** January 31, 2026  
+**Maintained by:** Lynn Langit  
+**Contributions:** Pull requests welcome to add relevant publications  
