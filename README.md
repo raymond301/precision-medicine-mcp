@@ -91,21 +91,6 @@ ___
 - 🏗️ [Architecture Details](docs/architecture/README.md)
 - 📚 [Documentation Hub](docs/INDEX.md)
 
-**Latest Feature (Jan 2026):** [Bayesian Uncertainty Quantification](servers/mcp-quantum-celltype-fidelity/PHASE1_IMPLEMENTATION_SUMMARY.md) for quantum fidelity predictions - enables confident clinical decisions with 95% confidence intervals
-
 ---
-
-## License & Acknowledgments
-
-**Apache 2.0 License** - Open source for research and commercial use
-
-This project is dedicated to **PatientOne** - in memory of a dear friend who passed from High-Grade Serous Ovarian Carcinoma in 2025. Her courage inspired the creation of these AI-orchestrated bioinformatics tools.
-
-**For detailed acknowledgments and scientific references:**
-- [Complete Acknowledgments](ACKNOWLEDGMENTS.md)
-- [Scientific References](docs/architecture/references.md)
-
----
-
 
 
