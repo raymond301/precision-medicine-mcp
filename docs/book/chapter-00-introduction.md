@@ -124,12 +124,15 @@ By the end of this book, you'll have deployed:
 
 ---
 
-### Appendix: Setup Guide
-**Goal**: Quick reference for setting up all 12 MCP servers
+### Appendices
+**Goal**: Quick reference guides for common tasks
 
-- **Appendix**: MCP Server Setup Guide — Prerequisites, local setup, cloud deployment, troubleshooting
+- **Appendix A**: Quick Reference Guides — Server registry, tool catalog, prompt templates, common errors
+- **Appendix B**: Installation and Setup — Prerequisites, local setup, cloud deployment, troubleshooting
+- **Appendix C**: PatientOne Complete Dataset — Full data manifest, file formats, access methods
+- **Appendix D**: Bias and Ethics — Framework for bias detection, audit checklist, ethical deployment
 
-**Time to complete**: Reference guide (1-2 hours for full setup)
+**Time to complete**: Reference guides (as needed)
 
 ---
 
@@ -312,5 +315,5 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 
 **Last Updated**: 2026-02-01
 **Version**: 1.0 (Draft)
-**Status**: All 18 chapters complete + Appendix | Phase 2 revision complete (Chapters 2-10, 55% reduction) | All 14 visual diagrams added | All 18 Jupyter notebooks created
+**Status**: All 18 chapters complete + 4 Appendices | Phase 2 revision complete (Chapters 2-10, 55% reduction) | All 14 visual diagrams added | All 18 Jupyter notebooks created
 

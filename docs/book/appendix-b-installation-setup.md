@@ -1,4 +1,4 @@
-# Appendix: MCP Server Setup Guide
+# Appendix B: Installation and Setup Guide
 
 *Quick reference for setting up your own copy of all MCP servers*
 
