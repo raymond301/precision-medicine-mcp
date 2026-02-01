@@ -63,10 +63,10 @@ This project is dedicated to the memory of a dear friend who passed away from Hi
 If you use this repository in your research, please cite:
 
 ```bibtex
-@software{langit2025precision,
+@software{langit2026precision,
   author = {Langit, Lynn},
   title = {Precision Medicine MCP Servers: AI-Orchestrated Clinical Bioinformatics},
-  year = {2025},
+  year = {2026},
   url = {https://github.com/lynnlangit/precision-medicine-mcp},
   note = {PatientOne - In memory of a dear friend}
 }
@@ -78,4 +78,4 @@ We welcome contributions from the precision medicine and bioinformatics communit
 
 ---
 
-**Last Updated:** December 29, 2025
+**Last Updated:** January 31, 2026
