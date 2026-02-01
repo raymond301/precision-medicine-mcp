@@ -58,6 +58,98 @@ ENV MCP_PORT=3001
 
 Full SSE transport docs: [`servers/mcp-fgbio/README.md#sse-transport`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/servers/mcp-fgbio#sse-transport)
 
+### GCP Cloud Run Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph "Developer Workstation"
+        CODE[Source Code<br/>servers/mcp-*/]
+        DOCKER[Dockerfile<br/>Python 3.11<br/>Dependencies]
+        BUILD_CMD[gcloud builds submit<br/>or deploy.sh script]
+    end
+
+    subgraph "Google Cloud Build"
+        BUILD[Cloud Build<br/>Docker image build<br/>Machine type: E2]
+        REGISTRY[Container Registry<br/>gcr.io/PROJECT/mcp-*<br/>Versioned images]
+    end
+
+    subgraph "Google Cloud Run"
+        direction TB
+        subgraph "11 Deployed Services"
+            FGBIO_SVC[mcp-fgbio<br/>CPU: 1, RAM: 2Gi<br/>Timeout: 300s]
+            MULTI_SVC[mcp-multiomics<br/>CPU: 2, RAM: 4Gi<br/>Timeout: 300s]
+            SPATIAL_SVC[mcp-spatialtools<br/>CPU: 2, RAM: 4Gi<br/>Timeout: 300s]
+            DEEP_SVC[mcp-deepcell<br/>CPU: 2, RAM: 4Gi<br/>Timeout: 300s]
+            OTHER[+ 7 other servers...]
+        end
+    end
+
+    subgraph "Storage & Secrets"
+        GCS[Cloud Storage<br/>gs://sample-inputs-*<br/>Patient data, images]
+        SECRET[Secret Manager<br/>API keys<br/>Credentials]
+    end
+
+    subgraph "Client Integration"
+        CLAUDE[Claude API<br/>Anthropic Sonnet 4.5<br/>MCP Client]
+        STREAMLIT[Streamlit UI<br/>Web interface<br/>SSE transport]
+    end
+
+    CODE --> DOCKER
+    DOCKER --> BUILD_CMD
+    BUILD_CMD --> BUILD
+    BUILD --> REGISTRY
+    REGISTRY --> FGBIO_SVC
+    REGISTRY --> MULTI_SVC
+    REGISTRY --> SPATIAL_SVC
+    REGISTRY --> DEEP_SVC
+    REGISTRY --> OTHER
+
+    GCS --> FGBIO_SVC
+    GCS --> MULTI_SVC
+    GCS --> SPATIAL_SVC
+    GCS --> DEEP_SVC
+
+    SECRET --> FGBIO_SVC
+    SECRET --> MULTI_SVC
+
+    FGBIO_SVC --> CLAUDE
+    MULTI_SVC --> CLAUDE
+    SPATIAL_SVC --> CLAUDE
+    DEEP_SVC --> CLAUDE
+    OTHER --> CLAUDE
+
+    FGBIO_SVC --> STREAMLIT
+    MULTI_SVC --> STREAMLIT
+
+    style CODE fill:#d1ecf1
+    style BUILD fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style REGISTRY fill:#cce5ff
+    style FGBIO_SVC fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style MULTI_SVC fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style SPATIAL_SVC fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style DEEP_SVC fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style GCS fill:#e1ecf4
+    style SECRET fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    style CLAUDE fill:#cce5ff,stroke:#004085,stroke-width:2px
+```
+
+**Figure 12.1: GCP Cloud Run Deployment Architecture**
+*End-to-end deployment pipeline: (1) Source code + Dockerfile → Cloud Build with E2 machine type, (2) Docker images stored in Container Registry (gcr.io), (3) 11 Cloud Run services deployed with varying resource configurations (1-2 CPUs, 2-4Gi RAM, 300s timeout), (4) Integration with Cloud Storage for patient data, Secret Manager for credentials, (5) Client access via Claude API (MCP client) and Streamlit UI (web interface) using SSE transport over HTTPS.*
+
+**Key Components:**
+- **Cloud Build**: Automated Docker image builds with machine type configuration
+- **Container Registry**: Versioned image storage (gcr.io/PROJECT/mcp-SERVER)
+- **Cloud Run Services**: 11 serverless deployments with auto-scaling 0-1000
+- **Cloud Storage**: Patient data, genomics files, images (gs:// URIs)
+- **Secret Manager**: API keys and credentials (secure injection)
+- **SSE Transport**: HTTPS endpoints for MCP protocol over HTTP
+
+**Resource Configuration:**
+- **Lightweight** (mcp-fgbio, mcp-mockepic): 1 CPU, 2Gi RAM
+- **Compute-intensive** (mcp-multiomics, mcp-spatialtools, mcp-deepcell): 2 CPU, 4Gi RAM
+- **Timeout**: 300s (5 min) for all services
+- **Concurrency**: 80 requests per container instance
+
 ---
 
 ## Deployment Option 1: Quick Deploy Script

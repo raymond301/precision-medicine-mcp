@@ -41,9 +41,89 @@ F(|ψ_A⟩, |ψ_B⟩) = |⟨ψ_A|ψ_B⟩|²
 3. **Parameter-shift rule**: Exact gradients for training (works on real quantum hardware)
 4. **Bayesian UQ**: Monte Carlo sampling from parameter distributions → confidence intervals
 
+### Quantum Circuit Architecture and Workflow
+
+```mermaid
+graph TB
+    subgraph "Input: Cell Gene Expression"
+        GENES[8 Selected Genes<br/>CD3D, CD8A, EPCAM<br/>MKI67, TP53, VIM, etc.<br/>Normalized 0-1]
+    end
+
+    subgraph "Parameterized Quantum Circuit (PQC)"
+        direction TB
+        ENCODE[Feature Encoding Layer<br/>RX(gene1), RY(gene2), RZ(gene3)<br/>Map expression → rotation angles]
+        VAR1[Variational Layer 1<br/>RX(θ1), RY(θ1), RZ(θ1)<br/>CNOT entanglement ring]
+        VAR2[Variational Layer 2<br/>RX(θ2), RY(θ2), RZ(θ2)<br/>CNOT entanglement ring]
+        VAR3[Variational Layer 3<br/>RX(θ3), RY(θ3), RZ(θ3)<br/>CNOT entanglement ring]
+        STATE[Output Statevector<br/>|ψ⟩ ∈ ℂ^256<br/>Cell embedding in Hilbert space]
+    end
+
+    subgraph "Training: Contrastive Learning"
+        POS[Positive Pairs<br/>Same cell type<br/>Maximize fidelity]
+        NEG[Negative Pairs<br/>Different cell types<br/>Minimize fidelity]
+        LOSS[Contrastive Loss<br/>F(same) → 1<br/>F(diff) → 0]
+        OPT[Optimizer<br/>Adam<br/>Update θ parameters]
+    end
+
+    subgraph "Bayesian Uncertainty Quantification"
+        MC[Monte Carlo Sampling<br/>Sample from P(θ|data)<br/>100 parameter sets]
+        FIDELITY[Compute Fidelity<br/>F = |⟨ψ_A|ψ_B⟩|²<br/>For each sample]
+        CI[Credible Intervals<br/>Mean ± 95% CI<br/>F = 0.87 [0.82, 0.91]]
+    end
+
+    subgraph "Output: Classification + Confidence"
+        CLASS[Cell Type Prediction<br/>CD8+ T cell]
+        CONF[Confidence Score<br/>High (95% CI narrow)]
+        IMMUNO[Immune Evasion Detection<br/>Fidelity drop indicates<br/>tumor escape]
+    end
+
+    GENES --> ENCODE
+    ENCODE --> VAR1
+    VAR1 --> VAR2
+    VAR2 --> VAR3
+    VAR3 --> STATE
+
+    STATE --> POS
+    STATE --> NEG
+    POS --> LOSS
+    NEG --> LOSS
+    LOSS --> OPT
+    OPT --> VAR1
+
+    STATE --> MC
+    MC --> FIDELITY
+    FIDELITY --> CI
+
+    CI --> CLASS
+    CI --> CONF
+    CI --> IMMUNO
+
+    style GENES fill:#d1ecf1
+    style ENCODE fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style VAR1 fill:#cce5ff
+    style VAR2 fill:#cce5ff
+    style VAR3 fill:#cce5ff
+    style STATE fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style LOSS fill:#e1ecf4
+    style MC fill:#fce8e8
+    style CI fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style CONF fill:#d4edda,stroke:#28a745,stroke-width:2px
+```
+
+**Figure 10.1: Quantum Circuit Architecture and Bayesian UQ Workflow**
+*Parameterized Quantum Circuit (PQC) with 3-layer architecture: (1) Feature encoding maps 8 gene expression values to rotation gates (RX, RY, RZ), (2) Three variational layers with learnable parameters (θ₁, θ₂, θ₃) and CNOT entanglement gates in ring topology, (3) Output statevector |ψ⟩ ∈ ℂ²⁵⁶ represents cell in 256D Hilbert space. Training uses contrastive learning to maximize same-type fidelity and minimize different-type fidelity. Bayesian UQ performs Monte Carlo sampling from parameter distribution P(θ|data) to compute 95% credible intervals on fidelity scores, providing calibrated confidence for clinical decisions.*
+
+**Quantum Fidelity Formula:**
+```
+F(|ψ_A⟩, |ψ_B⟩) = |⟨ψ_A|ψ_B⟩|²
+```
+- F = 1: Perfect match (identical cell types)
+- F = 0: Orthogonal (completely different)
+- 0 < F < 1: Partial similarity with quantified confidence
+
 ---
 
-## The Six mcp-quantum-celltype-fidelity Tools
+## The 6 mcp-quantum-celltype-fidelity Tools
 
 ### 1. learn_spatial_cell_embeddings
 

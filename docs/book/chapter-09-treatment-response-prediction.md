@@ -36,9 +36,79 @@ The `mcp-perturbation` server uses **GEARS (Graph-Enhanced Gene Activation and R
 3. **Prediction**: Given patient baseline expression + drug targets → predicts post-treatment expression
 4. **Uncertainty**: Bayesian layers provide confidence intervals
 
+### GEARS Treatment Response Prediction Workflow
+
+```mermaid
+graph TB
+    subgraph "Input Data"
+        BASELINE[Patient Baseline<br/>RNA-seq expression<br/>20,000 genes]
+        DRUG[Drug Target Genes<br/>PARP1 (olaparib)<br/>PIK3CA (alpelisib)]
+        KNOWLEDGE[Knowledge Graph<br/>Gene regulatory network<br/>TF binding, PPI]
+    end
+
+    subgraph "Phase 1: Data Preparation"
+        LOAD[perturbation_load_dataset<br/>Load training data<br/>GSE184880: 487k cells]
+        PREPROCESS[Preprocessing<br/>Log-normalization<br/>Select 7000 HVGs]
+    end
+
+    subgraph "Phase 2: Model Training"
+        BUILD[perturbation_build_model<br/>GEARS GNN architecture<br/>Graph attention layers]
+        TRAIN[perturbation_train_model<br/>Train on perturbation data<br/>Epochs, batch size]
+        VALIDATE[Validation<br/>Unseen perturbations<br/>Pearson R > 0.85]
+    end
+
+    subgraph "Phase 3: Prediction"
+        PREDICT[perturbation_predict_response<br/>Patient expression + drug<br/>Predict post-treatment state]
+        MULTI[perturbation_predict_combination<br/>Multi-gene perturbations<br/>Drug combinations]
+        UQ[Uncertainty Quantification<br/>Bayesian layers<br/>Confidence intervals]
+    end
+
+    subgraph "Output"
+        EXPR[Predicted Expression<br/>20,000 genes<br/>Post-treatment state]
+        RANK[Treatment Ranking<br/>1. PARP+PI3K<br/>2. PARP only<br/>3. PI3K only]
+        CONF[Confidence Scores<br/>High: 0.89<br/>Medium: 0.72]
+        DE[Differential Genes<br/>Up: 234<br/>Down: 189]
+    end
+
+    BASELINE --> PREDICT
+    DRUG --> PREDICT
+    KNOWLEDGE --> BUILD
+
+    LOAD --> PREPROCESS
+    PREPROCESS --> BUILD
+    BUILD --> TRAIN
+    TRAIN --> VALIDATE
+    VALIDATE --> PREDICT
+    VALIDATE --> MULTI
+
+    PREDICT --> EXPR
+    MULTI --> RANK
+    PREDICT --> UQ
+    UQ --> CONF
+    EXPR --> DE
+
+    style BASELINE fill:#d1ecf1
+    style DRUG fill:#d1ecf1
+    style KNOWLEDGE fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style BUILD fill:#cce5ff
+    style TRAIN fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style PREDICT fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style RANK fill:#d4edda,stroke:#28a745,stroke-width:2px
+```
+
+**Figure 9.1: GEARS Treatment Response Prediction Workflow**
+*Three-phase workflow: (1) Data Preparation with scRNA-seq perturbation dataset (487k cells, 7000 highly variable genes), (2) Model Training using GEARS graph neural network with gene regulatory knowledge graphs, achieving Pearson R > 0.85 validation accuracy, (3) Prediction for PatientOne with uncertainty quantification, ranking treatment options (PARP+PI3K combination predicted as most effective) with confidence scores and differential gene analysis.*
+
+**Key Features:**
+- **Graph-enhanced learning**: Integrates biological knowledge graphs
+- **40% better than VAEs**: Higher precision on unseen perturbations
+- **Multi-gene support**: Native drug combination predictions
+- **Uncertainty quantification**: Bayesian confidence intervals
+- **Clinical integration**: Patient expression → treatment ranking
+
 ---
 
-## The Five mcp-perturbation Tools
+## The 8 mcp-perturbation Tools
 
 ### 1. perturbation_load_dataset
 

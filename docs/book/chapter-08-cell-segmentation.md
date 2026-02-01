@@ -20,9 +20,84 @@ Chapter 7 analyzed spatial transcriptomics with 10X Visium (55μm spots containi
 
 The `mcp-deepcell` server uses **DeepCell-TF deep learning models** for nuclear and membrane segmentation, then classifies cells by marker intensity.
 
+### DeepCell Segmentation & Classification Pipeline
+
+```mermaid
+graph TB
+    subgraph "Input Images"
+        DAPI[DAPI<br/>Nuclear stain<br/>2048×2048 TIFF]
+        KI67[Ki67<br/>Proliferation marker<br/>Channel 1]
+        TP53[TP53<br/>Mutation marker<br/>Channel 2]
+        CD8[CD8<br/>T-cell marker<br/>Channel 3]
+    end
+
+    subgraph "Phase 1: Cell Segmentation"
+        LOAD[load_image_from_gcs<br/>Handle gs:// URIs<br/>Multi-channel TIFF]
+        ENGINE[DeepCellEngine<br/>Load pretrained models<br/>Nuclear or Membrane]
+        PREPROCESS[Preprocessing<br/>Normalize 0-1<br/>Add batch dims]
+        INFER[Deep Learning Inference<br/>DeepCell-TF CNN<br/>Cell boundary detection]
+        FILTER[Post-processing<br/>Filter by size<br/>10-500 pixels]
+    end
+
+    subgraph "Phase 2: Phenotype Classification"
+        INTENSITY[IntensityClassifier<br/>Measure per-cell intensity<br/>Within segmented regions]
+        THRESHOLD[Thresholding<br/>Otsu's method<br/>Marker+/- classification]
+        MULTIPLEX[Multi-marker phenotyping<br/>Ki67+/TP53+<br/>Double-positive cells]
+    end
+
+    subgraph "Output"
+        MASKS[Segmentation Masks<br/>1247 cells detected<br/>Cell ID per pixel]
+        PHENO[Cell Phenotypes<br/>562 Ki67+<br/>389 TP53+<br/>187 double-positive]
+        METRICS[Quality Metrics<br/>Mean cell size<br/>Marker expression]
+        VIZ[Visualizations<br/>Colored masks<br/>Spatial cell maps]
+    end
+
+    DAPI --> LOAD
+    KI67 --> LOAD
+    TP53 --> LOAD
+    CD8 --> LOAD
+
+    LOAD --> ENGINE
+    ENGINE --> PREPROCESS
+    PREPROCESS --> INFER
+    INFER --> FILTER
+    FILTER --> MASKS
+
+    MASKS --> INTENSITY
+    KI67 --> INTENSITY
+    TP53 --> INTENSITY
+    CD8 --> INTENSITY
+
+    INTENSITY --> THRESHOLD
+    THRESHOLD --> MULTIPLEX
+    MULTIPLEX --> PHENO
+    PHENO --> METRICS
+    MASKS --> VIZ
+    PHENO --> VIZ
+
+    style DAPI fill:#d1ecf1
+    style KI67 fill:#d1ecf1
+    style TP53 fill:#d1ecf1
+    style CD8 fill:#d1ecf1
+    style ENGINE fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style INFER fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style MULTIPLEX fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style PHENO fill:#d4edda,stroke:#28a745,stroke-width:2px
+```
+
+**Figure 8.1: DeepCell Segmentation and Phenotype Classification Pipeline**
+*Two-phase workflow: (1) Cell Segmentation using DeepCell-TF deep learning models (nuclear or membrane CNN) with size-based filtering, detecting 1,247 cells in PatientOne MxIF image. (2) Phenotype Classification measuring per-cell marker intensity (Ki67, TP53, CD8) with Otsu thresholding and multi-marker phenotyping, identifying 562 Ki67+ proliferating cells, 389 TP53+ mutant cells, and 187 double-positive aggressive cells.*
+
+**Key Capabilities:**
+- **Deep learning models**: Pre-trained DeepCell-TF CNNs (nuclear/membrane)
+- **Real-time segmentation**: ~5s per 2048×2048 image (CPU mode)
+- **GCS integration**: Direct gs:// URI support for Cloud Storage
+- **Multi-marker phenotyping**: Up to 7 markers simultaneously
+- **Intensity-based classification**: Otsu, manual, or percentile thresholds
+
 ---
 
-## The Four mcp-deepcell Tools
+## The 4 mcp-deepcell Tools
 
 ### 1. segment_cells
 

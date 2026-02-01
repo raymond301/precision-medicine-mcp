@@ -18,6 +18,113 @@ Chapter 12 deployed MCP servers to public Cloud Run with `--allow-unauthenticate
 
 **Architecture change**: Public internet → Hospital VPN → VPC → Cloud Run → Epic FHIR (research endpoint only).
 
+### HIPAA-Compliant Hospital Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph "Hospital Network (On-Premise)"
+        RESEARCHER[Researcher<br/>Hospital workstation<br/>VPN connected]
+        AD[Azure Active Directory<br/>Hospital SSO<br/>User authentication]
+        EPIC[Epic FHIR API<br/>Research endpoint<br/>OAuth 2.0]
+    end
+
+    subgraph "Network Security"
+        VPN[Hospital VPN<br/>Point-to-site<br/>Authorized IPs only]
+        FIREWALL[Cloud Firewall<br/>VPC ingress rules<br/>Deny all by default]
+    end
+
+    subgraph "Google Cloud (HIPAA-Eligible)"
+        direction TB
+
+        subgraph "VPC Private Network"
+            PROXY[OAuth2 Proxy<br/>Azure AD integration<br/>Token validation]
+            ALB[Load Balancer<br/>Private IP<br/>TLS 1.3]
+        end
+
+        subgraph "Cloud Run Services (Private)"
+            EPIC_SVC[mcp-epic<br/>FHIR integration<br/>De-identification]
+            FGBIO_SVC[mcp-fgbio<br/>Genomics QC]
+            MULTI_SVC[mcp-multiomics<br/>Multi-omics]
+            SPATIAL_SVC[mcp-spatialtools<br/>Spatial analysis]
+        end
+
+        subgraph "Data Protection"
+            SECRET[Secret Manager<br/>Encrypted credentials<br/>CMEK enabled]
+            STORAGE[Cloud Storage<br/>AES-256 encrypted<br/>CSEK optional]
+            LOGS[Cloud Logging<br/>10-year retention<br/>Immutable audit trail]
+        end
+    end
+
+    subgraph "Compliance Controls"
+        DEIDENT[De-identification Layer<br/>HIPAA Safe Harbor<br/>18 identifiers removed]
+        AUDIT[Audit Logging<br/>All API calls<br/>10-year retention]
+        ENCRYPT[Encryption at Rest<br/>AES-256 + CMEK<br/>Customer-managed keys]
+        BAA[Business Associate Agreement<br/>GCP HIPAA BAA signed<br/>Covered services]
+    end
+
+    RESEARCHER --> VPN
+    VPN --> FIREWALL
+    FIREWALL --> PROXY
+
+    RESEARCHER --> AD
+    AD --> PROXY
+    PROXY --> ALB
+    ALB --> EPIC_SVC
+    ALB --> FGBIO_SVC
+    ALB --> MULTI_SVC
+    ALB --> SPATIAL_SVC
+
+    EPIC_SVC --> EPIC
+    EPIC_SVC --> DEIDENT
+
+    EPIC_SVC --> SECRET
+    FGBIO_SVC --> SECRET
+    EPIC_SVC --> STORAGE
+    FGBIO_SVC --> STORAGE
+
+    EPIC_SVC --> AUDIT
+    FGBIO_SVC --> AUDIT
+    MULTI_SVC --> AUDIT
+    SPATIAL_SVC --> AUDIT
+
+    SECRET --> ENCRYPT
+    STORAGE --> ENCRYPT
+    AUDIT --> LOGS
+
+    style RESEARCHER fill:#d1ecf1
+    style VPN fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    style FIREWALL fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    style PROXY fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style EPIC_SVC fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style DEIDENT fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style AUDIT fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style ENCRYPT fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style BAA fill:#e1ecf4,stroke:#0066cc,stroke-width:2px
+    style LOGS fill:#fef3cd
+```
+
+**Figure 13.1: HIPAA-Compliant Hospital Deployment Architecture**
+*Multi-layer security architecture: (1) Network Security: Hospital VPN + Cloud Firewall restricts access to authorized IPs only, (2) Authentication: Azure AD SSO with OAuth2 Proxy for token validation, (3) Private Networking: VPC-isolated Cloud Run services with private IPs and internal load balancer (no public internet access), (4) Data Protection: Secret Manager for credentials, AES-256 encrypted Cloud Storage with optional CSEK, 10-year immutable audit logs, (5) Compliance Controls: HIPAA Safe Harbor de-identification (18 identifiers removed), comprehensive audit logging, customer-managed encryption keys (CMEK), and signed Google Cloud HIPAA BAA.*
+
+**HIPAA Compliance Layers:**
+
+1. **Legal**: Google Cloud HIPAA BAA signed + IRB approval
+2. **Network Isolation**: VPC private network, no public access, hospital VPN only
+3. **Authentication**: Azure AD SSO with OAuth 2.0 tokens
+4. **Encryption at Rest**: AES-256 (GCP default) + CMEK (customer keys)
+5. **Encryption in Transit**: TLS 1.3 for all connections
+6. **De-identification**: Automatic HIPAA Safe Harbor (18 identifiers removed)
+7. **Audit Logging**: All API calls logged, 10-year retention, immutable
+8. **Access Control**: IAM roles, least privilege principle
+9. **Epic Integration**: Research endpoint only (not production EHR)
+10. **Data Minimization**: Only approved researchers, IRB-authorized data
+
+**Critical: No Public Internet Access**
+- All Cloud Run services: `--no-allow-unauthenticated`
+- VPC-only ingress: `--ingress=internal`
+- Load balancer: Private IP only (10.x.x.x range)
+- Researcher access: Hospital VPN → VPC → Cloud Run
+
 ---
 
 ## Prerequisites
