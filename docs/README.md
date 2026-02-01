@@ -1,7 +1,5 @@
 # Documentation
 
-**→ See [Documentation Index (INDEX.md)](INDEX.md) for complete navigation**
-
 This directory contains all documentation for the Precision Medicine MCP system, organized by audience and topic.
 
 ---
