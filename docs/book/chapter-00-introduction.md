@@ -135,12 +135,20 @@ By the end of this book, you'll have deployed:
 
 ## Companion Materials
 
-### Jupyter Notebooks (18 notebooks)
+### Jupyter Notebooks (18 notebooks - ALL CREATED ✅)
 Each chapter has a hands-on Jupyter notebook in [`companion-notebooks/`](./companion-notebooks/):
 - Executable code examples
 - Interactive exercises
 - "Try changing this parameter..." experiments
 - Links to deployed Cloud Run servers (**requires you to deploy your own MCP servers**)
+
+**ALL 18 NOTEBOOKS NOW AVAILABLE**:
+- Part 1 (Ch 1-3): PatientOne demo, architecture, testing
+- Part 2 (Ch 4-7): Clinical, genomics, multi-omics, spatial
+- Part 3 (Ch 8-11): DeepCell, GEARS, quantum, imaging
+- Part 4 (Ch 12-14): Cloud deployment, hospital deployment, operations
+- Part 5 (Ch 15-16): Research workflows, teaching exercises
+- Part 6 (Ch 17-18): Funding calculator, lessons learned
 
 **IMPORTANT**: Notebooks require you to deploy MCP servers to your GCP Cloud Run. They will NOT work without your own infrastructure.
 
@@ -304,5 +312,5 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 
 **Last Updated**: 2026-02-01
 **Version**: 1.0 (Draft)
-**Status**: All 18 chapters complete + Appendix | Phase 2 revision complete (Chapters 2-10, 55% reduction)
+**Status**: All 18 chapters complete + Appendix | Phase 2 revision complete (Chapters 2-10, 55% reduction) | All 14 visual diagrams added | All 18 Jupyter notebooks created
 

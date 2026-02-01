@@ -280,24 +280,24 @@ Full advanced prompts: [`docs/prompt-library/educational-prompts.md#advanced-lev
 
 | Part | Chapter | Notebook | Topics |
 |------|---------|----------|--------|
-| **Part 1** | 1 | `chapter-01-patientone-story.ipynb` | PatientOne workflow demo |
-| | 2 | `chapter-02-architecture.ipynb` | MCP orchestration |
-| | 3 | `chapter-03-testing.ipynb` | Test coverage, cost analysis |
-| **Part 2** | 4 | `chapter-04-clinical-data.ipynb` | FHIR integration |
-| | 5 | `chapter-05-genomics.ipynb` | VCF parsing, annotation |
-| | 6 | `chapter-06-multiomics.ipynb` | HAllA, Stouffer analysis |
-| | 7 | `chapter-07-spatial.ipynb` | Spatial transcriptomics |
-| **Part 3** | 8 | `chapter-08-deepcell.ipynb` | Cell segmentation |
-| | 9 | `chapter-09-treatment-response.ipynb` | GEARS GNN prediction |
-| | 10 | `chapter-10-quantum.ipynb` | Quantum fidelity, Bayesian UQ |
-| | 11 | `chapter-11-imaging.ipynb` | H&E, MxIF analysis |
-| **Part 4** | 12 | `chapter-12-cloud-deployment.ipynb` | Docker, Cloud Run |
-| | 13 | `chapter-13-hospital-deployment.ipynb` | HIPAA, VPC, SSO |
-| | 14 | `chapter-14-operations.ipynb` | Logging, alerts, runbooks |
-| **Part 5** | 15 | `chapter-15-research.ipynb` | Research workflows |
-| | 16 | `chapter-16-education.ipynb` | Educational exercises |
-| **Part 6** | 17 | `chapter-17-funding.ipynb` | ROI calculator, grants |
-| | 18 | `chapter-18-lessons-learned.ipynb` | Production insights |
+| **Part 1** | 1 | `chapter-01-patientone-story.ipynb` | PatientOne workflow demo, time/cost savings |
+| | 2 | `chapter-02-architecture.ipynb` | MCP orchestration, server discovery |
+| | 3 | `chapter-03-testing-the-hypothesis.ipynb` | Test coverage, cost analysis, production metrics |
+| **Part 2** | 4 | `chapter-04-clinical-data.ipynb` | FHIR integration, de-identification |
+| | 5 | `chapter-05-genomic-foundations.ipynb` | VCF parsing, variant annotation |
+| | 6 | `chapter-06-multi-omics-integration.ipynb` | HAllA, Stouffer meta-analysis |
+| | 7 | `chapter-07-spatial-transcriptomics.ipynb` | Spatial transcriptomics, Moran's I |
+| **Part 3** | 8 | `chapter-08-cell-segmentation.ipynb` | DeepCell segmentation, phenotype classification |
+| | 9 | `chapter-09-treatment-response.ipynb` | GEARS GNN, treatment prediction |
+| | 10 | `chapter-10-quantum-fidelity.ipynb` | Quantum circuits, Bayesian UQ |
+| | 11 | `chapter-11-imaging.ipynb` | H&E, MxIF histology analysis |
+| **Part 4** | 12 | `chapter-12-cloud-deployment.ipynb` | Docker, Cloud Run, SSE transport |
+| | 13 | `chapter-13-hospital-deployment.ipynb` | HIPAA compliance, VPC, Azure AD SSO |
+| | 14 | `chapter-14-operations.ipynb` | Logging, monitoring, cost tracking |
+| **Part 5** | 15 | `chapter-15-for-researchers.ipynb` | Research workflows, exploratory analysis |
+| | 16 | `chapter-16-teaching.ipynb` | Educational prompts and exercises |
+| **Part 6** | 17 | `chapter-17-funding.ipynb` | ROI calculator, grant budgets |
+| | 18 | `chapter-18-lessons-learned.ipynb` | Production insights, future roadmap |
 
 **Total**: 18 companion notebooks
 
