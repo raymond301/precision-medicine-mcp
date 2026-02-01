@@ -373,6 +373,34 @@ All costs validated against actual GCP deployment (2026-01-31 pricing).
 - AI-orchestrated: $20
 - **Savings**: $319,980 (99.99%)
 
+### ROI Summary
+
+```mermaid
+graph LR
+    subgraph Input["💰 Investment"]
+        COMPUTE[Compute Cost<br/>$0.19/patient]
+        INFRA[Infrastructure<br/>$1,000/month]
+    end
+
+    subgraph Output["💰 Value Created"]
+        REPLACE[Replaces Manual<br/>$3,200/patient]
+        SPEED[40 hours → 35 min<br/>68x faster]
+        SAVINGS[$3,098-3,176<br/>savings/patient]
+    end
+
+    Input --> Output
+
+    style Input fill:#e1f5ff
+    style Output fill:#d4edda,stroke:#28a745
+```
+
+**Figure 3.1: Return on Investment Summary**
+*Investment: $0.19 per patient in compute + infrastructure costs. Value Created: Replaces $3,200 manual analysis (40 hours of specialist time), delivering 68x speed improvement and $3,098 savings per patient.*
+
+**Annual Savings:**
+- 100 patients/year = **$313,700 saved**
+- 500 patients/year = **$1,568,500 saved**
+
 Cost tracking implementation: [`shared/utils/cost_tracking.py`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/shared/utils/cost_tracking.py)
 
 ---

@@ -32,6 +32,13 @@ And what if you could do this analysis in **35 minutes** instead of the traditio
 
 This is the PatientOne story—and it's the story of why this book exists.
 
+### The Complete PatientOne Workflow
+
+<kbd><img src="../../tests/manual_testing/PatientOne-OvarianCancer/architecture/patient-one-holistic.png" width="800"></kbd>
+
+**Figure 1.1: PatientOne Complete Multi-Modal Analysis Workflow**
+*Integrating clinical data (FHIR), genomics (VCF), multi-omics (RNA/protein/phospho), spatial transcriptomics (10X Visium), imaging (H&E, MxIF), and AI-predicted treatment responses—all orchestrated through 12 MCP servers.*
+
 ---
 
 ## The Traditional Workflow: 40 Hours

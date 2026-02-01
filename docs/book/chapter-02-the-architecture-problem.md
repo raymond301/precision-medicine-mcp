@@ -148,6 +148,112 @@ No API documentation to write. No client SDK to maintain. Just Python functions 
 
 Now let's see how this solves the precision oncology orchestration problem.
 
+```mermaid
+graph TB
+    subgraph "User Interfaces"
+        STREAMLIT[🌐 Streamlit Chat UI<br/>Web Interface<br/>Cloud Run]
+        JUPYTER[📓 Jupyter Notebook<br/>Data Science Interface<br/>Cloud Run]
+        DESKTOP[💬 Claude Desktop<br/>Local STDIO]
+    end
+
+    subgraph "AI Orchestration Layer"
+        API[🤖 Claude API<br/>Anthropic Sonnet 4.5<br/>MCP Client Support]
+    end
+
+    subgraph "Local-Only Servers"
+        REALEPIC[mcp-epic<br/>Real Epic FHIR<br/>✅ Production<br/>🏥 HIPAA-compliant]
+    end
+
+    subgraph "GCP Cloud Run - 11 Deployed MCP Servers"
+        subgraph "Clinical & Genomic"
+            MOCKEPIC[mcp-mockepic<br/>Mock FHIR<br/>🎭 Demo Only]
+            FGBIO[mcp-fgbio<br/>FASTQ/VCF<br/>✅ Production]
+            TCGA[mcp-tcga<br/>Cancer Data<br/>❌ Mocked]
+        end
+
+        subgraph "Multi-Omics"
+            MULTI[mcp-multiomics<br/>RNA/Protein/Phospho<br/>✅ Production]
+        end
+
+        subgraph "Spatial & Imaging"
+            SPATIAL[mcp-spatialtools<br/>Spatial RNA-seq<br/>✅ Production]
+            IMAGE[mcp-openimagedata<br/>Histology<br/>🔶 60% Real]
+            DEEPCELL[mcp-deepcell<br/>Cell Segmentation<br/>✅ Production]
+        end
+
+        subgraph "Advanced Analytics"
+            PERTURB[mcp-perturbation<br/>GEARS GNN<br/>✅ Production]
+            QUANTUM[mcp-quantum-celltype-fidelity<br/>Quantum PQCs<br/>✅ Production]
+        end
+
+        subgraph "AI & Workflows"
+            HF[mcp-huggingface<br/>ML Models<br/>❌ Mocked]
+            SEQERA[mcp-seqera<br/>Nextflow<br/>❌ Mocked]
+        end
+    end
+
+    subgraph "Analysis Workflow"
+        PATIENT[🏥 PatientOne<br/>Stage IV HGSOC<br/>Multi-Omics Analysis]
+    end
+
+    STREAMLIT ==> API
+    JUPYTER ==> API
+    DESKTOP --> API
+
+    API ==> FGBIO
+    API ==> MULTI
+    API ==> SPATIAL
+    API ==> REALEPIC
+    API ==> DEEPCELL
+    API ==> PERTURB
+    API ==> QUANTUM
+    API -.-> MOCKEPIC
+    API -.-> TCGA
+    API -.-> IMAGE
+    API -.-> HF
+    API -.-> SEQERA
+
+    FGBIO ==> PATIENT
+    MULTI ==> PATIENT
+    SPATIAL ==> PATIENT
+    REALEPIC ==> PATIENT
+    DEEPCELL ==> PATIENT
+    PERTURB ==> PATIENT
+    QUANTUM ==> PATIENT
+    MOCKEPIC -.-> PATIENT
+    TCGA -.-> PATIENT
+    IMAGE -.-> PATIENT
+    HF -.-> PATIENT
+    SEQERA -.-> PATIENT
+
+    style STREAMLIT fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
+    style JUPYTER fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
+    style DESKTOP fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
+    style API fill:#cce5ff,stroke:#004085,stroke-width:3px
+    style PATIENT fill:#e1f5ff,stroke:#0066cc,stroke-width:3px
+    style FGBIO fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style MULTI fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style SPATIAL fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style REALEPIC fill:#d4edda,stroke:#28a745,stroke-width:3px
+    style DEEPCELL fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style PERTURB fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style QUANTUM fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style IMAGE fill:#fff3cd,stroke:#ffc107,stroke-width:1px
+    style TCGA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    style HF fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    style SEQERA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    style MOCKEPIC fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
+```
+
+**Figure 2.1: Complete MCP System Architecture**
+*12 MCP servers organized by domain (Clinical & Genomic, Multi-Omics, Spatial & Imaging, Advanced Analytics, AI & Workflows). Solid lines indicate production-ready integrations. Dotted lines represent mocked/demo servers. Claude API orchestrates all servers through natural language prompts.*
+
+**Legend:**
+- ✅ **Production Ready** (7/12): Real data, comprehensive tests, deployed
+- 🔶 **Partial Implementation** (1/12): Some real integrations, some mocked
+- ❌ **Mocked** (3/12): Return synthetic data, API calls stubbed
+- 🎭 **Mock by Design** (1/12): Intentionally synthetic for demos
+
 ### The 12 Specialized Servers
 
 The system has 12 MCP servers, each specialized for a specific bioinformatics domain:
