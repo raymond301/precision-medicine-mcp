@@ -332,8 +332,8 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 - ✅ Chapter 15: For Researchers (13 pages)
 - ✅ Chapter 16: Teaching Precision Medicine (14 pages)
 
-📝 **Part 6: The Future** (Coming next)
-- ⏳ Chapter 17: Funding and Sustainability
+📝 **Part 6: The Future** (In progress)
+- ✅ Chapter 17: Funding and Sustainability (9 pages)
 - ⏳ Chapter 18: Lessons Learned and What's Next
 
-**Progress**: 230 pages written (~77% of target 300 pages)
+**Progress**: 239 pages written (~80% of target 300 pages)
