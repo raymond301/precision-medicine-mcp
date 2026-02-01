@@ -272,20 +272,36 @@ Full advanced prompts: [`docs/prompt-library/educational-prompts.md#advanced-lev
 
 ## Companion Jupyter Notebooks
 
-**Each book chapter has a corresponding notebook**:
+**Each book chapter has a corresponding notebook with hands-on exercises**:
 
-| Chapter | Notebook | Topics |
-|---------|----------|--------|
-| 1 | `chapter-01-patientone-story.ipynb` | PatientOne scenario walkthrough |
-| 4 | `chapter-04-clinical-data.ipynb` | FHIR data with mcp-epic |
-| 5 | `chapter-05-genomics.ipynb` | Genomic QC with mcp-fgbio |
-| 6 | `chapter-06-multiomics.ipynb` | Multi-omics integration |
-| 7 | `chapter-07-spatial.ipynb` | Spatial transcriptomics |
-| 8 | `chapter-08-deepcell.ipynb` | Cell segmentation |
-| 15 | `chapter-15-research.ipynb` | Research workflows |
-| 16 | `chapter-16-education.ipynb` | Educational exercises |
+**IMPORTANT**: These notebooks require you to deploy your own MCP servers to GCP Cloud Run. See **Appendix: Setup Guide** for complete deployment instructions.
 
-**Setup** (local or Google Colab):
+### All 18 Notebooks
+
+| Part | Chapter | Notebook | Topics |
+|------|---------|----------|--------|
+| **Part 1** | 1 | `chapter-01-patientone-story.ipynb` | PatientOne workflow demo |
+| | 2 | `chapter-02-architecture.ipynb` | MCP orchestration |
+| | 3 | `chapter-03-testing.ipynb` | Test coverage, cost analysis |
+| **Part 2** | 4 | `chapter-04-clinical-data.ipynb` | FHIR integration |
+| | 5 | `chapter-05-genomics.ipynb` | VCF parsing, annotation |
+| | 6 | `chapter-06-multiomics.ipynb` | HAllA, Stouffer analysis |
+| | 7 | `chapter-07-spatial.ipynb` | Spatial transcriptomics |
+| **Part 3** | 8 | `chapter-08-deepcell.ipynb` | Cell segmentation |
+| | 9 | `chapter-09-treatment-response.ipynb` | GEARS GNN prediction |
+| | 10 | `chapter-10-quantum.ipynb` | Quantum fidelity, Bayesian UQ |
+| | 11 | `chapter-11-imaging.ipynb` | H&E, MxIF analysis |
+| **Part 4** | 12 | `chapter-12-cloud-deployment.ipynb` | Docker, Cloud Run |
+| | 13 | `chapter-13-hospital-deployment.ipynb` | HIPAA, VPC, SSO |
+| | 14 | `chapter-14-operations.ipynb` | Logging, alerts, runbooks |
+| **Part 5** | 15 | `chapter-15-research.ipynb` | Research workflows |
+| | 16 | `chapter-16-education.ipynb` | Educational exercises |
+| **Part 6** | 17 | `chapter-17-funding.ipynb` | ROI calculator, grants |
+| | 18 | `chapter-18-lessons-learned.ipynb` | Production insights |
+
+**Total**: 18 companion notebooks
+
+### Quick Setup
 
 ```bash
 # Clone repository
@@ -295,22 +311,22 @@ cd precision-medicine-mcp/docs/book/companion-notebooks
 # Install dependencies
 pip install -r requirements.txt
 
+# Deploy MCP servers to YOUR GCP project (REQUIRED)
+# See Appendix: Setup Guide for complete instructions
+./infrastructure/deployment/deploy_to_gcp.sh YOUR_PROJECT_ID us-central1
+
+# Configure API keys in .env file
+# ANTHROPIC_API_KEY=your_key  OR  GOOGLE_API_KEY=your_key
+# MCP_FGBIO_URL=https://mcp-fgbio-YOUR_PROJECT.run.app/sse
+# ... (add all your server URLs)
+
 # Launch Jupyter
-jupyter notebook
+jupyter lab
 ```
 
-**Authentication** (required for API calls):
+**Cost**: ~$10-20 total (Claude/Gemini API + Cloud Run for all 18 notebooks)
 
-```python
-import os
-os.environ["ANTHROPIC_API_KEY"] = "your_key_here"  # Claude
-# or
-os.environ["GOOGLE_API_KEY"] = "your_key_here"  # Gemini
-```
-
-**Sample data**: PatientOne dataset in GCS (public read access for educational use).
-
-Full notebooks guide: [`docs/book/companion-notebooks/README.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/book/companion-notebooks/README.md)
+Full notebooks guide and troubleshooting: [`docs/book/companion-notebooks/README.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/book/companion-notebooks/README.md)
 
 ---
 
