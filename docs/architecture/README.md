@@ -64,17 +64,6 @@ graph LR
 
 ---
 
-## 📚 Cross-Cutting Architecture
-
-Technical system design documentation:
-
-- **[Server Status](servers.md)** - Implementation status and capabilities matrix for all 12 servers
-- **[Clinical-Spatial Bridge](clinical-spatial-bridge.md)** - Integration between clinical and spatial data
-- **[Error Handling](error-handling.md)** - Error handling and retry logic patterns
-- **[References](references.md)** - Technical references and citations
-
----
-
 ## 📊 Architecture by Analysis Modality
 
 9 analysis modalities, 12 specialized servers, 124 tools:
