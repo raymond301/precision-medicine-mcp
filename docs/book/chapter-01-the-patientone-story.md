@@ -400,6 +400,54 @@ You'll explore funding models, ROI analysis, and lessons learned from production
 
 ---
 
+## Try It Yourself
+
+Ready to run the PatientOne analysis? You can deploy the MCP servers locally or to your own cloud account.
+
+**Option 1: Interactive Notebook**
+Open the companion Jupyter notebook for this chapter:
+[`docs/book/companion-notebooks/chapter-01-patientone-story.ipynb`](../companion-notebooks/chapter-01-patientone-story.ipynb)
+
+This notebook walks you through:
+- Setting up the MCP servers locally
+- Connecting with Claude or Gemini
+- Running the PatientOne prompt step-by-step
+- Exploring results and modifying parameters
+
+**Option 2: Local Claude Desktop Setup**
+If you have Claude Desktop installed, deploy MCP servers locally:
+
+1. Clone the repository:
+```bash
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
+```
+
+2. Follow the installation guide:
+[`docs/getting-started/installation.md`](../../getting-started/installation.md)
+
+3. Configure Claude Desktop with local servers
+
+4. Paste this prompt in Claude Desktop:
+```
+Analyze patient PAT001-OVC-2025 for precision oncology treatment selection.
+
+Clinical data: data/patient-data/PAT001-OVC-2025/clinical/
+Genomics: data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf
+Multi-omics: data/patient-data/PAT001-OVC-2025/multiomics/
+Spatial: data/patient-data/PAT001-OVC-2025/spatial/
+Imaging: data/patient-data/PAT001-OVC-2025/imaging/
+
+Generate comprehensive treatment recommendations based on all modalities.
+```
+
+**Option 3: Deploy to Your Cloud (Chapter 12)**
+Want to deploy to GCP Cloud Run for scalability? Jump ahead to Chapter 12 for deployment instructions, then return to continue reading.
+
+All PatientOne data is synthetic and included in the repository. No API keys required for local testing (though Claude/Gemini API keys needed for AI orchestration).
+
+---
+
 
 ## What Comes Next
 

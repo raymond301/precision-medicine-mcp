@@ -1,0 +1,517 @@
+# Chapter 2: The Architecture Problem
+
+> *"How do you orchestrate 124 bioinformatics tools across 12 specialized servers?"*
+
+---
+
+## The Fragmentation Problem
+
+Precision medicine is drowning in tools.
+
+Need to quality-check genomic data? Try FastQC, MultiQC, Picard, or fgbio. Want to analyze spatial transcriptomics? You'll choose between Scanpy, Seurat, Giotto, or Squidpy. Cell segmentation? QuPath, CellProfiler, StarDist, or DeepCell. Each tool has its own:
+- Installation requirements (conda environments, Docker containers, R packages)
+- Input formats (VCF, BAM, CSV, H5AD, TIFF, OME-TIFF)
+- Output formats (JSON, CSV, HDF5, RDS, NPY)
+- Parameter configurations (YAML files, command-line flags, config objects)
+
+**The result**: Bioinformaticians spend more time managing tools than analyzing biology.
+
+Let's look at a real example from Sarah's case in Chapter 1. To analyze her spatial transcriptomics data, you'd traditionally need:
+
+```bash
+# Install Scanpy (Python)
+conda create -n spatial python=3.11
+conda activate spatial
+pip install scanpy squidpy
+
+# Install Seurat (R)
+R -e "install.packages('Seurat')"
+
+# Install STAR aligner (compiled C++)
+conda install -c bioconda star
+
+# Install pathway tools
+pip install gseapy
+R -e "install.packages('clusterProfiler')"
+```
+
+That's four different programming environments, three package managers, and at least 30 minutes of installation time—*before you write a single line of analysis code*.
+
+Now multiply this by every modality: genomics, proteomics, imaging, clinical data. You end up with:
+- 15-20 conda environments
+- 50+ installed packages
+- Gigabytes of dependencies
+- Version conflicts (Python 3.9 for tool A, Python 3.11 for tool B)
+- Constant maintenance (package updates break pipelines monthly)
+
+This is the **tool fragmentation problem**, and it's killing productivity.
+
+---
+
+## Why Microservices Aren't Enough
+
+You might think: "Just wrap each tool in a microservice with a REST API!" Many bioinformatics platforms have tried this:
+
+**cBioPortal**: Web interface for cancer genomics data
+**Galaxy**: Workflow platform with 9,000+ tools
+**Seven Bridges**: Genomics analysis platform
+
+These are valuable systems, but they share a fundamental limitation: **they don't compose naturally**.
+
+Here's what we mean. Suppose you want to:
+1. Load clinical data from Epic FHIR
+2. Identify somatic mutations from a VCF file
+3. Run multi-omics pathway enrichment
+4. Overlay results on spatial transcriptomics
+5. Generate a treatment recommendation
+
+With traditional REST microservices, you'd write code like this:
+
+```python
+# Call Epic FHIR API
+clinical = requests.post(
+    "https://api.hospital.org/epic",
+    json={"patient_id": "PAT001"}
+)
+
+# Call genomics service
+variants = requests.post(
+    "https://api.biotools.org/vcf-parse",
+    files={"vcf": open("patient.vcf")}
+)
+
+# Call multi-omics service
+pathways = requests.post(
+    "https://api.biotools.org/multiomics",
+    json={
+        "rna": clinical["lab_data"]["rna"],
+        "proteins": clinical["lab_data"]["proteins"],
+        "phospho": clinical["lab_data"]["phospho"]
+    }
+)
+
+# Call spatial service...
+# ... and so on
+```
+
+See [example integration code](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/providers/gemini_provider.py) for a real implementation.
+
+**The problems**:
+1. **You're writing orchestration code**. Every new analysis requires custom Python/JavaScript.
+2. **Data format conversions**. Epic returns FHIR JSON. The genomics service expects VCF text. Multi-omics wants CSV. You're constantly converting.
+3. **No intelligence**. The system doesn't understand what you're trying to accomplish. It just executes HTTP requests.
+4. **No error recovery**. If the third API call fails, you manually retry or debug.
+5. **No optimization**. The system can't parallelize independent calls or cache repeated queries.
+
+Microservices give you modularity, but you still need an orchestrator. Traditionally, that's been:
+- **Nextflow/Snakemake**: Workflow engines with DSL
+- **Airflow/Luigi**: Task schedulers
+- **Custom Python scripts**: Glue code written by bioinformaticians
+
+All of these require *code*. You define workflows in YAML, Groovy, or Python. Every new analysis needs a new workflow definition.
+
+**What if the orchestrator could understand natural language?**
+
+---
+
+## Enter the Model Context Protocol (MCP)
+
+The Model Context Protocol is an open standard created by Anthropic that enables AI models like Claude to interact with external tools and data sources.
+
+Think of MCP as "USB for AI":
+- USB standardized how peripherals connect to computers (keyboards, mice, printers)
+- MCP standardizes how AI models connect to tools (databases, APIs, specialized services)
+
+Here's the key insight: **If tools expose an MCP interface, an AI can orchestrate them without you writing orchestration code.**
+
+### How MCP Works
+
+An MCP server exposes:
+1. **Tools**: Functions the AI can call (e.g., `parse_vcf`, `run_pathway_enrichment`)
+2. **Resources**: Data the AI can read (e.g., patient records, reference genomes)
+3. **Prompts**: Pre-defined prompt templates for common tasks
+
+Claude connects to multiple MCP servers simultaneously. When you ask a question, Claude:
+1. **Understands intent**: "I need clinical data, genomics, and spatial analysis"
+2. **Plans workflow**: "Load clinical → Parse VCF → Run multi-omics → Overlay spatial"
+3. **Executes tools**: Calls appropriate functions on each MCP server
+4. **Synthesizes results**: Combines outputs into a coherent answer
+
+You don't write code. You describe what you want in plain English.
+
+### MCP vs. Traditional API Calls
+
+| Aspect | REST API | MCP Server |
+|--------|----------|------------|
+| **Discovery** | Read API docs manually | AI discovers tools automatically |
+| **Orchestration** | Write Python/JS code | Natural language prompts |
+| **Data Conversion** | Manual (JSON ↔ CSV ↔ VCF) | Automatic (server handles formats) |
+| **Error Handling** | try/except blocks | AI retries with backoff |
+| **Parallelization** | Manual threading/async | AI optimizes automatically |
+| **Caching** | Manual implementation | Built into MCP protocol |
+
+### A Real MCP Tool Definition
+
+Let's look at how the `parse_vcf` tool is defined in the `mcp-fgbio` server:
+
+```python
+@mcp.tool()
+def parse_vcf(vcf_path: str, min_depth: int = 10) -> dict:
+    """Parse VCF file and return somatic variants.
+
+    Args:
+        vcf_path: Path to VCF file (local or gs://)
+        min_depth: Minimum read depth to include variant
+
+    Returns:
+        Dictionary with variants, quality metrics, and annotations
+    """
+    # Implementation details...
+```
+
+See full implementation: [`servers/mcp-fgbio/src/mcp_fgbio/server.py:145-187`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-fgbio/src/mcp_fgbio/server.py#L145-L187)
+
+That's it. The `@mcp.tool()` decorator registers this function with the MCP protocol. When Claude connects to the `mcp-fgbio` server, it automatically discovers:
+- Tool name: `parse_vcf`
+- Parameters: `vcf_path` (required), `min_depth` (optional, default 10)
+- Return type: Dictionary with variants and metrics
+- Description: From the docstring
+
+No API documentation to write. No client SDK to maintain. Just Python functions with descriptive docstrings.
+
+---
+
+## The Precision Medicine MCP Architecture
+
+Now let's see how this solves the precision oncology orchestration problem.
+
+### The 12 Specialized Servers
+
+The system has 12 MCP servers, each specialized for a specific bioinformatics domain:
+
+**Production-Ready Servers (7)**:
+1. **mcp-epic**: Real FHIR R4 integration with Epic EHR systems
+2. **mcp-fgbio**: Genomic QC, variant calling, reference data
+3. **mcp-multiomics**: Multi-omics integration (HAllA, Stouffer meta-analysis)
+4. **mcp-spatialtools**: Spatial transcriptomics (STAR alignment, ComBat, pathways)
+5. **mcp-perturbation**: Treatment response prediction (GEARS GNN)
+6. **mcp-quantum-celltype-fidelity**: Quantum fidelity with Bayesian uncertainty
+7. **mcp-deepcell**: Cell segmentation (DeepCell-TF models)
+
+**Mock/Partial Servers (5)**:
+8. **mcp-mockepic**: Synthetic FHIR data (testing only)
+9. **mcp-tcga**: TCGA cohort queries (demo data)
+10. **mcp-openimagedata**: Histology imaging (60% real)
+11. **mcp-huggingface**: ML model inference (framework ready)
+12. **mcp-seqera**: Nextflow orchestration (demo)
+
+See detailed status: [`docs/SERVER_REGISTRY.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/SERVER_REGISTRY.md)
+
+**Total**: 124 bioinformatics tools across 12 servers
+
+### Data Flow Example
+
+Let's trace what happens when you ask Claude to analyze Sarah's case:
+
+**Your prompt**:
+```
+Analyze patient PAT001-OVC-2025. Identify treatment targets based on
+genomics, multi-omics, and spatial transcriptomics.
+```
+
+**Behind the scenes**:
+
+1. **Claude parses intent**:
+   - Needs: Clinical context, genomics, multi-omics, spatial data
+   - Goal: Treatment recommendations
+
+2. **Claude discovers available tools**:
+   ```
+   Connected to 7 MCP servers:
+     - mcp-mockepic: 8 tools (clinical data)
+     - mcp-fgbio: 9 tools (genomics)
+     - mcp-multiomics: 21 tools (integration)
+     - mcp-spatialtools: 23 tools (spatial)
+     - ...
+   Total: 124 tools available
+   ```
+
+3. **Claude plans workflow**:
+   ```
+   Step 1: Get clinical summary → mcp-mockepic.get_patient_summary()
+   Step 2: Parse variants → mcp-fgbio.parse_vcf()
+   Step 3: Run meta-analysis → mcp-multiomics.stouffer_meta_analysis()
+   Step 4: Spatial DE → mcp-spatialtools.spatial_differential_expression()
+   Step 5: Integrate findings → Synthesize results
+   ```
+
+4. **Claude executes (parallelizes where possible)**:
+   ```python
+   # These can run in parallel (no dependencies)
+   clinical_result = await mcp_mockepic.get_patient_summary(patient_id="PAT001-OVC-2025")
+   genomic_result = await mcp_fgbio.parse_vcf(vcf_path="gs://...")
+
+   # This depends on genomic_result, so runs sequentially
+   multiomics_result = await mcp_multiomics.stouffer_meta_analysis(
+       genes=genomic_result["mutated_genes"],
+       rna_path="gs://...",
+       protein_path="gs://..."
+   )
+   ```
+
+5. **Claude synthesizes**:
+   ```
+   Findings:
+   - Clinical: Platinum-resistant HGSOC, BRCA1 carrier
+   - Genomics: PIK3CA E545K, TP53 R175H, PTEN loss
+   - Multi-omics: PI3K/AKT pathway active (protein & phospho confirm)
+   - Spatial: Immune exclusion, high proliferation in tumor core
+
+   Treatment recommendation:
+   Primary: PI3K inhibitor (alpelisib) targeting PIK3CA E545K
+   Secondary: Anti-PD-1 to overcome immune exclusion
+   Clinical trial: NCT03602859 (alpelisib + paclitaxel)
+   ```
+
+You wrote zero lines of code. Claude orchestrated 12+ tool calls across 4 servers, handled data format conversions, parallelized independent calls, and synthesized results into clinical recommendations.
+
+**That's the power of AI orchestration with MCP.**
+
+---
+
+## Why This Architecture Works for Healthcare
+
+### 1. Domain Expertise Encoded in Servers
+
+Each MCP server encapsulates domain-specific knowledge:
+
+**mcp-fgbio** knows:
+- How to validate VCF files (check reference allele, fix chromosome naming)
+- When to filter variants (depth < 10, VAF < 0.05)
+- How to annotate with ClinVar, gnomAD, COSMIC
+- Which quality metrics matter (QUAL, DP, AF)
+
+**mcp-spatialtools** knows:
+- How to run STAR genome alignment
+- When to apply batch correction (ComBat vs. Harmony)
+- Which statistical tests for spatial DE (Wilcoxon, Mann-Whitney)
+- How to calculate spatial autocorrelation (Moran's I)
+
+**mcp-multiomics** knows:
+- How to integrate RNA/protein/phospho data (Stouffer's Z-score)
+- When to use FDR correction (Benjamini-Hochberg)
+- Which pathways are clinically relevant (44 curated pathways)
+- How to handle missing data (imputation strategies)
+
+This knowledge is *implemented* in the server code, not described in documentation for humans to read. Claude can use it directly.
+
+### 2. Separation of Concerns
+
+Each server has a single responsibility:
+- **mcp-epic**: Clinical data retrieval (FHIR only)
+- **mcp-fgbio**: Genomic QC and variant calling
+- **mcp-spatialtools**: Spatial analysis (not imaging, not genomics)
+
+This modularity means:
+- Servers can be developed independently
+- Testing is focused (unit tests per server)
+- Updates don't break other components
+- New servers can be added without modifying existing ones
+
+### 3. Cloud-Native Deployment
+
+All servers run on Google Cloud Run (serverless containers):
+- **Auto-scaling**: 0 to 1000 instances based on demand
+- **Pay-per-use**: $0.02-0.21 per analysis (see Chapter 12 for cost breakdown)
+- **No infrastructure management**: Google handles servers, networking, SSL
+- **Regional deployment**: us-central1 (low latency for US hospitals)
+
+Deployment command for a new server:
+
+```bash
+cd servers/mcp-deepcell
+gcloud run deploy mcp-deepcell \
+  --source . \
+  --region us-central1 \
+  --memory 4Gi \
+  --cpu 2 \
+  --timeout 300 \
+  --allow-unauthenticated
+```
+
+See full deployment guide: [`docs/deployment/GET_STARTED.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/deployment/GET_STARTED.md)
+
+### 4. Multi-Provider AI Support
+
+The architecture isn't locked to Claude. You can use:
+- **Claude (Anthropic)**: Native MCP support via MCP beta API
+- **Gemini (Google)**: Custom MCP client implementation
+- **Future models**: Any LLM can implement the MCP protocol
+
+Streamlit UI supports both: [`ui/streamlit-app/app.py`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/app.py)
+
+Claude uses Anthropic's native MCP integration:
+```python
+client.beta.messages.create(
+    mcp_servers=[{"type": "url", "url": server_url, "name": "fgbio"}],
+    tools=[{"type": "mcp_toolset", "mcp_server_name": "fgbio"}],
+    betas=["mcp-client-2025-11-20"]
+)
+```
+
+Gemini requires manual tool orchestration:
+```python
+# Custom implementation that translates MCP tool schemas
+# into Gemini function calling format
+gemini_tools = convert_mcp_to_gemini(mcp_servers)
+response = model.generate_content(prompt, tools=gemini_tools)
+```
+
+See Gemini provider implementation: [`ui/streamlit-app/providers/gemini_provider.py:87-245`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/providers/gemini_provider.py#L87-L245)
+
+---
+
+## What MCP Doesn't Solve
+
+Let's be honest about limitations:
+
+### 1. Model Errors and Hallucinations
+
+Claude is smart, but it can still:
+- Misinterpret complex biological relationships
+- Hallucinate connections not supported by data
+- Miss subtle patterns in large datasets
+
+**Mitigation**: Human review (Clinician-in-the-Loop workflow, see Chapter 13) and validation against known biology.
+
+### 2. Cost (Though Dramatically Reduced)
+
+AI API calls cost money:
+- Claude API: ~$0.50-1.00 per complex analysis (30K tokens)
+- Gemini API: ~$0.10-0.30 per analysis (cheaper but requires custom integration)
+- Cloud Run compute: ~$0.02-0.21 per analysis
+
+Total: **$1-2 per patient** vs. $3,200 traditional (95% reduction), but not free.
+
+### 3. Latency for Real-Time Needs
+
+Current system: 35 minutes for complete analysis
+Real-time requirement: <5 minutes for clinical decisions
+
+**Workaround**: Pre-compute common analyses. Use MCP for novel queries only.
+
+### 4. Complex Workflows Need Refinement
+
+Some multi-step workflows (e.g., iterative spatial clustering with multiple parameter sweeps) require multiple prompts or explicit workflow definition. MCP excels at well-defined tasks, less so at open-ended exploration.
+
+---
+
+## How You'll Use This Architecture
+
+In the remaining chapters, you'll learn to:
+
+**Part 2 (Chapters 4-7)**: Build MCP servers
+- Chapter 4: Clinical data (FHIR integration)
+- Chapter 5: Genomics (VCF parsing, variant annotation)
+- Chapter 6: Multi-omics (HAllA, Stouffer meta-analysis)
+- Chapter 7: Spatial transcriptomics (STAR, ComBat, pathways)
+
+**Part 3 (Chapters 8-11)**: Add advanced capabilities
+- Chapter 8: Cell segmentation (DeepCell-TF)
+- Chapter 9: Treatment response (GEARS GNN)
+- Chapter 10: Quantum fidelity (PennyLane, Bayesian UQ)
+- Chapter 11: Histopathology imaging
+
+**Part 4 (Chapters 12-14)**: Deploy to production
+- Chapter 12: Cloud Run deployment
+- Chapter 13: HIPAA-compliant hospital infrastructure
+- Chapter 14: Operations and monitoring
+
+Each chapter includes:
+- Architecture diagrams
+- Code snippets (3-5 lines) with GitHub links
+- Jupyter notebooks for hands-on practice
+- Real deployment examples
+
+---
+
+## Try It Yourself
+
+Ready to see MCP orchestration in action?
+
+**Option 1: Explore the Architecture**
+Open the companion Jupyter notebook:
+[`docs/book/companion-notebooks/chapter-02-architecture.ipynb`](../companion-notebooks/chapter-02-architecture.ipynb)
+
+This notebook lets you:
+- Connect to deployed MCP servers
+- Discover available tools programmatically
+- Call individual tools to understand their behavior
+- Compare sequential vs. parallel orchestration
+
+**Option 2: Query MCP Server Endpoints**
+The servers are deployed and public. You can query them directly:
+
+```bash
+# List tools from mcp-fgbio
+curl https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/tools
+
+# Expected output: JSON array of 9 tools
+# [
+#   {"name": "parse_vcf", "description": "Parse VCF...", ...},
+#   {"name": "validate_fastq", "description": "QC FASTQ...", ...},
+#   ...
+# ]
+```
+
+All endpoints: [`docs/SERVER_REGISTRY.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/SERVER_REGISTRY.md)
+
+**Option 3: Run the PatientOne Workflow**
+Deploy the MCP servers locally and use Claude Desktop:
+1. Follow the installation guide: [`docs/getting-started/installation.md`](../../getting-started/installation.md)
+2. Configure Claude Desktop with your local MCP servers
+3. Paste the PatientOne prompt from Chapter 1
+4. Watch Claude coordinate servers in real-time
+
+**Alternative**: Deploy to your own GCP account using the deployment guide in Chapter 12.
+
+---
+
+## What Comes Next
+
+In Chapter 3, you'll see the testing results that validate this architecture works in production. You'll learn:
+- How the system was tested (unit, integration, end-to-end)
+- Performance benchmarks (time, cost, accuracy)
+- Real deployment challenges and solutions
+- Production readiness assessment
+
+But first, pause and appreciate what you've just learned. You now understand:
+- Why tool fragmentation kills bioinformatics productivity
+- Why microservices alone don't solve orchestration
+- How MCP enables AI to coordinate specialized tools
+- The architecture of 12 MCP servers with 124 tools
+- Why this works specifically for healthcare
+
+**Next**: Chapter 3 - Testing the Hypothesis
+
+---
+
+**Chapter 2 Key Takeaways:**
+- Bioinformatics suffers from tool fragmentation (15-20 tools per analysis)
+- Microservices help modularity but require orchestration code
+- MCP standardizes how AI models interact with tools
+- 12 specialized MCP servers encode domain expertise
+- Claude coordinates tools via natural language (no code)
+- Architecture supports both Claude and Gemini
+- 95% cost reduction: $3,200 → $1-2 per analysis
+
+**Companion Resources:**
+- 📓 [Jupyter Notebook](../companion-notebooks/chapter-02-architecture.ipynb) - Explore MCP orchestration
+- 🏗️ [Architecture Docs](../../architecture/README.md) - Detailed technical specs
+- 🔧 [Server Registry](../../SERVER_REGISTRY.md) - All 12 servers and 124 tools
+- 🚀 [Deployment Guide](../../deployment/GET_STARTED.md) - Cloud Run setup
+
+**GitHub References:**
+- MCP server boilerplate: [`servers/mcp-server-boilerplate/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/servers/mcp-server-boilerplate)
+- fgbio server implementation: [`servers/mcp-fgbio/src/mcp_fgbio/server.py`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-fgbio/src/mcp_fgbio/server.py)
+- Streamlit multi-provider UI: [`ui/streamlit-app/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/ui/streamlit-app)
