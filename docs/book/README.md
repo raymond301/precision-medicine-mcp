@@ -328,8 +328,12 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 - ✅ Chapter 13: Hospital Production Deployment (15 pages)
 - ✅ Chapter 14: Operations and Monitoring (14 pages)
 
-📝 **Part 5: Research and Education** (In progress)
+✅ **Part 5: Research and Education** (COMPLETE)
 - ✅ Chapter 15: For Researchers (13 pages)
-- ⏳ Chapter 16: Teaching Precision Medicine
+- ✅ Chapter 16: Teaching Precision Medicine (14 pages)
 
-**Progress**: 216 pages written (~72% of target 300 pages)
+📝 **Part 6: The Future** (Coming next)
+- ⏳ Chapter 17: Funding and Sustainability
+- ⏳ Chapter 18: Lessons Learned and What's Next
+
+**Progress**: 230 pages written (~77% of target 300 pages)
