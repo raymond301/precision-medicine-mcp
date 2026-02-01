@@ -325,7 +325,7 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 
 📝 **Part 4: Deployment and Operations** (In progress)
 - ✅ Chapter 12: Cloud Deployment on GCP (13 pages)
-- ⏳ Chapter 13: Hospital Production Deployment
+- ✅ Chapter 13: Hospital Production Deployment (15 pages)
 - ⏳ Chapter 14: Operations and Monitoring
 
-**Progress**: 174 pages written (~58% of target 300 pages)
+**Progress**: 189 pages written (~63% of target 300 pages)
