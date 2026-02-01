@@ -125,6 +125,15 @@ By the end of this book, you'll have deployed:
 
 ---
 
+### Appendix: Setup Guide
+**Goal**: Quick reference for setting up all 12 MCP servers
+
+- **Appendix**: MCP Server Setup Guide — Prerequisites, local setup, cloud deployment, troubleshooting
+
+**Time to complete**: Reference guide (1-2 hours for full setup)
+
+---
+
 ## Companion Materials
 
 ### Jupyter Notebooks
@@ -336,5 +345,8 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 - ✅ Chapter 17: Funding and Sustainability (9 pages)
 - ✅ Chapter 18: Lessons Learned and What's Next (11 pages)
 
-**Progress**: 250 pages written (~83% of target 300 pages)
-**Status**: ALL 18 DRAFT CHAPTERS COMPLETE! Ready for Phase 2 revision (Chapters 2-10)
+✅ **Appendix** (COMPLETE)
+- ✅ Appendix: MCP Server Setup Guide (13 pages)
+
+**Progress**: 263 pages written (~88% of target 300 pages)
+**Status**: ALL 18 DRAFT CHAPTERS + APPENDIX COMPLETE! Ready for Phase 2 revision (Chapters 2-10)
