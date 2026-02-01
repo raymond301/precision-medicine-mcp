@@ -76,19 +76,60 @@ HIPAA guidance: https://www.hhs.gov/hipaa/for-professionals/privacy/special-topi
 
 ## Building mcp-epic: Architecture
 
-```
-┌─────────────────────────────────────┐
-│  MCP Tools (FastMCP decorator)     │  ← Natural language interface
-├─────────────────────────────────────┤
-│  FHIR Client (Epic API wrapper)    │  ← HTTP requests to Epic
-├─────────────────────────────────────┤
-│  De-identification Layer            │  ← HIPAA Safe Harbor
-├─────────────────────────────────────┤
-│  Epic FHIR API (OAuth 2.0)          │  ← Hospital EHR system
-└─────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph "User Layer"
+        USER[Clinician/Researcher<br/>Natural Language Query]
+    end
+
+    subgraph "AI Orchestration"
+        CLAUDE[Claude API<br/>MCP Client]
+    end
+
+    subgraph "mcp-epic Server"
+        TOOLS[MCP Tools<br/>FastMCP Decorators]
+        FHIR[FHIR Client<br/>Epic API Wrapper]
+        DEIDENT[De-identification Layer<br/>HIPAA Safe Harbor]
+    end
+
+    subgraph "Healthcare System"
+        EPIC[Epic FHIR API<br/>OAuth 2.0 + TLS]
+        EHR[Electronic Health Record<br/>Production PHI Database]
+    end
+
+    subgraph "Genomics Integration"
+        SPATIAL[mcp-spatialtools<br/>Spatial Data Bridge]
+        FGBIO[mcp-fgbio<br/>Genomic Variants]
+    end
+
+    USER --> CLAUDE
+    CLAUDE --> TOOLS
+    TOOLS --> FHIR
+    FHIR --> EPIC
+    EPIC --> EHR
+    FHIR --> DEIDENT
+    DEIDENT --> CLAUDE
+    CLAUDE --> SPATIAL
+    CLAUDE --> FGBIO
+
+    style USER fill:#e1f5ff
+    style CLAUDE fill:#cce5ff,stroke:#004085,stroke-width:2px
+    style TOOLS fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style DEIDENT fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style EPIC fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    style EHR fill:#f8d7da,stroke:#dc3545,stroke-width:2px
 ```
 
-Server structure: `servers/mcp-epic/` with `server.py` (4 tools), `epic_fhir_client.py`, `deidentify.py`, `__main__.py`.
+**Figure 4.1: FHIR to Genomics Bridge Architecture**
+*Clinical data flows from Epic EHR → FHIR API → mcp-epic server → HIPAA de-identification → Claude AI orchestration → integration with genomics (mcp-fgbio) and spatial transcriptomics (mcp-spatialtools) for complete patient analysis.*
+
+**Key Components:**
+1. **MCP Tools**: 9 FHIR R4 resource tools with natural language interface
+2. **FHIR Client**: Epic API wrapper handling OAuth 2.0 authentication
+3. **De-identification**: Automatic HIPAA Safe Harbor compliance (18 identifiers removed)
+4. **Integration**: Clinical context bridges to genomics and spatial analysis
+
+Server structure: `servers/mcp-epic/` with `server.py` (9 tools), `epic_fhir_client.py`, `deidentify.py`, `__main__.py`.
 
 Repository: [`servers/mcp-epic/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/servers/mcp-epic)
 

@@ -20,11 +20,68 @@ PatientOne's PDX models (15 ovarian cancer xenografts) generate three data types
 
 You need **multi-omics meta-analysis** to find consistently dysregulated pathways across all modalities.
 
-The `mcp-multiomics` server provides 7 tools for HAllA association testing and Stouffer meta-analysis.
+The `mcp-multiomics` server provides 21 tools for HAllA association testing and Stouffer meta-analysis.
+
+### Multi-Omics Integration Workflow
+
+```mermaid
+graph TB
+    subgraph "Data Input"
+        RNA[RNA-seq<br/>15 samples<br/>20,000 genes]
+        PROTEIN[Proteomics<br/>15 samples<br/>8,000 proteins]
+        PHOSPHO[Phosphoproteomics<br/>15 samples<br/>12,000 sites]
+    end
+
+    subgraph "Phase 1: Validation & QC"
+        VALIDATE[validate_multiomics_data<br/>Check overlap, missing values,<br/>batch effects]
+        PREPROCESS[preprocess_multiomics_data<br/>ComBat correction<br/>KNN imputation<br/>Quantile normalization]
+        VISUALIZE[visualize_data_quality<br/>PCA plots<br/>Correlation heatmaps]
+    end
+
+    subgraph "Phase 2: Association Discovery"
+        HALLA[run_halla_analysis<br/>HAllA: Hierarchical All-against-All<br/>Discover RNA-protein associations]
+        INTEGRATE[integrate_phospho_data<br/>Add phosphorylation layer<br/>Kinase-substrate mapping]
+    end
+
+    subgraph "Phase 3: Meta-Analysis"
+        STOUFFER[stouffer_meta_analysis<br/>Combine p-values across modalities<br/>Z-score integration]
+        PATHWAYS[analyze_upstream_regulators<br/>Identify dysregulated pathways<br/>PI3K/AKT, DNA repair, etc.]
+    end
+
+    subgraph "Output"
+        GENES[Top 47 Genes<br/>Integrated p-values<br/>Pathway annotations]
+        VIZ[Visualizations<br/>Volcano plots<br/>Heatmaps]
+    end
+
+    RNA --> VALIDATE
+    PROTEIN --> VALIDATE
+    PHOSPHO --> VALIDATE
+
+    VALIDATE --> PREPROCESS
+    PREPROCESS --> VISUALIZE
+    VISUALIZE --> HALLA
+    HALLA --> INTEGRATE
+    INTEGRATE --> STOUFFER
+    STOUFFER --> PATHWAYS
+    PATHWAYS --> GENES
+    PATHWAYS --> VIZ
+
+    style RNA fill:#d1ecf1
+    style PROTEIN fill:#d1ecf1
+    style PHOSPHO fill:#d1ecf1
+    style VALIDATE fill:#fff3cd
+    style PREPROCESS fill:#fff3cd
+    style HALLA fill:#cce5ff
+    style STOUFFER fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style GENES fill:#d4edda,stroke:#28a745,stroke-width:2px
+```
+
+**Figure 6.1: Multi-Omics Integration Workflow**
+*Three-phase pipeline: (1) Validation & QC with batch correction and imputation, (2) Association discovery using HAllA to find RNA-protein correlations and integrate phosphorylation data, (3) Meta-analysis with Stouffer's method to combine p-values and identify upstream pathway regulators. Output: 47 top genes with integrated evidence across all three modalities.*
 
 ---
 
-## The Seven Tools
+## The Tools (21 total)
 
 ### Phase 1: Data Validation
 

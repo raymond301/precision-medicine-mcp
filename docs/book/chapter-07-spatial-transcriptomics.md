@@ -17,7 +17,74 @@ Traditional bulk RNA-seq mixes all cells together. You can't distinguish:
 
 **10X Visium spatial transcriptomics** measures gene expression in 900 tissue spots (55μm diameter each), preserving spatial relationships.
 
-The `mcp-spatialtools` server provides 8 tools for STAR alignment, batch correction, differential expression, pathway enrichment, spatial autocorrelation, and cell type deconvolution.
+The `mcp-spatialtools` server provides 23 tools for STAR alignment, batch correction, differential expression, pathway enrichment, spatial autocorrelation, and cell type deconvolution.
+
+### Spatial Transcriptomics Pipeline
+
+```mermaid
+graph TB
+    subgraph "Data Input"
+        FASTQ[FASTQ Files<br/>Raw sequencing reads<br/>Paired-end 150bp]
+        COORDS[Spatial Coordinates<br/>900 spots<br/>x, y positions]
+        ANNOT[Region Annotations<br/>6 tissue regions<br/>Pathologist labels]
+    end
+
+    subgraph "Phase 1: Alignment & QC"
+        STAR[align_spatial_reads<br/>STAR aligner<br/>Map to hg38 genome]
+        FILTER[filter_spatial_data<br/>QC filtering<br/>Min counts, % mito]
+        NORM[normalize_expression<br/>Quantile normalization<br/>Log2 transform]
+    end
+
+    subgraph "Phase 2: Batch Correction"
+        COMBAT[correct_batch_effects<br/>ComBat correction<br/>Multi-sample integration]
+    end
+
+    subgraph "Phase 3: Analysis"
+        SPLIT[split_by_region<br/>Segment by annotation<br/>6 tissue regions]
+        DE[differential_expression<br/>Wilcoxon rank-sum<br/>Region vs. region]
+        PATHWAY[pathway_enrichment<br/>44 curated pathways<br/>Hypergeometric test]
+        MORANS[spatial_autocorrelation<br/>Moran's I<br/>Clustering patterns]
+    end
+
+    subgraph "Output"
+        GENES[Differential Genes<br/>By region<br/>Fold-change + FDR]
+        PATHWAYS_OUT[Enriched Pathways<br/>PI3K/AKT, DNA repair<br/>p-values]
+        SPATIAL[Spatial Patterns<br/>Clustered vs. random<br/>Moran's I scores]
+        VIZ[Visualizations<br/>Heatmaps<br/>Spatial plots]
+    end
+
+    FASTQ --> STAR
+    STAR --> FILTER
+    FILTER --> NORM
+    NORM --> COMBAT
+    COMBAT --> SPLIT
+
+    COORDS --> SPLIT
+    ANNOT --> SPLIT
+
+    SPLIT --> DE
+    SPLIT --> PATHWAY
+    SPLIT --> MORANS
+
+    DE --> GENES
+    PATHWAY --> PATHWAYS_OUT
+    MORANS --> SPATIAL
+    GENES --> VIZ
+    PATHWAYS_OUT --> VIZ
+    SPATIAL --> VIZ
+
+    style FASTQ fill:#d1ecf1
+    style COORDS fill:#d1ecf1
+    style ANNOT fill:#d1ecf1
+    style STAR fill:#fff3cd
+    style COMBAT fill:#cce5ff
+    style DE fill:#d4edda
+    style PATHWAY fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style MORANS fill:#d4edda,stroke:#28a745,stroke-width:2px
+```
+
+**Figure 7.1: Spatial Transcriptomics Analysis Pipeline**
+*Three-phase workflow: (1) Alignment with STAR, QC filtering, and normalization, (2) ComBat batch correction for multi-sample integration, (3) Analysis including differential expression (Wilcoxon), pathway enrichment (44 curated pathways), and spatial autocorrelation (Moran's I). Outputs differential genes, enriched pathways, and spatial clustering patterns.*
 
 ---
 
