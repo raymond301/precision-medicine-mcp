@@ -45,35 +45,35 @@ F(|ψ_A⟩, |ψ_B⟩) = |⟨ψ_A|ψ_B⟩|²
 
 ```mermaid
 graph TB
-    subgraph "Input: Cell Gene Expression"
+    subgraph InputData[Input: Cell Gene Expression]
         GENES[8 Selected Genes<br/>CD3D, CD8A, EPCAM<br/>MKI67, TP53, VIM, etc.<br/>Normalized 0-1]
     end
 
-    subgraph "Parameterized Quantum Circuit (PQC)"
+    subgraph PQC[Parameterized Quantum Circuit]
         direction TB
-        ENCODE[Feature Encoding Layer<br/>RX(gene1), RY(gene2), RZ(gene3)<br/>Map expression → rotation angles]
-        VAR1[Variational Layer 1<br/>RX(θ1), RY(θ1), RZ(θ1)<br/>CNOT entanglement ring]
-        VAR2[Variational Layer 2<br/>RX(θ2), RY(θ2), RZ(θ2)<br/>CNOT entanglement ring]
-        VAR3[Variational Layer 3<br/>RX(θ3), RY(θ3), RZ(θ3)<br/>CNOT entanglement ring]
-        STATE[Output Statevector<br/>|ψ⟩ ∈ ℂ^256<br/>Cell embedding in Hilbert space]
+        ENCODE[Feature Encoding Layer<br/>RX, RY, RZ gates<br/>Map expression to rotation angles]
+        VAR1[Variational Layer 1<br/>RX, RY, RZ trainable gates<br/>CNOT entanglement ring]
+        VAR2[Variational Layer 2<br/>RX, RY, RZ trainable gates<br/>CNOT entanglement ring]
+        VAR3[Variational Layer 3<br/>RX, RY, RZ trainable gates<br/>CNOT entanglement ring]
+        STATE[Output Statevector<br/>256-dimensional complex vector<br/>Cell embedding in Hilbert space]
     end
 
-    subgraph "Training: Contrastive Learning"
+    subgraph Training[Training: Contrastive Learning]
         POS[Positive Pairs<br/>Same cell type<br/>Maximize fidelity]
         NEG[Negative Pairs<br/>Different cell types<br/>Minimize fidelity]
-        LOSS[Contrastive Loss<br/>F(same) → 1<br/>F(diff) → 0]
-        OPT[Optimizer<br/>Adam<br/>Update θ parameters]
+        LOSS[Contrastive Loss<br/>Push same types to 1<br/>Push different types to 0]
+        OPT[Optimizer<br/>Adam<br/>Update theta parameters]
     end
 
-    subgraph "Bayesian Uncertainty Quantification"
-        MC[Monte Carlo Sampling<br/>Sample from P(θ|data)<br/>100 parameter sets]
-        FIDELITY[Compute Fidelity<br/>F = |⟨ψ_A|ψ_B⟩|²<br/>For each sample]
-        CI[Credible Intervals<br/>Mean ± 95% CI<br/>F = 0.87 [0.82, 0.91]]
+    subgraph Bayesian[Bayesian Uncertainty Quantification]
+        MC[Monte Carlo Sampling<br/>Sample from posterior distribution<br/>100 parameter sets]
+        FIDELITY[Compute Fidelity<br/>Quantum state overlap<br/>For each sample]
+        CI[Credible Intervals<br/>Mean plus-minus 95 percent CI<br/>Example: 0.87 with range 0.82 to 0.91]
     end
 
-    subgraph "Output: Classification + Confidence"
-        CLASS[Cell Type Prediction<br/>CD8+ T cell]
-        CONF[Confidence Score<br/>High (95% CI narrow)]
+    subgraph Output[Output: Classification with Confidence]
+        CLASS[Cell Type Prediction<br/>Example: CD8 T cell]
+        CONF[Confidence Score<br/>High: 95 percent CI narrow]
         IMMUNO[Immune Evasion Detection<br/>Fidelity drop indicates<br/>tumor escape]
     end
 
