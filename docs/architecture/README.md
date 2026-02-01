@@ -80,7 +80,6 @@ graph LR
 | 🤖 **AI/ML Inference** | mcp-huggingface | 7 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
 | ⚙️ **Workflow Orchestration** | mcp-seqera | 7 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
 
-**⚠️ Important:** Not all servers are production-ready. Check [Server Implementation Status](servers.md) before using.
 
 ---
 
