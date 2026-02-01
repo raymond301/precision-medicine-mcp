@@ -4,8 +4,8 @@
 
 This document establishes data governance policies for the Precision Medicine MCP servers. These policies ensure responsible handling of genomic, clinical, and multi-omics data in compliance with regulatory requirements and research ethics standards.
 
-**Status:** ✅ Implemented (WI-7 from Risk Mitigation Workplan)
-**Risk Reduced:** R8 (Data governance and compliance) - 65% reduction (8/10 → 3/10)
+**Status:** ✅ Implemented (WI-7 from Risk Mitigation Workplan)  
+**Risk Reduced:** R8 (Data governance and compliance) - 65% reduction (8/10 → 3/10)  
 
 ---
 
@@ -472,18 +472,18 @@ Add calibrated noise to query results to protect individual privacy while preser
 ### 8.1 Data Breach Definition
 
 A data breach occurs when:
-- Unauthorized person gains access to Confidential or Restricted data
-- Data is disclosed to unauthorized parties
-- Accidental disclosure of PHI or identifiable data
+- Unauthorized person gains access to Confidential or Restricted data  
+- Data is disclosed to unauthorized parties  
+- Accidental disclosure of PHI or identifiable data  
 
 ### 8.2 Incident Response Plan
 
-**Step 1: DETECT (0-1 hour)** - Identify and document
-**Step 2: CONTAIN (1-4 hours)** - Isolate affected systems
-**Step 3: ASSESS (4-24 hours)** - Determine scope
-**Step 4: NOTIFY (24-72 hours)** - Notify affected parties
-**Step 5: REMEDIATE (72 hours+)** - Implement improvements
-**Step 6: DOCUMENT (ongoing)** - Record lessons learned
+**Step 1: DETECT (0-1 hour)** - Identify and document  
+**Step 2: CONTAIN (1-4 hours)** - Isolate affected systems  
+**Step 3: ASSESS (4-24 hours)** - Determine scope  
+**Step 4: NOTIFY (24-72 hours)** - Notify affected parties  
+**Step 5: REMEDIATE (72 hours+)** - Implement improvements  
+**Step 6: DOCUMENT (ongoing)** - Record lessons learned  
 
 ---
 
