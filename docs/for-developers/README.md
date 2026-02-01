@@ -386,30 +386,6 @@ Restart Claude Desktop and test:
 
 ---
 
-## Getting Help
-
-### Technical Support
-- **GitHub Issues:** https://github.com/{org}/precision-medicine-mcp/issues
-- **Discussions:** https://github.com/{org}/precision-medicine-mcp/discussions
-- **Slack:** #mcp-developers (if available)
-
-### Escalation Path
-1. **Check documentation** - Most questions answered in this section
-2. **Study existing servers** - See how others solved similar problems
-3. **Ask in Discussions** - Community can help
-4. **Open Issue** - For bugs or feature requests
-
-### Contributing Back
-Once you've built something useful:
-1. Open a PR with your new server
-2. Include tests (≥35% coverage)
-3. Add documentation (README + architecture doc)
-4. Update central server tables
-
-See: [CONTRIBUTING.md](CONTRIBUTING.md) for PR guidelines
-
----
-
 ## Example Workflow: Adding Metabolomics Server
 
 **Goal:** Add 11th server for LC-MS metabolomics data analysis
