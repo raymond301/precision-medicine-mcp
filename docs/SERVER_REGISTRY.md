@@ -63,18 +63,7 @@
 - **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-epic
 - **Not Ready**: mcp-tcga, mcp-huggingface, mcp-seqera (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
-- **Partial**: mcp-openimagedata (verify per tool)
-
----
-
-## GCP Deployment Status
-
-**Deployed to Cloud Run:** 11/12 servers (mcp-epic is local-only)  
-**Region:** us-central1  
-**Transport:** SSE (Server-Sent Events) over HTTPS  
-**Last Deployment:** 2026-01-31  
-
-See [Hospital Deployment Guide](for-hospitals/README.md) for HIPAA-compliant production setup.
+- **Partial**: mcp-openimagedata (verify per tool)  
 
 ---
 
