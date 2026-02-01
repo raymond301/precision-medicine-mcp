@@ -7,7 +7,7 @@
 ## What You Can Accomplish Here
 
 - ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (10 servers, FastMCP patterns, Claude API orchestration)
+- ✅ **Understand system architecture** (12 servers, 124 tools, FastMCP patterns, Claude API orchestration)
 - ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
 - ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
 - ✅ **Contribute to codebase** (coding standards, PR guidelines)
@@ -17,7 +17,7 @@
 ## Quick Start (3 Paths)
 
 ### 1. Building a New Modality Server (4-8 hours)
-**Goal:** Add an 11th server for metabolomics/radiomics/proteomics
+**Goal:** Add a 13th server for metabolomics/radiomics/other modalities
 
 1. **Read the guide** → [ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md) (20 min)
 2. **Copy boilerplate template** → `/servers/mcp-server-boilerplate/` (5 min)
@@ -28,7 +28,7 @@
 **Total Time:** 4-8 hours from template to deployed server
 
 ### 2. Understanding the Architecture (30-60 min)
-**Goal:** Understand how 10 MCP servers orchestrate precision medicine workflows
+**Goal:** Understand how 12 MCP servers orchestrate precision medicine workflows
 
 1. **System overview** → [ARCHITECTURE.md](ARCHITECTURE.md) (15 min)
 2. **Best reference implementation** → [mcp-multiomics README](../../servers/mcp-multiomics/README.md) (15 min)
@@ -62,7 +62,7 @@
 
 ---
 
-## System Architecture (10 MCP Servers)
+## System Architecture (12 MCP Servers)
 
 ```mermaid
 graph TB
@@ -80,7 +80,7 @@ graph TB
         REALEPIC[mcp-epic<br/>Real Epic FHIR<br/>✅ Production<br/>🏥 HIPAA-compliant]
     end
 
-    subgraph "GCP Cloud Run - 9 Deployed MCP Servers"
+    subgraph "GCP Cloud Run - 11 Deployed MCP Servers"
         subgraph "Clinical & Genomic"
             MOCKEPIC[mcp-mockepic<br/>Mock FHIR<br/>🎭 Demo Only]
             FGBIO[mcp-fgbio<br/>FASTQ/VCF<br/>✅ Production]
@@ -91,10 +91,15 @@ graph TB
             MULTI[mcp-multiomics<br/>RNA/Protein/Phospho<br/>✅ Production]
         end
 
-        subgraph "Spatial Biology"
-            SPATIAL[mcp-spatialtools<br/>Spatial RNA-seq<br/>✅ 95% Real]
+        subgraph "Spatial & Imaging"
+            SPATIAL[mcp-spatialtools<br/>Spatial RNA-seq<br/>✅ Production]
             IMAGE[mcp-openimagedata<br/>Histology<br/>🔶 60% Real]
-            DEEPCELL[mcp-deepcell<br/>Segmentation<br/>❌ Mocked]
+            DEEPCELL[mcp-deepcell<br/>Cell Segmentation<br/>✅ Production]
+        end
+
+        subgraph "Advanced Analytics"
+            PERTURB[mcp-perturbation<br/>GEARS GNN<br/>✅ Production]
+            QUANTUM[mcp-quantum-celltype-fidelity<br/>Quantum PQCs<br/>✅ Production]
         end
 
         subgraph "AI & Workflows"
@@ -113,23 +118,27 @@ graph TB
 
     API ==> FGBIO
     API ==> MULTI
-    API --> SPATIAL
+    API ==> SPATIAL
     API ==> REALEPIC
+    API ==> DEEPCELL
+    API ==> PERTURB
+    API ==> QUANTUM
     API -.-> MOCKEPIC
     API -.-> TCGA
     API -.-> IMAGE
-    API -.-> DEEPCELL
     API -.-> HF
     API -.-> SEQERA
 
     FGBIO ==> PATIENT
     MULTI ==> PATIENT
-    SPATIAL --> PATIENT
+    SPATIAL ==> PATIENT
     REALEPIC ==> PATIENT
+    DEEPCELL ==> PATIENT
+    PERTURB ==> PATIENT
+    QUANTUM ==> PATIENT
     MOCKEPIC -.-> PATIENT
     TCGA -.-> PATIENT
     IMAGE -.-> PATIENT
-    DEEPCELL -.-> PATIENT
     HF -.-> PATIENT
     SEQERA -.-> PATIENT
 
@@ -142,30 +151,33 @@ graph TB
     style MULTI fill:#d4edda,stroke:#28a745,stroke-width:2px
     style SPATIAL fill:#d4edda,stroke:#28a745,stroke-width:2px
     style REALEPIC fill:#d4edda,stroke:#28a745,stroke-width:3px
+    style DEEPCELL fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style PERTURB fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style QUANTUM fill:#d4edda,stroke:#28a745,stroke-width:2px
     style IMAGE fill:#fff3cd,stroke:#ffc107,stroke-width:1px
     style TCGA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
-    style DEEPCELL fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style HF fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style SEQERA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style MOCKEPIC fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
 ```
 
 **Legend:**
-- ✅ **Production Ready** (4/10): Real data, comprehensive tests, deployed
-- 🔶 **Partial Implementation** (1/10): Some real integrations, some mocked
-- ❌ **Mocked** (4/10): Return synthetic data, API calls stubbed
-- 🎭 **Mock by Design** (1/10): Intentionally synthetic for demos
+- ✅ **Production Ready** (7/12): Real data, comprehensive tests, deployed
+- 🔶 **Partial Implementation** (1/12): Some real integrations, some mocked
+- ❌ **Mocked** (3/12): Return synthetic data, API calls stubbed
+- 🎭 **Mock by Design** (1/12): Intentionally synthetic for demos
 
 ---
 
 ## Server Status Overview
 
 **Production Status:**
-- ✅ **4/10 servers production-ready** (40%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic
-- 🔶 **1/10 partial implementation** (10%) - mcp-openimagedata (60% real)
-- ❌ **5/10 fully mocked** (50%) - mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera, mcp-mockepic
+- ✅ **7/12 servers production-ready** (58%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-epic
+- 🔶 **1/12 partial implementation** (8%) - mcp-openimagedata (60% real)
+- ❌ **3/12 fully mocked** (25%) - mcp-tcga, mcp-huggingface, mcp-seqera
+- 🎭 **1/12 mock by design** (8%) - mcp-mockepic (synthetic for demos)
 
-**Total:** 10 servers, 59 tools, 167 automated tests
+**Total:** 12 servers, 124 tools, comprehensive test coverage
 
 📋 **[Complete Server Implementation Status →](../architecture/servers.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status
@@ -388,7 +400,7 @@ Restart Claude Desktop and test:
 
 ## Example Workflow: Adding Metabolomics Server
 
-**Goal:** Add 11th server for LC-MS metabolomics data analysis
+**Goal:** Add 13th server for LC-MS metabolomics data analysis
 
 **Steps:**
 1. **Plan** (1 hour) - Define 5-8 tools, dependencies, data formats
@@ -420,4 +432,4 @@ Restart Claude Desktop and test:
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-01
