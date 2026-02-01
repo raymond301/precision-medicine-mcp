@@ -1,3 +1,7 @@
+> 📁 **Archived Documentation**
+> This roadmap has been archived for historical reference.
+> For current deployment guides, see [Hospital Deployment](../../for-hospitals/README.md).
+
 # Production Roadmap: Hospital Cloud Deployment
 
 ## Executive Summary
