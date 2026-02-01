@@ -928,16 +928,16 @@ Based on analysis of Lynn Langit's articles and technical writing:
 
 | Screenshot | File | Target Chapter | Status | Notes |
 |------------|------|----------------|--------|-------|
-| Claude Desktop Interface | `Claude-client.png` | Chapter 2 | 🔲 TODO | Show MCP server list in sidebar |
-| MCP Architecture Diagram | `why-mcp.jpeg` | Chapter 2 | 🔲 TODO | Visual explanation of MCP concept |
-| Streamlit UI Preview | `streamlit-ui-preview.png` | Chapter 15 | 🔲 TODO | Research interface example |
-| Jupyter Notebook Interface | `jupyter-preview.png` | Chapter 16 | 🔲 TODO | Teaching interface example |
-| GCP Deployment Console | `gcp-deploy.png` | Chapter 12 | 🔲 TODO | Cloud Run deployment view |
-| Operations Dashboard 1 | `dash-1.png` | Chapter 14 | 🔲 TODO | Main metrics dashboard |
-| Operations Dashboard 2 | `dash-2.png` | Chapter 14 | 🔲 TODO | Cost tracking |
-| Operations Dashboard 3 | `dash-3.png` | Chapter 14 | 🔲 TODO | Performance metrics |
-| Operations Dashboard 4 | `dash-4.png` | Chapter 14 | 🔲 TODO | Server health |
-| Clinical Persona | `clinical-personna.jpeg` | Chapter 13 | 🔲 TODO | Hospital user personas |
+| Claude Desktop Interface | `Claude-client.png` | Chapter 2 | ✅ DONE | Figure 2.3: Claude Desktop with MCP servers |
+| MCP Architecture Diagram | `why-mcp.jpeg` | Chapter 2 | ✅ DONE | Figure 2.2: Visual explanation of MCP |
+| Streamlit UI Preview | `streamlit-ui-preview.png` | Chapter 15 | ✅ DONE | Figure 15.1: Research interface |
+| Jupyter Notebook Interface | `jupyter-preview.png` | Chapter 16 | ✅ DONE | Figure 16.1: Teaching interface |
+| GCP Deployment Console | `gcp-deploy.png` | Chapter 12 | ✅ DONE | Figure 12.2: Cloud Run services list |
+| Operations Dashboard 1 | `dash-1.png` | Chapter 14 | ✅ DONE | Figure 14.1: Main operations dashboard |
+| Operations Dashboard 2 | `dash-2.png` | Chapter 14 | ✅ DONE | Figure 14.2: Cost tracking |
+| Operations Dashboard 3 | `dash-3.png` | Chapter 14 | ✅ DONE | Figure 14.3: Performance metrics |
+| Operations Dashboard 4 | `dash-4.png` | Chapter 14 | ✅ DONE | Figure 14.4: Server health |
+| Clinical Persona | `clinical-personna.jpeg` | Chapter 13 | ✅ DONE | Figure 13.1: Hospital user personas |
 
 ### Screenshots - PatientOne Outputs (9 files to consider)
 
@@ -1111,11 +1111,16 @@ With all 18 chapters, appendix, and companion notebooks complete:
 - ✅ BOOK_PLAN.md updated with comprehensive screenshot tracking
 
 **In Progress**:
-- 🔲 Insert 10 existing screenshots into chapters (data/images/, PatientOne outputs)
+- ✅ Insert 10 existing screenshots into chapters (COMPLETE - all inserted)
 - 🔲 Capture 15 additional screenshots (see Visual Content Plan above)
+- 🔲 Insert 9 PatientOne output visualizations (optional)
 
 **Next Actions**:
-1. Insert existing screenshots (Claude Desktop, dashboards, Streamlit, Jupyter, GCP deploy)
-2. Capture additional screenshots from live deployments (HIGH priority: 5, MEDIUM: 7, LOW: 3)
-3. Final technical review and formatting consistency check
-4. Publication preparation (PDF/ePub conversion, cover design, ISBN)
+1. ✅ DONE: Insert existing screenshots (Claude Desktop, dashboards, Streamlit, Jupyter, GCP deploy)
+2. **PRIORITY**: Capture 15 additional screenshots from live deployments
+   - HIGH priority (5): Claude Desktop config, Cloud Run list, Cloud Build logs, Epic FHIR, VCF parsed
+   - MEDIUM priority (7): HAllA plots, STAR summary, DeepCell overlay, GEARS training, Quantum fidelity, IAM, Cloud Logging
+   - LOW priority (3): Cost breakdown, Gemini vs Claude, Notebook execution
+3. **OPTIONAL**: Insert 9 PatientOne output visualizations into chapters 1, 3, 6, 7, 8, 15
+4. Final technical review and formatting consistency check
+5. Publication preparation (PDF/ePub conversion, cover design, ISBN)
