@@ -136,14 +136,16 @@ By the end of this book, you'll have deployed:
 
 ## Companion Materials
 
-### Jupyter Notebooks
+### Jupyter Notebooks (18 notebooks)
 Each chapter has a hands-on Jupyter notebook in [`companion-notebooks/`](./companion-notebooks/):
 - Executable code examples
 - Interactive exercises
 - "Try changing this parameter..." experiments
-- Links to deployed Cloud Run servers (if you deploy)
+- Links to deployed Cloud Run servers (**requires you to deploy your own MCP servers**)
 
-**Setup**: See [`companion-notebooks/README.md`](./companion-notebooks/README.md)
+**IMPORTANT**: Notebooks require you to deploy MCP servers to your GCP Cloud Run. They will NOT work without your own infrastructure.
+
+**Setup**: See [`companion-notebooks/README.md`](./companion-notebooks/README.md) for complete 5-step deployment guide
 
 ### Sample Data
 PatientOne dataset (100% synthetic):
@@ -301,9 +303,9 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 
 ---
 
-**Last Updated**: 2026-01-31
+**Last Updated**: 2026-02-01
 **Version**: 1.0 (Draft)
-**Status**: In progress (Chapters 1-11 complete, Part 3 finished!)
+**Status**: All 18 chapters complete + Appendix | Phase 2 revision complete (Chapters 2-10, 55% reduction)
 
 ## Writing Progress
 
@@ -341,4 +343,15 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 - ✅ Appendix: MCP Server Setup Guide (13 pages)
 
 **Progress**: 263 pages written (~88% of target 300 pages)
-**Status**: ALL 18 DRAFT CHAPTERS + APPENDIX COMPLETE! Ready for Phase 2 revision (Chapters 2-10)
+**Status**: ALL 18 DRAFT CHAPTERS + APPENDIX COMPLETE!
+
+**Phase 2 Revision** (2026-02-01): ✅ COMPLETE
+- Chapters 2-10 revised for conciseness (55% total reduction, 5,186 → 2,311 lines)
+- Code snippets shortened to 2-5 lines with GitHub repo links
+- Maintained technical accuracy while removing verbose explanations
+
+**Companion Notebooks**: ✅ 18 Jupyter notebooks documented
+- One notebook per chapter in [`companion-notebooks/`](companion-notebooks/)
+- Setup guide and requirements.txt created
+- Requires readers to deploy their own MCP servers on GCP
+- Chapter 16 updated with complete notebook list
