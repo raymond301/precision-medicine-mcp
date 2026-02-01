@@ -40,32 +40,32 @@ The `mcp-perturbation` server uses **GEARS (Graph-Enhanced Gene Activation and R
 
 ```mermaid
 graph TB
-    subgraph "Input Data"
+    subgraph InputData[Input Data]
         BASELINE[Patient Baseline<br/>RNA-seq expression<br/>20,000 genes]
-        DRUG[Drug Target Genes<br/>PARP1 (olaparib)<br/>PIK3CA (alpelisib)]
+        DRUG[Drug Target Genes<br/>PARP1 olaparib<br/>PIK3CA alpelisib]
         KNOWLEDGE[Knowledge Graph<br/>Gene regulatory network<br/>TF binding, PPI]
     end
 
-    subgraph "Phase 1: Data Preparation"
+    subgraph Phase1[Phase 1: Data Preparation]
         LOAD[perturbation_load_dataset<br/>Load training data<br/>GSE184880: 487k cells]
         PREPROCESS[Preprocessing<br/>Log-normalization<br/>Select 7000 HVGs]
     end
 
-    subgraph "Phase 2: Model Training"
+    subgraph Phase2[Phase 2: Model Training]
         BUILD[perturbation_build_model<br/>GEARS GNN architecture<br/>Graph attention layers]
         TRAIN[perturbation_train_model<br/>Train on perturbation data<br/>Epochs, batch size]
-        VALIDATE[Validation<br/>Unseen perturbations<br/>Pearson R > 0.85]
+        VALIDATE[Validation<br/>Unseen perturbations<br/>Pearson R greater than 0.85]
     end
 
-    subgraph "Phase 3: Prediction"
-        PREDICT[perturbation_predict_response<br/>Patient expression + drug<br/>Predict post-treatment state]
+    subgraph Phase3[Phase 3: Prediction]
+        PREDICT[perturbation_predict_response<br/>Patient expression plus drug<br/>Predict post-treatment state]
         MULTI[perturbation_predict_combination<br/>Multi-gene perturbations<br/>Drug combinations]
         UQ[Uncertainty Quantification<br/>Bayesian layers<br/>Confidence intervals]
     end
 
-    subgraph "Output"
+    subgraph Output[Output]
         EXPR[Predicted Expression<br/>20,000 genes<br/>Post-treatment state]
-        RANK[Treatment Ranking<br/>1. PARP+PI3K<br/>2. PARP only<br/>3. PI3K only]
+        RANK[Treatment Ranking<br/>1. PARP plus PI3K<br/>2. PARP only<br/>3. PI3K only]
         CONF[Confidence Scores<br/>High: 0.89<br/>Medium: 0.72]
         DE[Differential Genes<br/>Up: 234<br/>Down: 189]
     end

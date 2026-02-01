@@ -324,30 +324,49 @@ Full test results: [`servers/mcp-spatialtools/COMPLETE_WORKFLOW_TEST_SUMMARY.md`
 ### Time-to-Insight Comparison
 
 ```mermaid
-gantt
-    title Traditional vs. AI-Orchestrated Precision Medicine Workflow
-    dateFormat HH:mm
-    axisFormat %H:%M
+graph LR
+    subgraph Traditional["Traditional Workflow: 40 Hours"]
+        direction TB
+        T1[Clinical Data Extraction<br/>3 hours]
+        T2[Genomic Analysis<br/>10 hours]
+        T3[Multi-Omics Integration<br/>12 hours]
+        T4[Spatial Transcriptomics<br/>8 hours]
+        T5[Imaging Analysis<br/>5 hours]
+        T6[Report Generation<br/>2 hours]
 
-    section Traditional (40 hours)
-    Clinical Data Extraction     :t1, 00:00, 3h
-    Genomic Analysis             :t2, 03:00, 10h
-    Multi-Omics Integration      :t3, 13:00, 12h
-    Spatial Transcriptomics      :t4, 25:00, 8h
-    Imaging Analysis             :t5, 33:00, 5h
-    Report Generation            :t6, 38:00, 2h
+        T1 --> T2 --> T3 --> T4 --> T5 --> T6
+    end
 
-    section AI-Orchestrated (35 min)
-    Clinical Data                :a1, 00:00, 5min
-    Genomic Analysis             :a2, 00:05, 8min
-    Multi-Omics Integration      :a3, 00:13, 6min
-    Spatial Transcriptomics      :a4, 00:19, 5min
-    Imaging Analysis             :a5, 00:24, 8min
-    AI Synthesis & Report        :a6, 00:32, 3min
+    subgraph AIOrch["AI-Orchestrated: 35 Minutes"]
+        direction TB
+        A1[Clinical Data<br/>5 min]
+        A2[Genomic Analysis<br/>8 min]
+        A3[Multi-Omics<br/>6 min]
+        A4[Spatial Analysis<br/>5 min]
+        A5[Imaging<br/>8 min]
+        A6[AI Synthesis<br/>3 min]
+
+        A1 --> A2 --> A3 --> A4 --> A5 --> A6
+    end
+
+    style Traditional fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    style AIOrch fill:#d4edda,stroke:#28a745,stroke-width:3px
+    style T1 fill:#fff3cd
+    style T2 fill:#fff3cd
+    style T3 fill:#fff3cd
+    style T4 fill:#fff3cd
+    style T5 fill:#fff3cd
+    style T6 fill:#fff3cd
+    style A1 fill:#d1ecf1
+    style A2 fill:#d1ecf1
+    style A3 fill:#d1ecf1
+    style A4 fill:#d1ecf1
+    style A5 fill:#d1ecf1
+    style A6 fill:#d1ecf1
 ```
 
 **Figure 3.2: Time-to-Insight Comparison**
-*Traditional workflow requires 40 hours of sequential manual analysis across 3-4 specialists. AI-orchestrated workflow completes the same analysis in 35 minutes with automated tool coordination.*
+*Traditional workflow requires 40 hours of sequential manual analysis across 3-4 specialists (red border). AI-orchestrated workflow completes the same analysis in 35 minutes with automated tool coordination (green border). Each step shown with duration.*
 
 **Key Insights:**
 - **68x faster**: 40 hours → 35 minutes
