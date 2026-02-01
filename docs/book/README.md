@@ -251,13 +251,6 @@ Read chapters 1-18 in order. Each chapter builds on previous concepts.
 
 ---
 
-## Support and Community
-
-**Issues/Bugs**: https://github.com/lynnlangit/precision-medicine-mcp/issues
-**Documentation**: https://github.com/lynnlangit/precision-medicine-mcp
-
----
-
 ## License
 
 **Book content**: Copyright © 2026 Lynn Langit. All rights reserved.  
