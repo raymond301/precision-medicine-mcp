@@ -19,20 +19,10 @@ Need to quality-check genomic data? Try FastQC, MultiQC, Picard, or fgbio. Want 
 Let's look at a real example from Sarah's case in Chapter 1. To analyze her spatial transcriptomics data, you'd traditionally need:
 
 ```bash
-# Install Scanpy (Python)
-conda create -n spatial python=3.11
-conda activate spatial
-pip install scanpy squidpy
-
-# Install Seurat (R)
+# Install multiple environments and tools
+conda create -n spatial python=3.11 && pip install scanpy squidpy
 R -e "install.packages('Seurat')"
-
-# Install STAR aligner (compiled C++)
-conda install -c bioconda star
-
-# Install pathway tools
-pip install gseapy
-R -e "install.packages('clusterProfiler')"
+conda install -c bioconda star && pip install gseapy
 ```
 
 That's four different programming environments, three package managers, and at least 30 minutes of installation time—*before you write a single line of analysis code*.
@@ -68,33 +58,14 @@ Here's what we mean. Suppose you want to:
 With traditional REST microservices, you'd write code like this:
 
 ```python
-# Call Epic FHIR API
-clinical = requests.post(
-    "https://api.hospital.org/epic",
-    json={"patient_id": "PAT001"}
-)
-
-# Call genomics service
-variants = requests.post(
-    "https://api.biotools.org/vcf-parse",
-    files={"vcf": open("patient.vcf")}
-)
-
-# Call multi-omics service
-pathways = requests.post(
-    "https://api.biotools.org/multiomics",
-    json={
-        "rna": clinical["lab_data"]["rna"],
-        "proteins": clinical["lab_data"]["proteins"],
-        "phospho": clinical["lab_data"]["phospho"]
-    }
-)
-
-# Call spatial service...
-# ... and so on
+# Manual orchestration: call multiple APIs, handle conversions
+clinical = requests.post("https://api.hospital.org/epic", json={"patient_id": "PAT001"})
+variants = requests.post("https://api.biotools.org/vcf-parse", files={"vcf": open("patient.vcf")})
+pathways = requests.post("https://api.biotools.org/multiomics", json={...})
+# Full implementation: ui/streamlit-app/providers/gemini_provider.py
 ```
 
-See [example integration code](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/providers/gemini_provider.py) for a real implementation.
+Full integration code: [`ui/streamlit-app/providers/gemini_provider.py`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/providers/gemini_provider.py)
 
 **The problems**:
 1. **You're writing orchestration code**. Every new analysis requires custom Python/JavaScript.
@@ -157,19 +128,11 @@ Let's look at how the `parse_vcf` tool is defined in the `mcp-fgbio` server:
 ```python
 @mcp.tool()
 def parse_vcf(vcf_path: str, min_depth: int = 10) -> dict:
-    """Parse VCF file and return somatic variants.
-
-    Args:
-        vcf_path: Path to VCF file (local or gs://)
-        min_depth: Minimum read depth to include variant
-
-    Returns:
-        Dictionary with variants, quality metrics, and annotations
-    """
-    # Implementation details...
+    """Parse VCF file and return somatic variants."""
+    # Full implementation: servers/mcp-fgbio/src/mcp_fgbio/server.py:145-187
 ```
 
-See full implementation: [`servers/mcp-fgbio/src/mcp_fgbio/server.py:145-187`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-fgbio/src/mcp_fgbio/server.py#L145-L187)
+Full implementation: [`servers/mcp-fgbio/src/mcp_fgbio/server.py:145-187`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-fgbio/src/mcp_fgbio/server.py#L145-L187)
 
 That's it. The `@mcp.tool()` decorator registers this function with the MCP protocol. When Claude connects to the `mcp-fgbio` server, it automatically discovers:
 - Tool name: `parse_vcf`
@@ -205,9 +168,9 @@ The system has 12 MCP servers, each specialized for a specific bioinformatics do
 11. **mcp-huggingface**: ML model inference (framework ready)
 12. **mcp-seqera**: Nextflow orchestration (demo)
 
-See detailed status: [`docs/SERVER_REGISTRY.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/SERVER_REGISTRY.md)
-
 **Total**: 124 bioinformatics tools across 12 servers
+
+Full server status: [`docs/architecture/servers.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/architecture/servers.md)
 
 ### Data Flow Example
 
@@ -221,57 +184,33 @@ genomics, multi-omics, and spatial transcriptomics.
 
 **Behind the scenes**:
 
-1. **Claude parses intent**:
-   - Needs: Clinical context, genomics, multi-omics, spatial data
-   - Goal: Treatment recommendations
+1. **Claude parses intent**: Needs clinical context, genomics, multi-omics, spatial data. Goal: Treatment recommendations.
 
-2. **Claude discovers available tools**:
-   ```
-   Connected to 7 MCP servers:
-     - mcp-mockepic: 8 tools (clinical data)
-     - mcp-fgbio: 9 tools (genomics)
-     - mcp-multiomics: 21 tools (integration)
-     - mcp-spatialtools: 23 tools (spatial)
-     - ...
-   Total: 124 tools available
-   ```
+2. **Claude discovers available tools**: Connected to 7 MCP servers with 124 tools total (clinical data, genomics, integration, spatial analysis).
 
-3. **Claude plans workflow**:
-   ```
-   Step 1: Get clinical summary → mcp-mockepic.get_patient_summary()
-   Step 2: Parse variants → mcp-fgbio.parse_vcf()
-   Step 3: Run meta-analysis → mcp-multiomics.stouffer_meta_analysis()
-   Step 4: Spatial DE → mcp-spatialtools.spatial_differential_expression()
-   Step 5: Integrate findings → Synthesize results
-   ```
+3. **Claude plans workflow**: Load clinical → Parse variants → Run meta-analysis → Spatial DE → Integrate findings.
 
 4. **Claude executes (parallelizes where possible)**:
-   ```python
-   # These can run in parallel (no dependencies)
-   clinical_result = await mcp_mockepic.get_patient_summary(patient_id="PAT001-OVC-2025")
-   genomic_result = await mcp_fgbio.parse_vcf(vcf_path="gs://...")
-
-   # This depends on genomic_result, so runs sequentially
-   multiomics_result = await mcp_multiomics.stouffer_meta_analysis(
-       genes=genomic_result["mutated_genes"],
-       rna_path="gs://...",
-       protein_path="gs://..."
-   )
-   ```
+```python
+# Parallel execution of independent tasks
+clinical_result = await mcp_mockepic.get_patient_summary(patient_id="PAT001-OVC-2025")
+genomic_result = await mcp_fgbio.parse_vcf(vcf_path="gs://...")
+# Full orchestration: ui/streamlit-app/providers/
+```
 
 5. **Claude synthesizes**:
-   ```
-   Findings:
-   - Clinical: Platinum-resistant HGSOC, BRCA1 carrier
-   - Genomics: PIK3CA E545K, TP53 R175H, PTEN loss
-   - Multi-omics: PI3K/AKT pathway active (protein & phospho confirm)
-   - Spatial: Immune exclusion, high proliferation in tumor core
+```
+Findings:
+- Clinical: Platinum-resistant HGSOC, BRCA1 carrier
+- Genomics: PIK3CA E545K, TP53 R175H, PTEN loss
+- Multi-omics: PI3K/AKT pathway active (protein & phospho confirm)
+- Spatial: Immune exclusion, high proliferation in tumor core
 
-   Treatment recommendation:
-   Primary: PI3K inhibitor (alpelisib) targeting PIK3CA E545K
-   Secondary: Anti-PD-1 to overcome immune exclusion
-   Clinical trial: NCT03602859 (alpelisib + paclitaxel)
-   ```
+Treatment recommendation:
+Primary: PI3K inhibitor (alpelisib) targeting PIK3CA E545K
+Secondary: Anti-PD-1 to overcome immune exclusion
+Clinical trial: NCT03602859 (alpelisib + paclitaxel)
+```
 
 You wrote zero lines of code. Claude orchestrated 12+ tool calls across 4 servers, handled data format conversions, parallelized independent calls, and synthesized results into clinical recommendations.
 
@@ -330,16 +269,11 @@ Deployment command for a new server:
 
 ```bash
 cd servers/mcp-deepcell
-gcloud run deploy mcp-deepcell \
-  --source . \
-  --region us-central1 \
-  --memory 4Gi \
-  --cpu 2 \
-  --timeout 300 \
-  --allow-unauthenticated
+./deploy.sh YOUR_PROJECT_ID us-central1
+# Full deployment guide: docs/deployment/GET_STARTED.md
 ```
 
-See full deployment guide: [`docs/deployment/GET_STARTED.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/deployment/GET_STARTED.md)
+Full deployment guide: [`docs/deployment/GET_STARTED.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/deployment/GET_STARTED.md)
 
 ### 4. Multi-Provider AI Support
 
@@ -347,8 +281,6 @@ The architecture isn't locked to Claude. You can use:
 - **Claude (Anthropic)**: Native MCP support via MCP beta API
 - **Gemini (Google)**: Custom MCP client implementation
 - **Future models**: Any LLM can implement the MCP protocol
-
-Streamlit UI supports both: [`ui/streamlit-app/app.py`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/app.py)
 
 Claude uses Anthropic's native MCP integration:
 ```python
@@ -359,15 +291,7 @@ client.beta.messages.create(
 )
 ```
 
-Gemini requires manual tool orchestration:
-```python
-# Custom implementation that translates MCP tool schemas
-# into Gemini function calling format
-gemini_tools = convert_mcp_to_gemini(mcp_servers)
-response = model.generate_content(prompt, tools=gemini_tools)
-```
-
-See Gemini provider implementation: [`ui/streamlit-app/providers/gemini_provider.py:87-245`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/providers/gemini_provider.py#L87-L245)
+Gemini provider implementation: [`ui/streamlit-app/providers/gemini_provider.py:87-245`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/ui/streamlit-app/providers/gemini_provider.py#L87-L245)
 
 ---
 
@@ -429,7 +353,7 @@ In the remaining chapters, you'll learn to:
 
 Each chapter includes:
 - Architecture diagrams
-- Code snippets (3-5 lines) with GitHub links
+- Code snippets (2-5 lines) with GitHub links
 - Jupyter notebooks for hands-on practice
 - Real deployment examples
 
@@ -440,8 +364,7 @@ Each chapter includes:
 Ready to see MCP orchestration in action?
 
 **Option 1: Explore the Architecture**
-Open the companion Jupyter notebook:
-[`docs/book/companion-notebooks/chapter-02-architecture.ipynb`](../companion-notebooks/chapter-02-architecture.ipynb)
+Open the companion Jupyter notebook: [`docs/book/companion-notebooks/chapter-02-architecture.ipynb`](../companion-notebooks/chapter-02-architecture.ipynb)
 
 This notebook lets you:
 - Connect to deployed MCP servers
@@ -450,30 +373,18 @@ This notebook lets you:
 - Compare sequential vs. parallel orchestration
 
 **Option 2: Query MCP Server Endpoints**
-The servers are deployed and public. You can query them directly:
+The servers are deployed. You can query them directly:
 
 ```bash
 # List tools from mcp-fgbio
 curl https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/tools
-
-# Expected output: JSON array of 9 tools
-# [
-#   {"name": "parse_vcf", "description": "Parse VCF...", ...},
-#   {"name": "validate_fastq", "description": "QC FASTQ...", ...},
-#   ...
-# ]
+# Returns: JSON array of 9 tools with names, descriptions, parameters
 ```
 
-All endpoints: [`docs/SERVER_REGISTRY.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/SERVER_REGISTRY.md)
+All endpoints: [`docs/architecture/servers.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/architecture/servers.md)
 
 **Option 3: Run the PatientOne Workflow**
-Deploy the MCP servers locally and use Claude Desktop:
-1. Follow the installation guide: [`docs/getting-started/installation.md`](../../getting-started/installation.md)
-2. Configure Claude Desktop with your local MCP servers
-3. Paste the PatientOne prompt from Chapter 1
-4. Watch Claude coordinate servers in real-time
-
-**Alternative**: Deploy to your own GCP account using the deployment guide in Chapter 12.
+Deploy the MCP servers locally and use Claude Desktop. See **Appendix: Setup Guide** for complete instructions.
 
 ---
 
@@ -508,8 +419,9 @@ But first, pause and appreciate what you've just learned. You now understand:
 **Companion Resources:**
 - 📓 [Jupyter Notebook](../companion-notebooks/chapter-02-architecture.ipynb) - Explore MCP orchestration
 - 🏗️ [Architecture Docs](../../architecture/README.md) - Detailed technical specs
-- 🔧 [Server Registry](../../SERVER_REGISTRY.md) - All 12 servers and 124 tools
+- 🔧 [Server Registry](../../architecture/servers.md) - All 12 servers and 124 tools
 - 🚀 [Deployment Guide](../../deployment/GET_STARTED.md) - Cloud Run setup
+- 📚 [Appendix: Setup Guide](appendix-setup-guide.md) - Installation instructions
 
 **GitHub References:**
 - MCP server boilerplate: [`servers/mcp-server-boilerplate/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/servers/mcp-server-boilerplate)
