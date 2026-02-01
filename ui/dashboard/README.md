@@ -534,32 +534,5 @@ def get_optimization_recommendations(server_metrics: Dict) -> List[str]:
 
 ---
 
-## Related Documentation
-
-- **[Cost Calculator](cost_calculator.py)** - Standalone cost calculations
-- **[Metrics Aggregator](metrics_aggregator.py)** - Data processing and analysis
-- **[Sample Metrics](sample_data/patientone_workflow.yaml)** - PatientOne workflow data
-- **[MCP Servers](../servers/)** - Individual server READMEs
-- **[Architecture](../docs/architecture/)** - System design documentation
-
----
-
-## Support
-
-**Questions?**
-- Check [troubleshooting](#troubleshooting) section
-- Review [sample_data/patientone_workflow.yaml](sample_data/patientone_workflow.yaml) for data format
-- Open issue on GitHub
-
-**Contributing:**
-- Add new visualization views to `streamlit_app.py`
-- Update pricing in `cost_calculator.py` if Anthropic rates change
-- Create parsers for other log formats (GCP, AWS, local logs)
-
----
-
-**Last Updated:** 2026-01-12
-**Version:** 1.0 (Quick Win)
-**Maintainer:** precision-medicine-mcp project
 
 **🎉 Monitor your MCP costs. Optimize your architecture. Scale with confidence.**
