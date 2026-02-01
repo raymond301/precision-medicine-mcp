@@ -8,11 +8,10 @@ By Lynn Langit
 
 ## About This Book
 
-This book teaches you how to build, deploy, and operate an AI-orchestrated precision oncology system that reduces analysis time from **40 hours to 35 minutes** and cost from **$3,200 to $1-2 per patient**.
-
-You'll learn to create 12 specialized MCP (Model Context Protocol) servers that enable AI models like Claude and Gemini to coordinate 124 bioinformatics tools through natural language prompts—no code required.
-
-**What makes this different**: This isn't a theoretical framework. Every example is based on a production system deployed to Google Cloud Run, tested with real patient workflows, and validated for clinical decision support.
+- This book teaches you how to build, deploy, and operate an AI-orchestrated precision oncology system that reduces analysis time from **40 hours to 35 minutes** and cost from **$3,200 to $1-2 per patient**.  
+- You'll learn to create 12 specialized MCP (Model Context Protocol) servers that enable AI models like Claude and Gemini to coordinate 124 bioinformatics tools through natural language prompts—no code required.  
+- **What makes this different**: This isn't a theoretical framework. Every example is based on a production system deployed to Google Cloud Run, tested with real patient workflows, and validated for clinical decision support.
+- All referenced source code and detailed documentation is available on Github at https://github.com/lynnlangit/precision-medicine-mcp  
 
 ---
 
@@ -307,51 +306,3 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 **Version**: 1.0 (Draft)
 **Status**: All 18 chapters complete + Appendix | Phase 2 revision complete (Chapters 2-10, 55% reduction)
 
-## Writing Progress
-
-✅ **Part 1: Why This Matters**
-- ✅ Chapter 1: The PatientOne Story (12 pages)
-- ✅ Chapter 2: The Architecture Problem (14 pages)
-- ✅ Chapter 3: Testing the Hypothesis (16 pages)
-
-✅ **Part 2: Building the Foundation** (COMPLETE)
-- ✅ Chapter 4: Clinical Data (18 pages)
-- ✅ Chapter 5: Genomic Foundations (14 pages)
-- ✅ Chapter 6: Multi-Omics Integration (14 pages)
-- ✅ Chapter 7: Spatial Transcriptomics (15 pages)
-
-✅ **Part 3: Advanced Capabilities** (COMPLETE)
-- ✅ Chapter 8: Cell Segmentation with DeepCell (15 pages)
-- ✅ Chapter 9: Treatment Response Prediction (15 pages)
-- ✅ Chapter 10: Quantum Cell-Type Fidelity (16 pages)
-- ✅ Chapter 11: Imaging and Histopathology (12 pages)
-
-✅ **Part 4: Deployment and Operations** (COMPLETE)
-- ✅ Chapter 12: Cloud Deployment on GCP (13 pages)
-- ✅ Chapter 13: Hospital Production Deployment (15 pages)
-- ✅ Chapter 14: Operations and Monitoring (14 pages)
-
-✅ **Part 5: Research and Education** (COMPLETE)
-- ✅ Chapter 15: For Researchers (13 pages)
-- ✅ Chapter 16: Teaching Precision Medicine (14 pages)
-
-✅ **Part 6: The Future** (COMPLETE)
-- ✅ Chapter 17: Funding and Sustainability (9 pages)
-- ✅ Chapter 18: Lessons Learned and What's Next (11 pages)
-
-✅ **Appendix** (COMPLETE)
-- ✅ Appendix: MCP Server Setup Guide (13 pages)
-
-**Progress**: 263 pages written (~88% of target 300 pages)
-**Status**: ALL 18 DRAFT CHAPTERS + APPENDIX COMPLETE!
-
-**Phase 2 Revision** (2026-02-01): ✅ COMPLETE
-- Chapters 2-10 revised for conciseness (55% total reduction, 5,186 → 2,311 lines)
-- Code snippets shortened to 2-5 lines with GitHub repo links
-- Maintained technical accuracy while removing verbose explanations
-
-**Companion Notebooks**: ✅ 18 Jupyter notebooks documented
-- One notebook per chapter in [`companion-notebooks/`](companion-notebooks/)
-- Setup guide and requirements.txt created
-- Requires readers to deploy their own MCP servers on GCP
-- Chapter 16 updated with complete notebook list
