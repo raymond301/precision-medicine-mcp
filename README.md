@@ -41,33 +41,43 @@ graph LR
         U[Clinicians<br/>Bioinformaticians<br/>Researchers]
     end
 
-    subgraph AI["🤖 Multi-Provider AI Orchestration"]
+    subgraph AI["🤖 AI Orchestration"]
         CLAUDE[Claude<br/>Native MCP]
         GEMINI[Gemini<br/>SSE-based MCP]
+        CUSTOM[Custom<br/>Custom MCP]
     end
 
-    subgraph Servers["🔧 12 MCP Servers"]
+    subgraph ServerTypes["🔧 MCP ServerTypes"]
         S1[Clinical<br/>FHIR]
         S2[Genomics<br/>VCF/FASTQ]
-        S3[Multi-omics<br/>Integration]
+        S3[Multi-omics<br/>RNA/Protein/Phospho]
         S4[Spatial<br/>Visium]
-        S5[Perturbation<br/>GEARS]
-        S6[Quantum<br/>Qiskit]
+        S5[Imaging<br/> H&E/MxIF]
+        S6[Perturbation<br/>GEARS/GNN + scRNA-seq]
+        S7[Quantum<br/>Qiskit + spatial transcriptomics]
     end
 
-    subgraph Output["📊 Outputs"]
+    subgraph Output["📊 Orchestrated Outputs"]
         O[Treatment Targets<br/>Predictions<br/>Visualizations]
     end
 
     U --> CLAUDE
     U --> GEMINI
-    CLAUDE --> Servers
-    GEMINI --> Servers
-    Servers --> Output
+    U --> CUSTOM
+    CLAUDE --> ServerTypes
+    GEMINI --> ServerTypes
+    CUSTOM --> ServerTypes
+    S1 --> Output
+    S2 --> Output
+    S3 --> Output
+    S4 --> Output
+    S5 --> Output
+    S6 --> Output
+    S7 --> Output
 
     style Users fill:#e1f5ff
     style AI fill:#fff3cd
-    style Servers fill:#d4edda
+    style ServerTypes fill:#d4edda
     style Output fill:#d1ecf1
 ```
 
