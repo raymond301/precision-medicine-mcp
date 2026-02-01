@@ -126,8 +126,6 @@ python test_all_gcp_servers.py
 - Tool discovery via MCP protocol
 - Response time < 5 seconds (excluding cold starts)
 
-📖 **Server URLs:** [Deployment Status](../deployment/DEPLOYMENT_STATUS.md)
-
 ---
 
 ## 🏥 PatientOne Test Suite
