@@ -400,47 +400,6 @@ You'll explore funding models, ROI analysis, and lessons learned from production
 
 ---
 
-## Try It Yourself
-
-Ready to see this in action? You can run the PatientOne analysis right now using the deployed system.
-
-**Option 1: Interactive Notebook**
-Open the companion Jupyter notebook for this chapter:
-[`docs/book/companion-notebooks/chapter-01-patientone-story.ipynb`](../companion-notebooks/chapter-01-patientone-story.ipynb)
-
-This notebook walks you through:
-- Connecting to the deployed MCP servers on Cloud Run
-- Running the PatientOne prompt with Claude or Gemini
-- Exploring the results step-by-step
-- Modifying parameters to see how outputs change
-
-**Option 2: Streamlit UI**
-Visit the live Streamlit interface:
-**https://streamlit-mcp-chat-ondu7mwjpa-uc.a.run.app**
-
-Select "Claude" or "Gemini" as your AI provider, paste the PatientOne prompt, and watch the analysis execute in real-time.
-
-**Option 3: Claude Desktop (Local)**
-If you have Claude Desktop installed, configure the MCP servers following:
-[`docs/getting-started/installation.md`](../../getting-started/installation.md)
-
-Then paste this prompt:
-
-```
-Analyze patient PAT001-OVC-2025 for precision oncology treatment selection.
-
-Clinical data: gs://sample-inputs-patientone/PAT001-OVC-2025/clinical/
-Genomics: gs://sample-inputs-patientone/PAT001-OVC-2025/genomics/somatic_variants.vcf
-Multi-omics: gs://sample-inputs-patientone/PAT001-OVC-2025/multiomics/
-Spatial: gs://sample-inputs-patientone/PAT001-OVC-2025/spatial/
-Imaging: gs://sample-inputs-patientone/PAT001-OVC-2025/imaging/
-
-Generate comprehensive treatment recommendations based on all modalities.
-```
-
-All data is synthetic and publicly accessible. No API keys required for read access.
-
----
 
 ## What Comes Next
 
@@ -467,7 +426,6 @@ And you're about to learn how to build it.
 - 📓 [Jupyter Notebook](../companion-notebooks/chapter-01-patientone-story.ipynb) - Run the analysis yourself
 - 🎬 [Video Demo](https://www.youtube.com/watch?v=LUldOHHX5Yo) - 5-minute PatientOne walkthrough
 - 📊 [Full Demo Guide](../../demos/FULL_PATIENTONE_DEMO.md) - Complete testing instructions
-- 💻 [Streamlit UI](https://streamlit-mcp-chat-ondu7mwjpa-uc.a.run.app) - Interactive web interface
 
 **GitHub References:**
 - Patient data: [`data/patient-data/PAT001-OVC-2025/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/data/patient-data/PAT001-OVC-2025)
