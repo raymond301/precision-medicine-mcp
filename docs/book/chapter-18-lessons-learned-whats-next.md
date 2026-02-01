@@ -66,17 +66,6 @@
 
 **Alternative considered**: Production-only (rejected - too expensive for education, exploration)
 
-### 4. Concise Book Format
-
-**User feedback** (from earlier in this session): "keep the book chapter as concise as possible and link to detail in the Repo"
-
-**What worked**:
-- Chapter 11 template (12 pages): Short code snippets (2-5 lines) + repo links
-- Chapters 12-18 average: 12 pages (vs 14-18 for earlier chapters)
-- Readers get concepts quickly, dive deep via links as needed
-
-**Evidence**: 239 pages written (80% of 300-page target) for 18 chapters = 13.3 pages/chapter avg
-
 ---
 
 ## What Didn't Work: Challenges and Solutions
