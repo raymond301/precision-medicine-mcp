@@ -323,9 +323,13 @@ Or jump to the [Companion Notebooks](companion-notebooks/) to start building imm
 - ✅ Chapter 10: Quantum Cell-Type Fidelity (16 pages)
 - ✅ Chapter 11: Imaging and Histopathology (12 pages)
 
-📝 **Part 4: Deployment and Operations** (In progress)
+✅ **Part 4: Deployment and Operations** (COMPLETE)
 - ✅ Chapter 12: Cloud Deployment on GCP (13 pages)
 - ✅ Chapter 13: Hospital Production Deployment (15 pages)
-- ⏳ Chapter 14: Operations and Monitoring
+- ✅ Chapter 14: Operations and Monitoring (14 pages)
 
-**Progress**: 189 pages written (~63% of target 300 pages)
+📝 **Part 5: Research and Education** (Coming next)
+- ⏳ Chapter 15: For Researchers
+- ⏳ Chapter 16: Teaching Precision Medicine
+
+**Progress**: 203 pages written (~68% of target 300 pages)
