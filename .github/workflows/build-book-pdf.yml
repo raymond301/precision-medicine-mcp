@@ -203,6 +203,7 @@ jobs:
             pandoc/latex:latest \
             book-with-images.md \
             -o precision-medicine-mcp-book.pdf \
+            --resource-path=.:/workspace/data/images:/workspace/docs/book/mermaid-images \
             --pdf-engine=xelatex \
             --include-in-header=header.tex \
             --top-level-division=chapter \
