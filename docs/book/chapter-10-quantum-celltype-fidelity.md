@@ -401,13 +401,7 @@ pip install -e ".[dev]"
 
 ---
 
-## Next Steps
-
-In **Chapter 11: Imaging and Histopathology**, you'll build `mcp-openimagedata` to integrate H&E histopathology and multiplexed immunofluorescence (MxIF) imaging for comprehensive tumor characterization.
-
-The quantum fidelity you built verifies **cell type classifications**. Histopathology validates those classifications with **tissue morphology** (nuclear atypia, necrosis, immune infiltration patterns).
-
----
+## Summary
 
 **Chapter 10 Summary**:
 - Quantum fidelity measures cell type similarity via overlap in Hilbert space

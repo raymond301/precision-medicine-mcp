@@ -383,17 +383,7 @@ Explore FHIR resources: [`docs/book/companion-notebooks/chapter-04-clinical-data
 
 ---
 
-## What Comes Next
-
-In Chapter 5, you'll build **mcp-fgbio** for genomic QC and variant calling:
-- Parse VCF files (Variant Call Format)
-- Validate genomic data quality (depth, allele frequency)
-- Annotate variants with ClinVar and gnomAD
-- Filter for clinically relevant mutations
-
-**Next**: Chapter 5 - Genomic Foundations
-
----
+## Summary
 
 **Chapter 4 Key Takeaways:**
 - Clinical data provides essential patient context for precision medicine

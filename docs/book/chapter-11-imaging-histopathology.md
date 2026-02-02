@@ -307,20 +307,7 @@ python -m mcp_openimagedata
 
 ---
 
-## Next Steps
-
-**Part 3 Complete!** You've built all advanced capability servers:
-- Chapter 8: Cell segmentation (DeepCell)
-- Chapter 9: Treatment prediction (GEARS)
-- Chapter 10: Quantum fidelity (Bayesian UQ)
-- Chapter 11: Imaging (H&E + MxIF)
-
-**Part 4: Deployment and Operations** (Chapters 12-14) covers:
-- Chapter 12: Cloud deployment on GCP (Cloud Run, Docker, SSE transport)
-- Chapter 13: Hospital production deployment (HIPAA compliance, VPC, de-identification)
-- Chapter 14: Operations and monitoring (logging, alerts, cost tracking)
-
----
+## Summary
 
 **Chapter 11 Summary**:
 - H&E staining shows tissue morphology (necrosis, cellularity, nuclear atypia)

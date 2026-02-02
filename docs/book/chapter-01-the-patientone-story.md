@@ -456,15 +456,7 @@ All PatientOne data is synthetic and included in the repository. No API keys req
 ---
 
 
-## What Comes Next
-
-In Chapter 2, you'll learn *how* this system works. What is the Model Context Protocol? How does Claude coordinate 12 specialized servers? What's the architecture that makes 35-minute analyses possible?
-
-But before you turn the page, take a moment to appreciate what you've just seen. Sarah's analysis—integrating clinical records, genomics, multi-omics, spatial transcriptomics, and histology—represents the future of precision medicine.
-
-And you're about to learn how to build it.
-
----
+## Summary
 
 **Chapter 1 Key Takeaways:**
 - Traditional precision oncology analysis: 40 hours, 3-4 specialists, $3,200 cost
@@ -472,8 +464,6 @@ And you're about to learn how to build it.
 - 95% time reduction, 95% cost reduction
 - Multi-modal integration (5 data types) becomes feasible at scale
 - PatientOne (Sarah) is a real workflow you can run today with synthetic data
-
-**Next:** Chapter 2 - The Architecture Problem
 
 ---
 

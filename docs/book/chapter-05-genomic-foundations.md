@@ -276,11 +276,7 @@ python -m mcp_fgbio
 
 ---
 
-## Next Steps
-
-In **Chapter 6: Multi-Omics Integration**, you'll build `mcp-multiomics` to integrate RNA-seq, proteomics, and phosphoproteomics using Stouffer meta-analysis. You'll use gene annotations from this chapter to map protein IDs to genomic coordinates.
-
----
+## Summary
 
 **Chapter 5 Summary**:
 - VCF format stores somatic mutations with quality metrics and clinical annotations

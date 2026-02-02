@@ -504,24 +504,7 @@ Deploy the MCP servers locally and use Claude Desktop. See **Appendix: Setup Gui
 
 ---
 
-## What Comes Next
-
-In Chapter 3, you'll see the testing results that validate this architecture works in production. You'll learn:
-- How the system was tested (unit, integration, end-to-end)
-- Performance benchmarks (time, cost, accuracy)
-- Real deployment challenges and solutions
-- Production readiness assessment
-
-But first, pause and appreciate what you've just learned. You now understand:
-- Why tool fragmentation kills bioinformatics productivity
-- Why microservices alone don't solve orchestration
-- How MCP enables AI to coordinate specialized tools
-- The architecture of 12 MCP servers with 69 tools
-- Why this works specifically for healthcare
-
-**Next**: Chapter 3 - Testing the Hypothesis
-
----
+## Summary
 
 **Chapter 2 Key Takeaways:**
 - Bioinformatics suffers from tool fragmentation (15-20 tools per analysis)

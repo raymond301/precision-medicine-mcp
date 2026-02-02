@@ -387,11 +387,7 @@ export SPATIAL_DRY_RUN=true && python -m mcp_spatialtools
 
 ---
 
-## Next Steps
-
-In **Chapter 8: Cell Segmentation**, you'll build `mcp-deepcell` for single-cell resolution imaging analysis using DeepCell neural networks. You'll move from 10-30 cells/spot to true single-cell analysis.
-
----
+## Summary
 
 **Chapter 7 Summary**:
 - 10X Visium spatial transcriptomics preserves tissue context (900 spots × 31 genes)

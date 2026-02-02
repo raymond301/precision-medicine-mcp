@@ -282,11 +282,11 @@ You may not:
 
 ## Acknowledgments
 
-This book and the underlying system would not exist without:
-- **Anthropic**: For Claude and the Model Context Protocol
-- **Google Cloud**: For Cloud Run infrastructure and Gemini API
-- **Open source bioinformatics community**: For tools like DeepCell, GEARS, and countless libraries
-- **Early testers**: Who provided invaluable feedback on the POC deployment
+This book and the underlying system would not exist without:  
+- **Anthropic**: For Claude and the Model Context Protocol. 
+- **Google Cloud**: For Cloud Run infrastructure and Gemini API. 
+- **Open source bioinformatics community**: For tools like DeepCell, GEARS, and countless libraries. 
+- **Early testers**: Who provided invaluable feedback on the POC deployment. 
 
 Special thanks to the precision medicine research community for defining the workflows this system aims to accelerate.
 
@@ -294,12 +294,12 @@ Special thanks to the precision medicine research community for defining the wor
 
 ## About the Author
 
-**Lynn Langit** is a cloud architect specializing in bioinformatics and genomic-scale data analysis. She works with bioinformatics researchers worldwide to build and optimize genomic data pipelines on GCP, AWS, and Azure. Lynn is a Google AI & Cloud Developer Expert, and Microsoft Regional Director. She has authored 30 LinkedIn Learning courses on cloud computing and AI with over 5 million student views.
+**Lynn Langit** is a cloud architect specializing in bioinformatics and genomic-scale data analysis. She works with bioinformatics researchers worldwide to build and optimize genomic data pipelines on GCP, AWS, and Azure. Lynn is a Google AI & Cloud Developer Expert, and Microsoft Regional Director. She has authored 30 LinkedIn Learning courses on cloud computing and AI with over 5 million student views.  
 
 **Contact**:
-- GitHub: [@lynnlangit](https://github.com/lynnlangit)
-- LinkedIn: [lynnlangit](https://www.linkedin.com/in/lynnlangit/)
-- Substack: [Lynn Langit's Cloud World](https://lynnlangit.substack.com/)
+- GitHub: [@lynnlangit](https://github.com/lynnlangit). 
+- LinkedIn: [lynnlangit](https://www.linkedin.com/in/lynnlangit/). 
+- Substack: [Lynn Langit's Cloud World](https://lynnlangit.substack.com/). 
 
 ---
 

@@ -546,13 +546,7 @@ Full notebooks guide and troubleshooting: [`docs/book/companion-notebooks/README
 
 ---
 
-## Next Steps
-
-**Part 6: The Future** (Chapters 17-18) covers:
-- Chapter 17: Funding and Sustainability (ROI analysis, grant strategies, budget models)
-- Chapter 18: Lessons Learned and What's Next (production insights, future enhancements, roadmap)
-
----
+## Summary
 
 **Chapter 16 Summary**:
 - Educational prompts: 10 prompts (beginner → intermediate → advanced)
@@ -563,6 +557,6 @@ Full notebooks guide and troubleshooting: [`docs/book/companion-notebooks/README
 - PatientOne dataset: 100% synthetic, safe to share, no IRB needed
 - Learning outcomes: Basic stats → Pathway analysis → Multi-omics → Complete workflows
 
-**Files**: [`docs/prompt-library/educational-prompts.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/prompt-library/educational-prompts.md), [`docs/book/companion-notebooks/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/book/companion-notebooks)
-**Student cost**: $53/semester (99.1% savings vs traditional)
-**Setup options**: Claude Desktop (local), JupyterHub (cloud), Google Colab (free)
+**Files**: [`docs/prompt-library/educational-prompts.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/prompt-library/educational-prompts.md), [`docs/book/companion-notebooks/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/book/companion-notebooks). 
+**Student cost**: $53/semester (99.1% savings vs traditional)  
+**Setup options**: Claude Desktop (local), JupyterHub (cloud), Google Colab (free). 

@@ -366,11 +366,7 @@ export DEEPCELL_DRY_RUN=false && python -m mcp_deepcell
 
 ---
 
-## Next Steps
-
-In **Chapter 9: Treatment Response Prediction**, you'll build `mcp-perturbation` to predict drug responses using **GEARS graph neural network**. You'll use single-cell phenotypes identified here (Ki67+/TP53+ cells) to predict sensitivity to platinum-based chemotherapy, PARP inhibitors, and AKT inhibitors.
-
----
+## Summary
 
 **Chapter 8 Summary**:
 - MxIF imaging provides 2-7 marker resolution at subcellular scale

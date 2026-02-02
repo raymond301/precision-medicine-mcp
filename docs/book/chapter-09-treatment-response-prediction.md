@@ -384,11 +384,7 @@ pip install -e ".[dev]"
 
 ---
 
-## Next Steps
-
-In **Chapter 10: Quantum Cell-Type Fidelity**, you'll build `mcp-quantum-celltype-fidelity` to use **quantum computing** and **Bayesian uncertainty quantification** to verify cell type classifications with calibrated confidence scores.
-
----
+## Summary
 
 **Chapter 9 Summary**:
 - GEARS graph neural networks predict drug responses 40% better than VAE methods

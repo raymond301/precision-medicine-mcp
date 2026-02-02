@@ -547,27 +547,7 @@ This notebook includes:
 
 ---
 
-## What Comes Next
-
-In Chapter 4, you'll build your first MCP server from scratch: **mcp-epic** for clinical FHIR integration.
-
-You'll learn:
-- How to structure an MCP server
-- FHIR R4 resource mapping
-- De-identification for HIPAA compliance
-- Testing with synthetic patient data
-
-But before you move on, take a moment to appreciate what you've validated:
-- **The architecture works**: AI can orchestrate 12 specialized servers
-- **The costs are real**: $1-2 per analysis, validated against GCP pricing
-- **The time savings are real**: 35 minutes, validated end-to-end
-- **Production deployment is feasible**: 11/11 servers running on Cloud Run
-
-This isn't vaporware. It's a tested, validated, production-ready system.
-
-**Next**: Chapter 4 - Clinical Data: The Starting Point
-
----
+## Summary
 
 **Chapter 3 Key Takeaways:**
 - Started with 100% mocked data, iterated to 7/12 production servers

@@ -373,11 +373,7 @@ export MULTIOMICS_DRY_RUN=true && python -m mcp_multiomics
 
 ---
 
-## Next Steps
-
-In **Chapter 7: Spatial Transcriptomics**, you'll build `mcp-spatialtools` to analyze 10X Visium data and map the pathways you found here (AKT/mTOR, PI3K) to specific tissue regions.
-
----
+## Summary
 
 **Chapter 6 Summary**:
 - Multi-omics integration requires preprocessing (batch correction, imputation)

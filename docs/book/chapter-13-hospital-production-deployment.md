@@ -675,16 +675,7 @@ gcloud run services describe mcp-epic \
 
 ---
 
-## Next Steps
-
-**Chapter 14: Operations and Monitoring** covers:
-- Cloud Logging and structured logs
-- Alerting policies (error rate, latency, Epic failures)
-- Dashboards (user activity, cost tracking, de-identification success)
-- Runbooks (server down, SSO issues, Epic connection failure)
-- Quarterly bias audits
-
----
+## Summary
 
 **Chapter 13 Summary**:
 - Hospital deployment requires HIPAA compliance, VPC, SSO

@@ -581,22 +581,7 @@ Full security guide in Chapter 13.
 
 ---
 
-## Next Steps
-
-**Chapter 13: Hospital Production Deployment** covers:
-- HIPAA compliance and BAA agreements
-- De-identification (FHIR Safe Harbor)
-- VPC deployment for private FHIR access
-- Authentication and authorization
-- Audit logging
-
-**Chapter 14: Operations and Monitoring** covers:
-- Cloud Logging and structured logs
-- Alerting policies (error rate, latency)
-- Cost tracking and budgets
-- Performance optimization
-
----
+## Summary
 
 **Chapter 12 Summary**:
 - Cloud Run provides serverless, auto-scaling deployment

@@ -577,6 +577,6 @@ gcloud billing accounts get-spend \
 - Performance optimization: Cold start reduction, throughput tuning
 - Quarterly bias audits: Automated compliance reporting
 
-**Files**: [`docs/for-hospitals/OPERATIONS_MANUAL.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/OPERATIONS_MANUAL.md), [`docs/for-hospitals/RUNBOOKS/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/for-hospitals/RUNBOOKS)
-**Monitoring**: Cloud Logging + Monitoring, 6 alert policies, 3 runbooks
-**Compliance**: 10-year logs, quarterly bias audits, IRB reporting
+**Files**: [`docs/for-hospitals/OPERATIONS_MANUAL.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/OPERATIONS_MANUAL.md), [`docs/for-hospitals/RUNBOOKS/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/for-hospitals/RUNBOOKS). 
+**Monitoring**: Cloud Logging + Monitoring, 6 alert policies, 3 runbooks. 
+**Compliance**: 10-year logs, quarterly bias audits, IRB reporting. 

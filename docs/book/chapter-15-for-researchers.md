@@ -481,15 +481,7 @@ Full FAQ: [`docs/for-researchers/README.md#frequently-asked-questions`](https://
 
 ---
 
-## Next Steps
-
-**Chapter 16: Teaching Precision Medicine** covers:
-- Educational workflows for students
-- Cost-effective student access ($0.32 per analysis in DRY_RUN mode)
-- Classroom exercises and assignments
-- Learning bioinformatics concepts hands-on
-
----
+## Summary
 
 **Chapter 15 Summary**:
 - Researchers need exploratory workflows (not just standardized clinical)
