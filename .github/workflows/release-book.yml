@@ -60,9 +60,9 @@ EOF
           cat chapter-00-introduction.md >> book-full.md
 
           # Part 1: Why This Matters
-          for chapter in chapter-01-the-patientone-story.md \
-                         chapter-02-the-architecture-problem.md \
-                         chapter-03-testing-the-hypothesis.md; do
+          for chapter in chapter-01-the-patientone-story.md chapter-02-the-architecture-problem.md chapter-03-testing-the-hypothesis.md; do
+
+
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
               echo -e "\n\n\\newpage\n\n" >> book-full.md
