@@ -926,13 +926,13 @@ Based on analysis of Lynn Langit's articles and technical writing:
 
 **To be captured by author**:
 
-| Priority | Screenshot | Description | Target Chapter | Notes |
-|----------|-----------|-------------|----------------|-------|
-| **HIGH** | Claude Desktop Config | `claude_desktop_config.json` file open in editor | Appendix B | Show MCP server configuration |
-| **HIGH** | Cloud Run Services List | GCP Console showing all 12 deployed services | Chapter 12 | Production deployment proof |
-| **HIGH** | Cloud Build Success | Successful build logs for mcp-deepcell | Chapter 12 | Deployment walkthrough |
-| **HIGH** | Epic FHIR API Response | Mock Epic API returning patient FHIR resources | Chapter 4 | FHIR integration example |
-| **HIGH** | VCF File Parsed | Claude output showing parsed VCF variants with annotations | Chapter 5 | Genomic analysis |
+| Priority | Screenshot | Description | Target Chapter | Status | Figure # |
+|----------|-----------|-------------|----------------|--------|----------|
+| **HIGH** | Claude Desktop Config | `claude_desktop_config.json` file open in editor | Appendix B | ✅ DONE | Figure B.1 |
+| **HIGH** | Cloud Run Services List | GCP Console showing all 12 deployed services | Chapter 12 | ✅ DONE | Figure 12.3 |
+| **HIGH** | Cloud Build Success | Successful build logs for mcp-deepcell | Chapter 12 | ✅ DONE | Figure 12.4 |
+| **HIGH** | Epic FHIR API Response | Mock Epic API returning patient FHIR resources | Chapter 4 | ✅ DONE | Figure 4.2 |
+| **HIGH** | VCF File Parsed | Claude output showing parsed VCF variants with annotations | Chapter 5 | 🔲 TODO | - |
 | **MEDIUM** | HAllA Association Plot | Multi-omics correlation heatmap | Chapter 6 | Real tool output |
 | **MEDIUM** | STAR Alignment Summary | STAR aligner QC metrics output | Chapter 7 | Spatial pipeline |
 | **MEDIUM** | DeepCell Segmentation Overlay | Nuclear/membrane masks overlaid on H&E | Chapter 8 | Cell segmentation |
@@ -944,7 +944,8 @@ Based on analysis of Lynn Langit's articles and technical writing:
 | **LOW** | Gemini vs Claude Comparison | Side-by-side outputs for same prompt | Chapter 2 or 15 | Model comparison |
 | **LOW** | Notebook Execution | Jupyter notebook cell outputs for Chapter 7 | Chapter 16 | Teaching materials |
 
-**Total Screenshots**: 10 existing + 15 needed = **25 screenshots** (matches original plan)
+**Total Screenshots**: 14 inserted (10 existing + 4 new) + 11 remaining = **25 screenshots** planned
+**Progress**: 14/25 complete (56%), 4/5 HIGH priority done (80%)
 
 ---
 
@@ -1053,16 +1054,23 @@ With all 18 chapters, appendix, and companion notebooks complete:
 - ✅ BOOK_PLAN.md updated with comprehensive screenshot tracking
 
 **In Progress**:
-- ✅ Insert 10 existing screenshots into chapters (COMPLETE - all inserted)
-- 🔲 Capture 15 additional screenshots (see Visual Content Plan above)
+- ✅ Insert existing screenshots (COMPLETE - 14 screenshots inserted)
+  - 10 original screenshots (dashboards, UIs, diagrams)
+  - 4 newly captured HIGH priority screenshots
+- 🔲 Capture 11 remaining screenshots (see Visual Content Plan above)
 - 🔲 Insert 9 PatientOne output visualizations (optional)
 
+**Screenshot Progress**: 14/25 complete (56%)
+- ✅ HIGH priority: 4/5 done (80%) - Only VCF parsed remaining
+- 🔲 MEDIUM priority: 0/7 done (0%)
+- 🔲 LOW priority: 0/3 done (0%)
+
 **Next Actions**:
-1. ✅ DONE: Insert existing screenshots (Claude Desktop, dashboards, Streamlit, Jupyter, GCP deploy)
-2. **PRIORITY**: Capture 15 additional screenshots from live deployments
-   - HIGH priority (5): Claude Desktop config, Cloud Run list, Cloud Build logs, Epic FHIR, VCF parsed
-   - MEDIUM priority (7): HAllA plots, STAR summary, DeepCell overlay, GEARS training, Quantum fidelity, IAM, Cloud Logging
-   - LOW priority (3): Cost breakdown, Gemini vs Claude, Notebook execution
-3. **OPTIONAL**: Insert 9 PatientOne output visualizations into chapters 1, 3, 6, 7, 8, 15
-4. Final technical review and formatting consistency check
-5. Publication preparation (PDF/ePub conversion, cover design, ISBN)
+1. ✅ DONE: Insert 10 existing screenshots
+2. ✅ DONE: Insert 4 newly captured HIGH priority screenshots
+3. **PRIORITY**: Capture 1 remaining HIGH priority screenshot (VCF parsed for Chapter 5)
+4. **MEDIUM PRIORITY**: Capture 7 MEDIUM priority screenshots (analysis outputs, monitoring)
+5. **OPTIONAL**: Capture 3 LOW priority screenshots + insert 9 PatientOne visualizations
+6. **AUTOMATION**: GitHub Actions now auto-build PDF on push (commit 92e910b)
+7. Final technical review and formatting consistency check
+8. Publication preparation (first release tag for PDF generation)
