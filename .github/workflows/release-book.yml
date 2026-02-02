@@ -15,17 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js for Mermaid CLI
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Mermaid CLI and Pandoc Filter
-        run: |
-          npm install -g @mermaid-js/mermaid-cli
-          npm install -g mermaid-filter
-          mmdc --version
-
       - name: Concatenate book chapters in order
         run: |
           cd docs/book
@@ -110,36 +99,21 @@ jobs:
             [ -f "$appendix" ] && cat "$appendix" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
           done
 
-      - name: Convert Mermaid diagrams to images
-        run: |
-          cd docs/book
-
-          # Extract and convert each mermaid block to PNG
-          echo "🔄 Converting Mermaid diagrams to images..."
-
-          # Create temp directory for mermaid images
-          mkdir -p mermaid-images
-
-          # Use mermaid-filter to convert mermaid blocks
-          npx -y mermaid-filter --output-dir=mermaid-images book-full.md > book-with-images.md
-
-          echo "✅ Mermaid diagrams converted to images"
-
       - name: Convert Markdown to PDF
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
           cd docs/book
 
-          echo "📝 Converting book-with-images.md to PDF..."
+          echo "📝 Converting book-full.md to PDF..."
           echo "Version: $VERSION"
-          echo "Book source lines: $(wc -l < book-with-images.md)"
+          echo "Book source lines: $(wc -l < book-full.md)"
 
           # Mount the entire workspace so relative image paths work correctly
           docker run --rm \
             -v "${{ github.workspace }}:/workspace" \
             -w /workspace/docs/book \
             pandoc/latex:latest \
-            book-with-images.md \
+            book-full.md \
             -o "precision-medicine-mcp-book-${VERSION}.pdf" \
             --pdf-engine=xelatex \
             --toc \
