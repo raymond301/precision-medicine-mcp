@@ -44,7 +44,7 @@ graph LR
     subgraph AI["🤖 AI Orchestration"]
         CLAUDE[Claude<br/>Native MCP]
         GEMINI[Gemini<br/>SSE-based MCP]
-        CUSTOM[Custom<br/>Custom MCP]
+        CUSTOM[Custom<br/>Custom Orchestration MCP]
     end
 
     subgraph ServerTypes["🔧 MCP ServerTypes"]
