@@ -15,16 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Pandoc
-        uses: docker://pandoc/latex:latest
-        with:
-          args: --version
-
-      - name: Install additional LaTeX packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic
-
       - name: Concatenate book chapters in order
         run: |
           cd docs/book
@@ -109,10 +99,13 @@ jobs:
 
       - name: Convert Markdown to PDF
         run: |
-          cd docs/book
           VERSION="${GITHUB_REF#refs/tags/}"
 
-          docker run --rm -v "$(pwd):/data" pandoc/latex:latest \
+          # Mount the entire workspace so relative image paths work correctly
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace/docs/book \
+            pandoc/latex:latest \
             book-full.md \
             -o "precision-medicine-mcp-book-${VERSION}.pdf" \
             --pdf-engine=xelatex \
@@ -126,7 +119,7 @@ jobs:
             --variable fontsize=11pt
 
           echo "✅ PDF created: precision-medicine-mcp-book-${VERSION}.pdf"
-          ls -lh "precision-medicine-mcp-book-${VERSION}.pdf"
+          ls -lh "docs/book/precision-medicine-mcp-book-${VERSION}.pdf"
 
       - name: Generate release notes
         id: release_notes

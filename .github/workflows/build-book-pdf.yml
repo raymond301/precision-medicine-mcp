@@ -19,16 +19,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Pandoc
-        uses: docker://pandoc/latex:latest
-        with:
-          args: --version
-
-      - name: Install additional LaTeX packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic
-
       - name: Concatenate book chapters in order
         run: |
           cd docs/book
@@ -133,9 +123,11 @@ jobs:
 
       - name: Convert Markdown to PDF
         run: |
-          cd docs/book
-
-          docker run --rm -v "$(pwd):/data" pandoc/latex:latest \
+          # Mount the entire workspace so relative image paths work correctly
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace/docs/book \
+            pandoc/latex:latest \
             book-full.md \
             -o precision-medicine-mcp-book.pdf \
             --pdf-engine=xelatex \
@@ -150,7 +142,7 @@ jobs:
             --metadata date="$(date +'%Y-%m-%d')"
 
           echo "✅ PDF created: precision-medicine-mcp-book.pdf"
-          ls -lh precision-medicine-mcp-book.pdf
+          ls -lh docs/book/precision-medicine-mcp-book.pdf
 
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v4
