@@ -203,6 +203,7 @@ jobs:
             -o precision-medicine-mcp-book.pdf \
             --pdf-engine=xelatex \
             --include-in-header=header.tex \
+            --top-level-division=chapter \
             --toc \
             --toc-depth=2 \
             --number-sections \
