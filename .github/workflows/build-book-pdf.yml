@@ -18,6 +18,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js for Mermaid
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Mermaid CLI
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          mmdc --version
+
       - name: Concatenate book chapters in order
         run: |
           cd docs/book
@@ -36,6 +46,13 @@ jobs:
           urlcolor: blue
           geometry: margin=1in
           fontsize: 11pt
+          documentclass: article
+          classoption:
+            - a4paper
+          header-includes: |
+            \usepackage{helvet}
+            \renewcommand{\familydefault}{\sfdefault}
+            \usepackage{graphicx}
           ---
 
           EOF
@@ -119,19 +136,76 @@ jobs:
 
           echo "✅ Created book-full.md ($(wc -l < book-full.md) lines)"
 
+      - name: Convert Mermaid diagrams to images
+        run: |
+          cd docs/book
+          mkdir -p mermaid-images
+
+          echo "🔄 Converting Mermaid diagrams..."
+
+          # Python script to extract and convert mermaid blocks
+          python3 << 'PYTHON_SCRIPT'
+          import re
+          import subprocess
+          import os
+
+          with open('book-full.md', 'r') as f:
+              content = f.read()
+
+          # Find all mermaid code blocks
+          pattern = r'```mermaid\n(.*?)```'
+          matches = list(re.finditer(pattern, content, re.DOTALL))
+
+          print(f"Found {len(matches)} Mermaid diagrams")
+
+          for i, match in enumerate(matches):
+              mermaid_code = match.group(1)
+              mmd_file = f'mermaid-images/diagram-{i}.mmd'
+              png_file = f'mermaid-images/diagram-{i}.png'
+
+              # Write mermaid code to file
+              with open(mmd_file, 'w') as f:
+                  f.write(mermaid_code)
+
+              # Convert to PNG using mmdc
+              try:
+                  subprocess.run([
+                      'mmdc',
+                      '-i', mmd_file,
+                      '-o', png_file,
+                      '-b', 'white',
+                      '-t', 'neutral'
+                  ], check=True, capture_output=True)
+                  print(f"✅ Converted diagram {i}")
+
+                  # Replace mermaid block with image reference
+                  content = content.replace(
+                      match.group(0),
+                      f'![Diagram {i}](mermaid-images/diagram-{i}.png)'
+                  )
+              except subprocess.CalledProcessError as e:
+                  print(f"❌ Failed to convert diagram {i}: {e}")
+
+          # Write modified content
+          with open('book-with-images.md', 'w') as f:
+              f.write(content)
+
+          print(f"✅ Created book-with-images.md")
+          PYTHON_SCRIPT
+
       - name: Convert Markdown to PDF
         run: |
           cd docs/book
 
-          echo "📝 Converting book-full.md to PDF..."
-          echo "Book source lines: $(wc -l < book-full.md)"
+          echo "📝 Converting book-with-images.md to PDF..."
+          echo "Book source lines: $(wc -l < book-with-images.md)"
 
           # Mount the entire workspace so relative image paths work correctly
           docker run --rm \
             -v "${{ github.workspace }}:/workspace" \
             -w /workspace/docs/book \
             pandoc/latex:latest \
-            book-full.md \
+            book-with-images.md \
             -o precision-medicine-mcp-book.pdf \
             --pdf-engine=xelatex \
             --toc \

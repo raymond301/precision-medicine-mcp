@@ -15,6 +15,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js for Mermaid
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Mermaid CLI
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          mmdc --version
+
       - name: Concatenate book chapters in order
         run: |
           cd docs/book
@@ -37,19 +47,33 @@ jobs:
           urlcolor: blue
           geometry: margin=1in
           fontsize: 11pt
+          documentclass: article
+          classoption:
+            - a4paper
+          header-includes: |
+            \usepackage{helvet}
+            \renewcommand{\familydefault}{\sfdefault}
+            \usepackage{graphicx}
           ---
 
           EOF
 
           # Concatenate all chapters (same as build-book-pdf.yml)
           cat chapter-00-introduction.md >> book-full.md
-          echo -e "\n\n\\newpage\n\n" >> book-full.md
+          echo "" >> book-full.md
+          echo "\\newpage" >> book-full.md
+          echo "" >> book-full.md
 
           # Part 1
           for chapter in chapter-01-the-patientone-story.md \
                          chapter-02-the-architecture-problem.md \
                          chapter-03-testing-the-hypothesis.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
 
           # Part 2
@@ -57,7 +81,12 @@ jobs:
                          chapter-05-genomic-foundations.md \
                          chapter-06-multiomics-integration.md \
                          chapter-07-spatial-transcriptomics.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
 
           # Part 3
@@ -65,52 +94,139 @@ jobs:
                          chapter-09-treatment-response-prediction.md \
                          chapter-10-quantum-celltype-fidelity.md \
                          chapter-11-imaging-histopathology.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
 
           # Part 4
           for chapter in chapter-12-cloud-deployment-gcp.md \
                          chapter-13-hospital-production-deployment.md \
                          chapter-14-operations-monitoring.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
 
           # Part 5
           for chapter in chapter-15-for-researchers.md \
                          chapter-16-teaching-precision-medicine.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
 
           # Part 6
           for chapter in chapter-17-funding-sustainability.md \
                          chapter-18-lessons-learned.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
 
           # Appendices
-          echo -e "\n\n# Appendices\n\n\\newpage\n\n" >> book-full.md
+          echo "" >> book-full.md
+          echo "# Appendices" >> book-full.md
+          echo "" >> book-full.md
+          echo "\\newpage" >> book-full.md
+          echo "" >> book-full.md
+
           for appendix in appendix-a-quick-reference.md \
                           appendix-b-installation-setup.md \
                           appendix-c-patientone-dataset.md \
                           appendix-d-bias-and-ethics.md; do
-            [ -f "$appendix" ] && cat "$appendix" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+            if [ -f "$appendix" ]; then
+              cat "$appendix" >> book-full.md
+              echo "" >> book-full.md
+              echo "\\newpage" >> book-full.md
+              echo "" >> book-full.md
+            fi
           done
+
+      - name: Convert Mermaid diagrams to images
+        run: |
+          cd docs/book
+          mkdir -p mermaid-images
+
+          echo "🔄 Converting Mermaid diagrams..."
+
+          # Python script to extract and convert mermaid blocks
+          python3 << 'PYTHON_SCRIPT'
+          import re
+          import subprocess
+          import os
+
+          with open('book-full.md', 'r') as f:
+              content = f.read()
+
+          # Find all mermaid code blocks
+          pattern = r'```mermaid\n(.*?)```'
+          matches = list(re.finditer(pattern, content, re.DOTALL))
+
+          print(f"Found {len(matches)} Mermaid diagrams")
+
+          for i, match in enumerate(matches):
+              mermaid_code = match.group(1)
+              mmd_file = f'mermaid-images/diagram-{i}.mmd'
+              png_file = f'mermaid-images/diagram-{i}.png'
+
+              # Write mermaid code to file
+              with open(mmd_file, 'w') as f:
+                  f.write(mermaid_code)
+
+              # Convert to PNG using mmdc
+              try:
+                  subprocess.run([
+                      'mmdc',
+                      '-i', mmd_file,
+                      '-o', png_file,
+                      '-b', 'white',
+                      '-t', 'neutral'
+                  ], check=True, capture_output=True)
+                  print(f"✅ Converted diagram {i}")
+
+                  # Replace mermaid block with image reference
+                  content = content.replace(
+                      match.group(0),
+                      f'![Diagram {i}](mermaid-images/diagram-{i}.png)'
+                  )
+              except subprocess.CalledProcessError as e:
+                  print(f"❌ Failed to convert diagram {i}: {e}")
+
+          # Write modified content
+          with open('book-with-images.md', 'w') as f:
+              f.write(content)
+
+          print(f"✅ Created book-with-images.md")
+          PYTHON_SCRIPT
 
       - name: Convert Markdown to PDF
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
           cd docs/book
 
-          echo "📝 Converting book-full.md to PDF..."
+          echo "📝 Converting book-with-images.md to PDF..."
           echo "Version: $VERSION"
-          echo "Book source lines: $(wc -l < book-full.md)"
+          echo "Book source lines: $(wc -l < book-with-images.md)"
 
           # Mount the entire workspace so relative image paths work correctly
           docker run --rm \
             -v "${{ github.workspace }}:/workspace" \
             -w /workspace/docs/book \
             pandoc/latex:latest \
-            book-full.md \
+            book-with-images.md \
             -o "precision-medicine-mcp-book-${VERSION}.pdf" \
             --pdf-engine=xelatex \
             --toc \
