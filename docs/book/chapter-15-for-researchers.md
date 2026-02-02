@@ -115,7 +115,7 @@ Full workflow: [`docs/for-researchers/README.md#biomarker-discovery--validation`
 
 ### Research Interface
 
-![Streamlit UI Preview](streamlit-ui-preview.png){width=100%}
+![Streamlit UI Preview](images/screenshots/streamlit-ui-preview.png){width=100%}
 
 **Figure 15.1: Streamlit Research Interface**
 *Web-based chat interface for exploratory analysis. Researchers can interact with all 12 MCP servers through natural language, visualize results, and export data for publications. Supports both Claude and Gemini AI models.*

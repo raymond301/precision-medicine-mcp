@@ -271,7 +271,7 @@ EOF
             pandoc/latex:latest \
             book-with-images.md \
             -o precision-medicine-mcp-book.pdf \
-            --resource-path=.:/workspace/data/images:/workspace/docs/book/mermaid-images \
+            --resource-path=.:/workspace/docs/book/images/screenshots:/workspace/docs/book/mermaid-images:/workspace/data/images \
             --pdf-engine=xelatex \
             --include-in-header=header.tex \
             --top-level-division=chapter \

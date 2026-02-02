@@ -888,9 +888,9 @@ Based on analysis of Lynn Langit's articles and technical writing:
 | 12 | Figure 12.1: GCP Cloud Run Deployment Architecture | ✅ | End-to-end deployment |
 | 13 | Figure 13.1: HIPAA-Compliant Hospital Deployment | ✅ | Multi-layer security |
 
-### Screenshots - Existing (8 files to insert)
+### Screenshots - Existing (16 files inserted)
 
-**Location**: `data/images/`
+**Location**: `docs/book/images/screenshots/` (copied from `data/images/` for book-specific management)
 
 | Screenshot | File | Target Chapter | Status | Notes |
 |------------|------|----------------|--------|-------|
@@ -946,6 +946,55 @@ Based on analysis of Lynn Langit's articles and technical writing:
 
 **Total Screenshots**: 15 inserted (10 existing + 5 new) + 10 remaining = **25 screenshots** planned
 **Progress**: 15/25 complete (60%), 5/5 HIGH priority done (100%) ✅
+
+### Print Quality Requirements
+
+**For Physical Book Printing** (Professional quality standards):
+
+| Requirement | Standard | Current Status | Notes |
+|-------------|----------|----------------|-------|
+| **Resolution** | Minimum 300 DPI at print size | 🔲 TO AUDIT | Screen captures may be 72-96 DPI |
+| **Image Format** | PNG (lossless) or high-quality JPEG | ✅ PASS | All screenshots are PNG/JPEG |
+| **Color Space** | RGB for digital, CMYK for print | 🔲 TO CONVERT | May need conversion before print |
+| **File Size** | Balance quality vs. PDF size | ✅ ACCEPTABLE | Current: ~12 MB total for 16 images |
+| **Aspect Ratio** | Maintain original ratios | ✅ PASS | Using `{width=100%}` in markdown |
+| **Text Legibility** | Readable at 6"×9" book size | 🔲 TO TEST | Test print required |
+| **Compression** | Minimal for screenshots | ✅ GOOD | PNG/JPEG quality preserved |
+
+**Print Preparation Checklist** (before physical printing):
+
+1. ⬜ **Re-capture high-DPI screenshots** (300 DPI minimum)
+   - Use macOS: Cmd+Shift+4, then hold Option for high DPI
+   - Use 4K/5K display for maximum resolution
+   - Capture at 2x scale factor
+
+2. ⬜ **Verify text readability** at print size
+   - Print test pages at 6"×9" (typical technical book size)
+   - Ensure code text is legible (minimum 8pt font)
+   - Check UI element visibility
+
+3. ⬜ **Color adjustment for print**
+   - Convert RGB to CMYK if required by printer
+   - Test color accuracy with proof prints
+   - Adjust contrast for B&W printing option
+
+4. ⬜ **Image optimization**
+   - Crop unnecessary UI chrome (menu bars, status bars)
+   - Highlight critical areas with borders/annotations
+   - Ensure consistent screenshot styling
+
+5. ⬜ **PDF generation test**
+   - Verify all images embed correctly
+   - Check PDF file size (target: <50 MB for print-ready)
+   - Test with print service requirements
+
+**Current Screenshot Sizes** (for reference):
+- patient-one-holistic.png: 1.7 MB (large, may need optimization)
+- why-mcp.jpeg: 3.3 MB (large, may need optimization)
+- clinical-personna.jpeg: 2.3 MB (large, may need optimization)
+- Other screenshots: 141 KB - 878 KB (acceptable range)
+
+**Recommendation**: For initial digital-only release, current screenshots are acceptable. For physical printing, budget 2-3 days to re-capture all screenshots at print quality.
 
 ---
 

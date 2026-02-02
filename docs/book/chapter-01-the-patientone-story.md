@@ -34,7 +34,7 @@ This is the PatientOne story—and it's the story of why this book exists.
 
 ### The Complete PatientOne Workflow
 
-![System Overview](patient-one-holistic.png){width=100%}
+![System Overview](images/screenshots/patient-one-holistic.png){width=100%}
 
 **Figure 1.1: PatientOne Complete Multi-Modal Analysis Workflow**
 *Integrating clinical data (FHIR), genomics (VCF), multi-omics (RNA/protein/phospho), spatial transcriptomics (10X Visium), imaging (H&E, MxIF), and AI-predicted treatment responses—all orchestrated through 12 MCP servers.*

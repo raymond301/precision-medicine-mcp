@@ -18,7 +18,7 @@ Chapter 12 deployed MCP servers to public Cloud Run with `--allow-unauthenticate
 
 **Architecture change**: Public internet → Hospital VPN → VPC → Cloud Run → Epic FHIR (research endpoint only).
 
-![Clinical Persona](clinical-personna.jpeg){width=100%}
+![Clinical Persona](images/screenshots/clinical-personna.jpeg){width=100%}
 
 **Figure 13.1: Clinical User Personas**
 *Hospital deployment serves multiple user types with different access needs: clinical researchers, bioinformaticians, oncologists, and administrators. Each role has specific permissions and workflows within the HIPAA-compliant infrastructure.*

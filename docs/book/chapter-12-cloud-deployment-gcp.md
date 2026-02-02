@@ -150,7 +150,7 @@ graph TB
 - **Timeout**: 300s (5 min) for all services
 - **Concurrency**: 80 requests per container instance
 
-![GCP Deployment Console](gcp-deploy.png){width=100%}
+![GCP Deployment Console](images/screenshots/gcp-deploy.png){width=100%}
 
 **Figure 12.2: Google Cloud Run Services List**
 *GCP Console showing deployed MCP servers. Each service runs independently with auto-scaling, health monitoring, and HTTPS endpoints for SSE transport.*
@@ -183,7 +183,7 @@ Full script: [`servers/mcp-deepcell/deploy.sh`](https://github.com/lynnlangit/pr
 ✅ Deployment complete!
 ```
 
-![Cloud Build Success](cloud-build-success.png){width=100%}
+![Cloud Build Success](images/screenshots/cloud-build-success.png){width=100%}
 
 **Figure 12.4: Successful Cloud Build Deployment**
 *Cloud Build logs showing successful Docker image build, push to Container Registry (gcr.io), and deployment to Cloud Run. Build completed in ~3-5 minutes with all steps passing (green checkmarks).*
@@ -338,7 +338,7 @@ mcp-multiomics                 us-central1  https://mcp-multiomics-xxx.run.app
 ...
 ```
 
-![Cloud Run Services](cloud-run-services.png){width=100%}
+![Cloud Run Services](images/screenshots/cloud-run-services.png){width=100%}
 
 **Figure 12.3: Cloud Run Services List (gcloud CLI)**
 *Command line output showing all deployed MCP servers with service names, regions, and HTTPS endpoints. Each service is independently scalable with auto-scaling from 0 to 1000+ instances.*

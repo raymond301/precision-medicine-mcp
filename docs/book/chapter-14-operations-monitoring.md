@@ -159,22 +159,22 @@ gcloud monitoring dashboards create \
 
 ### Production Dashboard Examples
 
-![Operations Dashboard 1](dash-1.png){width=100%}
+![Operations Dashboard 1](images/screenshots/dash-1.png){width=100%}
 
 **Figure 14.1: Main Operations Dashboard**
 *Real-time overview of MCP server health, request rates, error rates, and latency percentiles (P50, P95, P99) across all 12 services.*
 
-![Operations Dashboard 2](dash-2.png){width=100%}
+![Operations Dashboard 2](images/screenshots/dash-2.png){width=100%}
 
 **Figure 14.2: Cost Tracking Dashboard**
 *Daily and monthly cost breakdown by service, projected spend, and budget burn rate with alerting thresholds.*
 
-![Operations Dashboard 3](dash-3.png){width=100%}
+![Operations Dashboard 3](images/screenshots/dash-3.png){width=100%}
 
 **Figure 14.3: Performance Metrics**
 *Memory and CPU utilization, instance counts, cold start frequency, and throughput optimization metrics.*
 
-![Operations Dashboard 4](dash-4.png){width=100%}
+![Operations Dashboard 4](images/screenshots/dash-4.png){width=100%}
 
 **Figure 14.4: Server Health Monitoring**
 *Individual server status, uptime, response times, and integration health (Epic FHIR, de-identification pipelines).*
