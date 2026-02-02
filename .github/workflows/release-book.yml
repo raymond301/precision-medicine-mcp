@@ -47,33 +47,19 @@ jobs:
           urlcolor: blue
           geometry: margin=1in
           fontsize: 11pt
-          documentclass: article
-          classoption:
-            - a4paper
-          header-includes: |
-            \usepackage{helvet}
-            \renewcommand{\familydefault}{\sfdefault}
-            \usepackage{graphicx}
+          documentclass: report
           ---
 
           EOF
 
-          # Concatenate all chapters (same as build-book-pdf.yml)
+          # Concatenate all chapters - header.tex will handle page breaks
           cat chapter-00-introduction.md >> book-full.md
-          echo "" >> book-full.md
-          echo "\\newpage" >> book-full.md
-          echo "" >> book-full.md
 
           # Part 1
           for chapter in chapter-01-the-patientone-story.md \
                          chapter-02-the-architecture-problem.md \
                          chapter-03-testing-the-hypothesis.md; do
-            if [ -f "$chapter" ]; then
-              cat "$chapter" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
           done
 
           # Part 2
@@ -81,12 +67,7 @@ jobs:
                          chapter-05-genomic-foundations.md \
                          chapter-06-multiomics-integration.md \
                          chapter-07-spatial-transcriptomics.md; do
-            if [ -f "$chapter" ]; then
-              cat "$chapter" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
           done
 
           # Part 3
@@ -94,65 +75,38 @@ jobs:
                          chapter-09-treatment-response-prediction.md \
                          chapter-10-quantum-celltype-fidelity.md \
                          chapter-11-imaging-histopathology.md; do
-            if [ -f "$chapter" ]; then
-              cat "$chapter" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
           done
 
           # Part 4
           for chapter in chapter-12-cloud-deployment-gcp.md \
                          chapter-13-hospital-production-deployment.md \
                          chapter-14-operations-monitoring.md; do
-            if [ -f "$chapter" ]; then
-              cat "$chapter" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
           done
 
           # Part 5
           for chapter in chapter-15-for-researchers.md \
                          chapter-16-teaching-precision-medicine.md; do
-            if [ -f "$chapter" ]; then
-              cat "$chapter" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
           done
 
           # Part 6
           for chapter in chapter-17-funding-sustainability.md \
                          chapter-18-lessons-learned.md; do
-            if [ -f "$chapter" ]; then
-              cat "$chapter" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
           done
 
           # Appendices
           echo "" >> book-full.md
           echo "# Appendices" >> book-full.md
           echo "" >> book-full.md
-          echo "\\newpage" >> book-full.md
-          echo "" >> book-full.md
 
           for appendix in appendix-a-quick-reference.md \
                           appendix-b-installation-setup.md \
                           appendix-c-patientone-dataset.md \
                           appendix-d-bias-and-ethics.md; do
-            if [ -f "$appendix" ]; then
-              cat "$appendix" >> book-full.md
-              echo "" >> book-full.md
-              echo "\\newpage" >> book-full.md
-              echo "" >> book-full.md
-            fi
+            [ -f "$appendix" ] && cat "$appendix" >> book-full.md
           done
 
       - name: Convert Mermaid diagrams to images
@@ -229,6 +183,8 @@ jobs:
             book-with-images.md \
             -o "precision-medicine-mcp-book-${VERSION}.pdf" \
             --pdf-engine=xelatex \
+            --include-in-header=header.tex \
+            -V fontfamily=lmss \
             --toc \
             --toc-depth=2 \
             --number-sections \

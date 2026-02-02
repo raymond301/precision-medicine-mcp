@@ -46,13 +46,7 @@ jobs:
           urlcolor: blue
           geometry: margin=1in
           fontsize: 11pt
-          documentclass: article
-          classoption:
-            - a4paper
-          header-includes: |
-            \usepackage{helvet}
-            \renewcommand{\familydefault}{\sfdefault}
-            \usepackage{graphicx}
+          documentclass: report
           ---
 
           EOF
@@ -208,6 +202,8 @@ jobs:
             book-with-images.md \
             -o precision-medicine-mcp-book.pdf \
             --pdf-engine=xelatex \
+            --include-in-header=header.tex \
+            -V fontfamily=lmss \
             --toc \
             --toc-depth=2 \
             --number-sections \
