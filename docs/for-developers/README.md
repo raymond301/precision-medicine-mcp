@@ -7,7 +7,7 @@
 ## What You Can Accomplish Here
 
 - ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (12 servers, 124 tools, FastMCP patterns, Claude API orchestration)
+- ✅ **Understand system architecture** (12 servers, 69 tools, FastMCP patterns, Claude API orchestration)
 - ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
 - ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
 - ✅ **Contribute to codebase** (coding standards, PR guidelines)
@@ -177,9 +177,9 @@ graph TB
 - ❌ **3/12 fully mocked** (25%) - mcp-tcga, mcp-huggingface, mcp-seqera
 - 🎭 **1/12 mock by design** (8%) - mcp-mockepic (synthetic for demos)
 
-**Total:** 12 servers, 124 tools, comprehensive test coverage
+**Total:** 12 servers, 69 tools, comprehensive test coverage
 
-📋 **[Complete Server Implementation Status →](../architecture/servers.md)** - Comprehensive documentation including:
+📋 **[Complete Server Implementation Status →](../architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status
 - Real vs. mocked capability breakdown
 - Test coverage metrics and production readiness

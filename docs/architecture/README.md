@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 12 MCP Servers (124 Tools)"]
+    subgraph MCP["🔧 12 MCP Servers (69 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga]
@@ -66,19 +66,19 @@ graph LR
 
 ## 📊 Architecture by Analysis Modality
 
-9 analysis modalities, 12 specialized servers, 124 tools:
+9 analysis modalities, 12 specialized servers, 69 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
-| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 16 | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
-| 🧪 **Genomic Cohorts** | mcp-tcga | 11 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
-| 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell | 13 | ✅ Mostly Real (60%/100%) | [imaging/README.md](imaging/README.md) |
-| 🔬 **Multiomics** | mcp-multiomics | 21 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
-| 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 32 | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
+| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
+| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
+| 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell | 9 (5+4) | ✅ Mostly Real (60%/100%) | [imaging/README.md](imaging/README.md) |
+| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
+| 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation/README.md](perturbation/README.md) |
 | ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum/README.md](quantum/README.md) |
-| 🤖 **AI/ML Inference** | mcp-huggingface | 7 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
-| ⚙️ **Workflow Orchestration** | mcp-seqera | 7 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
+| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
+| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
 
 
 ---

@@ -1,6 +1,6 @@
 # Chapter 2: The Architecture Problem
 
-> *"How do you orchestrate 124 bioinformatics tools across 12 specialized servers?"*
+> *"How do you orchestrate 69 bioinformatics tools across 12 specialized servers?"*
 
 ---
 
@@ -279,7 +279,7 @@ The system has 12 MCP servers, each specialized for a specific bioinformatics do
 11. **mcp-huggingface**: ML model inference (framework ready)
 12. **mcp-seqera**: Nextflow orchestration (demo)
 
-**Total**: 124 bioinformatics tools across 12 servers
+**Total**: 69 bioinformatics tools across 12 servers
 
 Full server status: [`docs/architecture/servers.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/architecture/servers.md)
 
@@ -302,7 +302,7 @@ genomics, multi-omics, and spatial transcriptomics.
 
 1. **Claude parses intent**: Needs clinical context, genomics, multi-omics, spatial data. Goal: Treatment recommendations.
 
-2. **Claude discovers available tools**: Connected to 7 MCP servers with 124 tools total (clinical data, genomics, integration, spatial analysis).
+2. **Claude discovers available tools**: Connected to 7 MCP servers with 69 tools total (clinical data, genomics, integration, spatial analysis).
 
 3. **Claude plans workflow**: Load clinical → Parse variants → Run meta-analysis → Spatial DE → Integrate findings.
 
@@ -516,7 +516,7 @@ But first, pause and appreciate what you've just learned. You now understand:
 - Why tool fragmentation kills bioinformatics productivity
 - Why microservices alone don't solve orchestration
 - How MCP enables AI to coordinate specialized tools
-- The architecture of 12 MCP servers with 124 tools
+- The architecture of 12 MCP servers with 69 tools
 - Why this works specifically for healthcare
 
 **Next**: Chapter 3 - Testing the Hypothesis
@@ -535,7 +535,7 @@ But first, pause and appreciate what you've just learned. You now understand:
 **Companion Resources:**
 - 📓 [Jupyter Notebook](../companion-notebooks/chapter-02-architecture.ipynb) - Explore MCP orchestration
 - 🏗️ [Architecture Docs](../../architecture/README.md) - Detailed technical specs
-- 🔧 [Server Registry](../../architecture/servers.md) - All 12 servers and 124 tools
+- 🔧 [Server Registry](../../architecture/README.md) - All 12 servers and 69 tools
 - 🚀 [Deployment Guide](../../deployment/GET_STARTED.md) - Cloud Run setup
 - 📚 [Appendix: Setup Guide](appendix-setup-guide.md) - Installation instructions
 
