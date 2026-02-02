@@ -20,9 +20,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Mermaid CLI
+      - name: Install Mermaid CLI and Pandoc Filter
         run: |
           npm install -g @mermaid-js/mermaid-cli
+          npm install -g mermaid-filter
           mmdc --version
 
       - name: Concatenate book chapters in order
@@ -47,6 +48,9 @@ jobs:
           urlcolor: blue
           geometry: margin=1in
           fontsize: 11pt
+          mainfont: "Liberation Sans"
+          sansfont: "Liberation Sans"
+          monofont: "Liberation Mono"
           ---
 
           EOF
@@ -106,21 +110,36 @@ jobs:
             [ -f "$appendix" ] && cat "$appendix" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
           done
 
+      - name: Convert Mermaid diagrams to images
+        run: |
+          cd docs/book
+
+          # Extract and convert each mermaid block to PNG
+          echo "🔄 Converting Mermaid diagrams to images..."
+
+          # Create temp directory for mermaid images
+          mkdir -p mermaid-images
+
+          # Use mermaid-filter to convert mermaid blocks
+          npx -y mermaid-filter --output-dir=mermaid-images book-full.md > book-with-images.md
+
+          echo "✅ Mermaid diagrams converted to images"
+
       - name: Convert Markdown to PDF
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
           cd docs/book
 
-          echo "📝 Converting book-full.md to PDF..."
+          echo "📝 Converting book-with-images.md to PDF..."
           echo "Version: $VERSION"
-          echo "Book source lines: $(wc -l < book-full.md)"
+          echo "Book source lines: $(wc -l < book-with-images.md)"
 
           # Mount the entire workspace so relative image paths work correctly
           docker run --rm \
             -v "${{ github.workspace }}:/workspace" \
             -w /workspace/docs/book \
             pandoc/latex:latest \
-            book-full.md \
+            book-with-images.md \
             -o "precision-medicine-mcp-book-${VERSION}.pdf" \
             --pdf-engine=xelatex \
             --toc \
