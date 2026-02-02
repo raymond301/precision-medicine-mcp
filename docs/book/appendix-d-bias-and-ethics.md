@@ -345,4 +345,3 @@ Use this checklist for every clinical deployment:
 
 ---
 
-**Last Updated**: 2026-02-01

@@ -256,5 +256,3 @@ All 18 chapter notebooks use PatientOne data. See:
 **This appendix provides complete reference for the PatientOne synthetic dataset. All data is public domain (CC0 1.0 Universal).**
 
 ---
-
-**Last Updated**: 2026-02-01
