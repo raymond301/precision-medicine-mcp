@@ -111,7 +111,7 @@ jobs:
 
           # Part 6: The Future
           for chapter in chapter-17-funding-sustainability.md \
-                         chapter-18-lessons-learned.md; do
+                         chapter-18-lessons-learned-whats-next.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
               echo -e "\n\n\\newpage\n\n" >> book-full.md
