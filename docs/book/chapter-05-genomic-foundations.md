@@ -32,6 +32,11 @@ PatientOne's VCF ([`genomics/somatic_variants.vcf`](https://github.com/lynnlangi
 - **5 copy number variants**: MYC amplification, CCNE1 amplification, etc.
 - **4 wild-type**: BRCA1, BRAF, KRAS, ARID1A (important negatives)
 
+<kbd><img src="../../data/images/vcf-parsed-output.png" width="700"></kbd>
+
+**Figure 5.1: Parsed VCF with Annotations**
+*Claude output showing parsed and annotated PatientOne VCF file using `fgbio_parse_vcf` and `fgbio_annotate_variants` tools. Table displays gene names, variants (protein changes), mutation types, variant allele frequencies (VAF), and ClinVar pathogenicity ratings with star ratings. Pathogenic mutations (TP53, PIK3CA, PTEN, KRAS) are highlighted for clinical decision-making.*
+
 ---
 
 ## The Four mcp-fgbio Tools
