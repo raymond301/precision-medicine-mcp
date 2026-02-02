@@ -41,6 +41,8 @@ jobs:
           date: "2026-02-01"
           toc: true
           toc-depth: 2
+          header-includes: 
+            - \setcounter{chapter}{-1}
           numbersections: true
           linkcolor: blue
           urlcolor: blue
