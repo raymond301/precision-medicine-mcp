@@ -2,6 +2,8 @@
 
 **Quantum Computing for Cell Type Validation and Immune Evasion Detection**
 
+<img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/mcp-quantum.jpeg">
+
 ---
 
 ## Overview
