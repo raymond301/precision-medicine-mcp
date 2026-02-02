@@ -203,7 +203,6 @@ jobs:
             -o precision-medicine-mcp-book.pdf \
             --pdf-engine=xelatex \
             --include-in-header=header.tex \
-            -V fontfamily=lmss \
             --toc \
             --toc-depth=2 \
             --number-sections \
