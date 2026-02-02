@@ -36,9 +36,6 @@ jobs:
           urlcolor: blue
           geometry: margin=1in
           fontsize: 11pt
-          mainfont: "Liberation Sans"
-          sansfont: "Liberation Sans"
-          monofont: "Liberation Mono"
           ---
 
           EOF
