@@ -39,18 +39,18 @@ By Lynn Langit
 By the end of this book, you'll have deployed:
 
 **12 MCP Servers**:
-1. **mcp-epic**: FHIR R4 clinical data integration
-2. **mcp-fgbio**: Genomic QC and variant calling
-3. **mcp-multiomics**: Multi-omics integration (RNA/protein/phospho)
-4. **mcp-spatialtools**: Spatial transcriptomics (STAR, ComBat, pathways)
-5. **mcp-deepcell**: Cell segmentation (DeepCell-TF)
-6. **mcp-perturbation**: Treatment response prediction (GEARS GNN)
-7. **mcp-quantum-celltype-fidelity**: Quantum fidelity with Bayesian UQ
-8. **mcp-openimagedata**: Histopathology imaging
-9. **mcp-tcga**: TCGA cohort comparisons (framework)
-10. **mcp-huggingface**: ML model inference (framework)
-11. **mcp-seqera**: Nextflow workflow orchestration (framework)
-12. **mcp-mockepic**: Synthetic FHIR data for testing
+1. **mcp-epic**: FHIR R4 clinical data integration. 
+2. **mcp-fgbio**: Genomic QC and variant calling. 
+3. **mcp-multiomics**: Multi-omics integration (RNA/protein/phospho). 
+4. **mcp-spatialtools**: Spatial transcriptomics (STAR, ComBat, pathways). 
+5. **mcp-deepcell**: Cell segmentation (DeepCell-TF). 
+6. **mcp-perturbation**: Treatment response prediction (GEARS GNN). 
+7. **mcp-quantum-celltype-fidelity**: Quantum fidelity with Bayesian UQ. 
+8. **mcp-openimagedata**: Histopathology imaging. 
+9. **mcp-tcga**: TCGA cohort comparisons (framework). 
+10. **mcp-huggingface**: ML model inference (framework). 
+11. **mcp-seqera**: Nextflow workflow orchestration (framework). 
+12. **mcp-mockepic**: Synthetic FHIR data for testing. 
 
 **PatientOne Workflow**: Complete precision medicine analysis for Stage IV ovarian cancer integrating clinical, genomic, multi-omics, spatial, and imaging data.
 
@@ -138,20 +138,20 @@ By the end of this book, you'll have deployed:
 
 ## Companion Materials
 
-### Jupyter Notebooks (18 notebooks - ALL CREATED ✅)
-Each chapter has a hands-on Jupyter notebook in [`companion-notebooks/`](./companion-notebooks/):
-- Executable code examples
-- Interactive exercises
-- "Try changing this parameter..." experiments
-- Links to deployed Cloud Run servers (**requires you to deploy your own MCP servers**)
+### Jupyter Notebooks  
+Each chapter has a hands-on Jupyter notebook in [`companion-notebooks/`](./companion-notebooks/):  
+- Executable code examples. 
+- Interactive exercises. 
+- "Try changing this parameter..." experiments. 
+- Links to deployed Cloud Run servers (**requires you to deploy your own MCP servers**). 
 
 **ALL 18 NOTEBOOKS NOW AVAILABLE**:
-- Part 1 (Ch 1-3): PatientOne demo, architecture, testing
-- Part 2 (Ch 4-7): Clinical, genomics, multi-omics, spatial
-- Part 3 (Ch 8-11): DeepCell, GEARS, quantum, imaging
-- Part 4 (Ch 12-14): Cloud deployment, hospital deployment, operations
-- Part 5 (Ch 15-16): Research workflows, teaching exercises
-- Part 6 (Ch 17-18): Funding calculator, lessons learned
+- Part 1 (Ch 1-3): PatientOne demo, architecture, testing. 
+- Part 2 (Ch 4-7): Clinical, genomics, multi-omics, spatial. 
+- Part 3 (Ch 8-11): DeepCell, GEARS, quantum, imaging. 
+- Part 4 (Ch 12-14): Cloud deployment, hospital deployment, operations. 
+- Part 5 (Ch 15-16): Research workflows, teaching exercises. 
+- Part 6 (Ch 17-18): Funding calculator, lessons learned. 
 
 **IMPORTANT**: Notebooks require you to deploy MCP servers to your GCP Cloud Run. They will NOT work without your own infrastructure.
 
