@@ -123,6 +123,8 @@ jobs:
 
       - name: Convert Markdown to PDF
         run: |
+          cd docs/book
+
           # Mount the entire workspace so relative image paths work correctly
           docker run --rm \
             -v "${{ github.workspace }}:/workspace" \
@@ -142,7 +144,7 @@ jobs:
             --metadata date="$(date +'%Y-%m-%d')"
 
           echo "✅ PDF created: precision-medicine-mcp-book.pdf"
-          ls -lh docs/book/precision-medicine-mcp-book.pdf
+          ls -lh precision-medicine-mcp-book.pdf
 
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v4

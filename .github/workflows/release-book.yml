@@ -100,6 +100,7 @@ jobs:
       - name: Convert Markdown to PDF
         run: |
           VERSION="${GITHUB_REF#refs/tags/}"
+          cd docs/book
 
           # Mount the entire workspace so relative image paths work correctly
           docker run --rm \
@@ -119,7 +120,7 @@ jobs:
             --variable fontsize=11pt
 
           echo "✅ PDF created: precision-medicine-mcp-book-${VERSION}.pdf"
-          ls -lh "docs/book/precision-medicine-mcp-book-${VERSION}.pdf"
+          ls -lh "precision-medicine-mcp-book-${VERSION}.pdf"
 
       - name: Generate release notes
         id: release_notes
