@@ -1,4 +1,4 @@
-# Chapter 14: Operations and Monitoring
+# Operations and Monitoring
 
 *Production monitoring, alerting, and runbooks*
 

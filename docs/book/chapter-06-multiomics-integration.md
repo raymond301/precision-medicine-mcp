@@ -1,4 +1,4 @@
-# Chapter 6: Multi-Omics Integration
+# Multi-Omics Integration
 
 *Building mcp-multiomics for RNA, protein, and phosphoproteomics analysis*
 

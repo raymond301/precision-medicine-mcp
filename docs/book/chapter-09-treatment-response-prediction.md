@@ -1,4 +1,4 @@
-# Chapter 9: Treatment Response Prediction
+# Treatment Response Prediction
 
 *Building mcp-perturbation with GEARS graph neural networks*
 

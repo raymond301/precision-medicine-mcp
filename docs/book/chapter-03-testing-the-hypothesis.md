@@ -1,4 +1,4 @@
-# Chapter 3: Testing the Hypothesis
+# Testing the Hypothesis
 
 > *"Could this actually work in production?"*
 

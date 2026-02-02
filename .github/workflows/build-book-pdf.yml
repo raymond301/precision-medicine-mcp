@@ -118,7 +118,8 @@ jobs:
             fi
           done
 
-          # Appendices
+          # Appendices - insert \appendix command to switch from numbered chapters to lettered appendices
+          echo -e "\n\n\\appendix\n\n" >> book-full.md
 
           for appendix in appendix-a-quick-reference.md \
                           appendix-b-installation-setup.md \

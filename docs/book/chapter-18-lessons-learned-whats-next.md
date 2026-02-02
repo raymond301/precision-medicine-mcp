@@ -1,4 +1,4 @@
-# Chapter 18: Lessons Learned and What's Next
+# Lessons Learned and What's Next
 
 *Production insights, future enhancements, and the path forward*
 

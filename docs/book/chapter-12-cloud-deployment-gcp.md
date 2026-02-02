@@ -1,4 +1,4 @@
-# Chapter 12: Cloud Deployment on GCP
+# Cloud Deployment on GCP
 
 *Deploying MCP servers to Google Cloud Run*
 

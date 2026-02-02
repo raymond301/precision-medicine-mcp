@@ -1,4 +1,4 @@
-# Chapter 7: Spatial Transcriptomics
+# Spatial Transcriptomics
 
 *Building mcp-spatialtools for 10X Visium spatial gene expression analysis*
 

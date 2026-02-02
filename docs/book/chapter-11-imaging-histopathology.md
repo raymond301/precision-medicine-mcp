@@ -1,4 +1,4 @@
-# Chapter 11: Imaging and Histopathology
+# Imaging and Histopathology
 
 *Building mcp-openimagedata for H&E and MxIF image analysis*
 

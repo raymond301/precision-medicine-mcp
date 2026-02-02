@@ -1,4 +1,4 @@
-# Chapter 2: The Architecture Problem
+# The Architecture Problem
 
 > *"How do you orchestrate 69 bioinformatics tools across 12 specialized servers?"*
 

@@ -1,4 +1,4 @@
-# Chapter 16: Teaching Precision Medicine
+# Teaching Precision Medicine
 
 *Educational workflows, classroom exercises, and student access*
 

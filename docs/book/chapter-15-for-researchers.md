@@ -1,4 +1,4 @@
-# Chapter 15: For Researchers
+# For Researchers
 
 *Exploratory analysis, prompt engineering, and research workflows*
 

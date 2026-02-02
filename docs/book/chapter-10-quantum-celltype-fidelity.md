@@ -1,4 +1,4 @@
-# Chapter 10: Quantum Cell-Type Fidelity
+# Quantum Cell-Type Fidelity
 
 *Building mcp-quantum-celltype-fidelity with PennyLane and Bayesian UQ*
 

@@ -1,4 +1,4 @@
-# Chapter 4: Clinical Data—The Starting Point
+# Clinical Data—The Starting Point
 
 > *"Every analysis begins with a patient. How do we integrate EHR data?"*
 

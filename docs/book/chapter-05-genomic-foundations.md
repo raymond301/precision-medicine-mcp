@@ -1,4 +1,4 @@
-# Chapter 5: Genomic Foundations
+# Genomic Foundations
 
 *Building mcp-fgbio for VCF parsing and quality control*
 

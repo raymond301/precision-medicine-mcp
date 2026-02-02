@@ -1,4 +1,4 @@
-# Chapter 17: Funding and Sustainability
+# Funding and Sustainability
 
 *ROI analysis, grant strategies, and budget models*
 

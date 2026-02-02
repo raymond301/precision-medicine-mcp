@@ -1,4 +1,4 @@
-# Chapter 8: Cell Segmentation with DeepCell
+# Cell Segmentation with DeepCell
 
 *Building mcp-deepcell for single-cell resolution imaging analysis*
 

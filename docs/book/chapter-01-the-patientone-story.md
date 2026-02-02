@@ -1,4 +1,4 @@
-# Chapter 1: The PatientOne Story
+# The PatientOne Story
 
 > *"What would happen if you could analyze a cancer patient's complete molecular profile in minutes instead of weeks?"*
 

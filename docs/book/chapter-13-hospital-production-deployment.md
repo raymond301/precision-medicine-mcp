@@ -1,4 +1,4 @@
-# Chapter 13: Hospital Production Deployment
+# Hospital Production Deployment
 
 *HIPAA-compliant deployment for research hospitals*
 
