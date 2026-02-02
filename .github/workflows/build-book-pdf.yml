@@ -34,26 +34,26 @@ jobs:
 
           # Create title page
           cat > book-full.md << 'EOF'
-          ---
-          title: "Building AI-Orchestrated Precision Oncology Systems"
-          subtitle: "A Practical Guide to MCP-Based Bioinformatics"
-          author: "Lynn Langit"
-          date: "2026-02-01"
-          toc: true
-          toc-depth: 2
-          header-includes:
-          - \setcounter{chapter}{-1}
-          include-before:
-          - \setcounter{chapter}{-1}
-          numbersections: true
-          linkcolor: blue
-          urlcolor: blue
-          geometry: margin=1in
-          fontsize: 11pt
-          documentclass: report
-          ---
+---
+title: "Building AI-Orchestrated Precision Oncology Systems"
+subtitle: "A Practical Guide to MCP-Based Bioinformatics"
+author: "Lynn Langit"
+date: "2026-02-01"
+toc: true
+toc-depth: 2
+numbersections: true
+header-includes:
+  - \setcounter{chapter}{-1}
+include-before:
+  - \setcounter{chapter}{-1}
+linkcolor: blue
+urlcolor: blue
+geometry: margin=1in
+fontsize: 11pt
+documentclass: report
+---
 
-          EOF
+EOF
 
           # Concatenate all chapters in order
           cat chapter-00-introduction.md >> book-full.md
@@ -146,49 +146,116 @@ jobs:
           import subprocess
           import os
 
+          print("📖 Reading book-full.md...")
           with open('book-full.md', 'r') as f:
               content = f.read()
+
+          print(f"   File size: {len(content)} characters")
 
           # Find all mermaid code blocks
           pattern = r'```mermaid\n(.*?)```'
           matches = list(re.finditer(pattern, content, re.DOTALL))
 
-          print(f"Found {len(matches)} Mermaid diagrams")
+          print(f"\n🔍 Found {len(matches)} Mermaid diagrams")
 
+          if len(matches) == 0:
+              print("⚠️  WARNING: No mermaid diagrams found in book-full.md")
+              print("   Check if chapters contain ```mermaid blocks")
+
+          converted_count = 0
           for i, match in enumerate(matches):
               mermaid_code = match.group(1)
               mmd_file = f'mermaid-images/diagram-{i}.mmd'
               png_file = f'mermaid-images/diagram-{i}.png'
 
+              print(f"\n📝 Processing diagram {i}:")
+              print(f"   Code length: {len(mermaid_code)} chars")
+              print(f"   First line: {mermaid_code.split(chr(10))[0][:50]}...")
+
               # Write mermaid code to file
               with open(mmd_file, 'w') as f:
                   f.write(mermaid_code)
+              print(f"   ✅ Wrote {mmd_file}")
 
               # Convert to PNG using mmdc
               try:
-                  subprocess.run([
+                  result = subprocess.run([
                       'mmdc',
                       '-i', mmd_file,
                       '-o', png_file,
-                      '-b', 'white',
-                      '-t', 'neutral'
-                  ], check=True, capture_output=True)
-                  print(f"✅ Converted diagram {i}")
+                      '-b', 'white'
+                  ], check=True, capture_output=True, text=True)
 
-                  # Replace mermaid block with image reference
-                  content = content.replace(
-                      match.group(0),
-                      f'![Diagram {i}](mermaid-images/diagram-{i}.png)'
-                  )
+                  # Verify PNG was created
+                  if os.path.exists(png_file):
+                      size = os.path.getsize(png_file)
+                      print(f"   ✅ Created {png_file} ({size} bytes)")
+                      converted_count += 1
+
+                      # Replace mermaid block with image reference
+                      old_text = match.group(0)
+                      new_text = f'![Diagram {i}](mermaid-images/diagram-{i}.png)'
+                      content = content.replace(old_text, new_text)
+                      print(f"   ✅ Replaced code block with image reference")
+                  else:
+                      print(f"   ❌ PNG file not created!")
+
               except subprocess.CalledProcessError as e:
-                  print(f"❌ Failed to convert diagram {i}: {e}")
+                  print(f"   ❌ mmdc failed: {e}")
+                  print(f"   stdout: {e.stdout}")
+                  print(f"   stderr: {e.stderr}")
+
+          print(f"\n📊 Conversion Summary:")
+          print(f"   Total diagrams found: {len(matches)}")
+          print(f"   Successfully converted: {converted_count}")
+          print(f"   Failed: {len(matches) - converted_count}")
 
           # Write modified content
           with open('book-with-images.md', 'w') as f:
               f.write(content)
 
-          print(f"✅ Created book-with-images.md")
+          print(f"\n✅ Created book-with-images.md")
+
+          # Verify no mermaid code blocks remain
+          remaining = content.count('```mermaid')
+          if remaining > 0:
+              print(f"\n❌ ERROR: {remaining} mermaid blocks still present after conversion!")
+              print("   This means the replacement failed - checking why...")
+              # Show first remaining block for debugging
+              first_block = content[content.find('```mermaid'):content.find('```mermaid')+100]
+              print(f"   First remaining block: {first_block}...")
+              exit(1)
+          else:
+              print(f"✅ All mermaid blocks successfully replaced with images")
           PYTHON_SCRIPT
+
+      - name: Validate Mermaid conversion
+        run: |
+          cd docs/book
+
+          echo "📊 Validation Results:"
+          echo "Generated PNG files:"
+          ls -lh mermaid-images/*.png 2>/dev/null || echo "⚠️  No PNG files found!"
+
+          echo ""
+          echo "Checking for remaining mermaid code blocks..."
+          if grep -q '```mermaid' book-with-images.md; then
+            echo "❌ FAIL: Mermaid code blocks still present in book-with-images.md"
+            grep -n '```mermaid' book-with-images.md | head -5
+            exit 1
+          else
+            echo "✅ PASS: No mermaid code blocks found"
+          fi
+
+          echo ""
+          echo "Checking for image references..."
+          IMAGE_COUNT=$(grep -c 'mermaid-images/diagram-' book-with-images.md || echo "0")
+          echo "Found $IMAGE_COUNT image references to mermaid-images/"
+
+          if [ "$IMAGE_COUNT" -eq 0 ]; then
+            echo "❌ FAIL: No mermaid image references found"
+            exit 1
+          fi
 
       - name: Convert Markdown to PDF
         run: |
