@@ -307,10 +307,10 @@ The results reveal:
 
 Claude integrates findings across all modalities:
 
-**Genomics**: PIK3CA E545K mutation (gain-of-function in PI3K pathway)
-**Proteomics**: AKT1, mTOR, RPS6KB1 upregulation (confirms pathway activation)
-**Spatial**: Tumor core shows PI3K/AKT signature; immune-infiltrated regions show T-cell exhaustion
-**Imaging**: 45% Ki67+ proliferation index; CD8+ density only 5-15 cells/mm² (LOW)
+- **Genomics**: PIK3CA E545K mutation (gain-of-function in PI3K pathway). 
+- **Proteomics**: AKT1, mTOR, RPS6KB1 upregulation (confirms pathway activation). 
+- **Spatial**: Tumor core shows PI3K/AKT signature; immune-infiltrated regions show T-cell exhaustion. 
+- **Imaging**: 45% Ki67+ proliferation index; CD8+ density only 5-15 cells/mm² (LOW). 
 
 **Treatment Recommendation**:
 1. **Primary**: PI3K inhibitor (alpelisib) targeting PIK3CA E545K
