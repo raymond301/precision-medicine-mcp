@@ -110,7 +110,7 @@ Claude connects to multiple MCP servers simultaneously. When you ask a question,
 
 You don't write code. You describe what you want in plain English.
 
-<kbd><img src="../../data/images/why-mcp.jpeg" width="600"></kbd>
+![Why MCP for Healthcare](why-mcp.jpeg){width=100%}
 
 **Figure 2.2: Why MCP for Healthcare**
 *Visual representation of how MCP enables AI orchestration of bioinformatics tools without custom integration code.*
@@ -283,7 +283,7 @@ The system has 12 MCP servers, each specialized for a specific bioinformatics do
 
 Full server status: [`docs/architecture/servers.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/architecture/servers.md)
 
-<kbd><img src="../../data/images/Claude-client.png" width="700"></kbd>
+![Claude Desktop with MCP Servers](Claude-client.png){width=100%}
 
 **Figure 2.3: Claude Desktop with MCP Servers**
 *Claude Desktop interface showing connected MCP servers in the sidebar. Users interact with all 12 servers through natural language prompts without writing integration code.*

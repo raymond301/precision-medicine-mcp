@@ -34,14 +34,18 @@ jobs:
           echo "Building book version: $VERSION"
 
           # Create title page with version
-          cat > book-full.md << EOF
+          cat > book-full.md << 'EOF'
           ---
           title: "Building AI-Orchestrated Precision Oncology Systems"
           subtitle: "A Practical Guide to MCP-Based Bioinformatics"
           author: "Lynn Langit"
-          date: "$VERSION - $(date +'%Y-%m-%d')"
+          date: "2026-02-01"
           toc: true
           toc-depth: 2
+          header-includes:
+          - \setcounter{chapter}{-1}
+          include-before:
+          - \setcounter{chapter}{-1}
           numbersections: true
           linkcolor: blue
           urlcolor: blue
@@ -52,62 +56,82 @@ jobs:
 
           EOF
 
-          # Concatenate all chapters - header.tex will handle page breaks
+          # Concatenate all chapters in order
           cat chapter-00-introduction.md >> book-full.md
 
-          # Part 1
+          # Part 1: Why This Matters
           for chapter in chapter-01-the-patientone-story.md \
                          chapter-02-the-architecture-problem.md \
                          chapter-03-testing-the-hypothesis.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
 
-          # Part 2
+          # Part 2: Building the Foundation
           for chapter in chapter-04-clinical-data.md \
                          chapter-05-genomic-foundations.md \
                          chapter-06-multiomics-integration.md \
                          chapter-07-spatial-transcriptomics.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
 
-          # Part 3
+          # Part 3: Advanced Capabilities
           for chapter in chapter-08-cell-segmentation.md \
                          chapter-09-treatment-response-prediction.md \
                          chapter-10-quantum-celltype-fidelity.md \
                          chapter-11-imaging-histopathology.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
 
-          # Part 4
+          # Part 4: Deployment and Operations
           for chapter in chapter-12-cloud-deployment-gcp.md \
                          chapter-13-hospital-production-deployment.md \
                          chapter-14-operations-monitoring.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
 
-          # Part 5
+          # Part 5: Research and Education
           for chapter in chapter-15-for-researchers.md \
                          chapter-16-teaching-precision-medicine.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
 
-          # Part 6
+          # Part 6: The Future
           for chapter in chapter-17-funding-sustainability.md \
                          chapter-18-lessons-learned.md; do
-            [ -f "$chapter" ] && cat "$chapter" >> book-full.md
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
 
           # Appendices
-          echo "" >> book-full.md
-          echo "# Appendices" >> book-full.md
-          echo "" >> book-full.md
 
           for appendix in appendix-a-quick-reference.md \
                           appendix-b-installation-setup.md \
                           appendix-c-patientone-dataset.md \
                           appendix-d-bias-and-ethics.md; do
-            [ -f "$appendix" ] && cat "$appendix" >> book-full.md
+            if [ -f "$appendix" ]; then
+              cat "$appendix" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
           done
+
+          echo "✅ Created book-full.md ($(wc -l < book-full.md) lines)"
 
       - name: Convert Mermaid diagrams to images
         run: |
@@ -182,6 +206,7 @@ jobs:
             pandoc/latex:latest \
             book-with-images.md \
             -o "precision-medicine-mcp-book-${VERSION}.pdf" \
+            --resource-path=.:/workspace/data/images:/workspace/docs/book/mermaid-images \
             --pdf-engine=xelatex \
             --include-in-header=header.tex \
             --top-level-division=chapter \
