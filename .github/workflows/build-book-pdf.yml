@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'docs/book/**/*.md'
-      - 'data/images/**'
+      - 'docs/book/images/**'
       - '.github/workflows/build-book-pdf.yml'
   workflow_dispatch: # Allow manual trigger
 
