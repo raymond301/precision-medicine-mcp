@@ -53,7 +53,6 @@ jobs:
 
           # Concatenate all chapters in order
           cat chapter-00-introduction.md >> book-full.md
-          echo -e "\n\n\\newpage\n\n" >> book-full.md
 
           # Part 1: Why This Matters
           for chapter in chapter-01-the-patientone-story.md \
