@@ -1,0 +1,170 @@
+name: Build Book PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/book/chapter-*.md'
+      - 'docs/book/appendix-*.md'
+      - 'docs/book/chapter-00-introduction.md'
+      - '.github/workflows/build-book-pdf.yml'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pandoc
+        uses: docker://pandoc/latex:latest
+        with:
+          args: --version
+
+      - name: Install additional LaTeX packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic
+
+      - name: Concatenate book chapters in order
+        run: |
+          cd docs/book
+
+          # Create title page
+          cat > book-full.md << 'EOF'
+          ---
+          title: "Building AI-Orchestrated Precision Oncology Systems"
+          subtitle: "A Practical Guide to MCP-Based Bioinformatics"
+          author: "Lynn Langit"
+          date: "2026-02-01"
+          toc: true
+          toc-depth: 2
+          numbersections: true
+          linkcolor: blue
+          urlcolor: blue
+          geometry: margin=1in
+          fontsize: 11pt
+          mainfont: "DejaVu Sans"
+          ---
+
+          EOF
+
+          # Concatenate all chapters in order
+          cat chapter-00-introduction.md >> book-full.md
+          echo -e "\n\n\\newpage\n\n" >> book-full.md
+
+          # Part 1: Why This Matters
+          for chapter in chapter-01-the-patientone-story.md \
+                         chapter-02-the-architecture-problem.md \
+                         chapter-03-testing-the-hypothesis.md; do
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          # Part 2: Building the Foundation
+          for chapter in chapter-04-clinical-data.md \
+                         chapter-05-genomic-foundations.md \
+                         chapter-06-multiomics-integration.md \
+                         chapter-07-spatial-transcriptomics.md; do
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          # Part 3: Advanced Capabilities
+          for chapter in chapter-08-cell-segmentation.md \
+                         chapter-09-treatment-response-prediction.md \
+                         chapter-10-quantum-celltype-fidelity.md \
+                         chapter-11-imaging-histopathology.md; do
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          # Part 4: Deployment and Operations
+          for chapter in chapter-12-cloud-deployment-gcp.md \
+                         chapter-13-hospital-production-deployment.md \
+                         chapter-14-operations-monitoring.md; do
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          # Part 5: Research and Education
+          for chapter in chapter-15-for-researchers.md \
+                         chapter-16-teaching-precision-medicine.md; do
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          # Part 6: The Future
+          for chapter in chapter-17-funding-sustainability.md \
+                         chapter-18-lessons-learned.md; do
+            if [ -f "$chapter" ]; then
+              cat "$chapter" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          # Appendices
+          echo -e "\n\n# Appendices\n\n\\newpage\n\n" >> book-full.md
+
+          for appendix in appendix-a-quick-reference.md \
+                          appendix-b-installation-setup.md \
+                          appendix-c-patientone-dataset.md \
+                          appendix-d-bias-and-ethics.md; do
+            if [ -f "$appendix" ]; then
+              cat "$appendix" >> book-full.md
+              echo -e "\n\n\\newpage\n\n" >> book-full.md
+            fi
+          done
+
+          echo "✅ Created book-full.md ($(wc -l < book-full.md) lines)"
+
+      - name: Convert Markdown to PDF
+        run: |
+          cd docs/book
+
+          docker run --rm -v "$(pwd):/data" pandoc/latex:latest \
+            book-full.md \
+            -o precision-medicine-mcp-book.pdf \
+            --pdf-engine=xelatex \
+            --toc \
+            --toc-depth=2 \
+            --number-sections \
+            --highlight-style=tango \
+            --variable linkcolor=blue \
+            --variable urlcolor=blue \
+            --variable geometry:margin=1in \
+            --variable fontsize=11pt \
+            --metadata date="$(date +'%Y-%m-%d')"
+
+          echo "✅ PDF created: precision-medicine-mcp-book.pdf"
+          ls -lh precision-medicine-mcp-book.pdf
+
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdf
+          path: docs/book/precision-medicine-mcp-book.pdf
+          retention-days: 90
+
+      - name: Get book statistics
+        run: |
+          cd docs/book
+          echo "📊 Book Statistics:"
+          echo "Total lines: $(wc -l < book-full.md)"
+          echo "Total words: $(wc -w < book-full.md)"
+          echo "PDF size: $(du -h precision-medicine-mcp-book.pdf | cut -f1)"
+          echo "Chapters: $(ls -1 chapter-*.md | wc -l)"
+          echo "Appendices: $(ls -1 appendix-*.md | wc -l)"

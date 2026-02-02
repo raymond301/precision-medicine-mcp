@@ -1,0 +1,204 @@
+name: Release Book PDF
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0, v1.1.0, etc.
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to create releases
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pandoc
+        uses: docker://pandoc/latex:latest
+        with:
+          args: --version
+
+      - name: Install additional LaTeX packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic
+
+      - name: Concatenate book chapters in order
+        run: |
+          cd docs/book
+
+          # Extract version from tag
+          VERSION="${GITHUB_REF#refs/tags/}"
+          echo "Building book version: $VERSION"
+
+          # Create title page with version
+          cat > book-full.md << EOF
+          ---
+          title: "Building AI-Orchestrated Precision Oncology Systems"
+          subtitle: "A Practical Guide to MCP-Based Bioinformatics"
+          author: "Lynn Langit"
+          date: "$VERSION - $(date +'%Y-%m-%d')"
+          toc: true
+          toc-depth: 2
+          numbersections: true
+          linkcolor: blue
+          urlcolor: blue
+          geometry: margin=1in
+          fontsize: 11pt
+          mainfont: "DejaVu Sans"
+          ---
+
+          EOF
+
+          # Concatenate all chapters (same as build-book-pdf.yml)
+          cat chapter-00-introduction.md >> book-full.md
+          echo -e "\n\n\\newpage\n\n" >> book-full.md
+
+          # Part 1
+          for chapter in chapter-01-the-patientone-story.md \
+                         chapter-02-the-architecture-problem.md \
+                         chapter-03-testing-the-hypothesis.md; do
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+          # Part 2
+          for chapter in chapter-04-clinical-data.md \
+                         chapter-05-genomic-foundations.md \
+                         chapter-06-multiomics-integration.md \
+                         chapter-07-spatial-transcriptomics.md; do
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+          # Part 3
+          for chapter in chapter-08-cell-segmentation.md \
+                         chapter-09-treatment-response-prediction.md \
+                         chapter-10-quantum-celltype-fidelity.md \
+                         chapter-11-imaging-histopathology.md; do
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+          # Part 4
+          for chapter in chapter-12-cloud-deployment-gcp.md \
+                         chapter-13-hospital-production-deployment.md \
+                         chapter-14-operations-monitoring.md; do
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+          # Part 5
+          for chapter in chapter-15-for-researchers.md \
+                         chapter-16-teaching-precision-medicine.md; do
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+          # Part 6
+          for chapter in chapter-17-funding-sustainability.md \
+                         chapter-18-lessons-learned.md; do
+            [ -f "$chapter" ] && cat "$chapter" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+          # Appendices
+          echo -e "\n\n# Appendices\n\n\\newpage\n\n" >> book-full.md
+          for appendix in appendix-a-quick-reference.md \
+                          appendix-b-installation-setup.md \
+                          appendix-c-patientone-dataset.md \
+                          appendix-d-bias-and-ethics.md; do
+            [ -f "$appendix" ] && cat "$appendix" >> book-full.md && echo -e "\n\n\\newpage\n\n" >> book-full.md
+          done
+
+      - name: Convert Markdown to PDF
+        run: |
+          cd docs/book
+          VERSION="${GITHUB_REF#refs/tags/}"
+
+          docker run --rm -v "$(pwd):/data" pandoc/latex:latest \
+            book-full.md \
+            -o "precision-medicine-mcp-book-${VERSION}.pdf" \
+            --pdf-engine=xelatex \
+            --toc \
+            --toc-depth=2 \
+            --number-sections \
+            --highlight-style=tango \
+            --variable linkcolor=blue \
+            --variable urlcolor=blue \
+            --variable geometry:margin=1in \
+            --variable fontsize=11pt
+
+          echo "✅ PDF created: precision-medicine-mcp-book-${VERSION}.pdf"
+          ls -lh "precision-medicine-mcp-book-${VERSION}.pdf"
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          cd docs/book
+
+          cat > release-notes.md << EOF
+          ## 📖 Building AI-Orchestrated Precision Oncology Systems
+
+          **Version**: ${VERSION}
+          **Date**: $(date +'%Y-%m-%d')
+
+          ### Book Contents
+          - **18 Chapters**: Complete guide from concept to production deployment
+          - **4 Appendices**: Quick reference, setup guide, dataset reference, ethics framework
+          - **18 Jupyter Notebooks**: Hands-on companion exercises
+          - **14 Mermaid Diagrams**: Architecture and workflow visualizations
+          - **10 Screenshots**: UI examples and dashboards
+
+          ### What's Included
+          - ✅ All 18 chapters (Introduction through Lessons Learned)
+          - ✅ Complete appendices (Quick Reference, Setup, PatientOne Dataset, Bias & Ethics)
+          - ✅ Production-ready MCP server implementations
+          - ✅ PatientOne synthetic dataset (100% safe to share)
+
+          ### Book Statistics
+          - **Total Pages**: ~$(pdfinfo precision-medicine-mcp-book-${VERSION}.pdf 2>/dev/null | grep Pages | awk '{print $2}' || echo "TBD")
+          - **Total Words**: $(wc -w < book-full.md)
+          - **PDF Size**: $(du -h precision-medicine-mcp-book-${VERSION}.pdf | cut -f1)
+
+          ### Quick Links
+          - **GitHub Repository**: https://github.com/lynnlangit/precision-medicine-mcp
+          - **Companion Notebooks**: https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/book/companion-notebooks
+          - **PatientOne Dataset**: https://github.com/lynnlangit/precision-medicine-mcp/tree/main/data/patient-data/PAT001-OVC-2025
+
+          ### Requirements
+          To use the companion materials, you'll need:
+          - Python 3.11+ (3.10 for DeepCell)
+          - Google Cloud Platform account (for MCP server deployment)
+          - Anthropic API key or Google AI API key
+
+          ### Citation
+          \`\`\`
+          Langit, L. (2026). Building AI-Orchestrated Precision Oncology Systems:
+          A Practical Guide to MCP-Based Bioinformatics (${VERSION}).
+          GitHub. https://github.com/lynnlangit/precision-medicine-mcp
+          \`\`\`
+
+          ---
+
+          **License**: Book content © 2026 Lynn Langit. Code examples: Apache 2.0.
+          EOF
+
+          # Set output for use in release creation
+          echo "notes_file=docs/book/release-notes.md" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            docs/book/precision-medicine-mcp-book-${{ github.ref_name }}.pdf
+          body_path: docs/book/release-notes.md
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload PDF as artifact (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdf-${{ github.ref_name }}
+          path: docs/book/precision-medicine-mcp-book-${{ github.ref_name }}.pdf
+          retention-days: 365
