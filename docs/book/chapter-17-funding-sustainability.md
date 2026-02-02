@@ -326,16 +326,7 @@ Full NIH budget template: [`docs/for-researchers/grant-templates/nih-r01-budget.
 
 ---
 
-## Next Steps
-
-**Chapter 18: Lessons Learned and What's Next** (final chapter) covers:
-- Production deployment insights
-- Technical challenges and solutions
-- Future enhancements roadmap
-- Multi-cancer expansion
-- Community and open source
-
----
+## Summary
 
 **Chapter 17 Summary**:
 - Per-patient cost: $138 (MCP) vs $7,500 (traditional) = $7,210 savings (96%)
@@ -347,6 +338,6 @@ Full NIH budget template: [`docs/for-researchers/grant-templates/nih-r01-budget.
 - Revenue models: Clinical service (72% margin), SaaS ($5K-40K/month)
 - Sustainability: Year 1 pilot → Year 2 expansion → Year 3 scale
 
-**Files**: [`docs/prompt-library/funder-demo-prompts.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/prompt-library/funder-demo-prompts.md)
-**ROI**: 96% cost reduction, 2-3 month payback, 655-687% 5-year ROI
-**Scaling**: Cost/patient constant ($138) as volume increases
+**Files**: [`docs/prompt-library/funder-demo-prompts.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/prompt-library/funder-demo-prompts.md). 
+**ROI**: 96% cost reduction, 2-3 month payback, 655-687% 5-year ROI. 
+**Scaling**: Cost/patient constant ($138) as volume increases. 
