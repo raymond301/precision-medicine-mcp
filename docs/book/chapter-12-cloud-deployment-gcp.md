@@ -183,6 +183,11 @@ Full script: [`servers/mcp-deepcell/deploy.sh`](https://github.com/lynnlangit/pr
 ✅ Deployment complete!
 ```
 
+<kbd><img src="../../data/images/cloud-build-success.png" width="700"></kbd>
+
+**Figure 12.4: Successful Cloud Build Deployment**
+*Cloud Build logs showing successful Docker image build, push to Container Registry (gcr.io), and deployment to Cloud Run. Build completed in ~3-5 minutes with all steps passing (green checkmarks).*
+
 ---
 
 ## Deployment Option 2: Cloud Build (CI/CD)
@@ -332,6 +337,11 @@ mcp-fgbio                      us-central1  https://mcp-fgbio-xxx.run.app
 mcp-multiomics                 us-central1  https://mcp-multiomics-xxx.run.app
 ...
 ```
+
+<kbd><img src="../../data/images/cloud-run-services.png" width="700"></kbd>
+
+**Figure 12.3: Cloud Run Services List (gcloud CLI)**
+*Command line output showing all deployed MCP servers with service names, regions, and HTTPS endpoints. Each service is independently scalable with auto-scaling from 0 to 1000+ instances.*
 
 ---
 

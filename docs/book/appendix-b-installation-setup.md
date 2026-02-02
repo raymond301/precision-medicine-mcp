@@ -96,6 +96,11 @@ Full server list and installation instructions: [`servers/README.md`](https://gi
 - Template: [`configs/claude_desktop_config.json`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/configs/claude_desktop_config.json)
 - Setup guide: [`docs/test-docs/manual-testing/claude-desktop-setup.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/test-docs/manual-testing/claude-desktop-setup.md)
 
+<kbd><img src="../../data/images/claude-desktop-config.png" width="700"></kbd>
+
+**Figure B.1: Claude Desktop Configuration File**
+*Example `claude_desktop_config.json` showing all 12 MCP servers configured with absolute paths to Python executables, environment variables (DATA_DIR, DRY_RUN), and transport settings. Each server runs independently via stdio transport.*
+
 **Key points**:
 - Use **absolute paths** to venv Python executables
 - Set `DRY_RUN=false` for real analysis, `true` for demonstration mode
