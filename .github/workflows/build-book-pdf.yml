@@ -41,8 +41,10 @@ jobs:
           date: "2026-02-01"
           toc: true
           toc-depth: 2
-          header-includes: 
-            - \setcounter{chapter}{-1}
+          header-includes:
+          - \setcounter{chapter}{-1}
+          include-before:
+          - \setcounter{chapter}{-1}
           numbersections: true
           linkcolor: blue
           urlcolor: blue
@@ -117,7 +119,6 @@ jobs:
           done
 
           # Appendices
-          echo -e "\n\n# Appendices\n\n\\newpage\n\n" >> book-full.md
 
           for appendix in appendix-a-quick-reference.md \
                           appendix-b-installation-setup.md \
