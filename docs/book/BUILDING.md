@@ -87,4 +87,4 @@ Previous pandoc-based workflows have been disabled:
 - `build-book-pdf.yml.disabled` - Manual Mermaid conversion approach
 - `release-book.yml.disabled` - Release with manual conversion
 
-These are kept for reference but no longer run.
+These are kept for reference but no longer run (archive).
