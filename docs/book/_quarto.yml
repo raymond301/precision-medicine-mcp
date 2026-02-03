@@ -1,0 +1,65 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Building AI-Orchestrated Precision Oncology Systems"
+  subtitle: "A Practical Guide to MCP-Based Bioinformatics"
+  author: "Lynn Langit"
+  date: "2026-02-01"
+  chapters:
+    - chapter-00-introduction.md
+    - part: "Part 1: Why This Matters"
+      chapters:
+        - chapter-01-the-patientone-story.md
+        - chapter-02-the-architecture-problem.md
+        - chapter-03-testing-the-hypothesis.md
+    - part: "Part 2: Building the Foundation"
+      chapters:
+        - chapter-04-clinical-data.md
+        - chapter-05-genomic-foundations.md
+        - chapter-06-multiomics-integration.md
+        - chapter-07-spatial-transcriptomics.md
+    - part: "Part 3: Advanced Capabilities"
+      chapters:
+        - chapter-08-cell-segmentation.md
+        - chapter-09-treatment-response-prediction.md
+        - chapter-10-quantum-celltype-fidelity.md
+        - chapter-11-imaging-histopathology.md
+    - part: "Part 4: Deployment and Operations"
+      chapters:
+        - chapter-12-cloud-deployment-gcp.md
+        - chapter-13-hospital-production-deployment.md
+        - chapter-14-operations-monitoring.md
+    - part: "Part 5: Research and Education"
+      chapters:
+        - chapter-15-for-researchers.md
+        - chapter-16-teaching-precision-medicine.md
+    - part: "Part 6: The Future"
+      chapters:
+        - chapter-17-funding-sustainability.md
+        - chapter-18-lessons-learned-whats-next.md
+  appendices:
+    - appendix-a-quick-reference.md
+    - appendix-b-installation-setup.md
+    - appendix-c-patientone-dataset.md
+    - appendix-d-bias-and-ethics.md
+
+format:
+  pdf:
+    documentclass: report
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    linkcolor: blue
+    urlcolor: blue
+    geometry:
+      - margin=1in
+    fontsize: 11pt
+    pdf-engine: xelatex
+    include-in-header:
+      - header.tex
+    keep-tex: false
+    fig-pos: 'H'
+    highlight-style: tango

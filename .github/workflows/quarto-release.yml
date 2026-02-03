@@ -1,0 +1,120 @@
+name: Release Book PDF with Quarto
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.4.550
+
+      - name: Install TinyTeX (for PDF)
+        run: |
+          quarto install tinytex
+
+      - name: Render Quarto Book to PDF
+        run: |
+          cd docs/book
+          quarto render --to pdf
+
+      - name: Rename PDF with version
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          cd docs/book/_book
+          mv Building-AI-Orchestrated-Precision-Oncology-Systems.pdf \
+             "precision-medicine-mcp-book-${VERSION}.pdf"
+          ls -lh "precision-medicine-mcp-book-${VERSION}.pdf"
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          cd docs/book/_book
+
+          cat > release-notes.md << 'EOF'
+## 📖 Building AI-Orchestrated Precision Oncology Systems
+
+**Version**: $VERSION
+**Date**: $(date +'%Y-%m-%d')
+
+### Book Contents
+- **18 Chapters**: Complete guide from concept to production deployment
+- **4 Appendices**: Quick reference, setup guide, dataset reference, ethics framework
+- **18 Jupyter Notebooks**: Hands-on companion exercises
+- **14 Mermaid Diagrams**: Architecture and workflow visualizations (auto-rendered by Quarto)
+- **10 Screenshots**: UI examples and dashboards
+
+### What's Included
+- ✅ All 18 chapters (Introduction through Lessons Learned)
+- ✅ Complete appendices (Quick Reference, Setup, PatientOne Dataset, Bias & Ethics)
+- ✅ Production-ready MCP server implementations
+- ✅ PatientOne synthetic dataset (100% safe to share)
+- ✅ Mermaid diagrams rendered automatically (no manual conversion needed)
+
+### Technology Stack
+- **Quarto**: Professional scientific publishing system with native Mermaid support
+- **XeLaTeX**: High-quality PDF rendering
+- **GitHub Actions**: Automated builds and releases
+
+### Book Statistics
+- **Total Pages**: ~$(pdfinfo precision-medicine-mcp-book-${VERSION}.pdf 2>/dev/null | grep Pages | awk '{print $2}' || echo "TBD")
+- **PDF Size**: $(du -h precision-medicine-mcp-book-${VERSION}.pdf | cut -f1)
+
+### Quick Links
+- **GitHub Repository**: https://github.com/lynnlangit/precision-medicine-mcp
+- **Companion Notebooks**: https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/book/companion-notebooks
+- **PatientOne Dataset**: https://github.com/lynnlangit/precision-medicine-mcp/tree/main/data/patient-data/PAT001-OVC-2025
+
+### Requirements
+To use the companion materials, you'll need:
+- Python 3.11+ (3.10 for DeepCell)
+- Google Cloud Platform account (for MCP server deployment)
+- Anthropic API key or Google AI API key
+
+### Citation
+```
+Langit, L. (2026). Building AI-Orchestrated Precision Oncology Systems:
+A Practical Guide to MCP-Based Bioinformatics ($VERSION).
+GitHub. https://github.com/lynnlangit/precision-medicine-mcp
+```
+
+---
+
+**License**: Book content © 2026 Lynn Langit. Code examples: Apache 2.0.
+EOF
+
+          # Replace $VERSION placeholder
+          sed -i "s/\$VERSION/$VERSION/g" release-notes.md
+
+          echo "notes_file=docs/book/_book/release-notes.md" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            docs/book/_book/precision-medicine-mcp-book-${{ github.ref_name }}.pdf
+          body_path: docs/book/_book/release-notes.md
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload PDF as artifact (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdf-${{ github.ref_name }}
+          path: docs/book/_book/precision-medicine-mcp-book-${{ github.ref_name }}.pdf
+          retention-days: 365

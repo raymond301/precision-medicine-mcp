@@ -1,0 +1,69 @@
+name: Build Book PDF with Quarto
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/book/**/*.md'
+      - 'docs/book/images/**'
+      - 'docs/book/_quarto.yml'
+      - '.github/workflows/quarto-book.yml'
+  workflow_dispatch:
+
+jobs:
+  build-quarto-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.4.550
+
+      - name: Install TinyTeX (for PDF)
+        run: |
+          quarto install tinytex
+
+      - name: Render Quarto Book to PDF
+        run: |
+          cd docs/book
+          quarto render --to pdf
+
+      - name: Verify PDF was created
+        run: |
+          cd docs/book
+          if [ ! -f "_book/Building-AI-Orchestrated-Precision-Oncology-Systems.pdf" ]; then
+            echo "❌ ERROR: PDF file was not created!"
+            echo "Checking _book directory contents:"
+            ls -la _book/
+            exit 1
+          fi
+
+          PDF_SIZE=$(stat -c%s "_book/Building-AI-Orchestrated-Precision-Oncology-Systems.pdf")
+          if [ "$PDF_SIZE" -lt 1000 ]; then
+            echo "❌ ERROR: PDF file is too small ($PDF_SIZE bytes)"
+            exit 1
+          fi
+
+          echo "✅ PDF created successfully"
+          echo "PDF size: $PDF_SIZE bytes"
+          ls -lh "_book/Building-AI-Orchestrated-Precision-Oncology-Systems.pdf"
+
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdf-quarto
+          path: docs/book/_book/*.pdf
+          retention-days: 90
+
+      - name: Get book statistics
+        run: |
+          cd docs/book
+          echo "📊 Book Statistics:"
+          echo "Chapters: $(ls -1 chapter-*.md | wc -l)"
+          echo "Appendices: $(ls -1 appendix-*.md | wc -l)"
+          echo "PDF size: $(du -h _book/*.pdf | cut -f1)"
