@@ -60,7 +60,12 @@ format:
     pdf-engine: xelatex
     include-in-header:
       - header.tex
-    keep-tex: false
+    keep-tex: true
     fig-pos: 'H'
     highlight-style: tango
     mermaid-format: png
+    links-as-notes: false
+    hyperrefoptions:
+      - breaklinks=true
+      - unicode=true
+      - pdfborder={0 0 0}
