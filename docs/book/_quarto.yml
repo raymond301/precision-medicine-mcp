@@ -63,3 +63,4 @@ format:
     keep-tex: false
     fig-pos: 'H'
     highlight-style: tango
+    mermaid-format: png
