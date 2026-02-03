@@ -39,16 +39,22 @@ jobs:
           which google-chrome-stable || which chrome || which chromium
           google-chrome-stable --version || chrome --version || chromium --version
 
+      - name: Create Chrome wrapper (adds --no-sandbox for CI)
+        run: |
+          cat > /usr/local/bin/chrome-wrapper <<'WRAPPER'
+          #!/bin/sh
+          exec google-chrome-stable --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage "$@"
+          WRAPPER
+          chmod +x /usr/local/bin/chrome-wrapper
+
       - name: Render Quarto Book to PDF
         run: |
           cd docs/book
-          # Explicitly set the path to Chrome for Quarto
-          export QUARTO_CHROME="$(which google-chrome-stable)"
-          echo "=== Chrome path set to: $QUARTO_CHROME ==="
+          echo "=== Chrome wrapper at: $(which chrome-wrapper) ==="
           quarto render --to pdf --verbose
         env:
-          QUARTO_CHROME_HEADLESS_MODE: new
-          CHROME_FLAGS: --no-sandbox --disable-setuid-sandbox
+          QUARTO_CHROMIUM: /usr/local/bin/chrome-wrapper
+          QUARTO_CHROMIUM_HEADLESS_MODE: none
           QUARTO_LOG_LEVEL: DEBUG
 
       - name: Verify PDF was created
