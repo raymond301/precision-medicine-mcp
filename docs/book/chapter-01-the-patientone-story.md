@@ -30,7 +30,7 @@ But what if you could do something fundamentally different? What if you could in
 
 And what if you could do this analysis in **35 minutes** instead of the traditional **40 hours** of manual bioinformatics work?
 
-This is the PatientOne story—and it's the story of why this book exists.
+This is the PatientOne story—and it's the story of why this book exists. Personal details of Sarah's story are altered, but they represent my journey as a patient advocate with a dear friend who spent 8 months from diagnosis to death in 2025.
 
 ### The Complete PatientOne Workflow
 
