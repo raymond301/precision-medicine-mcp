@@ -19,10 +19,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install System Dependencies for Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk-bridge2.0-0 \
+            libdrm2 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxrandr2 \
+            libgbm1 \
+            libgtk-3-dev \
+            libnotify-dev \
+            libgconf-2-4 \
+            libxss1 \
+            libasound2
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.4.550
+          version: 1.7.13
 
       - name: Install TinyTeX (for PDF)
         run: |
@@ -36,6 +53,8 @@ jobs:
         run: |
           cd docs/book
           quarto render --to pdf
+        env:
+          QUARTO_CHROME_HEADLESS_MODE: new
 
       - name: Verify PDF was created
         run: |
