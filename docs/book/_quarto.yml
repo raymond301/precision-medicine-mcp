@@ -8,7 +8,7 @@ book:
   author: "Lynn Langit"
   date: "2026-02-01"
   chapters:
-    - chapter-00-introduction.md
+    - index.md
     - part: "Part 1: Why This Matters"
       chapters:
         - chapter-01-the-patientone-story.md
