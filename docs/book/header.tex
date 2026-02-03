@@ -5,18 +5,15 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 % Better URL handling and line breaking
-% Note: Quarto loads hyperref automatically, so we don't load it again
+% Pass options to url package BEFORE Quarto loads hyperref
 \PassOptionsToPackage{hyphens}{url}
-\usepackage{xurl}
 
-% Configure hyperref options (Quarto loads this already)
-\hypersetup{
-    breaklinks=true,
-    colorlinks=true,
-    unicode=true,
-    pdfborder={0 0 0}
-}
+% Load xurl for better URL line breaking
+\usepackage{xurl}
 
 % Allow URLs to break at these characters
 \def\UrlBreaks{\do\/\do-\do_\do.\do=\do?\do\&\do\#}
 \urlstyle{same}
+
+% Note: hyperref configuration is handled via _quarto.yml hyperrefoptions
+% to avoid "Undefined control sequence" errors
