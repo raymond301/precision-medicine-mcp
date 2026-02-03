@@ -47,6 +47,7 @@
 
 **Pathogenic variants**:
 
+::: {.landscape}
 | Gene | Variant | Type | VAF | ClinVar | Actionability |
 |------|---------|------|-----|---------|---------------|
 | TP53 | R175H | Missense | 85% | Pathogenic (★★★★★) | Prognostic |
@@ -57,6 +58,7 @@
 | CTNNB1 | S45F | Missense | 31% | Pathogenic (★★★★) | Wnt pathway activation |
 | FBXW7 | R465C | Missense | 27% | Likely pathogenic (★★★) | Tumor suppressor loss |
 | PPP2R1A | P179R | Missense | 33% | Pathogenic (★★★★) | Platinum resistance |
+:::
 
 **Tumor mutational burden (TMB)**: 8.2 mutations/Mb (high)
 
@@ -66,12 +68,14 @@
 
 **Location**: `multiomics/`
 
+::: {.landscape}
 | File | Format | Size | Samples | Features | Description |
 |------|--------|------|---------|----------|-------------|
 | `rna_counts.tsv` | TSV | 280 KB | 15 PDX models | 2,000 genes | RNA-seq expression (TPM) |
 | `protein_abundance.tsv` | TSV | 95 KB | 15 PDX models | 350 proteins | RPPA protein levels |
 | `phospho_abundance.tsv` | TSV | 110 KB | 15 PDX models | 450 phospho-sites | Phosphoproteomics |
 | `sample_metadata.tsv` | TSV | 3 KB | 15 PDX models | 8 annotations | Treatment response, histology |
+:::
 
 **PDX model cohort**:
 - **n = 15** ovarian cancer patient-derived xenografts
@@ -90,11 +94,13 @@
 
 **Location**: `spatial/`
 
+::: {.landscape}
 | File | Format | Size | Spots | Genes | Description |
 |------|--------|------|-------|-------|-------------|
 | `filtered_feature_bc_matrix.h5` | H5AD | 45 MB | 900 | 7,000 | 10X Visium gene expression |
 | `spatial_coords.tsv` | TSV | 25 KB | 900 | 2 | Spot x,y coordinates |
 | `tissue_positions.csv` | CSV | 30 KB | 900 | 5 | Tissue coordinates, selection |
+:::
 
 **Spatial regions** (6 annotated):
 

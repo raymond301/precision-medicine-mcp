@@ -484,6 +484,7 @@ Cost tracking implementation: [`shared/utils/cost_tracking.py`](https://github.c
 
 ### Server Production Readiness Matrix
 
+::: {.landscape}
 | Server | Tools | Real Data | Tests | Cloud | Status |
 |--------|-------|-----------|-------|-------|--------|
 | **mcp-fgbio** | 9 | 95% | ✅ | ✅ | ✅ Production |
@@ -498,6 +499,7 @@ Cost tracking implementation: [`shared/utils/cost_tracking.py`](https://github.c
 | **mcp-tcga** | 11 | 0% | ⚠️ | ✅ | ❌ Mocked |
 | **mcp-huggingface** | 7 | 0% | ⚠️ | ✅ | ❌ Mocked |
 | **mcp-seqera** | 7 | 0% | ⚠️ | ✅ | ❌ Mocked |
+:::
 
 **Figure 3.3: Server Production Readiness Matrix**
 *Assessment of all 12 MCP servers across key production criteria: real data integration, test coverage, cloud deployment, and overall readiness status. 7/12 servers (58%) are production-ready, 1 is partially implemented, 4 are intentionally mocked for demos.*

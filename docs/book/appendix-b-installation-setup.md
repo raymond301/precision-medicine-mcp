@@ -121,6 +121,7 @@ List all available MCP servers and their tools.
 
 Each server has unique setup requirements. Refer to individual server READMEs for details:
 
+::: {.landscape}
 | Server | Setup Time | Special Requirements | README Link |
 |--------|------------|---------------------|-------------|
 | **mcp-epic** | 5 min | Epic FHIR credentials (or use mockepic) | [`servers/mcp-epic/README.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-epic/README.md) |
@@ -135,6 +136,7 @@ Each server has unique setup requirements. Refer to individual server READMEs fo
 | **mcp-huggingface** | 5 min | None (mocked) | [`servers/mcp-huggingface/README.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-huggingface/README.md) |
 | **mcp-seqera** | 5 min | Nextflow CLI | [`servers/mcp-seqera/README.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-seqera/README.md) |
 | **mcp-mockepic** | 2 min | None | [`servers/mcp-mockepic/README.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/servers/mcp-mockepic/README.md) |
+:::
 
 **Total setup time**: 1-2 hours for all servers (local development)
 

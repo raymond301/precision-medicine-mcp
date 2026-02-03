@@ -5,12 +5,24 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 % Better URL handling and line breaking
-% Pass options to url package BEFORE Quarto/hyperref loads it
+% Pass options BEFORE loading url so hyphens is active immediately
 \PassOptionsToPackage{hyphens}{url}
+\usepackage{url}
 
-% Allow URLs to break at these characters (url package loaded by hyperref)
+% Allow URLs to break at these characters
 \def\UrlBreaks{\do\/\do-\do_\do.\do=\do?\do\&\do\#}
 \urlstyle{same}
+
+% Prevent text overflow into right margin
+% tolerance/emergencystretch let TeX stretch inter-word space rather than
+% producing an overfull hbox. Does not affect verbatim/code blocks.
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
 
 % Note: hyperref configuration is handled via _quarto.yml hyperrefoptions
 % to avoid "Undefined control sequence" errors

@@ -45,6 +45,8 @@ book:
     - appendix-c-patientone-dataset.md
     - appendix-d-bias-and-ethics.md
 
+from: markdown+lists_without_preceding_blankline
+
 format:
   pdf:
     documentclass: report

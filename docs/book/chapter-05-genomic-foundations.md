@@ -85,7 +85,10 @@ Extracts Unique Molecular Identifiers (UMIs) for PCR duplicate removal.
 
 ```python
 @mcp.tool()
-async def extract_umis(fastq_path: str, output_dir: str, umi_length: int = 12, read_structure: str = "12M+T") -> dict:
+async def extract_umis(
+        fastq_path: str, output_dir: str,
+        umi_length: int = 12,
+        read_structure: str = "12M+T") -> dict:
     """Extract UMIs using FGbio toolkit."""
     # Read structure: 12M = 12bp UMI, +T = rest is template
     result = _run_fgbio_command(["ExtractUmisFromBam", f"--read-structure={read_structure}", ...])
@@ -103,7 +106,10 @@ Retrieves gene annotation data from GENCODE, Ensembl, or RefSeq.
 
 ```python
 @mcp.tool()
-async def query_gene_annotations(genome: str, gene_name: str = None, chromosome: str = None, annotation_source: str = "gencode") -> dict:
+async def query_gene_annotations(
+        genome: str, gene_name: str = None,
+        chromosome: str = None,
+        annotation_source: str = "gencode") -> dict:
     """Query gene annotations from GENCODE/Ensembl/RefSeq."""
     annotations = await _fetch_annotations(genome, annotation_source)
     results = [ann for ann in annotations if (gene_name is None or ann["gene_name"] == gene_name)]
@@ -160,8 +166,16 @@ DRY_RUN = os.getenv("FGBIO_DRY_RUN", "false").lower() == "true"
 
 # Reference genome metadata
 REFERENCE_GENOMES = {
-    "hg38": {"name": "Human GRCh38", "url": "https://ftp.ncbi.nlm.nih.gov/genomes/.../GRCh38_genomic.fna.gz", "size_mb": 938},
-    "mm10": {"name": "Mouse GRCm38", "url": "https://ftp.ncbi.nlm.nih.gov/genomes/.../GRCm39_genomic.fna.gz", "size_mb": 794}
+    "hg38": {
+        "name": "Human GRCh38",
+        "url": "https://ftp.ncbi.nlm.nih.gov/genomes/"
+               ".../GRCh38_genomic.fna.gz",
+        "size_mb": 938},
+    "mm10": {
+        "name": "Mouse GRCm38",
+        "url": "https://ftp.ncbi.nlm.nih.gov/genomes/"
+               ".../GRCm39_genomic.fna.gz",
+        "size_mb": 794}
 }
 ```
 
@@ -200,7 +214,9 @@ async def _download_file(url: str, output_path: Path) -> dict:
 ```python
 @pytest.mark.asyncio
 async def test_fetch_reference_genome():
-    result = await mcp.call_tool("fetch_reference_genome", {"genome": "hg38", "output_dir": "/tmp/test"})
+    result = await mcp.call_tool(
+        "fetch_reference_genome",
+        {"genome": "hg38", "output_dir": "/tmp/test"})
     assert result["metadata"]["genome_id"] == "hg38"
     assert result["size_mb"] > 0
 ```

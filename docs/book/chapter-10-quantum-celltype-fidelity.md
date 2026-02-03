@@ -131,7 +131,10 @@ Trains quantum circuit parameters to embed cell types into Hilbert space.
 
 ```python
 @mcp.tool()
-def learn_spatial_cell_embeddings(adata_path: str, cell_type_key: str = "cell_type", n_qubits: int = 8, n_layers: int = 3, n_epochs: int = 50) -> dict:
+def learn_spatial_cell_embeddings(
+        adata_path: str, cell_type_key: str = "cell_type",
+        n_qubits: int = 8, n_layers: int = 3,
+        n_epochs: int = 50) -> dict:
     """Train quantum embeddings for cell types using contrastive learning."""
     # Initialize PQC: feature encoding (RX, RY, RZ) + variational layers + CNOT entanglement
     # Contrastive learning: maximize within-type fidelity, minimize between-type
@@ -168,7 +171,10 @@ Computes quantum fidelity with **confidence intervals** using Bayesian uncertain
 
 ```python
 @mcp.tool()
-def compute_cell_type_fidelity(adata_path: str, embedding_id: str, with_uncertainty: bool = True, n_uncertainty_samples: int = 100) -> dict:
+def compute_cell_type_fidelity(
+        adata_path: str, embedding_id: str,
+        with_uncertainty: bool = True,
+        n_uncertainty_samples: int = 100) -> dict:
     """Compute quantum fidelity with Bayesian UQ (95% confidence intervals)."""
     # During training, track parameter gradient history
     # Build posterior: θ ~ N(μ, Σ) (mean = trained value, variance = gradient stability)
@@ -208,7 +214,11 @@ Detects tumor cells evading immune surveillance with **classification confidence
 
 ```python
 @mcp.tool()
-def identify_immune_evasion_states(adata_path: str, embedding_id: str, immune_cell_types: list[str], evasion_threshold: float = 0.3, with_confidence: bool = True) -> dict:
+def identify_immune_evasion_states(
+        adata_path: str, embedding_id: str,
+        immune_cell_types: list[str],
+        evasion_threshold: float = 0.3,
+        with_confidence: bool = True) -> dict:
     """Detect cells in immune evasion states with >90% classification confidence."""
     # Measure fidelity to immune cells, apply threshold
     # Bayesian UQ: P(evasion_score > threshold) from posterior samples

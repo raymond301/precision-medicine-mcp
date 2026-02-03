@@ -118,7 +118,10 @@ Applies ComBat batch correction, KNN imputation, quantile normalization, outlier
 
 ```python
 @mcp.tool()
-def preprocess_multiomics_data(rna_path: str, protein_path: str, metadata_path: str, batch_correction: bool = True) -> dict:
+def preprocess_multiomics_data(
+        rna_path: str, protein_path: str,
+        metadata_path: str,
+        batch_correction: bool = True) -> dict:
     """Preprocess multi-omics data with batch correction and imputation."""
     # ComBat batch correction → KNN imputation → Quantile normalization → Outlier removal
     # Full implementation: servers/mcp-multiomics/src/mcp_multiomics/tools/preprocessing.py
@@ -200,7 +203,9 @@ class StoufferMetaAnalysis:
         if effect_sizes is not None: z_scores *= np.sign(effect_sizes)
         return z_scores
 
-    def combine_z_scores(self, z_scores_list: List[np.ndarray], weights: List[float]) -> np.ndarray:
+    def combine_z_scores(
+            self, z_scores_list: List[np.ndarray],
+            weights: List[float]) -> np.ndarray:
         """Combine Z-scores from multiple modalities."""
         z_meta = sum(w * z for w, z in zip(weights, z_scores_list))
         return z_meta / np.sqrt(sum(w**2 for w in weights))
@@ -304,7 +309,11 @@ MULTIOMICS_DATA_DIR=/workspace/data
 
 ```python
 @mcp.tool()
-def calculate_stouffer_meta(rna_results: dict, protein_results: dict, phospho_results: dict, fdr_threshold: float = 0.05) -> dict:
+def calculate_stouffer_meta(
+        rna_results: dict,
+        protein_results: dict,
+        phospho_results: dict,
+        fdr_threshold: float = 0.05) -> dict:
     """Combine p-values across modalities using Stouffer's method."""
     # Extract NOMINAL p-values, convert to Z-scores, combine with weights
     # Apply FDR correction AFTER combining (CRITICAL)

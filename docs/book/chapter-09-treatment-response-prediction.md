@@ -141,7 +141,10 @@ Initializes GEARS graph neural network with biological knowledge graph.
 
 ```python
 @mcp.tool()
-def perturbation_setup_model(dataset_id: str, hidden_size: int = 64, num_layers: int = 2, uncertainty: bool = True) -> dict:
+def perturbation_setup_model(
+        dataset_id: str, hidden_size: int = 64,
+        num_layers: int = 2,
+        uncertainty: bool = True) -> dict:
     """Initialize GEARS graph neural network."""
     # Load processed dataset, load gene-gene knowledge graph (~20,000 edges)
     # Initialize GEARS model with graph convolution layers
@@ -198,7 +201,11 @@ Calculates perturbation vector (Δ) representing average transcriptional change.
 
 ```python
 @mcp.tool()
-def perturbation_compute_delta(model_name: str, control_key: str = "control", treatment_key: str, cell_type: str = None) -> dict:
+def perturbation_compute_delta(
+        model_name: str,
+        control_key: str = "control",
+        treatment_key: str,
+        cell_type: str = None) -> dict:
     """Compute perturbation vector (Δ = avg(treated) - avg(control))."""
     # Load dataset, get control and treatment cells
     # Compute delta vector, identify top upregulated/downregulated genes
@@ -231,7 +238,11 @@ Predicts patient's response to multiple treatments.
 
 ```python
 @mcp.tool()
-def perturbation_predict_response(model_name: str, patient_adata_path: str, perturbations: list[str], cell_type: str = "tumor_cells") -> dict:
+def perturbation_predict_response(
+        model_name: str,
+        patient_adata_path: str,
+        perturbations: list[str],
+        cell_type: str = "tumor_cells") -> dict:
     """Predict patient's response to multiple treatments."""
     # Load model and patient baseline scRNA-seq
     # For each drug: predict post-treatment expression
@@ -272,7 +283,9 @@ def perturbation_predict_response(model_name: str, patient_adata_path: str, pert
 
 Natural language prompt:
 ```
-I want to predict which treatments will work best for patient PAT001-OVC-2025 (TP53 R175H mutation, BRCA wild-type, high-grade serous ovarian cancer).
+I want to predict which treatments will work best
+for patient PAT001-OVC-2025 (TP53 R175H mutation,
+BRCA wild-type, high-grade serous ovarian cancer).
 
 Please:
 1. Load the ovarian cancer drug response training dataset (GSE184880)

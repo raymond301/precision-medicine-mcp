@@ -105,7 +105,10 @@ Detects cell boundaries using pretrained deep neural networks.
 
 ```python
 @mcp.tool()
-def segment_cells(image_path: str, model_type: str = "nuclear", min_cell_size: int = 10, max_cell_size: int = 500) -> dict:
+def segment_cells(
+        image_path: str, model_type: str = "nuclear",
+        min_cell_size: int = 10,
+        max_cell_size: int = 500) -> dict:
     """Segment cells using DeepCell models (nuclear or membrane)."""
     image = load_image_from_gcs(image_path)  # Handles gs:// URIs
     engine = DeepCellEngine(use_gpu=False)  # CPU mode for Cloud Run
@@ -128,7 +131,11 @@ Determines which cells are positive/negative for each marker based on fluorescen
 
 ```python
 @mcp.tool()
-def classify_cell_states(image_paths: dict, segmentation_mask_path: str, markers: list[str], classification_method: str = "otsu") -> dict:
+def classify_cell_states(
+        image_paths: dict,
+        segmentation_mask_path: str,
+        markers: list[str],
+        classification_method: str = "otsu") -> dict:
     """Classify cell phenotypes based on marker intensity."""
     # Measure per-cell mean intensity within segmented regions
     # Apply threshold (Otsu's method, manual, or percentile)
@@ -157,7 +164,11 @@ Visualizes cell boundaries overlaid on original fluorescence image.
 
 ```python
 @mcp.tool()
-def generate_segmentation_overlay(image_path: str, segmentation_mask_path: str, output_path: str = "/tmp/segmentation_overlay.png") -> dict:
+def generate_segmentation_overlay(
+        image_path: str,
+        segmentation_mask_path: str,
+        output_path: str
+        = "/tmp/segmentation_overlay.png") -> dict:
     """Generate visualization of segmentation boundaries on original image."""
     # Mark boundaries using skimage, save overlay image
     # Full implementation: servers/mcp-deepcell/src/mcp_deepcell/server.py:212-250
@@ -173,7 +184,10 @@ Color-codes cells by phenotype (Ki67+ = green, TP53+ = red, double-positive = ye
 
 ```python
 @mcp.tool()
-def generate_phenotype_visualization(segmentation_mask_path: str, cell_phenotypes_path: str, markers: list[str]) -> dict:
+def generate_phenotype_visualization(
+        segmentation_mask_path: str,
+        cell_phenotypes_path: str,
+        markers: list[str]) -> dict:
     """Generate spatial visualization of cell phenotypes."""
     # Create color-coded mask: 0=background, 1=negative, 2=Ki67+, 3=TP53+, 4=double-positive
     # Plot with colormap, add legend
@@ -278,7 +292,10 @@ class IntensityClassifier:
     def measure_cell_intensities(self, image: np.ndarray, segmentation_mask: np.ndarray) -> pd.DataFrame:
         """Measure per-cell marker intensities."""
         from skimage.measure import regionprops_table
-        props = regionprops_table(segmentation_mask.astype(int), intensity_image=image, properties=["label", "mean_intensity"])
+        props = regionprops_table(
+            segmentation_mask.astype(int),
+            intensity_image=image,
+            properties=["label", "mean_intensity"])
         return pd.DataFrame(props).rename(columns={"label": "cell_id"})
 
     def classify_by_threshold(self, intensities: pd.DataFrame, marker_name: str, threshold: float) -> pd.DataFrame:

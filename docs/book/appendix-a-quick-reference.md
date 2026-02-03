@@ -207,7 +207,8 @@ Full story: [`servers/mcp-deepcell/DEPENDENCY_ISSUES.md`](https://github.com/lyn
 **Solution**:
 ```bash
 # Download reference genome (hg38)
-wget http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+wget http://ftp.ensembl.org/pub/release-104/fasta/\
+  homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 
 # Build STAR index
 STAR --runMode genomeGenerate \

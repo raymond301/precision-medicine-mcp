@@ -114,7 +114,10 @@ Aligns raw FASTQ files to hg38 reference genome.
 
 ```python
 @mcp.tool()
-def align_spatial_reads(fastq_r1: str, fastq_r2: str, genome_index: str, output_dir: str, threads: int = 8) -> dict:
+def align_spatial_reads(
+        fastq_r1: str, fastq_r2: str,
+        genome_index: str, output_dir: str,
+        threads: int = 8) -> dict:
     """Align spatial FASTQ files using STAR."""
     # Run STAR alignment: geneCounts mode, sorted BAM output
     # Full implementation: servers/mcp-spatialtools/src/mcp_spatialtools/tools/alignment.py
@@ -130,8 +133,12 @@ Removes low-quality spots and lowly expressed genes.
 
 ```python
 @mcp.tool()
-def filter_spatial_data(counts_path: str, min_counts: int = 500, max_mito_percent: float = 20.0, min_spots: int = 10) -> dict:
-    """Filter low-quality spots (UMI count < 500 or mito% > 20) and genes (detected in < 10 spots)."""
+def filter_spatial_data(
+        counts_path: str, min_counts: int = 500,
+        max_mito_percent: float = 20.0,
+        min_spots: int = 10) -> dict:
+    """Filter low-quality spots (UMI count < 500
+    or mito% > 20) and genes (< 10 spots)."""
     # Calculate QC metrics, filter spots and genes
     # Full implementation: servers/mcp-spatialtools/src/mcp_spatialtools/tools/filter.py
 ```
@@ -162,8 +169,13 @@ Finds genes differentially expressed between regions.
 
 ```python
 @mcp.tool()
-def differential_expression_spatial(counts_path: str, annotations_path: str, group1: str, group2: str, fdr_threshold: float = 0.05) -> dict:
-    """Find differentially expressed genes between spatial regions."""
+def differential_expression_spatial(
+        counts_path: str,
+        annotations_path: str,
+        group1: str, group2: str,
+        fdr_threshold: float = 0.05) -> dict:
+    """Find differentially expressed genes
+    between spatial regions."""
     # Get spots for each group, compute log2 fold change and p-values
     # Apply FDR correction (Benjamini-Hochberg)
     # Full implementation: servers/mcp-spatialtools/src/mcp_spatialtools/tools/differential_expression.py
@@ -189,7 +201,10 @@ Identifies enriched biological pathways in each region.
 
 ```python
 @mcp.tool()
-def pathway_enrichment_spatial(gene_list: list[str], gene_set_database: str = "KEGG", fdr_threshold: float = 0.05) -> dict:
+def pathway_enrichment_spatial(
+        gene_list: list[str],
+        gene_set_database: str = "KEGG",
+        fdr_threshold: float = 0.05) -> dict:
     """Perform pathway enrichment analysis on spatial gene sets."""
     # Fisher's exact test for enrichment, FDR correction
     # Full implementation: servers/mcp-spatialtools/src/mcp_spatialtools/tools/pathway_enrichment.py
@@ -322,7 +337,11 @@ config = {
 ### Add Differential Expression
 
 ```python
-def differential_expression_spatial_impl(counts_path: str, annotations_path: str, group1: str, group2: str, fdr_threshold: float = 0.05) -> dict:
+def differential_expression_spatial_impl(
+        counts_path: str,
+        annotations_path: str,
+        group1: str, group2: str,
+        fdr_threshold: float = 0.05) -> dict:
     """Internal implementation of differential expression."""
     # Load data, get barcodes for each group
     # Compute log2 fold change, t-test p-values, FDR correction
