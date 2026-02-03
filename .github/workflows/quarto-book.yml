@@ -19,25 +19,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install System Dependencies for Chromium
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libnss3 \
-            libatk-bridge2.0-0 \
-            libdrm2 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxrandr2 \
-            libgbm1 \
-            libgtk-3-0 \
-            libnotify-dev \
-            libxss1 \
-            libasound2t64 \
-            libcups2 \
-            libxkbcommon0 \
-            libpango-1.0-0 \
-            libcairo2
+      - name: Setup Chrome for Mermaid rendering
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+          install-dependencies: true
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -48,16 +34,23 @@ jobs:
         run: |
           quarto install tinytex
 
-      - name: Install Chromium (for Mermaid diagrams)
+      - name: Verify Chrome installation
         run: |
-          quarto install chromium
+          which google-chrome-stable || which chrome || which chromium
+          google-chrome-stable --version || chrome --version || chromium --version
 
       - name: Render Quarto Book to PDF
         run: |
           cd docs/book
-          quarto render --to pdf
+          echo "=== Quarto version ==="
+          quarto --version
+          echo "=== Chrome/Chromium path ==="
+          which google-chrome-stable || which chrome || which chromium || echo "No Chrome found"
+          echo "=== Rendering with verbose output ==="
+          quarto render --to pdf --verbose
         env:
           QUARTO_CHROME_HEADLESS_MODE: new
+          QUARTO_LOG_LEVEL: DEBUG
 
       - name: Verify PDF was created
         run: |
