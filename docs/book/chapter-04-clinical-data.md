@@ -194,7 +194,7 @@ async def get_patient_demographics(patient_id: str) -> dict:
 }
 ```
 
-![Get Mock Patient Info from Epic](images/screenshots/get-mock-patient-info-from-epic.png){width=100%}
+![Get Mock Patient Info from Epic](images/screenshots/get-mock-patient-info-from-epic.png){width=\textwidth}
 
 **Figure 4.2: Mock Epic FHIR API Response**
 *Example response from `mockepic_get_patient_demographics` showing de-identified patient data. Original PHI (name, full DOB, MRN) replaced with hashed identifiers per HIPAA Safe Harbor. Demonstrates FHIR R4 format with automatic de-identification applied.*

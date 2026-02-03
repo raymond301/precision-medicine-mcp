@@ -33,27 +33,27 @@ jobs:
           cd docs/book
 
           # Create title page
-          cat > book-full.md << 'EOF'
----
-title: "Building AI-Orchestrated Precision Oncology Systems"
-subtitle: "A Practical Guide to MCP-Based Bioinformatics"
-author: "Lynn Langit"
-date: "2026-02-01"
-toc: true
-toc-depth: 2
-numbersections: true
-header-includes:
-  - \setcounter{chapter}{-1}
-include-before:
-  - \setcounter{chapter}{-1}
-linkcolor: blue
-urlcolor: blue
-geometry: margin=1in
-fontsize: 11pt
-documentclass: report
----
-
-EOF
+          {
+            echo "---"
+            echo "title: \"Building AI-Orchestrated Precision Oncology Systems\""
+            echo "subtitle: \"A Practical Guide to MCP-Based Bioinformatics\""
+            echo "author: \"Lynn Langit\""
+            echo "date: \"2026-02-01\""
+            echo "toc: true"
+            echo "toc-depth: 2"
+            echo "numbersections: true"
+            echo "header-includes:"
+            echo "  - \\setcounter{chapter}{-1}"
+            echo "include-before:"
+            echo "  - \\setcounter{chapter}{-1}"
+            echo "linkcolor: blue"
+            echo "urlcolor: blue"
+            echo "geometry: margin=1in"
+            echo "fontsize: 11pt"
+            echo "documentclass: report"
+            echo "---"
+            echo ""
+          } > book-full.md
 
           # Concatenate all chapters in order
           cat chapter-00-introduction.md >> book-full.md
@@ -62,7 +62,7 @@ EOF
           for chapter in chapter-01-the-patientone-story.md chapter-02-the-architecture-problem.md chapter-03-testing-the-hypothesis.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
@@ -70,7 +70,7 @@ EOF
           for chapter in chapter-04-clinical-data.md chapter-05-genomic-foundations.md chapter-06-multiomics-integration.md chapter-07-spatial-transcriptomics.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
@@ -78,7 +78,7 @@ EOF
           for chapter in chapter-08-cell-segmentation.md chapter-09-treatment-response-prediction.md chapter-10-quantum-celltype-fidelity.md chapter-11-imaging-histopathology.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
@@ -86,7 +86,7 @@ EOF
           for chapter in chapter-12-cloud-deployment-gcp.md chapter-13-hospital-production-deployment.md chapter-14-operations-monitoring.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
@@ -94,7 +94,7 @@ EOF
           for chapter in chapter-15-for-researchers.md chapter-16-teaching-precision-medicine.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
@@ -102,17 +102,17 @@ EOF
           for chapter in chapter-17-funding-sustainability.md chapter-18-lessons-learned-whats-next.md; do
             if [ -f "$chapter" ]; then
               cat "$chapter" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
           # Appendices - insert \appendix command to switch from numbered chapters to lettered appendices
-          echo -e "\n\n\\appendix\n\n" >> book-full.md
+          printf "\n\n\\\\appendix\n\n" >> book-full.md
 
           for appendix in appendix-a-quick-reference.md appendix-b-installation-setup.md appendix-c-patientone-dataset.md appendix-d-bias-and-ethics.md; do
             if [ -f "$appendix" ]; then
               cat "$appendix" >> book-full.md
-              echo -e "\n\n\\newpage\n\n" >> book-full.md
+              printf "\n\n\\\\newpage\n\n" >> book-full.md
             fi
           done
 
