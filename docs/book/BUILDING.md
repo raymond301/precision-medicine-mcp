@@ -32,10 +32,9 @@ curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
 sudo dpkg -i quarto-linux-amd64.deb
 ```
 
-**TinyTeX + required packages**:
+**TinyTeX**:
 ```bash
 quarto install tinytex
-tlmgr install xurl
 ```
 
 ### Build the PDF
@@ -92,10 +91,9 @@ Semantic versioning:
 2. Install Chrome via `browser-actions/setup-chrome@v1` — needed for Mermaid → PNG rendering
 3. Install Quarto 1.7.13
 4. Install TinyTeX
-5. Install additional TeX packages (`xurl`)
-6. Set `QUARTO_CHROME` env var to the Chrome path
-7. Render book to PDF with xelatex
-8. Upload PDF as artifact (or attach to a GitHub Release)
+5. Set `QUARTO_CHROME` env var to the Chrome path
+6. Render book to PDF with xelatex
+7. Upload PDF as artifact (or attach to a GitHub Release)
 
 ---
 
@@ -109,21 +107,13 @@ Book structure and PDF formatting live in `_quarto.yml`:
 - Hyperref options (breaklinks, pdfborder)
 
 The LaTeX preamble (`header.tex`) adds:
-- URL line-breaking via `xurl` and custom `UrlBreaks`
+- URL line-breaking via custom `UrlBreaks` (uses the `url` package already loaded by hyperref)
 - Sans-serif default font
 - Graphics support
 
 ---
 
 ## Troubleshooting
-
-### "File 'xurl.sty' not found"
-
-`xurl` is not part of the TinyTeX base. Install it explicitly:
-```bash
-tlmgr install xurl
-```
-In CI this is the "Install additional TeX packages" step.
 
 ### Mermaid diagrams not rendering
 
