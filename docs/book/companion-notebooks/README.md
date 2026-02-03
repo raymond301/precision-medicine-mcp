@@ -146,7 +146,7 @@ jupyter lab
 **Issues**: https://github.com/lynnlangit/precision-medicine-mcp/issues
 **Documentation**: https://github.com/lynnlangit/precision-medicine-mcp
 **Book**: [`../README.md`](../README.md)
-**Appendix**: [`../appendix-setup-guide.md`](../appendix-setup-guide.md)
+**Appendix**: [`../appendix-b-installation-setup.md`](../appendix-b-installation-setup.md)
 
 ---
 

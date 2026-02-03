@@ -40,7 +40,7 @@ This chapter builds **mcp-epic**: an MCP server connecting to Epic FHIR APIs wit
 }
 ```
 
-FHIR specification: https://www.hl7.org/fhir/patient.html
+FHIR specification: [hl7.org FHIR Patient](https://www.hl7.org/fhir/patient.html)
 
 **HIPAA Problem**: Name, full birth date, address, MRN are all **Protected Health Information (PHI)** requiring removal before research use.
 
@@ -379,7 +379,7 @@ Epic provides public sandbox:
 
 ### Option 3: Interactive Notebook
 
-Explore FHIR resources: [`docs/book/companion-notebooks/chapter-04-clinical-data.ipynb`](../companion-notebooks/chapter-04-clinical-data.ipynb)
+Explore FHIR resources: [`docs/book/companion-notebooks/chapter-04-clinical-data.ipynb`](./companion-notebooks/chapter-04-clinical-data.ipynb)
 
 ---
 
@@ -394,9 +394,9 @@ Explore FHIR resources: [`docs/book/companion-notebooks/chapter-04-clinical-data
 - Local STDIO deployment (not Cloud Run) for HIPAA compliance
 
 **Companion Resources:**
-- 📓 [Jupyter Notebook](../companion-notebooks/chapter-04-clinical-data.ipynb)
-- 🏥 [HIPAA Compliance Guide](../../for-hospitals/compliance/hipaa.md)
-- 📋 [Clinical Architecture](../../architecture/clinical/README.md)
+- 📓 [Jupyter Notebook](./companion-notebooks/chapter-04-clinical-data.ipynb)
+- 🏥 [HIPAA Compliance Guide](../for-hospitals/compliance/hipaa.md)
+- 📋 [Clinical Architecture](../architecture/clinical/README.md)
 - 🔧 [Epic Setup Guide](../../servers/mcp-epic/CLAUDE_DESKTOP_TESTING.md)
 
 **GitHub References:**

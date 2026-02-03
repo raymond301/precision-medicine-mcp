@@ -183,10 +183,10 @@ Final deployment status (2026-01-31):
 
 | Server | URL | Status |
 |--------|-----|--------|
-| mcp-deepcell | https://mcp-deepcell-ondu7mwjpa-uc.a.run.app | ✅ Running |
-| mcp-fgbio | https://mcp-fgbio-ondu7mwjpa-uc.a.run.app | ✅ Running |
-| mcp-multiomics | https://mcp-multiomics-ondu7mwjpa-uc.a.run.app | ✅ Running |
-| mcp-spatialtools | https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app | ✅ Running |
+| mcp-deepcell | [mcp-deepcell](https://mcp-deepcell-ondu7mwjpa-uc.a.run.app) | ✅ Running |
+| mcp-fgbio | [mcp-fgbio](https://mcp-fgbio-ondu7mwjpa-uc.a.run.app) | ✅ Running |
+| mcp-multiomics | [mcp-multiomics](https://mcp-multiomics-ondu7mwjpa-uc.a.run.app) | ✅ Running |
+| mcp-spatialtools | [mcp-spatialtools](https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app) | ✅ Running |
 | ... (7 more servers) | ... | ✅ Running |
 
 Full deployment status: [`docs/archive/deployment/DEPLOYMENT_STATUS.md`](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/archive/deployment/DEPLOYMENT_STATUS.md)
@@ -537,7 +537,7 @@ Full deployment guide: [`docs/deployment/GET_STARTED.md`](https://github.com/lyn
 
 ### Option 3: Interactive Notebook
 
-Explore test results and run mini-analyses: [`docs/book/companion-notebooks/chapter-03-testing.ipynb`](../companion-notebooks/chapter-03-testing.ipynb)
+Explore test results and run mini-analyses: [`docs/book/companion-notebooks/chapter-03-testing.ipynb`](./companion-notebooks/chapter-03-testing.ipynb)
 
 This notebook includes:
 - PatientOne workflow reproduction
@@ -558,11 +558,11 @@ This notebook includes:
 - Real GCP pricing: $0.19 per analysis (Cloud Run + Claude API)
 
 **Companion Resources:**
-- 📓 [Jupyter Notebook](../companion-notebooks/chapter-03-testing.ipynb) - Run tests and calculate costs
-- 📊 [Code Quality Report](../../for-developers/CODE_QUALITY_REPORT.md) - Full analysis
-- 🧪 [Test Coverage](../../test-docs/test-coverage.md) - Server-by-server breakdown
+- 📓 [Jupyter Notebook](./companion-notebooks/chapter-03-testing.ipynb) - Run tests and calculate costs
+- 📊 [Code Quality Report](../for-developers/CODE_QUALITY_REPORT.md) - Full analysis
+- 🧪 [Test Coverage](../test-docs/test-coverage.md) - Server-by-server breakdown
 - ✅ [Workflow Test Summary](../../servers/mcp-spatialtools/COMPLETE_WORKFLOW_TEST_SUMMARY.md) - PatientOne validation
-- 📚 [Appendix: Setup Guide](appendix-setup-guide.md) - Installation and deployment instructions
+- 📚 [Appendix: Setup Guide](appendix-b-installation-setup.md) - Installation and deployment instructions
 
 **GitHub References:**
 - Test suite: [`tests/unit/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/tests/unit)

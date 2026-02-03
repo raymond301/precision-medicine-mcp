@@ -480,7 +480,7 @@ Each chapter includes:
 Ready to see MCP orchestration in action?
 
 **Option 1: Explore the Architecture**
-Open the companion Jupyter notebook: [`docs/book/companion-notebooks/chapter-02-architecture.ipynb`](../companion-notebooks/chapter-02-architecture.ipynb)
+Open the companion Jupyter notebook: [`docs/book/companion-notebooks/chapter-02-architecture.ipynb`](./companion-notebooks/chapter-02-architecture.ipynb)
 
 This notebook lets you:
 - Connect to deployed MCP servers
@@ -516,11 +516,11 @@ Deploy the MCP servers locally and use Claude Desktop. See **Appendix: Setup Gui
 - 95% cost reduction: $3,200 → $1-2 per analysis
 
 **Companion Resources:**
-- 📓 [Jupyter Notebook](../companion-notebooks/chapter-02-architecture.ipynb) - Explore MCP orchestration
-- 🏗️ [Architecture Docs](../../architecture/README.md) - Detailed technical specs
-- 🔧 [Server Registry](../../architecture/README.md) - All 12 servers and 69 tools
-- 🚀 [Deployment Guide](../../deployment/GET_STARTED.md) - Cloud Run setup
-- 📚 [Appendix: Setup Guide](appendix-setup-guide.md) - Installation instructions
+- 📓 [Jupyter Notebook](./companion-notebooks/chapter-02-architecture.ipynb) - Explore MCP orchestration
+- 🏗️ [Architecture Docs](../architecture/README.md) - Detailed technical specs
+- 🔧 [Server Registry](../architecture/README.md) - All 12 servers and 69 tools
+- 🚀 [Deployment Guide](../deployment/GET_STARTED.md) - Cloud Run setup
+- 📚 [Appendix: Setup Guide](appendix-b-installation-setup.md) - Installation instructions
 
 **GitHub References:**
 - MCP server boilerplate: [`servers/mcp-server-boilerplate/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/servers/mcp-server-boilerplate)

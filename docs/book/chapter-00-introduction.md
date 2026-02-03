@@ -169,7 +169,7 @@ PatientOne dataset (100% synthetic):
 
 ### GitHub Repository
 All code is open source (Apache 2.0):
-**https://github.com/lynnlangit/precision-medicine-mcp**
+**[precision-medicine-mcp](https://github.com/lynnlangit/precision-medicine-mcp)**
 
 ---
 

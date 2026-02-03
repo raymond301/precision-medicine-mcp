@@ -413,7 +413,7 @@ Ready to run the PatientOne analysis? You can deploy the MCP servers locally or 
 
 **Option 1: Interactive Notebook**
 Open the companion Jupyter notebook for this chapter:
-[`docs/book/companion-notebooks/chapter-01-patientone-story.ipynb`](../companion-notebooks/chapter-01-patientone-story.ipynb)
+[`docs/book/companion-notebooks/chapter-01-patientone-story.ipynb`](./companion-notebooks/chapter-01-patientone-story.ipynb)
 
 This notebook walks you through:
 - Setting up the MCP servers locally
@@ -431,7 +431,7 @@ cd precision-medicine-mcp
 ```
 
 2. Follow the installation guide:
-[`docs/getting-started/installation.md`](../../getting-started/installation.md)
+[`docs/getting-started/installation.md`](../getting-started/installation.md)
 
 3. Configure Claude Desktop with local servers
 
@@ -468,9 +468,9 @@ All PatientOne data is synthetic and included in the repository. No API keys req
 ---
 
 **Companion Resources:**
-- 📓 [Jupyter Notebook](../companion-notebooks/chapter-01-patientone-story.ipynb) - Run the analysis yourself
+- 📓 [Jupyter Notebook](./companion-notebooks/chapter-01-patientone-story.ipynb) - Run the analysis yourself
 - 🎬 [Video Demo](https://www.youtube.com/watch?v=LUldOHHX5Yo) - 5-minute PatientOne walkthrough
-- 📊 [Full Demo Guide](../../demos/FULL_PATIENTONE_DEMO.md) - Complete testing instructions
+- 📊 [Full Demo Guide](../demos/FULL_PATIENTONE_DEMO.md) - Complete testing instructions
 
 **GitHub References:**
 - Patient data: [`data/patient-data/PAT001-OVC-2025/`](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/data/patient-data/PAT001-OVC-2025)
