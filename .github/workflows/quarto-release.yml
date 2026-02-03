@@ -38,9 +38,11 @@ jobs:
       - name: Render Quarto Book to PDF
         run: |
           cd docs/book
+          export QUARTO_CHROME="$(which google-chrome-stable)"
           quarto render --to pdf --verbose
         env:
           QUARTO_CHROME_HEADLESS_MODE: new
+          CHROME_FLAGS: --no-sandbox --disable-setuid-sandbox
           QUARTO_LOG_LEVEL: DEBUG
 
       - name: Rename PDF with version

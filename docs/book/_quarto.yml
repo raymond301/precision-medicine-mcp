@@ -64,6 +64,9 @@ format:
     fig-pos: 'H'
     highlight-style: tango
     mermaid-format: png
+    mermaid:
+      theme: neutral
+      format: png
     links-as-notes: false
     hyperrefoptions:
       - breaklinks=true
