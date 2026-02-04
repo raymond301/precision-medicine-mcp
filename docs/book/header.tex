@@ -1,0 +1,31 @@
+% Ensure graphics can be included
+\usepackage{graphicx}
+
+% Use sans-serif font throughout
+\renewcommand{\familydefault}{\sfdefault}
+
+% Better URL handling and line breaking
+% Pass options BEFORE loading url so hyphens is active immediately
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{url}
+
+% Allow URLs to break at these characters
+\def\UrlBreaks{\do\/\do-\do_\do.\do=\do?\do\&\do\#}
+\urlstyle{same}
+
+% Prevent text overflow into right margin
+% tolerance/emergencystretch let TeX stretch inter-word space rather than
+% producing an overfull hbox. Does not affect verbatim/code blocks.
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
+
+% Landscape pages for wide figures (used via raw LaTeX blocks in .qmd)
+\usepackage{pdflscape}
+
+% Note: hyperref configuration is handled via _quarto.yml hyperrefoptions
+% to avoid "Undefined control sequence" errors
