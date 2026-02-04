@@ -2,7 +2,7 @@
 
 **Real-time observability for MCP server token usage, latency, and costs**
 
-Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 9 deployed servers.
+Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 11 deployed servers. Toggle **Live Mode** to poll real Cloud Run health status and query GCP Cloud Logging for live traffic metrics.
 
 ---
 
@@ -25,7 +25,7 @@ streamlit run streamlit_app.py
 
 ### For Platform Builders
 - **Cost Visibility**: See exactly how much each tool call costs in real-time
-- **Performance Monitoring**: Track latency across all 9 MCP servers
+- **Performance Monitoring**: Track latency across all 11 MCP servers
 - **Resource Planning**: Project monthly/annual costs based on usage patterns
 - **Optimization Guidance**: Get specific recommendations to reduce costs
 
@@ -44,6 +44,7 @@ streamlit run streamlit_app.py
 - Cost breakdown by server
 - Token distribution (input vs output)
 - Workflow execution summary
+- **Live Mode:** live traffic summary — total requests, error count, avg latency, and per-server request chart from Cloud Logging
 
 ![Overview](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-1.png)
 
@@ -60,12 +61,14 @@ streamlit run streamlit_app.py
 - Execution timeline (cost/tokens over time)
 - Token processing efficiency
 - Bottleneck identification
+- **Live Mode:** real Avg vs P95 latency bar chart pulled directly from Cloud Run request logs
 
 ### 🔧 Optimization
 - Automated cost-reduction recommendations
 - Potential savings calculator
 - Strategy comparison (caching, batching, model switching)
 - Export reports for planning
+- **Live Mode:** live error-signal warnings per server (error count, rate) from Cloud Logging
 
 ![Optimization](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-4.png)
 
@@ -89,10 +92,13 @@ See [sample_data/patientone_workflow.yaml](sample_data/patientone_workflow.yaml)
 
 ```
 ui/dashboard/
-├── streamlit_app.py              # Main Streamlit dashboard
+├── streamlit_app.py              # Main Streamlit dashboard (Sample + Live modes)
+├── live_server_monitor.py        # Health polling + Cloud Logging queries
 ├── cost_calculator.py            # Anthropic API pricing calculations
-├── metrics_aggregator.py         # Load and process metrics
+├── metrics_aggregator.py         # Load and process workflow metrics (YAML)
 ├── requirements.txt              # Python dependencies
+├── Dockerfile                    # Cloud Run container image
+├── deploy.sh                     # Cloud Run deploy script (provisions SA, grants IAM)
 ├── sample_data/
 │   └── patientone_workflow.yaml  # Sample PatientOne metrics
 └── README.md                     # This file
@@ -101,15 +107,21 @@ ui/dashboard/
 ### Data Flow
 
 ```
-Workflow Metrics (YAML)
-        ↓
-metrics_aggregator.py
-        ↓
-cost_calculator.py
-        ↓
-streamlit_app.py
-        ↓
-Interactive Dashboard
+┌─ Sample Mode ──────────────────┐   ┌─ Live Mode ────────────────────────┐
+│ Workflow Metrics (YAML)        │   │ Cloud Run /health endpoints        │
+│         ↓                      │   │         ↓                          │
+│ metrics_aggregator.py          │   │ live_server_monitor.py             │
+│         ↓                      │   │   (async httpx health poll)        │
+│ cost_calculator.py             │   │         +                          │
+│         ↓                      │   │ GCP Cloud Logging                  │
+└─────────┬──────────────────────┘   │   (request counts, latency, errs)  │
+          │                          └────────────┬───────────────────────┘
+          ↓                                       ↓
+          └───────────────┬───────────────────────┘
+                          ↓
+              streamlit_app.py
+                          ↓
+              Interactive Dashboard
 ```
 
 ---
@@ -146,39 +158,16 @@ from metrics_aggregator import MetricsAggregator
 aggregator = MetricsAggregator("path/to/your/metrics.yaml")
 ```
 
-### Option 2: Parse GCP Cloud Logging (Advanced)
+### Option 2: Live Mode (built in)
 
-Extract metrics from GCP Cloud Run logs:
+Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 
-```bash
-# Export logs for a specific timeframe
-gcloud logging read \
-  "resource.type=cloud_run_revision AND resource.labels.service_name=mcp-spatialtools" \
-  --limit=1000 \
-  --format=json > mcp_logs.json
+1. **Health-polls** all 11 Cloud Run MCP servers (`/health`, 10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
+2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-server request counts, avg/p95 latency, and error rates.
 
-# Parse logs and convert to YAML format
-python parse_gcp_logs.py mcp_logs.json > my_metrics.yaml
-```
+No manual log export or custom parser needed.  The deployed service account (`mcp-dashboard-sa`) has `roles/logging.viewer` — the minimum permission required.
 
-*(Log parser script not included - create custom parser based on your log format)*
-
-### Option 3: Live Instrumentation (Future Work)
-
-Add metrics endpoints to MCP servers:
-
-```python
-# In each MCP server
-@app.get("/metrics")
-def get_metrics():
-    return {
-        "tool_calls": metrics_collector.get_tool_calls(),
-        "token_usage": metrics_collector.get_token_usage(),
-        "latency": metrics_collector.get_latency_stats()
-    }
-```
-
-Poll metrics from dashboard for real-time updates.
+> **Note:** Token-level cost data is not available from Cloud Run logs (it lives at the Claude API layer).  Live Mode supplements — does not replace — the workflow cost views, which continue to read from stored YAML metrics.
 
 ---
 
@@ -423,25 +412,16 @@ streamlit run streamlit_app.py
 ### Option 2: GCP Cloud Run
 
 ```bash
-# Create Dockerfile
-cat > Dockerfile <<EOF
-FROM python:3.11-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 8080
-CMD streamlit run streamlit_app.py --server.port=8080 --server.address=0.0.0.0
-EOF
-
-# Build and deploy
-gcloud builds submit --tag gcr.io/precision-medicine-poc/mcp-dashboard
-gcloud run deploy mcp-dashboard \
-  --image gcr.io/precision-medicine-poc/mcp-dashboard \
-  --platform managed \
-  --region us-central1 \
-  --allow-unauthenticated
+cd ui/dashboard
+./deploy.sh                          # defaults: precision-medicine-poc, us-central1
+./deploy.sh my-project us-east1      # custom project / region
 ```
+
+`deploy.sh` handles everything:
+- Creates `mcp-dashboard-sa` service account (idempotent)
+- Grants `roles/logging.viewer` (least privilege for Cloud Logging reads)
+- Builds from the included `Dockerfile` and deploys to Cloud Run
+- Sets `GCP_PROJECT_ID` and `GCP_REGION` env vars so Live Mode works automatically
 
 **Use for**: Team access, production monitoring, stakeholder demos
 
@@ -465,24 +445,26 @@ fig.show()
 
 ## Roadmap
 
-### v1.0 (Current - Quick Win)
+### v1.0 (Current)
 - ✅ Sample data from PatientOne workflow
 - ✅ Cost calculator with Anthropic API pricing
 - ✅ Streamlit dashboard with 4 views
 - ✅ Optimization recommendations
 - ✅ Export reports (TXT, CSV)
+- ✅ Live Mode: health-polling all 11 Cloud Run MCP servers (async, 10 s timeout, 2 retries)
+- ✅ Live Mode: GCP Cloud Logging integration — per-server request counts, avg/p95 latency, error rates
+- ✅ Live Mode: server-health badges, live traffic chart, Avg vs P95 latency chart, error-signal warnings
+- ✅ Dedicated service account (`mcp-dashboard-sa`) with least-privilege `roles/logging.viewer`
 
 ### v1.1 (Planned)
-- [ ] GCP Cloud Logging integration
-- [ ] Real-time metrics polling
 - [ ] Multi-workflow comparison
 - [ ] Historical trend analysis
-- [ ] Alert thresholds
+- [ ] Alert thresholds (configurable error-rate / latency triggers)
 
 ### v2.0 (Future)
-- [ ] Live instrumentation of MCP servers
-- [ ] WebSocket real-time updates
-- [ ] BigQuery data storage
+- [ ] Per-server `/metrics` endpoints for application-level telemetry (token usage at server layer)
+- [ ] WebSocket real-time updates (push instead of poll)
+- [ ] BigQuery data storage for long-term trend analysis
 - [ ] Advanced ML-based optimization suggestions
 - [ ] Cost anomaly detection
 
@@ -530,6 +512,21 @@ def estimate_monthly_cost(daily_tool_calls: int, avg_input_tokens: int,
 
 def get_optimization_recommendations(server_metrics: Dict) -> List[str]:
     """Generate cost optimization recommendations."""
+```
+
+### LiveServerMonitor
+
+```python
+# Health polling (async, all 11 servers in parallel)
+def get_live_health() -> Dict[str, Dict]:
+    """Sync entry-point.  Returns {server_name: {status, latency_ms, checked_at, error}}."""
+
+# Cloud Logging queries
+def query_server_logs(name: str, hours_back: int = 1) -> Dict:
+    """Per-server: request_count, avg_latency_ms, p95_latency_ms, error_count, error_rate."""
+
+def query_all_server_logs(hours_back: int = 1) -> Dict[str, Dict]:
+    """Bulk query for all deployed servers.  Reuses a single logging client."""
 ```
 
 ---
