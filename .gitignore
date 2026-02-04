@@ -242,3 +242,5 @@ servers/mcp-perturbation/data/gears_datasets/
 # Large downloaded datasets and model files
 data/perturbation/
 data/models/perturbation/
+
+docs/book
