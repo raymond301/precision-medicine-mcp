@@ -21,7 +21,7 @@ architecture.md: Visual map of the MCP orchestration and SSE transport on GCP.
 
 /data/: Anonymized synthetic datasets for "PatientOne."
 
-/prompts/: Versioned system prompts for medical reasoning and CitL validation.
+/docs/prompts/: Versioned system prompts for medical reasoning and CitL validation.
 
 /infrastructure/: Deployment scripts for GCP Cloud Run and Docker-based local development.
 
