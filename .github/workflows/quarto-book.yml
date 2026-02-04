@@ -6,8 +6,10 @@ on:
       - main
     paths:
       - 'docs/book/**/*.md'
+      - 'docs/book/**/*.qmd'
       - 'docs/book/images/**'
       - 'docs/book/_quarto.yml'
+      - 'docs/book/header.tex'
       - '.github/workflows/quarto-book.yml'
   workflow_dispatch:
 
@@ -39,22 +41,32 @@ jobs:
           which google-chrome-stable || which chrome || which chromium
           google-chrome-stable --version || chrome --version || chromium --version
 
-      - name: Create Chrome wrapper (adds --no-sandbox for CI)
+      - name: Create Chrome wrapper (adds CI-required flags)
         run: |
           cat > /usr/local/bin/chrome-wrapper <<'WRAPPER'
           #!/bin/sh
-          exec google-chrome-stable --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage "$@"
+          exec google-chrome-stable \
+            --no-sandbox \
+            --disable-setuid-sandbox \
+            --disable-dev-shm-usage \
+            --disable-gpu \
+            --no-first-run \
+            --no-default-browser-check \
+            --disable-translate \
+            --disable-extensions \
+            "$@"
           WRAPPER
           chmod +x /usr/local/bin/chrome-wrapper
+          echo "=== Wrapper contents ===" && cat /usr/local/bin/chrome-wrapper
 
       - name: Render Quarto Book to PDF
+        timeout-minutes: 20
         run: |
           cd docs/book
-          echo "=== Chrome wrapper at: $(which chrome-wrapper) ==="
           quarto render --to pdf --verbose
         env:
           QUARTO_CHROMIUM: /usr/local/bin/chrome-wrapper
-          QUARTO_CHROMIUM_HEADLESS_MODE: none
+          QUARTO_CHROMIUM_HEADLESS_MODE: new
           QUARTO_LOG_LEVEL: DEBUG
 
       - name: Verify PDF was created

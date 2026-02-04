@@ -25,6 +25,7 @@ The `mcp-multiomics` server provides 21 tools for HAllA association testing and 
 ### Multi-Omics Integration Workflow
 
 ```{mermaid}
+%%| deviceScaleFactor: 2
 graph TB
     subgraph "Data Input"
         RNA[RNA-seq<br/>15 samples<br/>20,000 genes]

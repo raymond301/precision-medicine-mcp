@@ -159,6 +159,7 @@ Now let's see how this solves the precision oncology orchestration problem.
 
 ```{mermaid}
 %%| fig-width: 9
+%%| deviceScaleFactor: 2
 graph TB
     subgraph "User Interfaces"
         STREAMLIT[🌐 Streamlit Chat UI<br/>Web Interface<br/>Cloud Run]
