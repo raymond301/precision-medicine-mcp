@@ -105,7 +105,8 @@ graph LR
 
 ### Production Readiness
 - ✅ **12 MCP servers deployed** (7 production-ready, 1 partial, 4 mocked for demo)
-- ✅ **124 tools** across all servers with comprehensive test coverage
+- ✅ **69 tools** across all servers with comprehensive test coverage (239 automated tests)
+- ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
 - ✅ **HIPAA-compliant infrastructure** ready (de-identification, audit logging, VPC isolation)
 - ✅ **End-to-end demo** tested with synthetic PatientOne ovarian cancer case
 
