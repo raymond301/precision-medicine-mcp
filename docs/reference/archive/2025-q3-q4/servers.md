@@ -20,7 +20,7 @@
 
 ## Quick Reference
 
-📋 **[See Server Status Table →](../../servers/README.md#-server-status)** - Tools, status, and documentation for all 12 servers
+📋 **[See Server Status Table →](../../../../servers/README.md#-server-status)** - Tools, status, and documentation for all 12 servers
 
 **Production Ready Count:** 7/12 servers (58%)
 **Fully Mocked Count:** 4/12 servers (33%)
@@ -214,7 +214,7 @@ Nine servers successfully deployed to Google Cloud Platform Cloud Run (mcp-epic 
 
 ### Next Steps for Production Hospital Deployment
 
-See [Hospital Deployment Plan](../for-hospitals/OPERATIONS_MANUAL.md) for complete roadmap:
+See [Hospital Deployment Plan](../../../for-hospitals/OPERATIONS_MANUAL.md) for complete roadmap:
 
 **Month 1:**
 - Add Azure AD SSO authentication
@@ -740,7 +740,7 @@ result = get_mutation_data("TP53", "TCGA-OV")
 - `DEEPCELL_DRY_RUN=true`: Returns synthetic data (for testing)
 - `DEEPCELL_DRY_RUN=false`: Real DeepCell-TF inference (production)
 
-**Documentation:** [servers/mcp-deepcell/README.md](../../servers/mcp-deepcell/README.md)
+**Documentation:** [servers/mcp-deepcell/README.md](../../../../servers/mcp-deepcell/README.md)
 
 ---
 

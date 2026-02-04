@@ -293,8 +293,8 @@ For detailed implementation information, see:
   - Testing procedures
 
 ### Deployment & Operations
-- **Current Status:** [Server Status](../servers.md)
-- **GCP Deployment:** [deployment/DEPLOYMENT_STATUS.md](../../deployment/DEPLOYMENT_STATUS.md)
+- **Current Status:** [Server Status](../../../SERVER_REGISTRY.md)
+- **GCP Deployment:** [deployment/DEPLOYMENT_STATUS.md](../../archive/deployment/DEPLOYMENT_STATUS.md)
 
 ### Additional Resources
 - **Data Governance:** [data-governance.md](../../../for-hospitals/compliance/data-governance.md)

@@ -551,7 +551,7 @@ GEARS has been validated for:
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](../../docs/for-developers/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
 

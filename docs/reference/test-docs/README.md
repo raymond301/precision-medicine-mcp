@@ -15,8 +15,6 @@ Overview of test coverage, test structure, and testing guidelines for the projec
 ### [Manual Testing](./manual-testing/)
 - [README](./manual-testing/README.md) - Manual testing overview
 - [Quick Test Prompts](./manual-testing/quick-test-prompts.md) - 10 copy-paste prompts for Claude Desktop
-- [Server Verification](./manual-testing/server-verification.md) - Quick verification prompts
-- [Example Prompts (Spatial)](./manual-testing/example-prompts-spatial.md) - Spatial analysis examples
 - [Claude Desktop Setup](./manual-testing/claude-desktop-setup.md) - File access configuration
 
 ### [PatientOne Scenario](./patient-one-scenario/)

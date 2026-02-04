@@ -463,8 +463,8 @@ Local HPC: Fixed institutional cost
   - DRY_RUN mode details
 
 ### Deployment & Operations
-- **GCP Deployment:** [/docs/deployment/DEPLOYMENT_STATUS.md](../../deployment/DEPLOYMENT_STATUS.md)
-- **Server Status:** [Server Implementation Status](../servers.md)
+- **GCP Deployment:** [/docs/deployment/DEPLOYMENT_STATUS.md](../../archive/deployment/DEPLOYMENT_STATUS.md)
+- **Server Status:** [Server Implementation Status](../../../SERVER_REGISTRY.md)
 
 ### External Resources
 - **Seqera Platform:** [https://seqera.io/](https://seqera.io/)

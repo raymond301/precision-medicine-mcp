@@ -838,7 +838,7 @@ gsutil iam ch serviceAccount:mcp-audit-sa@$PROJECT_ID.iam.gserviceaccount.com:ro
 ### For Administrators
 - **[Operations Manual](../../docs/for-hospitals/OPERATIONS_MANUAL.md)**: System architecture and operations
 - **[Admin Guide](../../docs/for-hospitals/ADMIN_GUIDE.md)**: User management, monitoring, security
-- **[HIPAA Compliance](../../docs/for-hospitals/HIPAA_COMPLIANCE.md)**: Compliance validation
+- **[HIPAA Compliance](../../docs/for-hospitals/compliance/hipaa.md)**: Compliance validation
 - **[Audit Log Guide](../../docs/for-hospitals/AUDIT_LOG_GUIDE.md)**: Log access and reporting
 
 ### Runbooks

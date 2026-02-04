@@ -430,8 +430,8 @@ embedding_vector = [0.23, -0.15, 0.88, ..., 0.42]  # 768 dimensions
   - DRY_RUN mode configuration
 
 ### Deployment & Operations
-- **GCP Deployment:** [/docs/deployment/DEPLOYMENT_STATUS.md](../../deployment/DEPLOYMENT_STATUS.md)
-- **Server Status:** [Server Implementation Status](../servers.md)
+- **GCP Deployment:** [/docs/deployment/DEPLOYMENT_STATUS.md](../../archive/deployment/DEPLOYMENT_STATUS.md)
+- **Server Status:** [Server Implementation Status](../../../SERVER_REGISTRY.md)
 
 ### External Resources
 - **Hugging Face Models:** [https://huggingface.co/models](https://huggingface.co/models)

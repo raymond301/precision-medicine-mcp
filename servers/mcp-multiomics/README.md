@@ -722,4 +722,4 @@ See the main repository LICENSE file.
 
 ---
 
-**Built for the Precision Medicine MCP suite** (key component of the [PatientOne](../../docs/architecture/patient-one/README.md) precision medicine workflow)
+**Built for the Precision Medicine MCP suite** (key component of the [PatientOne](../../docs/reference/test-docs/patient-one-scenario/README.md) precision medicine workflow)

@@ -1,6 +1,6 @@
 > 📁 **Archived Documentation**
 > This deployment status log has been archived for reference.
-> For current server status, see [Server Registry](../../../SERVER_REGISTRY.md) or [Architecture Status](../../architecture/servers.md).
+> For current server status, see [Server Registry](../../../SERVER_REGISTRY.md) or [Architecture Status](../../../SERVER_REGISTRY.md).
 
 # GCP Cloud Run Deployment Status
 
@@ -119,7 +119,7 @@ TRAFFIC: 100%
 
 ## Final Deployment Results
 
-📋 **[See Server Status →](../../servers/README.md#-server-status)** - Complete server status, tools, and implementation details
+📋 **[See Server Status →](../../../../servers/README.md#-server-status)** - Complete server status, tools, and implementation details
 
 ### ✅ All 9 Servers Successfully Deployed and Running
 

@@ -843,14 +843,14 @@ Use this checklist when adding your new server:
 
 ### Code Examples
 - [Existing Servers](../../servers/) - Study patterns from mcp-multiomics, mcp-spatialtools
-- [Server Template](../mcp-server-boilerplate/) - Reusable boilerplate
+- [Server Template](../../servers/mcp-server-boilerplate/) - Reusable boilerplate
 
 ### Testing
 - [Test Examples](../../tests/unit/) - Learn from existing test suites
 - [pytest-asyncio](https://pytest-asyncio.readthedocs.io/) - Testing async tools
 
 ### Deployment
-- [GCP Deployment Guide](../deployment/DEPLOYMENT_STATUS.md)
+- [GCP Deployment Guide](../reference/archive/deployment/DEPLOYMENT_STATUS.md)
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
 
 ---

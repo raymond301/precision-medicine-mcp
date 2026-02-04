@@ -40,7 +40,7 @@
 
 ### Technical Validation
 - **[Executive Summary](../EXECUTIVE_SUMMARY.md)** - System architecture, capabilities, deployment timeline
-- **[Server Status](../architecture/servers.md)** - Implementation status for all 10 servers
+- **[Server Status](../SERVER_REGISTRY.md)** - Implementation status for all 10 servers
 - **[Testing Coverage](../../tests/README.md)** - 167 automated tests, 68% coverage
 
 ### Compliance & Risk

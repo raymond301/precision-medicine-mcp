@@ -16,7 +16,7 @@
 | **mcp-perturbation** | 8 | 100% Real | GEARS GNN treatment response, perturbation prediction | [README](../servers/mcp-perturbation/README.md) |
 | **mcp-quantum-celltype-fidelity** | 6 | 100% Real | Quantum PQCs, fidelity analysis, Bayesian UQ, immune evasion | [README](../servers/mcp-quantum-celltype-fidelity/README.md) |
 | **mcp-deepcell** | 4 | 100% Real | DeepCell-TF segmentation, nuclear/membrane models, MxIF phenotyping | [README](../servers/mcp-deepcell/README.md) |
-| **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [README](../servers/mcp-epic/README.md) |
+| **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../servers/mcp-epic/) |
 
 ---
 
@@ -33,9 +33,9 @@
 | Server | Tools | Purpose | Documentation |
 |--------|-------|---------|---------------|
 | **mcp-tcga** | 11 | TCGA cohort queries, survival analysis (synthetic) | [README](../servers/mcp-tcga/README.md) |
-| **mcp-huggingface** | 7 | ML model inference (API ready, awaiting models) | [README](../servers/mcp-huggingface/README.md) |
-| **mcp-seqera** | 7 | Nextflow workflow orchestration (demo) | [README](../servers/mcp-seqera/README.md) |
-| **mcp-mockepic** | 8 | Synthetic FHIR data for testing (by design) | [README](../servers/mcp-mockepic/README.md) |
+| **mcp-huggingface** | 7 | ML model inference (API ready, awaiting models) | [Source](../servers/mcp-huggingface/) |
+| **mcp-seqera** | 7 | Nextflow workflow orchestration (demo) | [Source](../servers/mcp-seqera/) |
+| **mcp-mockepic** | 8 | Synthetic FHIR data for testing (by design) | [Source](../servers/mcp-mockepic/) |
 
 ---
 

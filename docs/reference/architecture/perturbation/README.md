@@ -514,7 +514,7 @@ Combined Report: GEARS prediction + Quantum validation
 
 - **[Server Implementation →](../../../../servers/mcp-perturbation/README.md)**
 - **[PatientOne Workflow →](../../test-docs/patient-one-scenario/README.md)**
-- **[Server Status →](../servers.md)**
+- **[Server Status →](../../../SERVER_REGISTRY.md)**
 - **[Multiomics Integration →](../multiomics/README.md)**
 - **[Quantum Cell Type Fidelity →](../quantum/README.md)** (Combined quantum + GEARS validation)
 

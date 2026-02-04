@@ -39,7 +39,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 **Technical system design and implementation:**
 
 - **[Architecture Overview](reference/architecture/README.md)** - System design principles
-- **[Server Status](./architecture/servers.md)** - Implementation status and capabilities matrix
+- **[Server Status](./SERVER_REGISTRY.md)** - Implementation status and capabilities matrix
 - **[Clinical-Spatial Bridge](reference/architecture/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
 - **[Error Handling](reference/architecture/error-handling.md)** - Error handling and retry logic
 - **[References](reference/architecture/references.md)** - Technical references and citations
@@ -71,9 +71,8 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 **Deployment guides and infrastructure:**
 
-- **[Deployment Roadmap](./deployment/roadmap.md)** - Production deployment planning
+- **[Deployment Roadmap](./reference/archive/deployment/roadmap.md)** - Production deployment planning
 - **[Security Guide](reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
-- **[POC Deployment](./deployment/poc-deployment/)** - Proof-of-concept deployment guides
 - **[Hospital Deployment](./for-hospitals/)** - Enterprise deployment
   - [Operations Manual](./for-hospitals/OPERATIONS_MANUAL.md)
   - [Admin Guide](./for-hospitals/ADMIN_GUIDE.md)
@@ -155,7 +154,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 - **Install the system** → [Installation Guide](./getting-started/installation.md)
 - **Run my first analysis** → [Quick Test Prompts](reference/test-docs/manual-testing/quick-test-prompts.md)
 - **Understand costs** → [Cost and Budget Guide](./for-hospitals/operations/cost-and-budget.md)
-- **Deploy to production** → [Deployment Roadmap](./deployment/roadmap.md)
+- **Deploy to production** → [Deployment Roadmap](./reference/archive/deployment/roadmap.md)
 - **Ensure HIPAA compliance** → [HIPAA Compliance](./for-hospitals/compliance/hipaa.md)
 - **Add a new server** → [Add New Modality Server](./for-developers/ADD_NEW_MODALITY_SERVER.md)
 - **Review patient results** → [CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)

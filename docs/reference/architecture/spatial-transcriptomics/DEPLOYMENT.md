@@ -2,7 +2,7 @@
 
 For comprehensive deployment information, see:
 
-## 📋 [Deployment Status](../../deployment/DEPLOYMENT_STATUS.md)
+## 📋 [Deployment Status](../../archive/deployment/DEPLOYMENT_STATUS.md)
 Complete deployment history with revision numbers, new features, and configuration details.
 
 ## 🧪 [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
@@ -32,4 +32,4 @@ API key and secrets management, GCP Secret Manager integration.
 
 ---
 
-For detailed deployment procedures, rollback instructions, monitoring setup, and troubleshooting, see the comprehensive [Deployment Status](../../deployment/DEPLOYMENT_STATUS.md) documentation.
+For detailed deployment procedures, rollback instructions, monitoring setup, and troubleshooting, see the comprehensive [Deployment Status](../../archive/deployment/DEPLOYMENT_STATUS.md) documentation.
