@@ -17,7 +17,7 @@
 
 ## Quick Start (5 Steps)
 
-1. **Read the elevator pitch** → [FUNDING.md](../../FUNDING.md) (5 min)
+1. **Read the elevator pitch** → [FUNDING.md](./FUNDING.md) (5 min)
 2. **Watch the 90-second demo** → [Demo Script](../demos/NINETY_SECOND_PITCH.md) (2 min)
 3. **Review detailed ROI** → [ROI Analysis](ROI_ANALYSIS.md) (10 min)
 4. **Assess technical validation** → [Executive Summary](../EXECUTIVE_SUMMARY.md) (15 min)
@@ -30,7 +30,7 @@
 ## Documents in This Section
 
 ### Quick Overview
-- **[Investment Opportunities](../../FUNDING.md)** - 3 funding tiers with clear deliverables
+- **[Investment Opportunities](./FUNDING.md)** - 3 funding tiers with clear deliverables
 - **[90-Second Demo](../demos/NINETY_SECOND_PITCH.md)** - Copy-paste prompts showing value
 
 ### Detailed Analysis

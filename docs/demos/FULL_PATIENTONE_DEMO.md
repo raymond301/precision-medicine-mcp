@@ -220,7 +220,7 @@ After completing the demo:
 
 - **Technical issues:** See [README.md](../../README.md) for GitHub issues
 - **Deployment questions:** See [Hospital Deployment Guide](../for-hospitals/README.md)
-- **Funding inquiries:** See [FUNDING.md](../../FUNDING.md)
+- **Funding inquiries:** See [FUNDING.md](../for-funders/FUNDING.md)
 
 ---
 

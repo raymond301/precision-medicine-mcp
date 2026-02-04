@@ -135,12 +135,12 @@ graph LR
 
 **See the platform in action in under 2 minutes:**
 
-- **[90-Second Funding Demo →](docs/demos/NINETY_SECOND_PITCH.md)** - Copy-paste prompts to demonstrate ROI
+- **[90-Second Funding Demo →](../demos/NINETY_SECOND_PITCH.md)** - Copy-paste prompts to demonstrate ROI
 - **[5-Minute Video Demo →](https://www.youtube.com/watch?v=LUldOHHX5Yo)** - Watch the full PatientOne analysis
-- **[Full Prompt Library →](docs/prompt-library/README.md)** - 20+ ready-to-use clinical prompts
+- **[Full Prompt Library →](../prompt-library/README.md)** - 20+ ready-to-use clinical prompts
 
 **Try it yourself:**
-1. Install Claude Desktop with MCP servers ([Setup Guide](docs/getting-started/installation.md))
+1. Install Claude Desktop with MCP servers ([Setup Guide](../getting-started/installation.md))
 2. Use synthetic PatientOne data (100% safe, no PHI)
 3. Run the 90-second demo prompts
 4. See 40 hours → 35 minutes in action

@@ -180,7 +180,6 @@ Complete directory structure showing all major components:
 ```
 precision-medicine-mcp/
 ├── ACKNOWLEDGMENTS.md      # Credits & scientific references
-├── FUNDING.md              # Investment opportunities & ROI
 ├── LICENSE                 # Apache 2.0 License
 ├── README.md               # Main repository README
 ├── data/                   # Synthetic patient data (100% safe for demos)

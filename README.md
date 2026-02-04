@@ -29,7 +29,7 @@
 | 💻 **MCP Developer** | [Developer Guide](docs/for-developers/README.md) | 1 hour setup |
 | 🎓 **Educator/Student** | [Educational Guide](docs/for-educators/README.md) | 25 min tutorial |
 | 👥 **Patient/Family** | [Patient Resources](docs/for-patients/README.md) | 10 min read |
-| 💰 **Funder/Grant Reviewer** | [FUNDING.md](FUNDING.md) | 5 min |
+| 💰 **Funder/Grant Reviewer** | [FUNDING.md](docs/for-funders/FUNDING.md) | 5 min |
 
 ---
 

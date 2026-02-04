@@ -138,7 +138,7 @@ See: [Security Overview](../deployment/security.md) | [HIPAA Compliance](../for-
 | **Pilot** | $50,000 | 6-month pilot, 100 patients | 6 months |
 | **Production** | $75,000/year | Full deployment, 500 patients | 12 months |
 
-See: [FUNDING.md](../../FUNDING.md) for detailed budget breakdown
+See: [FUNDING.md](../for-funders/FUNDING.md) for detailed budget breakdown
 
 ---
 
@@ -193,7 +193,7 @@ See: [FUNDING.md](../../FUNDING.md) for detailed budget breakdown
 
 **For Interested Funders:**
 - Schedule 30-minute deep dive: [Full PatientOne Demo](FULL_PATIENTONE_DEMO.md)
-- Review detailed budget: [FUNDING.md](../../FUNDING.md)
+- Review detailed budget: [FUNDING.md](../for-funders/FUNDING.md)
 - Technical Q&A: [Executive Summary](../EXECUTIVE_SUMMARY.md)
 
 **For Hospital IT:**
