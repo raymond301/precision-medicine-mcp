@@ -8,15 +8,35 @@ PROJECT_ID="${1:-precision-medicine-poc}"
 REGION="${2:-us-central1}"
 SERVICE_NAME="mcp-dashboard"
 
+SA_NAME="mcp-dashboard-sa"
+SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+
 echo "=========================================="
 echo "Deploying MCP Dashboard to Cloud Run"
 echo "=========================================="
-echo "Project: $PROJECT_ID"
-echo "Region: $REGION"
-echo "Service: $SERVICE_NAME"
+echo "Project:  $PROJECT_ID"
+echo "Region:   $REGION"
+echo "Service:  $SERVICE_NAME"
+echo "SA:       $SA_EMAIL"
 echo ""
 
-# Deploy to Cloud Run
+# ── Provision service account (idempotent) ──────────────────────────────
+if ! gcloud iam service-accounts describe "$SA_EMAIL" --project "$PROJECT_ID" &>/dev/null; then
+    echo "Creating service account: $SA_NAME"
+    gcloud iam service-accounts create "$SA_NAME" \
+        --project "$PROJECT_ID" \
+        --display-name "MCP Dashboard – Cloud Logging reader" \
+        --quiet
+fi
+
+# Grant logging.logViewer so the dashboard can query Cloud Run request logs
+echo "Granting roles/logging.logViewer to $SA_NAME"
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member "serviceAccount:${SA_EMAIL}" \
+    --role "roles/logging.viewer" \
+    --quiet
+
+# ── Deploy to Cloud Run ──────────────────────────────────────────────────
 echo "Building and deploying..."
 gcloud run deploy "$SERVICE_NAME" \
     --source . \
@@ -24,6 +44,8 @@ gcloud run deploy "$SERVICE_NAME" \
     --region "$REGION" \
     --project "$PROJECT_ID" \
     --allow-unauthenticated \
+    --service-account "$SA_EMAIL" \
+    --set-env-vars "GCP_PROJECT_ID=${PROJECT_ID},GCP_REGION=${REGION}" \
     --memory 1Gi \
     --cpu 1 \
     --min-instances 0 \

@@ -9,6 +9,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from datetime import datetime, timezone
 from pathlib import Path
 
 from metrics_aggregator import load_sample_metrics, MetricsAggregator
@@ -77,15 +78,28 @@ def main():
         st.info("Make sure sample_data/patientone_workflow.yaml exists.")
         return
 
-    # Sidebar
+    # ── Sidebar ──────────────────────────────────────────────────────────
     st.sidebar.header("⚙️ Configuration")
 
-    # Workflow selector (placeholder for future multiple workflows)
-    workflow_name = st.sidebar.selectbox(
-        "Select Workflow",
-        ["PatientOne Complete Analysis"],
-        help="Choose a workflow to analyze"
+    # Live / Sample toggle
+    is_live = st.sidebar.toggle(
+        "Live Mode",
+        value=False,
+        help="Poll deployed Cloud Run MCP servers and query GCP Cloud Logging in real time"
     )
+
+    # Time window — only meaningful in Live mode
+    time_window_hours = 1
+    if is_live:
+        time_window_hours = st.sidebar.selectbox(
+            "Time Window",
+            [1, 6, 24, 168],
+            format_func=lambda x: {
+                1: "Last 1 hour", 6: "Last 6 hours",
+                24: "Last 24 hours", 168: "Last 7 days",
+            }[x],
+            help="Range of Cloud Run request logs to aggregate"
+        )
 
     # View selector
     view_mode = st.sidebar.radio(
@@ -94,29 +108,58 @@ def main():
         help="Select analysis view"
     )
 
-    # Date range filter (placeholder for future time-series data)
+    # Refresh controls (Live mode)
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📅 Filters")
-    st.sidebar.info("Time-series filtering will be available when connected to live logs.")
+    if is_live:
+        if st.sidebar.button("🔄 Refresh"):
+            st.rerun()
+        st.sidebar.caption(f"Checked: {datetime.now(timezone.utc).strftime('%H:%M:%S UTC')}")
+    else:
+        st.sidebar.markdown("### 📅 Filters")
+        st.sidebar.info("Enable Live Mode to see real-time server traffic.")
 
-    # Get data
-    stats = aggregator.get_summary_stats()
+    # ── Load workflow metrics (always — local YAML, cheap) ──────────────
+    stats          = aggregator.get_summary_stats()
     server_summary = aggregator.get_server_summary()
     cost_breakdown = aggregator.get_cost_breakdown()
-    tool_calls = aggregator.get_tool_calls()
+    tool_calls     = aggregator.get_tool_calls()
 
-    # Main content based on view mode
+    # ── Load live data (health + Cloud Logging) when toggle is on ────────
+    live_health = None  # type: dict or None
+    live_logs   = None  # type: dict or None
+
+    if is_live:
+        try:
+            from live_server_monitor import get_live_health, query_all_server_logs
+
+            with st.status("Polling server health…", expanded=False) as _s1:
+                live_health = get_live_health()
+                _s1.update(label="Health check complete", state="complete")
+
+            with st.status("Querying Cloud Logging…", expanded=False) as _s2:
+                live_logs = query_all_server_logs(hours_back=time_window_hours)
+                _s2.update(label="Cloud Logging data loaded", state="complete")
+        except Exception as exc:
+            st.warning(f"Live data unavailable: {exc}")
+            is_live = False
+
+    # ── Server health banner (Live mode, shown above every view) ─────────
+    if is_live and live_health:
+        render_server_health_badges(live_health)
+        st.divider()
+
+    # ── Route to view ────────────────────────────────────────────────────
     if view_mode == "📈 Overview":
-        render_overview(stats, server_summary, cost_breakdown, aggregator)
+        render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs=live_logs)
 
     elif view_mode == "💰 Cost Analysis":
         render_cost_analysis(cost_breakdown, server_summary, aggregator)
 
     elif view_mode == "⚡ Performance":
-        render_performance_analysis(server_summary, tool_calls, aggregator)
+        render_performance_analysis(server_summary, tool_calls, aggregator, live_logs=live_logs)
 
     elif view_mode == "🔧 Optimization":
-        render_optimization_view(aggregator, server_summary, cost_breakdown)
+        render_optimization_view(aggregator, server_summary, cost_breakdown, live_logs=live_logs)
 
     # Footer
     st.sidebar.markdown("---")
@@ -125,7 +168,66 @@ def main():
     st.sidebar.markdown("**Last Updated:** 2026-01-12")
 
 
-def render_overview(stats, server_summary, cost_breakdown, aggregator):
+def render_server_health_badges(health: dict):
+    """Row of health-status metric cards for every polled MCP server."""
+    STATUS_ICON = {"healthy": "🟢", "degraded": "🟡", "unhealthy": "🔴", "unknown": "⚪"}
+    servers = sorted(health.items())
+    cols = st.columns(min(len(servers), 4))
+    for i, (name, info) in enumerate(servers):
+        col = cols[i % len(cols)]
+        icon    = STATUS_ICON.get(info["status"], "⚪")
+        latency = f"{info['latency_ms']:.0f} ms" if info["latency_ms"] else "—"
+        col.metric(
+            label=f"{icon} {name}",
+            value=info["status"].capitalize(),
+            delta=latency,
+            delta_color="off",
+        )
+
+
+def render_live_traffic(live_logs: dict):
+    """Live request-count / latency / error summary from Cloud Logging."""
+    rows = list(live_logs.values())
+
+    if not rows or all(r["request_count"] == 0 for r in rows):
+        window = rows[0]["time_window_hours"] if rows else 1
+        st.info(
+            f"No requests recorded in the last {window} hour(s). "
+            "Try a wider time window or wait for traffic to arrive."
+        )
+        return
+
+    df = pd.DataFrame(rows)
+    total_reqs   = int(df["request_count"].sum())
+    total_errors = int(df["error_count"].sum())
+    avg_latency  = df.loc[df["request_count"] > 0, "avg_latency_ms"].mean()
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Total Requests", str(total_reqs))
+    c2.metric(
+        "Total Errors", str(total_errors),
+        delta=f"{total_errors / total_reqs * 100:.1f}%" if total_reqs else "0%",
+        delta_color="inverse",
+    )
+    c3.metric("Avg Latency", f"{avg_latency:.0f} ms" if avg_latency else "—")
+
+    active = df[df["request_count"] > 0].sort_values("request_count", ascending=True)
+    if not active.empty:
+        fig = px.bar(
+            active, y="server", x="request_count", orientation="h",
+            color="avg_latency_ms", color_continuous_scale="blues",
+            labels={
+                "request_count":  "Requests",
+                "server":         "Server",
+                "avg_latency_ms": "Avg Latency (ms)",
+            },
+            title="Requests by Server",
+        )
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs=None):
     """Render overview dashboard."""
     st.header("📈 Workflow Overview")
 
@@ -246,6 +348,12 @@ def render_overview(stats, server_summary, cost_breakdown, aggregator):
             title=f"Total: ${cost_breakdown['total_cost']:.4f}"
         )
         st.plotly_chart(fig_cost, use_container_width=True)
+
+    # ── Live traffic (when Live Mode is active) ──────────────────────────
+    if live_logs:
+        st.markdown("---")
+        st.subheader("🌐 Live Traffic")
+        render_live_traffic(live_logs)
 
 
 def render_cost_analysis(cost_breakdown, server_summary, aggregator):
@@ -374,7 +482,7 @@ def render_cost_analysis(cost_breakdown, server_summary, aggregator):
         st.metric("Annual Cost", f"${annual_cost:,.2f}")
 
 
-def render_performance_analysis(server_summary, tool_calls, aggregator):
+def render_performance_analysis(server_summary, tool_calls, aggregator, live_logs=None):
     """Render performance analysis."""
     st.header("⚡ Performance Analysis")
 
@@ -475,8 +583,38 @@ def render_performance_analysis(server_summary, tool_calls, aggregator):
     fig_efficiency.update_layout(height=400)
     st.plotly_chart(fig_efficiency, use_container_width=True)
 
+    # ── Live latency from Cloud Logging (real data overlay) ───────────────
+    if live_logs:
+        active = [v for v in live_logs.values() if v["request_count"] > 0]
+        if active:
+            live_df = pd.DataFrame(active)
+            total_reqs = sum(r["request_count"] for r in active)
+            window = active[0]["time_window_hours"]
 
-def render_optimization_view(aggregator, server_summary, cost_breakdown):
+            st.markdown("---")
+            st.subheader("📡 Live Latency (Cloud Logging)")
+            st.caption(f"Window: last {window}h  |  {total_reqs} requests observed")
+
+            fig_live = px.bar(
+                live_df.sort_values("avg_latency_ms", ascending=False),
+                x="server",
+                y=["avg_latency_ms", "p95_latency_ms"],
+                barmode="group",
+                labels={
+                    "avg_latency_ms": "Avg (ms)",
+                    "p95_latency_ms": "P95 (ms)",
+                    "server":         "Server",
+                },
+                title="Live Latency: Avg vs P95",
+            )
+            fig_live.update_layout(height=400)
+            st.plotly_chart(fig_live, use_container_width=True)
+        else:
+            st.markdown("---")
+            st.info("No requests in the selected time window for latency comparison.")
+
+
+def render_optimization_view(aggregator, server_summary, cost_breakdown, live_logs=None):
     """Render optimization recommendations."""
     st.header("🔧 Cost Optimization")
 
@@ -592,6 +730,21 @@ def render_optimization_view(aggregator, server_summary, cost_breakdown):
                 file_name="mcp_server_metrics.csv",
                 mime="text/csv"
             )
+
+    # ── Live error signals ─────────────────────────────────────────────────
+    if live_logs:
+        errored = {k: v for k, v in live_logs.items() if v["error_count"] > 0}
+        st.markdown("---")
+        st.subheader("⚠️ Live Error Signals")
+        if errored:
+            for name, info in sorted(errored.items()):
+                st.warning(
+                    f"`{name}` — {info['error_count']} errors / "
+                    f"{info['request_count']} requests "
+                    f"(error rate {info['error_rate'] * 100:.1f}%)"
+                )
+        else:
+            st.success("No errors detected on any server in the selected time window.")
 
 
 if __name__ == "__main__":
