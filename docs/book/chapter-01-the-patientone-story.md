@@ -30,7 +30,7 @@ But what if you could do something fundamentally different? What if you could in
 
 And what if you could do this analysis in **35 minutes** instead of the traditional **40 hours** of manual bioinformatics work?
 
-This is the PatientOne story—and it's the story of why this book exists. Personal details of Sarah's story are altered, but they represent my journey as a patient advocate with a dear friend who spent 8 months from diagnosis to death in 2025.
+This is the PatientOne story—and it's the story of why this book exists. Personal details of Sarah's story are altered, but they represent my journey as a patient advocate with a dear friend who spent 8 months from diagnosis (Stage IV HGSOC) to death in 2025.
 
 ### The Complete PatientOne Workflow
 
@@ -195,6 +195,8 @@ That's **one full work week** for one patient. And this assumes:
 - Your pipelines are already configured and tested
 - Nothing breaks along the way (it always does)
 
+*Real-world: In my experience PatientOne and her care team rarely got the complete picture of her health / illness -- more often, they responded to various parts of her body failing due to cancer's spread.*
+
 ---
 
 ## The AI-Orchestrated Workflow: 35 Minutes
@@ -203,7 +205,7 @@ Now let's see what the same analysis looks like when an AI—specifically, Claud
 
 ### The Architecture in One Sentence
 
-**You type a natural language prompt, and Claude coordinates 12 specialized MCP servers (124 bioinformatics tools) to execute the complete analysis.**
+**You type a natural language prompt, and Claude coordinates 12 specialized MCP servers (60+ bioinformatics tools) to execute the complete analysis.**
 
 ### What Actually Happens
 

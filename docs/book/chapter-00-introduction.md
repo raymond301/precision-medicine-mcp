@@ -9,7 +9,7 @@ By Lynn Langit
 ## About This Book
 
 - This book teaches you how to build, deploy, and operate an AI-orchestrated precision oncology system that reduces analysis time from **40 hours to 35 minutes** and cost from **$3,200 to $1-2 per patient**.  
-- You'll learn to create 12 specialized MCP (Model Context Protocol) servers that enable AI models like Claude and Gemini to coordinate 124 bioinformatics tools through natural language prompts—no code required.  
+- You'll learn to create 12 specialized MCP (Model Context Protocol) servers that enable AI models like Claude and Gemini to coordinate over 60 bioinformatics tools through natural language prompts—no Bash scripts or pipeline code required to invoke whatever analysis tool you want/need.  
 - **What makes this different**: This isn't a theoretical framework. Every example is based on a production system deployed to Google Cloud Run, tested with real patient workflows, and validated for clinical decision support.
 - All referenced source code and detailed documentation is available on Github at https://github.com/lynnlangit/precision-medicine-mcp  
 
@@ -65,8 +65,6 @@ By the end of this book, you'll have deployed:
 - **Chapter 2**: The Architecture Problem — Why MCP for healthcare
 - **Chapter 3**: Testing the Hypothesis — Production validation
 
-**Time to complete**: 2-3 hours reading + 1 hour hands-on
-
 ---
 
 ### Part 2: Building the Foundation (Chapters 4-7)
@@ -76,8 +74,6 @@ By the end of this book, you'll have deployed:
 - **Chapter 5**: Genomic Foundations — VCF parsing, variant annotation
 - **Chapter 6**: Multi-Omics Integration — HAllA, Stouffer meta-analysis
 - **Chapter 7**: Spatial Transcriptomics — STAR alignment, batch correction, pathways
-
-**Time to complete**: 8-12 hours implementation + testing
 
 ---
 
@@ -89,8 +85,6 @@ By the end of this book, you'll have deployed:
 - **Chapter 10**: Quantum Cell-Type Fidelity — PennyLane PQCs, Bayesian UQ
 - **Chapter 11**: Imaging and Histopathology — H&E, MxIF analysis
 
-**Time to complete**: 6-10 hours implementation
-
 ---
 
 ### Part 4: Deployment and Operations (Chapters 12-14)
@@ -100,8 +94,6 @@ By the end of this book, you'll have deployed:
 - **Chapter 13**: Hospital Production Deployment — HIPAA compliance, de-identification, VPC
 - **Chapter 14**: Operations and Monitoring — Logging, alerts, cost tracking
 
-**Time to complete**: 4-8 hours deployment + configuration
-
 ---
 
 ### Part 5: Research and Education (Chapters 15-16)
@@ -110,8 +102,6 @@ By the end of this book, you'll have deployed:
 - **Chapter 15**: For Researchers — Exploratory analysis, prompt engineering
 - **Chapter 16**: Teaching Precision Medicine — Educational workflows, cost-effective student access
 
-**Time to complete**: 2-3 hours
-
 ---
 
 ### Part 6: The Future (Chapters 17-18)
@@ -119,8 +109,6 @@ By the end of this book, you'll have deployed:
 
 - **Chapter 17**: Funding and Sustainability — ROI analysis, grant strategies
 - **Chapter 18**: Lessons Learned and What's Next — Production insights, future enhancements
-
-**Time to complete**: 1-2 hours
 
 ---
 
@@ -131,8 +119,6 @@ By the end of this book, you'll have deployed:
 - **Appendix B**: Installation and Setup — Prerequisites, local setup, cloud deployment, troubleshooting
 - **Appendix C**: PatientOne Complete Dataset — Full data manifest, file formats, access methods
 - **Appendix D**: Bias and Ethics — Framework for bias detection, audit checklist, ethical deployment
-
-**Time to complete**: Reference guides (as needed)
 
 ---
 
@@ -219,28 +205,23 @@ jupyter notebook
 ### Linear Reading Path (Recommended)
 Read chapters 1-18 in order. Each chapter builds on previous concepts.
 
-**Time commitment**: 25-35 hours (reading + hands-on)
-
 ### Selective Reading Paths
 
 **For Hospital IT Leaders** (deployment focus):
 - Read: Chapters 1-3, 12-14, 17
 - Skim: Chapters 4-11 (technical implementation)
 - Skip: Chapters 15-16 (research/education)
-- **Time**: 8-12 hours
 
 **For Bioinformatics Researchers** (implementation focus):
 - Read: Chapters 1-7 (foundation servers)
 - Selective: Chapters 8-11 (choose modalities you need)
 - Skim: Chapters 12-14 (deploy to your own cloud)
 - Read: Chapter 15 (research workflows)
-- **Time**: 15-20 hours
 
 **For Developers/Architects** (system design focus):
 - Read: Chapters 1-3, 12-14
 - Selective: Chapters 4-11 (pick 2-3 servers to understand patterns)
 - Skim: Chapters 15-18
-- **Time**: 10-15 hours
 
 ---
 
@@ -305,9 +286,8 @@ Special thanks to the precision medicine research community for defining the wor
 
 ## Ready to Begin?
 
-Start with [Chapter 1: The PatientOne Story](chapter-01-the-patientone-story.md) to see what's possible when AI orchestrates precision medicine workflows.
-
-Or jump to the [Companion Notebooks](companion-notebooks/) to start building immediately.
+- Start with [Chapter 1: The PatientOne Story](chapter-01-the-patientone-story.md) to see what's possible when AI orchestrates precision medicine workflows.
+- Or jump to the [Companion Notebooks](companion-notebooks/) to start building immediately.
 
 **Let's transform precision oncology from 40 hours to 35 minutes.**
 
