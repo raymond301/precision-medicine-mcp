@@ -32,7 +32,7 @@
 
 1. **System overview** → [ARCHITECTURE.md](ARCHITECTURE.md) (15 min)
 2. **Best reference implementation** → [mcp-multiomics README](../../servers/mcp-multiomics/README.md) (15 min)
-3. **Architecture details** → [Architecture docs](../architecture/README.md) (30 min)
+3. **Architecture details** → [Architecture docs](../reference/architecture/README.md) (30 min)
 
 **Total Time:** 30-60 minutes for full understanding
 
@@ -179,7 +179,7 @@ graph TB
 
 **Total:** 12 servers, 69 tools, comprehensive test coverage
 
-📋 **[Complete Server Implementation Status →](../architecture/README.md)** - Comprehensive documentation including:
+📋 **[Complete Server Implementation Status →](../reference/architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status
 - Real vs. mocked capability breakdown
 - Test coverage metrics and production readiness
@@ -242,8 +242,8 @@ graph TB
 3. **mcp-fgbio** ([README](../../servers/mcp-fgbio/README.md)) - Simple, focused, excellent for learning basics
 
 ### Architecture Documentation
-- **System Design:** [Architecture Overview](../architecture/README.md)
-- **Data Flow:** [Clinical-Spatial Integration](../architecture/clinical-spatial-bridge.md)
+- **System Design:** [Architecture Overview](../reference/architecture/README.md)
+- **Data Flow:** [Clinical-Spatial Integration](../reference/architecture/clinical-spatial-bridge.md)
 
 ### Testing Resources
 - **Unit Tests:** [Test Examples](../../tests/unit/)
@@ -427,7 +427,7 @@ Restart Claude Desktop and test:
 **Related Resources:**
 - 🏥 [Hospital Operations Manual](../for-hospitals/OPERATIONS_MANUAL.md) - For IT teams deploying to production
 - 🔬 [Researcher Guide](../for-researchers/README.md) - For bioinformaticians using the platform
-- 📊 [Architecture Documentation](../architecture/README.md) - Deep technical dive
+- 📊 [Architecture Documentation](../reference/architecture/README.md) - Deep technical dive
 - 🏠 [Back to Main Documentation](../README.md)
 
 ---

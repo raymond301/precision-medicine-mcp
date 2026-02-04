@@ -38,11 +38,11 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 **Technical system design and implementation:**
 
-- **[Architecture Overview](./architecture/README.md)** - System design principles
+- **[Architecture Overview](reference/architecture/README.md)** - System design principles
 - **[Server Status](./architecture/servers.md)** - Implementation status and capabilities matrix
-- **[Clinical-Spatial Bridge](./architecture/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
-- **[Error Handling](./architecture/error-handling.md)** - Error handling and retry logic
-- **[References](./architecture/references.md)** - Technical references and citations
+- **[Clinical-Spatial Bridge](reference/architecture/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
+- **[Error Handling](reference/architecture/error-handling.md)** - Error handling and retry logic
+- **[References](reference/architecture/references.md)** - Technical references and citations
 
 ---
 
@@ -72,7 +72,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 **Deployment guides and infrastructure:**
 
 - **[Deployment Roadmap](./deployment/roadmap.md)** - Production deployment planning
-- **[Security Guide](./deployment/security.md)** - API keys, secrets management, GCP Secret Manager
+- **[Security Guide](reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
 - **[POC Deployment](./deployment/poc-deployment/)** - Proof-of-concept deployment guides
 - **[Hospital Deployment](./for-hospitals/)** - Enterprise deployment
   - [Operations Manual](./for-hospitals/OPERATIONS_MANUAL.md)
@@ -87,14 +87,14 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 **Test documentation, strategies, and test data:**
 
-- **[Test Documentation Index](./test-docs/README.md)** - Overview of all test documentation
-- **[Test Coverage & Guidelines](./test-docs/test-coverage.md)** - Test structure and best practices
-- **[Manual Testing](./test-docs/manual-testing/)** - Quick test prompts and verification
-- **[PatientOne Scenario](./test-docs/patient-one-scenario/)** - Complete end-to-end testing scenario
-  - [Quick Reference](./test-docs/patient-one-scenario/quick-reference.md)
-  - [CITL Quick Test](./test-docs/patient-one-scenario/citl-quick-test.md)
-  - [Test Prompts](./test-docs/patient-one-scenario/test-prompts/) - Ready-to-use test prompts (6 tests)
-- **[Integration Testing](./test-docs/integration-testing/)** - GCP and API testing
+- **[Test Documentation Index](reference/test-docs/README.md)** - Overview of all test documentation
+- **[Test Coverage & Guidelines](reference/test-docs/test-coverage.md)** - Test structure and best practices
+- **[Manual Testing](reference/test-docs/manual-testing)** - Quick test prompts and verification
+- **[PatientOne Scenario](reference/test-docs/patient-one-scenario)** - Complete end-to-end testing scenario
+  - [Quick Reference](reference/test-docs/patient-one-scenario/quick-reference.md)
+  - [CITL Quick Test](reference/test-docs/patient-one-scenario/citl-quick-test.md)
+  - [Test Prompts](reference/test-docs/patient-one-scenario/test-prompts) - Ready-to-use test prompts (6 tests)
+- **[Integration Testing](reference/test-docs/integration-testing)** - GCP and API testing
 
 ---
 
@@ -133,8 +133,8 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 **Outdated documentation preserved for historical reference:**
 
-- **[Archive Index](./archive/README.md)** - Why docs were archived
-- **[2025 Q3/Q4 Archive](./archive/2025-q3-q4/)** - Pre-October 2025 docs
+- **[Archive Index](reference/archive/README.md)** - Why docs were archived
+- **[2025 Q3/Q4 Archive](reference/archive/2025-q3-q4)** - Pre-October 2025 docs
 
 ⚠️ **Warning:** Archived documentation is outdated and should not be used for current implementations.
 
@@ -145,7 +145,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 ### Quick Links
 
 - **Installation:** [5-Minute Quick Start](./getting-started/installation.md#quick-start-5-minutes)
-- **Test It:** [PatientOne Quick Test](./test-docs/patient-one-scenario/quick-reference.md)
+- **Test It:** [PatientOne Quick Test](reference/test-docs/patient-one-scenario/quick-reference.md)
 - **Costs:** [Cost Overview](./for-hospitals/operations/cost-and-budget.md#cost-overview)
 - **HIPAA:** [HIPAA Quick Reference](./for-hospitals/compliance/hipaa.md#executive-summary)
 
@@ -153,13 +153,13 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 **I want to:**
 - **Install the system** → [Installation Guide](./getting-started/installation.md)
-- **Run my first analysis** → [Quick Test Prompts](./test-docs/manual-testing/quick-test-prompts.md)
+- **Run my first analysis** → [Quick Test Prompts](reference/test-docs/manual-testing/quick-test-prompts.md)
 - **Understand costs** → [Cost and Budget Guide](./for-hospitals/operations/cost-and-budget.md)
 - **Deploy to production** → [Deployment Roadmap](./deployment/roadmap.md)
 - **Ensure HIPAA compliance** → [HIPAA Compliance](./for-hospitals/compliance/hipaa.md)
 - **Add a new server** → [Add New Modality Server](./for-developers/ADD_NEW_MODALITY_SERVER.md)
 - **Review patient results** → [CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)
-- **Test the system** → [PatientOne Scenario](./test-docs/patient-one-scenario/README.md)
+- **Test the system** → [PatientOne Scenario](reference/test-docs/patient-one-scenario/README.md)
 
 ### By Role
 
@@ -184,18 +184,20 @@ precision-medicine-mcp/
 ├── README.md               # Main repository README
 ├── data/                   # Synthetic patient data (100% safe for demos)
 ├── docs/                   # Documentation organized by audience
-│   ├── for-funders/        # ROI analysis, competitive landscape, grant talking points
+│   ├── for-funders/        # ROI, competitive landscape, grant talking points, demos
 │   ├── for-hospitals/      # Deployment checklist, security overview, operations
 │   ├── for-developers/     # Architecture, contributing guide, quick reference
 │   ├── for-researchers/    # Analysis workflows, bioinformatics methods
 │   ├── for-educators/      # Classroom guides, learning objectives
 │   ├── for-patients/       # Patient-friendly resources
-│   ├── demos/              # 90-second pitch, full PatientOne demo
-│   ├── prompt-library/     # 20+ ready-to-use clinical prompts
 │   ├── getting-started/    # Installation, quick start, desktop-configs
-│   ├── architecture/       # System design & modality workflows
-│   ├── deployment/         # GCP deployment status & guides
-│   └── test-docs/          # Testing guides & PatientOne scenarios
+│   ├── book/               # Quarto book: AI-Orchestrated Precision Oncology
+│   └── reference/          # Technical reference (architecture, deployment, prompts, tests)
+│       ├── architecture/   # System design & modality workflows
+│       ├── deployment/     # GCP deployment status & guides
+│       ├── prompt-library/ # 20+ ready-to-use clinical prompts
+│       ├── test-docs/      # Testing guides & PatientOne scenarios
+│       └── archive/        # Historical documentation
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts
 │   ├── audit/              # Bias detection and audit tools

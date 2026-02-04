@@ -15,10 +15,10 @@ This directory contains all **test code** for the Precision Medicine MCP system.
 📚 **Test documentation has moved to `/docs/test-docs/`**
 
 For testing guides, test prompts, and testing strategies, see:
-- [Test Documentation Index](/docs/test-docs/README.md)
-- [Test Coverage & Guidelines](/docs/test-docs/test-coverage.md)
-- [Manual Testing Guides](/docs/test-docs/manual-testing/)
-- [PatientOne Testing Scenario](/docs/test-docs/patient-one-scenario/)
+- [Test Documentation Index](/docs/reference/test-docs/README.md)
+- [Test Coverage & Guidelines](/docs/reference/test-docs/test-coverage.md)
+- [Manual Testing Guides](/docs/reference/test-docs/manual-testing/)
+- [PatientOne Testing Scenario](/docs/reference/test-docs/patient-one-scenario/)
 
 ## Running Tests
 
@@ -42,7 +42,7 @@ pytest tests/integration/test_citl_end_to_end.py -v
 ```
 
 ### Manual Testing
-See [Manual Testing Documentation](/docs/test-docs/manual-testing/) for copy-paste prompts and testing procedures.
+See [Manual Testing Documentation](/docs/reference/test-docs/manual-testing/) for copy-paste prompts and testing procedures.
 
 ---
 

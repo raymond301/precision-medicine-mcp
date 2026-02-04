@@ -59,7 +59,7 @@
 - **For Researchers:** [docs/for-researchers/](for-researchers/)
 - **For Developers:** [docs/for-developers/](for-developers/)
 - **Executive Summary:** [docs/EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)
-- **Architecture:** [docs/architecture/](architecture/)
+- **Architecture:** [docs/architecture/](reference/architecture)
 
 ---
 

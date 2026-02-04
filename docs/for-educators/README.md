@@ -86,7 +86,7 @@ All major bioinformatics domains in one platform:
   - Treatment recommendations with rationale
   - Visualizations (plots, heatmaps)
 
-**See:** [PatientOne Guide](../test-docs/patient-one-scenario/README.md)
+**See:** [PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md)
 
 ### 3. Assess Student Work
 
@@ -125,7 +125,7 @@ What clinical data is available for PatientOne (PAT001-OVC-2025)?
 
 ### 3. Complete PatientOne Workflow (25-35 minutes)
 
-Follow: [PatientOne Guide](../test-docs/patient-one-scenario/README.md)
+Follow: [PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md)
 
 **What you'll learn:**
 - Load and interpret clinical data
@@ -382,13 +382,13 @@ Follow: [PatientOne Guide](../test-docs/patient-one-scenario/README.md)
 ## Teaching Resources
 
 ### Instructor Materials
-- **[PatientOne Guide](../test-docs/patient-one-scenario/README.md)** - Complete walkthrough
+- **[PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md)** - Complete walkthrough
 - **[Statistical Methods](../for-researchers/README.md)** - Detailed method explanations
 - **[Cost Analysis](../for-hospitals/operations/cost-and-budget.md)** - Budgeting for classroom use
 
 ### Student Resources
 - **[Installation Guide](../getting-started/installation.md)** - Setup instructions
-- **[Quick Start Demo](../demos/NINETY_SECOND_PITCH.md)** - 90-second overview
+- **[Quick Start Demo](../for-funders/NINETY_SECOND_PITCH.md)** - 90-second overview
 - **[Architecture Overview](../for-developers/ARCHITECTURE.md)** - System design
 
 ---

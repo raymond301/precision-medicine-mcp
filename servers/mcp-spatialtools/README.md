@@ -44,7 +44,7 @@ response = client.beta.messages.create(
 )
 ```
 
-See [GCP Testing Guide](../../docs/deployment/GCP_TESTING_GUIDE.md) for details.
+See [GCP Testing Guide](../../docs/reference/deployment/GCP_TESTING_GUIDE.md) for details.
 
 ## Installation
 

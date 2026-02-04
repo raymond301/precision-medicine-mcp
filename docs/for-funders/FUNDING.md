@@ -135,9 +135,9 @@ graph LR
 
 **See the platform in action in under 2 minutes:**
 
-- **[90-Second Funding Demo →](../demos/NINETY_SECOND_PITCH.md)** - Copy-paste prompts to demonstrate ROI
+- **[90-Second Funding Demo →](NINETY_SECOND_PITCH.md)** - Copy-paste prompts to demonstrate ROI
 - **[5-Minute Video Demo →](https://www.youtube.com/watch?v=LUldOHHX5Yo)** - Watch the full PatientOne analysis
-- **[Full Prompt Library →](../prompt-library/README.md)** - 20+ ready-to-use clinical prompts
+- **[Full Prompt Library →](../reference/prompt-library/README.md)** - 20+ ready-to-use clinical prompts
 
 **Try it yourself:**
 1. Install Claude Desktop with MCP servers ([Setup Guide](../getting-started/installation.md))

@@ -37,7 +37,7 @@
 ### Security & Compliance
 - **[HIPAA Compliance](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/compliance/hipaa.md)** - De-identification, audit logging, encryption
 - **[Data Governance](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/compliance/data-governance.md)** - Data retention, privacy policies
-- **[Security Guide](../deployment/security.md)** - API keys, secrets management, GCP Secret Manager
+- **[Security Guide](../reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
 
 ### User Management
 - **[Admin Guide](../for-hospitals/ADMIN_GUIDE.md)** - User management, monitoring, backups
