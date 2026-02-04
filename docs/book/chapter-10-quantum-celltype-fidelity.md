@@ -43,7 +43,7 @@ F(|ψ_A⟩, |ψ_B⟩) = |⟨ψ_A|ψ_B⟩|²
 
 ### Quantum Circuit Architecture and Workflow
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph InputData[Input: Cell Gene Expression]
         GENES[8 Selected Genes<br/>CD3D, CD8A, EPCAM<br/>MKI67, TP53, VIM, etc.<br/>Normalized 0-1]

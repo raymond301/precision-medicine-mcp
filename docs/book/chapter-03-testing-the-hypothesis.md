@@ -323,7 +323,7 @@ Full test results: [`servers/mcp-spatialtools/COMPLETE_WORKFLOW_TEST_SUMMARY.md`
 
 ### Time-to-Insight Comparison
 
-```mermaid
+```{mermaid}
 graph LR
     subgraph Traditional["Traditional Workflow: 40 Hours"]
         direction TB
@@ -428,7 +428,7 @@ All costs validated against actual GCP deployment (2026-01-31 pricing).
 
 ### ROI Summary
 
-```mermaid
+```{mermaid}
 graph LR
     subgraph Input["💰 Investment"]
         COMPUTE[Compute Cost<br/>$0.19/patient]

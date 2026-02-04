@@ -76,7 +76,7 @@ HIPAA guidance: https://www.hhs.gov/hipaa/for-professionals/privacy/special-topi
 
 ## Building mcp-epic: Architecture
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph "User Layer"
         USER[Clinician/Researcher<br/>Natural Language Query]

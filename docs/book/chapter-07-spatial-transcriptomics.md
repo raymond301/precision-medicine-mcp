@@ -21,7 +21,7 @@ The `mcp-spatialtools` server provides 23 tools for STAR alignment, batch correc
 
 ### Spatial Transcriptomics Pipeline
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph "Data Input"
         FASTQ[FASTQ Files<br/>Raw sequencing reads<br/>Paired-end 150bp]

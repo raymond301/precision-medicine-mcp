@@ -60,7 +60,7 @@ Full SSE transport docs: [`servers/mcp-fgbio/README.md#sse-transport`](https://g
 
 ### GCP Cloud Run Deployment Architecture
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph "Developer Workstation"
         CODE[Source Code<br/>servers/mcp-*/]

@@ -153,7 +153,7 @@ No API documentation to write. No client SDK to maintain. Just Python functions 
 
 Now let's see how this solves the precision oncology orchestration problem.
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph "User Interfaces"
         STREAMLIT[🌐 Streamlit Chat UI<br/>Web Interface<br/>Cloud Run]

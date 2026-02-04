@@ -22,7 +22,7 @@ The `mcp-deepcell` server uses **DeepCell-TF deep learning models** for nuclear 
 
 ### DeepCell Segmentation & Classification Pipeline
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph "Input Images"
         DAPI[DAPI<br/>Nuclear stain<br/>2048×2048 TIFF]

@@ -38,7 +38,7 @@ The `mcp-perturbation` server uses **GEARS (Graph-Enhanced Gene Activation and R
 
 ### GEARS Treatment Response Prediction Workflow
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph InputData[Input Data]
         BASELINE[Patient Baseline<br/>RNA-seq expression<br/>20,000 genes]

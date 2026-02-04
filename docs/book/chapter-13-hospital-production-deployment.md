@@ -25,7 +25,7 @@ Chapter 12 deployed MCP servers to public Cloud Run with `--allow-unauthenticate
 
 ### HIPAA-Compliant Hospital Deployment Architecture
 
-```mermaid
+```{mermaid}
 graph TB
     subgraph "Hospital Network (On-Premise)"
         RESEARCHER[Researcher<br/>Hospital workstation<br/>VPN connected]
