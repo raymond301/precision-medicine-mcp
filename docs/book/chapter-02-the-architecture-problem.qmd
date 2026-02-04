@@ -153,12 +153,7 @@ No API documentation to write. No client SDK to maintain. Just Python functions 
 
 Now let's see how this solves the precision oncology orchestration problem.
 
-```{=latex}
-\begin{landscape}
-```
-
 ```{mermaid}
-%%| fig-width: 9
 %%| deviceScaleFactor: 2
 graph TB
     subgraph "User Interfaces"
@@ -264,9 +259,6 @@ graph TB
 - 🔶 **Partial Implementation** (1/12): Some real integrations, some mocked
 - ❌ **Mocked** (3/12): Return synthetic data, API calls stubbed
 
-```{=latex}
-\end{landscape}
-```
 - 🎭 **Mock by Design** (1/12): Intentionally synthetic for demos
 
 ### The 12 Specialized Servers
