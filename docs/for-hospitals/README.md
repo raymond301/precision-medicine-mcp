@@ -294,7 +294,7 @@ graph TB
 **Related Resources:**
 - 💰 [ROI Analysis](../for-funders/ROI_ANALYSIS.md) - Cost-benefit analysis for CFOs
 - 🔬 [Researcher Guide](../for-researchers/README.md) - For bioinformaticians
-- 📊 [Executive Summary](../EXECUTIVE_SUMMARY.md) - Comprehensive technical overview
+- 📊 [Executive Summary](../for-funders/EXECUTIVE_SUMMARY.md) - Comprehensive technical overview
 - 🏠 [Back to Main Documentation](../README.md)
 
 ---

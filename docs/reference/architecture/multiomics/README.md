@@ -293,7 +293,7 @@ For detailed implementation information, see:
   - Testing procedures
 
 ### Deployment & Operations
-- **Current Status:** [Server Status](../../../SERVER_REGISTRY.md)
+- **Current Status:** [Server Status](../../SERVER_REGISTRY.md)
 - **GCP Deployment:** [deployment/DEPLOYMENT_STATUS.md](../../archive/deployment/DEPLOYMENT_STATUS.md)
 
 ### Additional Resources

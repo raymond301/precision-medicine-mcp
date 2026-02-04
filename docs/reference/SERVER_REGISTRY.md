@@ -2,7 +2,7 @@
 
 **Total Servers:** 12 | **Production Ready:** 7 (58%) | **Total Tools:** 124
 
-📁 **[Individual Server Documentation →](../servers/README.md)**
+📁 **[Individual Server Documentation →](../../servers/README.md)**
 
 ---
 
@@ -10,13 +10,13 @@
 
 | Server | Tools | Status | Key Capabilities | Documentation |
 |--------|-------|--------|------------------|---------------|
-| **mcp-fgbio** | 9 | 95% Real | FASTQ/VCF QC, genome refs, variant calling | [README](../servers/mcp-fgbio/README.md) |
-| **mcp-multiomics** | 21 | 85% Real | HAllA integration, Stouffer meta-analysis, upstream regulators | [README](../servers/mcp-multiomics/README.md) |
-| **mcp-spatialtools** | 23 | 95% Real | Spatial DE, STAR alignment, ComBat, pathway enrichment | [README](../servers/mcp-spatialtools/README.md) |
-| **mcp-perturbation** | 8 | 100% Real | GEARS GNN treatment response, perturbation prediction | [README](../servers/mcp-perturbation/README.md) |
-| **mcp-quantum-celltype-fidelity** | 6 | 100% Real | Quantum PQCs, fidelity analysis, Bayesian UQ, immune evasion | [README](../servers/mcp-quantum-celltype-fidelity/README.md) |
-| **mcp-deepcell** | 4 | 100% Real | DeepCell-TF segmentation, nuclear/membrane models, MxIF phenotyping | [README](../servers/mcp-deepcell/README.md) |
-| **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../servers/mcp-epic/) |
+| **mcp-fgbio** | 9 | 95% Real | FASTQ/VCF QC, genome refs, variant calling | [README](../../servers/mcp-fgbio/README.md) |
+| **mcp-multiomics** | 21 | 85% Real | HAllA integration, Stouffer meta-analysis, upstream regulators | [README](../../servers/mcp-multiomics/README.md) |
+| **mcp-spatialtools** | 23 | 95% Real | Spatial DE, STAR alignment, ComBat, pathway enrichment | [README](../../servers/mcp-spatialtools/README.md) |
+| **mcp-perturbation** | 8 | 100% Real | GEARS GNN treatment response, perturbation prediction | [README](../../servers/mcp-perturbation/README.md) |
+| **mcp-quantum-celltype-fidelity** | 6 | 100% Real | Quantum PQCs, fidelity analysis, Bayesian UQ, immune evasion | [README](../../servers/mcp-quantum-celltype-fidelity/README.md) |
+| **mcp-deepcell** | 4 | 100% Real | DeepCell-TF segmentation, nuclear/membrane models, MxIF phenotyping | [README](../../servers/mcp-deepcell/README.md) |
+| **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../../servers/mcp-epic/) |
 
 ---
 
@@ -24,7 +24,7 @@
 
 | Server | Tools | Status | Notes | Documentation |
 |--------|-------|--------|-------|---------------|
-| **mcp-openimagedata** | 7 | 60% Real | Basic histology working, registration/advanced features mocked | [README](../servers/mcp-openimagedata/README.md) |
+| **mcp-openimagedata** | 7 | 60% Real | Basic histology working, registration/advanced features mocked | [README](../../servers/mcp-openimagedata/README.md) |
 
 ---
 
@@ -32,10 +32,10 @@
 
 | Server | Tools | Purpose | Documentation |
 |--------|-------|---------|---------------|
-| **mcp-tcga** | 11 | TCGA cohort queries, survival analysis (synthetic) | [README](../servers/mcp-tcga/README.md) |
-| **mcp-huggingface** | 7 | ML model inference (API ready, awaiting models) | [Source](../servers/mcp-huggingface/) |
-| **mcp-seqera** | 7 | Nextflow workflow orchestration (demo) | [Source](../servers/mcp-seqera/) |
-| **mcp-mockepic** | 8 | Synthetic FHIR data for testing (by design) | [Source](../servers/mcp-mockepic/) |
+| **mcp-tcga** | 11 | TCGA cohort queries, survival analysis (synthetic) | [README](../../servers/mcp-tcga/README.md) |
+| **mcp-huggingface** | 7 | ML model inference (API ready, awaiting models) | [Source](../../servers/mcp-huggingface/) |
+| **mcp-seqera** | 7 | Nextflow workflow orchestration (demo) | [Source](../../servers/mcp-seqera/) |
+| **mcp-mockepic** | 8 | Synthetic FHIR data for testing (by design) | [Source](../../servers/mcp-mockepic/) |
 
 ---
 

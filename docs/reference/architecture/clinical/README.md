@@ -335,4 +335,4 @@ export DEIDENTIFY_ENABLED="true"
 
 ---
 
-**See also:** [Main Architecture](../README.md) | [Server Implementation Status](../../../SERVER_REGISTRY.md)
+**See also:** [Main Architecture](../README.md) | [Server Implementation Status](../../SERVER_REGISTRY.md)

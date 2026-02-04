@@ -244,7 +244,7 @@ to identify concordant pathway activations.
 - 🔶 **1/10 servers partial** (mcp-openimagedata - 60% real)
 - ❌ **5/10 servers mocked** (mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera, mcp-mockepic)
 
-📋 **[See Complete Server Implementation Status →](../SERVER_REGISTRY.md)** - Comprehensive 1,000+ line status matrix with:
+📋 **[See Complete Server Implementation Status →](../reference/SERVER_REGISTRY.md)** - Comprehensive 1,000+ line status matrix with:
 - Real vs. mocked capabilities for each server
 - Tool-by-tool implementation details
 - Test coverage and production readiness assessment

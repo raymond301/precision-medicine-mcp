@@ -8,8 +8,8 @@ This directory contains all documentation for the Precision Medicine MCP system,
 
 **New to the system?**
 - [Installation Guide](getting-started/installation.md) - Complete setup (Quick Start: 5 minutes)
-- [Executive Summary](EXECUTIVE_SUMMARY.md) - High-level overview for decision-makers
-- [Why MCP for Healthcare?](WHY_MCP_FOR_HEALTHCARE.md) - Understand the architecture
+- [Executive Summary](for-funders/EXECUTIVE_SUMMARY.md) - High-level overview for decision-makers
+- [Why MCP for Healthcare?](reference/architecture/WHY_MCP_FOR_HEALTHCARE.md) - Understand the architecture
 
 **Find your guide:**
 - 🔬 [For Researchers](for-researchers/README.md)

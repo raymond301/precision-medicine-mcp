@@ -496,7 +496,7 @@ python infrastructure/audit/audit_bias.py \
 - Add "Bias Audit Dashboard" to monitoring section
 - Document how to run `audit_bias.py` script
 
-**6.4 Update `docs/EXECUTIVE_SUMMARY.md`**
+**6.4 Update `docs/for-funders/EXECUTIVE_SUMMARY.md`**
 - Add "Ethical AI & Bias Mitigation" to key features
 - Highlight alignment with WHO/FDA/EU AI Act standards
 - Emphasize trust-building for clinical adoption

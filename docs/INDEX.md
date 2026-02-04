@@ -11,8 +11,8 @@ This is your central navigation hub for all documentation. Use this index to qui
 **New to the Precision Medicine MCP system? Start here:**
 
 - **[Installation Guide](./getting-started/installation.md)** - Complete setup instructions (Quick Start: 5 minutes)
-- **[Executive Summary](./EXECUTIVE_SUMMARY.md)** - High-level overview for decision-makers
-- **[Why MCP for Healthcare?](./WHY_MCP_FOR_HEALTHCARE.md)** - Understand MCP architecture advantages
+- **[Executive Summary](for-funders/EXECUTIVE_SUMMARY.md)** - High-level overview for decision-makers
+- **[Why MCP for Healthcare?](reference/architecture/WHY_MCP_FOR_HEALTHCARE.md)** - Understand MCP architecture advantages
 
 ---
 
@@ -39,7 +39,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 **Technical system design and implementation:**
 
 - **[Architecture Overview](reference/architecture/README.md)** - System design principles
-- **[Server Status](./SERVER_REGISTRY.md)** - Implementation status and capabilities matrix
+- **[Server Status](reference/SERVER_REGISTRY.md)** - Implementation status and capabilities matrix
 - **[Clinical-Spatial Bridge](reference/architecture/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
 - **[Error Handling](reference/architecture/error-handling.md)** - Error handling and retry logic
 - **[References](reference/architecture/references.md)** - Technical references and citations

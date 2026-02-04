@@ -252,9 +252,9 @@ MCP standardizes:
 ## Learn More
 
 - **[MCP Specification](https://modelcontextprotocol.io/)** - Official MCP documentation
-- **[Architecture Details](reference/architecture/README.md)** - System design and workflows
-- **[Developer Guide](for-developers/README.md)** - Build your own MCP servers
-- **[90-Second Demo](for-funders/NINETY_SECOND_PITCH.md)** - See it in action
+- **[Architecture Details](./README.md)** - System design and workflows
+- **[Developer Guide](../../for-developers/README.md)** - Build your own MCP servers
+- **[90-Second Demo](../../for-funders/NINETY_SECOND_PITCH.md)** - See it in action
 
 ---
 

@@ -58,7 +58,7 @@
 - **For Hospitals:** [docs/for-hospitals/](for-hospitals/)
 - **For Researchers:** [docs/for-researchers/](for-researchers/)
 - **For Developers:** [docs/for-developers/](for-developers/)
-- **Executive Summary:** [docs/EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)
+- **Executive Summary:** [docs/EXECUTIVE_SUMMARY.md](for-funders/EXECUTIVE_SUMMARY.md)
 - **Architecture:** [docs/architecture/](reference/architecture)
 
 ---

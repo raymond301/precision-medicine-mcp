@@ -20,7 +20,7 @@
 1. **Read the elevator pitch** → [FUNDING.md](./FUNDING.md) (5 min)
 2. **Watch the 90-second demo** → [Demo Script](NINETY_SECOND_PITCH.md) (2 min)
 3. **Review detailed ROI** → [ROI Analysis](ROI_ANALYSIS.md) (10 min)
-4. **Assess technical validation** → [Executive Summary](../EXECUTIVE_SUMMARY.md) (15 min)
+4. **Assess technical validation** → [Executive Summary](EXECUTIVE_SUMMARY.md) (15 min)
 5. **Schedule follow-up** → Contact information below
 
 **Total Time Investment:** 30-35 minutes to full evaluation
@@ -39,8 +39,8 @@
 - **[Grant Talking Points](GRANT_TALKING_POINTS.md)** - Key messages for grant applications
 
 ### Technical Validation
-- **[Executive Summary](../EXECUTIVE_SUMMARY.md)** - System architecture, capabilities, deployment timeline
-- **[Server Status](../SERVER_REGISTRY.md)** - Implementation status for all 10 servers
+- **[Executive Summary](EXECUTIVE_SUMMARY.md)** - System architecture, capabilities, deployment timeline
+- **[Server Status](../reference/SERVER_REGISTRY.md)** - Implementation status for all 10 servers
 - **[Testing Coverage](../../tests/README.md)** - 167 automated tests, 68% coverage
 
 ### Compliance & Risk

@@ -314,7 +314,7 @@ Compare to traditional: 40 hours, $6,000
 
 **Related Resources:**
 - 💰 [ROI Analysis](ROI_ANALYSIS.md)
-- 📊 [Executive Summary](../EXECUTIVE_SUMMARY.md)
+- 📊 [Executive Summary](EXECUTIVE_SUMMARY.md)
 - 🏥 [Competitive Landscape](COMPETITIVE_LANDSCAPE.md)
 
 ---

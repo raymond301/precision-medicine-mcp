@@ -365,7 +365,7 @@ graph TD
 
 **Related Resources:**
 - 💰 [ROI Analysis](ROI_ANALYSIS.md)
-- 📊 [Executive Summary](../EXECUTIVE_SUMMARY.md)
+- 📊 [Executive Summary](EXECUTIVE_SUMMARY.md)
 - 🏥 [Hospital Deployment Guide](../for-hospitals/README.md)
 
 ---

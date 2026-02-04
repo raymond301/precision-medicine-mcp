@@ -194,7 +194,7 @@ See: [FUNDING.md](../for-funders/FUNDING.md) for detailed budget breakdown
 **For Interested Funders:**
 - Schedule 30-minute deep dive: [Full PatientOne Demo](FULL_PATIENTONE_DEMO.md)
 - Review detailed budget: [FUNDING.md](../for-funders/FUNDING.md)
-- Technical Q&A: [Executive Summary](../EXECUTIVE_SUMMARY.md)
+- Technical Q&A: [Executive Summary](EXECUTIVE_SUMMARY.md)
 
 **For Hospital IT:**
 - Security review: [Security Guide](../reference/deployment/security.md)
