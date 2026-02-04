@@ -12,24 +12,24 @@ book:
     - part: "Part 1: Why This Matters"
       chapters:
         - chapter-01-the-patientone-story.md
-        - chapter-02-the-architecture-problem.md
-        - chapter-03-testing-the-hypothesis.md
+        - chapter-02-the-architecture-problem.qmd
+        - chapter-03-testing-the-hypothesis.qmd
     - part: "Part 2: Building the Foundation"
       chapters:
-        - chapter-04-clinical-data.md
+        - chapter-04-clinical-data.qmd
         - chapter-05-genomic-foundations.md
-        - chapter-06-multiomics-integration.md
-        - chapter-07-spatial-transcriptomics.md
+        - chapter-06-multiomics-integration.qmd
+        - chapter-07-spatial-transcriptomics.qmd
     - part: "Part 3: Advanced Capabilities"
       chapters:
-        - chapter-08-cell-segmentation.md
-        - chapter-09-treatment-response-prediction.md
-        - chapter-10-quantum-celltype-fidelity.md
+        - chapter-08-cell-segmentation.qmd
+        - chapter-09-treatment-response-prediction.qmd
+        - chapter-10-quantum-celltype-fidelity.qmd
         - chapter-11-imaging-histopathology.md
     - part: "Part 4: Deployment and Operations"
       chapters:
-        - chapter-12-cloud-deployment-gcp.md
-        - chapter-13-hospital-production-deployment.md
+        - chapter-12-cloud-deployment-gcp.qmd
+        - chapter-13-hospital-production-deployment.qmd
         - chapter-14-operations-monitoring.md
     - part: "Part 5: Research and Education"
       chapters:
