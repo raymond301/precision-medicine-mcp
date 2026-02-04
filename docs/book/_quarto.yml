@@ -63,6 +63,7 @@ format:
     include-in-header:
       - header.tex
     keep-tex: true
+    fig-width: 6.5
     fig-pos: 'H'
     highlight-style: tango
     mermaid-format: png

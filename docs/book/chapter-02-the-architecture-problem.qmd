@@ -153,7 +153,12 @@ No API documentation to write. No client SDK to maintain. Just Python functions 
 
 Now let's see how this solves the precision oncology orchestration problem.
 
+```{=latex}
+\begin{landscape}
+```
+
 ```{mermaid}
+%%| fig-width: 9
 graph TB
     subgraph "User Interfaces"
         STREAMLIT[🌐 Streamlit Chat UI<br/>Web Interface<br/>Cloud Run]
@@ -257,6 +262,10 @@ graph TB
 - ✅ **Production Ready** (7/12): Real data, comprehensive tests, deployed
 - 🔶 **Partial Implementation** (1/12): Some real integrations, some mocked
 - ❌ **Mocked** (3/12): Return synthetic data, API calls stubbed
+
+```{=latex}
+\end{landscape}
+```
 - 🎭 **Mock by Design** (1/12): Intentionally synthetic for demos
 
 ### The 12 Specialized Servers
