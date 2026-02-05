@@ -156,7 +156,7 @@ async def get_patient_demographics(patient_id: str = "patient-001"):
 
 To add additional test patients or resources:
 
-1. **Create JSON file** in `infrastructure/test-data/fhir/`
+1. **Create JSON file** in `data/patient-data/PAT001-OVC-2025/clinical/fhir_raw/`
 2. **Follow FHIR R4 format** (examples provided)
 3. **Upload using:**
    ```bash

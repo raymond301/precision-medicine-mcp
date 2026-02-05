@@ -33,9 +33,8 @@ echo ""
 
 # Create necessary directories
 echo "Creating directory structure..."
-mkdir -p "$PROJECT_ROOT/data/reference"
-mkdir -p "$PROJECT_ROOT/data/test_data"
-mkdir -p "$PROJECT_ROOT/data/cache"
+mkdir -p "$PROJECT_ROOT/data/patient-data"
+mkdir -p "$PROJECT_ROOT/data/images"
 mkdir -p "$PROJECT_ROOT/tests/integration"
 mkdir -p "$PROJECT_ROOT/tests/e2e"
 
