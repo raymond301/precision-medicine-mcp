@@ -33,7 +33,7 @@ echo "Gemini API Key length: ${#GEMINI_API_KEY} characters"
 echo ""
 
 # Deploy
-gcloud run deploy streamlit-mcp-chat \
+gcloud run deploy streamlit-mcp-chat-students \
     --source . \
     --platform managed \
     --region us-central1 \
@@ -52,7 +52,7 @@ echo ""
 echo "✅ Deployment complete!"
 
 # Get URL
-SERVICE_URL=$(gcloud run services describe streamlit-mcp-chat \
+SERVICE_URL=$(gcloud run services describe streamlit-mcp-chat-students \
     --region us-central1 \
     --project precision-medicine-poc \
     --format 'value(status.url)')
