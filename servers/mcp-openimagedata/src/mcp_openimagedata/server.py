@@ -7,6 +7,7 @@ spatial registration, and feature extraction.
 import json
 import logging
 import os
+import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -17,6 +18,12 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 from fastmcp import FastMCP
+from scipy import ndimage, stats
+from skimage.feature import local_binary_pattern, graycomatrix, graycoprops
+from skimage.filters import threshold_otsu
+from skimage.measure import label, regionprops, shannon_entropy
+from skimage.registration import phase_cross_correlation
+from skimage.transform import AffineTransform, warp
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -158,17 +165,45 @@ async def fetch_histology_image(
             }
         }
 
-    # Real implementation would download from image database
-    return {
-        "image_path": str(image_path),
-        "dimensions": {"width": 4096, "height": 4096},
-        "file_size_mb": 50.0,
-        "metadata": {
-            "stain_type": stain_type,
-            "magnification": "20x",
-            "format": "TIFF"
+    try:
+        # If exact path doesn't exist, search for a partial match
+        if not image_path.exists():
+            candidates = sorted((IMAGE_DIR / stain_type).glob(f"*{image_id}*"))
+            if candidates:
+                image_path = candidates[0]
+                logger.info(f"Exact path not found; matched: {image_path.name}")
+            else:
+                return {
+                    "status": "error",
+                    "error": f"Image not found for id '{image_id}' in {IMAGE_DIR / stain_type}",
+                    "message": "Check image_id or verify IMAGE_DATA_DIR contains the requested image."
+                }
+
+        img = Image.open(image_path)
+        width, height = img.size
+        file_size_mb = round(image_path.stat().st_size / (1024 * 1024), 2)
+        magnification = "20x" if resolution == "high" else ("10x" if resolution == "medium" else "4x")
+
+        logger.info(f"Loaded {image_path.name}: {width}x{height}, {file_size_mb} MB")
+
+        return {
+            "image_path": str(image_path),
+            "dimensions": {"width": width, "height": height},
+            "file_size_mb": file_size_mb,
+            "metadata": {
+                "stain_type": stain_type,
+                "magnification": magnification,
+                "format": image_path.suffix.lstrip(".").upper(),
+                "color_mode": img.mode
+            }
         }
-    }
+    except Exception as e:
+        logger.error(f"Error loading image: {e}", exc_info=True)
+        return {
+            "status": "error",
+            "error": str(e),
+            "message": "Failed to load image. Check file path and format."
+        }
 
 
 # ============================================================================
@@ -248,23 +283,122 @@ async def register_image_to_spatial(
             "mode": "dry_run"
         }
 
-    # Real implementation would use image registration algorithms
-    return {
-        "registered_image": str(output_path),
-        "transformation_matrix": {
-            "scale_x": 1.0,
-            "scale_y": 1.0,
-            "rotation_degrees": 0.0,
-            "translation_x": 0.0,
-            "translation_y": 0.0
-        },
-        "registration_quality": {
-            "rmse": 2.1,
-            "correlation": 0.92,
-            "matched_points": 400,
-            "method": registration_method
+    try:
+        start = time.time()
+
+        # Load histology image as grayscale
+        hist_img = np.array(Image.open(image_path).convert('L'))
+        logger.info(f"Loaded histology image: {hist_img.shape}")
+
+        # Parse spatial coordinates — supports Visium and generic x/y formats
+        coords_df = pd.read_csv(spatial_coordinates_file)
+        if 'pxl_col_in_fullres' in coords_df.columns:
+            x_col, y_col = 'pxl_col_in_fullres', 'pxl_row_in_fullres'
+            if 'in_tissue' in coords_df.columns:
+                coords_df = coords_df[coords_df['in_tissue'] == 1]
+        elif 'x' in coords_df.columns and 'y' in coords_df.columns:
+            x_col, y_col = 'x', 'y'
+        else:
+            raise ValueError(
+                f"Could not find coordinate columns. Expected 'pxl_col_in_fullres'/'pxl_row_in_fullres' "
+                f"(Visium) or 'x'/'y'. Found: {list(coords_df.columns)}"
+            )
+        spot_x = coords_df[x_col].values.astype(float)
+        spot_y = coords_df[y_col].values.astype(float)
+        logger.info(f"Loaded {len(spot_x)} in-tissue spots from {coord_path.name}")
+
+        # Tissue detection via Otsu thresholding (tissue is dark in H&E)
+        thresh = threshold_otsu(hist_img)
+        tissue_mask = hist_img < thresh
+        tissue_rows, tissue_cols = np.where(tissue_mask)
+
+        if len(tissue_rows) == 0:
+            raise ValueError("No tissue detected in image. Otsu threshold found no dark regions.")
+
+        # Bounding boxes: (x_min, y_min, x_max, y_max)
+        tissue_bbox = (int(tissue_cols.min()), int(tissue_rows.min()),
+                       int(tissue_cols.max()), int(tissue_rows.max()))
+        spot_bbox = (float(spot_x.min()), float(spot_y.min()),
+                     float(spot_x.max()), float(spot_y.max()))
+
+        tissue_w = tissue_bbox[2] - tissue_bbox[0]
+        tissue_h = tissue_bbox[3] - tissue_bbox[1]
+        spot_w = spot_bbox[2] - spot_bbox[0]
+        spot_h = spot_bbox[3] - spot_bbox[1]
+
+        # Estimate scale from extent ratio
+        scale_x = spot_w / tissue_w if tissue_w > 0 else 1.0
+        scale_y = spot_h / tissue_h if tissue_h > 0 else 1.0
+
+        if registration_method == "rigid":
+            uniform_scale = (scale_x + scale_y) / 2.0
+            scale_x = scale_y = uniform_scale
+
+        # Translation to align top-left corners after scaling
+        trans_x = spot_bbox[0] - tissue_bbox[0] * scale_x
+        trans_y = spot_bbox[1] - tissue_bbox[1] * scale_y
+        rotation_deg = 0.0
+
+        if registration_method == "deformable":
+            # Refine with phase cross-correlation: rasterize spots as density map
+            ref_img = np.zeros_like(hist_img, dtype=np.float64)
+            for sx, sy in zip(spot_x, spot_y):
+                r, c = int(round(sy)), int(round(sx))
+                if 0 <= r < ref_img.shape[0] and 0 <= c < ref_img.shape[1]:
+                    ref_img[r, c] = 1.0
+            ref_blurred = ndimage.gaussian_filter(ref_img, sigma=15)
+            tissue_inverted = 1.0 - hist_img.astype(np.float64) / max(hist_img.max(), 1)
+            shift, _, _ = phase_cross_correlation(ref_blurred, tissue_inverted, upsample_factor=2)
+            trans_y += float(shift[0]) * scale_y
+            trans_x += float(shift[1]) * scale_x
+            logger.info(f"Phase correlation refinement shift: ({shift[0]:.1f}, {shift[1]:.1f})")
+
+        # Apply affine transform and save registered image
+        transform = AffineTransform(scale=(scale_x, scale_y), translation=(trans_x, trans_y))
+        registered = warp(hist_img, transform.inverse, output_shape=hist_img.shape, preserve_range=True)
+        Image.fromarray(registered.astype(np.uint8)).save(output_path)
+        logger.info(f"Saved registered image to {output_path}")
+
+        # Quality: count spots that fall on tissue in the original mask
+        matched = 0
+        for sx, sy in zip(spot_x, spot_y):
+            r, c = int(round(sy)), int(round(sx))
+            if 0 <= r < tissue_mask.shape[0] and 0 <= c < tissue_mask.shape[1]:
+                if tissue_mask[r, c]:
+                    matched += 1
+
+        # Correlation between tissue density and spot density
+        if registration_method == "deformable":
+            correlation = float(np.corrcoef(ref_blurred.flatten(), tissue_inverted.flatten())[0, 1])
+        else:
+            correlation = round(matched / max(len(spot_x), 1), 3)
+
+        rmse = round(float(np.sqrt((scale_x - 1) ** 2 + (scale_y - 1) ** 2)), 3)
+
+        return {
+            "registered_image": str(output_path),
+            "transformation_matrix": {
+                "scale_x": round(float(scale_x), 4),
+                "scale_y": round(float(scale_y), 4),
+                "rotation_degrees": round(rotation_deg, 2),
+                "translation_x": round(float(trans_x), 2),
+                "translation_y": round(float(trans_y), 2)
+            },
+            "registration_quality": {
+                "rmse": rmse,
+                "correlation": round(float(correlation), 3),
+                "matched_points": int(matched),
+                "method": registration_method,
+                "total_spots": int(len(spot_x)),
+                "processing_time_seconds": round(time.time() - start, 2)
+            }
         }
-    }
+    except (IOError, ValueError) as e:
+        logger.error(f"Registration input error: {e}")
+        return {"status": "error", "error": str(e), "message": "Check input files and parameters."}
+    except Exception as e:
+        logger.error(f"Registration failed: {e}", exc_info=True)
+        return {"status": "error", "error": str(e), "message": "Registration failed. Check logs for details."}
 
 
 # ============================================================================
@@ -333,13 +467,192 @@ async def extract_image_features(
             "mode": "dry_run"
         }
 
-    # Real implementation would use OpenCV/scikit-image
-    return {
-        "features": [0.5] * 20,
-        "feature_names": [f"{feature_type}_{i}" for i in range(20)],
-        "roi_count": 1,
-        "processing_time_seconds": 3.0
-    }
+    try:
+        start = time.time()
+        img = np.array(Image.open(image_path).convert('L'))  # grayscale uint8
+
+        # Build list of sub-images to process: per-ROI or full image
+        regions: List[Tuple[str, np.ndarray]] = []
+        if roi_coordinates:
+            for idx, (x1, y1, x2, y2) in enumerate(roi_coordinates):
+                roi = img[y1:y2, x1:x2]
+                if roi.size == 0:
+                    continue
+                regions.append((f"roi_{idx}", roi))
+        else:
+            regions.append(("full_image", img))
+
+        all_features: List[Dict[str, Any]] = []
+
+        for region_name, region_img in regions:
+            if feature_type == "texture":
+                features, names = _extract_texture(region_img)
+            elif feature_type == "morphology":
+                features, names = _extract_morphology(region_img)
+            else:  # intensity
+                features, names = _extract_intensity(region_img)
+
+            all_features.append({
+                "region": region_name,
+                "features": features,
+                "feature_names": names
+            })
+
+        # Flatten for single-region case (backward compatible)
+        if len(all_features) == 1:
+            feat_values = all_features[0]["features"]
+            feat_names = all_features[0]["feature_names"]
+        else:
+            feat_values = [r["features"] for r in all_features]
+            feat_names = all_features[0]["feature_names"]
+
+        flat = [v for v in (feat_values if isinstance(feat_values[0], (int, float)) else
+                            [item for sublist in feat_values for item in sublist])]
+
+        logger.info(f"Extracted {len(feat_names)} {feature_type} features from {len(regions)} region(s)")
+
+        return {
+            "features": flat,
+            "feature_names": feat_names,
+            "roi_count": len(regions),
+            "processing_time_seconds": round(time.time() - start, 2),
+            "feature_statistics": {
+                "mean": round(float(np.mean(flat)), 4),
+                "std": round(float(np.std(flat)), 4),
+                "min": round(float(np.min(flat)), 4),
+                "max": round(float(np.max(flat)), 4)
+            }
+        }
+    except (IOError, ValueError) as e:
+        logger.error(f"Feature extraction input error: {e}")
+        return {"status": "error", "error": str(e), "message": "Check image path and parameters."}
+    except Exception as e:
+        logger.error(f"Feature extraction failed: {e}", exc_info=True)
+        return {"status": "error", "error": str(e), "message": "Feature extraction failed. Check logs."}
+
+
+# ============================================================================
+# FEATURE EXTRACTION HELPERS
+# ============================================================================
+
+
+def _extract_texture(img: np.ndarray) -> Tuple[List[float], List[str]]:
+    """Extract 25 texture features: LBP histogram (10) + GLCM props (10) + summary stats (5)."""
+    features: List[float] = []
+    names: List[str] = []
+
+    # --- LBP histogram (10 bins for P=8 uniform) ---
+    lbp = local_binary_pattern(img, P=8, R=1, method='uniform')
+    n_bins = 10  # P+2 for uniform
+    hist, _ = np.histogram(lbp, bins=n_bins, range=(0, n_bins))
+    hist_norm = hist.astype(float) / (hist.sum() + 1e-8)
+    for i, v in enumerate(hist_norm):
+        features.append(round(float(v), 6))
+        names.append(f"lbp_hist_bin{i}")
+
+    # --- GLCM properties (5 props x 2 distances = 10) ---
+    # Downsample if image is large to keep GLCM fast
+    max_dim = 512
+    if max(img.shape) > max_dim:
+        from skimage.transform import resize
+        scale = max_dim / max(img.shape)
+        img_small = (resize(img, (int(img.shape[0] * scale), int(img.shape[1] * scale)),
+                            preserve_range=True)).astype(np.uint8)
+    else:
+        img_small = img
+
+    glcm = graycomatrix(img_small, distances=[1, 3], angles=[0, np.pi / 4, np.pi / 2, 3 * np.pi / 4],
+                         levels=256, symmetric=True, normed=True)
+    for prop_name in ['contrast', 'dissimilarity', 'correlation', 'energy', 'homogeneity']:
+        prop_vals = graycoprops(glcm, prop_name)  # shape (n_distances, n_angles)
+        for d_idx, d in enumerate([1, 3]):
+            val = float(np.mean(prop_vals[d_idx, :]))  # average across angles
+            features.append(round(val, 6))
+            names.append(f"glcm_{prop_name}_d{d}")
+
+    # --- Summary stats (5) ---
+    features.append(round(float(np.mean(lbp)), 4))
+    names.append("lbp_mean")
+    features.append(round(float(np.std(lbp)), 4))
+    names.append("lbp_std")
+    features.append(round(float(shannon_entropy(lbp.astype(int))), 4))
+    names.append("lbp_entropy")
+    features.append(round(float(shannon_entropy(img)), 4))
+    names.append("image_entropy")
+    features.append(round(float(np.std(img)), 4))
+    names.append("image_std")
+
+    return features, names
+
+
+def _extract_morphology(img: np.ndarray) -> Tuple[List[float], List[str]]:
+    """Extract 15 morphology features from thresholded connected components."""
+    features: List[float] = []
+    names: List[str] = []
+
+    thresh = threshold_otsu(img)
+    binary = img < thresh  # tissue is dark
+    labeled = label(binary)
+    props = regionprops(labeled)
+
+    num_objects = len(props)
+    features.append(float(num_objects))
+    names.append("num_objects")
+
+    if num_objects == 0:
+        # No objects detected — pad with zeros
+        for metric in ['area', 'perimeter', 'solidity', 'eccentricity']:
+            for agg in ['mean', 'std', 'median']:
+                features.append(0.0)
+                names.append(f"{metric}_{agg}")
+        features.extend([0.0, 0.0])
+        names.extend(["circularity_mean", "circularity_std"])
+        return features, names
+
+    areas = np.array([p.area for p in props], dtype=float)
+    perimeters = np.array([p.perimeter for p in props], dtype=float)
+    solidities = np.array([p.solidity for p in props], dtype=float)
+    eccentricities = np.array([p.eccentricity for p in props], dtype=float)
+    # circularity = 4*pi*area / perimeter^2  (1.0 = perfect circle)
+    circularities = 4 * np.pi * areas / (perimeters ** 2 + 1e-8)
+
+    for metric_name, values in [("area", areas), ("perimeter", perimeters),
+                                 ("solidity", solidities), ("eccentricity", eccentricities)]:
+        features.append(round(float(np.mean(values)), 4))
+        names.append(f"{metric_name}_mean")
+        features.append(round(float(np.std(values)), 4))
+        names.append(f"{metric_name}_std")
+        features.append(round(float(np.median(values)), 4))
+        names.append(f"{metric_name}_median")
+
+    features.append(round(float(np.mean(circularities)), 4))
+    names.append("circularity_mean")
+    features.append(round(float(np.std(circularities)), 4))
+    names.append("circularity_std")
+
+    return features, names
+
+
+def _extract_intensity(img: np.ndarray) -> Tuple[List[float], List[str]]:
+    """Extract 10 intensity features: stats + percentiles + entropy."""
+    pixels = img.astype(float).flatten()
+    features: List[float] = [
+        round(float(np.mean(pixels)), 4),
+        round(float(np.std(pixels)), 4),
+        round(float(np.median(pixels)), 4),
+        round(float(np.min(pixels)), 4),
+        round(float(np.max(pixels)), 4),
+        round(float(stats.skew(pixels)), 4),
+        round(float(stats.kurtosis(pixels)), 4),
+        round(float(np.percentile(pixels, 25)), 4),
+        round(float(np.percentile(pixels, 75)), 4),
+        round(float(shannon_entropy(img)), 4),
+    ]
+    names: List[str] = [
+        "mean", "std", "median", "min", "max",
+        "skewness", "kurtosis", "p25", "p75", "entropy"
+    ]
+    return features, names
 
 
 # ============================================================================

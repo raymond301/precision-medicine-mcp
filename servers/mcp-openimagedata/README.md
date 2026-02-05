@@ -224,9 +224,9 @@ Extract texture features from tumor regions:
 ```
 
 **Feature types:**
-- **texture**: Haralick texture features (contrast, correlation, energy, homogeneity)
-- **morphology**: Shape and structural features (eccentricity, solidity, area)
-- **intensity**: Pixel intensity statistics (mean, std, skewness, entropy)
+- **texture** (25 features): LBP histogram (10) + GLCM properties across 2 distances (10) + summary stats (5)
+- **morphology** (15 features): Connected-component regionprops — area, perimeter, solidity, eccentricity (mean/std/median each) + circularity (mean/std) + object count
+- **intensity** (10 features): mean, std, median, min, max, skewness, kurtosis, p25, p75, Shannon entropy
 
 **Output:** Feature vectors for downstream analysis (correlation with spatial expression, clustering)
 
@@ -554,15 +554,13 @@ mypy src/
 
 ## Architecture
 
-### Implementation Status: 60% Real (3 of 5 tools fully implemented)
+### Implementation Status: 100% Real (all 5 tools production-ready)
 
-- **fetch_histology_image**: 100% real (PIL-based image loading for H&E and IF)
-- **register_image_to_spatial**: 0% real (mocked - requires OpenCV/ITK for spatial alignment)
-- **extract_image_features**: 0% real (mocked - requires computer vision libraries)
-- **generate_multiplex_composite**: 100% real (full implementation with RGB channel blending)
-- **generate_he_annotation**: 100% real (matplotlib-based morphology annotation)
-
-**Note:** Full image registration and feature extraction require OpenCV or scikit-image integration (1-2 weeks development). Image loading and visualization tools are fully functional and production-ready.
+- **fetch_histology_image**: PIL-based image loading with glob fallback for partial ID matching
+- **register_image_to_spatial**: scikit-image registration — Otsu tissue detection, bbox-based affine/rigid estimation, phase-cross-correlation refinement for deformable; supports Visium and generic x/y coordinate formats
+- **extract_image_features**: scikit-image feature extraction — LBP + GLCM texture (25 features), connected-component morphology (15 features), intensity statistics + entropy (10 features); per-ROI support
+- **generate_multiplex_composite**: Full RGB channel blending for 1-7 fluorescence channels
+- **generate_he_annotation**: matplotlib-based morphology annotation with region overlays
 
 ### Design Principles
 
