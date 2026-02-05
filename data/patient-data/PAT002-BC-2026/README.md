@@ -1,0 +1,492 @@
+# PAT002-BC-2026: Synthetic Patient Data
+
+## Overview
+
+This directory contains **100% synthetic patient data** created for demonstration and testing purposes. The data represents a realistic but completely fabricated Stage IIA ER+/PR+/HER2- Invasive Ductal Carcinoma (IDC) breast cancer patient case with BRCA2 germline mutation.
+
+**Patient:** Michelle Anne Thompson (synthetic)
+**Diagnosis:** Stage IIA (T2N0M0) ER+/PR+/HER2- Breast Cancer, BRCA2+ (c.5946delT)
+**Treatment Status:** Post-adjuvant therapy (surgery + chemotherapy + radiation), currently on tamoxifen
+**Disease Status:** Disease-free at surveillance (2026-01-15)
+**Purpose:** Demonstrate precision medicine MCP server workflows for breast cancer
+
+---
+
+## Data Origin & Creation
+
+### ⚠️ CRITICAL: ALL DATA IS SYNTHETIC
+
+**This is NOT real patient data.** All files were artificially generated using:
+
+1. **Statistical models** - Random number generators with clinically plausible distributions
+2. **Expert knowledge** - Curated to reflect realistic breast cancer biology (Luminal A/B subtype)
+3. **Published literature** - Based on TCGA-BRCA studies, BRCA2 mutation data, and clinical guidelines
+4. **No PHI/PII** - Contains zero protected health information or personally identifiable information
+
+**Source:** Created by the Precision Medicine MCP development team for demonstration purposes (2026-01-31).
+
+---
+
+## Data Modalities (5 types, 33+ files)
+
+### 1. Clinical Data (`clinical/`)
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+| `patient_demographics.json` | 6.5 KB | Patient demographics, BRCA2 status, family history | Synthetic |
+| `lab_results.json` | 7.2 KB | CEA/CA 15-3 tumor markers, CBC, liver/lipid panels | Modeled after clinical patterns |
+| `fhir_raw/patient-002.json` | 2.1 KB | FHIR R4 Patient resource | Synthetic FHIR-compliant |
+| `fhir_raw/condition-breast-cancer.json` | 2.3 KB | FHIR Condition resource (diagnosis) | Synthetic |
+| `fhir_raw/observation-cea.json` | 1.8 KB | CEA tumor marker observations | Synthetic |
+| `fhir_raw/observation-brca2.json` | 2.0 KB | BRCA2 genetic test result | Synthetic |
+| `fhir_raw/observation-er-pr-her2.json` | 2.5 KB | Hormone receptor status (ER 85%, PR 70%, HER2 neg) | Synthetic |
+| `fhir_raw/medication-tamoxifen.json` | 1.7 KB | Active tamoxifen prescription | Synthetic |
+| `fhir_raw/medication-doxorubicin.json` | 1.6 KB | Completed AC chemotherapy | Synthetic |
+| `fhir_raw/medication-paclitaxel.json` | 1.6 KB | Completed taxane chemotherapy | Synthetic |
+
+**Generation method:**
+- Demographics: Randomly generated name (Michelle Thompson, 42F), dates, identifiers
+- Family history: Maternal breast cancer (age 58), maternal aunt ovarian cancer (age 52), sister BRCA2+ carrier
+- CEA/CA 15-3 values: Gaussian noise around normal post-treatment surveillance trajectory
+- FHIR resources: Standards-compliant with proper SNOMED CT, ICD-10, LOINC, RxNorm codes
+
+**Clinical scenario:**
+- Diagnosis: December 2024 (Stage IIA, T2N0M0, 2.5cm tumor, node-negative)
+- Surgery: January 2025 (lumpectomy + sentinel node biopsy)
+- Chemotherapy: February-May 2025 (AC-T: doxorubicin/cyclophosphamide → paclitaxel)
+- Radiation: June-July 2025 (adjuvant)
+- Current: Tamoxifen 20mg daily (started August 2025, planned 5-10 years)
+- Surveillance: Q3 months with tumor markers, imaging annually
+
+---
+
+### 2. Genomic Data (`genomics/`)
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+| `somatic_variants.vcf` | 2.8 KB | Germline BRCA2 + somatic mutations | Based on TCGA-BRCA + ClinVar |
+
+**Generation method:**
+- Selected common breast cancer driver mutations from TCGA-BRCA dataset
+- VCF format (v4.2) with realistic variant quality scores
+- Germline BRCA2 c.5946delT frameshift mutation (heterozygous in tumor and normal)
+- Somatic mutations in tumor only
+
+**Key mutations (realistic for BRCA2+ ER+ breast cancer):**
+
+**Germline:**
+1. **BRCA2 c.5946delT** (chr13:32339811, frameshift) - GT: 0/1, AF: 0.50 in both tumor/normal
+   - COSMIC: COSV57492880 (pathogenic, Class 5)
+   - Homologous recombination deficiency (HRD) phenotype
+   - PARP inhibitor eligible
+
+**Somatic (tumor-only):**
+2. **PIK3CA H1047R** (chr3:178952085, G>A) - AF: 0.42
+   - COSMIC: COSM775 (hotspot mutation)
+   - Common in ER+ breast cancer (~40% prevalence)
+   - PI3K/AKT/mTOR pathway activation
+
+3. **GATA3 frameshift** (chr10:8100656) - AF: 0.38
+   - Tumor suppressor in breast epithelium
+
+4. **MAP3K1 missense** (chr5:56111569) - AF: 0.35
+   - Loss-of-function, favorable prognosis in ER+ BC
+
+5. **MYC amplification** (chr8:128748315) - Copy number 6
+   - Proliferation driver
+
+6. **CCND1 amplification** (chr11:69455873)
+   - Common in ER+ breast cancer
+
+7. **TP53 wild-type** - No mutation (typical for Luminal A/B, not TNBC)
+
+8. **ESR1 wild-type** - No mutation (tamoxifen-sensitive, no resistance)
+
+9. **ERBB2 (HER2) wild-type** - No amplification (HER2-negative)
+
+---
+
+### 3. Multi-Omics Data (`multiomics/`)
+
+#### Demonstration Data (Pre/Post Treatment Comparison)
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+| `tumor_rna_seq.csv` | 310 KB | RNA-seq for 12 samples (6 pre, 6 post) | Synthetic |
+| `tumor_proteomics.csv` | 125 KB | Proteomics for 12 samples | Synthetic |
+| `tumor_phosphoproteomics.csv` | 82 KB | Phosphoproteomics for 12 samples | Synthetic |
+| `sample_metadata.csv` | 0.5 KB | Sample annotations (pre/post treatment) | Synthetic |
+
+**Demonstration specifications:**
+- 12 samples: 6 pre-treatment biopsies + 6 post-treatment biopsies
+- All samples show treatment response (patient is disease-free)
+- Pre-processed counts matrices (not raw files)
+- Total size: ~518 KB
+
+**Generation method:**
+- Random sampling from log-normal distributions
+- Pre-treatment: High proliferation (MKI67, PCNA, TOP2A), high ER/PR
+- Post-treatment: Low proliferation, slightly reduced ER/PR (tamoxifen), increased immune markers
+- Differential expression: 120 genes (12%), fold-changes 1.5-3.0×
+- BRCA2 expression reduced 50% (heterozygous germline mutation)
+- PI3K/AKT pathway activation (PIK3CA H1047R mutation effect)
+
+**Simulated biology:**
+- **RNA-seq:** 1,000 genes (breast cancer markers + background)
+  - High: ESR1, PGR, GATA3, FOXA1 (Luminal subtype)
+  - Post-treatment ↓: MKI67, PCNA, proliferation markers
+  - Post-treatment ↑: CD8A, CD3D, immune infiltration (TILs)
+- **Proteomics:** 400 proteins (ER, PR, HER2, Ki67, p53, AKT, mTOR)
+- **Phosphoproteomics:** 250 phosphosites (ESR1_S118, AKT1_S473, MTOR_S2448)
+  - Post-treatment ↓: PI3K/AKT signaling
+
+---
+
+### 4. Spatial Transcriptomics (`spatial/`)
+
+#### Demonstration Data (Simplified Visium)
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+| `visium_gene_expression.csv` | 190 KB | Gene expression (35 genes × 900 spots) | Synthetic |
+| `visium_spatial_coordinates.csv` | 35 KB | Spatial coordinates for 900 spots | Synthetic |
+| `visium_region_annotations.csv` | 19 KB | Tissue region annotations (7 regions) | Synthetic |
+| `filtered/visium_gene_expression_filtered.csv` | 178 KB | QC-filtered expression matrix | Synthetic |
+
+**Demonstration specifications:**
+- 900 spots (30×30 grid, hexagonal layout)
+- 35 curated breast cancer genes
+- Total size: ~422 KB
+
+**Generation method:**
+- Hexagonal Visium array layout (900 spots, 95% in-tissue)
+- 35 curated breast cancer-relevant genes
+- Spatial patterns using regional assignments:
+  - **Tumor core:** High ER/PR, low proliferation (Luminal phenotype)
+  - **Proliferative zones:** Ki67-high hotspots
+  - **Invasive front:** Tumor-stroma boundary, EMT markers
+  - **Stroma:** CAFs, collagen (COL1A1, ACTA2, FAP)
+  - **Immune zones:** TILs (CD8A, CD3D, CD4)
+  - **Adipose:** Breast adipose tissue (ADIPOQ, FABP4, LEP)
+  - **Normal ductal:** Adjacent normal epithelium
+
+**Tissue regions simulated (7 breast-specific):**
+1. `tumor_core_luminal` - ER+/PR+ tumor cells, low proliferation (7.4%)
+2. `tumor_proliferative` - Ki67-high tumor zone (4.7%)
+3. `tumor_invasive_front` - Invasion boundary (21.8%)
+4. `stroma_fibrous` - Dense collagen, CAFs (20.7%)
+5. `stroma_immune` - Lymphocyte infiltration (TILs) (13.1%)
+6. `adipose` - Normal breast adipose tissue (31.9%)
+7. `ductal_normal` - Adjacent normal ductal epithelium (0.4%)
+
+**Genes profiled (35 breast cancer markers):**
+- **Hormone receptors:** ESR1, PGR, GATA3, FOXA1
+- **Proliferation:** MKI67, PCNA, TOP2A, CCND1, MYC
+- **Tumor suppressors:** BRCA2, GATA3, MAP3K1
+- **Oncogenes:** PIK3CA, AKT1, MTOR
+- **Luminal markers:** KRT8, KRT18, KRT19, EPCAM
+- **Basal markers:** KRT5, KRT14, EGFR (low expression)
+- **Stromal:** COL1A1, COL3A1, ACTA2, FAP, VIM
+- **Immune:** CD3D, CD8A, CD4, FOXP3, CD68, CD163
+- **Hypoxia:** HIF1A, VEGFA, CA9
+
+---
+
+### 5. Imaging Data (`imaging/`)
+
+| Directory | Files | Size | Description | Source |
+|-----------|-------|------|-------------|--------|
+| Main | 7 TIFFs | ~12 MB | 1024×1024 immunofluorescence + H&E | Synthetic microscopy |
+| `he/` | 3 TIFFs | ~25 MB | H&E high/low resolution (2048×2048, 512×512) | Synthetic histology |
+| `if/` | 2 TIFFs | ~16 MB | ER/Ki67 high-resolution (2048×2048) | Synthetic IF |
+
+**Main directory (1024×1024, 16-bit grayscale):**
+- `PAT002_tumor_HE_20x.tiff` - H&E histology (RGB 8-bit, pink/purple staining)
+- `PAT002_tumor_IF_ER.tiff` - Estrogen receptor (85% positive, nuclear)
+- `PAT002_tumor_IF_PR.tiff` - Progesterone receptor (70% positive, nuclear)
+- `PAT002_tumor_IF_HER2.tiff` - HER2 (negative, IHC 0, weak membrane)
+- `PAT002_tumor_IF_KI67.tiff` - Ki67 proliferation (20% positive, nuclear)
+- `PAT002_tumor_IF_CD8.tiff` - CD8+ T cells (8% positive, membrane)
+- `PAT002_tumor_IF_DAPI.tiff` - Nuclear staining (all cells)
+
+**High-resolution subdirectories:**
+- `he/PAT002_tumor_HE_20x_high.tif` - 2048×2048 H&E
+- `he/sample_002_high.tif`, `he/sample_002_low.tif` - Additional H&E images
+- `if/PAT002_tumor_IF_ER_high.tif` - High-resolution ER staining
+- `if/PAT002_tumor_IF_KI67_high.tif` - High-resolution Ki67
+
+**Generation method:**
+- Synthetic nuclei: 150-450 elliptical cells per image (size-dependent)
+- Nuclear markers (ER/PR/Ki67): Circular gradients in nucleus
+- Membrane markers (HER2/CD8): Ring patterns around cells
+- H&E simulation: Pink eosin (cytoplasm/stroma) + purple hematoxylin (nuclei)
+- Gaussian noise (σ=200-250), PSF blur (σ=1.2-1.5)
+- 16-bit grayscale (0-65535 range), RGB for H&E
+
+**Marker specifications:**
+- **ER:** 85% cells positive, strong nuclear signal (9,000-15,000 intensity)
+- **PR:** 70% cells positive, moderate nuclear signal
+- **HER2:** Negative (all cells weak membrane, 800-2,000 intensity)
+- **Ki67:** 20% cells positive (post-treatment proliferation)
+- **CD8:** 8% cells positive (tumor-infiltrating lymphocytes)
+- **H&E:** Realistic histology with nuclear detail and stromal texture
+
+---
+
+### 6. h5ad Files (AnnData Format)
+
+#### Spatial Single-Cell Data (`quantum/`)
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+| `PAT002_tumor_spatial.h5ad` | 7.9 MB | 500 cells × 2,000 genes, spatial coordinates | Synthetic AnnData |
+
+**Contents:**
+- **Cells:** 500 single cells with spatial coordinates (x, y)
+- **Genes:** 2,000 genes (79 breast cancer markers + 1,921 background)
+- **Cell types (8):** tumor_cells_luminal (36%), CAFs (20%), CD8_T_cells (14%), CD4_T_cells (10%), macrophages (8%), B_cells (6%), endothelial (4%), adipocytes (2%)
+- **Spatial organization:**
+  - Tumor core at center (luminal subtype, high ER/PR)
+  - CAFs surrounding tumor
+  - TILs at margins (CD8+, CD4+)
+  - Adipocytes at periphery (breast-specific)
+- **Metadata:** patient_id, diagnosis, receptor_status, BRCA2_status, treatment_status
+
+#### Perturbation Data (`perturbation/`)
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+| `pat002_tcells.h5ad` | 463 KB | 500 cells × 100 genes, CRISPR screen | Synthetic perturbation |
+
+**Contents:**
+- **Experiment:** PD-1 (PDCD1) knockout CRISPR screen in CD8+ T cells
+- **Conditions:** Control (250 cells) vs PDCD1_KO (250 cells)
+- **Genes:** 100 T cell markers (effector, exhaustion, proliferation, metabolism)
+- **Expected phenotype:**
+  - Control: High PD-1 (PDCD1=339), high exhaustion (TOX=161)
+  - PDCD1 KO: No PD-1 (PDCD1=0.8), restored effector function (GZMB=203, IFNG=206, 4.4× FC)
+  - PDCD1 KO: Increased proliferation (MKI67=91, 5.6× FC)
+- **Purpose:** Demonstrate immune checkpoint blockade effects for BRCA2+ breast cancer immunotherapy
+
+---
+
+## Data Quality & Realism
+
+### Realistic Features ✅
+
+1. **Clinically plausible genetics** - BRCA2 c.5946delT pathogenic variant + PIK3CA H1047R hotspot
+2. **Biologically coherent** - ER+/PR+ Luminal phenotype with HRD signature
+3. **Spatial organization** - Breast tumor microenvironment with adipocytes, CAFs, TILs
+4. **Temporal dynamics** - Pre/post treatment comparison showing therapy response
+5. **Treatment trajectory** - Realistic adjuvant therapy sequence (AC-T chemo + radiation + tamoxifen)
+6. **Surveillance pattern** - Normal CEA/CA 15-3 trajectory, disease-free status
+
+### Synthetic Limitations ❌
+
+1. **No batch effects** - Real data would have technical variation across timepoints/platforms
+2. **Simplified biology** - Real tumors have >20,000 genes, not 35-1,000
+3. **Idealized spatial patterns** - Real tissue is more heterogeneous, with necrosis and artifacts
+4. **No sequencing errors** - Real VCF would have mapping quality issues, strand bias
+5. **Perfect correlations** - Real multi-omics has more noise and missing data
+6. **Simplified family history** - Real BRCA2 families have more complex pedigrees
+
+---
+
+## Intended Use Cases
+
+### ✅ Appropriate Uses
+
+- **Workflow development** - Test MCP server integration for breast cancer precision medicine
+- **CI/CD testing** - Automated pipeline validation (genomics, imaging, spatial)
+- **Demonstration** - Show capabilities to stakeholders (oncologists, bioinformaticians)
+- **Education** - Teach breast cancer biology, BRCA2 testing, HRD, immunotherapy
+- **Software testing** - Verify analysis algorithms (ER/PR/HER2 scoring, spatial deconvolution)
+- **FHIR implementation** - Test HL7 FHIR R4 interoperability
+
+### ❌ Inappropriate Uses
+
+- **Clinical decision-making** - NOT real patient data, do not use for treatment decisions
+- **Research publications** - Cannot be cited as real clinical data
+- **Regulatory submissions** - Not acceptable for FDA/EMA applications
+- **IRB protocols** - Not subject to human subjects research oversight
+- **Training machine learning models** - Synthetic data may not generalize to real patients
+
+---
+
+## Real Data Alternatives
+
+If you need real breast cancer patient data, consider these public resources:
+
+1. **TCGA-BRCA** (The Cancer Genome Atlas - Breast Cancer)
+   - https://portal.gdc.cancer.gov/projects/TCGA-BRCA
+   - 1,098 breast cancer cases with genomics, transcriptomics, clinical data
+   - Includes ER+/PR+/HER2- Luminal A/B cases
+
+2. **10x Genomics Public Datasets**
+   - https://www.10xgenomics.com/datasets/human-breast-cancer-visium-fresh-frozen-whole-transcriptome-1-standard
+   - Visium spatial transcriptomics on breast cancer tissue
+   - Whole transcriptome, H&E images, spatial coordinates
+
+3. **METABRIC** (Molecular Taxonomy of Breast Cancer)
+   - https://www.kaggle.com/datasets/raghadalharbi/breast-cancer-gene-expression-profiles-metabric
+   - 1,980 breast cancer cases with gene expression and clinical outcomes
+   - Long-term follow-up data
+
+4. **ClinVar BRCA1/BRCA2 Variants**
+   - ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/
+   - Clinical significance of BRCA germline variants
+   - Pathogenic/benign classification
+
+5. **BRCA Exchange**
+   - https://brcaexchange.org/
+   - BRCA1/BRCA2 variant aggregation and interpretation
+   - ENIGMA expert panel classifications
+
+6. **Single Cell Portal (Broad Institute)**
+   - https://singlecell.broadinstitute.org/
+   - Search for "breast cancer" - multiple studies available
+   - Single-cell RNA-seq, spatial transcriptomics
+
+---
+
+## Technical Details
+
+### File Formats
+
+| Format | Usage | Tools |
+|--------|-------|-------|
+| JSON | Clinical data, FHIR resources | `jq`, Python `json` |
+| VCF | Genomic variants | `bcftools`, `vcftools`, `GATK` |
+| CSV | Multi-omics matrices, spatial data | Python `pandas`, R `read.csv` |
+| TIFF | Microscopy images (8/16-bit) | ImageJ/Fiji, `scikit-image`, QuPath |
+| h5ad | AnnData (single-cell, spatial) | Python `scanpy`, `anndata` |
+
+### Dataset Size
+
+**Demonstration (current):**
+- **Clinical:** ~50 KB (FHIR + JSON)
+- **Genomics:** ~3 KB (VCF)
+- **Multi-omics:** ~520 KB (CSV matrices)
+- **Spatial:** ~425 KB (Visium CSVs)
+- **Imaging:** ~55 MB (TIFFs)
+- **h5ad:** ~8.4 MB (AnnData)
+- **Total:** ~64 MB (demonstration-scale)
+
+**Production (typical hospital per-patient):**
+- **Clinical:** ~500 KB (full EHR extract)
+- **Genomics:** ~3 GB (WGS BAM files), ~10 MB (VCF)
+- **Multi-omics:** ~5 GB (RNA-seq BAM), ~500 MB (proteomics raw), ~20 MB (matrices)
+- **Spatial:** ~500 MB (Visium H5 matrix + histology image)
+- **Imaging:** ~1-5 GB (whole slide images, multiplex IF)
+- **Total:** ~10-15 GB per patient (raw files), ~100-200 MB (processed matrices)
+
+---
+
+## Data License
+
+This synthetic dataset is released under the **Apache License 2.0**.
+
+```
+Copyright 2026 Anthropic PBC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+```
+
+### Attribution
+
+If using this synthetic dataset in presentations or educational materials, please attribute:
+
+```
+Synthetic patient data (PAT002-BC-2026) generated for MCP server demonstration
+Source: github.com/anthropics/spatial-mcp
+License: Apache 2.0
+```
+
+---
+
+## Generation Scripts
+
+All data in this directory was generated using Python scripts:
+
+| Script | Purpose | Location |
+|--------|---------|----------|
+| (manual creation) | Clinical FHIR JSON files | `clinical/fhir_raw/` |
+| (manual creation) | Genomics VCF file | `genomics/` |
+| `generate_PAT002_multiomics.py` | Multi-omics CSV matrices | `multiomics/` |
+| `generate_PAT002_spatial.py` | Spatial transcriptomics CSVs | `spatial/` |
+| `generate_PAT002_imaging.py` | Microscopy TIFF images | `imaging/` |
+| `create_PAT002_spatial_data.py` | Spatial h5ad file | `quantum/` |
+| `generate_PAT002_perturbation.py` | Perturbation h5ad file | `perturbation/` |
+
+**Dependencies:**
+- Python 3.9+
+- NumPy, Pandas, SciPy
+- scikit-image, Pillow (imaging)
+- anndata, scanpy (h5ad)
+
+**To regenerate data:**
+```bash
+# Multi-omics
+python3 multiomics/generate_PAT002_multiomics.py
+
+# Spatial transcriptomics
+python3 spatial/generate_PAT002_spatial.py
+
+# Imaging
+python3 imaging/generate_PAT002_imaging.py
+
+# h5ad files
+python3 quantum/create_PAT002_spatial_data.py
+python3 perturbation/generate_PAT002_perturbation.py
+```
+
+---
+
+## Patient Summary
+
+**Michelle Anne Thompson** (synthetic, 42 years old, female)
+
+**Medical History:**
+- Diagnosed December 2024 with Stage IIA (T2N0M0) ER+/PR+/HER2- Invasive Ductal Carcinoma, Left Breast
+- BRCA2 germline pathogenic variant (c.5946delT, frameshift, Class 5)
+- Strong family history: Mother breast cancer (age 58), maternal aunt ovarian cancer (age 52), sister BRCA2+ carrier (no cancer)
+
+**Treatment Timeline:**
+- January 2025: Lumpectomy + sentinel lymph node biopsy (node-negative)
+- February-April 2025: AC chemotherapy (doxorubicin 60mg/m² + cyclophosphamide q21d × 4 cycles)
+- April-May 2025: Paclitaxel 80mg/m² IV weekly × 12 weeks
+- June-July 2025: Adjuvant radiation therapy (whole breast + tumor bed boost)
+- August 2025: Started tamoxifen 20mg PO daily (planned 5-10 years)
+
+**Current Status (January 2026):**
+- Disease-free (No Evidence of Disease, NED)
+- CEA 2.1 ng/mL (normal), CA 15-3 20 U/mL (normal)
+- Tolerating tamoxifen well (mild hypercholesterolemia, expected side effect)
+- Surveillance: Q3 months with tumor markers, annual mammography
+
+**Genomic Profile:**
+- BRCA2 c.5946delT heterozygous (germline, pathogenic)
+- PIK3CA H1047R (somatic, hotspot)
+- MYC amplification, CCND1 amplification
+- TP53 wild-type (favorable for Luminal subtype)
+- ESR1 wild-type (tamoxifen-sensitive)
+
+**Clinical Significance:**
+- PARP inhibitor eligible (BRCA2+, HRD phenotype)
+- Good prognosis (Stage IIA, node-negative, ER+/PR+, responsive to therapy)
+- Surveillance for second primary breast/ovarian cancer (BRCA2 carrier)
+- Family counseling recommended (genetic testing for siblings/children)
+
+---
+
+## Contact & Support
+
+For questions about this synthetic dataset:
+- GitHub Issues: https://github.com/anthropics/spatial-mcp/issues
+- Documentation: https://github.com/anthropics/spatial-mcp
+
+**Last Updated:** 2026-02-05

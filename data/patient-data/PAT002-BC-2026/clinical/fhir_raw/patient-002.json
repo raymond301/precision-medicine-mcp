@@ -1,0 +1,42 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-002",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "http://hospital.example.org/patients",
+      "value": "P002"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "family": "Thompson",
+      "given": ["Michelle", "Anne"]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1984-01-15",
+  "address": [
+    {
+      "use": "home",
+      "line": ["456 Oak Avenue"],
+      "city": "Portland",
+      "state": "OR",
+      "postalCode": "97201",
+      "country": "US"
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "503-555-0142",
+      "use": "home"
+    },
+    {
+      "system": "email",
+      "value": "michelle.thompson@example.com"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "resourceType": "MedicationStatement",
+  "id": "medication-doxorubicin",
+  "status": "completed",
+  "medicationCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "code": "3639",
+        "display": "Doxorubicin"
+      }
+    ],
+    "text": "Doxorubicin"
+  },
+  "subject": {
+    "reference": "Patient/patient-002",
+    "display": "Michelle Anne Thompson"
+  },
+  "effectivePeriod": {
+    "start": "2025-02-01",
+    "end": "2025-04-15"
+  },
+  "dateAsserted": "2025-04-20",
+  "informationSource": {
+    "display": "Dr. Oncologist"
+  },
+  "reasonReference": [
+    {
+      "reference": "Condition/condition-breast-cancer"
+    }
+  ],
+  "note": [
+    {
+      "text": "Adjuvant chemotherapy: AC regimen (Doxorubicin + Cyclophosphamide) × 4 cycles. Completed as planned. Tolerated well with manageable side effects."
+    }
+  ],
+  "dosage": [
+    {
+      "text": "60 mg/m² IV every 21 days × 4 cycles",
+      "timing": {
+        "repeat": {
+          "frequency": 1,
+          "period": 21,
+          "periodUnit": "d"
+        }
+      },
+      "route": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "47625008",
+            "display": "Intravenous route"
+          }
+        ]
+      }
+    }
+  ]
+}

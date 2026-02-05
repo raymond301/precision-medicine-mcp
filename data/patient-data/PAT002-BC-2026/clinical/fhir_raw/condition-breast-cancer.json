@@ -1,0 +1,102 @@
+{
+  "resourceType": "Condition",
+  "id": "condition-breast-cancer",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "remission",
+        "display": "Remission"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "severity": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "6736007",
+        "display": "Moderate"
+      }
+    ]
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "254837009",
+        "display": "Malignant neoplasm of breast"
+      },
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "C50.9",
+        "display": "Malignant neoplasm of breast, unspecified"
+      }
+    ],
+    "text": "Stage IIA (T2N0M0) ER+/PR+/HER2- Invasive Ductal Carcinoma, Left Breast, BRCA2-associated"
+  },
+  "bodySite": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "80248007",
+          "display": "Left breast structure"
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "reference": "Patient/patient-002",
+    "display": "Michelle Anne Thompson"
+  },
+  "onsetDateTime": "2024-12-15",
+  "recordedDate": "2024-12-20T14:00:00Z",
+  "stage": [
+    {
+      "summary": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "60333009",
+            "display": "Stage IIA"
+          }
+        ],
+        "text": "Stage IIA (T2N0M0)"
+      },
+      "type": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "260998006",
+            "display": "Clinical staging"
+          }
+        ]
+      }
+    }
+  ],
+  "note": [
+    {
+      "text": "Post-adjuvant treatment. Completed surgery (lumpectomy), chemotherapy (AC-T regimen), and radiation therapy. Currently on tamoxifen for endocrine therapy. BRCA2 germline mutation confirmed. Disease-free status at 2026 surveillance."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+##fileformat=VCFv4.2
+##fileDate=20250115
+##source=Mutect2
+##reference=hg38
+##contig=<ID=chr3,length=198295559>
+##contig=<ID=chr5,length=181538259>
+##contig=<ID=chr6,length=170805979>
+##contig=<ID=chr8,length=145138636>
+##contig=<ID=chr10,length=133797422>
+##contig=<ID=chr11,length=135086622>
+##contig=<ID=chr13,length=114364328>
+##contig=<ID=chr17,length=83257441>
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+##INFO=<ID=GENE,Number=1,Type=String,Description="Gene Symbol">
+##INFO=<ID=EFFECT,Number=1,Type=String,Description="Variant Effect">
+##INFO=<ID=COSMIC,Number=1,Type=String,Description="COSMIC ID">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles">
+##FORMAT=<ID=AF,Number=A,Type=Float,Description="Allele fractions">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	TUMOR	NORMAL
+chr13	32339811	BRCA2_c.5946delT	GT	G	1567.8	PASS	DP=267;AF=0.50;GENE=BRCA2;EFFECT=frameshift_variant;COSMIC=COSV57492880	GT:AD:AF	0/1:134,133:0.50	0/1:142,125:0.47
+chr3	178952085	PIK3CA_H1047R	G	A	945.6	PASS	DP=212;AF=0.42;GENE=PIK3CA;EFFECT=missense_variant;COSMIC=COSM775	GT:AD:AF	0/1:123,89:0.42	0/0:198,0:0.00
+chr10	8100656	GATA3_fs	GCTT	G	734.2	PASS	DP=189;AF=0.38;GENE=GATA3;EFFECT=frameshift_variant;COSMIC=COSV104733902	GT:AD:AF	0/1:117,72:0.38	0/0:203,0:0.00
+chr5	56111569	MAP3K1_p.R264H	C	T	823.4	PASS	DP=195;AF=0.35;GENE=MAP3K1;EFFECT=missense_variant;COSMIC=COSV99009524	GT:AD:AF	0/1:127,68:0.35	0/0:187,0:0.00
+chr8	128748315	MYC_AMP	C	C	.	PASS	DP=534;AF=0.00;GENE=MYC;EFFECT=copy_number_amplification	GT:AD:AF	0/0:534,0:0.00	0/0:198,0:0.00
+chr11	69455873	CCND1_AMP	G	G	.	PASS	DP=478;AF=0.00;GENE=CCND1;EFFECT=copy_number_amplification	GT:AD:AF	0/0:478,0:0.00	0/0:189,0:0.00
+chr17	7578406	TP53_WT	C	C	.	PASS	DP=234;AF=0.00;GENE=TP53;EFFECT=none	GT:AD:AF	0/0:234,0:0.00	0/0:245,0:0.00
+chr6	151690496	ESR1_WT	G	G	.	PASS	DP=256;AF=0.00;GENE=ESR1;EFFECT=none	GT:AD:AF	0/0:256,0:0.00	0/0:267,0:0.00
+chr17	39709179	ERBB2_WT	A	A	.	PASS	DP=223;AF=0.00;GENE=ERBB2;EFFECT=none	GT:AD:AF	0/0:223,0:0.00	0/0:234,0:0.00
+chr11	534286	PGR_WT	T	T	.	PASS	DP=198;AF=0.00;GENE=PGR;EFFECT=none	GT:AD:AF	0/0:198,0:0.00	0/0:212,0:0.00

@@ -1,0 +1,229 @@
+{
+  "patientId": "PAT002-BC-2026",
+  "labResults": [
+    {
+      "category": "Tumor Markers",
+      "tests": [
+        {
+          "testName": "CEA (Carcinoembryonic Antigen)",
+          "unit": "ng/mL",
+          "referenceRange": "< 3.0 ng/mL",
+          "results": [
+            {
+              "date": "2025-09-15",
+              "value": 1.8,
+              "flag": "Normal",
+              "note": "Post-adjuvant baseline"
+            },
+            {
+              "date": "2025-11-15",
+              "value": 2.1,
+              "flag": "Normal",
+              "note": "3-month surveillance"
+            },
+            {
+              "date": "2026-01-15",
+              "value": 1.9,
+              "flag": "Normal",
+              "note": "Stable, disease-free"
+            }
+          ]
+        },
+        {
+          "testName": "CA 15-3",
+          "unit": "U/mL",
+          "referenceRange": "< 30 U/mL",
+          "results": [
+            {
+              "date": "2025-09-15",
+              "value": 18,
+              "flag": "Normal",
+              "note": "Post-adjuvant baseline"
+            },
+            {
+              "date": "2025-11-15",
+              "value": 22,
+              "flag": "Normal",
+              "note": "3-month surveillance"
+            },
+            {
+              "date": "2026-01-15",
+              "value": 20,
+              "flag": "Normal",
+              "note": "Stable, within normal limits"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Complete Blood Count (CBC)",
+      "tests": [
+        {
+          "testName": "Hemoglobin",
+          "unit": "g/dL",
+          "referenceRange": "12.0-16.0",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 13.2,
+            "flag": "Normal",
+            "note": "Recovered from chemo-related anemia"
+          }
+        },
+        {
+          "testName": "White Blood Cells",
+          "unit": "K/uL",
+          "referenceRange": "4.0-11.0",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 6.8,
+            "flag": "Normal"
+          }
+        },
+        {
+          "testName": "Neutrophils",
+          "unit": "K/uL",
+          "referenceRange": "2.0-7.0",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 4.2,
+            "flag": "Normal"
+          }
+        },
+        {
+          "testName": "Platelets",
+          "unit": "K/uL",
+          "referenceRange": "150-400",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 242,
+            "flag": "Normal"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Liver Function (Tamoxifen Monitoring)",
+      "tests": [
+        {
+          "testName": "ALT (Alanine Aminotransferase)",
+          "unit": "U/L",
+          "referenceRange": "7-56",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 28,
+            "flag": "Normal",
+            "note": "No hepatotoxicity from tamoxifen"
+          }
+        },
+        {
+          "testName": "AST (Aspartate Aminotransferase)",
+          "unit": "U/L",
+          "referenceRange": "10-40",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 24,
+            "flag": "Normal"
+          }
+        },
+        {
+          "testName": "Alkaline Phosphatase",
+          "unit": "U/L",
+          "referenceRange": "40-150",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 72,
+            "flag": "Normal"
+          }
+        },
+        {
+          "testName": "Total Bilirubin",
+          "unit": "mg/dL",
+          "referenceRange": "0.1-1.2",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 0.6,
+            "flag": "Normal"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Lipid Panel (Tamoxifen Side Effect Monitoring)",
+      "tests": [
+        {
+          "testName": "Total Cholesterol",
+          "unit": "mg/dL",
+          "referenceRange": "< 200",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 218,
+            "flag": "H",
+            "note": "Mildly elevated (tamoxifen side effect)"
+          }
+        },
+        {
+          "testName": "LDL Cholesterol",
+          "unit": "mg/dL",
+          "referenceRange": "< 100",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 128,
+            "flag": "H",
+            "note": "Borderline high"
+          }
+        },
+        {
+          "testName": "HDL Cholesterol",
+          "unit": "mg/dL",
+          "referenceRange": "> 50",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 58,
+            "flag": "Normal"
+          }
+        },
+        {
+          "testName": "Triglycerides",
+          "unit": "mg/dL",
+          "referenceRange": "< 150",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 142,
+            "flag": "Normal"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Renal Function",
+      "tests": [
+        {
+          "testName": "Creatinine",
+          "unit": "mg/dL",
+          "referenceRange": "0.6-1.2",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 0.8,
+            "flag": "Normal"
+          }
+        },
+        {
+          "testName": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "referenceRange": "> 60",
+          "latestResult": {
+            "date": "2026-01-15",
+            "value": 92,
+            "flag": "Normal"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "tumorMarkerTrend": "CEA and CA 15-3 both stable and within normal limits. No evidence of biochemical recurrence.",
+    "overallStatus": "Disease-free status maintained. Post-adjuvant surveillance ongoing.",
+    "clinicalSignificance": "Normal tumor markers consistent with no evidence of disease (NED). Mild hypercholesterolemia likely related to tamoxifen therapy, will monitor. Liver function normal. Complete blood count recovered from chemotherapy. Patient tolerating adjuvant endocrine therapy well."
+  }
+}

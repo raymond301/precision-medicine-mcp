@@ -1,0 +1,13 @@
+sample_id,timepoint,treatment_response,batch,patient_id,tissue_type
+Pre_Sample_01,pre_treatment,responsive,1,PAT002,primary_tumor
+Pre_Sample_02,pre_treatment,responsive,1,PAT002,primary_tumor
+Pre_Sample_03,pre_treatment,responsive,2,PAT002,primary_tumor
+Pre_Sample_04,pre_treatment,responsive,2,PAT002,primary_tumor
+Pre_Sample_05,pre_treatment,responsive,3,PAT002,primary_tumor
+Pre_Sample_06,pre_treatment,responsive,3,PAT002,primary_tumor
+Post_Sample_01,post_treatment,responsive,1,PAT002,primary_tumor
+Post_Sample_02,post_treatment,responsive,1,PAT002,primary_tumor
+Post_Sample_03,post_treatment,responsive,2,PAT002,primary_tumor
+Post_Sample_04,post_treatment,responsive,2,PAT002,primary_tumor
+Post_Sample_05,post_treatment,responsive,3,PAT002,primary_tumor
+Post_Sample_06,post_treatment,responsive,3,PAT002,primary_tumor

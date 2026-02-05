@@ -1,0 +1,125 @@
+{
+  "resourceType": "Observation",
+  "id": "observation-er-pr-her2",
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "laboratory",
+          "display": "Laboratory"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "text": "Breast Cancer Biomarker Panel (ER/PR/HER2)"
+  },
+  "subject": {
+    "reference": "Patient/patient-002",
+    "display": "Michelle Anne Thompson"
+  },
+  "effectiveDateTime": "2024-12-20T10:00:00Z",
+  "issued": "2024-12-22T16:00:00Z",
+  "component": [
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "85337-4",
+            "display": "Estrogen receptor [Presence] in Tissue by Immune stain"
+          }
+        ],
+        "text": "Estrogen Receptor (ER)"
+      },
+      "valueQuantity": {
+        "value": 85,
+        "unit": "%",
+        "system": "http://unitsofmeasure.org",
+        "code": "%"
+      },
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "code": "POS",
+              "display": "Positive"
+            }
+          ],
+          "text": "Positive (Allred score 7/8)"
+        }
+      ]
+    },
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "85339-0",
+            "display": "Progesterone receptor [Presence] in Tissue by Immune stain"
+          }
+        ],
+        "text": "Progesterone Receptor (PR)"
+      },
+      "valueQuantity": {
+        "value": 70,
+        "unit": "%",
+        "system": "http://unitsofmeasure.org",
+        "code": "%"
+      },
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "code": "POS",
+              "display": "Positive"
+            }
+          ],
+          "text": "Positive (Allred score 6/8)"
+        }
+      ]
+    },
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "48676-1",
+            "display": "HER2 [Interpretation] in Tissue"
+          }
+        ],
+        "text": "HER2"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "260385009",
+            "display": "Negative"
+          }
+        ],
+        "text": "Negative (IHC 0)"
+      },
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "code": "NEG",
+              "display": "Negative"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "note": [
+    {
+      "text": "Invasive Ductal Carcinoma, ER+/PR+/HER2-. Luminal A/B molecular subtype. Hormone receptor-positive disease suitable for endocrine therapy. No HER2 amplification detected by immunohistochemistry."
+    }
+  ]
+}
