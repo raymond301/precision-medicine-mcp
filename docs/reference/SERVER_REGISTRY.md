@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 12 | **Production Ready:** 7 (58%) | **Total Tools:** 124
+**Total Servers:** 12 | **Production Ready:** 8 (67%) | **Total Tools:** 124
 
 📁 **[Individual Server Documentation →](../../servers/README.md)**
 
@@ -17,14 +17,7 @@
 | **mcp-quantum-celltype-fidelity** | 6 | 100% Real | Quantum PQCs, fidelity analysis, Bayesian UQ, immune evasion | [README](../../servers/mcp-quantum-celltype-fidelity/README.md) |
 | **mcp-deepcell** | 4 | 100% Real | DeepCell-TF segmentation, nuclear/membrane models, MxIF phenotyping | [README](../../servers/mcp-deepcell/README.md) |
 | **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../../servers/mcp-epic/) |
-
----
-
-## Partial Implementation ⚠️
-
-| Server | Tools | Status | Notes | Documentation |
-|--------|-------|--------|-------|---------------|
-| **mcp-openimagedata** | 7 | 60% Real | Basic histology working, registration/advanced features mocked | [README](../../servers/mcp-openimagedata/README.md) |
+| **mcp-openimagedata** | 5 | 100% Real | PIL image loading, scikit-image registration + feature extraction, MxIF compositing, H&E annotation | [README](../../servers/mcp-openimagedata/README.md) |
 
 ---
 
@@ -54,16 +47,15 @@
 - **Genomics**: mcp-fgbio (QC/variants), mcp-tcga (cohort comparison - mocked)
 - **Multi-omics**: mcp-multiomics (integration/meta-analysis)
 - **Spatial**: mcp-spatialtools (spatial transcriptomics)
-- **Imaging**: mcp-deepcell (cell segmentation), mcp-openimagedata (histology - partial)
+- **Imaging**: mcp-deepcell (cell segmentation), mcp-openimagedata (histology + registration + features)
 - **Treatment**: mcp-perturbation (GEARS prediction), mcp-quantum-celltype-fidelity (quantum fidelity)
 - **AI/ML**: mcp-huggingface (model inference - mocked)
 - **Workflows**: mcp-seqera (Nextflow - mocked)
 
 ### By Production Readiness
-- **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-epic
+- **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-epic, mcp-openimagedata
 - **Not Ready**: mcp-tcga, mcp-huggingface, mcp-seqera (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
-- **Partial**: mcp-openimagedata (verify per tool)  
 
 ---
 

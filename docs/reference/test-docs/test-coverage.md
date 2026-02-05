@@ -1,6 +1,6 @@
 # 🧪 Test Coverage - Precision Medicine MCP Servers
 
-**167 automated tests** covering 40 tools across 9 MCP servers.
+**192 automated tests** covering 40 tools across 9 MCP servers.
 
 ---
 
@@ -27,7 +27,7 @@
 | 🤖 **mcp-huggingface** | 56% | 12 | ✅ Smoke | ❌ Mocked |
 | ⚙️ **mcp-seqera** | 56% | 6 | ✅ Smoke | ❌ Mocked |
 | 🏥 **mcp-epic** | 58% | 12 | ✅ Complete | ✅ YES (100% real) |
-| 🖼️ **mcp-openimagedata** | 35% | 5 | ✅ Smoke | ⚠️ 30% real |
+| 🖼️ **mcp-openimagedata** | 55% | 30 | ✅ Full | ✅ YES (100% real) |
 | 🧪 **mcp-tcga** | 35% | 5 | ✅ Smoke | ❌ Mocked |
 | 📍 **mcp-spatialtools** | 23% | 5 | ✅ Smoke | ✅ YES (95% real) |
 
@@ -172,7 +172,7 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 - Use descriptive test names
 
 **❌ DON'T:**
-- Call FastMCP-decorated functions directly (use `_impl` functions)
+- Call FastMCP-decorated functions directly (use `.fn` attribute to access the underlying async function)
 - Skip assertions on key results
 - Hard-code file paths (use fixtures, tmp_path)
 - Ignore test failures
@@ -183,9 +183,8 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 
 1. **mcp-spatialtools:** Add functional tests for spatial algorithms (+5.4 point impact)
 2. **mcp-tcga:** Add TCGA API integration tests (+1.6 point impact)
-3. **mcp-openimagedata:** Add image processing tests (+1.4 point impact)
 
-**Estimated effort:** ~30-40 functional tests across 3 servers
+**Estimated effort:** ~20-25 functional tests across 2 servers
 
 ---
 
@@ -199,4 +198,4 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 ---
 
 **Last Updated:** 2026-01-11
-**Status:** 167 tests | 56.9% coverage | 9/9 servers on GCP ✅
+**Status:** 192 tests | 57.8% coverage | 9/9 servers on GCP ✅

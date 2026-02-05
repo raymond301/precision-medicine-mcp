@@ -121,7 +121,7 @@ graph LR
 | mcp-perturbation | 8 | ✅ Production (100% real) | Yes |
 | mcp-quantum-celltype-fidelity | 6 | ✅ Production (100% real) | Yes |
 | mcp-epic | 9 | ✅ Production (Local only, HIPAA) | No |
-| mcp-openimagedata | 7 | ⚠️ Partial (60% real) | Yes |
+| mcp-openimagedata | 5 | ✅ Production (100% real) | Yes |
 | mcp-mockepic | 8 | 🎭 Mock (by design) | Yes |
 | mcp-tcga | 11 | ❌ Mocked | Yes |
 | mcp-huggingface | 7 | ❌ Mocked | Yes |

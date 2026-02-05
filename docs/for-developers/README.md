@@ -93,7 +93,7 @@ graph TB
 
         subgraph "Spatial & Imaging"
             SPATIAL[mcp-spatialtools<br/>Spatial RNA-seq<br/>✅ Production]
-            IMAGE[mcp-openimagedata<br/>Histology<br/>🔶 60% Real]
+            IMAGE[mcp-openimagedata<br/>Histology<br/>✅ Production]
             DEEPCELL[mcp-deepcell<br/>Cell Segmentation<br/>✅ Production]
         end
 
@@ -125,7 +125,7 @@ graph TB
     API ==> QUANTUM
     API -.-> MOCKEPIC
     API -.-> TCGA
-    API -.-> IMAGE
+    API ==> IMAGE
     API -.-> HF
     API -.-> SEQERA
 
@@ -138,7 +138,7 @@ graph TB
     QUANTUM ==> PATIENT
     MOCKEPIC -.-> PATIENT
     TCGA -.-> PATIENT
-    IMAGE -.-> PATIENT
+    IMAGE ==> PATIENT
     HF -.-> PATIENT
     SEQERA -.-> PATIENT
 
@@ -154,7 +154,7 @@ graph TB
     style DEEPCELL fill:#d4edda,stroke:#28a745,stroke-width:2px
     style PERTURB fill:#d4edda,stroke:#28a745,stroke-width:2px
     style QUANTUM fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style IMAGE fill:#fff3cd,stroke:#ffc107,stroke-width:1px
+    style IMAGE fill:#d4edda,stroke:#28a745,stroke-width:2px
     style TCGA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style HF fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style SEQERA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
@@ -162,8 +162,7 @@ graph TB
 ```
 
 **Legend:**
-- ✅ **Production Ready** (7/12): Real data, comprehensive tests, deployed
-- 🔶 **Partial Implementation** (1/12): Some real integrations, some mocked
+- ✅ **Production Ready** (8/12): Real data, comprehensive tests, deployed
 - ❌ **Mocked** (3/12): Return synthetic data, API calls stubbed
 - 🎭 **Mock by Design** (1/12): Intentionally synthetic for demos
 
@@ -172,8 +171,7 @@ graph TB
 ## Server Status Overview
 
 **Production Status:**
-- ✅ **7/12 servers production-ready** (58%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-epic
-- 🔶 **1/12 partial implementation** (8%) - mcp-openimagedata (60% real)
+- ✅ **8/12 servers production-ready** (67%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-epic, mcp-openimagedata
 - ❌ **3/12 fully mocked** (25%) - mcp-tcga, mcp-huggingface, mcp-seqera
 - 🎭 **1/12 mock by design** (8%) - mcp-mockepic (synthetic for demos)
 

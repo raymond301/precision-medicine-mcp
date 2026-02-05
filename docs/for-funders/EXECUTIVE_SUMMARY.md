@@ -32,10 +32,7 @@ graph TB
             QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit + Bayesian UQ]
             DEEP[mcp-deepcell<br/>4 tools<br/>DeepCell-TF]
             EPIC[mcp-epic<br/>9 tools<br/>Local Only]
-        end
-
-        subgraph Partial["⚠️ Partial (1)"]
-            IMAGE[mcp-openimagedata<br/>9 tools<br/>60% real]
+            IMAGE[mcp-openimagedata<br/>5 tools<br/>100% real]
         end
 
         subgraph Mocked["❌ Mocked (4)"]

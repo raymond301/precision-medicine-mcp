@@ -1,6 +1,6 @@
 # Imaging Analysis Architecture
 
-**Status:** Mostly Implemented (openimagedata: 60% real, deepcell: 100% real)
+**Status:** Production (openimagedata: 100% real, deepcell: 100% real)
 **Last Updated:** 2026-01-31
 
 ---
@@ -16,7 +16,7 @@ graph TB
         MX[MxIF TIFF<br/>3-channel RGB<br/>TP53/Ki67/DAPI]
     end
 
-    subgraph OID["🔧 mcp-openimagedata<br/>(5 tools, 60% real)"]
+    subgraph OID["🔧 mcp-openimagedata<br/>(5 tools, 100% real)"]
         Load[Load Image]
         Comp[Generate<br/>Composite]
         Anno[Annotate<br/>H&E]
@@ -74,7 +74,7 @@ graph TB
 - **[MXIF_WORKFLOW.md](MXIF_WORKFLOW.md)** - **MxIF fluorescence cell segmentation** (openimagedata → deepcell pipeline)
 
 ### Servers
-- **[mcp-openimagedata README](../../../../servers/mcp-openimagedata/README.md)** - Image loading and visualization (5 tools, 60% real)
+- **[mcp-openimagedata README](../../../../servers/mcp-openimagedata/README.md)** - Histology image processing (5 tools, 100% real)
 - **[mcp-deepcell README](../../../../servers/mcp-deepcell/README.md)** - Cell segmentation and phenotyping (4 tools, 100% real)
 
 ### Reference
@@ -91,7 +91,7 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 2. **MxIF:** Fluorescence cell segmentation (fluorescent antibodies, multi-channel TIFF)
 
 **Servers:**
-- mcp-openimagedata (60% real - loading + visualization)
+- mcp-openimagedata (100% real - loading, registration, feature extraction, visualization)
 - mcp-deepcell (100% real - segmentation + phenotyping)
 
 ---
@@ -116,18 +116,20 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 ## Server Status
 
 ### mcp-openimagedata
-**Status:** ✅ 60% Real (deployed to GCP Cloud Run)
+**Status:** ✅ 100% Real (deployed to GCP Cloud Run)
 **URL:** https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app
 
 **Tools (5):**
-- ✅ Real: `fetch_histology_image` (load TIFF images)
-- ✅ Real: `generate_multiplex_composite` (RGB MxIF composites)
-- ✅ Real: `generate_he_annotation` (annotate H&E morphology)
-- ❌ Mock: `register_image_to_spatial` (image registration)
-- ❌ Mock: `extract_image_features` (feature extraction)
+- ✅ `fetch_histology_image` — PIL image loading with glob fallback for partial ID matching
+- ✅ `register_image_to_spatial` — Otsu tissue detection, bbox-based affine/rigid estimation, phase-cross-correlation refinement for deformable; Visium + generic x/y CSV support
+- ✅ `extract_image_features` — LBP + GLCM texture (25 features), connected-component morphology (15 features), intensity stats + entropy (10 features); per-ROI support
+- ✅ `generate_multiplex_composite` — RGB MxIF composites (1-7 channels)
+- ✅ `generate_he_annotation` — Annotate H&E morphology with region overlays
 
 **Use cases:**
 - Load H&E and IF/MxIF images
+- Register histology to spatial transcriptomics spot coordinates
+- Extract texture, morphology, and intensity features per region
 - Generate multiplex RGB composites
 - Annotate H&E regions (necrosis, high cellularity)
 

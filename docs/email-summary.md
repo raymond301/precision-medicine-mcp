@@ -8,13 +8,13 @@
 
 **A production-ready AI-orchestrated platform for precision oncology research**, integrating clinical (FHIR), genomic, multi-omics, spatial transcriptomics, and imaging data through 12 specialized MCP servers (124 bioinformatics tools) deployed on GCP Cloud Run. The system uses Claude or Gemini to orchestrate complex multi-step analyses via natural language, reducing analysis time from 40 hours of manual bioinformatics work to 35 minutes of AI-orchestrated execution. Includes HIPAA compliance (de-identification, 10-year audit logs, bias detection), Bayesian uncertainty quantification for confident clinical decisions, and achieves 95% cost savings (~$1-2 per analysis vs. $3,200 traditional). **PatientOne** demonstrates the complete workflow: Stage IV ovarian cancer analysis integrating clinical data, somatic variants, multi-omics (RNA/protein/phospho), spatial transcriptomics, and H&E imaging—with treatment response prediction via GEARS perturbation modeling and quantum fidelity analysis.
 
-**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini (custom SSE-based MCP client with manual tool orchestration), with 7 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, epic) and 5 mock/partial servers. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
+**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini (custom SSE-based MCP client with manual tool orchestration), with 8 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, epic, openimagedata) and 4 mock servers. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
 
 ---
 
 ## MCP Servers (12 Total)
 
-### Production Servers (7)
+### Production Servers (8)
 1. **mcp-fgbio** - Genomic reference validation
 2. **mcp-multiomics** - Multi-omics data integration
 3. **mcp-spatialtools** - Spatial transcriptomics analysis
@@ -22,10 +22,10 @@
 5. **mcp-quantum-celltype-fidelity** - Quantum computing cell analysis
 6. **mcp-deepcell** - Cell image segmentation (DeepCell-TF)
 7. **mcp-epic** - Clinical FHIR data
+8. **mcp-openimagedata** - Histology image processing (registration, feature extraction, MxIF compositing)
 
-### Mock/Partial Servers (5)
-8. **mcp-tcga** - Cancer genomics data
-9. **mcp-openimagedata** - Medical image analysis (60% real)
+### Mock Servers (4)
+9. **mcp-tcga** - Cancer genomics data
 10. **mcp-seqera** - Workflow automation platform
 11. **mcp-huggingface** - AI model inference
 12. **mcp-mockepic** - Mock FHIR data

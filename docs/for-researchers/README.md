@@ -240,8 +240,7 @@ to identify concordant pathway activations.
 ## Production-Ready Servers
 
 **Quick Summary:**
-- ✅ **4/10 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic)
-- 🔶 **1/10 servers partial** (mcp-openimagedata - 60% real)
+- ✅ **5/10 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-openimagedata)
 - ❌ **5/10 servers mocked** (mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera, mcp-mockepic)
 
 📋 **[See Complete Server Implementation Status →](../reference/SERVER_REGISTRY.md)** - Comprehensive 1,000+ line status matrix with:
@@ -257,7 +256,6 @@ to identify concordant pathway activations.
 
 **Phase 2 (3-6 months):**
 - mcp-tcga: Integrate real GDC API for TCGA cohort data
-- mcp-openimagedata: Complete image registration and feature extraction
 - mcp-deepcell: Integrate DeepCell API for cell segmentation
 
 **Phase 3 (6-12 months):**

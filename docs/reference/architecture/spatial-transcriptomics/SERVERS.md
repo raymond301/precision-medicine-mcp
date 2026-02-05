@@ -13,7 +13,7 @@ This document provides quick links to the 3 core servers used in spatial transcr
 **Spatial Transcriptomics Servers:**
 - **mcp-fgbio** - Reference data and FASTQ validation (4 tools, 95% real) - [README](../../../../servers/mcp-fgbio/README.md)
 - **mcp-spatialtools** - Spatial analysis and visualization (14 tools, 95% real) - [README](../../../../servers/mcp-spatialtools/README.md)
-- **mcp-openimagedata** - Image data access (5 tools, 60% real) - [README](../../../../servers/mcp-openimagedata/README.md)
+- **mcp-openimagedata** - Image processing (5 tools, 100% real) - [README](../../../../servers/mcp-openimagedata/README.md)
 
 ---
 
