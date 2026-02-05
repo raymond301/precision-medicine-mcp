@@ -52,9 +52,9 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
     "openimagedata": {
         "name": "openimagedata",
         "url": "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "Medical imaging datasets",
-        "status": "mock",
-        "tools_count": 4
+        "description": "H&E/MxIF image loading, registration, feature extraction, and composite generation",
+        "status": "production",
+        "tools_count": 5
     },
     "seqera": {
         "name": "seqera",
@@ -150,11 +150,11 @@ def get_server_categories() -> Dict[str, List[str]]:
             "spatialtools",
             "perturbation",
             "quantum-celltype-fidelity",
-            "deepcell"
+            "deepcell",
+            "openimagedata"
         ],
         "Mock Servers (Workflow Demo)": [
             "tcga",
-            "openimagedata",
             "seqera",
             "huggingface",
             "mockepic"

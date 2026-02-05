@@ -268,7 +268,7 @@ server_metrics:
     output_tokens: 8000
     total_latency_ms: 13500
     avg_latency_ms: 4500
-    status: "partial_production"
+    status: "production"
 
   mcp-tcga:
     tool_calls: 2

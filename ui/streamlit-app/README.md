@@ -215,9 +215,12 @@ Use the sidebar to select which servers to enable:
 - **multiomics** - Multi-omics integration (RNA/Protein/Phospho)
 - **spatialtools** - Spatial transcriptomics analysis
 - **perturbation** - GEARS perturbation prediction for treatment response
+- **deepcell** - DeepCell-TF cell segmentation and phenotyping
+- **openimagedata** - H&E/MxIF image loading, registration, feature extraction, and composites
+- **quantum-celltype-fidelity** - Quantum cell type validation and immune evasion detection
 
 **Mock Servers (Demo Only):**
-- tcga, openimagedata, seqera, huggingface, deepcell, mockepic
+- tcga, seqera, huggingface, mockepic
 
 ### 2. Choose a Model
 
@@ -440,7 +443,7 @@ Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 - **Provider Abstraction** - Unified interface for Claude and Gemini
 - **Claude Provider** - Uses Anthropic's native MCP support
 - **Gemini Provider** - Custom SSE client with manual tool orchestration
-- **MCP Servers** - 10 Cloud Run services (4 production, 6 mock)
+- **MCP Servers** - 11 Cloud Run services (7 production, 4 mock)
 - **Bioinformatics Tools** - Real analysis engines (STAR, scanpy, GEARS, etc.)
 
 ## Cost Estimates
