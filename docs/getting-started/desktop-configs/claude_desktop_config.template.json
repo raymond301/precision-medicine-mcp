@@ -28,8 +28,8 @@
       "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-openimagedata",
       "env": {
         "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-openimagedata/src",
-        "IMAGE_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/images",
-        "IMAGE_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/cache/images",
+        "IMAGE_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/patient-data/PAT001-OVC-2025/imaging",
+        "IMAGE_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/patient-data/PAT001-OVC-2025/imaging/cache",
         "IMAGE_DRY_RUN": "true"
       }
     },

@@ -146,7 +146,7 @@ Each MCP server has a configured data directory:
 | Server | Config Variable | Path |
 |--------|----------------|------|
 | spatialtools | SPATIAL_DATA_DIR | `/data/` |
-| openimagedata | IMAGE_DATA_DIR | `/data/images/` |
+| openimagedata | IMAGE_DATA_DIR | `/data/patient-data/PAT001-OVC-2025/imaging/` |
 | multiomics | MULTIOMICS_DATA_DIR | `/data/multiomics/` |
 | fgbio | FGBIO_REFERENCE_DATA_DIR | `/data/reference/` |
 

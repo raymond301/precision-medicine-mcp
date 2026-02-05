@@ -325,8 +325,8 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
       "args": ["-m", "mcp_openimagedata"],
       "env": {
         "IMAGE_DRY_RUN": "false",
-        "IMAGE_DATA_DIR": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/data/images",
-        "IMAGE_CACHE_DIR": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/data/cache/images"
+        "IMAGE_DATA_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/imaging",
+        "IMAGE_CACHE_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/imaging/cache"
       }
     }
   }

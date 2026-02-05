@@ -58,8 +58,8 @@ Create a `.env` file in the server directory:
 
 ```bash
 # Data directories
-IMAGE_DATA_DIR=/workspace/data/images
-IMAGE_CACHE_DIR=/workspace/cache/images
+IMAGE_DATA_DIR=data/patient-data/PAT001-OVC-2025/imaging
+IMAGE_CACHE_DIR=data/patient-data/PAT001-OVC-2025/imaging/cache
 
 # Output directory for visualizations
 IMAGE_OUTPUT_DIR=/workspace/output
@@ -91,7 +91,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
       "cwd": "/path/to/spatial-mcp/servers/mcp-openimagedata",
       "env": {
         "PYTHONPATH": "/path/to/spatial-mcp/servers/mcp-openimagedata/src",
-        "IMAGE_DATA_DIR": "/workspace/data/images",
+        "IMAGE_DATA_DIR": "data/patient-data/PAT001-OVC-2025/imaging",
         "IMAGE_OUTPUT_DIR": "/workspace/output",
         "IMAGE_DRY_RUN": "false"
       }
@@ -589,8 +589,8 @@ mcp-openimagedata/
 
 | Environment Variable | Default | Description |
 |---------------------|---------|-------------|
-| `IMAGE_DATA_DIR` | `/workspace/data/images` | Directory for image datasets |
-| `IMAGE_CACHE_DIR` | `/workspace/cache/images` | Directory for cached files |
+| `IMAGE_DATA_DIR` | `data/patient-data/PAT001-OVC-2025/imaging` | Directory for image datasets |
+| `IMAGE_CACHE_DIR` | `data/patient-data/PAT001-OVC-2025/imaging/cache` | Directory for cached files |
 | `IMAGE_OUTPUT_DIR` | `/workspace/output` | Directory for output files |
 | `IMAGE_DRY_RUN` | `false` | Enable mock mode (no real processing) |
 | `IMAGE_LOG_LEVEL` | `INFO` | Logging level |
