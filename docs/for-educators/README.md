@@ -20,7 +20,9 @@
 - **No patient privacy concerns** - Safe for classroom use, public demos, publications
 - **No IRB approval needed** - Freely shareable with students
 - **Realistic but synthetic** - Clinically plausible scenarios without real PHI
-- **PatientOne dataset** - Stage IV ovarian cancer case with 5 modalities
+- **Two patient datasets available:**
+  - **PAT001-OVC-2025** - Stage IV ovarian cancer (BRCA1+, platinum-resistant)
+  - **PAT002-BC-2026** - Stage IIA breast cancer (BRCA2+, ER+/PR+/HER2-)
 
 ### Low Cost for Education
 - **DRY_RUN mode:** ~$0.32 per complete analysis (synthetic data, no API costs)

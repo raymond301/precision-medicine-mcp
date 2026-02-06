@@ -42,7 +42,16 @@ graph LR
     style C fill:#d4edda,stroke:#28a745,stroke-width:2px
 ```
 
-### PatientOne Example Datasets
+### Synthetic Patient Datasets
+
+**Two synthetic patient datasets are available:**
+
+| Patient | Cancer Type | Stage | Key Mutations | Use Case |
+|---------|-------------|-------|---------------|----------|
+| **PAT001-OVC-2025** | Ovarian (HGSOC) | IV | BRCA1, TP53, PIK3CA | Advanced refractory cancer |
+| **PAT002-BC-2026** | Breast (IDC) | IIA | BRCA2, PIK3CA, ER+/PR+ | Adjuvant therapy surveillance |
+
+**PatientOne (PAT001) Example Datasets:**
 
 | Modality | Demonstration Mode | Production Mode |
 |----------|-------------------|-----------------|
@@ -51,6 +60,8 @@ graph LR
 | **Multi-omics** | 15 samples, 38 KB matrices | 15 samples, 2.7 GB raw (15-20 MB processed) |
 | **Spatial** | 900 spots × 31 genes (315 KB) | 3,000-5,000 spots × 18,000-30,000 genes (100-500 MB) |
 | **Imaging** | H&E, MxIF placeholders (4.1 MB) | Full resolution slides (500 MB - 2 GB) |
+
+**PatientTwo (PAT002)** adds pre/post treatment comparison, BRCA2 germline testing, and ER/PR/HER2 receptor workflows. See [PAT002 README](../../data/patient-data/PAT002-BC-2026/README.md).
 
 **Synthetic Data:** 100% synthetic, no patient privacy concerns, safe for publication
 
