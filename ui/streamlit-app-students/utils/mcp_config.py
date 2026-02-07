@@ -1,6 +1,6 @@
 """MCP Server Configuration
 
-Contains URLs and metadata for all 12 deployed GCP Cloud Run MCP servers.
+Contains URLs and metadata for all 13 MCP servers (11 deployed + 2 local-only).
 """
 
 from typing import Dict, List, TypedDict
@@ -97,6 +97,13 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "description": "Quantum computing for cell type validation and immune evasion detection",
         "status": "production",
         "tools_count": 6
+    },
+    "patient-report": {
+        "name": "patient-report",
+        "url": "http://localhost:8090/sse",  # Local only - generates PDFs
+        "description": "Patient-facing PDF reports with plain-language summaries",
+        "status": "production",
+        "tools_count": 5
     }
 }
 
@@ -151,7 +158,8 @@ def get_server_categories() -> Dict[str, List[str]]:
             "perturbation",
             "quantum-celltype-fidelity",
             "deepcell",
-            "openimagedata"
+            "openimagedata",
+            "patient-report"
         ],
         "Mock Servers (Workflow Demo)": [
             "tcga",
