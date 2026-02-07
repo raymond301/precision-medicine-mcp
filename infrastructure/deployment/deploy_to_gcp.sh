@@ -263,6 +263,13 @@ deploy_server() {
     mkdir -p "${server_path}/_shared_temp"
     cp -r "${REPO_ROOT}/shared/utils" "${server_path}/_shared_temp/"
 
+    # Stage templates for mcp-patient-report
+    if [ "$server_name" = "mcp-patient-report" ]; then
+        print_info "Staging templates for patient-report..."
+        mkdir -p "${server_path}/_templates_temp"
+        cp -r "${REPO_ROOT}/templates/patient_report" "${server_path}/_templates_temp/"
+    fi
+
     # Build gcloud deploy command
     local deploy_cmd="gcloud run deploy ${server_name}"
     deploy_cmd+=" --source ${server_path}"
@@ -349,12 +356,14 @@ deploy_server() {
         # Cleanup staged files even on failure
         print_info "Cleaning up staged files..."
         rm -rf "${server_path}/_shared_temp"
+        rm -rf "${server_path}/_templates_temp"
         return 1
     fi
 
     # Cleanup staged files after successful deployment
     print_info "Cleaning up staged files..."
     rm -rf "${server_path}/_shared_temp"
+    rm -rf "${server_path}/_templates_temp"
 
     echo ""
 }
