@@ -1,0 +1,603 @@
+/* Patient Report CSS - Print-optimized, accessible styling */
+
+/* ==========================================================================
+   Variables & Reset
+   ========================================================================== */
+
+:root {
+    --color-primary: #1a5f7a;
+    --color-positive: #2d7a3d;
+    --color-caution: #b8860b;
+    --color-attention: #c41e3a;
+    --color-neutral: #4a5568;
+    --color-background: #ffffff;
+    --color-surface: #f7fafc;
+    --color-border: #e2e8f0;
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==========================================================================
+   Base Typography - Accessibility: minimum 12pt body text
+   ========================================================================== */
+
+body {
+    font-family: var(--font-body);
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #2d3748;
+    background: var(--color-background);
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: 24pt;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: 18pt;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.25em;
+    border-bottom: 2px solid var(--color-primary);
+}
+
+h3 {
+    font-family: var(--font-heading);
+    font-size: 14pt;
+    font-weight: 600;
+    color: #2d3748;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+/* ==========================================================================
+   Page Layout
+   ========================================================================== */
+
+.page {
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.75in;
+    background: var(--color-background);
+}
+
+/* Cover page */
+.cover-page {
+    text-align: center;
+    padding-top: 2in;
+}
+
+.cover-page .hospital-logo {
+    max-width: 200px;
+    max-height: 80px;
+    margin-bottom: 1in;
+}
+
+.cover-page .report-title {
+    font-size: 28pt;
+    color: var(--color-primary);
+    margin-bottom: 0.5em;
+}
+
+.cover-page .patient-name {
+    font-size: 20pt;
+    color: #2d3748;
+    margin-bottom: 0.25em;
+}
+
+.cover-page .diagnosis {
+    font-size: 14pt;
+    color: var(--color-neutral);
+    margin-bottom: 2em;
+}
+
+.cover-page .report-date {
+    font-size: 12pt;
+    color: var(--color-neutral);
+}
+
+/* ==========================================================================
+   Section Styling
+   ========================================================================== */
+
+.section {
+    margin-bottom: 1.5em;
+    page-break-inside: avoid;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.75em;
+}
+
+.section-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ==========================================================================
+   Cards & Boxes
+   ========================================================================== */
+
+.info-box {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.highlight-box {
+    background: #e6f3e6;
+    border-left: 4px solid var(--color-positive);
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.caution-box {
+    background: #fff8e6;
+    border-left: 4px solid var(--color-caution);
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.attention-box {
+    background: #fce8eb;
+    border-left: 4px solid var(--color-attention);
+    padding: 1em;
+    margin: 1em 0;
+}
+
+/* ==========================================================================
+   Disclaimer Box - Must be prominent
+   ========================================================================== */
+
+.disclaimer {
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    padding: 1em;
+    margin: 1em 0;
+    font-size: 11pt;
+}
+
+.disclaimer-header {
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.disclaimer-text {
+    color: #78350f;
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 11pt;
+}
+
+th, td {
+    padding: 0.75em;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+th {
+    background: var(--color-surface);
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+tr:hover {
+    background: var(--color-surface);
+}
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+
+ul, ol {
+    margin: 0.5em 0 1em 1.5em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+/* ==========================================================================
+   Finding Cards
+   ========================================================================== */
+
+.finding-card {
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 1em;
+    page-break-inside: avoid;
+}
+
+.finding-card.positive {
+    border-left: 4px solid var(--color-positive);
+}
+
+.finding-card.caution {
+    border-left: 4px solid var(--color-caution);
+}
+
+.finding-card.attention {
+    border-left: 4px solid var(--color-attention);
+}
+
+.finding-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5em;
+}
+
+.finding-gene {
+    font-weight: 700;
+    font-size: 14pt;
+    color: var(--color-primary);
+}
+
+.finding-badge {
+    font-size: 10pt;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.finding-badge.pathogenic {
+    background: #fce8eb;
+    color: var(--color-attention);
+}
+
+.finding-badge.actionable {
+    background: #e6f3e6;
+    color: var(--color-positive);
+}
+
+.finding-variant {
+    font-size: 11pt;
+    color: var(--color-neutral);
+    margin-bottom: 0.5em;
+}
+
+.finding-explanation {
+    font-size: 12pt;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   Treatment Cards
+   ========================================================================== */
+
+.treatment-card {
+    background: var(--color-surface);
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 1em;
+    page-break-inside: avoid;
+}
+
+.treatment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75em;
+}
+
+.treatment-name {
+    font-weight: 700;
+    font-size: 14pt;
+    color: var(--color-primary);
+}
+
+.treatment-type {
+    font-size: 10pt;
+    padding: 0.25em 0.75em;
+    border-radius: 20px;
+    background: var(--color-primary);
+    color: white;
+}
+
+.treatment-evidence {
+    font-size: 11pt;
+    color: var(--color-positive);
+    font-weight: 600;
+    margin-bottom: 0.5em;
+}
+
+.treatment-description {
+    margin-bottom: 0.75em;
+}
+
+.treatment-side-effects {
+    font-size: 11pt;
+    color: var(--color-neutral);
+}
+
+/* ==========================================================================
+   Monitoring Schedule
+   ========================================================================== */
+
+.schedule-item {
+    display: flex;
+    gap: 1em;
+    padding: 0.75em 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.schedule-frequency {
+    min-width: 120px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.schedule-test {
+    flex: 1;
+}
+
+.schedule-purpose {
+    color: var(--color-neutral);
+    font-size: 11pt;
+}
+
+/* Warning signs list */
+.warning-signs {
+    background: #fef3c7;
+    border-radius: 8px;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.warning-signs h4 {
+    color: #92400e;
+    margin-bottom: 0.5em;
+}
+
+.warning-signs li {
+    color: #78350f;
+}
+
+/* ==========================================================================
+   Resources Section
+   ========================================================================== */
+
+.resource-card {
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+    background: var(--color-surface);
+    border-radius: 8px;
+    margin-bottom: 0.75em;
+}
+
+.resource-icon {
+    font-size: 24px;
+}
+
+.resource-info {
+    flex: 1;
+}
+
+.resource-name {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.resource-description {
+    font-size: 11pt;
+    color: var(--color-neutral);
+}
+
+.resource-contact {
+    font-size: 11pt;
+    margin-top: 0.25em;
+}
+
+/* ==========================================================================
+   Glossary
+   ========================================================================== */
+
+.glossary-term {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.glossary-definition {
+    margin-left: 1em;
+    margin-bottom: 0.75em;
+    color: var(--color-neutral);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5em 0.75in;
+    font-size: 9pt;
+    color: var(--color-neutral);
+    border-top: 1px solid var(--color-border);
+    background: var(--color-background);
+}
+
+.footer-disclaimer {
+    text-align: center;
+    color: #92400e;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Draft Watermark
+   ========================================================================== */
+
+.draft-watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 100pt;
+    color: rgba(200, 200, 200, 0.3);
+    font-weight: 700;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    body {
+        background: white;
+    }
+
+    .page {
+        padding: 0.5in;
+        max-width: none;
+    }
+
+    .section {
+        page-break-inside: avoid;
+    }
+
+    h2 {
+        page-break-after: avoid;
+    }
+
+    .finding-card,
+    .treatment-card {
+        page-break-inside: avoid;
+    }
+
+    /* Remove background colors that waste ink */
+    .info-box,
+    .treatment-card,
+    .resource-card {
+        background: white;
+        border: 1px solid #ccc;
+    }
+
+    /* Keep important highlights */
+    .disclaimer,
+    .warning-signs {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* ==========================================================================
+   One-Page Summary Specific
+   ========================================================================== */
+
+.onepage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 1em;
+    border-bottom: 2px solid var(--color-primary);
+    margin-bottom: 1em;
+}
+
+.onepage-patient {
+    flex: 1;
+}
+
+.onepage-meta {
+    text-align: right;
+    font-size: 10pt;
+    color: var(--color-neutral);
+}
+
+.quick-facts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.quick-fact {
+    background: var(--color-surface);
+    padding: 0.75em;
+    border-radius: 8px;
+}
+
+.quick-fact-label {
+    font-size: 10pt;
+    color: var(--color-neutral);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.quick-fact-value {
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.key-findings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75em;
+}
+
+.key-finding {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+    padding: 0.5em;
+    background: var(--color-surface);
+    border-radius: 4px;
+    font-size: 11pt;
+}
+
+.key-finding-icon {
+    font-size: 16px;
+}
+
+.next-steps-list {
+    background: #e6f3e6;
+    border-radius: 8px;
+    padding: 1em;
+}
+
+.next-steps-list li {
+    color: #1a5f2a;
+}

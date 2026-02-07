@@ -1,0 +1,128 @@
+{% extends "_base.html.j2" %}
+
+{% block title %}Quick Summary - {{ report.patient_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="onepage-header">
+    <div class="onepage-patient">
+        <h1 style="font-size: 20pt; margin-bottom: 0.25em;">{{ report.patient_info.name }}</h1>
+        <p style="font-size: 14pt; color: #4a5568;">{{ report.patient_info.diagnosis }}</p>
+    </div>
+    <div class="onepage-meta">
+        {% if report.hospital_name %}<div>{{ report.hospital_name }}</div>{% endif %}
+        <div>{{ report.metadata.generated_at.strftime('%B %d, %Y') }}</div>
+        {% if report.metadata.report_status == 'preliminary' %}
+        <div style="color: #c41e3a; font-weight: 600;">⚠️ DRAFT</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Quick Facts -->
+<div class="quick-facts">
+    <div class="quick-fact">
+        <div class="quick-fact-label">Cancer Type</div>
+        <div class="quick-fact-value">{{ report.diagnosis_summary.cancer_type }}</div>
+    </div>
+    <div class="quick-fact">
+        <div class="quick-fact-label">Stage</div>
+        <div class="quick-fact-value">{{ report.diagnosis_summary.stage }}</div>
+    </div>
+    <div class="quick-fact">
+        <div class="quick-fact-label">Key Mutations</div>
+        <div class="quick-fact-value">{{ report.genomic_findings | length }} found</div>
+    </div>
+    <div class="quick-fact">
+        <div class="quick-fact-label">Treatment Options</div>
+        <div class="quick-fact-value">{{ report.treatment_options | length }} identified</div>
+    </div>
+</div>
+
+<!-- What This Means -->
+<section class="section">
+    <h2 style="font-size: 14pt;">What This Means</h2>
+    <p>{{ report.diagnosis_summary.plain_language_description }}</p>
+</section>
+
+<!-- Key Findings -->
+<section class="section">
+    <h2 style="font-size: 14pt;">Key Findings</h2>
+    <div class="key-findings-grid">
+        {% for finding in report.genomic_findings[:4] %}
+        <div class="key-finding">
+            <span class="key-finding-icon">
+                {% if finding.icon == 'positive' %}✅
+                {% elif finding.icon == 'caution' %}⚠️
+                {% elif finding.icon == 'attention' %}🔴
+                {% else %}📍{% endif %}
+            </span>
+            <div>
+                <strong>{{ finding.gene }}</strong>: {{ finding.plain_language | truncate(100) }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Top Treatment Options -->
+{% if report.treatment_options %}
+<section class="section">
+    <h2 style="font-size: 14pt;">Recommended Treatments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Treatment</th>
+                <th>Type</th>
+                <th>Evidence</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for treatment in report.treatment_options[:3] %}
+            <tr>
+                <td><strong>{{ treatment.name }}</strong></td>
+                <td>{{ treatment.type }}</td>
+                <td>{{ treatment.evidence_level.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endif %}
+
+<!-- Next Steps -->
+<section class="section">
+    <h2 style="font-size: 14pt;">Next Steps</h2>
+    <div class="next-steps-list">
+        <ol>
+            <li>Discuss this report with your oncologist</li>
+            {% if report.treatment_options %}
+            <li>Review treatment options together</li>
+            {% endif %}
+            {% if report.clinical_trials %}
+            <li>Ask about {{ report.clinical_trials | length }} clinical trial(s) you may qualify for</li>
+            {% endif %}
+            {% if report.family_implications and report.family_implications.genetic_counseling_recommended %}
+            <li>Schedule genetic counseling for family discussion</li>
+            {% endif %}
+            <li>Follow your monitoring schedule</li>
+        </ol>
+    </div>
+</section>
+
+<!-- Contact & Disclaimer -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-top: 1em;">
+    {% if report.monitoring_plan.who_to_contact %}
+    <div class="info-box">
+        <h4 style="margin-bottom: 0.25em;">Questions?</h4>
+        <p style="margin-bottom: 0;">{{ report.monitoring_plan.who_to_contact }}</p>
+    </div>
+    {% endif %}
+
+    <div class="disclaimer" style="margin: 0;">
+        <div class="disclaimer-header" style="font-size: 10pt;">⚠️ Important</div>
+        <div class="disclaimer-text" style="font-size: 9pt;">
+            AI-generated summary. Must be reviewed by your healthcare team.
+        </div>
+    </div>
+</div>
+{% endblock %}

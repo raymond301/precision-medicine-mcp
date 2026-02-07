@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 12 | **Production Ready:** 8 (67%) | **Total Tools:** 124
+**Total Servers:** 13 | **Production Ready:** 9 (69%) | **Total Tools:** 129
 
 📁 **[Individual Server Documentation →](../../servers/README.md)**
 
@@ -18,6 +18,7 @@
 | **mcp-deepcell** | 4 | 100% Real | DeepCell-TF segmentation, nuclear/membrane models, MxIF phenotyping | [README](../../servers/mcp-deepcell/README.md) |
 | **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../../servers/mcp-epic/) |
 | **mcp-openimagedata** | 5 | 100% Real | PIL image loading, scikit-image registration + feature extraction, MxIF compositing, H&E annotation | [README](../../servers/mcp-openimagedata/README.md) |
+| **mcp-patient-report** | 5 | 100% Real | Patient-facing PDF reports, plain-language summaries, clinician review gate | [README](../../servers/mcp-patient-report/README.md) |
 
 ---
 
@@ -49,15 +50,16 @@
 - **Spatial**: mcp-spatialtools (spatial transcriptomics)
 - **Imaging**: mcp-deepcell (cell segmentation), mcp-openimagedata (histology + registration + features)
 - **Treatment**: mcp-perturbation (GEARS prediction), mcp-quantum-celltype-fidelity (quantum fidelity)
+- **Reports**: mcp-patient-report (patient-facing summaries)
 - **AI/ML**: mcp-huggingface (model inference - mocked)
 - **Workflows**: mcp-seqera (Nextflow - mocked)
 
 ### By Production Readiness
-- **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-epic, mcp-openimagedata
+- **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-epic, mcp-openimagedata, mcp-patient-report
 - **Not Ready**: mcp-tcga, mcp-huggingface, mcp-seqera (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
 
 ---
 
-**Last Updated:** 2026-01-31
+**Last Updated:** 2026-02-07
 **Maintained By:** Precision Medicine MCP Team

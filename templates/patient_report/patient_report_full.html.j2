@@ -1,0 +1,325 @@
+{% extends "_base.html.j2" %}
+
+{% block title %}Patient Summary Report - {{ report.patient_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Cover Page -->
+<div class="cover-page">
+    {% if report.hospital_logo_path %}
+    <img src="{{ report.hospital_logo_path }}" alt="Hospital Logo" class="hospital-logo">
+    {% endif %}
+
+    <h1 class="report-title">Your Cancer Summary Report</h1>
+
+    <p class="patient-name">{{ report.patient_info.name }}</p>
+    <p class="diagnosis">{{ report.patient_info.diagnosis }}</p>
+
+    {% if report.hospital_name %}
+    <p style="font-size: 14pt; color: #4a5568; margin-top: 2em;">{{ report.hospital_name }}</p>
+    {% endif %}
+
+    <p class="report-date">Report Date: {{ report.metadata.generated_at.strftime('%B %d, %Y') }}</p>
+
+    {% if report.metadata.report_status == 'preliminary' %}
+    <div class="disclaimer" style="margin-top: 2em; text-align: left;">
+        <div class="disclaimer-header">
+            ⚠️ DRAFT - FOR CLINICIAN REVIEW
+        </div>
+        <div class="disclaimer-text">
+            This report has not yet been reviewed by your healthcare team.
+            Please wait for your doctor to discuss these results with you.
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div style="page-break-after: always;"></div>
+
+<!-- At a Glance Section -->
+<section class="section">
+    <h2>At a Glance</h2>
+
+    <div class="info-box">
+        <h3>Your Diagnosis</h3>
+        <p><strong>{{ report.diagnosis_summary.cancer_type }}</strong>
+        {% if report.diagnosis_summary.subtype %} - {{ report.diagnosis_summary.subtype }}{% endif %}</p>
+        <p><strong>Stage:</strong> {{ report.diagnosis_summary.stage }}
+        {% if report.diagnosis_summary.grade %} | <strong>Grade:</strong> {{ report.diagnosis_summary.grade }}{% endif %}</p>
+    </div>
+
+    <p>{{ report.diagnosis_summary.plain_language_description }}</p>
+
+    {% if report.diagnosis_summary.key_positive_factors %}
+    <div class="highlight-box">
+        <h4 style="color: #2d7a3d; margin-bottom: 0.5em;">✓ Positive Factors</h4>
+        <ul>
+        {% for factor in report.diagnosis_summary.key_positive_factors %}
+            <li>{{ factor }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if report.diagnosis_summary.key_challenges %}
+    <div class="caution-box">
+        <h4 style="color: #b8860b; margin-bottom: 0.5em;">⚠ Challenges to Consider</h4>
+        <ul>
+        {% for challenge in report.diagnosis_summary.key_challenges %}
+            <li>{{ challenge }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Genomic Findings -->
+{% if report.genomic_findings %}
+<section class="section">
+    <h2>What Your Tests Found</h2>
+
+    <p>Genetic testing of your tumor revealed the following important findings:</p>
+
+    {% for finding in report.genomic_findings %}
+    <div class="finding-card {{ finding.icon or 'neutral' }}">
+        <div class="finding-header">
+            <span class="finding-gene">{{ finding.gene }}</span>
+            <span class="finding-badge {{ 'pathogenic' if finding.significance == 'Pathogenic' else 'actionable' if finding.actionability else '' }}">
+                {{ finding.significance }}
+            </span>
+        </div>
+        <div class="finding-variant">{{ finding.variant }}</div>
+        <div class="finding-explanation">{{ finding.plain_language }}</div>
+        {% if finding.actionability %}
+        <div style="margin-top: 0.75em; padding-top: 0.75em; border-top: 1px solid #e2e8f0;">
+            <strong style="color: #2d7a3d;">Treatment Option:</strong> {{ finding.actionability }}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<!-- Spatial Findings -->
+{% if report.spatial_findings %}
+<section class="section">
+    <h2>Your Tumor Environment</h2>
+
+    <p>Advanced spatial analysis shows how different cells are organized in your tumor:</p>
+
+    <div class="info-box">
+        <h4>Tumor Microenvironment</h4>
+        <p>{{ report.spatial_findings.tumor_microenvironment_summary }}</p>
+
+        <p><strong>Immune Status:</strong>
+        {% if report.spatial_findings.immune_infiltration.value == 'hot' %}
+            <span style="color: #2d7a3d;">● High immune activity</span> - Your immune system is actively fighting the tumor
+        {% elif report.spatial_findings.immune_infiltration.value == 'cold' %}
+            <span style="color: #c41e3a;">● Low immune activity</span> - The tumor may be evading your immune system
+        {% else %}
+            <span style="color: #b8860b;">● Mixed immune activity</span> - Variable immune response across the tumor
+        {% endif %}
+        </p>
+    </div>
+
+    <p>{{ report.spatial_findings.plain_language }}</p>
+
+    {% if report.spatial_findings.key_spatial_patterns %}
+    <h4>Key Patterns Observed</h4>
+    <ul>
+    {% for pattern in report.spatial_findings.key_spatial_patterns %}
+        <li>{{ pattern }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</section>
+{% endif %}
+
+<!-- Histology Findings -->
+{% if report.histology_findings %}
+<section class="section">
+    <h2>What the Microscope Shows</h2>
+
+    <p>{{ report.histology_findings.plain_language }}</p>
+
+    {% if report.histology_findings.key_observations %}
+    <h4>Key Observations</h4>
+    <ul>
+    {% for obs in report.histology_findings.key_observations %}
+        <li>{{ obs }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</section>
+{% endif %}
+
+<!-- Treatment Options -->
+{% if report.treatment_options %}
+<section class="section">
+    <h2>Treatment Options</h2>
+
+    <p>Based on your test results, your care team may consider these treatments:</p>
+
+    {% for treatment in report.treatment_options %}
+    <div class="treatment-card">
+        <div class="treatment-header">
+            <span class="treatment-name">{{ treatment.name }}</span>
+            <span class="treatment-type">{{ treatment.type }}</span>
+        </div>
+        <div class="treatment-evidence">{{ treatment.evidence_level.value }}</div>
+        {% if treatment.expected_response_rate %}
+        <p><strong>Expected Response:</strong> {{ treatment.expected_response_rate }}</p>
+        {% endif %}
+        <div class="treatment-description">
+            <p>{{ treatment.plain_language_description }}</p>
+            <p><strong>Why this may help you:</strong> {{ treatment.why_recommended }}</p>
+        </div>
+        {% if treatment.common_side_effects %}
+        <div class="treatment-side-effects">
+            <strong>Common side effects:</strong> {{ treatment.common_side_effects | join(', ') }}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<!-- Clinical Trials -->
+{% if report.clinical_trials %}
+<section class="section">
+    <h2>Clinical Trials</h2>
+
+    <p>You may be eligible for these research studies offering new treatments:</p>
+
+    {% for trial in report.clinical_trials %}
+    <div class="info-box">
+        <h4>{{ trial.title }}</h4>
+        <p><strong>Phase:</strong> {{ trial.phase }} | <strong>Status:</strong> {{ trial.status }}</p>
+        <p><strong>Trial ID:</strong> {{ trial.nct_id }}</p>
+        <p>{{ trial.plain_language_why_relevant }}</p>
+        {% if trial.location %}
+        <p><strong>Nearest Location:</strong> {{ trial.location }}</p>
+        {% endif %}
+        {% if trial.contact_info %}
+        <p><strong>Contact:</strong> {{ trial.contact_info }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<!-- Monitoring Plan -->
+<section class="section">
+    <h2>Your Monitoring Plan</h2>
+
+    <p>Regular check-ups help us track your health and catch any changes early.</p>
+
+    {% if report.monitoring_plan.schedule %}
+    <h4>Scheduled Tests</h4>
+    {% for item in report.monitoring_plan.schedule %}
+    <div class="schedule-item">
+        <div class="schedule-frequency">{{ item.frequency }}</div>
+        <div>
+            <div class="schedule-test">{{ item.test_name }}</div>
+            <div class="schedule-purpose">{{ item.purpose }}</div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if report.monitoring_plan.warning_signs %}
+    <div class="warning-signs">
+        <h4>⚠️ When to Call Your Doctor</h4>
+        <p>Contact your care team right away if you experience:</p>
+        <ul>
+        {% for sign in report.monitoring_plan.warning_signs %}
+            <li>{{ sign }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if report.monitoring_plan.who_to_contact %}
+    <div style="margin-top: 1em; padding: 1em; background: #e6f3e6; border-radius: 8px;">
+        <strong>Questions?</strong> {{ report.monitoring_plan.who_to_contact }}
+    </div>
+    {% endif %}
+</section>
+
+<!-- Family Implications -->
+{% if report.family_implications and report.family_implications.has_germline_findings %}
+<section class="section">
+    <h2>For Your Family</h2>
+
+    <p>{{ report.family_implications.germline_findings_plain_language }}</p>
+
+    {% if report.family_implications.recommended_actions %}
+    <h4>Recommended Steps for Family Members</h4>
+    <ul>
+    {% for action in report.family_implications.recommended_actions %}
+        <li>{{ action }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if report.family_implications.genetic_counseling_recommended %}
+    <div class="highlight-box">
+        <strong>Genetic Counseling Recommended:</strong> A genetic counselor can help explain
+        what these results mean for your family members and discuss testing options.
+    </div>
+    {% endif %}
+</section>
+{% endif %}
+
+<!-- Support Resources -->
+{% if report.support_resources %}
+<section class="section">
+    <h2>Resources & Support</h2>
+
+    <p>You don't have to face this alone. These resources can help:</p>
+
+    {% for resource in report.support_resources %}
+    <div class="resource-card">
+        <div class="resource-icon">
+            {% if resource.type.value == 'genetic_counseling' %}🧬
+            {% elif resource.type.value == 'financial_assistance' %}💰
+            {% elif resource.type.value == 'support_group' %}👥
+            {% elif resource.type.value == 'patient_advocacy' %}📣
+            {% elif resource.type.value == 'mental_health' %}💚
+            {% else %}📞{% endif %}
+        </div>
+        <div class="resource-info">
+            <div class="resource-name">{{ resource.name }}</div>
+            <div class="resource-description">{{ resource.description }}</div>
+            <div class="resource-contact">
+                {% if resource.phone %}📞 {{ resource.phone }}{% endif %}
+                {% if resource.url %} | 🌐 {{ resource.url }}{% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<!-- Final Disclaimer -->
+<section class="section">
+    <div class="disclaimer">
+        <div class="disclaimer-header">
+            ⚠️ Important Notice
+        </div>
+        <div class="disclaimer-text">
+            {{ report.metadata.disclaimer }}
+            <br><br>
+            <strong>Data Sources:</strong> {{ report.metadata.data_sources | join(', ') if report.metadata.data_sources else 'Not specified' }}
+            <br>
+            <strong>Report Version:</strong> {{ report.metadata.report_version }}
+            <br>
+            <strong>Generated:</strong> {{ report.metadata.generated_at.strftime('%Y-%m-%d %H:%M:%S') }}
+            {% if report.metadata.clinician_reviewer %}
+            <br>
+            <strong>Reviewed by:</strong> {{ report.metadata.clinician_reviewer }} on {{ report.metadata.review_date.strftime('%Y-%m-%d') if report.metadata.review_date else 'Pending' }}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

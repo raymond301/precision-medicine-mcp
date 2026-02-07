@@ -201,7 +201,7 @@ precision-medicine-mcp/
 │   ├── deployment/         # GCP deployment scripts
 │   ├── audit/              # Bias detection and audit tools
 │   └── hospital-deployment/  # Hospital-specific infrastructure
-├── servers/                # 10 MCP servers (Python)
+├── servers/                # 13 MCP servers (Python)
 │   ├── mcp-deepcell/       # Cell segmentation
 │   ├── mcp-epic/           # Epic FHIR integration
 │   ├── mcp-fgbio/          # Reference genomes, FASTQ QC
@@ -209,6 +209,9 @@ precision-medicine-mcp/
 │   ├── mcp-mockepic/       # Mock Epic for testing
 │   ├── mcp-multiomics/     # Multi-omics integration
 │   ├── mcp-openimagedata/  # Imaging data (H&E, MxIF)
+│   ├── mcp-patient-report/ # Patient-facing reports
+│   ├── mcp-perturbation/   # GEARS treatment prediction
+│   ├── mcp-quantum-celltype-fidelity/ # Quantum fidelity
 │   ├── mcp-seqera/         # Workflow orchestration
 │   ├── mcp-spatialtools/   # Spatial transcriptomics
 │   └── mcp-tcga/           # TCGA cohort data

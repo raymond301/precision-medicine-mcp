@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Patient Summary Report{% endblock %}</title>
+    <style>
+        {% include 'styles/patient_report.css' %}
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+    {% if report.metadata.report_status == 'preliminary' %}
+    <div class="draft-watermark">DRAFT</div>
+    {% endif %}
+
+    <div class="page">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="page-footer">
+        <div class="footer-disclaimer">
+            {{ report.metadata.disclaimer }}
+        </div>
+    </div>
+</body>
+</html>

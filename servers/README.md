@@ -1,6 +1,6 @@
 # 🧬 MCP Server Implementation
 
-12 specialized MCP servers for precision medicine analysis with 69 tools.
+13 specialized MCP servers for precision medicine analysis with 74 tools.
 
 ---
 
@@ -20,8 +20,9 @@
 | 🧪 **mcp-tcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-tcga/README.md) |
 | 🤖 **mcp-huggingface** | 3 | ❌ Mocked (HF-ready) | — |
 | ⚙️ **mcp-seqera** | 3 | ❌ Mocked (Seqera-ready) | — |
+| 📄 **mcp-patient-report** | 5 | ✅ 100% real | [README →](mcp-patient-report/README.md) |
 
-**Production Ready:** 8/12 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-openimagedata)
+**Production Ready:** 9/13 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-openimagedata)
 
 ---
 
