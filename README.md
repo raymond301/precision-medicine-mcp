@@ -9,7 +9,7 @@
 
 > **40 hours of manual bioinformatics → 35 minutes AI-orchestrated**
 >
-> 12 specialized MCP servers | 69 analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
+> 13 specialized MCP servers | 74 analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
 
 ---
 
