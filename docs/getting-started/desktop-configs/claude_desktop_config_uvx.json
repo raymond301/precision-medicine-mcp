@@ -124,6 +124,21 @@
         "MULTIOMICS_CACHE_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/cache/multiomics",
         "MULTIOMICS_DRY_RUN": "false"
       }
+    },
+    "patient-report": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-patient-report",
+        "python",
+        "-m",
+        "mcp_patient_report"
+      ],
+      "env": {
+        "PATIENT_REPORT_OUTPUT_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/reports",
+        "PATIENT_REPORT_TEMPLATES_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/templates/patient_report",
+        "PATIENT_REPORT_DRY_RUN": "true"
+      }
     }
   }
 }

@@ -100,7 +100,7 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
     },
     "patient-report": {
         "name": "patient-report",
-        "url": "http://localhost:8090/sse",  # Local only - generates PDFs
+        "url": "http://localhost:3011/sse" if USE_LOCAL_SERVERS else "https://mcp-patient-report-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Patient-facing PDF reports with plain-language summaries",
         "status": "production",
         "tools_count": 5

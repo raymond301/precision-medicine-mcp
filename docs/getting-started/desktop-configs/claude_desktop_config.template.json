@@ -77,6 +77,17 @@
         "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-tcga/src",
         "TCGA_DRY_RUN": "true"
       }
+    },
+    "patient-report": {
+      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report/venv/bin/python",
+      "args": ["-m", "mcp_patient_report"],
+      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report",
+      "env": {
+        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report/src",
+        "PATIENT_REPORT_OUTPUT_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/reports",
+        "PATIENT_REPORT_TEMPLATES_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/templates/patient_report",
+        "PATIENT_REPORT_DRY_RUN": "true"
+      }
     }
   }
 }
