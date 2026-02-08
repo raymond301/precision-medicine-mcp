@@ -104,21 +104,4 @@ graph LR
 
 ---
 
-## 📊 Live Monitoring Dashboard
-
-Real-time observability for all deployed MCP servers and Streamlit clients.
-
-**Live Dashboard:** [mcp-dashboard-305650208648.us-central1.run.app](https://mcp-dashboard-305650208648.us-central1.run.app)
-
-| Feature | Description |
-|---------|-------------|
-| **Health Monitoring** | 12 MCP servers + 3 Streamlit clients |
-| **Live Token Usage** | Actual LLM costs from audit logs |
-| **Model Pricing** | Claude (Sonnet/Opus/Haiku) + Gemini 3 (Flash/Pro) |
-| **Cost Optimization** | Per-server recommendations |
-
-**Learn More:** [Dashboard Documentation](ui/dashboard/README.md)
-
----
-
 
