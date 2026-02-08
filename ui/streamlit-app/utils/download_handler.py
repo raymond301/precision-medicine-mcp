@@ -14,7 +14,9 @@ from typing import Optional, List, Dict, Any
 def extract_downloadable_files(trace: Any) -> List[Dict[str, Any]]:
     """Extract downloadable files from an orchestration trace.
 
-    Looks for tool results containing file_content_base64 fields.
+    Note: ToolCall objects only have result_summary (truncated), not full results.
+    This function checks if trace has tool_calls but the actual file content
+    must be extracted from the message content instead.
 
     Args:
         trace: OrchestrationTrace object with tool_calls
@@ -24,48 +26,10 @@ def extract_downloadable_files(trace: Any) -> List[Dict[str, Any]]:
     """
     files = []
 
-    if not trace or not hasattr(trace, 'tool_calls'):
-        return files
-
-    for tool_call in trace.tool_calls:
-        if not tool_call.result:
-            continue
-
-        # Parse result if it's a string
-        result = tool_call.result
-        if isinstance(result, str):
-            try:
-                result = json.loads(result)
-            except (json.JSONDecodeError, TypeError):
-                continue
-
-        # Check for file_content_base64
-        if isinstance(result, dict) and result.get("file_content_base64"):
-            try:
-                file_content = base64.b64decode(result["file_content_base64"])
-                file_name = result.get("file_name", "report.pdf")
-                output_format = result.get("output_format", "pdf")
-
-                # Determine MIME type
-                if output_format == "pdf":
-                    mime_type = "application/pdf"
-                elif output_format == "html":
-                    mime_type = "text/html"
-                else:
-                    mime_type = "application/octet-stream"
-
-                files.append({
-                    "file_name": file_name,
-                    "file_content": file_content,
-                    "mime_type": mime_type,
-                    "patient_id": result.get("patient_id", "unknown"),
-                    "report_type": result.get("report_type", "report"),
-                    "is_draft": result.get("is_draft", True)
-                })
-            except Exception as e:
-                # Log error but continue
-                st.warning(f"Failed to decode file content: {e}")
-                continue
+    # ToolCall objects only have result_summary (truncated string), not full results
+    # The full file_content_base64 must be extracted from message content
+    # This function is kept for interface compatibility but returns empty list
+    # Real extraction happens in extract_downloadable_from_content()
 
     return files
 
