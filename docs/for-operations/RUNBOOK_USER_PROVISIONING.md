@@ -43,6 +43,7 @@ Force a sign-out of all sessions to invalidate existing JWT/OIDC tokens and sess
 ---
 
 ### Document History
+
 | Date | Version | Author | Change Summary |
 |:---|:---|:---|:---|
-| 2026-02-08 | 1.0 | IT Operations | Initial creation |
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |

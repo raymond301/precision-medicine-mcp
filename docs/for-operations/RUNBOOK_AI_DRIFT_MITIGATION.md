@@ -38,6 +38,7 @@ Trigger a mandatory manual review for all clinical reports until the performance
 ---
 
 ### Document History
+
 | Date | Version | Author | Change Summary |
 |:---|:---|:---|:---|
-| 2026-02-08 | 1.0 | AI Ethics Team | Initial operational procedures |
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |

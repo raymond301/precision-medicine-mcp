@@ -24,5 +24,4 @@
 
 | Date | Version | Author | Change Summary |
 |:---|:---|:---|:---|
-| 2026-02-08 | 2.0 | IT Operations | Modular alignment and PDF spec compliance |
-| 2026-01-22 | 1.0 | IT Operations | Initial monolithic document (original.md) |
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |
