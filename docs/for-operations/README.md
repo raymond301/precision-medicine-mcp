@@ -43,75 +43,90 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 - **Anthropic Claude API** (AI orchestration layer)
 - **Data Types:** Clinical (FHIR), genomic (VCF/FASTQ), multi-omics, spatial transcriptomics, imaging
 
+### Critical Risks
+
+| Risk Category | Impact | Mitigation |
+|---------------|--------|------------|
+| Claude API outage | Total unavailability | SLA monitoring, fallback roadmap |
+| GCP region failure | Regional outage | Multi-region DR, 4-hour RTO |
+| PHI data breach | HIPAA violation | Encryption, MFA, 10-year audit |
+| Cost overrun | Budget exhaustion | Hard scaling limits, alerts |
+
 ---
 
 ## Document Navigation
 
 ### Core SLA Sections
 
-1. **[Agreement Overview](sections/01_AGREEMENT_OVERVIEW.md)**  
+1. **[Agreement Overview](01_AGREEMENT_OVERVIEW.md)**  
    Parties, scope of services, service tiers, exclusions
 
-2. **[Service Level Objectives](sections/02_SERVICE_LEVEL_OBJECTIVES.md)**  
+2. **[Service Level Objectives](02_SERVICE_LEVEL_OBJECTIVES.md)**  
    Availability targets, performance metrics, scalability commitments
 
-3. **[Incident Management](sections/03_INCIDENT_MANAGEMENT.md)**  
+3. **[Incident Management](03_INCIDENT_MANAGEMENT.md)**  
    Priority classification (P0-P3), response/resolution times, escalation procedures, PHI breach protocols
 
-4. **[Compliance and Regulatory](sections/04_COMPLIANCE_REGULATORY.md)**  
+4. **[Compliance and Regulatory](04_COMPLIANCE_REGULATORY.md)**  
    HIPAA safeguards, Business Associate Agreement, NIST alignment, required certifications
 
-5. **[Data Protection](sections/05_DATA_PROTECTION.md)**  
+5. **[Data Protection](05_DATA_PROTECTION.md)**  
    Encryption standards (TLS 1.3, AES-256), PHI handling, data retention/disposal
 
-6. **[Security Operations](sections/06_SECURITY_OPERATIONS.md)**  
+6. **[Security Operations](06_SECURITY_OPERATIONS.md)**  
    Vulnerability scanning, penetration testing, patch management, access control, MFA
 
-7. **[Backup and Disaster Recovery](sections/07_BACKUP_DISASTER_RECOVERY.md)**  
+7. **[Backup and Disaster Recovery](07_BACKUP_DISASTER_RECOVERY.md)**  
    RTO/RPO targets, backup frequency, DR testing schedule, multi-region failover
 
-8. **[Monitoring and Reporting](sections/08_MONITORING_REPORTING.md)**  
+8. **[Monitoring and Reporting](08_MONITORING_REPORTING.md)**  
    Three-layer observability, dashboards, KPIs, reporting cadence (weekly/monthly/quarterly)
 
-9. **[Financial Terms](sections/09_FINANCIAL_TERMS.md)**  
+9. **[Financial Terms](09_FINANCIAL_TERMS.md)**  
    Service credits for SLA breaches, penalty structure, cyber liability insurance
 
-10. **[Governance and Change Management](sections/10_GOVERNANCE_CHANGE_MANAGEMENT.md)**  
-    SLA review cycle (quarterly), change request procedures, continuous improvement
+10. **[Governance and Change Management](10_GOVERNANCE_CHANGE_MANAGEMENT.md)**  
+    SLA review cycle, change request procedures, continuous improvement
 
-11. **[Contract Termination](sections/11_CONTRACT_TERMINATION.md)**  
-    Data transfer/deletion, access revocation, post-contract audit rights, knowledge transfer
+11. **[Contract Termination](11_CONTRACT_TERMINATION.md)**  
+    Data transfer, access revocation, post-contract audit rights
+
+12. **[Escalation and Support](12_ESCALATION_SUPPORT.md)**  
+    Support tiers (L1-L4), vendor escalation paths, contacts
 
 ### Appendices
 
-- **[Appendix A: Incident Classification Matrix](appendices/APPENDIX_A_INCIDENT_CLASSIFICATION.md)**  
+- **[Appendix A: Incident Classification Matrix](APPENDIX_A_INCIDENT_CLASSIFICATION.md)**  
   P0-P3 severity definitions, response times, escalation paths
 
-- **[Appendix B: Infrastructure Components](appendices/APPENDIX_B_INFRASTRUCTURE_COMPONENTS.md)**  
+- **[Appendix B: Infrastructure Components](APPENDIX_B_INFRASTRUCTURE_COMPONENTS.md)**  
   Complete inventory of 9 MCP servers, storage, network, IAM components
 
-- **[Appendix C: AI Agent Performance Metrics](appendices/APPENDIX_C_AI_AGENT_METRICS.md)**  
+- **[Appendix C: AI Agent Performance Metrics](APPENDIX_C_AI_AGENT_METRICS.md)**  
   Agent behavioral baselines, accuracy thresholds, drift detection
 
-- **[Appendix D: HIPAA Compliance Checklist](appendices/APPENDIX_D_HIPAA_CHECKLIST.md)**  
+- **[Appendix D: HIPAA Compliance Checklist](APPENDIX_D_HIPAA_CHECKLIST.md)**  
   Monthly verification checklist, quarterly review items, annual requirements
 
-- **[Appendix E: Contact and Escalation Directory](appendices/APPENDIX_E_CONTACTS.md)**  
+- **[Appendix E: Contact and Escalation Directory](APPENDIX_E_CONTACTS.md)**  
   Primary contacts, vendor escalation, emergency contacts (24/7)
 
 ### Operational Runbooks
 
-- **[Runbook: P0 Complete System Outage](runbooks/P0_COMPLETE_OUTAGE.md)**
-- **[Runbook: P1 PHI Breach Response](runbooks/P1_PHI_BREACH.md)**
-- **[Runbook: Disaster Recovery Failover](runbooks/DR_FAILOVER.md)**
-- **[Runbook: Monthly Maintenance](runbooks/MONTHLY_MAINTENANCE.md)**
+- **[Runbook: P0 Complete System Outage](RUNBOOK_P0_COMPLETE_OUTAGE.md)**
+- **[Runbook: P1 PHI Breach Response](RUNBOOK_P1_PHI_BREACH.md)**
+- **[Runbook: Disaster Recovery Failover](RUNBOOK_DR_FAILOVER.md)**
+- **[Runbook: Monthly Maintenance](RUNBOOK_MONTHLY_MAINTENANCE.md)**
+- **[Runbook: Capacity Planning](RUNBOOK_CAPACITY_PLANNING.md)**
+- **[Runbook: Secret and Key Rotation](RUNBOOK_SECRET_ROTATION.md)**
+- **[Runbook: User Provisioning](RUNBOOK_USER_PROVISIONING.md)**
+- **[Runbook: AI Drift Mitigation](RUNBOOK_AI_DRIFT_MITIGATION.md)**
+- **[Runbook: Vulnerability Remediation](RUNBOOK_VULNERABILITY_REMEDIATION.md)**
 
-### Documentation Guides
-
-- **[Document Structure Guide](DOCUMENT_STRUCTURE.md)**  
-  Modular layout, directory overview, navigation by role
-- **[SLA Implementation Guide](IMPLEMENTATION_GUIDE.md)**  
-  Migration status, folder mapping, and maintenance best practices
+### Templates & Inventories
+- **[Template: Change Request (CR)](TEMPLATE_CHANGE_REQUEST.md)**
+- **[Template: Post-Incident Report (PIR)](TEMPLATE_POST_INCIDENT_REPORT.md)**
+- **[Inventory: Software Bill of Materials (SBOM)](INVENTORY_SBOM.md)**
 
 ---
 
@@ -159,24 +174,24 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 
 ### For IT Operations Teams
 1. Bookmark this overview page for quick reference
-2. Review [Incident Management](sections/03_INCIDENT_MANAGEMENT.md) for on-call procedures
-3. Consult [Appendix B](appendices/APPENDIX_B_INFRASTRUCTURE_COMPONENTS.md) for infrastructure details
+2. Review [Incident Management](03_INCIDENT_MANAGEMENT.md) for on-call procedures
+3. Consult [Appendix B](APPENDIX_B_INFRASTRUCTURE_COMPONENTS.md) for infrastructure details
 4. Use runbooks for step-by-step incident response
 
 ### For IT Leadership
-1. Review monthly [SLA Compliance Reports](sections/08_MONITORING_REPORTING.md#monthly-reports)
-2. Attend quarterly [SLA Review Meetings](sections/10_GOVERNANCE_CHANGE_MANAGEMENT.md#quarterly-review)
-3. Monitor [Financial Terms](sections/09_FINANCIAL_TERMS.md) for budget variance
+1. Review monthly [SLA Compliance Reports](08_MONITORING_REPORTING.md#monthly-reports)
+2. Attend quarterly [SLA Review Meetings](10_GOVERNANCE_CHANGE_MANAGEMENT.md#quarterly-review)
+3. Monitor [Financial Terms](09_FINANCIAL_TERMS.md) for budget variance
 
 ### For Compliance & Security Teams
-1. Verify [HIPAA Compliance Checklist](appendices/APPENDIX_D_HIPAA_CHECKLIST.md) monthly
-2. Review [Security Operations](sections/06_SECURITY_OPERATIONS.md) for testing schedules
-3. Audit [Data Protection](sections/05_DATA_PROTECTION.md) controls quarterly
+1. Verify [HIPAA Compliance Checklist](APPENDIX_D_HIPAA_CHECKLIST.md) monthly
+2. Review [Security Operations](06_SECURITY_OPERATIONS.md) for testing schedules
+3. Audit [Data Protection](05_DATA_PROTECTION.md) controls quarterly
 
 ### For Clinical Stakeholders (CMIO, Care Teams)
-1. Understand [Service Tiers](sections/01_AGREEMENT_OVERVIEW.md#service-tiers) and availability commitments
-2. Review [Incident Response](sections/03_INCIDENT_MANAGEMENT.md) for expected resolution times
-3. Consult [Disaster Recovery](sections/07_BACKUP_DISASTER_RECOVERY.md) for business continuity planning
+1. Understand [Service Tiers](01_AGREEMENT_OVERVIEW.md#service-tiers) and availability commitments
+2. Review [Incident Response](03_INCIDENT_MANAGEMENT.md) for expected resolution times
+3. Consult [Disaster Recovery](07_BACKUP_DISASTER_RECOVERY.md) for business continuity planning
 
 ---
 
@@ -213,7 +228,7 @@ The system is **100% dependent** on Anthropic's Claude API for AI orchestration:
 - **Annual:** External audit and certification renewal (Compliance Team)
 
 ### Change Process
-1. Propose changes via [Change Request](sections/10_GOVERNANCE_CHANGE_MANAGEMENT.md#change-requests)
+1. Propose changes via [Change Request](10_GOVERNANCE_CHANGE_MANAGEMENT.md#change-requests)
 2. Review at quarterly SLA meeting
 3. Obtain approvals (IT Director, CISO, CMIO)
 4. Update version history
@@ -242,3 +257,11 @@ Escalation: IT Director
 IT Operations Team: it-operations@hospital.org  
 IT Director: [email]  
 CISO: [email]
+
+---
+
+### Document History
+
+| Date | Version | Author | Change Summary |
+|:---|:---|:---|:---|
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |
