@@ -14,8 +14,8 @@ from ..models import PatientReportData
 
 logger = logging.getLogger(__name__)
 
-# Template directory - shared templates at repo root
-TEMPLATES_DIR = Path(__file__).parent.parent.parent.parent.parent.parent.parent / "templates" / "patient_report"
+# Template directory - bundled with the package
+TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 
 
 class ReportGenerator:

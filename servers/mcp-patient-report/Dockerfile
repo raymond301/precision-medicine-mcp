@@ -14,15 +14,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create directory structure
-RUN mkdir -p /app/servers/mcp-patient-report /app/shared/utils /app/templates
+RUN mkdir -p /app/servers/mcp-patient-report /app/shared/utils
 
 # Copy temporarily staged shared utilities
 COPY _shared_temp/utils/ /app/shared/utils/
 
-# Copy templates from repo root
-COPY _templates_temp/ /app/templates/
-
-# Copy server code
+# Copy server code (templates are bundled in src/mcp_patient_report/templates/)
 COPY . /app/servers/mcp-patient-report/
 
 # Install Python dependencies
@@ -34,7 +31,7 @@ ENV MCP_TRANSPORT=sse
 ENV MCP_PORT=3011
 ENV PATIENT_REPORT_DRY_RUN=false
 ENV PATIENT_REPORT_OUTPUT_DIR=/app/data/reports
-ENV PATIENT_REPORT_TEMPLATES_DIR=/app/templates/patient_report
+# Templates are bundled with package, no need for PATIENT_REPORT_TEMPLATES_DIR
 
 # Create data directories
 RUN mkdir -p /app/data/reports

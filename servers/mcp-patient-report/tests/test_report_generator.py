@@ -23,8 +23,8 @@ def pat001_data() -> PatientReportData:
 @pytest.fixture
 def report_generator() -> ReportGenerator:
     """Create report generator with templates."""
-    # Templates are at repo root
-    templates_dir = Path(__file__).parent.parent.parent.parent.parent / "templates" / "patient_report"
+    # Templates are bundled with the package
+    templates_dir = Path(__file__).parent.parent / "src" / "mcp_patient_report" / "templates"
     if not templates_dir.exists():
         pytest.skip(f"Templates directory not found: {templates_dir}")
     return ReportGenerator(templates_dir)
