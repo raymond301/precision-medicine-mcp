@@ -96,7 +96,7 @@
 **Deliverable:** Test queries working with synthetic data
 
 ### Month 3-4: Pilot Deployment
-- [ ] Deploy all 9 production servers
+- [ ] Deploy all 13 production servers
 - [ ] Epic FHIR production connection (read-only)
 - [ ] 10-20 test patients analyzed
 - [ ] User training (5 pilot users: 2 clinicians, 3 bioinformaticians)
@@ -175,7 +175,7 @@ graph TB
 
 | Component | Cost | Notes |
 |-----------|------|-------|
-| **Cloud Run** | $400-800 | 9 servers, auto-scales with usage |
+| **Cloud Run** | $400-800 | 13 servers, auto-scales with usage |
 | **Cloud Storage** | $100-200 | Patient data, analysis results |
 | **BigQuery** | $50-100 | FHIR data warehouse |
 | **Cloud Logging** | $200-400 | 10-year audit log retention |

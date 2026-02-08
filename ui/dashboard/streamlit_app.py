@@ -124,13 +124,14 @@ def main():
     cost_breakdown = aggregator.get_cost_breakdown()
     tool_calls     = aggregator.get_tool_calls()
 
-    # ── Load live data (health + Cloud Logging) when toggle is on ────────
+    # ── Load live data (health + Cloud Logging + Token Usage) when toggle is on ────────
     live_health = None  # type: dict or None
     live_logs   = None  # type: dict or None
+    live_tokens = None  # type: dict or None
 
     if is_live:
         try:
-            from live_server_monitor import get_live_health, query_all_server_logs
+            from live_server_monitor import get_live_health, query_all_server_logs, query_token_usage
 
             with st.status("Polling server health…", expanded=False) as _s1:
                 live_health = get_live_health()
@@ -139,6 +140,12 @@ def main():
             with st.status("Querying Cloud Logging…", expanded=False) as _s2:
                 live_logs = query_all_server_logs(hours_back=time_window_hours)
                 _s2.update(label="Cloud Logging data loaded", state="complete")
+
+            with st.status("Querying token usage…", expanded=False) as _s3:
+                # Query token usage over a longer window (24h minimum for meaningful data)
+                token_hours = max(time_window_hours, 24)
+                live_tokens = query_token_usage(hours_back=token_hours)
+                _s3.update(label="Token usage data loaded", state="complete")
         except Exception as exc:
             st.warning(f"Live data unavailable: {exc}")
             is_live = False
@@ -150,16 +157,16 @@ def main():
 
     # ── Route to view ────────────────────────────────────────────────────
     if view_mode == "📈 Overview":
-        render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs=live_logs)
+        render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs=live_logs, live_tokens=live_tokens)
 
     elif view_mode == "💰 Cost Analysis":
-        render_cost_analysis(cost_breakdown, server_summary, aggregator)
+        render_cost_analysis(cost_breakdown, server_summary, aggregator, live_tokens=live_tokens)
 
     elif view_mode == "⚡ Performance":
         render_performance_analysis(server_summary, tool_calls, aggregator, live_logs=live_logs)
 
     elif view_mode == "🔧 Optimization":
-        render_optimization_view(aggregator, server_summary, cost_breakdown, live_logs=live_logs)
+        render_optimization_view(aggregator, server_summary, cost_breakdown, live_logs=live_logs, live_tokens=live_tokens)
 
     # Footer
     st.sidebar.markdown("---")
@@ -183,6 +190,72 @@ def render_server_health_badges(health: dict):
             delta=latency,
             delta_color="off",
         )
+
+
+def render_live_token_usage(live_tokens: dict):
+    """Live token usage and cost summary from audit log."""
+    if not live_tokens or live_tokens.get("query_count", 0) == 0:
+        window = live_tokens.get("time_window_hours", 24) if live_tokens else 24
+        st.info(
+            f"No LLM queries recorded in the last {window} hours. "
+            "Token usage is logged when users interact with Streamlit chat apps."
+        )
+        if live_tokens and live_tokens.get("error"):
+            st.caption(f"Note: {live_tokens['error']}")
+        return
+
+    # Summary metrics
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Total Queries", f"{live_tokens['query_count']:,}")
+    c2.metric("Total Tokens", f"{live_tokens['total_tokens']:,}")
+    c3.metric("Total Cost", f"${live_tokens['total_cost_usd']:.2f}")
+    c4.metric("Avg Cost/Query", f"${live_tokens['avg_cost_per_query']:.4f}")
+
+    # Token breakdown
+    col1, col2 = st.columns(2)
+
+    with col1:
+        # Input vs Output tokens pie chart
+        token_data = pd.DataFrame({
+            'Type': ['Input Tokens', 'Output Tokens'],
+            'Tokens': [live_tokens['total_input_tokens'], live_tokens['total_output_tokens']]
+        })
+        fig_tokens = px.pie(
+            token_data,
+            values='Tokens',
+            names='Type',
+            color_discrete_sequence=['#636EFA', '#EF553B'],
+            title="Token Distribution"
+        )
+        fig_tokens.update_layout(height=300)
+        st.plotly_chart(fig_tokens, use_container_width=True)
+
+    with col2:
+        # Usage by MCP server
+        by_server = live_tokens.get("by_server", {})
+        if by_server:
+            server_data = pd.DataFrame([
+                {"server": k, **v} for k, v in by_server.items()
+            ]).sort_values("total_cost_usd", ascending=True)
+
+            fig_servers = px.bar(
+                server_data,
+                y="server",
+                x="total_cost_usd",
+                orientation="h",
+                color="query_count",
+                color_continuous_scale="blues",
+                labels={
+                    "total_cost_usd": "Cost ($)",
+                    "server": "MCP Server",
+                    "query_count": "Queries"
+                },
+                title="Cost by MCP Server"
+            )
+            fig_servers.update_layout(height=300)
+            st.plotly_chart(fig_servers, use_container_width=True)
+        else:
+            st.info("No per-server breakdown available yet.")
 
 
 def render_live_traffic(live_logs: dict):
@@ -227,7 +300,7 @@ def render_live_traffic(live_logs: dict):
         st.plotly_chart(fig, use_container_width=True)
 
 
-def render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs=None):
+def render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs=None, live_tokens=None):
     """Render overview dashboard."""
     st.header("📈 Workflow Overview")
 
@@ -355,8 +428,14 @@ def render_overview(stats, server_summary, cost_breakdown, aggregator, live_logs
         st.subheader("🌐 Live Traffic")
         render_live_traffic(live_logs)
 
+    # ── Live token usage & costs (when Live Mode is active) ─────────────
+    if live_tokens:
+        st.markdown("---")
+        st.subheader("💸 Live Token Usage & Costs")
+        render_live_token_usage(live_tokens)
 
-def render_cost_analysis(cost_breakdown, server_summary, aggregator):
+
+def render_cost_analysis(cost_breakdown, server_summary, aggregator, live_tokens=None):
     """Render detailed cost analysis."""
     st.header("💰 Cost Analysis")
 
@@ -442,6 +521,12 @@ def render_cost_analysis(cost_breakdown, server_summary, aggregator):
     # Highlight current model
     current_model = cost_breakdown['model']
     st.info(f"✅ Current model: **{current_model}** (${cost_breakdown['total_cost']:.4f})")
+
+    # ── Live token costs (when available) ────────────────────────────────
+    if live_tokens and live_tokens.get("query_count", 0) > 0:
+        st.markdown("---")
+        st.subheader("📡 Live Token Costs (Last 24h)")
+        render_live_token_usage(live_tokens)
 
     st.markdown("---")
 
@@ -614,7 +699,7 @@ def render_performance_analysis(server_summary, tool_calls, aggregator, live_log
             st.info("No requests in the selected time window for latency comparison.")
 
 
-def render_optimization_view(aggregator, server_summary, cost_breakdown, live_logs=None):
+def render_optimization_view(aggregator, server_summary, cost_breakdown, live_logs=None, live_tokens=None):
     """Render optimization recommendations."""
     st.header("🔧 Cost Optimization")
 
@@ -745,6 +830,36 @@ def render_optimization_view(aggregator, server_summary, cost_breakdown, live_lo
                 )
         else:
             st.success("No errors detected on any server in the selected time window.")
+
+    # ── Live token cost insights ─────────────────────────────────────────
+    if live_tokens and live_tokens.get("query_count", 0) > 0:
+        st.markdown("---")
+        st.subheader("📊 Live Token Cost Insights")
+
+        by_server = live_tokens.get("by_server", {})
+        if by_server:
+            # Find high-cost servers
+            high_cost_servers = [
+                (name, data) for name, data in by_server.items()
+                if data.get("total_cost_usd", 0) > 0.50
+            ]
+
+            if high_cost_servers:
+                st.warning("**High-cost servers detected (>$0.50 in last 24h):**")
+                for name, data in sorted(high_cost_servers, key=lambda x: x[1]["total_cost_usd"], reverse=True):
+                    cost = data["total_cost_usd"]
+                    queries = data["query_count"]
+                    st.write(f"- `{name}`: ${cost:.2f} ({queries} queries, ${cost/queries:.4f}/query)")
+            else:
+                st.success("✅ All servers are within normal cost ranges.")
+
+            # Show total live costs
+            total = live_tokens["total_cost_usd"]
+            queries = live_tokens["query_count"]
+            st.info(
+                f"**Total live usage (24h):** ${total:.2f} across {queries} queries "
+                f"(avg ${live_tokens['avg_cost_per_query']:.4f}/query)"
+            )
 
 
 if __name__ == "__main__":

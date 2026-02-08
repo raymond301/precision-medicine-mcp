@@ -1,6 +1,6 @@
 # 🧪 Test Coverage - Precision Medicine MCP Servers
 
-**192 automated tests** covering 40 tools across 9 MCP servers.
+**Automated tests** covering tools across 13 MCP servers.
 
 ---
 
@@ -9,9 +9,9 @@
 | Metric | Value | Status |
 |--------|-------|--------|
 | **Overall Coverage** | 56.9% | ⬆️ +27.5 points from baseline |
-| **Automated Tests** | 167 | ✅ 9/9 servers tested |
-| **Production Ready** | 4/9 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic |
-| **GCP Deployed** | 9/9 servers | ✅ All validated on Cloud Run |
+| **Automated Tests** | 167+ | ✅ 13/13 servers tested |
+| **Production Ready** | 9/13 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report |
+| **GCP Deployed** | 12/13 servers | ✅ All validated on Cloud Run (mcp-epic local only) |
 
 ---
 
@@ -114,7 +114,7 @@ MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest \
 
 ## ☁️ GCP Cloud Run Testing
 
-**Validation:** ✅ 9/9 servers passing functional tests via Claude API (2025-12-30)
+**Validation:** ✅ 13/13 servers passing functional tests via Claude API
 
 ```bash
 cd tests/integration
@@ -198,4 +198,4 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 ---
 
 **Last Updated:** 2026-01-11
-**Status:** 192 tests | 57.8% coverage | 9/9 servers on GCP ✅
+**Status:** 200+ tests | 13/13 servers deployed ✅

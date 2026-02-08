@@ -7,7 +7,7 @@
 ## What You Can Accomplish Here
 
 - ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (12 servers, 69 tools, FastMCP patterns, Claude API orchestration)
+- ✅ **Understand system architecture** (13 servers, 129 tools, FastMCP patterns, Claude + Gemini API orchestration)
 - ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
 - ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
 - ✅ **Contribute to codebase** (coding standards, PR guidelines)
@@ -17,7 +17,7 @@
 ## Quick Start (3 Paths)
 
 ### 1. Building a New Modality Server (4-8 hours)
-**Goal:** Add a 13th server for metabolomics/radiomics/other modalities
+**Goal:** Add a 14th server for metabolomics/radiomics/other modalities
 
 1. **Read the guide** → [ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md) (20 min)
 2. **Copy boilerplate template** → `/servers/mcp-server-boilerplate/` (5 min)
@@ -28,7 +28,7 @@
 **Total Time:** 4-8 hours from template to deployed server
 
 ### 2. Understanding the Architecture (30-60 min)
-**Goal:** Understand how 12 MCP servers orchestrate precision medicine workflows
+**Goal:** Understand how 13 MCP servers orchestrate precision medicine workflows
 
 1. **System overview** → [ARCHITECTURE.md](ARCHITECTURE.md) (15 min)
 2. **Best reference implementation** → [mcp-multiomics README](../../servers/mcp-multiomics/README.md) (15 min)
@@ -62,7 +62,7 @@
 
 ---
 
-## System Architecture (12 MCP Servers)
+## System Architecture (13 MCP Servers)
 
 ```mermaid
 graph TB
@@ -171,11 +171,11 @@ graph TB
 ## Server Status Overview
 
 **Production Status:**
-- ✅ **8/12 servers production-ready** (67%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-epic, mcp-openimagedata
+- ✅ **9/13 servers production-ready** (69%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-mockepic, mcp-openimagedata, mcp-patient-report
 - ❌ **3/12 fully mocked** (25%) - mcp-tcga, mcp-huggingface, mcp-seqera
 - 🎭 **1/12 mock by design** (8%) - mcp-mockepic (synthetic for demos)
 
-**Total:** 12 servers, 69 tools, comprehensive test coverage
+**Total:** 13 servers, 129 tools, comprehensive test coverage
 
 📋 **[Complete Server Implementation Status →](../reference/architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status

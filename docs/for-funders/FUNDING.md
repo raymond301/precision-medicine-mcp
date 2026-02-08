@@ -10,7 +10,7 @@ The Precision Medicine MCP Platform reduces multi-omics precision medicine analy
 
 **The Problem:** Stage IV ovarian cancer patients face platinum resistance with limited treatment options. Comprehensive multi-omics analysis (genomics + spatial transcriptomics + imaging) could identify personalized targets, but the 40-hour manual analysis time makes it clinically impractical.
 
-**This Solution:** AI orchestrates 12 specialized bioinformatics servers via natural language, completing analysis in 35 minutes.
+**This Solution:** AI (Claude + Gemini 3) orchestrates 13 specialized bioinformatics servers via natural language, completing analysis in 35 minutes.
 
 ---
 
@@ -104,8 +104,8 @@ graph LR
 ## Technical Validation
 
 ### Production Readiness
-- ✅ **12 MCP servers deployed** (7 production-ready, 1 partial, 4 mocked for demo)
-- ✅ **69 tools** across all servers with comprehensive test coverage (239 automated tests)
+- ✅ **13 MCP servers deployed** (9 production-ready, 1 mock by design, 3 mocked for demo)
+- ✅ **129 tools** across all servers with comprehensive test coverage
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
 - ✅ **HIPAA-compliant infrastructure** ready (de-identification, audit logging, VPC isolation)
 - ✅ **End-to-end demo** tested with synthetic PatientOne ovarian cancer case
@@ -122,12 +122,13 @@ graph LR
 | mcp-quantum-celltype-fidelity | 6 | ✅ Production (100% real) | Yes |
 | mcp-epic | 9 | ✅ Production (Local only, HIPAA) | No |
 | mcp-openimagedata | 5 | ✅ Production (100% real) | Yes |
-| mcp-mockepic | 8 | 🎭 Mock (by design) | Yes |
-| mcp-tcga | 11 | ❌ Mocked | Yes |
-| mcp-huggingface | 7 | ❌ Mocked | Yes |
+| mcp-patient-report | 5 | ✅ Production (100% real) | Yes |
+| mcp-mockepic | 12 | 🎭 Mock (by design) | Yes |
+| mcp-tcga | 7 | ❌ Mocked | Yes |
+| mcp-huggingface | 6 | ❌ Mocked | Yes |
 | mcp-seqera | 7 | ❌ Mocked | Yes |
 
-**Total: 12 servers, 124 tools**
+**Total: 13 servers, 129 tools**
 
 ---
 

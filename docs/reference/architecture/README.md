@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 12 MCP Servers (69 Tools)"]
+    subgraph MCP["🔧 13 MCP Servers (129 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga]
@@ -66,7 +66,7 @@ graph LR
 
 ## 📊 Architecture by Analysis Modality
 
-9 analysis modalities, 12 specialized servers, 69 tools:
+9 analysis modalities, 13 specialized servers, 129 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
@@ -257,7 +257,7 @@ graph LR
 
 ## 🏥 End-to-End Example: PatientOne
 
-**Complete precision medicine workflow combining all 12 MCP servers**
+**Complete precision medicine workflow combining all 13 MCP servers**
 
 **Use Case:** Stage IV High-Grade Serous Ovarian Cancer (HGSOC), platinum-resistant
 **Patient:** PAT001-OVC-2025 (synthetic test case)

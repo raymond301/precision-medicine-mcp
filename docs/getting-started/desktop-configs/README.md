@@ -10,11 +10,11 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 
 **Status:** ✅ **Ready to use** - Pre-configured for this system
 
-**Purpose:** Production-ready configuration with full absolute paths to all 9 MCP servers.
+**Purpose:** Production-ready configuration with full absolute paths to all 13 MCP servers.
 
 **Contains:**
-- All 9 MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, deepcell, epic, tcga, multiomics)
-- Full absolute paths to Python 3.11 virtual environments
+- All 13 MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, mockepic, tcga, multiomics, perturbation, quantum-celltype-fidelity, patient-report, deepcell, epic)
+- Full absolute paths to Python 3.11 virtual environments (uses `uv run` syntax)
 - All required environment variables
 - DRY_RUN mode enabled by default for quick & safe testing
 
@@ -24,7 +24,7 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 cp claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Restart Claude Desktop
-# All 9 servers should now be available
+# All 13 servers should now be available
 ```
 
 ---
@@ -81,10 +81,12 @@ Each server requires specific environment variables:
 | **openimagedata** | `IMAGE_DATA_DIR`<br>`IMAGE_DRY_RUN` | Image storage<br>Mock execution mode |
 | **seqera** | `SEQERA_DRY_RUN` | Mock execution mode |
 | **huggingface** | `HF_DRY_RUN` | Mock execution mode |
-| **deepcell** | `DEEPCELL_DRY_RUN` | Mock execution mode |
-| **epic** | `EPIC_DRY_RUN` | Mock execution mode |
+| **mockepic** | `EPIC_DRY_RUN` | Mock execution mode |
 | **tcga** | `TCGA_DRY_RUN` | Mock execution mode |
 | **multiomics** | `MULTIOMICS_DATA_DIR`<br>`MULTIOMICS_CACHE_DIR`<br>`MULTIOMICS_DRY_RUN` | Multi-omics data directory<br>Cache location<br>Mock execution mode |
+| **perturbation** | `PERTURBATION_DATA_DIR`<br>`PERTURBATION_MODEL_DIR`<br>`PERTURBATION_DRY_RUN` | Perturbation data<br>Model storage<br>Mock execution mode |
+| **quantum-celltype-fidelity** | `QUANTUM_BACKEND`<br>`QUANTUM_DATA_DIR`<br>`QUANTUM_CACHE_DIR` | CPU/GPU backend<br>Data directory<br>Cache location |
+| **patient-report** | `PATIENT_REPORT_OUTPUT_DIR`<br>`PATIENT_REPORT_TEMPLATES_DIR`<br>`PATIENT_REPORT_DRY_RUN` | Report output<br>Templates path<br>Mock execution mode |
 
 ### DRY_RUN Mode
 
@@ -131,13 +133,13 @@ Expected output: Should show the config JSON
 
 ### Verify All Server Paths Exist
 ```bash
-for server in fgbio spatialtools openimagedata seqera huggingface deepcell epic tcga multiomics; do
+for server in fgbio spatialtools openimagedata seqera huggingface mockepic tcga multiomics perturbation quantum-celltype-fidelity patient-report; do
   echo "Checking mcp-$server..."
-  ls /Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-$server/venv/bin/python
+  ls /Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-$server/
 done
 ```
 
-Expected: All 9 Python executables should be found
+Expected: All 11 server directories should be found (deepcell may be separate)
 
 ### Verify in Claude Desktop
 
@@ -147,7 +149,7 @@ After installing the config and restarting Claude Desktop:
 What MCP servers are available?
 ```
 
-Expected response: List of all 9 servers with their tools
+Expected response: List of all 13 servers with their tools
 
 ---
 

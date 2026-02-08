@@ -9,7 +9,7 @@
 
 > **40 hours of manual bioinformatics → 35 minutes AI-orchestrated**
 >
-> 13 specialized MCP servers | 74 analysis tools | Multi-provider AI (Claude + Gemini) | Stage IV Ovarian Cancer demo
+> 13 specialized MCP servers | 129 analysis tools | Multi-provider AI (Claude + Gemini 3) | Stage IV Ovarian Cancer demo
 
 ---
 
@@ -55,10 +55,11 @@ graph LR
         S5[Imaging<br/> H&E/MxIF]
         S6[Perturbation<br/>GEARS/GNN + scRNA-seq]
         S7[Quantum<br/>Qiskit + spatial transcriptomics]
+        S8[Patient Reports<br/>PDF Generation]
     end
 
     subgraph Output["📊 Orchestrated Outputs"]
-        O[Treatment Targets<br/>Predictions<br/>Visualizations]
+        O[Treatment Targets<br/>Predictions<br/>Visualizations<br/>Patient Reports]
     end
 
     U --> CLAUDE
@@ -74,6 +75,7 @@ graph LR
     S5 --> Output
     S6 --> Output
     S7 --> Output
+    S8 --> Output
 
     style Users fill:#e1f5ff
     style AI fill:#fff3cd
@@ -99,6 +101,23 @@ graph LR
 - 📚 [Prompt Library](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/reference/prompt-library)
 - 🏗️ [Architecture Details](docs/reference/architecture/README.md)
 - 📚 [Documentation Hub](docs/INDEX.md)
+
+---
+
+## 📊 Live Monitoring Dashboard
+
+Real-time observability for all deployed MCP servers and Streamlit clients.
+
+**Live Dashboard:** [mcp-dashboard-305650208648.us-central1.run.app](https://mcp-dashboard-305650208648.us-central1.run.app)
+
+| Feature | Description |
+|---------|-------------|
+| **Health Monitoring** | 12 MCP servers + 3 Streamlit clients |
+| **Live Token Usage** | Actual LLM costs from audit logs |
+| **Model Pricing** | Claude (Sonnet/Opus/Haiku) + Gemini 3 (Flash/Pro) |
+| **Cost Optimization** | Per-server recommendations |
+
+**Learn More:** [Dashboard Documentation](ui/dashboard/README.md)
 
 ---
 

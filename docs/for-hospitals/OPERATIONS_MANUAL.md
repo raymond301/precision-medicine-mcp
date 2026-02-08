@@ -32,7 +32,7 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 
 ### Key Components
 
-1. **9 MCP Servers** - Bioinformatics analysis tools (Cloud Run)
+1. **13 MCP Servers** - Bioinformatics analysis tools (Cloud Run)
 2. **Streamlit UI** - Web-based chat interface
 3. **Jupyter Notebooks** - Interactive data science environment
 4. **OAuth2 Proxy** - Azure AD SSO authentication
@@ -222,7 +222,7 @@ curl https://oauth2-proxy-jupyter-{hash}.run.app/ping
 
 **Current Configuration (Phase 1 - Simplified):**
 - All users have identical access (no RBAC)
-- Can use all 9 MCP servers
+- Can use all 13 MCP servers
 - Can analyze all 100 test patients
 
 **Future Enhancements (Phase 2):**

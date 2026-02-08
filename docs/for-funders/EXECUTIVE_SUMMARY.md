@@ -22,9 +22,9 @@ graph TB
         CLAUDE[Claude API<br/>Natural Language<br/>Orchestration]
     end
 
-    subgraph Servers["🔧 12 MCP Servers (124 Tools)"]
+    subgraph Servers["🔧 13 MCP Servers (129 Tools)"]
         direction LR
-        subgraph Production["✅ Production Ready (7)"]
+        subgraph Production["✅ Production Ready (9)"]
             FGBIO[mcp-fgbio<br/>9 tools]
             MULTI[mcp-multiomics<br/>21 tools]
             SPATIAL[mcp-spatialtools<br/>23 tools]
@@ -32,14 +32,14 @@ graph TB
             QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit + Bayesian UQ]
             DEEP[mcp-deepcell<br/>4 tools<br/>DeepCell-TF]
             EPIC[mcp-epic<br/>9 tools<br/>Local Only]
-            IMAGE[mcp-openimagedata<br/>5 tools<br/>100% real]
+            IMAGE[mcp-openimagedata<br/>9 tools<br/>100% real]
+            REPORT[mcp-patient-report<br/>5 tools<br/>PDF generation]
         end
 
-        subgraph Mocked["❌ Mocked (4)"]
-            TCGA[mcp-tcga<br/>11 tools]
-            HF[mcp-huggingface<br/>7 tools]
+        subgraph Mocked["❌ Mocked (3)"]
+            TCGA[mcp-tcga<br/>7 tools]
+            HF[mcp-huggingface<br/>6 tools]
             SEQ[mcp-seqera<br/>7 tools]
-            MOCK[mcp-mockepic<br/>7 tools]
         end
     end
 
@@ -78,9 +78,9 @@ graph TB
 ```
 
 **Key Points:**
-- **AI Orchestration**: Claude API coordinates 12 MCP servers via natural language
-- **124 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, and quantum computing with Bayesian uncertainty quantification
-- **Production Ready**: 7 servers (58%) ready for hospital deployment
+- **AI Orchestration**: Claude + Gemini 3 AI coordinates 13 MCP servers via natural language
+- **129 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, and patient reports with Bayesian uncertainty quantification
+- **Production Ready**: 9 servers (69%) ready for hospital deployment
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
 ---
@@ -94,7 +94,7 @@ graph TB
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 124 bioinformatics tools across 12 MCP servers
+- Unified platform for 129 bioinformatics tools across 13 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -124,9 +124,10 @@ graph TB
 
 ## Technical Capabilities
 
-**12 MCP Servers Deployed:**
-- ✅ **7 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-epic
-- ⚙️ **5 Mock/Partial**: mcp-tcga, mcp-openimagedata (30% real), mcp-seqera, mcp-huggingface, mcp-mockepic
+**13 MCP Servers Deployed:**
+- ✅ **9 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-epic, mcp-openimagedata, mcp-patient-report (PDF generation)
+- 🎭 **1 Mock by Design**: mcp-mockepic (synthetic for demos)
+- ⚙️ **3 Mocked**: mcp-tcga, mcp-seqera, mcp-huggingface
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
@@ -145,7 +146,7 @@ graph TB
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration
-- **Month 3-4**: All 12 servers deployed, 10-20 test patients, user training, security audit
+- **Month 3-4**: All 13 servers deployed, 10-20 test patients, user training, security audit
 - **Month 5-6**: Monitoring/alerting, compliance validation, knowledge transfer, production launch (100 patients)
 
 ### Requirements
@@ -230,10 +231,13 @@ Ready for immediate pilot deployment with clear path to institutional scale.
 ---
 
 **Document Version:** 1.2
-**Date:** 2026-01-30
+**Date:** 2026-02-07
 **Status:** Ready for Funding Review
 **Contact:** Lynn Langit
 
 **Recent Updates:**
 - Phase 1: Bayesian uncertainty quantification for quantum fidelity predictions (Jan 2026)
-- Updated tool counts: 124 tools across 12 servers
+- Updated tool counts: 129 tools across 13 servers
+- Added mcp-patient-report server for PDF generation
+- Live monitoring dashboard with token usage tracking
+- Multi-provider AI support (Claude + Gemini 3)

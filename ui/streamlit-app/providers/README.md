@@ -117,8 +117,13 @@ provider = get_provider("gemini", api_key="your_key")
 response = provider.send_message(
     messages=chat_messages,
     mcp_servers=mcp_configs,
-    model="gemini-3-flash-preview"
+    model="gemini-3-flash-preview"  # or "gemini-3-pro-preview"
 )
+```
+
+**Available Models (Feb 2026):**
+- `gemini-3-flash-preview` - Fast, cost-effective ($0.50/$3.00 per 1M tokens)
+- `gemini-3-pro-preview` - Most capable ($2.00/$12.00 per 1M tokens)
 ```
 
 ## Adding a New Provider

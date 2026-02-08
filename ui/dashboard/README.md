@@ -2,7 +2,7 @@
 
 **Real-time observability for MCP server token usage, latency, and costs**
 
-Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 11 deployed servers. Toggle **Live Mode** to poll real Cloud Run health status and query GCP Cloud Logging for live traffic metrics.
+Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 12 MCP servers plus 3 Streamlit client apps. Toggle **Live Mode** to poll real Cloud Run health status, query GCP Cloud Logging for live traffic metrics, and view actual token usage and costs from the audit log.
 
 ---
 
@@ -45,14 +45,16 @@ streamlit run streamlit_app.py
 - Token distribution (input vs output)
 - Workflow execution summary
 - **Live Mode:** live traffic summary — total requests, error count, avg latency, and per-server request chart from Cloud Logging
+- **Live Mode:** live token usage & costs — actual LLM token consumption and costs from audit log
 
 ![Overview](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-1.png)
 
 ### 💰 Cost Analysis
 - Detailed cost breakdown by server and tool
 - Top 10 most expensive tool calls
-- Model cost comparison (Sonnet vs Opus vs Haiku)
+- Model cost comparison (Claude Sonnet/Opus/Haiku + Gemini 3 Flash/Pro)
 - Monthly/annual cost projections
+- **Live Mode:** live token costs — actual usage from Streamlit client audit logs
 
 ![Cost Analysis](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-2.png)
 
@@ -69,6 +71,7 @@ streamlit run streamlit_app.py
 - Strategy comparison (caching, batching, model switching)
 - Export reports for planning
 - **Live Mode:** live error-signal warnings per server (error count, rate) from Cloud Logging
+- **Live Mode:** high-cost server detection — flags servers exceeding $0.50/24h with per-query breakdown
 
 ![Optimization](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/dash-4.png)
 
@@ -108,13 +111,16 @@ ui/dashboard/
 
 ```
 ┌─ Sample Mode ──────────────────┐   ┌─ Live Mode ────────────────────────┐
-│ Workflow Metrics (YAML)        │   │ Cloud Run /health endpoints        │
+│ Workflow Metrics (YAML)        │   │ Cloud Run / endpoints (health)     │
 │         ↓                      │   │         ↓                          │
 │ metrics_aggregator.py          │   │ live_server_monitor.py             │
 │         ↓                      │   │   (async httpx health poll)        │
 │ cost_calculator.py             │   │         +                          │
 │         ↓                      │   │ GCP Cloud Logging                  │
 └─────────┬──────────────────────┘   │   (request counts, latency, errs)  │
+          │                          │         +                          │
+          │                          │ mcp-audit-log                      │
+          │                          │   (token usage, costs from clients)│
           │                          └────────────┬───────────────────────┘
           ↓                                       ↓
           └───────────────┬───────────────────────┘
@@ -162,12 +168,15 @@ aggregator = MetricsAggregator("path/to/your/metrics.yaml")
 
 Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 
-1. **Health-polls** all 11 Cloud Run MCP servers (`/health`, 10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
-2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-server request counts, avg/p95 latency, and error rates.
+1. **Health-polls** all 15 Cloud Run services (12 MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
+2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-service request counts, avg/p95 latency, and error rates.
+3. **Queries mcp-audit-log** for actual token usage and costs logged by Streamlit clients via `audit_logger.py`. Shows total tokens, costs, and per-MCP-server breakdown.
 
 No manual log export or custom parser needed.  The deployed service account (`mcp-dashboard-sa`) has `roles/logging.viewer` — the minimum permission required.
 
-> **Note:** Token-level cost data is not available from Cloud Run logs (it lives at the Claude API layer).  Live Mode supplements — does not replace — the workflow cost views, which continue to read from stored YAML metrics.
+**Monitored Services:**
+- **MCP Servers (12):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, tcga, openimagedata, mockepic, seqera, huggingface, patient-report
+- **Streamlit Clients (3):** mcp-dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 
 ---
 
@@ -202,7 +211,9 @@ print(f"Monthly: ${monthly['monthly_cost']:.2f}")
 # Output: Monthly: $81.00
 ```
 
-### Anthropic API Pricing (as of Jan 2025)
+### LLM API Pricing (as of Feb 2026)
+
+**Anthropic Claude Models:**
 
 | Model | Input (per 1M tokens) | Output (per 1M tokens) |
 |-------|----------------------|------------------------|
@@ -210,7 +221,15 @@ print(f"Monthly: ${monthly['monthly_cost']:.2f}")
 | Claude Opus 4.5 | $15.00 | $75.00 |
 | Claude Haiku 4 | $0.25 | $1.25 |
 
-**Key Insight**: Haiku is ~92% cheaper than Sonnet. Use for simple lookups!
+**Google Gemini 3 Models:**
+
+| Model | Input (per 1M tokens) | Output (per 1M tokens) |
+|-------|----------------------|------------------------|
+| Gemini 3 Flash | $0.50 | $3.00 |
+| Gemini 3 Pro (≤200K context) | $2.00 | $12.00 |
+| Gemini 3 Pro (>200K context) | $4.00 | $18.00 |
+
+**Key Insight**: Haiku is ~92% cheaper than Sonnet; Gemini 3 Flash is 83% cheaper than Sonnet. Use for simple lookups!
 
 ---
 
@@ -456,7 +475,15 @@ fig.show()
 - ✅ Live Mode: server-health badges, live traffic chart, Avg vs P95 latency chart, error-signal warnings
 - ✅ Dedicated service account (`mcp-dashboard-sa`) with least-privilege `roles/logging.viewer`
 
-### v1.1 (Planned)
+### v1.1 (Current - Feb 2026)
+- ✅ **Gemini 3 pricing** added to cost calculator (Flash: $0.50/$3.00, Pro: $2.00/$12.00)
+- ✅ **Streamlit client monitoring** — dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
+- ✅ **Live token usage & costs** — queries mcp-audit-log for actual LLM usage from Streamlit clients
+- ✅ **15 services monitored** — 12 MCP servers + 3 Streamlit clients
+- ✅ **Improved health checks** — uses root `/` endpoint, treats any HTTP response as healthy
+- ✅ **High-cost server detection** — flags servers >$0.50/24h in optimization view
+
+### v1.2 (Planned)
 - [ ] Multi-workflow comparison
 - [ ] Historical trend analysis
 - [ ] Alert thresholds (configurable error-rate / latency triggers)
@@ -517,16 +544,26 @@ def get_optimization_recommendations(server_metrics: Dict) -> List[str]:
 ### LiveServerMonitor
 
 ```python
-# Health polling (async, all 11 servers in parallel)
+# Health polling (async, all 15 services in parallel: 12 MCP + 3 Streamlit)
 def get_live_health() -> Dict[str, Dict]:
-    """Sync entry-point.  Returns {server_name: {status, latency_ms, checked_at, error}}."""
+    """Sync entry-point.  Returns {server_name: {status, latency_ms, checked_at, error, http_code}}."""
 
-# Cloud Logging queries
+# Cloud Logging queries (Cloud Run request logs)
 def query_server_logs(name: str, hours_back: int = 1) -> Dict:
     """Per-server: request_count, avg_latency_ms, p95_latency_ms, error_count, error_rate."""
 
 def query_all_server_logs(hours_back: int = 1) -> Dict[str, Dict]:
-    """Bulk query for all deployed servers.  Reuses a single logging client."""
+    """Bulk query for all deployed services.  Reuses a single logging client."""
+
+# Token Usage queries (mcp-audit-log from Streamlit clients)
+def query_token_usage(hours_back: int = 24) -> Dict:
+    """Aggregate token usage: total_input/output_tokens, total_cost_usd, query_count, by_server."""
+
+def query_usage_by_user(hours_back: int = 24) -> List[Dict]:
+    """Token usage grouped by user (email hash), sorted by cost descending."""
+
+def get_combined_metrics(hours_back: int = 1) -> Dict:
+    """Convenience: health + request_logs + token_usage in one call."""
 ```
 
 ---

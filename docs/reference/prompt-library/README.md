@@ -78,7 +78,7 @@ End-to-end multi-modal analyses
 - Drug resistance mechanism identification
 - Biomarker discovery workflow
 
-**Servers used:** All 12 servers (69 tools total)
+**Servers used:** All 13 servers (129 tools total)
 
 ---
 

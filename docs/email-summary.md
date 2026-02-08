@@ -6,15 +6,15 @@
 
 ## System Overview
 
-**A production-ready AI-orchestrated platform for precision oncology research**, integrating clinical (FHIR), genomic, multi-omics, spatial transcriptomics, and imaging data through 12 specialized MCP servers (124 bioinformatics tools) deployed on GCP Cloud Run. The system uses Claude or Gemini to orchestrate complex multi-step analyses via natural language, reducing analysis time from 40 hours of manual bioinformatics work to 35 minutes of AI-orchestrated execution. Includes HIPAA compliance (de-identification, 10-year audit logs, bias detection), Bayesian uncertainty quantification for confident clinical decisions, and achieves 95% cost savings (~$1-2 per analysis vs. $3,200 traditional). **PatientOne** demonstrates the complete workflow: Stage IV ovarian cancer analysis integrating clinical data, somatic variants, multi-omics (RNA/protein/phospho), spatial transcriptomics, and H&E imaging—with treatment response prediction via GEARS perturbation modeling and quantum fidelity analysis.
+**A production-ready AI-orchestrated platform for precision oncology research**, integrating clinical (FHIR), genomic, multi-omics, spatial transcriptomics, and imaging data through 13 specialized MCP servers (129 bioinformatics tools) deployed on GCP Cloud Run. The system uses Claude or Gemini 3 to orchestrate complex multi-step analyses via natural language, reducing analysis time from 40 hours of manual bioinformatics work to 35 minutes of AI-orchestrated execution. Includes HIPAA compliance (de-identification, 10-year audit logs, bias detection), Bayesian uncertainty quantification for confident clinical decisions, and achieves 95% cost savings (~$1-2 per analysis vs. $3,200 traditional). **PatientOne** demonstrates the complete workflow: Stage IV ovarian cancer analysis integrating clinical data, somatic variants, multi-omics (RNA/protein/phospho), spatial transcriptomics, and H&E imaging—with treatment response prediction via GEARS perturbation modeling and quantum fidelity analysis.
 
-**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini (custom SSE-based MCP client with manual tool orchestration), with 8 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, epic, openimagedata) and 4 mock servers. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
+**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini 3 (custom SSE-based MCP client with manual tool orchestration), with 9 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, epic, openimagedata, patient-report) and 3 mock servers. Includes live monitoring dashboard for health tracking and token usage. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
 
 ---
 
-## MCP Servers (12 Total)
+## MCP Servers (13 Total)
 
-### Production Servers (8)
+### Production Servers (9)
 1. **mcp-fgbio** - Genomic reference validation
 2. **mcp-multiomics** - Multi-omics data integration
 3. **mcp-spatialtools** - Spatial transcriptomics analysis
@@ -23,14 +23,17 @@
 6. **mcp-deepcell** - Cell image segmentation (DeepCell-TF)
 7. **mcp-epic** - Clinical FHIR data
 8. **mcp-openimagedata** - Histology image processing (registration, feature extraction, MxIF compositing)
+9. **mcp-patient-report** - Patient-facing PDF report generation
 
-### Mock Servers (4)
-9. **mcp-tcga** - Cancer genomics data
-10. **mcp-seqera** - Workflow automation platform
-11. **mcp-huggingface** - AI model inference
-12. **mcp-mockepic** - Mock FHIR data
+### Mock by Design (1)
+10. **mcp-mockepic** - Mock FHIR data (intentionally synthetic for demos)
 
-**Total:** 124 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
+### Mock Servers (3)
+11. **mcp-tcga** - Cancer genomics data
+12. **mcp-seqera** - Workflow automation platform
+13. **mcp-huggingface** - AI model inference
+
+**Total:** 129 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
 
 ---
 
@@ -41,7 +44,8 @@
 - **Data Integration:** 5 modalities (clinical, genomic, multi-omics, spatial, imaging)
 - **HIPAA Compliant:** De-identification, 10-year audit logs, VPC isolation
 - **Deployment:** GCP Cloud Run (us-central1)
-- **UI:** Streamlit with Claude & Gemini support
+- **UI:** Streamlit with Claude & Gemini 3 support
+- **Monitoring:** Live dashboard with token usage tracking
 
 ---
 
@@ -65,6 +69,6 @@
 
 **Repository:** https://github.com/lynnlangit/precision-medicine-mcp
 
-**Status:** Production-ready, validated deployment (January 2026)
+**Status:** Production-ready, validated deployment (February 2026)
 
 **License:** Apache 2.0

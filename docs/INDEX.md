@@ -52,6 +52,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 - **[Cost and Budget Management](./for-hospitals/operations/cost-and-budget.md)** - Cost estimation, tracking, and optimization
 - **[Data Governance](./for-hospitals/compliance/data-governance.md)** - Data handling policies and procedures
+- **[Live Monitoring Dashboard](../ui/dashboard/README.md)** - Real-time health monitoring for 13 MCP servers + 3 Streamlit clients, token usage tracking, cost optimization
 
 ---
 

@@ -1,8 +1,10 @@
 """
 Cost Calculator for MCP Server Token Usage
 
-Converts token usage to USD costs based on Anthropic API pricing.
-Supports Claude Sonnet 4.5, Opus 4.5, and Haiku 4 models.
+Converts token usage to USD costs based on LLM API pricing.
+Supports:
+- Anthropic: Claude Sonnet 4.5, Opus 4.5, Haiku 4
+- Google: Gemini 3 Flash, Gemini 3 Pro
 """
 
 from typing import Dict, Tuple
@@ -17,9 +19,10 @@ class ModelPricing:
     name: str
 
 
-# Anthropic API Pricing (as of January 2025)
-# Source: https://www.anthropic.com/pricing
+# API Pricing (as of January 2025)
+# Sources: https://www.anthropic.com/pricing, https://ai.google.dev/pricing
 PRICING = {
+    # ── Anthropic Claude Models ──────────────────────────────────────────────
     "claude-sonnet-4-5-20250929": ModelPricing(
         input_price=3.00,
         output_price=15.00,
@@ -35,7 +38,7 @@ PRICING = {
         output_price=1.25,
         name="Claude Haiku 4"
     ),
-    # Aliases for convenience
+    # Claude aliases for convenience
     "sonnet": ModelPricing(
         input_price=3.00,
         output_price=15.00,
@@ -50,6 +53,35 @@ PRICING = {
         input_price=0.25,
         output_price=1.25,
         name="Claude Haiku 4"
+    ),
+
+    # ── Google Gemini 3 Models ───────────────────────────────────────────────
+    # Source: https://ai.google.dev/gemini-api/docs/pricing (Feb 2026)
+    "gemini-3-flash-preview": ModelPricing(
+        input_price=0.50,
+        output_price=3.00,
+        name="Gemini 3 Flash"
+    ),
+    "gemini-3-pro-preview": ModelPricing(
+        input_price=2.00,
+        output_price=12.00,
+        name="Gemini 3 Pro (≤200K)"
+    ),
+    "gemini-3-pro-long": ModelPricing(
+        input_price=4.00,
+        output_price=18.00,
+        name="Gemini 3 Pro (>200K)"
+    ),
+    # Gemini aliases for convenience
+    "gemini-flash": ModelPricing(
+        input_price=0.50,
+        output_price=3.00,
+        name="Gemini 3 Flash"
+    ),
+    "gemini-pro": ModelPricing(
+        input_price=2.00,
+        output_price=12.00,
+        name="Gemini 3 Pro"
     ),
 }
 
@@ -173,14 +205,16 @@ def estimate_monthly_cost(
 
 def compare_model_costs(
     input_tokens: int,
-    output_tokens: int
+    output_tokens: int,
+    include_gemini: bool = True
 ) -> Dict[str, Dict[str, float]]:
     """
-    Compare costs across all available Claude models.
+    Compare costs across all available models (Claude and optionally Gemini).
 
     Args:
         input_tokens: Number of input tokens
         output_tokens: Number of output tokens
+        include_gemini: Include Gemini models in comparison (default: True)
 
     Returns:
         Dictionary mapping model names to cost breakdowns
@@ -190,15 +224,32 @@ def compare_model_costs(
         {
             'Claude Sonnet 4.5': {'total_cost': 0.06, ...},
             'Claude Opus 4.5': {'total_cost': 0.30, ...},
-            'Claude Haiku 4': {'total_cost': 0.0050, ...}
+            'Claude Haiku 4': {'total_cost': 0.0050, ...},
+            'Gemini 2.0 Flash': {'total_cost': 0.0018, ...},
+            ...
         }
     """
     results = {}
 
-    # Compare main models only (not aliases)
-    for model_id in ["claude-sonnet-4-5-20250929", "claude-opus-4-5-20251101", "claude-haiku-4-20250924"]:
+    # Compare Claude models
+    claude_models = [
+        "claude-sonnet-4-5-20250929",
+        "claude-opus-4-5-20251101",
+        "claude-haiku-4-20250924"
+    ]
+    for model_id in claude_models:
         costs = calculate_cost(input_tokens, output_tokens, model_id)
         results[costs["model_name"]] = costs
+
+    # Compare Gemini 3 models
+    if include_gemini:
+        gemini_models = [
+            "gemini-3-flash-preview",
+            "gemini-3-pro-preview",
+        ]
+        for model_id in gemini_models:
+            costs = calculate_cost(input_tokens, output_tokens, model_id)
+            results[costs["model_name"]] = costs
 
     return results
 
@@ -370,10 +421,10 @@ if __name__ == "__main__":
     print(f"  Tokens: {total_input:,} in / {total_output:,} out")
     print(f"  {format_cost_summary(workflow_cost)}\n")
 
-    # Example 3: Model comparison
+    # Example 3: Model comparison (Claude + Gemini)
     print("Example 3: Model Cost Comparison (10K in / 2K out)")
-    comparison = compare_model_costs(10000, 2000)
-    for model_name, costs in comparison.items():
+    comparison = compare_model_costs(10000, 2000, include_gemini=True)
+    for model_name, costs in sorted(comparison.items(), key=lambda x: x[1]['total_cost']):
         print(f"  {model_name}: ${costs['total_cost']:.4f}")
     print()
 
