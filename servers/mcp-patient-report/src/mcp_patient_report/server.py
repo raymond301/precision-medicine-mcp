@@ -13,6 +13,7 @@ Key features:
 - White-label support for hospital branding
 """
 
+import base64
 import json
 import logging
 import os
@@ -131,10 +132,13 @@ async def generate_patient_report(
 
         # DRY_RUN mode - return synthetic response
         if DRY_RUN:
+            file_name = f"{report_data.patient_info.patient_id}_{report_type}_report_DRAFT.pdf"
             return {
                 "status": "DRY_RUN",
                 "message": "Report generation simulated (DRY_RUN mode)",
-                "file_path": f"/reports/{report_data.patient_info.patient_id}_{report_type}_report_DRAFT.pdf",
+                "file_path": f"/reports/{file_name}",
+                "file_name": file_name,
+                "file_content_base64": None,  # Not available in DRY_RUN mode
                 "report_type": report_type,
                 "output_format": output_format,
                 "is_draft": True,
@@ -169,9 +173,16 @@ async def generate_patient_report(
         # Determine actual output format
         actual_format = "pdf" if output_path.suffix == ".pdf" else "html"
 
+        # Read file content and encode as base64 for download
+        with open(output_path, "rb") as f:
+            file_content = f.read()
+        file_base64 = base64.b64encode(file_content).decode("utf-8")
+
         return {
             "status": "success",
             "file_path": str(output_path),
+            "file_name": output_path.name,
+            "file_content_base64": file_base64,
             "report_type": report_type,
             "output_format": actual_format,
             "is_draft": is_draft,

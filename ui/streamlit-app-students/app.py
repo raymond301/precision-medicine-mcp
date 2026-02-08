@@ -47,7 +47,8 @@ from utils import (
     ChatHandler,
     build_orchestration_trace,
     render_trace,
-    render_trace_export
+    render_trace_export,
+    check_and_render_downloads
 )
 
 # Import provider system
@@ -653,6 +654,15 @@ def render_chat_history(show_trace: bool = False, trace_style: str = "log"):
                     # Add export buttons if trace has data
                     if trace.tool_calls:
                         render_trace_export(trace, trace_id=i)
+
+            # Check for downloadable files (PDFs from patient reports)
+            if message["role"] == "assistant":
+                trace = st.session_state.traces.get(i) if hasattr(st.session_state, 'traces') else None
+                check_and_render_downloads(
+                    trace=trace,
+                    content=message["content"],
+                    key_prefix=f"msg_{i}"
+                )
 
 
 def handle_user_input(prompt: str, model: str, max_tokens: int):

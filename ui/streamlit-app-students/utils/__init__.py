@@ -18,6 +18,11 @@ from .trace_display import (
     render_trace_summary,
     render_trace_export
 )
+from .download_handler import (
+    extract_downloadable_files,
+    render_download_buttons,
+    check_and_render_downloads
+)
 
 __all__ = [
     "MCP_SERVERS",
@@ -31,5 +36,8 @@ __all__ = [
     "ToolCall",
     "render_trace",
     "render_trace_summary",
-    "render_trace_export"
+    "render_trace_export",
+    "extract_downloadable_files",
+    "render_download_buttons",
+    "check_and_render_downloads"
 ]
