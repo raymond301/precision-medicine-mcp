@@ -41,3 +41,11 @@
 - **IT Director:** [ ]
 - **CISO (if security related):** [ ]
 - **CMIO (if clinical impactful):** [ ]
+
+---
+
+### Document History
+
+| Date | Version | Author | Change Summary |
+|:---|:---|:---|:---|
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |

@@ -37,3 +37,11 @@
 - [ ] Internal IT Team notified
 - [ ] Hospital CISO notified (if PHI impact)
 - [ ] Affected Users notified
+
+---
+
+### Document History
+
+| Date | Version | Author | Change Summary |
+|:---|:---|:---|:---|
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |

@@ -33,6 +33,7 @@
 ---
 
 ### Document History
+
 | Date | Version | Author | Change Summary |
 |:---|:---|:---|:---|
-| 2026-02-08 | 1.0 | Release Eng | Initial baseline inventory |
+| 2026-02-08 | 2.0 | IT Operations | Initial creation |
