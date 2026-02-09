@@ -1,22 +1,26 @@
 """Download handler for file content from MCP tool results.
 
 Extracts downloadable files (PDFs, etc.) from tool results and provides
-Streamlit download buttons.
+Streamlit download buttons. Fetches files via HTTP download URL from the
+MCP server rather than parsing base64 from message content.
 """
 
-import base64
 import json
+import logging
 import re
 import streamlit as st
-from typing import Optional, List, Dict, Any
+import httpx
+from typing import List, Dict, Any
+
+logger = logging.getLogger(__name__)
 
 
 def extract_downloadable_files(trace: Any) -> List[Dict[str, Any]]:
     """Extract downloadable files from an orchestration trace.
 
     Note: ToolCall objects only have result_summary (truncated), not full results.
-    This function checks if trace has tool_calls but the actual file content
-    must be extracted from the message content instead.
+    This function is kept for interface compatibility but returns empty list.
+    Real extraction happens in extract_downloadable_from_content().
 
     Args:
         trace: OrchestrationTrace object with tool_calls
@@ -24,20 +28,14 @@ def extract_downloadable_files(trace: Any) -> List[Dict[str, Any]]:
     Returns:
         List of dicts with file_name, file_content (bytes), mime_type
     """
-    files = []
-
-    # ToolCall objects only have result_summary (truncated string), not full results
-    # The full file_content_base64 must be extracted from message content
-    # This function is kept for interface compatibility but returns empty list
-    # Real extraction happens in extract_downloadable_from_content()
-
-    return files
+    return []
 
 
 def extract_downloadable_from_content(content: str) -> List[Dict[str, Any]]:
     """Extract downloadable files from message content.
 
-    Searches for JSON blocks with file_content_base64 in the text.
+    Looks for JSON blocks with download_url and fetches the file content
+    from the MCP server's HTTP download endpoint.
 
     Args:
         content: Message content string
@@ -47,33 +45,40 @@ def extract_downloadable_from_content(content: str) -> List[Dict[str, Any]]:
     """
     files = []
 
-    # Look for JSON blocks that might contain file_content_base64
-    # Pattern: {"status": ..., "file_content_base64": ...}
-    json_pattern = r'\{[^{}]*"file_content_base64"\s*:\s*"[^"]+?"[^{}]*\}'
-
-    # Also try to find in markdown code blocks
-    code_block_pattern = r'```(?:json)?\s*(\{.*?"file_content_base64".*?\})\s*```'
+    # Look for JSON blocks that contain download_url
+    json_pattern = r'\{[^{}]*"download_url"\s*:\s*"[^"]+?"[^{}]*\}'
+    code_block_pattern = r'```(?:json)?\s*(\{.*?"download_url".*?\})\s*```'
 
     for pattern in [json_pattern, code_block_pattern]:
         matches = re.findall(pattern, content, re.DOTALL)
         for match in matches:
             try:
                 data = json.loads(match)
-                if data.get("file_content_base64"):
-                    file_content = base64.b64decode(data["file_content_base64"])
-                    file_name = data.get("file_name", "report.pdf")
-                    output_format = data.get("output_format", "pdf")
+                download_url = data.get("download_url")
+                if not download_url:
+                    continue
 
-                    mime_type = "application/pdf" if output_format == "pdf" else "text/html"
+                file_name = data.get("file_name", "report.pdf")
+                output_format = data.get("output_format", "pdf")
+                mime_type = "application/pdf" if output_format == "pdf" else "text/html"
 
-                    files.append({
-                        "file_name": file_name,
-                        "file_content": file_content,
-                        "mime_type": mime_type,
-                        "patient_id": data.get("patient_id", "unknown"),
-                        "report_type": data.get("report_type", "report"),
-                        "is_draft": data.get("is_draft", True)
-                    })
+                # Fetch the file from the download URL
+                try:
+                    resp = httpx.get(download_url, timeout=30.0)
+                    resp.raise_for_status()
+                    file_content = resp.content
+                except httpx.HTTPError as e:
+                    logger.warning(f"Failed to download {download_url}: {e}")
+                    continue
+
+                files.append({
+                    "file_name": file_name,
+                    "file_content": file_content,
+                    "mime_type": mime_type,
+                    "patient_id": data.get("patient_id", "unknown"),
+                    "report_type": data.get("report_type", "report"),
+                    "is_draft": data.get("is_draft", True)
+                })
             except (json.JSONDecodeError, TypeError, Exception):
                 continue
 

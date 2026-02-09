@@ -339,6 +339,15 @@ deploy_server() {
         print_success "Deployed: ${SERVICE_URL}"
         echo "${server_name}=${SERVICE_URL}" >> "${REPO_ROOT}/infrastructure/deployment_urls.txt"
 
+        # Set MCP_BASE_URL for servers that serve file downloads
+        if [ "${server_name}" = "mcp-patient-report" ]; then
+            print_info "Setting MCP_BASE_URL=${SERVICE_URL} for download endpoint..."
+            gcloud run services update "${server_name}" \
+                --region "${REGION}" \
+                --update-env-vars "MCP_BASE_URL=${SERVICE_URL}" \
+                --quiet
+        fi
+
         # Production mode: Display authentication info
         if [ "$DEPLOYMENT_MODE" = "production" ]; then
             print_info "⚠️  This service requires authentication"

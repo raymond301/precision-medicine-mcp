@@ -13,7 +13,6 @@ Key features:
 - White-label support for hospital branding
 """
 
-import base64
 import json
 import logging
 import os
@@ -23,6 +22,8 @@ from typing import Optional
 
 from fastmcp import FastMCP
 from pydantic import ValidationError
+from starlette.requests import Request
+from starlette.responses import FileResponse, JSONResponse
 
 from .models import PatientReportData, ReportMetadata
 from .report.report_generator import ReportGenerator
@@ -42,6 +43,25 @@ TEMPLATES_DIR = os.getenv("PATIENT_REPORT_TEMPLATES_DIR", None)
 
 # Ensure output directory exists
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+# --- HTTP download endpoint for generated reports ---
+@mcp.custom_route("/download/{filename}", methods=["GET"])
+async def download_report(request: Request) -> FileResponse | JSONResponse:
+    """Serve generated report files for download."""
+    filename = request.path_params["filename"]
+    # Prevent path traversal
+    if "/" in filename or "\\" in filename or ".." in filename:
+        return JSONResponse({"error": "Invalid filename"}, status_code=400)
+    file_path = OUTPUT_DIR / filename
+    if not file_path.exists():
+        return JSONResponse({"error": "File not found"}, status_code=404)
+    media_type = "application/pdf" if file_path.suffix == ".pdf" else "text/html"
+    return FileResponse(
+        path=str(file_path),
+        filename=filename,
+        media_type=media_type,
+    )
 
 
 def _get_report_generator() -> ReportGenerator:
@@ -138,7 +158,7 @@ async def generate_patient_report(
                 "message": "Report generation simulated (DRY_RUN mode)",
                 "file_path": f"/reports/{file_name}",
                 "file_name": file_name,
-                "file_content_base64": None,  # Not available in DRY_RUN mode
+                "download_url": None,  # Not available in DRY_RUN mode
                 "report_type": report_type,
                 "output_format": output_format,
                 "is_draft": True,
@@ -173,16 +193,16 @@ async def generate_patient_report(
         # Determine actual output format
         actual_format = "pdf" if output_path.suffix == ".pdf" else "html"
 
-        # Read file content and encode as base64 for download
-        with open(output_path, "rb") as f:
-            file_content = f.read()
-        file_base64 = base64.b64encode(file_content).decode("utf-8")
+        # Build download URL (served by the /download/ custom route)
+        port = int(os.getenv("PORT", os.getenv("MCP_PORT", "8000")))
+        base_url = os.getenv("MCP_BASE_URL", f"http://localhost:{port}")
+        download_url = f"{base_url}/download/{output_path.name}"
 
         return {
             "status": "success",
             "file_path": str(output_path),
             "file_name": output_path.name,
-            "file_content_base64": file_base64,
+            "download_url": download_url,
             "report_type": report_type,
             "output_format": actual_format,
             "is_draft": is_draft,
