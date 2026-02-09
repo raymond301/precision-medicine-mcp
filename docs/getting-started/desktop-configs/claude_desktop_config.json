@@ -135,6 +135,37 @@
         "PATIENT_REPORT_TEMPLATES_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/templates/patient_report",
         "PATIENT_REPORT_DRY_RUN": "true"
       }
+    },
+    "deepcell": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-deepcell",
+        "python",
+        "-m",
+        "mcp_deepcell"
+      ],
+      "env": {
+        "DEEPCELL_OUTPUT_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/output",
+        "DEEPCELL_DRY_RUN": "true",
+        "DEEPCELL_USE_GPU": "false"
+      }
+    },
+    "cell-classify": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-cell-classify",
+        "python",
+        "-m",
+        "mcp_cell_classify"
+      ],
+      "env": {
+        "CELL_CLASSIFY_OUTPUT_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/output",
+        "CELL_CLASSIFY_DRY_RUN": "true"
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-"""MCP DeepCell server - Deep learning cell segmentation."""
+"""MCP DeepCell server - Deep learning cell segmentation and quantification."""
 
 import json
 import logging
@@ -73,7 +73,7 @@ def _ensure_output_dir() -> None:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         (OUTPUT_DIR / "visualizations").mkdir(exist_ok=True)
         (OUTPUT_DIR / "segmentations").mkdir(exist_ok=True)
-        (OUTPUT_DIR / "classifications").mkdir(exist_ok=True)
+        (OUTPUT_DIR / "quantifications").mkdir(exist_ok=True)
     except (OSError, PermissionError):
         pass
 
@@ -248,7 +248,7 @@ async def segment_cells(
             "description": f"Segmented {metadata['cells_detected']} cells using {model_type} model in {metadata['processing_time_seconds']:.1f}s"
         }
 
-        logger.info(f"✅ Segmentation complete: {result['cells_detected']} cells detected")
+        logger.info(f"Segmentation complete: {result['cells_detected']} cells detected")
         return result
 
     except FileNotFoundError:
@@ -276,127 +276,138 @@ async def segment_cells(
             "message": "An unexpected error occurred during segmentation. Check logs for details."
         }
 
-@mcp.tool()
-async def classify_cell_states(
-    segmentation_mask_path: str,
-    intensity_image_path: str,
-    marker_name: str = "Ki67",
-    threshold_proliferating: float = 50.0,
-    threshold_quiescent: float = 20.0
-) -> Dict[str, Any]:
-    """Classify cells into functional states based on marker intensity.
 
-    Classifies cells as proliferating, quiescent, or intermediate based on
-    marker expression (e.g., Ki67 for proliferation).
+@mcp.tool()
+async def quantify_markers(
+    segmentation_mask_path: str,
+    marker_images: List[Dict[str, str]],
+    output_filename: Optional[str] = None
+) -> Dict[str, Any]:
+    """Quantify marker intensities per cell from a segmentation mask.
+
+    Measures mean, max, and min intensity for each marker in each segmented cell.
+    Returns a per-cell intensity CSV suitable for downstream classification
+    (e.g., with mcp-cell-classify or external tools like FlowSOM, Leiden, scikit-learn).
 
     Args:
-        segmentation_mask_path: Path to segmentation mask (TIFF from segment_cells)
-        intensity_image_path: Path to marker intensity image (TIFF, PNG, etc.)
-        marker_name: Name of the marker (default: "Ki67")
-        threshold_proliferating: Intensity threshold for proliferating cells (default: 50)
-        threshold_quiescent: Intensity threshold for quiescent cells (default: 20)
+        segmentation_mask_path: Path to segmentation mask (16-bit TIFF label image from segment_cells)
+        marker_images: List of dicts, each with 'path' (image path) and 'name' (marker name).
+            Example: [{"path": "/data/ki67.tif", "name": "Ki67"}, {"path": "/data/tp53.tif", "name": "TP53"}]
+        output_filename: Custom output CSV filename (optional)
 
     Returns:
         Dictionary with:
-        - classifications: List of cell states with cell_id, state, confidence
-        - total_cells: Total number of cells classified
-        - state_counts: Number of cells in each state
-        - classifications_csv: Path to exported CSV file
+        - quantification_csv: Path to exported CSV with per-cell intensities
+        - total_cells: Number of cells quantified
+        - markers_quantified: List of marker names
+        - marker_summaries: Per-marker summary statistics (mean, std, min, max)
         - description: Summary description
 
     Example:
-        >>> result = await classify_cell_states(
-        ...     segmentation_mask_path="/output/segmentations/DAPI_nuclear_seg.tif",
-        ...     intensity_image_path="/data/Ki67_intensity.tiff",
-        ...     marker_name="Ki67",
-        ...     threshold_proliferating=50,
-        ...     threshold_quiescent=20
+        >>> result = await quantify_markers(
+        ...     segmentation_mask_path="/output/segmentations/DAPI_seg.tif",
+        ...     marker_images=[
+        ...         {"path": "/data/ki67.tif", "name": "Ki67"},
+        ...         {"path": "/data/tp53.tif", "name": "TP53"}
+        ...     ]
         ... )
-        >>> print(f"{result['state_counts']['proliferating']} proliferating cells")
+        >>> print(f"Quantified {result['total_cells']} cells across {len(result['markers_quantified'])} markers")
+        >>> # Use result['quantification_csv'] with mcp-cell-classify or other tools
     """
     if DRY_RUN:
+        marker_names = [m["name"] for m in marker_images]
         return add_dry_run_warning({
-            "classifications": [
-                {"cell_id": 1, "state": "proliferating", "confidence": 0.92, "Ki67_intensity": 85.3},
-                {"cell_id": 2, "state": "quiescent", "confidence": 0.87, "Ki67_intensity": 12.1},
-                {"cell_id": 3, "state": "intermediate", "confidence": 0.75, "Ki67_intensity": 35.2}
-            ],
+            "quantification_csv": str(OUTPUT_DIR / "quantifications" / "quantification_dryrun.csv"),
             "total_cells": 1247,
-            "state_counts": {
-                "proliferating": 523,
-                "quiescent": 612,
-                "intermediate": 112
+            "markers_quantified": marker_names,
+            "marker_summaries": {
+                name: {"mean": 45.2, "std": 28.1, "min": 2.3, "max": 98.7}
+                for name in marker_names
             },
+            "description": f"DRY_RUN: Would quantify {len(marker_names)} markers for 1247 cells",
             "mode": "dry_run"
         })
 
     try:
-        # Download from GCS if needed
+        # Download and load segmentation mask
         local_seg_mask_path = _download_from_gcs(segmentation_mask_path)
-        local_intensity_path = _download_from_gcs(intensity_image_path)
-
-        # Load segmentation mask
         logger.info(f"Loading segmentation mask: {local_seg_mask_path}")
         seg_mask = np.array(Image.open(local_seg_mask_path))
 
-        # Load intensity image
-        logger.info(f"Loading intensity image: {local_intensity_path}")
-        intensity_image = np.array(Image.open(local_intensity_path))
-
-        logger.info(f"Mask shape: {seg_mask.shape}, Intensity shape: {intensity_image.shape}")
-
-        # Get classifier
         classifier = _get_intensity_classifier()
+        marker_names = [m["name"] for m in marker_images]
 
-        # Measure cell intensities
-        logger.info("Measuring cell intensities...")
-        intensities_df = classifier.measure_cell_intensities(
-            image=intensity_image,
+        # Measure intensities for first marker to get base DataFrame
+        first_marker = marker_images[0]
+        local_first_path = _download_from_gcs(first_marker["path"])
+        first_image = np.array(Image.open(local_first_path))
+
+        logger.info(f"Measuring intensities for {first_marker['name']}...")
+        combined_df = classifier.measure_cell_intensities(
+            image=first_image,
             segmentation_mask=seg_mask
         )
+        # Rename intensity columns with marker prefix
+        combined_df = combined_df.rename(columns={
+            "mean_intensity": f"{first_marker['name']}_mean_intensity",
+            "max_intensity": f"{first_marker['name']}_max_intensity",
+            "min_intensity": f"{first_marker['name']}_min_intensity",
+        })
 
-        # Classify cell states
-        logger.info(f"Classifying cells using {marker_name} marker...")
-        classifications = classifier.classify_cell_states(
-            intensities=intensities_df,
-            marker_name=marker_name,
-            threshold_proliferating=threshold_proliferating,
-            threshold_quiescent=threshold_quiescent
-        )
+        # Measure intensities for remaining markers
+        for marker_info in marker_images[1:]:
+            local_path = _download_from_gcs(marker_info["path"])
+            marker_image = np.array(Image.open(local_path))
 
-        # Save classifications to CSV
-        csv_filename = f"classifications_{marker_name}_{Path(segmentation_mask_path).stem}.csv"
-        csv_path = OUTPUT_DIR / "classifications" / csv_filename
+            logger.info(f"Measuring intensities for {marker_info['name']}...")
+            marker_df = classifier.measure_cell_intensities(
+                image=marker_image,
+                segmentation_mask=seg_mask
+            )
+            # Rename and merge
+            marker_df = marker_df.rename(columns={
+                "mean_intensity": f"{marker_info['name']}_mean_intensity",
+                "max_intensity": f"{marker_info['name']}_max_intensity",
+                "min_intensity": f"{marker_info['name']}_min_intensity",
+            })
+            combined_df = combined_df.merge(
+                marker_df[["cell_id", f"{marker_info['name']}_mean_intensity",
+                           f"{marker_info['name']}_max_intensity",
+                           f"{marker_info['name']}_min_intensity"]],
+                on="cell_id"
+            )
+
+        # Save to CSV
+        marker_str = "_".join(marker_names)
+        if output_filename is None:
+            output_filename = f"quantification_{marker_str}_{Path(segmentation_mask_path).stem}.csv"
+
+        csv_path = OUTPUT_DIR / "quantifications" / output_filename
         csv_path.parent.mkdir(parents=True, exist_ok=True)
+        combined_df.to_csv(csv_path, index=False)
 
-        classifications_df = pd.DataFrame(classifications)
-        classifications_df.to_csv(csv_path, index=False)
-        logger.info(f"Classifications saved to: {csv_path}")
+        # Compute per-marker summary stats
+        marker_summaries = {}
+        for name in marker_names:
+            col = f"{name}_mean_intensity"
+            marker_summaries[name] = {
+                "mean": round(float(combined_df[col].mean()), 2),
+                "std": round(float(combined_df[col].std()), 2),
+                "min": round(float(combined_df[col].min()), 2),
+                "max": round(float(combined_df[col].max()), 2),
+            }
 
-        # Calculate state counts
-        state_counts = {}
-        for c in classifications:
-            state = c["state"]
-            state_counts[state] = state_counts.get(state, 0) + 1
-
-        # Create summary
-        total_cells = len(classifications)
-        states_list = list(state_counts.keys())
-
+        total_cells = len(combined_df)
         result = {
             "status": "success",
-            "classifications": classifications[:100],  # Return first 100 for brevity
+            "quantification_csv": str(csv_path),
             "total_cells": total_cells,
-            "state_counts": state_counts,
-            "states_identified": states_list,
-            "classifications_csv": str(csv_path),
-            "marker_used": marker_name,
-            "threshold_proliferating": threshold_proliferating,
-            "threshold_quiescent": threshold_quiescent,
-            "description": f"Classified {total_cells} cells: {state_counts.get('proliferating', 0)} proliferating, {state_counts.get('quiescent', 0)} quiescent, {state_counts.get('intermediate', 0)} intermediate"
+            "markers_quantified": marker_names,
+            "marker_summaries": marker_summaries,
+            "description": f"Quantified {len(marker_names)} markers ({', '.join(marker_names)}) for {total_cells} cells. CSV saved to {csv_path}"
         }
 
-        logger.info(f"✅ Classification complete: {total_cells} cells classified")
+        logger.info(f"Quantification complete: {total_cells} cells, {len(marker_names)} markers")
         return result
 
     except FileNotFoundError as e:
@@ -405,7 +416,7 @@ async def classify_cell_states(
         return {
             "status": "error",
             "error": error_msg,
-            "message": "Please check that both the segmentation mask and intensity image paths are correct."
+            "message": "Please check that the segmentation mask and all marker image paths are correct."
         }
     except ValueError as e:
         error_msg = f"Invalid data: {str(e)}"
@@ -413,15 +424,15 @@ async def classify_cell_states(
         return {
             "status": "error",
             "error": error_msg,
-            "message": "Image and segmentation mask shapes don't match or invalid parameters."
+            "message": "Image shapes don't match the segmentation mask or invalid parameters."
         }
     except Exception as e:
-        error_msg = f"Classification failed: {str(e)}"
+        error_msg = f"Quantification failed: {str(e)}"
         logger.error(error_msg, exc_info=True)
         return {
             "status": "error",
             "error": error_msg,
-            "message": "An unexpected error occurred during classification. Check logs for details."
+            "message": "An unexpected error occurred during quantification. Check logs for details."
         }
 
 
@@ -556,154 +567,6 @@ async def generate_segmentation_overlay(
         }
 
 
-@mcp.tool()
-async def generate_phenotype_visualization(
-    original_image_path: str,
-    segmentation_mask_path: str,
-    marker_positive_cells: List[int],
-    output_filename: Optional[str] = None,
-    positive_color: str = "green",
-    negative_color: str = "red"
-) -> Dict[str, Any]:
-    """Generate cell phenotype visualization.
-
-    Colors cells based on marker expression (positive vs negative).
-    Useful for visualizing marker-positive cell distribution (e.g., CD8+, Ki67+).
-
-    Args:
-        original_image_path: Path to original microscopy image
-        segmentation_mask_path: Path to segmentation mask
-        marker_positive_cells: List of cell IDs that are marker-positive
-        output_filename: Custom output filename (default: phenotype_viz_TIMESTAMP.png)
-        positive_color: Color for marker-positive cells (default: "green")
-        negative_color: Color for marker-negative cells (default: "red")
-
-    Returns:
-        Dictionary with:
-        - output_file: Path to saved visualization
-        - positive_cells: Number of marker-positive cells
-        - negative_cells: Number of marker-negative cells
-        - percent_positive: Percentage of positive cells
-        - description: Text description
-
-    Example:
-        >>> result = await generate_phenotype_visualization(
-        ...     original_image_path="/data/IF_Ki67.tiff",
-        ...     segmentation_mask_path="/data/IF_Ki67.tiff.seg.tif",
-        ...     marker_positive_cells=[1, 5, 12, 18, 25, ...],  # Ki67+ cell IDs
-        ...     positive_color="yellow",
-        ...     negative_color="blue"
-        ... )
-    """
-    if DRY_RUN:
-        return add_dry_run_warning({
-            "output_file": str(OUTPUT_DIR / "visualizations" / "phenotype_viz_dryrun.png"),
-            "positive_cells": 623,
-            "negative_cells": 624,
-            "percent_positive": 50.0,
-            "description": "DRY_RUN: Would generate phenotype visualization",
-            "message": "Set DEEPCELL_DRY_RUN=false to generate real visualizations"
-        })
-
-    try:
-        # Download from GCS if needed
-        local_original_path = _download_from_gcs(original_image_path)
-        local_seg_mask_path = _download_from_gcs(segmentation_mask_path)
-
-        # Load images
-        original_img = np.array(Image.open(local_original_path))
-        seg_mask = np.array(Image.open(local_seg_mask_path))
-
-        # Get unique cell IDs
-        cell_ids = np.unique(seg_mask)[1:]  # Exclude background (0)
-        positive_set = set(marker_positive_cells)
-
-        # Create colored phenotype mask
-        phenotype_mask = np.zeros(seg_mask.shape + (3,), dtype=np.uint8)
-
-        color_map = {
-            'green': [0, 255, 0],
-            'red': [255, 0, 0],
-            'yellow': [255, 255, 0],
-            'blue': [0, 0, 255],
-            'cyan': [0, 255, 255],
-            'magenta': [255, 0, 255]
-        }
-        pos_color = color_map.get(positive_color.lower(), [0, 255, 0])
-        neg_color = color_map.get(negative_color.lower(), [255, 0, 0])
-
-        for cell_id in cell_ids:
-            mask = seg_mask == cell_id
-            if cell_id in positive_set:
-                phenotype_mask[mask] = pos_color
-            else:
-                phenotype_mask[mask] = neg_color
-
-        # Plot
-        fig, axes = plt.subplots(1, 2, figsize=(12, 6))
-
-        # Original image
-        if len(original_img.shape) == 2:
-            axes[0].imshow(original_img, cmap='gray')
-        else:
-            axes[0].imshow(original_img)
-        axes[0].set_title('Original Image', fontsize=12, fontweight='bold')
-        axes[0].axis('off')
-
-        # Phenotype visualization
-        axes[1].imshow(phenotype_mask)
-        num_positive = len(positive_set.intersection(set(cell_ids)))
-        num_negative = len(cell_ids) - num_positive
-        pct_positive = 100 * num_positive / len(cell_ids) if len(cell_ids) > 0 else 0
-
-        axes[1].set_title(f'Cell Phenotypes ({pct_positive:.1f}% Positive)',
-                         fontsize=12, fontweight='bold')
-        axes[1].axis('off')
-
-        # Add legend
-        from matplotlib.patches import Patch
-        legend_elements = [
-            Patch(facecolor=np.array(pos_color)/255, label=f'Marker+ ({num_positive} cells)'),
-            Patch(facecolor=np.array(neg_color)/255, label=f'Marker- ({num_negative} cells)')
-        ]
-        axes[1].legend(handles=legend_elements, loc='upper right')
-
-        plt.tight_layout()
-
-        # Save
-        import pandas as pd
-        timestamp = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
-        if output_filename is None:
-            output_filename = f"phenotype_viz_{timestamp}.png"
-
-        output_path = OUTPUT_DIR / "visualizations" / output_filename
-        fig.savefig(output_path, dpi=300, bbox_inches='tight')
-        plt.close(fig)
-
-        description = f"Phenotype visualization showing {num_positive} marker-positive cells ({positive_color}) and {num_negative} marker-negative cells ({negative_color}). {pct_positive:.1f}% of cells are positive."
-
-        return {
-            "status": "success",
-            "output_file": str(output_path),
-            "positive_cells": int(num_positive),
-            "negative_cells": int(num_negative),
-            "total_cells": int(len(cell_ids)),
-            "percent_positive": round(float(pct_positive), 2),
-            "description": description,
-            "visualization_type": "phenotype_coloring",
-            "positive_color": positive_color,
-            "negative_color": negative_color
-        }
-
-    except Exception as e:
-        logger.error(f"Error generating phenotype visualization: {e}")
-        return {
-            "status": "error",
-            "error": str(e),
-            "message": "Failed to generate phenotype visualization. Check file paths and formats."
-        }
-
-
 @mcp.resource("model://deepcell/membrane")
 def get_membrane_model_info() -> str:
     """Membrane segmentation model information."""
@@ -722,12 +585,12 @@ def main() -> None:
 
     if DRY_RUN:
         logger.warning("=" * 80)
-        logger.warning("⚠️  DRY_RUN MODE ENABLED - RETURNING SYNTHETIC DATA")
-        logger.warning("⚠️  Results are MOCKED and do NOT represent real analysis")
-        logger.warning("⚠️  Set DEEPCELL_DRY_RUN=false for production use")
+        logger.warning("DRY_RUN MODE ENABLED - RETURNING SYNTHETIC DATA")
+        logger.warning("Results are MOCKED and do NOT represent real analysis")
+        logger.warning("Set DEEPCELL_DRY_RUN=false for production use")
         logger.warning("=" * 80)
     else:
-        logger.info("✅ Real data processing mode enabled (DEEPCELL_DRY_RUN=false)")
+        logger.info("Real data processing mode enabled (DEEPCELL_DRY_RUN=false)")
 
     # Get transport and port from environment
     transport = os.getenv("MCP_TRANSPORT", "stdio")
