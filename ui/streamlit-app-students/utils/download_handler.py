@@ -8,8 +8,8 @@ MCP server rather than parsing base64 from message content.
 import json
 import logging
 import re
+import urllib.request
 import streamlit as st
-import httpx
 from typing import List, Dict, Any
 
 logger = logging.getLogger(__name__)
@@ -64,10 +64,10 @@ def extract_downloadable_from_content(content: str) -> List[Dict[str, Any]]:
 
                 # Fetch the file from the download URL
                 try:
-                    resp = httpx.get(download_url, timeout=30.0)
-                    resp.raise_for_status()
-                    file_content = resp.content
-                except httpx.HTTPError as e:
+                    req = urllib.request.Request(download_url)
+                    with urllib.request.urlopen(req, timeout=30) as resp:
+                        file_content = resp.read()
+                except Exception as e:
                     logger.warning(f"Failed to download {download_url}: {e}")
                     continue
 
