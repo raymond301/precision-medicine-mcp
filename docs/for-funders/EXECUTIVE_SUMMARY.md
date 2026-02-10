@@ -98,6 +98,7 @@ graph TB
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
+- Domain-organized Jupyter notebooks (imaging, genomics, clinical, workflow/ML) for interactive analysis
 
 ---
 
@@ -230,12 +231,13 @@ Ready for immediate pilot deployment with clear path to institutional scale.
 
 ---
 
-**Document Version:** 1.2
-**Date:** 2026-02-07
+**Document Version:** 1.3
+**Date:** 2026-02-10
 **Status:** Ready for Funding Review
 **Contact:** Lynn Langit
 
 **Recent Updates:**
+- Reorganized Jupyter client into domain-based notebooks (imaging, genomics, clinical, workflow/ML, integration) for better usability and maintainability (Feb 2026)
 - Phase 1: Bayesian uncertainty quantification for quantum fidelity predictions (Jan 2026)
 - Updated tool counts: 129 tools across 13 servers
 - Added mcp-patient-report server for PDF generation

@@ -1,20 +1,32 @@
 # Jupyter Notebook MCP Client - Precision Medicine
 
-Interactive Jupyter notebook for testing MCP servers via Claude API. Perfect for data scientists and researchers who want to analyze spatial transcriptomics, multi-omics, and genomics data.
+Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect for data scientists and researchers who want to analyze spatial transcriptomics, multi-omics, and genomics data.
 
-🌐 **Live JupyterLab:** https://jupyter-mcp-notebook-305650208648.us-central1.run.app
+Live JupyterLab: https://jupyter-mcp-notebook-305650208648.us-central1.run.app
 
 <img src="../../data/images/jupyter-preview.png" width="800" alt="Jupyter Notebook Preview" style="display:none">
 
 ## Features
 
-- 📓 **Interactive Notebook** - Run analysis step-by-step with Python
-- 🔧 **9 MCP Servers** - Access all deployed bioinformatics tools
-- 💬 **MCPClient Helper Class** - Simple API for calling MCP servers
-- 📊 **Token Usage Tracking** - Monitor API costs per query
-- 📈 **Built-in Visualizations** - matplotlib, seaborn, plotly examples
-- 💾 **Reproducible Analysis** - Save and share workflows
-- 🎯 **Example Workflows** - Pre-built analyses for common tasks
+- **13 MCP Servers** - Access all deployed bioinformatics tools
+- **Group-based notebooks** - Organized by domain (imaging, genomics, clinical, workflow/ML)
+- **Shared MCPClient** - Single `mcp_utils.py` module used by all notebooks
+- **Token usage tracking** - Monitor API costs per query
+- **Built-in visualizations** - matplotlib, seaborn, plotly examples
+- **Reproducible analysis** - Save and share workflows
+
+## Notebooks
+
+| Notebook | Servers | Description |
+|---|---|---|
+| `00-setup-and-test.ipynb` | all | Install deps, verify API key, test connectivity |
+| `01-imaging.ipynb` | deepcell, cell-classify, openimagedata | Cell segmentation, phenotyping, MxIF images |
+| `02-genomics-omics.ipynb` | fgbio, multiomics, spatialtools, tcga, perturbation | FASTQ QC, spatial analysis, multi-omics, GEARS |
+| `03-clinical.ipynb` | mockepic, patient-report | EHR/FHIR data, patient-facing reports |
+| `04-workflow-ml.ipynb` | seqera, huggingface, quantum-celltype-fidelity | Nextflow, ML models, quantum fidelity |
+| `05-integration.ipynb` | cross-server | PatientOne end-to-end precision-medicine workflows |
+
+The original `mcp_client.ipynb` is retained for backwards compatibility.
 
 ## Quick Start (2 minutes)
 
@@ -44,87 +56,86 @@ cp .env.example .env
 # Edit .env and add your API key
 
 # 5. Start Jupyter
-jupyter notebook mcp_client.ipynb
+jupyter lab
 ```
 
-The notebook will open in your browser at http://localhost:8888
+The notebooks will open in your browser at http://localhost:8888
 
 ### Cloud Access (No Installation)
 
 Simply open the live JupyterLab instance:
 
-👉 **https://jupyter-mcp-notebook-305650208648.us-central1.run.app**
+https://jupyter-mcp-notebook-305650208648.us-central1.run.app
 
 **Note:** The cloud instance is public and resets on each deployment. For persistent work, use local installation or save your notebooks elsewhere.
 
-## Notebook Contents
+## Project Structure
 
-The `mcp_client.ipynb` notebook includes:
-
-### 1. Setup and Configuration
-- Import dependencies
-- Configure API key
-- Define MCP server endpoints
-
-### 2. MCPClient Helper Class
-- Simple API for calling MCP servers
-- Conversation history tracking
-- Token usage and cost estimation
-
-### 3. Quick Test
-List all available tools from any MCP server:
-
-```python
-client = MCPClient()
-result = client.call_servers(
-    prompt="List all available tools from the spatialtools server.",
-    servers=["spatialtools"]
-)
-print(result["response"])
+```
+ui/jupyter-notebook/
+├── mcp_utils.py               # Shared MCPClient class + server config (used by all notebooks)
+├── 00-setup-and-test.ipynb    # Setup and connectivity verification
+├── 01-imaging.ipynb           # Imaging & cell analysis examples
+├── 02-genomics-omics.ipynb    # Genomics & multi-omics examples
+├── 03-clinical.ipynb          # Clinical data examples
+├── 04-workflow-ml.ipynb       # Workflow & ML examples
+├── 05-integration.ipynb       # Cross-server integration workflows
+├── mcp_client.ipynb           # Original monolithic notebook (legacy)
+├── requirements.txt           # Python dependencies
+├── .env.example               # Environment variable template
+├── .gitignore                 # Git ignore rules
+├── Dockerfile                 # Container for Cloud Run
+├── .dockerignore              # Docker ignore rules
+├── deploy.sh                  # Cloud Run deployment script
+├── deploy_to_vertex_ai.sh     # Vertex AI Workbench deployment
+├── jupyterhub_config.py       # JupyterHub configuration
+└── README.md                  # This file
 ```
 
-### 4. Example Workflows
+## Available MCP Servers
 
-**Spatial Transcriptomics Analysis:**
+All 13 servers are pre-configured in `mcp_utils.py`:
+
+### Imaging (production)
+- **deepcell** - DeepCell-TF cell segmentation and marker quantification for MxIF
+- **cell-classify** - Cell phenotype classification and visualization
+- **openimagedata** - H&E/MxIF image loading, registration, feature extraction, composites
+
+### Genomics / Omics
+- **fgbio** - Genomic reference data and FASTQ validation (production)
+- **multiomics** - Multi-omics integration: RNA/Protein/Phospho (production)
+- **spatialtools** - Spatial transcriptomics analysis (production)
+- **tcga** - TCGA cancer genomics data (mock)
+- **perturbation** - GEARS perturbation prediction for treatment response (production)
+
+### Clinical
+- **mockepic** - Mock EHR/FHIR data (mock)
+- **patient-report** - Patient-facing PDF reports with plain-language summaries (production)
+
+### Workflow / ML
+- **seqera** - Nextflow workflow management (mock)
+- **huggingface** - AI/ML models for genomics (mock)
+- **quantum-celltype-fidelity** - Quantum computing for cell type validation and immune evasion (production)
+
+## MCPClient API Reference
+
+All notebooks import from `mcp_utils.py`:
+
 ```python
-result = client.call_servers(
-    prompt="Analyze spatial transcriptomics data for Patient-001. Perform cell type deconvolution.",
-    servers=["spatialtools"]
+from mcp_utils import MCPClient, MCP_SERVERS, SERVER_GROUPS, list_servers, print_result
+
+mcp = MCPClient()
+result = mcp.call_servers(
+    prompt="Analyze spatial transcriptomics data for Patient-001.",
+    servers=["spatialtools", "multiomics"],
+    model="claude-sonnet-4-5",   # default
+    max_tokens=4096,              # default
+    clear_history=True,           # reset conversation
 )
+print_result(result)
 ```
 
-**Pathway Enrichment:**
-```python
-result = client.call_servers(
-    prompt="For genes [TP53, BRCA1, MYC], perform pathway enrichment using GO_BP.",
-    servers=["spatialtools"]
-)
-```
-
-**Multi-omics Integration:**
-```python
-result = client.call_servers(
-    prompt="Integrate RNA, protein, and phospho data. Run HAllA analysis.",
-    servers=["multiomics"]
-)
-```
-
-**Complete PatientOne Workflow:**
-```python
-result = client.call_servers(
-    prompt="""For Patient-001 (ovarian cancer):
-    1. Get clinical data
-    2. Retrieve spatial transcriptomics
-    3. Perform cell type deconvolution
-    4. Run differential expression
-    5. Generate treatment recommendations""",
-    servers=["spatialtools", "multiomics"]
-)
-```
-
-### 5. Token Usage Tracking
-
-Every query returns usage statistics:
+Every call returns:
 
 ```python
 {
@@ -136,76 +147,7 @@ Every query returns usage statistics:
         "estimated_cost_usd": 0.0226
     },
     "model": "claude-sonnet-4-5",
-    "servers_used": ["spatialtools"]
-}
-```
-
-### 6. Visualization Examples
-
-Plot token usage over time:
-
-```python
-import matplotlib.pyplot as plt
-
-# Track usage across multiple queries
-usage_data = []
-for query in queries:
-    result = client.call_servers(query["prompt"], query["servers"])
-    usage_data.append(result["usage"])
-
-# Plot
-plt.plot([u["total_tokens"] for u in usage_data])
-plt.title("Token Usage Over Time")
-plt.show()
-```
-
-## Available MCP Servers
-
-All 9 servers are pre-configured:
-
-### Production Servers (Real Analysis)
-- **fgbio** - Genomic reference data, FASTQ validation
-- **multiomics** - Multi-omics integration (RNA/Protein/Phospho)
-- **spatialtools** - Spatial transcriptomics analysis
-
-### Mock Servers (Demo Only)
-- **tcga** - TCGA genomic data
-- **openimagedata** - Imaging data access
-- **seqera** - Nextflow workflow execution
-- **huggingface** - Model integration
-- **deepcell** - Image segmentation
-- **mockepic** - FHIR clinical data
-
-## MCPClient API Reference
-
-### Class: `MCPClient`
-
-**Constructor:**
-```python
-client = MCPClient(api_key: str = None)
-```
-- `api_key`: Anthropic API key (reads from ANTHROPIC_API_KEY env var if not provided)
-
-**Methods:**
-
-**`call_servers()`**
-```python
-result = client.call_servers(
-    prompt: str,                    # Your query
-    servers: List[str],             # Server names to use
-    model: str = "claude-sonnet-4-5",  # Claude model
-    max_tokens: int = 4096,         # Max response length
-    clear_history: bool = False     # Reset conversation
-)
-```
-
-Returns:
-```python
-{
-    "response": str,      # Claude's response text
-    "usage": dict,        # Token counts and cost
-    "model": str,         # Model used
-    "servers_used": list  # Servers called
+    "servers_used": ["spatialtools", "multiomics"]
 }
 ```
 
@@ -213,246 +155,55 @@ Returns:
 
 ### API Key Security
 
-**The ANTHROPIC_API_KEY is stored differently depending on environment:**
-
 | Environment | Storage Method | Security |
-|-------------|---------------|----------|
-| **Local Development** | `.env` file (gitignored) | Not committed to git, local machine only |
-| **Cloud JupyterLab** | Environment variable (encrypted) | Encrypted at rest, managed by Google Cloud |
-| **Browser/Client** | Never exposed | Key stays server-side, never sent to browser |
+|---|---|---|
+| **Local** | `.env` file (gitignored) | Not committed to git |
+| **Cloud JupyterLab** | Environment variable (encrypted) | Managed by Google Cloud |
+| **Browser** | Never exposed | Key stays server-side |
 
-**Important Security Notes:**
-- ✅ `.env` file is in `.gitignore` - never committed to git
-- ✅ Cloud Run environment variables are encrypted at rest
-- ✅ API key is only used server-side in container
-- ✅ Use separate API keys for development vs production
-- ❌ Never hardcode API keys in notebooks
-- ❌ Never commit `.env` files to git
+### Cost Estimates
 
-### Environment Variables
+- **Per query:** ~$0.02-0.08 (Sonnet)
+- **Typical session (10 queries):** ~$0.20-0.80
+- **Cloud JupyterLab:** ~$0.50-2.00/hr active use, scales to zero when idle
 
-**For Local Development:**
-
-Create a `.env` file (from `.env.example`):
-
-```bash
-# Required
-ANTHROPIC_API_KEY=your_key_here
-```
-
-**For Cloud Deployment:**
-
-API key is passed as environment variable during deployment:
-
-```bash
-export ANTHROPIC_API_KEY=your_key_here
-./deploy.sh
-```
-
-The deployment script automatically sets the key as a Cloud Run environment variable (encrypted).
-
-### MCP Server URLs
-
-All server URLs are pre-configured in the notebook. To add/modify:
-
-```python
-MCP_SERVERS = {
-    "your_server": {
-        "url": "https://your-server.run.app/sse",
-        "description": "Server description"
-    }
-}
-```
-
-## Cost Estimates
-
-**Per Query:**
-- Input: ~500-2000 tokens ($0.003-0.012 with Sonnet)
-- Output: ~1000-4000 tokens ($0.015-0.060 with Sonnet)
-- **Total: ~$0.02-0.08 per query**
-
-**Typical Analysis Session (10 queries):**
-- ~$0.20-0.80 total
-
-**Cloud JupyterLab (Cloud Run):**
-- ~$0.50-2.00 per hour of active use
-- Scales to zero when not in use
-- No cost when idle
-
-**See:** [Cost Analysis](../../docs/for-hospitals/operations/cost-and-budget.md) for detailed breakdowns
-
-## Troubleshooting
-
-### "API Key Missing" Error
-
-```bash
-# Set the environment variable
-export ANTHROPIC_API_KEY=your_key_here
-
-# Or create .env file
-echo "ANTHROPIC_API_KEY=your_key_here" > .env
-```
-
-### MCP Servers Not Responding
-
-1. Check server status: [GCP Cloud Run Console](https://console.cloud.google.com/run)
-2. Verify URLs in notebook match deployed URLs
-3. Test individual server: `curl https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse`
-
-### Slow Responses
-
-- Use **claude-haiku-4** for faster responses
-- Reduce **max_tokens** parameter
-- Select fewer MCP servers per query
-
-### Kernel Crashes
-
-```bash
-# Restart Jupyter kernel
-# In notebook: Kernel → Restart
-
-# Or restart entire Jupyter server
-jupyter notebook stop
-jupyter notebook mcp_client.ipynb
-```
-
-### Module Import Errors
-
-```bash
-# Reinstall dependencies
-pip install -r requirements.txt
-
-# Or upgrade specific package
-pip install --upgrade anthropic
-```
-
-## Development
-
-### Project Structure
-
-```
-ui/jupyter-notebook/
-├── mcp_client.ipynb       # Main Jupyter notebook
-├── requirements.txt       # Python dependencies
-├── .env.example          # Environment variable template
-├── .gitignore            # Git ignore rules
-├── Dockerfile            # Container for Cloud Run
-├── .dockerignore         # Docker ignore rules
-├── deploy.sh             # Cloud Run deployment script
-├── deploy_to_vertex_ai.sh # Vertex AI Workbench deployment
-├── test_notebook.py      # Local testing script
-└── README.md             # This file
-```
-
-### Adding New Analysis Workflows
-
-Create a new cell in the notebook:
-
-```python
-# Example: Custom pathway enrichment
-result = client.call_servers(
-    prompt="""
-    For the gene list [GENE1, GENE2, GENE3]:
-    1. Perform pathway enrichment
-    2. Filter for p-value < 0.05
-    3. Return top 10 pathways
-    """,
-    servers=["spatialtools"],
-    max_tokens=2048
-)
-
-print(result["response"])
-```
-
-### Adding Visualizations
-
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Parse results (example)
-data = pd.DataFrame({
-    "pathway": ["Path1", "Path2", "Path3"],
-    "p_value": [0.001, 0.01, 0.05]
-})
-
-# Plot
-plt.bar(data["pathway"], -np.log10(data["p_value"]))
-plt.ylabel("-log10(p-value)")
-plt.title("Pathway Enrichment")
-plt.show()
-```
-
-### Saving Analysis Results
-
-```python
-# Save conversation history
-import json
-
-with open("analysis_results.json", "w") as f:
-    json.dump(client.conversation_history, f, indent=2)
-
-# Save specific results
-result = client.call_servers(...)
-with open("pathway_results.txt", "w") as f:
-    f.write(result["response"])
-```
+See [Cost Analysis](../../docs/for-hospitals/operations/cost-and-budget.md) for detailed breakdowns.
 
 ## Deployment
 
-### Local Development
+### GCP Cloud Run (Current)
 
 ```bash
-jupyter notebook mcp_client.ipynb
-```
-
-### GCP Cloud Run (Current Deployment)
-
-```bash
-# Set API key
 export ANTHROPIC_API_KEY=your_key_here
-
-# Deploy
 ./deploy.sh
 ```
 
-**Live URL:** https://jupyter-mcp-notebook-305650208648.us-central1.run.app
-
-**Cost:** ~$0.50-2.00 per hour of active use (pay-per-use)
+Live URL: https://jupyter-mcp-notebook-305650208648.us-central1.run.app
 
 ### GCP Vertex AI Workbench (Alternative)
 
-For a dedicated managed Jupyter instance:
-
 ```bash
-# Set API key
 export ANTHROPIC_API_KEY=your_key_here
-
-# Deploy
 ./deploy_to_vertex_ai.sh
 ```
 
-**Cost:** ~$150-200/month (always-on VM)
+## Troubleshooting
 
-**When to use:**
-- Need persistent environment
-- Working with large datasets
-- Long-running analyses
-- Need GPUs for deep learning
+### API Key Missing
+```bash
+export ANTHROPIC_API_KEY=your_key_here
+# Or create .env:  cp .env.example .env
+```
 
-## Roadmap
+### MCP Servers Not Responding
+1. Check server status in [GCP Cloud Run Console](https://console.cloud.google.com/run)
+2. Verify URLs match deployed URLs
+3. Test: `curl https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse`
 
-**Planned Features:**
-- [ ] Interactive widgets for parameter tuning
-- [ ] Automated report generation (PDF/HTML)
-- [ ] Workflow templates library
-- [ ] Integration with Google Cloud Storage
-- [ ] Multi-user authentication
-- [ ] Notebook scheduling (cron jobs)
-- [ ] GPU support for image analysis
-- [ ] R kernel support
-
-**Want to contribute?** Open an issue or pull request on GitHub!
+### Module Import Errors
+```bash
+pip install -r requirements.txt
+```
 
 ## Support
 
@@ -468,9 +219,9 @@ See the main repository [LICENSE](../../LICENSE) file.
 ---
 
 **Built with:**
-- [Jupyter](https://jupyter.org/) - Interactive computing
-- [Anthropic Claude API](https://www.anthropic.com/) - AI model
-- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP standard
-- [GCP Cloud Run](https://cloud.google.com/run) - Container hosting
+[Jupyter](https://jupyter.org/) |
+[Anthropic Claude API](https://www.anthropic.com/) |
+[Model Context Protocol](https://modelcontextprotocol.io/) |
+[GCP Cloud Run](https://cloud.google.com/run)
 
 **Part of the Precision Medicine MCP suite** - Enabling AI-driven bioinformatics for cancer research.

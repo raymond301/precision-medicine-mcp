@@ -7,7 +7,14 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy notebook and configuration
+# Copy notebooks, shared utilities, and configuration
+COPY mcp_utils.py .
+COPY 00-setup-and-test.ipynb .
+COPY 01-imaging.ipynb .
+COPY 02-genomics-omics.ipynb .
+COPY 03-clinical.ipynb .
+COPY 04-workflow-ml.ipynb .
+COPY 05-integration.ipynb .
 COPY mcp_client.ipynb .
 COPY .env.example .
 
