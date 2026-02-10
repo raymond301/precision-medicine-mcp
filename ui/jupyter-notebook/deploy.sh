@@ -15,17 +15,8 @@ echo "Region: $REGION"
 echo "Service: $SERVICE_NAME"
 echo ""
 
-# Check if ANTHROPIC_API_KEY is set
-if [ -z "$ANTHROPIC_API_KEY" ]; then
-    echo "Error: ANTHROPIC_API_KEY environment variable not set"
-    echo "Please run: export ANTHROPIC_API_KEY=your_key_here"
-    exit 1
-fi
-
-echo "✅ API Key found"
-echo ""
-
 # Deploy to Cloud Run
+# NOTE: No API key is baked in. Users enter their own key in the notebook.
 echo "Building and deploying to Cloud Run..."
 echo "(This may take 3-5 minutes)"
 echo ""
@@ -41,7 +32,7 @@ gcloud run deploy "$SERVICE_NAME" \
     --min-instances 0 \
     --max-instances 5 \
     --timeout 3600 \
-    --set-env-vars ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" \
+    --remove-env-vars ANTHROPIC_API_KEY \
     --port 8888 \
     --quiet
 
@@ -61,8 +52,8 @@ echo "🌐 JupyterLab URL: $SERVICE_URL"
 echo ""
 echo "📝 How to use:"
 echo "1. Click the URL above to open JupyterLab"
-echo "2. Open mcp_client.ipynb"
-echo "3. Start running cells!"
+echo "2. Open any notebook (e.g. 00-setup-and-test.ipynb)"
+echo "3. Run the setup cell -- you will be prompted for your Anthropic API key"
 echo ""
 echo "💡 Note: No authentication required (configured for easy access)"
 echo "⚠️  Warning: This is a public instance - do not store sensitive data!"

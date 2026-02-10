@@ -8,11 +8,9 @@ import os
 import json
 from typing import List, Dict, Any
 
-import anthropic
-from dotenv import load_dotenv
+import getpass
 
-# Load environment variables
-load_dotenv()
+import anthropic
 
 # ---------------------------------------------------------------------------
 # Server configuration -- all 13 deployed MCP servers on GCP Cloud Run
@@ -129,15 +127,24 @@ SERVER_GROUPS = {
 # MCPClient
 # ---------------------------------------------------------------------------
 
+def get_api_key() -> str:
+    """Prompt the user for their Anthropic API key.
+
+    The key is requested via an interactive input prompt so it is never
+    stored in the notebook, environment, or container image.
+    """
+    print("Enter your Anthropic API key (get one at https://console.anthropic.com/)")
+    key = getpass.getpass("ANTHROPIC_API_KEY: ")
+    if not key:
+        raise ValueError("No API key provided.")
+    return key
+
+
 class MCPClient:
     """Helper class for calling MCP servers via the Anthropic Claude API."""
 
     def __init__(self, api_key: str = None):
-        self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
-        if not self.api_key:
-            raise ValueError(
-                "ANTHROPIC_API_KEY not found. Set it in a .env file or as an environment variable."
-            )
+        self.api_key = api_key or get_api_key()
         self.client = anthropic.Anthropic(api_key=self.api_key)
         self.conversation_history: List[Dict] = []
 

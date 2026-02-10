@@ -22,24 +22,32 @@ graph TB
         CLAUDE[Claude API<br/>Natural Language<br/>Orchestration]
     end
 
-    subgraph Servers["🔧 13 MCP Servers (129 Tools)"]
+    subgraph Servers["🔧 14 MCP Servers"]
         direction LR
-        subgraph Production["✅ Production Ready (9)"]
-            FGBIO[mcp-fgbio<br/>9 tools]
-            MULTI[mcp-multiomics<br/>21 tools]
-            SPATIAL[mcp-spatialtools<br/>23 tools]
-            PERTURB[mcp-perturbation<br/>8 tools<br/>GEARS]
-            QUANTUM[mcp-quantum-celltype-fidelity<br/>6 tools<br/>Qiskit + Bayesian UQ]
-            DEEP[mcp-deepcell<br/>4 tools<br/>DeepCell-TF]
-            EPIC[mcp-epic<br/>9 tools<br/>Local Only]
-            IMAGE[mcp-openimagedata<br/>9 tools<br/>100% real]
-            REPORT[mcp-patient-report<br/>5 tools<br/>PDF generation]
+        subgraph Production["✅ Production (9 deployed)"]
+            FGBIO[mcp-fgbio<br/>Genomic QC]
+            MULTI[mcp-multiomics<br/>RNA/Protein/Phospho]
+            SPATIAL[mcp-spatialtools<br/>Spatial transcriptomics]
+            PERTURB[mcp-perturbation<br/>GEARS]
+            QUANTUM[mcp-quantum-celltype-fidelity<br/>Qiskit + Bayesian UQ]
+            DEEP[mcp-deepcell<br/>DeepCell-TF]
+            CELLCLASS[mcp-cell-classify<br/>Phenotyping]
+            IMAGE[mcp-openimagedata<br/>H&E/MxIF]
+            PATREPORT[mcp-patient-report<br/>PDF generation]
         end
 
-        subgraph Mocked["❌ Mocked (3)"]
-            TCGA[mcp-tcga<br/>7 tools]
-            HF[mcp-huggingface<br/>6 tools]
-            SEQ[mcp-seqera<br/>7 tools]
+        subgraph LocalOnly["🏥 Local Only (1)"]
+            EPIC[mcp-epic<br/>Epic FHIR]
+        end
+
+        subgraph MockDesign["🎭 Mock by Design (1)"]
+            MOCKEPIC[mcp-mockepic<br/>Synthetic EHR]
+        end
+
+        subgraph Mocked["⚙️ Mocked (3)"]
+            TCGA[mcp-tcga]
+            HF[mcp-huggingface]
+            SEQ[mcp-seqera]
         end
     end
 
@@ -52,7 +60,7 @@ graph TB
     end
 
     subgraph Output["📊 Outputs"]
-        REPORT[Treatment<br/>Recommendations]
+        RECS[Treatment<br/>Recommendations]
         VIZ[Visualizations<br/>& Reports]
         COST[Cost Tracking<br/>~$1-2 tokens]
     end
@@ -71,16 +79,17 @@ graph TB
     style Users fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
     style Interface fill:#fff3cd,stroke:#ffc107,stroke-width:2px
     style Production fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style Partial fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style LocalOnly fill:#e8f5e9,stroke:#43a047,stroke-width:1px
+    style MockDesign fill:#fff8e1,stroke:#f9a825,stroke-width:1px
     style Mocked fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style Data fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style Output fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
 ```
 
 **Key Points:**
-- **AI Orchestration**: Claude + Gemini 3 AI coordinates 13 MCP servers via natural language
+- **AI Orchestration**: Claude + Gemini 3 AI coordinates 14 MCP servers via natural language
 - **129 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, and patient reports with Bayesian uncertainty quantification
-- **Production Ready**: 9 servers (69%) ready for hospital deployment
+- **Production Ready**: 9 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
 ---
@@ -125,9 +134,10 @@ graph TB
 
 ## Technical Capabilities
 
-**13 MCP Servers Deployed:**
-- ✅ **9 Production**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-epic, mcp-openimagedata, mcp-patient-report (PDF generation)
-- 🎭 **1 Mock by Design**: mcp-mockepic (synthetic for demos)
+**14 MCP Servers:**
+- ✅ **9 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation)
+- 🏥 **1 Local Only**: mcp-epic (Epic FHIR integration)
+- 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
 - ⚙️ **3 Mocked**: mcp-tcga, mcp-seqera, mcp-huggingface
 
 **Data Integration:**
