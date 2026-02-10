@@ -188,19 +188,20 @@ For patient PAT001-OVC-2025, analyze histology and immunofluorescence images:
    - Describe tissue architecture
    - Consistent with HGSOC diagnosis?
 
-2. **CD8 T Cell Infiltration (use mcp-openimagedata + mcp-deepcell):**
+2. **CD8 T Cell Infiltration (use mcp-openimagedata + mcp-deepcell + mcp-cell-classify):**
    - Segment and quantify CD8+ cells (cells/mm²)
    - Spatial distribution (peripheral vs infiltrating)
    - Immune phenotype (hot/warm/cold)
 
-3. **Ki67 Proliferation (use mcp-openimagedata + mcp-deepcell):**
+3. **Ki67 Proliferation (use mcp-openimagedata + mcp-deepcell + mcp-cell-classify):**
    - Calculate Ki67 index (% positive cells)
    - Distribution pattern (uniform vs heterogeneous)
    - Proliferation level classification
 
-4. **Multiplex IF Phenotyping (use both servers):**
-   - Segment cells based on DAPI
-   - Quantify: TP53+, Ki67+, TP53+/Ki67+ double-positive
+4. **Multiplex IF Phenotyping (use mcp-deepcell for segmentation, mcp-cell-classify for classification):**
+   - Segment cells based on DAPI (mcp-deepcell)
+   - Quantify per-cell marker intensities (mcp-deepcell)
+   - Classify: TP53+, Ki67+, TP53+/Ki67+ double-positive (mcp-cell-classify)
    - Are TP53-mutant cells proliferating?
 
 5. **Generate Visualizations:**

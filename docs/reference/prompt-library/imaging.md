@@ -1,8 +1,8 @@
 # Imaging Analysis Prompts
 
-Cell segmentation and phenotyping for H&E and multiplexed immunofluorescence (MxIF) images using DeepCell-TF.
+Cell segmentation, quantification, and phenotyping for H&E and multiplexed immunofluorescence (MxIF) images.
 
-**Servers used:** mcp-openimagedata, mcp-deepcell
+**Servers used:** mcp-openimagedata, mcp-deepcell (segmentation + quantification), mcp-cell-classify (classification + visualization)
 
 ---
 
@@ -70,11 +70,11 @@ Segment the large test image:
 
 ---
 
-## Cell State Classification
+## Cell State Classification (mcp-cell-classify)
 
 ### Single Marker Phenotyping
 
-Classify proliferating vs quiescent cells using Ki67:
+Classify proliferating vs quiescent cells using Ki67 (requires segmentation mask from mcp-deepcell):
 
 ```
 Classify cell states using Ki67 marker:
@@ -90,7 +90,7 @@ Classify cell states using Ki67 marker:
 
 ### Multi-Marker Phenotyping
 
-Classify cells with multiple markers:
+Classify cells with multiple markers (uses mcp-deepcell for segmentation, mcp-cell-classify for classification):
 
 ```
 Perform multi-marker cell phenotyping:
@@ -108,7 +108,7 @@ Perform multi-marker cell phenotyping:
 
 ### Complete MxIF Analysis
 
-End-to-end segmentation and phenotyping:
+End-to-end segmentation (mcp-deepcell) and phenotyping (mcp-cell-classify):
 
 ```
 For PatientOne MxIF data:
@@ -143,7 +143,7 @@ Generate segmentation overlay:
 
 ---
 
-### Phenotype Visualization
+### Phenotype Visualization (mcp-cell-classify)
 
 Multi-marker phenotype visualization:
 
@@ -212,11 +212,12 @@ Generate phenotype visualization:
 
 ## Related Resources
 
-- **[DeepCell Server README](../../../servers/mcp-deepcell/README.md)** - Full tool documentation
+- **[DeepCell Server README](../../../servers/mcp-deepcell/README.md)** - Segmentation + quantification tools
+- **[Cell Classify Server README](../../../servers/mcp-cell-classify/README.md)** - Classification + visualization tools
 - **[MxIF Workflow](../architecture/imaging/MXIF_WORKFLOW.md)** - Complete MxIF pipeline
 - **[Imaging Architecture](../architecture/imaging/README.md)** - H&E vs MxIF comparison
 
 ---
 
-**Last Updated:** 2026-01-31
-**Status:** ✅ Production ready (DeepCell-TF Phase 1 complete)
+**Last Updated:** 2026-02-09
+**Status:** ✅ Production ready (mcp-deepcell: segmentation + quantification, mcp-cell-classify: classification + visualization)

@@ -168,14 +168,14 @@ aggregator = MetricsAggregator("path/to/your/metrics.yaml")
 
 Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 
-1. **Health-polls** all 15 Cloud Run services (12 MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
+1. **Health-polls** all 16 Cloud Run services (13 MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
 2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-service request counts, avg/p95 latency, and error rates.
 3. **Queries mcp-audit-log** for actual token usage and costs logged by Streamlit clients via `audit_logger.py`. Shows total tokens, costs, and per-MCP-server breakdown.
 
 No manual log export or custom parser needed.  The deployed service account (`mcp-dashboard-sa`) has `roles/logging.viewer` — the minimum permission required.
 
 **Monitored Services:**
-- **MCP Servers (12):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, tcga, openimagedata, mockepic, seqera, huggingface, patient-report
+- **MCP Servers (13):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, tcga, openimagedata, mockepic, seqera, huggingface, patient-report
 - **Streamlit Clients (3):** mcp-dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 
 ---

@@ -54,7 +54,7 @@ This document inventories all existing prompts found in the repository during Ph
 
 ### TEST_4: Histology and Imaging Analysis
 - **Source File:** `test-prompts/test-4-imaging.md`
-- **MCP Servers:** mcp-openimagedata, mcp-deepcell
+- **MCP Servers:** mcp-openimagedata, mcp-deepcell, mcp-cell-classify
 - **Audience:** Researchers, Pathologists
 - **Prompt Summary:** Analyze H&E histology and immunofluorescence images
 - **Key Components:**

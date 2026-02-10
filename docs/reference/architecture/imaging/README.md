@@ -22,10 +22,16 @@ graph TB
         Anno[Annotate<br/>H&E]
     end
 
-    subgraph DC["🔬 mcp-deepcell<br/>(4 tools, 100% real)"]
+    subgraph DC["🔬 mcp-deepcell<br/>(3 tools, 100% real)"]
         Seg[Segment<br/>Cells]
-        Class[Classify<br/>Phenotypes]
+        Quant[Quantify<br/>Markers]
         Viz[Generate<br/>Overlay]
+    end
+
+    subgraph CC["🎯 mcp-cell-classify<br/>(3 tools, 100% real)"]
+        Class[Classify<br/>Phenotypes]
+        Multi[Multi-marker<br/>Phenotyping]
+        PhenoViz[Phenotype<br/>Visualization]
     end
 
     subgraph Output["📊 Outputs"]
@@ -48,20 +54,25 @@ graph TB
     Comp --> Imgs
 
     Load --> Seg
-    Seg --> Class
+    Seg --> Quant
+    Quant --> Class
+    Quant --> Multi
     Class --> Counts
-    Class --> Pheno
-    Class --> Viz
+    Multi --> Pheno
+    Multi --> PhenoViz
+    PhenoViz --> Imgs
     Viz --> Imgs
 
     classDef inputStyle fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
     classDef oidStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     classDef dcStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef ccStyle fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
     classDef outputStyle fill:#f1f8e9,stroke:#689f38,stroke-width:2px
 
     class Input inputStyle
     class OID oidStyle
     class DC dcStyle
+    class CC ccStyle
     class Output outputStyle
 ```
 
@@ -92,7 +103,8 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 
 **Servers:**
 - mcp-openimagedata (100% real - loading, registration, feature extraction, visualization)
-- mcp-deepcell (100% real - segmentation + phenotyping)
+- mcp-deepcell (100% real - segmentation + per-cell marker quantification)
+- mcp-cell-classify (100% real - phenotype classification + visualization, lightweight)
 
 ---
 
@@ -105,7 +117,7 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 | **Format** | RGB TIFF | Grayscale (single) or Multi-channel (multiplex) |
 | **Purpose** | Visual morphology | Quantitative protein expression |
 | **Analysis** | Visual inspection | Automated cell segmentation |
-| **Servers** | openimagedata ONLY | openimagedata → deepcell |
+| **Servers** | openimagedata ONLY | openimagedata → deepcell → cell-classify |
 | **Output** | Annotated images | Cell counts, phenotypes |
 | **Example** | Necrosis detection | CD8+ T cell quantification |
 
@@ -136,15 +148,35 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 ---
 
 ### mcp-deepcell
-**Status:** ❌ Mocked (not deployed - returns synthetic data)
+**Status:** ✅ 100% Real (deployed to GCP Cloud Run)
+**URL:** https://mcp-deepcell-ondu7mwjpa-uc.a.run.app
 
-**Tools (4):**
-- ❌ Mock: `segment_cells` (synthetic segmentation masks)
-- ❌ Mock: `classify_cell_states` (random phenotype classifications)
-- ❌ Mock: `generate_segmentation_overlay` (placeholder overlays)
-- ❌ Mock: `generate_phenotype_visualization` (synthetic phenotype maps)
+**Tools (3):**
+- ✅ `segment_cells` — DeepCell-TF nuclear/membrane segmentation, 16-bit TIFF mask output
+- ✅ `quantify_markers` — Per-cell mean/max/min intensity for multiple markers, CSV output
+- ✅ `generate_segmentation_overlay` — Cell boundary visualization overlaid on original image
 
-**Future:** Real implementation using DeepCell-TF library (https://github.com/vanvalenlab/deepcell-tf)
+**Use cases:**
+- Segment cells from DAPI nuclear stain or membrane markers
+- Quantify per-cell marker intensities for downstream classification
+- Validate segmentation quality with overlay visualizations
+
+---
+
+### mcp-cell-classify
+**Status:** ✅ 100% Real (lightweight, no TensorFlow dependency)
+
+**Tools (3):**
+- ✅ `classify_cell_states` — Single-marker threshold classification (proliferating/quiescent/intermediate)
+- ✅ `classify_multi_marker` — Multi-marker phenotyping (e.g., Ki67+/TP53- assignments)
+- ✅ `generate_phenotype_visualization` — Color cells by marker expression (positive/negative)
+
+**Use cases:**
+- Classify cell phenotypes from segmentation masks + marker images
+- Multi-marker co-expression analysis (Ki67+/TP53+ double-positive cells)
+- Generate publication-quality phenotype visualizations
+
+**Note:** Split from mcp-deepcell for lighter dependencies (~200MB vs ~2GB Docker image). Users can swap in alternative classifiers (FlowSOM, Leiden, scikit-learn).
 
 ---
 

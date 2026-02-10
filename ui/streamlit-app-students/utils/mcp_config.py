@@ -1,6 +1,6 @@
 """MCP Server Configuration
 
-Contains URLs and metadata for all 13 MCP servers (11 deployed + 2 local-only).
+Contains URLs and metadata for all 14 MCP servers (12 deployed + 2 local-only).
 """
 
 from typing import Dict, List, TypedDict
@@ -73,9 +73,16 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
     "deepcell": {
         "name": "deepcell",
         "url": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "DeepCell-TF cell segmentation and phenotyping for MxIF",
+        "description": "DeepCell-TF cell segmentation and marker quantification for MxIF",
         "status": "production",
-        "tools_count": 4
+        "tools_count": 3
+    },
+    "cell-classify": {
+        "name": "cell-classify",
+        "url": "https://mcp-cell-classify-ondu7mwjpa-uc.a.run.app/sse",
+        "description": "Cell phenotype classification and visualization (lightweight, no TensorFlow)",
+        "status": "production",
+        "tools_count": 3
     },
     "mockepic": {
         "name": "mockepic",
@@ -158,6 +165,7 @@ def get_server_categories() -> Dict[str, List[str]]:
             "perturbation",
             "quantum-celltype-fidelity",
             "deepcell",
+            "cell-classify",
             "openimagedata",
             "patient-report"
         ],

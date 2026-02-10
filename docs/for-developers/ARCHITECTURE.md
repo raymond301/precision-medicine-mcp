@@ -44,12 +44,11 @@ The precision-medicine-mcp platform consists of 5 architectural layers:
                      ▼
 ┌──────────────────────────────────────────────────────────────┐
 │                   SERVER EXECUTION LAYER                      │
-│         10 MCP Servers (FastMCP-based)                       │
-│         • 4 production-ready (fgbio, multiomics, spatial,    │
-│           epic)                                               │
-│         • 1 partial (openimagedata)                          │
-│         • 4 mocked (tcga, deepcell, huggingface, seqera)     │
-│         • 1 demo-only (mockepic)                             │
+│         14 MCP Servers (FastMCP-based)                       │
+│         • 10 production-ready (fgbio, multiomics, spatial,   │
+│           epic, deepcell, cell-classify, openimagedata,      │
+│           perturbation, quantum, patient-report)             │
+│         • 4 mocked (tcga, huggingface, seqera, mockepic)    │
 └────────────────────┬─────────────────────────────────────────┘
                      │
                      ▼
@@ -272,23 +271,26 @@ Claude synthesizes: Spatial heterogeneity implications for treatment
 - mcp-mockepic: Clinical context (stage, histology, treatment history)
 - Claude: Interpret spatial patterns for clinical decisions
 
-### Pattern 4: Imaging → Spatial Integration
+### Pattern 4: Imaging → Classification → Spatial Integration
 
 ```
-mcp-openimagedata: Load H&E slide
+mcp-openimagedata: Load H&E slide + MxIF images
     ↓
-mcp-deepcell: Cell segmentation (tumor cells, immune cells)
+mcp-deepcell: Cell segmentation (nuclear/membrane models)
+    ↓
+mcp-deepcell: Quantify per-cell marker intensities (Ki67, TP53, CD8)
+    ↓
+mcp-cell-classify: Classify phenotypes (Ki67+/TP53+ double-positive)
     ↓
 mcp-spatialtools: Overlay spatial transcriptomics on segmentation
-    ↓
-mcp-spatialtools: Cell-type-specific expression analysis
     ↓
 Claude synthesizes: Immune contexture and treatment implications
 ```
 
 **Server responsibilities:**
 - mcp-openimagedata: Image retrieval, preprocessing
-- mcp-deepcell: Cell segmentation, morphology analysis
+- mcp-deepcell: Cell segmentation + per-cell marker quantification
+- mcp-cell-classify: Phenotype classification + visualization (lightweight, no TensorFlow)
 - mcp-spatialtools: Spatial statistics, cell-type deconvolution
 - Claude: Integrate imaging + transcriptomics for immune profiling
 
@@ -348,7 +350,7 @@ Claude synthesizes: Immune contexture and treatment implications
 | API | Server | Status | Purpose |
 |-----|--------|--------|---------|
 | **GDC API** | mcp-tcga | ❌ Mocked | TCGA cohort data retrieval |
-| **DeepCell API** | mcp-deepcell | ❌ Mocked | Cell segmentation models |
+| **DeepCell API** | mcp-deepcell | ✅ Real | Cell segmentation + quantification |
 | **HuggingFace API** | mcp-huggingface | ❌ Mocked | Genomic foundation models |
 | **Seqera Platform API** | mcp-seqera | ❌ Mocked | Nextflow workflow orchestration |
 
@@ -490,4 +492,4 @@ raise ValueError(
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-09

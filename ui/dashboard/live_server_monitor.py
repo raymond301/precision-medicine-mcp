@@ -33,6 +33,7 @@ MCP_SERVERS: Dict[str, str] = {
     "mcp-perturbation":              "https://mcp-perturbation-ondu7mwjpa-uc.a.run.app",
     "mcp-quantum-celltype-fidelity": "https://mcp-quantum-celltype-fidelity-ondu7mwjpa-uc.a.run.app",
     "mcp-deepcell":                  "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app",
+    "mcp-cell-classify":             "https://mcp-cell-classify-ondu7mwjpa-uc.a.run.app",
     "mcp-tcga":                      "https://mcp-tcga-ondu7mwjpa-uc.a.run.app",
     "mcp-openimagedata":             "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app",
     "mcp-mockepic":                  "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app",
