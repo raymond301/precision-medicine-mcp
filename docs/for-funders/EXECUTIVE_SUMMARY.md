@@ -12,76 +12,43 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 
 ```mermaid
 graph TB
-    subgraph Users["👥 Users"]
-        CLIN[Clinicians &<br/>Researchers]
+    subgraph Users["Users"]
+        CLIN[Clinicians & Researchers]
         BIO[Bioinformaticians]
-        ADMIN[Hospital IT]
     end
 
-    subgraph Interface["💬 AI Interface"]
-        CLAUDE[Claude API<br/>Natural Language<br/>Orchestration]
+    subgraph AI["AI Orchestration"]
+        LLM[Claude or Gemini<br/>Natural Language Interface]
     end
 
-    subgraph Servers["🔧 14 MCP Servers"]
-        direction LR
-        subgraph Production["✅ Production (9 deployed)"]
-            FGBIO[mcp-fgbio<br/>Genomic QC]
-            MULTI[mcp-multiomics<br/>RNA/Protein/Phospho]
-            SPATIAL[mcp-spatialtools<br/>Spatial transcriptomics]
-            PERTURB[mcp-perturbation<br/>GEARS]
-            QUANTUM[mcp-quantum-celltype-fidelity<br/>Qiskit + Bayesian UQ]
-            DEEP[mcp-deepcell<br/>DeepCell-TF]
-            CELLCLASS[mcp-cell-classify<br/>Phenotyping]
-            IMAGE[mcp-openimagedata<br/>H&E/MxIF]
-            PATREPORT[mcp-patient-report<br/>PDF generation]
-        end
-
-        subgraph LocalOnly["🏥 Local Only (1)"]
-            EPIC[mcp-epic<br/>Epic FHIR]
-        end
-
-        subgraph MockDesign["🎭 Mock by Design (1)"]
-            MOCKEPIC[mcp-mockepic<br/>Synthetic EHR]
-        end
-
-        subgraph Mocked["⚙️ Mocked (3)"]
-            TCGA[mcp-tcga]
-            HF[mcp-huggingface]
-            SEQ[mcp-seqera]
-        end
+    subgraph Servers["14 MCP Servers · 129 Tools"]
+        IMAGING[Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata]
+        GENOMICS[Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga]
+        CLINICAL[Clinical<br/>epic · mockepic · patient-report]
+        WORKFLOW[Workflow & ML<br/>seqera · huggingface · quantum-celltype-fidelity]
     end
 
-    subgraph Data["📁 Data Modalities"]
-        CLINICAL[Clinical<br/>Epic FHIR]
-        GENOMIC[Genomics<br/>VCF/FASTQ]
-        OMICS[Multi-Omics<br/>RNA/Protein/Phospho]
-        SPAT[Spatial<br/>Visium]
-        IMG[Imaging<br/>H&E/MxIF]
+    subgraph Data["Data · 5 Modalities"]
+        D1[Clinical · FHIR]
+        D2[Genomic · VCF/FASTQ]
+        D3[Multi-Omics · RNA/Protein/Phospho]
+        D4[Spatial · Visium]
+        D5[Imaging · H&E/MxIF]
     end
 
-    subgraph Output["📊 Outputs"]
-        RECS[Treatment<br/>Recommendations]
-        VIZ[Visualizations<br/>& Reports]
-        COST[Cost Tracking<br/>~$1-2 tokens]
+    subgraph Output["Outputs"]
+        RECS[Treatment Recommendations]
+        VIZ[Visualizations & Reports]
     end
 
-    CLIN --> Interface
-    BIO --> Interface
-    ADMIN --> Interface
-
-    Interface --> Servers
-
-    Servers --> Data
-    Data --> Servers
-
+    Users --> AI
+    AI --> Servers
+    Servers <--> Data
     Servers --> Output
 
     style Users fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
-    style Interface fill:#fff3cd,stroke:#ffc107,stroke-width:2px
-    style Production fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style LocalOnly fill:#e8f5e9,stroke:#43a047,stroke-width:1px
-    style MockDesign fill:#fff8e1,stroke:#f9a825,stroke-width:1px
-    style Mocked fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    style AI fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style Servers fill:#d4edda,stroke:#28a745,stroke-width:2px
     style Data fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style Output fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
 ```
