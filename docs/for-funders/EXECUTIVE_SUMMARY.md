@@ -11,45 +11,34 @@ The **Precision Medicine MCP System** is a production-ready AI-orchestrated plat
 ## System Architecture
 
 ```mermaid
-graph TB
+graph LR
     subgraph Users["Users"]
-        CLIN[Clinicians & Researchers]
-        BIO[Bioinformaticians]
+        U[Clinicians<br/>Researchers<br/>Bioinformaticians]
     end
 
     subgraph AI["AI Orchestration"]
-        LLM[Claude or Gemini<br/>Natural Language Interface]
+        LLM[Claude or Gemini]
     end
 
     subgraph Servers["14 MCP Servers · 129 Tools"]
-        IMAGING[Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata]
-        GENOMICS[Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga]
-        CLINICAL[Clinical<br/>epic · mockepic · patient-report]
-        WORKFLOW[Workflow & ML<br/>seqera · huggingface · quantum-celltype-fidelity]
-    end
-
-    subgraph Data["Data · 5 Modalities"]
-        D1[Clinical · FHIR]
-        D2[Genomic · VCF/FASTQ]
-        D3[Multi-Omics · RNA/Protein/Phospho]
-        D4[Spatial · Visium]
-        D5[Imaging · H&E/MxIF]
+        direction TB
+        IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
+        GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium"]
+        CLINICAL["Clinical<br/>epic · mockepic · patient-report<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 FHIR"]
+        WORKFLOW["Workflow & ML<br/>seqera · huggingface · quantum-celltype-fidelity<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 Cross-modality"]
     end
 
     subgraph Output["Outputs"]
-        RECS[Treatment Recommendations]
-        VIZ[Visualizations & Reports]
+        O[Treatment Recommendations<br/>Visualizations & Reports]
     end
 
     Users --> AI
     AI --> Servers
-    Servers <--> Data
     Servers --> Output
 
     style Users fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
     style AI fill:#fff3cd,stroke:#ffc107,stroke-width:2px
     style Servers fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style Data fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style Output fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
 ```
 
