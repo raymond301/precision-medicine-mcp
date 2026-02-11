@@ -82,7 +82,7 @@ streamlit run streamlit_app.py
 The dashboard includes sample metrics from **PatientOne Complete Workflow**:
 - **Patient**: PAT001-OVC-2025 (Stage IV HGSOC)
 - **Analysis**: End-to-end precision medicine workflow
-- **Servers**: All 9 MCP servers (mcp-epic, mcp-spatialtools, mcp-multiomics, etc.)
+- **Servers**: All 15 MCP servers (mcp-epic, mcp-spatialtools, mcp-multiomics, etc.)
 - **Tool Calls**: 27 tool invocations
 - **Total Cost**: $1.45 (Claude Sonnet 4.5)
 - **Duration**: 127 seconds

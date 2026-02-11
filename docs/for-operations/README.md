@@ -38,7 +38,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 
 ### System Scope
 
-- **9 MCP Servers** (3 production, 1 95% production, 1 30% production, 4 mocked)
+- **15 MCP Servers** (11 production, 1 mock-by-design, 3 framework/utility)
 - **Google Cloud Platform** (Cloud Run, Healthcare API, Cloud Storage)
 - **Anthropic Claude API** (AI orchestration layer)
 - **Data Types:** Clinical (FHIR), genomic (VCF/FASTQ), multi-omics, spatial transcriptomics, imaging
@@ -100,7 +100,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
   P0-P3 severity definitions, response times, escalation paths
 
 - **[Appendix B: Infrastructure Components](APPENDIX_B_INFRASTRUCTURE_COMPONENTS.md)**  
-  Complete inventory of 9 MCP servers, storage, network, IAM components
+  Complete inventory of 15 MCP servers, storage, network, IAM components
 
 - **[Appendix C: AI Agent Performance Metrics](APPENDIX_C_AI_AGENT_METRICS.md)**  
   Agent behavioral baselines, accuracy thresholds, drift detection
@@ -202,7 +202,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 The system is **100% dependent** on Anthropic's Claude API for AI orchestration:
 
 - **If api.anthropic.com is unreachable for >5 minutes:**
-  - ✅ All 9 MCP servers remain online (containers running)
+  - ✅ All 15 MCP servers remain online (containers running)
   - ❌ Zero analysis capacity (no AI orchestration possible)
   
 - **Mitigation:** Accept risk. Anthropic historical uptime: ~99.9%

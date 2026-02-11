@@ -179,5 +179,5 @@ Claude (MCP host) coordinates:
 
 **See Also:**
 - [CSV_WORKFLOW.md](CSV_WORKFLOW.md) - Current PatientOne workflow details
-- [SERVERS.md](SERVERS.md) - All 9 MCP servers documented
+- [SERVERS.md](SERVERS.md) - All 15 MCP servers documented
 - [DEPLOYMENT.md](DEPLOYMENT.md) - GCP deployment procedures

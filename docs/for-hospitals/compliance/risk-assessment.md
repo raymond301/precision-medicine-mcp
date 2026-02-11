@@ -54,7 +54,7 @@ This document summarizes the risk mitigation work completed for the Precision Me
 
 **Deliverables:**
 - `docs/architecture/servers.md` (900+ lines)
-- Production readiness assessment for all 9 servers
+- Production readiness assessment for all 15 servers
 - Real vs. mocked percentage breakdown
 - Integration testing requirements
 - Links added to main README
@@ -74,7 +74,7 @@ This document summarizes the risk mitigation work completed for the Precision Me
 **Objective:** Add prominent warnings when servers are running in DRY_RUN mode with synthetic data.
 
 **Deliverables:**
-- Added `add_dry_run_warning()` function to all 9 servers
+- Added `add_dry_run_warning()` function to all 15 servers
 - Startup logging warnings when DRY_RUN=true
 - Wrapped all DRY_RUN returns with warning banners
 - Runtime warnings in mcp-multiomics outputs
@@ -513,7 +513,7 @@ For clinical decisions, consult qualified healthcare provider.
 ### Challenges Faced
 1. **Inherent AI Risks** - Some risks (R1, R2) cannot be fully eliminated
 2. **Enforcement Limitations** - Policies require institutional enforcement
-3. **Mocked Server Limitations** - 7/9 servers still not production-ready
+3. **Mocked Server Limitations** - 4/15 servers not production-ready (3 framework + 1 mock-by-design)
 4. **User Behavior** - Cannot control whether users follow guidelines
 
 ### Recommendations for Future Work

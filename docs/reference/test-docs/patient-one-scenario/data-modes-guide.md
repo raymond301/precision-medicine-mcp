@@ -146,7 +146,7 @@ Look for DRY_RUN environment variables (should all be `"true"`):
         "SPATIAL_DRY_RUN": "true"
       }
     }
-    // ... all 9 servers with DRY_RUN=true
+    // ... all 15 servers with DRY_RUN=true
   }
 }
 ```

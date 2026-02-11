@@ -176,7 +176,7 @@ Nine servers successfully deployed to Google Cloud Platform Cloud Run (mcp-epic 
 ### Testing Status
 
 **Automated Testing:** ✅ Complete
-- All 9 servers tested via automated test suite
+- All servers tested via automated test suite
 - SSE transport validated
 - Tool discovery working
 - Basic functionality confirmed
@@ -213,7 +213,7 @@ See [Hospital Deployment Plan](../../../for-hospitals/OPERATIONS_MANUAL.md) for 
 - Set up audit logging (10-year retention)
 
 **Month 2:**
-- Deploy all 9 servers with authentication
+- Deploy all servers with authentication
 - Integrate with Epic FHIR endpoint
 - Configure GCS bucket access
 - Load test with 10-20 patients

@@ -2,7 +2,7 @@
 
 ## Quick Server Validation Test
 
-Use this prompt in Claude Desktop to verify all 9 MCP servers are working correctly:
+Use this prompt in Claude Desktop to verify all 15 MCP servers are working correctly:
 
 ---
 
@@ -53,7 +53,7 @@ If all servers are working correctly, you should see:
 
 ## Success Criteria
 
-✅ **PASS**: All 9 servers are called and return synthetic/mock data
+✅ **PASS**: All 15 servers are called and return synthetic/mock data
 ⚠️ **PARTIAL**: Some servers called but others failed
 ❌ **FAIL**: Servers not being called or errors occur
 

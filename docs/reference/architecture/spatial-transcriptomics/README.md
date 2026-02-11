@@ -85,7 +85,7 @@ graph TB
 
 ### Core Documentation
 - **[OVERVIEW.md](OVERVIEW.md)** - System architecture and design principles
-- **[SERVERS.md](SERVERS.md)** - All 9 MCP servers (4 deployed, 5 future)
+- **[SERVERS.md](SERVERS.md)** - All 15 MCP servers
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** - GCP Cloud Run deployment
 
 ### Workflows

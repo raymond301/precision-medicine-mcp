@@ -1,6 +1,6 @@
 # Testing Strategy: Avoiding Context Limits
 
-**Problem:** The comprehensive end-to-end test (COPY_PASTE_PROMPT.txt) hits Claude Desktop's context limit because it tries to load all data files and run all 9 MCP servers at once.
+**Problem:** The comprehensive end-to-end test (COPY_PASTE_PROMPT.txt) hits Claude Desktop's context limit because it tries to load all data files and run all 15 MCP servers at once.
 
 **Solution:** Break testing into 5 smaller, focused tests that can be run independently.
 

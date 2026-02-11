@@ -54,7 +54,7 @@ Acceptable: [Date/Time]
 
 ### 7. Success Criteria
 How do we know the change succeeded?
-- [ ] All 9 servers healthy
+- [ ] All 15 servers healthy
 - [ ] Error rate <1%
 - [ ] Latency <2s (p95)
 

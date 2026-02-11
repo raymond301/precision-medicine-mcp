@@ -9,7 +9,7 @@
 This Service Level Agreement (SLA) defines the infrastructure and operational commitments for the Precision Medicine MCP Platform—a HIPAA-compliant, AI-orchestrated multi-agent system for clinical bioinformatics and precision oncology.
 
 ### 1.1 What IT Owns
-- 9 MCP servers on GCP Cloud Run (containerized microservices)
+- 15 MCP servers (14 on GCP Cloud Run + 1 local-only Epic FHIR)
 - HIPAA-compliant data infrastructure
 - Network security and access controls
 - Integration with hospital systems (Epic FHIR, Azure AD)

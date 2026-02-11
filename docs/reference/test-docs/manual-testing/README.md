@@ -8,7 +8,7 @@ This folder contains scripts and documentation for manually testing the Precisio
 
 | File | Purpose | Usage |
 |------|---------|-------|
-| `install_dependencies.sh` | Install all dependencies for 9 MCP servers | `./install_dependencies.sh` |
+| `install_dependencies.sh` | Install all dependencies for 15 MCP servers | `./install_dependencies.sh` |
 | `verify_servers.sh` | Verify all servers can be imported | `./verify_servers.sh` |
 | `setup_and_test_servers.sh` | Combined setup and verification | `./setup_and_test_servers.sh --install` |
 | `test_all_servers.py` | Python-based server verification | `python3 test_all_servers.py` |
@@ -45,7 +45,7 @@ cd manual_testing
 This will:
 - Create Python 3.11 virtual environments for each server
 - Install FastMCP and all dependencies
-- Set up 9 servers in development mode
+- Set up 15 servers in development mode
 
 **Time:** ~5-10 minutes
 
@@ -156,11 +156,11 @@ pip install -e ".[dev]"
 
 ### PatientOne-OvarianCancer Scenario
 
-A complete synthetic patient dataset for testing all 9 MCP servers:
+A complete synthetic patient dataset for testing all 15 MCP servers:
 
 **Patient:** PAT001-OVC-2025 (Sarah Anderson, 58yo, Stage IV HGSOC)
 **Data:** 17 synthetic files (clinical, genomic, multi-omics, spatial, imaging)
-**Servers Tested:** All 9 (epic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, seqera, huggingface)
+**Servers Tested:** All 15 (epic, mockepic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, cell-classify, genomic-results, patient-report, perturbation, quantum-celltype-fidelity, seqera, huggingface)
 
 **Location:** `PatientOne-OvarianCancer/implementation/`
 

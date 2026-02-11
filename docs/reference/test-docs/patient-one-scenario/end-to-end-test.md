@@ -1,6 +1,6 @@
 # End-to-End Test Prompt: Patient One - Ovarian Cancer
 
-**Purpose:** Comprehensive test of all 9 MCP servers using realistic synthetic patient data
+**Purpose:** Comprehensive test of all 15 MCP servers using realistic synthetic patient data
 
 **Patient ID:** PAT001-OVC-2025
 

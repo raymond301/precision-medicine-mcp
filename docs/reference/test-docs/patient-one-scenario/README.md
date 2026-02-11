@@ -84,7 +84,7 @@ python3 --version  # Should show 3.11 or higher
 2. **Verify Claude Desktop configuration:**
 ```bash
 cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
-# Should show all 9 MCP servers configured
+# Should show all 15 MCP servers configured
 ```
 
 3. **Confirm data files exist:**
@@ -110,7 +110,7 @@ cd manual_testing
 cp ../configs/claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Restart Claude Desktop
-# Verify servers loaded (should see 9 servers in Claude Desktop)
+# Verify servers loaded (should see 15 servers in Claude Desktop)
 
 # Test basic server connectivity
 ./verify_servers.sh
@@ -354,7 +354,7 @@ The PatientOne workflow uses the **open-source DeepCell-TF library** (https://gi
 ---
 
 ### TEST_5: Integration & Recommendations
-**Servers:** All 9 servers (synthesis)
+**Servers:** All 15 servers (synthesis)
 **Files:** None (builds on previous tests)
 
 **What it does:**

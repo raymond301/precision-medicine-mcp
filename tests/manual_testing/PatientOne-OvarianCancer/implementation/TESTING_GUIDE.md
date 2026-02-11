@@ -1,6 +1,6 @@
 # Patient One - Testing Guide
 
-**Quick Start:** Use this synthetic dataset to test all 9 MCP servers
+**Quick Start:** Use this synthetic dataset to test all 15 MCP servers
 
 ⚠️ **IMPORTANT:** The comprehensive end-to-end test may hit Claude Desktop's context limit. Use the **5 smaller focused tests** instead (see below).
 
@@ -21,7 +21,7 @@
 
 ### Option 2: Comprehensive Test ⚠️
 **May hit context limit - use with caution:**
-- `COPY_PASTE_PROMPT.txt` - All-in-one test (all 9 servers)
+- `COPY_PASTE_PROMPT.txt` - All-in-one test (all 15 servers)
 - `END_TO_END_TEST_PROMPT.md` - Full documentation
 
 ---
@@ -253,7 +253,7 @@ All synthetic data files have been generated and are ready for end-to-end testin
 
 **Status:** ✅ **ALL FILES COMPLETE AND READY FOR TESTING**
 
-**Test Coverage:** All 9 MCP servers (mockepic, multiomics, tcga, spatialtools, openimagedata, deepcell, fgbio, seqera, huggingface)
+**Test Coverage:** All 15 MCP servers (epic, mockepic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, cell-classify, genomic-results, patient-report, perturbation, quantum-celltype-fidelity, seqera, huggingface)
 
 **Estimated Testing Time:** 30-45 minutes for complete end-to-end workflows
 
