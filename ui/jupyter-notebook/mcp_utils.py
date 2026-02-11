@@ -13,7 +13,7 @@ import getpass
 import anthropic
 
 # ---------------------------------------------------------------------------
-# Server configuration -- all 13 deployed MCP servers on GCP Cloud Run
+# Server configuration -- all 14 deployed MCP servers on GCP Cloud Run
 # ---------------------------------------------------------------------------
 
 MCP_SERVERS: Dict[str, Dict[str, Any]] = {
@@ -75,6 +75,13 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
         "status": "production",
         "tools_count": 8,
     },
+    "genomic-results": {
+        "url": "https://mcp-genomic-results-ondu7mwjpa-uc.a.run.app/sse",
+        "description": "Somatic variant/CNV parsing with clinical annotations and HRD scoring",
+        "group": "genomics",
+        "status": "production",
+        "tools_count": 4,
+    },
     # --- Clinical ---
     "mockepic": {
         "url": "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app/sse",
@@ -117,7 +124,7 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
 # Convenience groupings
 SERVER_GROUPS = {
     "imaging":     ["deepcell", "cell-classify", "openimagedata"],
-    "genomics":    ["fgbio", "multiomics", "spatialtools", "tcga", "perturbation"],
+    "genomics":    ["fgbio", "multiomics", "spatialtools", "tcga", "perturbation", "genomic-results"],
     "clinical":    ["mockepic", "patient-report"],
     "workflow-ml": ["seqera", "huggingface", "quantum-celltype-fidelity"],
 }

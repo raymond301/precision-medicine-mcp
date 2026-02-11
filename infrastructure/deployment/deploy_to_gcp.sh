@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# GCP Cloud Run Deployment Script for All 13 MCP Servers
+# GCP Cloud Run Deployment Script for All 14 MCP Servers
 #
 # Prerequisites:
 #   - gcloud CLI installed and authenticated
@@ -87,6 +87,7 @@ SERVERS=(
     "mcp-perturbation:3009:4Gi:2:PERTURBATION_LOG_LEVEL=INFO:PERTURBATION_DRY_RUN=false"
     "mcp-quantum-celltype-fidelity:3010:2Gi:2:QUANTUM_BACKEND=cpu:QUANTUM_LOG_LEVEL=INFO"
     "mcp-patient-report:3011:2Gi:1:PATIENT_REPORT_LOG_LEVEL=INFO:PATIENT_REPORT_DRY_RUN=false"
+    "mcp-genomic-results:3012:2Gi:1:GENOMIC_RESULTS_LOG_LEVEL=INFO:GENOMIC_RESULTS_DRY_RUN=false"
 )
 
 # Helper function to get server-specific secrets (production only)
@@ -119,6 +120,7 @@ get_service_account() {
         mcp-perturbation) echo "mcp-perturbation-sa" ;;
         mcp-patient-report) echo "mcp-patient-report-sa" ;;
         mcp-quantum-celltype-fidelity) echo "mcp-quantum-sa" ;;
+        mcp-genomic-results) echo "mcp-genomic-results-sa" ;;
         *) echo "" ;;
     esac
 }

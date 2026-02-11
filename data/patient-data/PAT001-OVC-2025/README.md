@@ -25,7 +25,7 @@ This directory contains **100% synthetic patient data** created for demonstratio
 
 ---
 
-## Data Modalities (5 types, 19 files)
+## Data Modalities (5 types, 20 files)
 
 ### 1. Clinical Data (`clinical/`)
 
@@ -45,11 +45,13 @@ This directory contains **100% synthetic patient data** created for demonstratio
 | File | Size | Description | Source |
 |------|------|-------------|--------|
 | `somatic_variants.vcf` | 2.3 KB | Somatic mutations (TP53, PIK3CA, PTEN) | Based on TCGA-OV data |
+| `copy_number_results.cns` | 1.0 KB | CNVkit segment results (amplifications/deletions) | Synthetic CNVkit output |
 
 **Generation method:**
 - Selected common ovarian cancer driver mutations from TCGA
 - VCF format with realistic variant quality scores
 - Germline BRCA1 mutation added to simulate HRD-positive phenotype
+- CNVkit .cns file with MYC/CCNE1/AKT2 amplifications and RB1/CDKN2A/PTEN deletions
 
 **Key mutations (realistic for HGSOC):**
 - TP53 R175H (missense, chr17:7577538)
@@ -256,6 +258,7 @@ For **actual** ovarian cancer datasets, use these public resources:
 - **JSON** - Clinical demographics (RFC 8259 compliant)
 - **CSV** - Tabular data (comma-delimited, UTF-8)
 - **VCF** - Variant Call Format v4.2 (SAMtools spec)
+- **CNS** - CNVkit segment format (TSV with log2 ratios and copy number calls)
 - **TIFF** - Tagged Image File Format (16-bit grayscale)
 
 ### Data Size

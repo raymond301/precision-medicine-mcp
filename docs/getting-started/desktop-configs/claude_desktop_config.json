@@ -62,6 +62,20 @@
         "SEQERA_DRY_RUN": "true"
       }
     },
+    "genomic-results": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-genomic-results",
+        "python",
+        "-m",
+        "mcp_genomic_results"
+      ],
+      "env": {
+        "GENOMIC_RESULTS_DRY_RUN": "true"
+      }
+    },
     "huggingface": {
       "command": "uv",
       "args": [

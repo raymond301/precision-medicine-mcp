@@ -1,6 +1,6 @@
 # 🧬 MCP Server Implementation
 
-13 specialized MCP servers for precision medicine analysis with 74 tools.
+14 specialized MCP servers for precision medicine analysis with 78 tools.
 
 ---
 
@@ -21,8 +21,9 @@
 | 🤖 **mcp-huggingface** | 3 | ❌ Mocked (HF-ready) | — |
 | ⚙️ **mcp-seqera** | 3 | ❌ Mocked (Seqera-ready) | — |
 | 📄 **mcp-patient-report** | 5 | ✅ 100% real | [README →](mcp-patient-report/README.md) |
+| 🧬 **mcp-genomic-results** | 4 | ✅ 100% real | [README →](mcp-genomic-results/README.md) |
 
-**Production Ready:** 9/13 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-openimagedata)
+**Production Ready:** 10/14 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-openimagedata, mcp-genomic-results)
 
 ---
 
@@ -38,6 +39,7 @@ Use these for real analysis:
 - ⚛️ **mcp-quantum-celltype-fidelity** - Quantum computing-based cell type fidelity analysis using Qiskit - 56 tests ✅ ([README](mcp-quantum-celltype-fidelity/README.md))
 - 🖼️ **mcp-deepcell** - DeepCell-TF cell segmentation on Cloud Run ☁️ ([README](mcp-deepcell/README.md))
 - 🖼️ **mcp-openimagedata** - Histology image processing: registration, feature extraction, MxIF compositing - 30 tests ✅ ([README](mcp-openimagedata/README.md))
+- 🧬 **mcp-genomic-results** - Somatic variant/CNV parsing with clinical annotations and HRD scoring ([README](mcp-genomic-results/README.md))
 
 ### 🎭 Development/Demo Servers
 Mock implementations for workflow demonstration:
