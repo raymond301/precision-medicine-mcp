@@ -40,6 +40,7 @@ MCP_SERVERS: Dict[str, str] = {
     "mcp-seqera":                    "https://mcp-seqera-ondu7mwjpa-uc.a.run.app",
     "mcp-huggingface":               "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app",
     "mcp-patient-report":            "https://mcp-patient-report-ondu7mwjpa-uc.a.run.app",
+    "mcp-genomic-results":           "https://mcp-genomic-results-ondu7mwjpa-uc.a.run.app",
 }
 
 # Streamlit Client Apps (standard HTTP with root path /)
