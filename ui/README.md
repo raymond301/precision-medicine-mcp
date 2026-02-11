@@ -1,7 +1,7 @@
 # User Interfaces
 
 Three interfaces for interacting with the precision medicine MCP server architecture:
-- **[Dashboard](dashboard/)** - Real-time cost & performance observatory for monitoring token usage, latency, and costs across all 12 MCP servers plus 3 Streamlit clients, with live token cost tracking and optimization recommendations (Streamlit);
+- **[Dashboard](dashboard/)** - Real-time cost & performance observatory for monitoring token usage, latency, and costs across all 15 MCP servers plus 3 Streamlit clients, with live token cost tracking and optimization recommendations (Streamlit);
 - **[Jupyter Notebook](jupyter-notebook/)** - Interactive data science interface for exploratory analysis and custom workflows with direct MCP server integration;
 - **[Streamlit App](streamlit-app/)** - Clinical chat interface for conversational precision medicine analysis powered by Claude or Gemini AI with natural language queries. Choose your interface based on use case: Dashboard for architects planning production deployments, Jupyter for researchers building custom analyses, or Streamlit App for clinicians conducting patient consultations. NOTE: There is also a version of the streamlit app for students (w/token guardrails).
 

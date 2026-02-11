@@ -9,7 +9,7 @@
 
 > **40 hours of manual bioinformatics → 35 minutes AI-orchestrated**
 >
-> 14 specialized MCP servers | 132 analysis tools | Multi-provider AI (Claude + Gemini 3) | Stage IV Ovarian Cancer demo
+> 15 specialized MCP servers | 136 analysis tools | Multi-provider AI (Claude + Gemini 3) | Stage IV Ovarian Cancer demo
 
 ---
 
@@ -56,6 +56,7 @@ graph LR
         S6[Perturbation<br/>GEARS/GNN + scRNA-seq]
         S7[Quantum<br/>Qiskit + spatial transcriptomics]
         S8[Patient Reports<br/>PDF Generation]
+        S9[Genomic Results<br/>Somatic/CNV/HRD]
     end
 
     subgraph Output["📊 Orchestrated Outputs"]
@@ -76,6 +77,7 @@ graph LR
     S6 --> Output
     S7 --> Output
     S8 --> Output
+    S9 --> Output
 
     style Users fill:#e1f5ff
     style AI fill:#fff3cd

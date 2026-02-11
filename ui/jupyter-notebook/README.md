@@ -8,7 +8,7 @@ Live JupyterLab: https://jupyter-mcp-notebook-305650208648.us-central1.run.app
 
 ## Features
 
-- **13 MCP Servers** - Access all deployed bioinformatics tools
+- **15 MCP Servers** - Access all deployed bioinformatics tools
 - **Group-based notebooks** - Organized by domain (imaging, genomics, clinical, workflow/ML)
 - **Shared MCPClient** - Single `mcp_utils.py` module used by all notebooks
 - **Token usage tracking** - Monitor API costs per query
@@ -94,7 +94,7 @@ ui/jupyter-notebook/
 
 ## Available MCP Servers
 
-All 13 servers are pre-configured in `mcp_utils.py`:
+All 15 servers are pre-configured in `mcp_utils.py`:
 
 ### Imaging (production)
 - **deepcell** - DeepCell-TF cell segmentation and marker quantification for MxIF

@@ -4,14 +4,14 @@ An AI-orchestrated framework for multi-modal bioinformatics analysis focusing on
 Core Project Goals
 PatientOne Case Study: A synthetic clinical scenario used to teach AI-orchestrated precision medicine.
 
-Modular MCP Architecture: 14 specialized servers acting as domain experts for specific data modalities.
+Modular MCP Architecture: 15 specialized servers acting as domain experts for specific data modalities.
 
 Human-in-the-Loop (CitL): Explicit validation steps for oncologists and clinicians within the AI workflow.
 
 Teaching/Example First: Optimized for clear documentation, persona-based navigation, and low-cost "DRY_RUN" execution.
 
 Key Repository Structure
-/servers/: The logic for the 14 custom MCP servers.
+/servers/: The logic for the 15 custom MCP servers.
 
 /docs/: Human-consumable documentation.
 
@@ -39,7 +39,7 @@ Domain: When generating code or analysis, adhere to HIPAA-principled data handli
 
 Style: Maintain a "Co-pilot" persona—prioritize Clinician-in-the-Loop validation over fully autonomous decision-making.
 
-Orchestration: Always consider how a request might be distributed across the 14 existing MCP servers before proposing new standalone logic.
+Orchestration: Always consider how a request might be distributed across the 15 existing MCP servers before proposing new standalone logic.
 
 Why this is effective
 Context Efficiency: Instead of an LLM reading every README.md and script, it reads this single file to build a mental model.

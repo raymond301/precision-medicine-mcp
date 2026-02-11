@@ -20,10 +20,10 @@ graph LR
         LLM[Claude or Gemini]
     end
 
-    subgraph Servers["14 MCP Servers · 129 Tools"]
+    subgraph Servers["15 MCP Servers · 136 Tools"]
         direction TB
         IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
-        GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium"]
+        GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
         CLINICAL["Clinical<br/>epic · mockepic · patient-report<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 FHIR"]
         WORKFLOW["Workflow & ML<br/>seqera · huggingface · quantum-celltype-fidelity<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 Cross-modality"]
     end
@@ -43,9 +43,9 @@ graph LR
 ```
 
 **Key Points:**
-- **AI Orchestration**: Claude + Gemini 3 AI coordinates 14 MCP servers via natural language
-- **129 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, and patient reports with Bayesian uncertainty quantification
-- **Production Ready**: 9 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
+- **AI Orchestration**: Claude + Gemini 3 AI coordinates 15 MCP servers via natural language
+- **136 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
+- **Production Ready**: 11 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
 - **Cost Efficient**: ~$1-2 in Claude tokens per analysis
 
 ---
@@ -59,7 +59,7 @@ graph LR
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 129 bioinformatics tools across 13 MCP servers
+- Unified platform for 136 bioinformatics tools across 15 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -90,8 +90,8 @@ graph LR
 
 ## Technical Capabilities
 
-**14 MCP Servers:**
-- ✅ **9 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation)
+**15 MCP Servers:**
+- ✅ **11 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation), mcp-genomic-results (somatic/CNV/HRD), mcp-epic (local only)
 - 🏥 **1 Local Only**: mcp-epic (Epic FHIR integration)
 - 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
 - ⚙️ **3 Mocked**: mcp-tcga, mcp-seqera, mcp-huggingface
@@ -113,7 +113,7 @@ graph LR
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration
-- **Month 3-4**: All 13 servers deployed, 10-20 test patients, user training, security audit
+- **Month 3-4**: All 15 servers deployed, 10-20 test patients, user training, security audit
 - **Month 5-6**: Monitoring/alerting, compliance validation, knowledge transfer, production launch (100 patients)
 
 ### Requirements
@@ -205,7 +205,8 @@ Ready for immediate pilot deployment with clear path to institutional scale.
 **Recent Updates:**
 - Reorganized Jupyter client into domain-based notebooks (imaging, genomics, clinical, workflow/ML, integration) for better usability and maintainability (Feb 2026)
 - Phase 1: Bayesian uncertainty quantification for quantum fidelity predictions (Jan 2026)
-- Updated tool counts: 129 tools across 13 servers
+- Updated tool counts: 136 tools across 15 servers
+- Added mcp-genomic-results server for somatic variant/CNV parsing with HRD scoring
 - Added mcp-patient-report server for PDF generation
 - Live monitoring dashboard with token usage tracking
 - Multi-provider AI support (Claude + Gemini 3)

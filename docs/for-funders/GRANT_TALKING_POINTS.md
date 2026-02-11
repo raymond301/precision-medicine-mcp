@@ -6,7 +6,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 ## Elevator Pitch (30 seconds)
 
-> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 95 minutes, saving $3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 13 deployed servers, 129 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
+> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 95 minutes, saving $3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 15 deployed servers, 136 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
 
 ---
 
@@ -92,9 +92,9 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 ### Technical Validation
 
 **System Status:**
-- ✅ **13 servers deployed** on GCP Cloud Run (production infrastructure)
-- ✅ **129 bioinformatics tools** with comprehensive test coverage
-- ✅ **9/13 servers production-ready** (fgbio, multiomics, spatialtools, epic, deepcell, perturbation, quantum-celltype-fidelity, openimagedata, patient-report)
+- ✅ **15 servers deployed** on GCP Cloud Run (production infrastructure)
+- ✅ **136 bioinformatics tools** with comprehensive test coverage
+- ✅ **11/15 servers production-ready** (fgbio, multiomics, spatialtools, epic, deepcell, perturbation, quantum-celltype-fidelity, openimagedata, patient-report)
 - ✅ **End-to-end demo** validated with synthetic PatientOne ovarian cancer case
 
 **Performance Metrics (PatientOne Case Study):**
@@ -239,7 +239,7 @@ Compare to traditional: 40 hours, $6,000
 - No existing solution integrates all 5 data modalities with natural language interface
 
 **2. Technically De-Risked**
-- 13/13 servers already deployed and tested
+- 15/15 servers already deployed and tested
 - 167 automated tests demonstrate technical maturity
 - PatientOne case study validates end-to-end workflow
 
@@ -266,7 +266,7 @@ Compare to traditional: 40 hours, $6,000
 
 **Background:** Comprehensive precision medicine requires integrating clinical (EHR), genomic, multi-omic, spatial transcriptomic, and imaging data—a process that takes 40 hours and $6,000-9,000 per patient, creating a clinical bottleneck. Commercial alternatives (Foundation Medicine, Tempus) cost $3,000-7,500 but analyze genomics only, missing critical spatial and imaging context.
 
-**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 95 minutes at $325/patient—10x cost savings with true multi-modal integration. Clinicians use natural language to query 10 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 13 deployed servers, 129 tools, and HIPAA-compliant infrastructure.
+**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 95 minutes at $325/patient—10x cost savings with true multi-modal integration. Clinicians use natural language to query 10 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 15 deployed servers, 136 tools, and HIPAA-compliant infrastructure.
 
 **Preliminary Data:** PatientOne case study (Stage IV ovarian cancer, synthetic data) demonstrated end-to-end workflow in 35 minutes, identifying actionable targets (BRCA1 variant, PI3K/AKT/mTOR pathway activation, immune microenvironment exhaustion) and treatment recommendations (olaparib, everolimus, checkpoint inhibitors) consistent with clinical guidelines.
 

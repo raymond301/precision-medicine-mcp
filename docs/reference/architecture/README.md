@@ -17,10 +17,10 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 14 MCP Servers (132 Tools)"]
+    subgraph MCP["🔧 15 MCP Servers (136 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
-        S2[Genomic<br/>fgbio/tcga]
+        S2[Genomic<br/>fgbio/tcga/genomic-results]
         S3[Spatial<br/>spatialtools]
         S4[Multiomics<br/>multiomics]
         S5[Imaging<br/>openimagedata<br/>deepcell/cell-classify]
@@ -66,12 +66,13 @@ graph LR
 
 ## 📊 Architecture by Analysis Modality
 
-9 analysis modalities, 14 specialized servers, 132 tools:
+10 analysis modalities, 15 specialized servers, 136 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
 | 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
 | 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
+| 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | — |
 | 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell, mcp-cell-classify | 11 (5+3+3) | ✅ Production (100%) | [imaging/README.md](imaging/README.md) |
 | 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
 | 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
@@ -257,7 +258,7 @@ graph LR
 
 ## 🏥 End-to-End Example: PatientOne
 
-**Complete precision medicine workflow combining all 13 MCP servers**
+**Complete precision medicine workflow combining all 15 MCP servers**
 
 **Use Case:** Stage IV High-Grade Serous Ovarian Cancer (HGSOC), platinum-resistant
 **Patient:** PAT001-OVC-2025 (synthetic test case)

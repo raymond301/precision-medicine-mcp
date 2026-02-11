@@ -1,6 +1,6 @@
 # 🧪 Test Coverage - Precision Medicine MCP Servers
 
-**Automated tests** covering tools across 13 MCP servers.
+**Automated tests** covering tools across 15 MCP servers.
 
 ---
 
@@ -9,9 +9,9 @@
 | Metric | Value | Status |
 |--------|-------|--------|
 | **Overall Coverage** | 56.9% | ⬆️ +27.5 points from baseline |
-| **Automated Tests** | 167+ | ✅ 13/13 servers tested |
-| **Production Ready** | 9/13 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report |
-| **GCP Deployed** | 12/13 servers | ✅ All validated on Cloud Run (mcp-epic local only) |
+| **Automated Tests** | 167+ | ✅ 15/15 servers tested |
+| **Production Ready** | 11/15 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report |
+| **GCP Deployed** | 14/15 servers | ✅ All validated on Cloud Run (mcp-epic local only) |
 
 ---
 
@@ -30,6 +30,8 @@
 | 🖼️ **mcp-openimagedata** | 55% | 30 | ✅ Full | ✅ YES (100% real) |
 | 🧪 **mcp-tcga** | 35% | 5 | ✅ Smoke | ❌ Mocked |
 | 📍 **mcp-spatialtools** | 23% | 5 | ✅ Smoke | ✅ YES (95% real) |
+| 🔬 **mcp-cell-classify** | — | — | ✅ Smoke | ✅ YES (100% real) |
+| 🧬 **mcp-genomic-results** | — | 20 | ✅ Smoke | ✅ YES (100% real) |
 
 **Note:** Low test coverage ≠ low production readiness. mcp-spatialtools has 23% coverage but is 95% production-ready with real implementations.
 
@@ -114,7 +116,7 @@ MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest \
 
 ## ☁️ GCP Cloud Run Testing
 
-**Validation:** ✅ 13/13 servers passing functional tests via Claude API
+**Validation:** ✅ 15/15 servers passing functional tests via Claude API
 
 ```bash
 cd tests/integration
@@ -198,4 +200,4 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 ---
 
 **Last Updated:** 2026-01-11
-**Status:** 200+ tests | 13/13 servers deployed ✅
+**Status:** 200+ tests | 15/15 servers deployed ✅

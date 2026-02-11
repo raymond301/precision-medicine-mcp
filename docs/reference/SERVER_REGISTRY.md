@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 14 | **Production Ready:** 10 (71%) | **Total Tools:** 132
+**Total Servers:** 15 | **Production Ready:** 11 (73%) | **Total Tools:** 136
 
 📁 **[Individual Server Documentation →](../../servers/README.md)**
 
@@ -20,6 +20,7 @@
 | **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../../servers/mcp-epic/) |
 | **mcp-openimagedata** | 5 | 100% Real | PIL image loading, scikit-image registration + feature extraction, MxIF compositing, H&E annotation | [README](../../servers/mcp-openimagedata/README.md) |
 | **mcp-patient-report** | 5 | 100% Real | Patient-facing PDF reports, plain-language summaries, clinician review gate | [README](../../servers/mcp-patient-report/README.md) |
+| **mcp-genomic-results** | 4 | 100% Real | Somatic variant/CNV parsing, clinical annotations, HRD scoring | [README](../../servers/mcp-genomic-results/README.md) |
 
 ---
 
@@ -46,7 +47,7 @@
 
 ### By Analysis Type
 - **Clinical Data**: mcp-epic (real EHR), mcp-mockepic (synthetic)
-- **Genomics**: mcp-fgbio (QC/variants), mcp-tcga (cohort comparison - mocked)
+- **Genomics**: mcp-fgbio (QC/variants), mcp-genomic-results (somatic/CNV/HRD), mcp-tcga (cohort comparison - mocked)
 - **Multi-omics**: mcp-multiomics (integration/meta-analysis)
 - **Spatial**: mcp-spatialtools (spatial transcriptomics)
 - **Imaging**: mcp-deepcell (cell segmentation + quantification), mcp-cell-classify (phenotype classification), mcp-openimagedata (histology + registration + features)
@@ -56,7 +57,7 @@
 - **Workflows**: mcp-seqera (Nextflow - mocked)
 
 ### By Production Readiness
-- **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-epic, mcp-openimagedata, mcp-patient-report
+- **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-epic, mcp-openimagedata, mcp-patient-report, mcp-genomic-results
 - **Not Ready**: mcp-tcga, mcp-huggingface, mcp-seqera (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
 

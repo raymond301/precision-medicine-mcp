@@ -10,10 +10,10 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 
 **Status:** ✅ **Ready to use** - Pre-configured for this system
 
-**Purpose:** Production-ready configuration with full absolute paths to all 13 MCP servers.
+**Purpose:** Production-ready configuration with full absolute paths to all 15 MCP servers.
 
 **Contains:**
-- All 13 MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, mockepic, tcga, multiomics, perturbation, quantum-celltype-fidelity, patient-report, deepcell, epic)
+- All 15 MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, mockepic, tcga, multiomics, perturbation, quantum-celltype-fidelity, patient-report, deepcell, cell-classify, genomic-results, epic)
 - Full absolute paths to Python 3.11 virtual environments (uses `uv run` syntax)
 - All required environment variables
 - DRY_RUN mode enabled by default for quick & safe testing
@@ -24,7 +24,7 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 cp claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Restart Claude Desktop
-# All 13 servers should now be available
+# All 15 servers should now be available
 ```
 
 ---
@@ -149,7 +149,7 @@ After installing the config and restarting Claude Desktop:
 What MCP servers are available?
 ```
 
-Expected response: List of all 13 servers with their tools
+Expected response: List of all 15 servers with their tools
 
 ---
 

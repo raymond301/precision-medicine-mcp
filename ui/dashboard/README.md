@@ -2,7 +2,7 @@
 
 **Real-time observability for MCP server token usage, latency, and costs**
 
-Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 12 MCP servers plus 3 Streamlit client apps. Toggle **Live Mode** to poll real Cloud Run health status, query GCP Cloud Logging for live traffic metrics, and view actual token usage and costs from the audit log.
+Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 15 MCP servers plus 3 Streamlit client apps. Toggle **Live Mode** to poll real Cloud Run health status, query GCP Cloud Logging for live traffic metrics, and view actual token usage and costs from the audit log.
 
 ---
 
@@ -25,7 +25,7 @@ streamlit run streamlit_app.py
 
 ### For Platform Builders
 - **Cost Visibility**: See exactly how much each tool call costs in real-time
-- **Performance Monitoring**: Track latency across all 11 MCP servers
+- **Performance Monitoring**: Track latency across all 15 MCP servers
 - **Resource Planning**: Project monthly/annual costs based on usage patterns
 - **Optimization Guidance**: Get specific recommendations to reduce costs
 
@@ -168,14 +168,14 @@ aggregator = MetricsAggregator("path/to/your/metrics.yaml")
 
 Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 
-1. **Health-polls** all 16 Cloud Run services (13 MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
+1. **Health-polls** all 18 Cloud Run services (15 MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
 2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-service request counts, avg/p95 latency, and error rates.
 3. **Queries mcp-audit-log** for actual token usage and costs logged by Streamlit clients via `audit_logger.py`. Shows total tokens, costs, and per-MCP-server breakdown.
 
 No manual log export or custom parser needed.  The deployed service account (`mcp-dashboard-sa`) has `roles/logging.viewer` — the minimum permission required.
 
 **Monitored Services:**
-- **MCP Servers (13):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, tcga, openimagedata, mockepic, seqera, huggingface, patient-report
+- **MCP Servers (15):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, tcga, openimagedata, mockepic, seqera, huggingface, patient-report, genomic-results, epic
 - **Streamlit Clients (3):** mcp-dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 
 ---
@@ -470,7 +470,7 @@ fig.show()
 - ✅ Streamlit dashboard with 4 views
 - ✅ Optimization recommendations
 - ✅ Export reports (TXT, CSV)
-- ✅ Live Mode: health-polling all 11 Cloud Run MCP servers (async, 10 s timeout, 2 retries)
+- ✅ Live Mode: health-polling all 15 Cloud Run MCP servers (async, 10 s timeout, 2 retries)
 - ✅ Live Mode: GCP Cloud Logging integration — per-server request counts, avg/p95 latency, error rates
 - ✅ Live Mode: server-health badges, live traffic chart, Avg vs P95 latency chart, error-signal warnings
 - ✅ Dedicated service account (`mcp-dashboard-sa`) with least-privilege `roles/logging.viewer`
@@ -479,7 +479,7 @@ fig.show()
 - ✅ **Gemini 3 pricing** added to cost calculator (Flash: $0.50/$3.00, Pro: $2.00/$12.00)
 - ✅ **Streamlit client monitoring** — dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 - ✅ **Live token usage & costs** — queries mcp-audit-log for actual LLM usage from Streamlit clients
-- ✅ **15 services monitored** — 12 MCP servers + 3 Streamlit clients
+- ✅ **18 services monitored** — 15 MCP servers + 3 Streamlit clients
 - ✅ **Improved health checks** — uses root `/` endpoint, treats any HTTP response as healthy
 - ✅ **High-cost server detection** — flags servers >$0.50/24h in optimization view
 
@@ -544,7 +544,7 @@ def get_optimization_recommendations(server_metrics: Dict) -> List[str]:
 ### LiveServerMonitor
 
 ```python
-# Health polling (async, all 15 services in parallel: 12 MCP + 3 Streamlit)
+# Health polling (async, all 18 services in parallel: 15 MCP + 3 Streamlit)
 def get_live_health() -> Dict[str, Dict]:
     """Sync entry-point.  Returns {server_name: {status, latency_ms, checked_at, error, http_code}}."""
 

@@ -7,7 +7,7 @@
 ## What You Can Accomplish Here
 
 - ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (13 servers, 129 tools, FastMCP patterns, Claude + Gemini API orchestration)
+- ✅ **Understand system architecture** (15 servers, 136 tools, FastMCP patterns, Claude + Gemini API orchestration)
 - ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
 - ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
 - ✅ **Contribute to codebase** (coding standards, PR guidelines)
@@ -28,7 +28,7 @@
 **Total Time:** 4-8 hours from template to deployed server
 
 ### 2. Understanding the Architecture (30-60 min)
-**Goal:** Understand how 13 MCP servers orchestrate precision medicine workflows
+**Goal:** Understand how 15 MCP servers orchestrate precision medicine workflows
 
 1. **System overview** → [ARCHITECTURE.md](ARCHITECTURE.md) (15 min)
 2. **Best reference implementation** → [mcp-multiomics README](../../servers/mcp-multiomics/README.md) (15 min)
@@ -62,7 +62,7 @@
 
 ---
 
-## System Architecture (13 MCP Servers)
+## System Architecture (15 MCP Servers)
 
 ```mermaid
 graph TB
@@ -80,7 +80,7 @@ graph TB
         REALEPIC[mcp-epic<br/>Real Epic FHIR<br/>✅ Production<br/>🏥 HIPAA-compliant]
     end
 
-    subgraph "GCP Cloud Run - 11 Deployed MCP Servers"
+    subgraph "GCP Cloud Run - 14 Deployed MCP Servers"
         subgraph "Clinical & Genomic"
             MOCKEPIC[mcp-mockepic<br/>Mock FHIR<br/>🎭 Demo Only]
             FGBIO[mcp-fgbio<br/>FASTQ/VCF<br/>✅ Production]
@@ -95,6 +95,11 @@ graph TB
             SPATIAL[mcp-spatialtools<br/>Spatial RNA-seq<br/>✅ Production]
             IMAGE[mcp-openimagedata<br/>Histology<br/>✅ Production]
             DEEPCELL[mcp-deepcell<br/>Cell Segmentation<br/>✅ Production]
+            CELLCLASS[mcp-cell-classify<br/>Phenotyping<br/>✅ Production]
+        end
+
+        subgraph "Genomic Results"
+            GENOMICRES[mcp-genomic-results<br/>Somatic/CNV/HRD<br/>✅ Production]
         end
 
         subgraph "Advanced Analytics"
@@ -126,6 +131,8 @@ graph TB
     API -.-> MOCKEPIC
     API -.-> TCGA
     API ==> IMAGE
+    API ==> CELLCLASS
+    API ==> GENOMICRES
     API -.-> HF
     API -.-> SEQERA
 
@@ -139,6 +146,8 @@ graph TB
     MOCKEPIC -.-> PATIENT
     TCGA -.-> PATIENT
     IMAGE ==> PATIENT
+    CELLCLASS ==> PATIENT
+    GENOMICRES ==> PATIENT
     HF -.-> PATIENT
     SEQERA -.-> PATIENT
 
@@ -155,6 +164,8 @@ graph TB
     style PERTURB fill:#d4edda,stroke:#28a745,stroke-width:2px
     style QUANTUM fill:#d4edda,stroke:#28a745,stroke-width:2px
     style IMAGE fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style CELLCLASS fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style GENOMICRES fill:#d4edda,stroke:#28a745,stroke-width:2px
     style TCGA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style HF fill:#f8d7da,stroke:#dc3545,stroke-width:1px
     style SEQERA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
@@ -162,20 +173,20 @@ graph TB
 ```
 
 **Legend:**
-- ✅ **Production Ready** (8/12): Real data, comprehensive tests, deployed
-- ❌ **Mocked** (3/12): Return synthetic data, API calls stubbed
-- 🎭 **Mock by Design** (1/12): Intentionally synthetic for demos
+- ✅ **Production Ready** (11/15): Real data, comprehensive tests, deployed
+- ❌ **Mocked** (3/15): Return synthetic data, API calls stubbed
+- 🎭 **Mock by Design** (1/15): Intentionally synthetic for demos
 
 ---
 
 ## Server Status Overview
 
 **Production Status:**
-- ✅ **9/13 servers production-ready** (69%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-mockepic, mcp-openimagedata, mcp-patient-report
-- ❌ **3/12 fully mocked** (25%) - mcp-tcga, mcp-huggingface, mcp-seqera
-- 🎭 **1/12 mock by design** (8%) - mcp-mockepic (synthetic for demos)
+- ✅ **11/15 servers production-ready** (73%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-cell-classify, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report, mcp-genomic-results, mcp-epic
+- ❌ **3/15 fully mocked** (20%) - mcp-tcga, mcp-huggingface, mcp-seqera
+- 🎭 **1/15 mock by design** (7%) - mcp-mockepic (synthetic for demos)
 
-**Total:** 13 servers, 129 tools, comprehensive test coverage
+**Total:** 15 servers, 136 tools, comprehensive test coverage
 
 📋 **[Complete Server Implementation Status →](../reference/architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status

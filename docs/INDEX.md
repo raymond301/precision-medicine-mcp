@@ -52,7 +52,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 - **[Cost and Budget Management](./for-hospitals/operations/cost-and-budget.md)** - Cost estimation, tracking, and optimization
 - **[Data Governance](./for-hospitals/compliance/data-governance.md)** - Data handling policies and procedures
-- **[Live Monitoring Dashboard](../ui/dashboard/README.md)** - Real-time health monitoring for 13 MCP servers + 3 Streamlit clients, token usage tracking, cost optimization
+- **[Live Monitoring Dashboard](../ui/dashboard/README.md)** - Real-time health monitoring for 15 MCP servers + 3 Streamlit clients, token usage tracking, cost optimization
 
 ---
 
@@ -202,10 +202,12 @@ precision-medicine-mcp/
 │   ├── deployment/         # GCP deployment scripts
 │   ├── audit/              # Bias detection and audit tools
 │   └── hospital-deployment/  # Hospital-specific infrastructure
-├── servers/                # 13 MCP servers (Python)
+├── servers/                # 15 MCP servers (Python)
+│   ├── mcp-cell-classify/  # Cell phenotype classification
 │   ├── mcp-deepcell/       # Cell segmentation
 │   ├── mcp-epic/           # Epic FHIR integration
 │   ├── mcp-fgbio/          # Reference genomes, FASTQ QC
+│   ├── mcp-genomic-results/ # Somatic variant/CNV/HRD
 │   ├── mcp-huggingface/    # AI/ML inference
 │   ├── mcp-mockepic/       # Mock Epic for testing
 │   ├── mcp-multiomics/     # Multi-omics integration
