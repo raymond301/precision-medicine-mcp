@@ -9,12 +9,14 @@ import asyncio
 import os
 import sys
 from pathlib import Path
+import pytest
 
 # Add src to path
 src_path = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_path))
 
 
+@pytest.mark.asyncio
 async def test_pathway_enrichment():
     """Test pathway enrichment with different gene lists."""
 
@@ -38,7 +40,7 @@ async def test_pathway_enrichment():
     print(f"Genes: {', '.join(dna_repair_genes)}")
     print()
 
-    result1 = await server.perform_pathway_enrichment(
+    result1 = await server.perform_pathway_enrichment.fn(
         gene_list=dna_repair_genes,
         database="GO_BP",
         p_value_cutoff=0.05
@@ -83,7 +85,7 @@ async def test_pathway_enrichment():
     print(f"Genes: {', '.join(cell_cycle_genes)}")
     print()
 
-    result2 = await server.perform_pathway_enrichment(
+    result2 = await server.perform_pathway_enrichment.fn(
         gene_list=cell_cycle_genes,
         database="Hallmark",
         p_value_cutoff=0.05
@@ -119,7 +121,7 @@ async def test_pathway_enrichment():
     print(f"Genes: {', '.join(resistance_genes)}")
     print()
 
-    result3 = await server.perform_pathway_enrichment(
+    result3 = await server.perform_pathway_enrichment.fn(
         gene_list=resistance_genes,
         database="Drug_Resistance",
         p_value_cutoff=0.1  # More lenient for small gene list
@@ -154,7 +156,7 @@ async def test_pathway_enrichment():
     print(f"Genes: {', '.join(pi3k_genes)}")
     print()
 
-    result4 = await server.perform_pathway_enrichment(
+    result4 = await server.perform_pathway_enrichment.fn(
         gene_list=pi3k_genes,
         database="KEGG",
         p_value_cutoff=0.05

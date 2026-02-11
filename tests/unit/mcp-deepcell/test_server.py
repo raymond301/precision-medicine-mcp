@@ -4,8 +4,8 @@ import os
 import sys
 import pytest
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../src'))
+# Add deepcell server src to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../../servers/mcp-deepcell/src'))
 
 
 class TestServerImport:
@@ -72,10 +72,15 @@ class TestTools:
         from mcp_deepcell import server
         assert hasattr(server, 'segment_cells')
 
-    def test_classify_cell_states_exists(self):
-        """Test classify_cell_states tool is registered."""
+    def test_quantify_markers_exists(self):
+        """Test quantify_markers tool is registered."""
         from mcp_deepcell import server
-        assert hasattr(server, 'classify_cell_states')
+        assert hasattr(server, 'quantify_markers')
+
+    def test_generate_segmentation_overlay_exists(self):
+        """Test generate_segmentation_overlay tool is registered."""
+        from mcp_deepcell import server
+        assert hasattr(server, 'generate_segmentation_overlay')
 
 
 class TestResources:

@@ -9,12 +9,14 @@ import os
 import sys
 from pathlib import Path
 import asyncio
+import pytest
 
 # Add src to path
 src_path = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_path))
 
 
+@pytest.mark.asyncio
 async def test_spatial_autocorrelation():
     """Test spatial autocorrelation with Patient-001 data."""
 
@@ -47,7 +49,7 @@ async def test_spatial_autocorrelation():
     print(f"Genes: {', '.join(proliferation_genes)}")
     print()
 
-    result1 = await server.calculate_spatial_autocorrelation(
+    result1 = await server.calculate_spatial_autocorrelation.fn(
         expression_file=expression_file,
         coordinates_file=coordinates_file,
         genes=proliferation_genes,
@@ -90,7 +92,7 @@ async def test_spatial_autocorrelation():
     print(f"Genes: {', '.join(immune_genes)}")
     print()
 
-    result2 = await server.calculate_spatial_autocorrelation(
+    result2 = await server.calculate_spatial_autocorrelation.fn(
         expression_file=expression_file,
         coordinates_file=coordinates_file,
         genes=immune_genes,
@@ -123,7 +125,7 @@ async def test_spatial_autocorrelation():
     print(f"Genes: {', '.join(stromal_genes)}")
     print()
 
-    result3 = await server.calculate_spatial_autocorrelation(
+    result3 = await server.calculate_spatial_autocorrelation.fn(
         expression_file=expression_file,
         coordinates_file=coordinates_file,
         genes=stromal_genes,

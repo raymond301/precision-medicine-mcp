@@ -4,12 +4,14 @@
 import asyncio
 import os
 import sys
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 from mcp_spatialtools.server import get_spatial_data_for_patient
 
 
+@pytest.mark.asyncio
 async def test_bridge_tool():
     """Test the clinical-spatial bridge with Patient 001."""
     print("=" * 80)

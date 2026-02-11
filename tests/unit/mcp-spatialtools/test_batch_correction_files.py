@@ -11,12 +11,14 @@ import pandas as pd
 import numpy as np
 import tempfile
 import asyncio
+import pytest
 
 # Add src to path
 src_path = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_path))
 
 
+@pytest.mark.asyncio
 async def test_batch_correction_with_files():
     """Test batch correction with file inputs/outputs."""
 

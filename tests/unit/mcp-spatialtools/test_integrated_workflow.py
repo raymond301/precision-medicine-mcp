@@ -4,6 +4,7 @@
 import asyncio
 import os
 import sys
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
@@ -13,6 +14,7 @@ from mcp_spatialtools.server import (
 )
 
 
+@pytest.mark.asyncio
 async def test_integrated_workflow():
     """Test end-to-end clinical-spatial workflow for Patient 001."""
     print("=" * 80)
@@ -63,19 +65,20 @@ async def test_integrated_workflow():
         include_clinical_context=True
     )
 
-    print(f"Spatial Dataset: {spatial_data['spatial_dataset']}")
-    print(f"Data Ready: {'✅' if spatial_data['data_ready'] else '❌'}")
+    print(f"Spatial Dataset: {spatial_data.get('spatial_dataset', 'N/A')}")
+    print(f"Data Ready: {'✅' if spatial_data.get('data_ready') else '❌'}")
     print()
 
-    print(f"Genes of Interest ({spatial_data['num_genes_of_interest']}):")
-    for gene in spatial_data["genes_of_interest"][:10]:
+    num_genes = spatial_data.get('num_genes_of_interest', 0)
+    print(f"Genes of Interest ({num_genes}):")
+    for gene in spatial_data.get("genes_of_interest", [])[:10]:
         print(f"  • {gene}")
-    if spatial_data['num_genes_of_interest'] > 10:
-        print(f"  ... and {spatial_data['num_genes_of_interest'] - 10} more")
+    if num_genes > 10:
+        print(f"  ... and {num_genes - 10} more")
     print()
 
     print("Suggested Analyses:")
-    for analysis in spatial_data["suggested_analyses"]:
+    for analysis in spatial_data.get("suggested_analyses", []):
         print(f"  • {analysis}")
     print()
 
@@ -96,9 +99,13 @@ async def test_integrated_workflow():
     print(f"  • TP53: Tumor suppressor (genomic instability)")
     print()
 
+    files = spatial_data.get("files", {})
+    if not files.get("expression") or not files.get("coordinates"):
+        pytest.skip("Patient data files not available on this machine")
+
     autocorr_result = await calculate_spatial_autocorrelation.fn(
-        expression_file=spatial_data["files"]["expression"],
-        coordinates_file=spatial_data["files"]["coordinates"],
+        expression_file=files["expression"],
+        coordinates_file=files["coordinates"],
         genes=key_genes,
         method="morans_i",
         distance_threshold=1500.0  # Pixels - adjusted for Visium spot spacing

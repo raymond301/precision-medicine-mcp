@@ -13,6 +13,7 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
@@ -23,6 +24,7 @@ from mcp_spatialtools.server import (
 )
 
 
+@pytest.mark.asyncio
 async def test_cell_type_deconvolution():
     """Test cell type deconvolution with Patient-001 spatial data."""
     print("=" * 80)

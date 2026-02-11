@@ -12,6 +12,7 @@ import asyncio
 import os
 import sys
 import pandas as pd
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
@@ -21,6 +22,7 @@ from mcp_spatialtools.server import (
 )
 
 
+@pytest.mark.asyncio
 async def test_differential_expression():
     """Test differential expression with Patient-001 spatial data."""
     print("=" * 80)
