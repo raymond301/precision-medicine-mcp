@@ -5,9 +5,11 @@ Patient ID: PAT001-OVC-2025
 
 ⚠️ IMPORTANT: Use the MCP server tools to read files. The data has been copied to MCP-accessible locations.
 
+**GCS Data Location:** `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`
+
 ## PART 1: Clinical Data (use mcp-mockepic)
 
-The patient data files are located in the repository data directory. Use the mockepic server to retrieve clinical information.
+The patient data files are located in GCS at `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`. Use the mockepic server to retrieve clinical information. MCP servers on Cloud Run can access GCS URIs directly.
 
 1. For patient PAT001-OVC-2025, retrieve:
    - Patient demographics (name, age, family history)

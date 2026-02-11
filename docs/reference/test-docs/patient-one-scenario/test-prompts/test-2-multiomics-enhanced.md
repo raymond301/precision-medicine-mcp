@@ -10,7 +10,8 @@ Patient ID: PAT001-OVC-2025
 For patient PAT001-OVC-2025, analyze platinum resistance in PDX models using the COMPLETE workflow:
 
 ### Data Files Location:
-Files are in: `patient-data/PAT001-OVC-2025/multiomics/`
+Files are in GCS at: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/`
+(Also accessible as relative path: `patient-data/PAT001-OVC-2025/multiomics/`)
 - sample_metadata.csv (includes Batch column: Batch 1 or Batch 2)
 - pdx_rna_seq.csv (raw, not preprocessed)
 - pdx_proteomics.csv (raw TMT data, ~18 samples/batch, BATCH EFFECTS EXPECTED)

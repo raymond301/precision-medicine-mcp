@@ -12,7 +12,8 @@ DeepCell is NOT needed - we have no images to segment.
 For patient PAT001-OVC-2025, analyze spatial gene expression patterns:
 
 ### Data Files Location:
-Files are in: `patient-data/PAT001-OVC-2025/spatial/`
+Files are in GCS at: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/`
+(Also accessible as relative path: `patient-data/PAT001-OVC-2025/spatial/`)
 - visium_spatial_coordinates.csv
 - visium_gene_expression.csv
 - visium_region_annotations.csv

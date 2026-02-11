@@ -93,7 +93,16 @@ End-to-end multi-modal analyses
 - Spatial: Visium data (900 spots × 31 genes)
 - Imaging: H&E slides, multiplex IF
 
-**Data paths (DRY_RUN mode):**
+**Data paths (GCS - for Streamlit UI and Cloud Run):**
+- Bucket: `gs://sample-inputs-patientone`
+- Clinical: Retrieved via API (mcp-mockepic)
+- Genomic: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomic/variants.vcf`
+- Multi-omics: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/`
+- Spatial: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/`
+- Imaging: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/imaging/`
+- Perturbation: `gs://sample-inputs-patientone/perturbation/patientone_tcells.h5ad`
+
+**Data paths (local/DRY_RUN mode):**
 - Clinical: Retrieved via API
 - Genomic: `/data/patient-data/PAT001-OVC-2025/genomic/variants.vcf`
 - Multi-omics: `/data/patient-data/PAT001-OVC-2025/multiomics/`
@@ -113,8 +122,9 @@ Analyze PatientOne data
 
 **✅ Specific:**
 ```
-Perform spatial pathway enrichment on PatientOne (PAT001-OVC-2025) tumor regions,
-focusing on cancer-related KEGG pathways with FDR < 0.05.
+Perform spatial pathway enrichment on PatientOne (PAT001-OVC-2025) tumor regions.
+Spatial data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/.
+Focus on cancer-related KEGG pathways with FDR < 0.05.
 ```
 
 ### Include Parameters
@@ -176,7 +186,8 @@ Identify treatment targets for PatientOne using multi-modal data
 ### Step 2: Write the Prompt
 ```
 Perform comprehensive multi-modal analysis for PatientOne (PAT001-OVC-2025)
-to identify top 3 treatment targets:
+to identify top 3 treatment targets.
+Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
 
 1. Clinical Context:
    - Get patient demographics, diagnosis, and treatment history from mcp-mockepic
@@ -273,7 +284,15 @@ Return summary statistics: total significant genes, top upregulated, top downreg
 - `PAT001-OVC-2025` - PatientOne (Stage IV ovarian cancer)
 - `[YOUR-PATIENT-ID]` - Replace with your patient identifier
 
-### Data Paths (DRY_RUN mode)
+### Data Paths (GCS - for Streamlit UI and Cloud Run)
+- Bucket: `gs://sample-inputs-patientone`
+- Clinical: Retrieved via API (no path needed)
+- Genomic: `gs://sample-inputs-patientone/patient-data/{PATIENT_ID}/genomic/variants.vcf`
+- Multi-omics: `gs://sample-inputs-patientone/patient-data/{PATIENT_ID}/multiomics/`
+- Spatial: `gs://sample-inputs-patientone/patient-data/{PATIENT_ID}/spatial/`
+- Imaging: `gs://sample-inputs-patientone/patient-data/{PATIENT_ID}/imaging/`
+
+### Data Paths (local/DRY_RUN mode)
 - Clinical: Retrieved via API (no path needed)
 - Genomic: `/data/patient-data/{PATIENT_ID}/genomic/variants.vcf`
 - Multi-omics: `/data/patient-data/{PATIENT_ID}/multiomics/rna_counts.csv`

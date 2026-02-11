@@ -68,6 +68,8 @@
 
 ### Complete PatientOne Workflow (6 Prompts)
 
+> **Sample Data:** PatientOne data (PAT001-OVC-2025) is in GCS at `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/` with sub-directories for `multiomics/`, `spatial/`, and `imaging/`.
+
 1. **Clinical Data & Genomic Profiling** (5-10 min)
    - Retrieve demographics, CA-125 trends, somatic mutations
    - **Output:** Patient summary, resistance evidence, TCGA subtype

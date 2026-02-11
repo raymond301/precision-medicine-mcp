@@ -458,7 +458,18 @@ When NOT to use tools:
 After receiving tool results:
 - Interpret and explain the results clearly to the user
 - Provide actionable insights based on the analysis output
-- Stop calling tools once you have sufficient information to answer the query"""
+- Stop calling tools once you have sufficient information to answer the query
+
+SAMPLE DATA LOCATIONS:
+PatientOne (PAT001-OVC-2025) sample data is stored in Google Cloud Storage:
+- Bucket: gs://sample-inputs-patientone
+- Patient data base path: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/
+- Multiomics data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/
+- Spatial data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/
+- Perturbation data: gs://sample-inputs-patientone/perturbation/patientone_tcells.h5ad
+- Imaging test data: gs://sample-inputs-patientone/mcp-deepcell-test-data/test_data/
+When users reference Patient-001, PatientOne, or PAT001-OVC-2025, use these GCS URIs with the MCP tools.
+MCP servers running on Cloud Run can access GCS URIs directly."""
 
         # Add file information if present
         if uploaded_files and len(uploaded_files) > 0:

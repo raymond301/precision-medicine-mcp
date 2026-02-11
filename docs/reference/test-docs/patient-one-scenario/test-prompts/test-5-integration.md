@@ -3,6 +3,8 @@ TEST 5: Integrated Analysis & Clinical Recommendations
 
 Patient ID: PAT001-OVC-2025
 
+**GCS Data Location:** All PatientOne data is in `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`
+
 ⚠️ NOTE: Run this test AFTER completing Tests 1-4
 
 This test synthesizes findings from all previous tests - NO new data loading required.

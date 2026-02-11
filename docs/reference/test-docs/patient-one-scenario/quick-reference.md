@@ -20,7 +20,7 @@ The full end-to-end test is too large for Claude Desktop, and Claude Desktop's M
 
 **Total Time:** 25-45 minutes (all 5 tests)
 
-**Note:** These tests use relative paths (`patient-data/PAT001-OVC-2025/`) that MCP servers can access.
+**Note:** These tests use GCS paths (`gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`) that MCP servers on Cloud Run can access directly. Relative paths (`patient-data/PAT001-OVC-2025/`) also work in local/DRY_RUN mode.
 
 ---
 

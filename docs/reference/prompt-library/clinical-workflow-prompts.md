@@ -11,12 +11,15 @@
 
 These prompts follow the TEST_1 through TEST_6 workflow for comprehensive multi-modal analysis.
 
+> **Sample Data Location:** PatientOne data is stored in GCS at `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`. Sub-directories include `multiomics/`, `spatial/`, and `imaging/`. MCP servers on Cloud Run can access these GCS URIs directly.
+
 ### Prompt 1: Clinical Data and Genomic Profiling
 
 **Time:** 5-10 minutes | **Complexity:** Medium | **Output:** Clinical summary + genomic profile
 
 ```
-For patient PAT001-OVC-2025 with Stage IV high-grade serous ovarian carcinoma:
+For patient PAT001-OVC-2025 with Stage IV high-grade serous ovarian carcinoma.
+Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
 
 **PART 1: Clinical Data (use mcp-mockepic)**
 1. Retrieve patient demographics:
@@ -63,7 +66,8 @@ For patient PAT001-OVC-2025 with Stage IV high-grade serous ovarian carcinoma:
 **Time:** 15-25 minutes | **Complexity:** High | **Output:** Resistance pathway analysis
 
 ```
-For patient PAT001-OVC-2025, analyze platinum resistance using multi-omics data:
+For patient PAT001-OVC-2025, analyze platinum resistance using multi-omics data.
+Data files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/.
 
 **STEP 0: Data Preprocessing (CRITICAL)**
 1. Validate data quality (use mcp-multiomics):
@@ -122,7 +126,8 @@ For patient PAT001-OVC-2025, analyze platinum resistance using multi-omics data:
 **Time:** 10-15 minutes | **Complexity:** Medium | **Output:** Spatial analysis report
 
 ```
-For patient PAT001-OVC-2025, analyze spatial transcriptomics (10x Visium):
+For patient PAT001-OVC-2025, analyze spatial transcriptomics (10x Visium).
+Spatial data files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/.
 
 **Data:** 900 spots across 6 tissue regions
 - tumor_core, tumor_proliferative, tumor_interface
@@ -172,7 +177,8 @@ For patient PAT001-OVC-2025, analyze spatial transcriptomics (10x Visium):
 **Time:** 20-40 minutes | **Complexity:** High | **Output:** Imaging analysis report
 
 ```
-For patient PAT001-OVC-2025, analyze histology and immunofluorescence images:
+For patient PAT001-OVC-2025, analyze histology and immunofluorescence images.
+Image files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/imaging/.
 
 **Image Files:**
 1. H&E histology (PAT001_tumor_HE_20x.tiff)
@@ -233,7 +239,8 @@ For patient PAT001-OVC-2025, analyze histology and immunofluorescence images:
 **Time:** 5-10 minutes | **Complexity:** Medium | **Output:** Clinical report + recommendations
 
 ```
-Synthesize findings from Tests 1-4 for patient PAT001-OVC-2025:
+Synthesize findings from Tests 1-4 for patient PAT001-OVC-2025.
+All PatientOne data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
 
 **Reference Results:**
 - Clinical/Genomic: BRCA1+, TP53 R175H, PIK3CA E545K, CA-125 resistance pattern
@@ -295,7 +302,8 @@ Synthesize findings from Tests 1-4 for patient PAT001-OVC-2025:
 **Time:** 30-45 minutes (includes 20-30 min manual review) | **Complexity:** High | **Output:** Approved clinical report
 
 ```
-Implement formal clinician review workflow for patient PAT001-OVC-2025:
+Implement formal clinician review workflow for patient PAT001-OVC-2025.
+All PatientOne data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
 
 **STEP 1: Generate Draft Report (automated, ~30 sec)**
 - Consolidate findings from Tests 1-5

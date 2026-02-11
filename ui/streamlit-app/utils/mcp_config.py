@@ -180,20 +180,20 @@ def get_server_categories() -> Dict[str, List[str]]:
 
 # Example prompts for different use cases
 EXAMPLE_PROMPTS = {
-    "Spatial Analysis": "Analyze the spatial transcriptomics data for Patient-001. Perform cell type deconvolution and identify key cell populations.",
+    "Spatial Analysis": "Analyze the spatial transcriptomics data for Patient-001 (PAT001-OVC-2025). Sample data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/. Perform cell type deconvolution and identify key cell populations.",
 
-    "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data. Run HAllA association analysis and identify significant correlations.",
+    "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data for Patient-001 (PAT001-OVC-2025). Data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/. Run HAllA association analysis and identify significant correlations.",
 
     "Genomic QC": "Validate the FASTQ files and check quality metrics. What is the average quality score and read length?",
 
     "Pathway Enrichment": "For the upregulated genes [TP53, BRCA1, MYC, KRAS], perform pathway enrichment analysis using GO_BP database.",
 
-    "Complete PatientOne Workflow": """For Patient-001 (ovarian cancer):
+    "Complete PatientOne Workflow": """For Patient-001 (PAT001-OVC-2025, ovarian cancer). Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/:
 1. Get clinical data from FHIR
-2. Retrieve spatial transcriptomics data
+2. Retrieve spatial transcriptomics data from gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/
 3. Perform cell type deconvolution
 4. Run differential expression between tumor core and margin
-5. Generate treatment recommendations""",
+5. Generate treatment recommendations using multiomics data from gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/""",
 
     "Batch Correction": "I have 3 batches of proteomics data with batch effects. Apply ComBat batch correction and verify PC1 no longer correlates with batch.",
 

@@ -17,7 +17,8 @@ Patient ID: PAT001-OVC-2025
 For patient PAT001-OVC-2025, analyze histology and immunofluorescence images:
 
 ### Data Files Location:
-Files are in: `patient-data/PAT001-OVC-2025/imaging/`
+Files are in GCS at: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/imaging/`
+(Also accessible as relative path: `patient-data/PAT001-OVC-2025/imaging/`)
 
 **Test Files (4 files used in this test):**
 
