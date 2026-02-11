@@ -1,6 +1,6 @@
 """MCP Server Configuration
 
-Contains URLs and metadata for all 14 MCP servers (12 deployed + 2 local-only).
+Contains URLs and metadata for all 15 MCP servers (14 deployed + 1 local-only).
 """
 
 from typing import Dict, List, TypedDict
