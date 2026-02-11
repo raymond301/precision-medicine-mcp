@@ -84,7 +84,7 @@ graph TB
         subgraph "Clinical & Genomic"
             MOCKEPIC[mcp-mockepic<br/>Mock FHIR<br/>🎭 Demo Only]
             FGBIO[mcp-fgbio<br/>FASTQ/VCF<br/>✅ Production]
-            TCGA[mcp-tcga<br/>Cancer Data<br/>❌ Mocked]
+            TCGA[mcp-tcga<br/>Cancer Data<br/>🔧 Framework]
         end
 
         subgraph "Multi-Omics"
@@ -98,8 +98,9 @@ graph TB
             CELLCLASS[mcp-cell-classify<br/>Phenotyping<br/>✅ Production]
         end
 
-        subgraph "Genomic Results"
+        subgraph "Genomic Results & Reporting"
             GENOMICRES[mcp-genomic-results<br/>Somatic/CNV/HRD<br/>✅ Production]
+            PATREPORT[mcp-patient-report<br/>PDF Reports<br/>✅ Production]
         end
 
         subgraph "Advanced Analytics"
@@ -108,8 +109,8 @@ graph TB
         end
 
         subgraph "AI & Workflows"
-            HF[mcp-huggingface<br/>ML Models<br/>❌ Mocked]
-            SEQERA[mcp-seqera<br/>Nextflow<br/>❌ Mocked]
+            HF[mcp-huggingface<br/>ML Models<br/>🔧 Framework]
+            SEQERA[mcp-seqera<br/>Nextflow<br/>🔧 Framework]
         end
     end
 
@@ -133,6 +134,7 @@ graph TB
     API ==> IMAGE
     API ==> CELLCLASS
     API ==> GENOMICRES
+    API ==> PATREPORT
     API -.-> HF
     API -.-> SEQERA
 
@@ -148,6 +150,7 @@ graph TB
     IMAGE ==> PATIENT
     CELLCLASS ==> PATIENT
     GENOMICRES ==> PATIENT
+    PATREPORT ==> PATIENT
     HF -.-> PATIENT
     SEQERA -.-> PATIENT
 
@@ -166,16 +169,17 @@ graph TB
     style IMAGE fill:#d4edda,stroke:#28a745,stroke-width:2px
     style CELLCLASS fill:#d4edda,stroke:#28a745,stroke-width:2px
     style GENOMICRES fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style TCGA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
-    style HF fill:#f8d7da,stroke:#dc3545,stroke-width:1px
-    style SEQERA fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    style PATREPORT fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style TCGA fill:#fff3cd,stroke:#ffc107,stroke-width:1px
+    style HF fill:#fff3cd,stroke:#ffc107,stroke-width:1px
+    style SEQERA fill:#fff3cd,stroke:#ffc107,stroke-width:1px
     style MOCKEPIC fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
 ```
 
 **Legend:**
-- ✅ **Production Ready** (11/15): Real data, comprehensive tests, deployed
-- ❌ **Mocked** (3/15): Return synthetic data, API calls stubbed
-- 🎭 **Mock by Design** (1/15): Intentionally synthetic for demos
+- ✅ **Production** (11/15): Real data, comprehensive tests, deployed
+- 🔧 **Framework** (3/15): API stubs ready for integration (tcga, huggingface, seqera)
+- 🎭 **Mock by Design** (1/15): Intentionally synthetic for demos (mockepic)
 
 ---
 

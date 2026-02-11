@@ -20,7 +20,7 @@ graph TB
         end
 
         subgraph Application["Application Layer"]
-            SERVERS[15 MCP Servers<br/>Cloud Run<br/>No Public IPs]
+            SERVERS[14 MCP Servers<br/>Cloud Run<br/>No Public IPs<br/>+ 1 Local-Only (epic)]
         end
 
         subgraph DataLayer["Data Layer"]

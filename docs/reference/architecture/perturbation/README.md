@@ -31,10 +31,12 @@ graph TB
         TRAIN[Train GNN<br/>perturbation_train_model<br/>20 epochs]
     end
 
-    subgraph Analysis["🔬 Analysis"]
+    subgraph Analysis["🔬 Analysis (5 tools)"]
+        DELTA[Compute Delta<br/>perturbation_compute_delta]
         PREDICT[Predict Response<br/>perturbation_predict_response]
         DE[Differential Expression<br/>perturbation_differential_expression]
         LATENT[Extract Embeddings<br/>perturbation_get_latent]
+        VIZTOOLS[Visualize<br/>perturbation_visualize]
     end
 
     subgraph Output["📈 Outputs"]
@@ -47,13 +49,17 @@ graph TB
     DATASET --> LOAD
     LOAD --> SETUP
     SETUP --> TRAIN
+    TRAIN --> DELTA
     TRAIN --> PREDICT
     TRAIN --> DE
     TRAIN --> LATENT
+    TRAIN --> VIZTOOLS
 
+    DELTA --> RESPONSE
     PREDICT --> RESPONSE
     DE --> BIOMARKERS
     LATENT --> VIZ
+    VIZTOOLS --> VIZ
 
     style Input fill:#e3f2fd
     style GEARS fill:#fff3e0

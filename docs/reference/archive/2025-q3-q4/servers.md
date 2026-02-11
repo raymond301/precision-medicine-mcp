@@ -1,5 +1,7 @@
 # MCP Server Implementation Status Matrix
 
+> **ARCHIVED:** This document is a historical snapshot from Q3-Q4 2025. Server counts, tool counts, and status info are outdated. For current data, see **[servers/README.md](../../../../servers/README.md)** and **[SERVER_REGISTRY.md](../../SERVER_REGISTRY.md)**.
+
 **Last Updated:** 2026-01-30
 **Purpose:** Clearly document what's real vs mocked in each server to prevent accidental use of synthetic data
 
@@ -20,15 +22,15 @@
 
 ## Quick Reference
 
-📋 **[See Server Status Table →](../../../../servers/README.md#-server-status)** - Tools, status, and documentation for all 12 servers
+📋 **[See Server Status Table →](../../../../servers/README.md#-server-status)** - Tools, status, and documentation for all 15 servers
 
-**Production Ready Count:** 7/12 servers (58%)
-**Fully Mocked Count:** 4/12 servers (33%)
-**Partial Implementation:** 1/12 servers (8%)
+**Production Ready Count:** 11/15 servers (73%)
+**Framework/Utility:** 3/15 servers (tcga, huggingface, seqera)
+**Mock-by-Design:** 1/15 servers (mockepic)
 
-**Total MCP Servers:** 12 (11 deployed to GCP + mcp-epic local only)
+**Total MCP Servers:** 15 (14 deployed to GCP Cloud Run + mcp-epic local only)
 
-**🎉 GCP Cloud Run Deployment:** 9 servers deployed to production infrastructure (2025-12-30)
+**🎉 GCP Cloud Run Deployment:** 14 servers deployed to production infrastructure
 
 ### Production Safety Summary
 
@@ -46,56 +48,44 @@
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {'fontSize':'14px'}}}%%
 graph LR
-    subgraph Production["✅ Production Ready (7/12 = 58%)"]
+    subgraph Production["✅ Production (11/15)"]
         direction TB
-        FGBIO["mcp-fgbio<br/>95% Real<br/>9 tools"]
-        MULTI["mcp-multiomics<br/>85% Real<br/>21 tools"]
-        SPATIAL["mcp-spatialtools<br/>95% Real<br/>23 tools"]
-        PERTURB["mcp-perturbation<br/>100% Real<br/>8 tools<br/>GEARS"]
-        QUANTUM["mcp-quantum-celltype-fidelity<br/>100% Real<br/>6 tools<br/>Qiskit + Bayesian UQ"]
-        DEEP["mcp-deepcell<br/>100% Real<br/>4 tools<br/>DeepCell-TF"]
-        EPIC["mcp-epic<br/>100% Real<br/>9 tools<br/>(Local Only)"]
+        FGBIO["mcp-fgbio<br/>4 tools"]
+        MULTI["mcp-multiomics<br/>10 tools"]
+        SPATIAL["mcp-spatialtools<br/>14 tools"]
+        PERTURB["mcp-perturbation<br/>8 tools"]
+        QUANTUM["mcp-quantum-celltype-fidelity<br/>6 tools"]
+        DEEP["mcp-deepcell<br/>3 tools"]
+        EPIC["mcp-epic<br/>4 tools<br/>(Local Only)"]
+        IMAGE["mcp-openimagedata<br/>5 tools"]
+        CELLCLASS["mcp-cell-classify<br/>3 tools"]
+        GENOMICRES["mcp-genomic-results<br/>4 tools"]
+        PATREPORT["mcp-patient-report<br/>5 tools"]
     end
 
-    subgraph Partial["⚠️ Partial Implementation (1/12 = 8%)"]
+    subgraph Framework["🔧 Framework (3/15)"]
         direction TB
-        IMAGE["mcp-openimagedata<br/>60% Real<br/>9 tools<br/>(5 real, 4 mocked)"]
+        TCGA["mcp-tcga<br/>5 tools"]
+        HF["mcp-huggingface<br/>3 tools"]
+        SEQ["mcp-seqera<br/>3 tools"]
     end
 
-    subgraph Mocked["❌ Fully Mocked (4/12 = 33%)"]
+    subgraph MockDesign["🎭 Mock by Design (1/15)"]
         direction TB
-        TCGA["mcp-tcga<br/>0% Real<br/>11 tools"]
-        HF["mcp-huggingface<br/>0% Real<br/>7 tools"]
-        SEQ["mcp-seqera<br/>0% Real<br/>7 tools"]
-        MOCK["mcp-mockepic<br/>0% by Design<br/>7 tools"]
+        MOCK["mcp-mockepic<br/>3 tools"]
     end
 
     style Production fill:#d4edda,stroke:#28a745,stroke-width:3px
-    style Partial fill:#fff3cd,stroke:#ffc107,stroke-width:3px
-    style Mocked fill:#f8d7da,stroke:#dc3545,stroke-width:3px
-
-    style FGBIO fill:#d4edda,stroke:#155724,stroke-width:2px
-    style MULTI fill:#d4edda,stroke:#155724,stroke-width:2px
-    style SPATIAL fill:#d4edda,stroke:#155724,stroke-width:2px
-    style PERTURB fill:#d4edda,stroke:#155724,stroke-width:2px
-    style QUANTUM fill:#d4edda,stroke:#155724,stroke-width:2px
-    style EPIC fill:#d4edda,stroke:#155724,stroke-width:2px
-
-    style IMAGE fill:#fff3cd,stroke:#856404,stroke-width:2px
-
-    style TCGA fill:#f8d7da,stroke:#721c24,stroke-width:2px
-    style DEEP fill:#f8d7da,stroke:#721c24,stroke-width:2px
-    style HF fill:#f8d7da,stroke:#721c24,stroke-width:2px
-    style SEQ fill:#f8d7da,stroke:#721c24,stroke-width:2px
-    style MOCK fill:#f8d7da,stroke:#721c24,stroke-width:2px
+    style Framework fill:#fff3cd,stroke:#ffc107,stroke-width:3px
+    style MockDesign fill:#d1ecf1,stroke:#0c5460,stroke-width:3px
 ```
 
 **Color Legend:**
 - 🟢 **Green**: Production ready - safe for research use
-- 🟡 **Yellow**: Partial implementation - verify which tools are real
-- 🔴 **Red**: Mocked - synthetic data only, NOT for research decisions
+- 🟡 **Yellow**: Framework/utility - API stubs ready for integration
+- 🔵 **Blue**: Mock by design - synthetic data for demos
 
-**Total Tools: 124 tools across 12 servers**
+**Total: 90 tools across 15 servers**
 
 ---
 

@@ -39,7 +39,7 @@ graph TB
         VIZ1[Visualize QC<br/>PCA, correlations]
     end
 
-    subgraph Analysis["📊 Core Analysis<br/>(6 tools)"]
+    subgraph Analysis["📊 Core Analysis<br/>(4 tools)"]
         INT[Integrate<br/>Omics Data]
         HALLA[HAllA<br/>Associations<br/>1000 features/chunk]
         STOUF[Stouffer<br/>Meta-analysis<br/>+ FDR]
@@ -160,22 +160,24 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 
 ## Server Architecture
 
-### Tools (9 total)
+### Tools (10 total)
 
 **Preprocessing (3 tools)** - Run FIRST:
 1. `validate_multiomics_data` - QC checks for missing values, batch effects
 2. `preprocess_multiomics_data` - Batch correction, KNN imputation
-3. `visualize_data_quality` - PCA plots, correlation heatmaps  
+3. `visualize_data_quality` - PCA plots, correlation heatmaps
 
-**Core Analysis (5 tools)**:  
-4. `integrate_omics_data` - Align and normalize RNA, protein, phospho  
-5. `run_halla_analysis` - Find associations (1000 features/chunk)  
-6. `calculate_stouffer_meta` - Meta-analysis + FDR correction  
-7. `predict_upstream_regulators` - Kinase/TF/drug target prediction  
+**Core Analysis (5 tools)**:
+4. `integrate_omics_data` - Align and normalize RNA, protein, phospho
+5. `run_halla_analysis` - Find associations (1000 features/chunk)
+6. `calculate_stouffer_meta` - Meta-analysis + FDR correction
+7. `predict_upstream_regulators` - Kinase/TF/drug target prediction
+**Visualization (2 tools)**:
+8. `create_multiomics_heatmap` - Multi-omics association heatmap
+9. `run_multiomics_pca` - PCA dimensionality reduction
 
-**Visualization (2 tools)**:  
-8. `create_multiomics_heatmap` - Multi-omics association heatmap  
-9. `run_multiomics_pca` - PCA dimensionality reduction  
+**Utility (1 tool)**:
+10. `estimate_analysis_cost` - Estimate compute cost for analysis  
 
 **For detailed tool specifications:** See [mcp-multiomics README](../../../../servers/mcp-multiomics/README.md)  
 

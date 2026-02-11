@@ -31,9 +31,9 @@ graph TD
         THIS[MCP Platform<br/>$325-704<br/>⭐ You Are Here]
     end
 
-    subgraph "Low Cost / Low Capability"
-        MANUAL[Manual Analysis<br/>$6,000+<br/>but 40 hours]
-        OPEN[Open Source Tools<br/>$0 but requires expertise]
+    subgraph "Low Automation / Variable Cost"
+        MANUAL[Manual Analysis<br/>$6,000+<br/>40 hours labor]
+        OPEN[Open Source Tools<br/>$0 software<br/>requires expertise]
     end
 
     style THIS fill:#d4edda,stroke:#28a745,stroke-width:3px

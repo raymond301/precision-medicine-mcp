@@ -43,19 +43,14 @@ graph LR
     IMG --> S5
     SCRNA --> S7
 
-    S1 --> MCP
-    S2 --> MCP
-    S3 --> MCP
-    S4 --> MCP
-    S5 --> MCP
-    S6 --> MCP
-    S7 --> MCP
-    S8 --> MCP
-
-    MCP --> TREAT
-    MCP --> PREDICT
-    MCP --> VIZ
-    MCP --> INSIGHTS
+    S1 --> TREAT
+    S2 --> PREDICT
+    S3 --> VIZ
+    S4 --> INSIGHTS
+    S5 --> TREAT
+    S6 --> PREDICT
+    S7 --> VIZ
+    S8 --> INSIGHTS
 
     style Input fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
     style MCP fill:#fff3e0,stroke:#f57c00,stroke-width:2px

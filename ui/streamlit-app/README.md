@@ -210,17 +210,21 @@ The app will open in your browser at http://localhost:8501
 
 Use the sidebar to select which servers to enable:
 
-**Production Servers (Real Analysis):**
+**Production Servers (11 — Real Analysis):**
 - **fgbio** - Genomic reference data and FASTQ validation
 - **multiomics** - Multi-omics integration (RNA/Protein/Phospho)
 - **spatialtools** - Spatial transcriptomics analysis
 - **perturbation** - GEARS perturbation prediction for treatment response
 - **deepcell** - DeepCell-TF cell segmentation and phenotyping
-- **openimagedata** - H&E/MxIF image loading, registration, feature extraction, and composites
+- **openimagedata** - H&E/MxIF image loading and composites
 - **quantum-celltype-fidelity** - Quantum cell type validation and immune evasion detection
+- **epic** - Real Epic FHIR clinical data (local-only)
+- **genomic-results** - Somatic variants, CNV, HRD analysis
+- **cell-classify** - Cell phenotyping and classification
+- **patient-report** - PDF report generation
 
-**Mock Servers (Demo Only):**
-- tcga, seqera, huggingface, mockepic
+**Mock-by-Design:** mockepic (synthetic FHIR for demos)
+**Framework Servers:** tcga, seqera, huggingface
 
 ### 2. Choose a Model
 
@@ -443,7 +447,7 @@ Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 - **Provider Abstraction** - Unified interface for Claude and Gemini
 - **Claude Provider** - Uses Anthropic's native MCP support
 - **Gemini Provider** - Custom SSE client with manual tool orchestration
-- **MCP Servers** - 11 Cloud Run services (7 production, 4 mock)
+- **MCP Servers** - 14 Cloud Run services + 1 local (11 production, 1 mock-by-design, 3 framework)
 - **Bioinformatics Tools** - Real analysis engines (STAR, scanpy, GEARS, etc.)
 
 ## Cost Estimates

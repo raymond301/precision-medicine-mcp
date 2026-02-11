@@ -177,7 +177,7 @@ How do we integrate:
 
 ## MCP Server Orchestration
 
-### How All 9 Servers Contribute
+### How All 15 Servers Contribute
 
 | Workflow Stage | MCP Servers Engaged | Tools Used | Output |
 |---|---|---|---|
@@ -189,8 +189,8 @@ How do we integrate:
 | **6. Workflow Orchestration** | Seqera | `launch_nextflow_pipeline`, `monitor_workflow_status` | Reproducible pipeline execution |
 | **7. ML Inference** | HuggingFace | `predict_cell_type`, `embed_sequences` | Cell type predictions, sequence embeddings |
 
-**Total Servers:** 9
-**Total Tools:** 36
+**Total Servers:** 15
+**Total Tools:** 90
 **Integration:** Seamless orchestration through natural language prompts
 
 ---
@@ -386,7 +386,7 @@ While PatientOne uses synthetic data, the workflow represents a **real clinical 
 User Prompt → Claude Desktop → MCP Protocol → Server Selection
                                     ↓
                     ┌───────────────────────────────┐
-                    │  9 MCP Servers (Local)        │
+                    │  15 MCP Servers (90 Tools)    │
                     │  Each with specialized tools  │
                     └───────────────────────────────┘
                                     ↓
