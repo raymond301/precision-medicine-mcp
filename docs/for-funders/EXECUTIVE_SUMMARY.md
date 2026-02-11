@@ -20,7 +20,7 @@ graph LR
         LLM[Claude or Gemini]
     end
 
-    subgraph Servers["15 MCP Servers · 136 Tools"]
+    subgraph Servers["15 MCP Servers · 90 Tools"]
         direction TB
         IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
         GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
@@ -44,9 +44,9 @@ graph LR
 
 **Key Points:**
 - **AI Orchestration**: Claude + Gemini 3 AI coordinates 15 MCP servers via natural language
-- **136 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
+- **90 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
 - **Production Ready**: 11 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
-- **Cost Efficient**: ~$1-2 in Claude tokens per analysis
+- **Cost Efficient**: ~$24-102 per analysis (includes compute, APIs, Claude tokens)
 
 ---
 
@@ -59,7 +59,7 @@ graph LR
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 136 bioinformatics tools across 15 MCP servers
+- Unified platform for 90 bioinformatics tools across 15 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -94,7 +94,7 @@ graph LR
 - ✅ **11 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation), mcp-genomic-results (somatic/CNV/HRD), mcp-epic (local only)
 - 🏥 **1 Local Only**: mcp-epic (Epic FHIR integration)
 - 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
-- ⚙️ **3 Mocked**: mcp-tcga, mcp-seqera, mcp-huggingface
+- ⚙️ **3 Framework/Utility**: mcp-tcga, mcp-seqera, mcp-huggingface
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
@@ -164,7 +164,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 **Business Impact:**
 - Users: 5 (pilot) → 20 (production)
 - Patients: 100 (pilot) → 500 (Year 1)
-- Cost: $7-29 per analysis (vs. $3,200-9,000 traditional)
+- Cost: $24-102 per analysis (vs. $3,200-9,000 traditional)
 
 **Research Outcomes:**
 - Analysis results supporting 2+ manuscripts
@@ -205,7 +205,7 @@ Ready for immediate pilot deployment with clear path to institutional scale.
 **Recent Updates:**
 - Reorganized Jupyter client into domain-based notebooks (imaging, genomics, clinical, workflow/ML, integration) for better usability and maintainability (Feb 2026)
 - Phase 1: Bayesian uncertainty quantification for quantum fidelity predictions (Jan 2026)
-- Updated tool counts: 136 tools across 15 servers
+- Updated tool counts: 90 tools across 15 servers
 - Added mcp-genomic-results server for somatic variant/CNV parsing with HRD scoring
 - Added mcp-patient-report server for PDF generation
 - Live monitoring dashboard with token usage tracking

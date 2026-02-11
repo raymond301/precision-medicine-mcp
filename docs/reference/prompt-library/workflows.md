@@ -2,7 +2,7 @@
 
 End-to-end multi-modal precision medicine analyses.
 
-**Servers used:** All 10 MCP servers
+**Servers used:** All 15 MCP servers
 
 ---
 

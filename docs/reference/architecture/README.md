@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 15 MCP Servers (136 Tools)"]
+    subgraph MCP["🔧 15 MCP Servers (90 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga/genomic-results]
@@ -66,7 +66,7 @@ graph LR
 
 ## 📊 Architecture by Analysis Modality
 
-10 analysis modalities, 15 specialized servers, 136 tools:
+10 analysis modalities, 15 specialized servers, 90 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
@@ -136,7 +136,7 @@ graph LR
 
 **PDX multi-omics data integration with preprocessing and therapeutic target prediction**
 
-**Server:** mcp-multiomics (21 tools, 85% real)
+**Server:** mcp-multiomics (10 tools, 85% real)
 
 **Key Features:**
 - Preprocessing pipeline (batch correction, KNN imputation, QC visualization)

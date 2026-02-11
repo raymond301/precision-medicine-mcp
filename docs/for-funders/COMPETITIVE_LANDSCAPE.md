@@ -45,7 +45,7 @@ graph TD
 
 **Key Differentiators:**
 - ✅ **Lowest cost** for comprehensive multi-modal analysis ($325 vs. $3,000-9,000)
-- ✅ **Fastest** results (95 minutes vs. 5-8 days)
+- ✅ **Fastest** results (35 minutes vs. 5-8 days)
 - ✅ **Natural language interface** (no coding required)
 - ✅ **Open source** (transparent algorithms)
 - ❌ Not yet clinically validated (FDA approval pending)
@@ -133,7 +133,7 @@ graph TD
 - **No natural language interface**
 - **40+ hours** per patient analysis
 
-**Our Advantage:** AI orchestration reduces 40 hours → 95 minutes
+**Our Advantage:** AI orchestration reduces 40 hours → 35 minutes
 
 #### Nextflow/nf-core
 **What They Do:**
@@ -222,7 +222,7 @@ graph TD
 | Feature | MCP Platform | Foundation Medicine | Tempus | Galaxy/Open Source | In-House Teams |
 |---------|--------------|---------------------|--------|-------------------|----------------|
 | **Cost per Patient** | $325-704 | $3,000-7,500 | $5,000-7,500 | $0 (labor intensive) | $6,000-9,000 |
-| **Time to Results** | 95 minutes | 14-21 days | 10-14 days | 40+ hours | 40+ hours |
+| **Time to Results** | 35 minutes | 14-21 days | 10-14 days | 40+ hours | 40+ hours |
 | **Natural Language** | ✅ Yes | ❌ No | ❌ No | ❌ No | ❌ No |
 | **Multi-Modal** | ✅ Yes (5 modalities) | ❌ Genomics only | ⚠️ DNA/RNA/Protein | ⚠️ Separate pipelines | ⚠️ Case-by-case |
 | **Spatial Transcriptomics** | ✅ Yes (10x Visium) | ❌ No | ❌ No | ⚠️ Manual | ⚠️ Manual |
@@ -275,7 +275,7 @@ graph TD
 - FDA approval pathway for multi-modal AI/ML system unclear
 - CLIA/CAP certification expensive and time-consuming
 
-**Our Head Start:** 15 servers deployed, 136 tools, comprehensive documentation
+**Our Head Start:** 15 servers deployed, 90 tools, comprehensive documentation
 
 ---
 
@@ -352,7 +352,7 @@ graph TD
 > "The fastest, most affordable way to perform comprehensive multi-modal precision medicine analysis"
 
 **Key Proof Points:**
-- 68x faster than manual analysis (40 hours → 95 minutes)
+- 68x faster than manual analysis (40 hours → 35 minutes)
 - 10x cheaper than commercial alternatives ($325 vs. $3,000-7,500)
 - Only platform integrating 5 modalities with natural language interface
 

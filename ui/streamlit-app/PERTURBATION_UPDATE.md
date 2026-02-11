@@ -33,7 +33,7 @@ Added the new mcp-perturbation server to the Streamlit MCP Chat UI, making GEARS
 }
 ```
 
-**Server count:** 9 → 10 servers
+**Server count:** 14 → 15 servers
 **Production servers:** 3 → 4 servers (fgbio, multiomics, spatialtools, perturbation)
 
 ### 2. Added Example Prompts
@@ -76,7 +76,7 @@ cd ui/streamlit-app
 **Results:**
 - ✅ Streamlit starts successfully on port 8501
 - ✅ HTTP 200 response from localhost:8501
-- ✅ mcp_config.py loads 10 servers correctly
+- ✅ mcp_config.py loads 15 servers correctly
 - ✅ perturbation server in Production category
 - ✅ All configurations valid
 

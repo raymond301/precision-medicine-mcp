@@ -20,7 +20,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 |-----------|-------------------|--------------|---------|
 | **Bioinformatics Labor** | $6,000-9,000<br/>(40 hours × $150-225/hr) | $300-600<br/>(oversight: 2 hours × $150-300/hr) | **$5,700-8,400** |
 | **Compute Resources** | $200-500<br/>(HPC cluster time) | $24-102<br/>(GCP Cloud Run + storage) | **$176-398** |
-| **API/LLM Costs** | $0 | $1-2<br/>(Claude tokens) | **-$2** |
+| **API/LLM Costs** | $0 | $1-3<br/>(Claude tokens) | **-$3** |
 | **Total Per Patient** | **$6,200-9,500** | **$325-704** | **$5,875-8,796** |
 
 **Average Savings:** **$3,098-3,176 per patient**
@@ -34,7 +34,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 | Cost Category | Annual Cost | Notes |
 |--------------|-------------|-------|
 | **GCP Infrastructure** | $12,000 | Cloud Run, storage, networking |
-| **Claude API Tokens** | $100-200 | ~$1-2 per patient |
+| **Claude API Tokens** | $100-200 | Claude tokens per patient |
 | **Compute (per analysis)** | $2,400-10,200 | $24-102 × 100 patients |
 | **Support & Maintenance** | $10,000 | Updates, bug fixes, monitoring |
 | **Training & Documentation** | $5,000 | Initial year only |
@@ -47,7 +47,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 | Cost Category | Annual Cost | Notes |
 |--------------|-------------|-------|
 | **GCP Infrastructure** | $24,000 | Scaled compute resources |
-| **Claude API Tokens** | $500-1,000 | ~$1-2 per patient |
+| **Claude API Tokens** | $500-1,000 | Claude tokens per patient |
 | **Compute (per analysis)** | $12,000-51,000 | $24-102 × 500 patients |
 | **Support & Maintenance** | $20,000 | Dedicated support engineer |
 | **Epic FHIR Integration** | $15,000 | Initial setup + maintenance |
@@ -80,7 +80,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 ### Tier 2: Production ($75,000/year)
 
 **Annual Investment:**
-- Full 10-server deployment: $25,000
+- Full 15-server deployment: $25,000
 - Epic FHIR integration: $15,000
 - Hospital IT coordination: $20,000
 - Training (20 users): $15,000
@@ -145,7 +145,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 | Spatial analysis | 8-12 hours | 20 minutes | 7.7-11.7 hours |
 | Imaging analysis | 4-8 hours | 15 minutes | 3.8-7.8 hours |
 | Report generation | 4-8 hours | 10 minutes | 3.8-7.8 hours |
-| **Total** | **40-64 hours** | **95 minutes** | **38.5-63 hours** |
+| **Total** | **40-64 hours** | **35 minutes** | **39.4-63.4 hours** |
 
 **Clinical Benefit:**
 - **Same-day results** vs. 5-8 business days
@@ -222,14 +222,14 @@ Comprehensive return on investment analysis for institutional funders and hospit
 ### MCP Platform (This Solution)
 
 **Pros:**
-- 95 minutes per patient (vs. 40 hours)
+- 35 minutes per patient (vs. 40 hours)
 - Multi-modal integration (genomics + spatial + imaging + clinical)
 - Natural language interface
 - Open source and transparent
 
 **Cons:**
 - Requires initial infrastructure setup
-- 5 servers still mocked (need real API access)
+- 3 framework/utility servers + 1 mock by design (need real API access)
 - Not yet FDA-approved
 
 **Cost:** $325-704 per patient (all modalities)

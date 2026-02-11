@@ -45,7 +45,7 @@ Explain how these servers work together. For example:
 ```
 Task 1 - MCP Servers Overview:
 
-Found 10 MCP servers:
+Found 15 MCP servers:
 
 1. mcp-fgbio (Genomics)
    - Handles: Reference genomes, FASTQ files, gene annotations
@@ -62,7 +62,7 @@ Found 10 MCP servers:
    - Tools: 14 tools
    - Status: Production-ready
 
-... (10 total servers)
+... (15 total servers)
 
 Task 2 - mcp-spatialtools Tools:
 
@@ -92,7 +92,7 @@ For analyzing a cancer patient:
 Data flows: Clinical → Genomics → Multi-omics → Spatial → Imaging → Integrated Report
 
 Learning Answers:
-1. 10 servers total
+1. 15 servers total
 2. mcp-epic = real FHIR data, mcp-mockepic = synthetic demo data
 3. mcp-spatialtools for spatial transcriptomics
 ```

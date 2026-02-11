@@ -8,7 +8,7 @@ This document provides quick links to the 3 core servers used in spatial transcr
 
 ## Server Overview
 
-📋 **[See Complete Server Status →](../../../../servers/README.md#-server-status)** - All 10 MCP servers with tools, status, and documentation
+📋 **[See Complete Server Status →](../../../../servers/README.md#-server-status)** - All 15 MCP servers with tools, status, and documentation
 
 **Spatial Transcriptomics Servers:**
 - **mcp-fgbio** - Reference data and FASTQ validation (4 tools, 95% real) - [README](../../../../servers/mcp-fgbio/README.md)
@@ -63,7 +63,7 @@ This document provides quick links to the 3 core servers used in spatial transcr
 
 ## Complete Server Status
 
-For deployment status of ALL 10 MCP servers (including multiomics, TCGA, seqera, etc.):
+For deployment status of ALL 15 MCP servers (including multiomics, TCGA, seqera, etc.):
 
 **See:** [Server Implementation Status](../../SERVER_REGISTRY.md)
 

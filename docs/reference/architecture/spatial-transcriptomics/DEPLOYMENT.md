@@ -26,7 +26,7 @@ API key and secrets management, GCP Secret Manager integration.
 ```
 
 **Current Status (as of Jan 10, 2026):**
-- **Deployed:** 6/10 servers (spatialtools, openimagedata, fgbio, multiomics, epic, mockepic)
+- **Deployed:** 6/15 servers (spatialtools, openimagedata, fgbio, multiomics, epic, mockepic)
 - **Mode:** Development (public) + Production (epic - private)
 - **Region:** us-central1
 

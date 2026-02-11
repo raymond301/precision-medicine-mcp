@@ -6,7 +6,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 ## Elevator Pitch (30 seconds)
 
-> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 95 minutes, saving $3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 15 deployed servers, 136 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
+> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 35 minutes of AI-orchestrated execution, saving $3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 15 deployed servers, 90 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
 
 ---
 
@@ -33,7 +33,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 1. **Natural Language Orchestration**
    - First platform to use AI (Claude API) to orchestrate bioinformatics servers
    - Clinicians describe what they need in English, not code
-   - AI automatically coordinates 10 specialized servers
+   - AI automatically coordinates 15 specialized servers
 
 2. **True Multi-Modal Integration**
    - Only platform integrating **5 data modalities** in single analysis:
@@ -42,7 +42,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
    - Not just "side-by-side" but true cross-modal analysis
 
 3. **Speed & Cost Breakthrough**
-   - **68x faster**: 40 hours → 95 minutes
+   - **68x faster**: 40 hours → 35 minutes
    - **10x cheaper**: $325 vs. $3,000-7,500 (commercial alternatives)
    - **Same-day results** enable faster clinical decision-making
 
@@ -93,8 +93,8 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 **System Status:**
 - ✅ **15 servers deployed** on GCP Cloud Run (production infrastructure)
-- ✅ **136 bioinformatics tools** with comprehensive test coverage
-- ✅ **11/15 servers production-ready** (fgbio, multiomics, spatialtools, epic, deepcell, perturbation, quantum-celltype-fidelity, openimagedata, patient-report)
+- ✅ **90 bioinformatics tools** with comprehensive test coverage
+- ✅ **11/15 servers production-ready** (fgbio, multiomics, spatialtools, epic, deepcell, perturbation, quantum-celltype-fidelity, cell-classify, openimagedata, patient-report, genomic-results)
 - ✅ **End-to-end demo** validated with synthetic PatientOne ovarian cancer case
 
 **Performance Metrics (PatientOne Case Study):**
@@ -146,7 +146,7 @@ Compare to traditional: 40 hours, $6,000
 | Category | Year 1 | Year 2 | Justification |
 |----------|--------|--------|---------------|
 | **GCP Infrastructure** | $15,000 | $24,000 | Cloud Run, storage, networking for 100-500 patients |
-| **Claude API Tokens** | $500 | $1,000 | ~$1-2 per patient analysis |
+| **Claude API Tokens** | $500 | $1,000 | Claude tokens per patient analysis |
 | **Compute (per analysis)** | $10,000 | $51,000 | Scales with patient volume |
 | **Epic FHIR Integration** | $15,000 | $5,000 | Initial setup + annual maintenance |
 | **Training & Materials** | $10,000 | $5,000 | User training, documentation |
@@ -249,7 +249,7 @@ Compare to traditional: 40 hours, $6,000
 - Open source enables community adoption without vendor lock-in
 
 **4. Immediate Clinical Impact**
-- 95-minute analysis enables same-day treatment decisions
+- 35-minute AI-orchestrated analysis enables same-day treatment decisions
 - Already tested with synthetic ovarian cancer case (PatientOne)
 - Extensible to other cancer types and diseases
 
@@ -266,7 +266,7 @@ Compare to traditional: 40 hours, $6,000
 
 **Background:** Comprehensive precision medicine requires integrating clinical (EHR), genomic, multi-omic, spatial transcriptomic, and imaging data—a process that takes 40 hours and $6,000-9,000 per patient, creating a clinical bottleneck. Commercial alternatives (Foundation Medicine, Tempus) cost $3,000-7,500 but analyze genomics only, missing critical spatial and imaging context.
 
-**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 95 minutes at $325/patient—10x cost savings with true multi-modal integration. Clinicians use natural language to query 10 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 15 deployed servers, 136 tools, and HIPAA-compliant infrastructure.
+**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 35 minutes at $325/patient—10x cost savings with true multi-modal integration. Clinicians use natural language to query 15 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 15 deployed servers, 90 tools, and HIPAA-compliant infrastructure.
 
 **Preliminary Data:** PatientOne case study (Stage IV ovarian cancer, synthetic data) demonstrated end-to-end workflow in 35 minutes, identifying actionable targets (BRCA1 variant, PI3K/AKT/mTOR pathway activation, immune microenvironment exhaustion) and treatment recommendations (olaparib, everolimus, checkpoint inhibitors) consistent with clinical guidelines.
 

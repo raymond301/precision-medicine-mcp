@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 15 | **Production Ready:** 11 (73%) | **Total Tools:** 136
+**Total Servers:** 15 | **Production Ready:** 11 (73%) | **Total Tools:** 90
 
 📁 **[Individual Server Documentation →](../../servers/README.md)**
 
@@ -10,14 +10,14 @@
 
 | Server | Tools | Status | Key Capabilities | Documentation |
 |--------|-------|--------|------------------|---------------|
-| **mcp-fgbio** | 9 | 95% Real | FASTQ/VCF QC, genome refs, variant calling | [README](../../servers/mcp-fgbio/README.md) |
-| **mcp-multiomics** | 21 | 85% Real | HAllA integration, Stouffer meta-analysis, upstream regulators | [README](../../servers/mcp-multiomics/README.md) |
-| **mcp-spatialtools** | 23 | 95% Real | Spatial DE, STAR alignment, ComBat, pathway enrichment | [README](../../servers/mcp-spatialtools/README.md) |
+| **mcp-fgbio** | 4 | 95% Real | FASTQ/VCF QC, genome refs, variant calling | [README](../../servers/mcp-fgbio/README.md) |
+| **mcp-multiomics** | 10 | 85% Real | HAllA integration, Stouffer meta-analysis, upstream regulators | [README](../../servers/mcp-multiomics/README.md) |
+| **mcp-spatialtools** | 14 | 95% Real | Spatial DE, STAR alignment, ComBat, pathway enrichment | [README](../../servers/mcp-spatialtools/README.md) |
 | **mcp-perturbation** | 8 | 100% Real | GEARS GNN treatment response, perturbation prediction | [README](../../servers/mcp-perturbation/README.md) |
 | **mcp-quantum-celltype-fidelity** | 6 | 100% Real | Quantum PQCs, fidelity analysis, Bayesian UQ, immune evasion | [README](../../servers/mcp-quantum-celltype-fidelity/README.md) |
 | **mcp-deepcell** | 3 | 100% Real | DeepCell-TF segmentation, nuclear/membrane models, per-cell marker quantification | [README](../../servers/mcp-deepcell/README.md) |
 | **mcp-cell-classify** | 3 | 100% Real | Cell phenotype classification, multi-marker phenotyping, phenotype visualization | [README](../../servers/mcp-cell-classify/README.md) |
-| **mcp-epic** | 9 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../../servers/mcp-epic/) |
+| **mcp-epic** | 4 | 100% Real | FHIR R4 API, real EHR integration (local deployment only) | [Source](../../servers/mcp-epic/) |
 | **mcp-openimagedata** | 5 | 100% Real | PIL image loading, scikit-image registration + feature extraction, MxIF compositing, H&E annotation | [README](../../servers/mcp-openimagedata/README.md) |
 | **mcp-patient-report** | 5 | 100% Real | Patient-facing PDF reports, plain-language summaries, clinician review gate | [README](../../servers/mcp-patient-report/README.md) |
 | **mcp-genomic-results** | 4 | 100% Real | Somatic variant/CNV parsing, clinical annotations, HRD scoring | [README](../../servers/mcp-genomic-results/README.md) |
@@ -28,10 +28,10 @@
 
 | Server | Tools | Purpose | Documentation |
 |--------|-------|---------|---------------|
-| **mcp-tcga** | 11 | TCGA cohort queries, survival analysis (synthetic) | [README](../../servers/mcp-tcga/README.md) |
-| **mcp-huggingface** | 7 | ML model inference (API ready, awaiting models) | [Source](../../servers/mcp-huggingface/) |
-| **mcp-seqera** | 7 | Nextflow workflow orchestration (demo) | [Source](../../servers/mcp-seqera/) |
-| **mcp-mockepic** | 8 | Synthetic FHIR data for testing (by design) | [Source](../../servers/mcp-mockepic/) |
+| **mcp-tcga** | 5 | TCGA cohort queries, survival analysis (synthetic) | [README](../../servers/mcp-tcga/README.md) |
+| **mcp-huggingface** | 3 | ML model inference (API ready, awaiting models) | [Source](../../servers/mcp-huggingface/) |
+| **mcp-seqera** | 3 | Nextflow workflow orchestration (demo) | [Source](../../servers/mcp-seqera/) |
+| **mcp-mockepic** | 3 | Synthetic FHIR data for testing (by design) | [Source](../../servers/mcp-mockepic/) |
 
 ---
 

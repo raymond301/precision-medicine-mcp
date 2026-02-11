@@ -55,7 +55,7 @@ graph LR
 
 ### Tier 2: Production Deployment ($75,000/year)
 **Deliverables:**
-- Full 10-server deployment on hospital infrastructure
+- Full 15-server deployment on hospital infrastructure
 - Epic FHIR integration (real clinical data)
 - 20 trained users (clinicians + bioinformaticians)
 - 500 patients/year capacity
@@ -105,7 +105,7 @@ graph LR
 
 ### Production Readiness
 - ✅ **15 MCP servers deployed** (11 production-ready, 1 mock by design, 3 mocked for demo)
-- ✅ **136 tools** across all servers with comprehensive test coverage
+- ✅ **90 tools** across all servers with comprehensive test coverage
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
 - ✅ **HIPAA-compliant infrastructure** ready (de-identification, audit logging, VPC isolation)
 - ✅ **End-to-end demo** tested with synthetic PatientOne ovarian cancer case
@@ -114,23 +114,23 @@ graph LR
 
 | Server | Tools | Status | GCP Deployed |
 |--------|-------|--------|--------------|
-| mcp-fgbio | 9 | ✅ Production (95% real) | Yes |
-| mcp-multiomics | 21 | ✅ Production (85% real) | Yes |
-| mcp-spatialtools | 23 | ✅ Production (95% real) | Yes |
-| mcp-deepcell | 4 | ✅ Production (100% real) | Yes |
+| mcp-fgbio | 4 | ✅ Production (95% real) | Yes |
+| mcp-multiomics | 10 | ✅ Production (85% real) | Yes |
+| mcp-spatialtools | 14 | ✅ Production (95% real) | Yes |
+| mcp-deepcell | 3 | ✅ Production (100% real) | Yes |
 | mcp-perturbation | 8 | ✅ Production (100% real) | Yes |
 | mcp-quantum-celltype-fidelity | 6 | ✅ Production (100% real) | Yes |
-| mcp-epic | 9 | ✅ Production (Local only, HIPAA) | No |
+| mcp-epic | 4 | ✅ Production (Local only, HIPAA) | No |
 | mcp-openimagedata | 5 | ✅ Production (100% real) | Yes |
 | mcp-patient-report | 5 | ✅ Production (100% real) | Yes |
 | mcp-cell-classify | 3 | ✅ Production (100% real) | Yes |
 | mcp-genomic-results | 4 | ✅ Production (100% real) | Yes |
-| mcp-mockepic | 12 | 🎭 Mock (by design) | Yes |
-| mcp-tcga | 7 | ❌ Mocked | Yes |
-| mcp-huggingface | 6 | ❌ Mocked | Yes |
-| mcp-seqera | 7 | ❌ Mocked | Yes |
+| mcp-mockepic | 3 | 🎭 Mock (by design) | Yes |
+| mcp-tcga | 5 | ❌ Framework/Utility | Yes |
+| mcp-huggingface | 3 | ❌ Framework/Utility | Yes |
+| mcp-seqera | 3 | ❌ Framework/Utility | Yes |
 
-**Total: 15 servers, 136 tools**
+**Total: 15 servers, 90 tools**
 
 ---
 

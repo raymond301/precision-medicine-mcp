@@ -6,9 +6,9 @@
 
 ## System Overview
 
-**A production-ready AI-orchestrated platform for precision oncology research**, integrating clinical (FHIR), genomic, multi-omics, spatial transcriptomics, and imaging data through 15 specialized MCP servers (136 bioinformatics tools) deployed on GCP Cloud Run. The system uses Claude or Gemini 3 to orchestrate complex multi-step analyses via natural language, reducing analysis time from 40 hours of manual bioinformatics work to 35 minutes of AI-orchestrated execution. Includes HIPAA compliance (de-identification, 10-year audit logs, bias detection), Bayesian uncertainty quantification for confident clinical decisions, and achieves 95% cost savings (~$1-2 per analysis vs. $3,200 traditional). **PatientOne** demonstrates the complete workflow: Stage IV ovarian cancer analysis integrating clinical data, somatic variants, multi-omics (RNA/protein/phospho), spatial transcriptomics, and H&E imaging—with treatment response prediction via GEARS perturbation modeling and quantum fidelity analysis.
+**A production-ready AI-orchestrated platform for precision oncology research**, integrating clinical (FHIR), genomic, multi-omics, spatial transcriptomics, and imaging data through 15 specialized MCP servers (90 bioinformatics tools) deployed on GCP Cloud Run. The system uses Claude or Gemini 3 to orchestrate complex multi-step analyses via natural language, reducing analysis time from 40 hours of manual bioinformatics work to 35 minutes of AI-orchestrated execution. Includes HIPAA compliance (de-identification, 10-year audit logs, bias detection), Bayesian uncertainty quantification for confident clinical decisions, and achieves significant cost savings (~$24-102 per analysis vs. $3,200 traditional). **PatientOne** demonstrates the complete workflow: Stage IV ovarian cancer analysis integrating clinical data, somatic variants, multi-omics (RNA/protein/phospho), spatial transcriptomics, and H&E imaging—with treatment response prediction via GEARS perturbation modeling and quantum fidelity analysis.
 
-**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini 3 (custom SSE-based MCP client with manual tool orchestration), with 11 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, openimagedata, patient-report, genomic-results, epic), 1 local-only (epic), and 4 mock servers. Includes live monitoring dashboard for health tracking and token usage. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
+**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini 3 (custom SSE-based MCP client with manual tool orchestration), with 11 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, openimagedata, patient-report, genomic-results, epic), 1 local-only (epic), 1 mock by design (mockepic), and 3 framework/utility servers. Includes live monitoring dashboard for health tracking and token usage. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
 
 ---
 
@@ -37,14 +37,14 @@
 14. **mcp-seqera** - Workflow automation platform
 15. **mcp-huggingface** - AI model inference
 
-**Total:** 136 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
+**Total:** 90 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
 
 ---
 
 ## Key Metrics
 
 - **Time Reduction:** 40 hours → 35 minutes (95% faster)
-- **Cost Reduction:** $3,200 → $1-2 per analysis (95% savings)
+- **Cost Reduction:** $3,200 → $24-102 per analysis
 - **Data Integration:** 5 modalities (clinical, genomic, multi-omics, spatial, imaging)
 - **HIPAA Compliant:** De-identification, 10-year audit logs, VPC isolation
 - **Deployment:** GCP Cloud Run (us-central1)

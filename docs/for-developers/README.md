@@ -7,7 +7,7 @@
 ## What You Can Accomplish Here
 
 - ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (15 servers, 136 tools, FastMCP patterns, Claude + Gemini API orchestration)
+- ✅ **Understand system architecture** (15 servers, 90 tools, FastMCP patterns, Claude + Gemini API orchestration)
 - ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
 - ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
 - ✅ **Contribute to codebase** (coding standards, PR guidelines)
@@ -17,7 +17,7 @@
 ## Quick Start (3 Paths)
 
 ### 1. Building a New Modality Server (4-8 hours)
-**Goal:** Add a 14th server for metabolomics/radiomics/other modalities
+**Goal:** Add a new server for metabolomics/radiomics/other modalities
 
 1. **Read the guide** → [ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md) (20 min)
 2. **Copy boilerplate template** → `/servers/mcp-server-boilerplate/` (5 min)
@@ -51,7 +51,7 @@
 
 ### Getting Started
 - **[README.md](README.md)** *(this file)* - Navigation hub for developers
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture overview (10 servers, data flow, integration)
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture overview (15 servers, data flow, integration)
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Cheat sheet for common tasks
 
 ### Building New Servers
@@ -186,7 +186,7 @@ graph TB
 - ❌ **3/15 fully mocked** (20%) - mcp-tcga, mcp-huggingface, mcp-seqera
 - 🎭 **1/15 mock by design** (7%) - mcp-mockepic (synthetic for demos)
 
-**Total:** 15 servers, 136 tools, comprehensive test coverage
+**Total:** 15 servers, 90 tools, comprehensive test coverage
 
 📋 **[Complete Server Implementation Status →](../reference/architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status
@@ -409,7 +409,7 @@ Restart Claude Desktop and test:
 
 ## Example Workflow: Adding Metabolomics Server
 
-**Goal:** Add 13th server for LC-MS metabolomics data analysis
+**Goal:** Add a new server for LC-MS metabolomics data analysis
 
 **Steps:**
 1. **Plan** (1 hour) - Define 5-8 tools, dependencies, data formats

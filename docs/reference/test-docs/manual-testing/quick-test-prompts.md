@@ -8,7 +8,7 @@ Copy and paste these into Claude Desktop to test your MCP server integration.
 What MCP servers are currently available? List each one with a brief description.
 ```
 
-**Expected:** You should see all 10 servers listed (spatialtools, epic, fgbio, etc.)
+**Expected:** You should see all 15 servers listed (spatialtools, epic, fgbio, etc.)
 
 ---
 
@@ -18,7 +18,7 @@ What MCP servers are currently available? List each one with a brief description
 Using the spatialtools MCP server, what tools are available? Please organize them by category (differential expression, spatial analysis, etc.)
 ```
 
-**Expected:** Should list all 10 tools organized by Phase 2A-2E categories
+**Expected:** Should list all 14 tools organized by Phase 2A-2E categories
 
 ---
 

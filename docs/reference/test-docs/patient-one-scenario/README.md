@@ -1,6 +1,6 @@
 # PatientOne: Quick Start Guide
 
-Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using 10 MCP servers
+Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using 15 MCP servers
 
 ## Overview
 

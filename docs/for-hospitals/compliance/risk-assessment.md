@@ -63,8 +63,8 @@ This document summarizes the risk mitigation work completed for the Precision Me
 - **R3:** 9/10 → 4/10 (44% reduction)
 
 **Key Metrics:**
-- 2/9 servers production-ready (mcp-multiomics 85%, mcp-fgbio 65%)
-- 7/9 servers partially or fully mocked
+- 11/15 servers production-ready
+- 3/15 framework/utility, 1/15 mock by design
 - Clear documentation prevents accidental deployment
 
 ---

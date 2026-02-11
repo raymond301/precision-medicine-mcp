@@ -251,8 +251,9 @@ to identify concordant pathway activations.
 ## Production-Ready Servers
 
 **Quick Summary:**
-- ✅ **5/10 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-openimagedata)
-- ❌ **5/10 servers mocked** (mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera, mcp-mockepic)
+- ✅ **11/15 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
+- 🎭 **1/15 mock by design** (mcp-mockepic)
+- ❌ **3/15 framework/utility** (mcp-tcga, mcp-huggingface, mcp-seqera)
 
 📋 **[See Complete Server Implementation Status →](../reference/SERVER_REGISTRY.md)** - Comprehensive 1,000+ line status matrix with:
 - Real vs. mocked capabilities for each server

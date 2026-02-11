@@ -90,7 +90,7 @@ sequenceDiagram
 
 - 💬 **Chat Interface** - Natural language interaction with MCP servers
 - 🤖 **Multi-Provider Support** - Choose between Claude (Anthropic) or Gemini (Google) LLMs
-- 🔧 **Server Selection** - Choose which of the 10 MCP servers to use
+- 🔧 **Server Selection** - Choose which of the 15 MCP servers to use
 - 🎯 **Example Prompts** - Quick-start templates for common workflows
 - 📊 **Token Usage** - Track API usage per message
 - 🎨 **Clean UI** - Simple, Claude Desktop-like interface
@@ -396,7 +396,7 @@ The deployment script automatically sets the keys as Cloud Run environment varia
 
 ### MCP Server Configuration
 
-Server URLs are configured in `utils/mcp_config.py`. All 10 servers are pre-configured with GCP Cloud Run URLs.
+Server URLs are configured in `utils/mcp_config.py`. All 15 servers are pre-configured with GCP Cloud Run URLs.
 
 To add/modify servers:
 ```python
@@ -428,13 +428,13 @@ Provider Abstraction Layer
     │
     └─→ Gemini Provider (SSE-based MCP)
             ↓
-        MCP SSE Client ─→ Cloud Run MCP Servers (10 servers)
+        MCP SSE Client ─→ Cloud Run MCP Servers (15 servers)
             ↓                      ↓
         Google Gemini API ← Tool Results
             ↓
     [Manual agentic loop]
     ↓
-GCP Cloud Run MCP Servers (10 servers)
+GCP Cloud Run MCP Servers (15 servers)
     ↓
 Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 ```

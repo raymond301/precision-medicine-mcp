@@ -26,7 +26,7 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 - **DRY_RUN:** 25-35 min, ~$1 total (tokens only)
 - **Actual Data (Small Files):** 2-4 hours, $8-26 total (demonstration)
 - **Actual Data (Production):** 2-4 hours (pre-aligned) or 4-8 hours (raw FASTQ), $24-102 total
-  - **Key insight:** Token costs stay low (~$1-2) even with 3-8 GB files because MCP servers return summaries!
+  - **Key insight:** Token costs stay low even with 3-8 GB files because MCP servers return summaries!
 
 **[→ See Full Cost Analysis & ROI](../../../for-hospitals/operations/cost-and-budget.md)**
 
@@ -368,7 +368,7 @@ After modifying configuration:
 # The servers will reload with new DRY_RUN=false settings
 ```
 
-Verify servers loaded correctly in Claude Desktop (should see all 9 servers in available tools).
+Verify servers loaded correctly in Claude Desktop (should see all 15 servers in available tools).
 
 ---
 
@@ -1000,4 +1000,4 @@ convert input.png output.tiff
 
 **Last Updated:** December 27, 2025
 **Version:** 1.0
-**Covers:** DRY_RUN and Actual Data modes for all 9 MCP servers
+**Covers:** DRY_RUN and Actual Data modes for all 15 MCP servers
