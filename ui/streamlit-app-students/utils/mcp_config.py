@@ -188,6 +188,8 @@ EXAMPLE_PROMPTS = {
 
     "Pathway Enrichment": "For the upregulated genes [TP53, BRCA1, MYC, KRAS], perform pathway enrichment analysis using GO_BP database.",
 
-    "PatientOne Mini Workflow": "For Patient-001 (PAT001-OVC-2025, ovarian cancer): 1) Use the query_patient_records tool with patient_id=PAT001-OVC-2025 to retrieve clinical data, then 2) Use the spatial_autocorrelation tool with expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv for genes CD3D, CD8A, EPCAM. Summarize the clinical context and spatial findings together.",
+    "PatientOne Mini Workflow": "For Patient-001 (PAT001-OVC-2025, ovarian cancer), do two steps: 1) Use the validate_fastq tool with file_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomics/fastq/PAT001_OVC_exome_R1.fastq.gz to check sequencing quality, then 2) Use the spatial_autocorrelation tool with expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv for genes CD3D, CD8A, EPCAM. Summarize genomic quality and spatial findings together.",
+
+    "Warm Up Servers": "List all available tools from the connected MCP servers. For each tool, show its name and a one-line description.",
 
 }
