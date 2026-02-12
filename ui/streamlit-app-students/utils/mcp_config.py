@@ -182,32 +182,12 @@ def get_server_categories() -> Dict[str, List[str]]:
 EXAMPLE_PROMPTS = {
     "Spatial Analysis": "Use the spatial_autocorrelation tool with expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv to calculate spatial autocorrelation for genes CD3D, CD8A, EPCAM, MKI67.",
 
-    "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data for Patient-001 (PAT001-OVC-2025). RNA data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv, Proteomics: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_proteomics.csv, Phosphoproteomics: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_phosphoproteomics.csv. Run HAllA association analysis and identify significant correlations.",
+    "Multi-omics Integration": "Use the integrate_omics_data tool with rna_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv, protein_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_proteomics.csv, phospho_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_phosphoproteomics.csv. Report the number of common samples, features per modality, and QC metrics.",
 
     "Genomic QC": "Validate the FASTQ file for Patient-001 (PAT001-OVC-2025) at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomics/fastq/PAT001_OVC_exome_R1.fastq.gz and check quality metrics. What is the average quality score and read length?",
 
     "Pathway Enrichment": "For the upregulated genes [TP53, BRCA1, MYC, KRAS], perform pathway enrichment analysis using GO_BP database.",
 
-    "Complete PatientOne Workflow": """For Patient-001 (PAT001-OVC-2025, ovarian cancer). Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/:
-1. Get clinical data from FHIR
-2. Retrieve spatial transcriptomics data from gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/
-3. Perform cell type deconvolution
-4. Run differential expression between tumor core and margin
-5. Generate treatment recommendations using multiomics data from gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/""",
+    "PatientOne Mini Workflow": "For Patient-001 (PAT001-OVC-2025, ovarian cancer): 1) Use the query_patient_records tool with patient_id=PAT001-OVC-2025 to retrieve clinical data, then 2) Use the spatial_autocorrelation tool with expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv for genes CD3D, CD8A, EPCAM. Summarize the clinical context and spatial findings together.",
 
-    "Batch Correction": "I have 3 batches of proteomics data with batch effects. Apply ComBat batch correction and verify PC1 no longer correlates with batch.",
-
-    "Predict Treatment Response": "Load the GSE184880 ovarian cancer dataset, setup a GEARS model, train it, and predict how Patient-001's T cells will respond to checkpoint inhibitor therapy.",
-
-    "Immunotherapy Prediction": "Predict the response of T cells to anti-PD1 and anti-CTLA4 combination therapy. Which genes are most upregulated?",
-
-    "Drug Screening": "For Patient-001 with ovarian cancer, test responses to: 1) Checkpoint inhibitors (PD1/CTLA4), 2) PARP inhibitors, 3) Platinum therapy. Which shows the best predicted response?",
-
-    "Quantum Cell Type Fidelity": "Train quantum embeddings on the T-cell spatial transcriptomics data. Compute fidelity scores and identify cells with immune evasion states near the tumor boundary.",
-
-    "Immune Evasion Detection": "Using quantum fidelity analysis, identify T-cells that are evading immune surveillance. What is the evasion score for cells near the tumor margin?",
-
-    "TLS Analysis": "Analyze the quantum signatures of tertiary lymphoid structures in the spatial data. Which TLS candidates show the highest quantum coherence?",
-
-    "Quantum + GEARS Validation": "First predict T-cell response to checkpoint inhibitors using GEARS. Then encode the predicted gene expression changes into quantum states and compute fidelity changes. Do the quantum and GEARS predictions agree?",
 }
