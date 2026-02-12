@@ -27,7 +27,7 @@
 | 🏥 **Hospital IT/Admin** | [Hospital Deployment](docs/for-hospitals/README.md) | 30 min overview |
 | 🔬 **Bioinformatician** | [Researcher Guide](docs/for-researchers/README.md) | 25-35 min demo |
 | 💻 **MCP Developer** | [Developer Guide](docs/for-developers/README.md) | 1 hour setup |
-| 🎓 **Educator/Student** | [Educational Guide](docs/for-educators/README.md) | 25 min tutorial |
+| 🎓 **Educator/Student** | [Educational Guide](docs/for-educators/README.md) · [Student App](ui/streamlit-app-students/README.md) | 25 min tutorial |
 | 👥 **Patient/Family** | [Patient Resources](docs/for-patients/README.md) | 10 min read |
 | 💰 **Funder/Grant Reviewer** | [FUNDING.md](docs/for-funders/FUNDING.md) | 5 min |
 
