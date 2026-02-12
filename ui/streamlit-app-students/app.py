@@ -237,14 +237,14 @@ def render_sidebar():
                 f"{st.session_state.student_tokens_used:,}",
                 f"{MAX_TOKENS_PER_SESSION - st.session_state.student_tokens_used:,} remaining"
             )
-            st.progress(token_percentage / 100)
+            st.progress(min(token_percentage / 100, 1.0))
 
             st.metric(
                 "Requests",
                 f"{st.session_state.student_requests_count}",
                 f"{MAX_REQUESTS_PER_SESSION - st.session_state.student_requests_count} remaining"
             )
-            st.progress(request_percentage / 100)
+            st.progress(min(request_percentage / 100, 1.0))
 
             # Estimated cost
             estimated_cost = st.session_state.student_tokens_used * 0.000009  # Average cost per token
