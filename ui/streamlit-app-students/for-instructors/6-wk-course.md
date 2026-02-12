@@ -29,26 +29,29 @@
 
   #### Meeting (60 min):
   1. Demo (15 min): Live demo of spatial-mcp solving real problems
-    - "Calculate spatial autocorrelation for marker genes"
-    - "Run multi-omics integration on my data"
-    - "Validate my FASTQ files"
-    - Show how it's faster than writing scripts
-  2. Hands-on (30 min): Everyone runs the Streamlit app
-    - Use mock mode (no infrastructure setup needed!)
-    - Try 3-5 pre-written queries
-    - See instant "analysis" results
+    - Run "Warm Up Servers" to wake Cloud Run instances
+    - "Spatial Analysis" — Moran's I on Visium data (spatialtools server)
+    - "Genomic QC" — FASTQ validation (fgbio server)
+    - "Multi-omics Integration" — load/align RNA+protein+phospho (multiomics server)
+    - "PatientOne Mini Workflow" — 2-step: FASTQ QC then spatial autocorrelation
+    - Show how MCP tools call real Python analysis code on GCS data
+  2. Hands-on (30 min): Everyone runs the deployed student app
+    - Open https://streamlit-mcp-chat-students-ondu7mwjpa-uc.a.run.app
+    - Run "Warm Up Servers" first, then try each built-in example prompt
+    - All 6 prompts use PatientOne (PAT001-OVC-2025) sample data from GCS
+    - See real analysis results (not mock)
   3. Discussion (15 min): When would this help YOUR work?
     - Each person shares one repetitive task they do
     - Group discusses if MCP could help
 
   #### Homework (2-3 hours):
-  Assignment 1: "Find Your Pain Points"
+  Assignment 1: "Explore the Platform"
 
-  1. Install the repo locally (DEVELOPMENT.md guide)
-  2. Run app in mock mode (USE_MOCK_MCP=true)
-  3. Try 10 different queries related to YOUR work
+  1. Open the deployed student app (URL provided in session)
+  2. Run all 6 built-in example prompts and observe tool calls + results
+  3. Write 3 custom prompts related to YOUR work using the same GCS data
   4. Document:
-     - Which 3 queries gave useful results?
+     - Which example prompt was most relevant to your work?
      - What analysis do you do weekly that could be automated?
      - What data formats do you work with most?
 

@@ -77,45 +77,37 @@ Cost estimate: $1.50
 
 ---
 
-## 🎯 Study Group Workflow
+## Study Group Workflow
 
-### **Weeks 1-2: Mock Mode (FREE!)**
+### **Week 1: Guided Exploration**
 
-```bash
-# In .env
-USE_MOCK_MCP=true
-```
+The deployed app connects to **3 real MCP servers** on GCP Cloud Run with PatientOne sample data:
+- **spatialtools** — spatial transcriptomics analysis
+- **multiomics** — multi-omics integration and pathway enrichment
+- **fgbio** — genomic QC and FASTQ validation
 
-**What you get:**
-- ✅ Practice with instant fake responses
-- ✅ Learn the interface
-- ✅ Test prompts without any cost
-- ✅ Unlimited usage
+**Start with:**
+1. Run **"Warm Up Servers"** to wake up Cloud Run instances
+2. Try each of the 6 built-in example prompts
+3. Observe what tools get called and what data is returned
 
 **Best for:**
 - Getting comfortable with the UI
-- Writing effective prompts
-- Understanding MCP servers
-- Homework assignments 1-2
+- Understanding MCP servers and tool calling
+- Seeing real bioinformatics results
 
-### **Weeks 3+: Real Mode (With Safety Limits)**
+### **Week 2+: Independent Analysis**
 
-```bash
-# In .env
-USE_MOCK_MCP=false
-```
+Once comfortable with the built-in prompts:
+- Write your own prompts referencing PatientOne GCS data
+- Try different gene lists for pathway enrichment
+- Explore spatial patterns with different marker genes
+- Combine multiple steps in a single prompt
 
-**What you get:**
-- ✅ Real bioinformatics analysis
-- ✅ Actual tool execution
-- ✅ Meaningful results
-- ✅ Safety limits protect you
-
-**Best for:**
-- Real data analysis
-- Building custom tools
-- Final projects
-- Production workflows
+**Safety limits protect you:**
+- 50,000 tokens per session (~$1.50 max)
+- 50 requests per session
+- Clear conversation to reset and continue
 
 ---
 
@@ -224,105 +216,65 @@ Bad prompts are:
 2. Restart the app
 3. Contact instructor if still broken
 
-### "Mock mode but I want real results"
-
-**Cause**: USE_MOCK_MCP=true in .env
-
-**Solution**:
-1. Edit .env: `USE_MOCK_MCP=false`
-2. Restart the app
-3. Now you get real analysis!
-
 ### "Too slow / not responding"
 
-**Possible causes**:
-- Real MCP servers starting up (first query ~30s)
-- Large dataset processing
-- Network issues
+**Most likely cause**: Cloud Run cold start. The MCP servers sleep when idle (`min-instances=0`) and take 10-30 seconds to wake up on first request.
 
 **Solutions**:
-- Wait 30-60 seconds for first query
-- Try smaller test datasets
-- Switch to mock mode for practice
+- Run **"Warm Up Servers"** example prompt first to wake all servers
+- Wait 30-60 seconds for the first query to complete
+- Subsequent queries will be fast (servers stay warm for ~15 minutes)
 
 ---
 
-## 📚 Example Queries
+## Built-in Example Prompts
 
-### Spatial Analysis
+The app has **6 pre-built example prompts** in the sidebar dropdown. These use PatientOne (PAT001-OVC-2025) sample data stored in GCS.
 
-```
-Calculate spatial autocorrelation for gene CD8A in my ovarian cancer dataset
-```
+### Getting Started
 
-```
-Identify spatially variable genes in my Visium data
-```
+1. Select **"Warm Up Servers"** first — this wakes up the Cloud Run servers (they sleep when idle)
+2. Then try any of the analysis prompts
 
-```
-Deconvolve cell types from my spatial transcriptomics data
-```
+### Available Prompts
 
-### Multi-Omics
+| Prompt | What It Does |
+|--------|-------------|
+| **Warm Up Servers** | Lists all available tools from connected servers |
+| **Spatial Analysis** | Runs Moran's I spatial autocorrelation on Visium gene expression data for CD3D, CD8A, EPCAM, MKI67 |
+| **Multi-omics Integration** | Loads and aligns RNA, protein, and phosphoproteomics data across 15 samples |
+| **Genomic QC** | Validates a FASTQ file and reports quality scores, read length, GC content |
+| **Pathway Enrichment** | Runs GO biological process enrichment for genes TP53, BRCA1, MYC, KRAS |
+| **PatientOne Mini Workflow** | Two-step analysis: FASTQ quality check, then spatial autocorrelation |
 
-```
-Run HAllA to find associations between my proteomics and metabolomics data
-```
+### Writing Your Own Prompts
 
-```
-Combine p-values from my three omics studies using Stouffer's method
-```
+Good prompts are **specific and directive**:
 
 ```
-Integrate RNA-seq and protein abundance data
+Use the spatial_autocorrelation tool with
+expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv
+and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv
+to calculate spatial autocorrelation for genes CD3D, CD8A
 ```
 
-### Quantum Analysis
-
-```
-Calculate quantum fidelity between T cells and B cells
-```
-
-```
-Prepare quantum states from my gene expression profiles
-```
-
-### File Validation
-
-```
-Validate my FASTQ files for quality issues
-```
-
-```
-Check if my BAM file is properly formatted
-```
+Avoid vague prompts:
+- "Analyze everything" (too broad)
+- "What can you tell me?" (too open-ended)
+- "Run my data" (no file paths specified)
 
 ---
 
-## 🎓 Homework Tips
+## Homework Tips
 
-### Assignment 1-2 (Mock Mode)
+### Managing Your Token Budget
 
-Use mock mode for practice:
-- Free unlimited usage
-- Instant responses
-- Perfect for learning prompts
+Each session gives you 50,000 tokens (~30-40 queries):
+- Built-in example prompts use ~1,000-3,000 tokens each
+- Monitor usage in the sidebar as you go
+- Clear conversation to reset and continue
 
-### Assignment 3+ (Real Mode)
-
-Switch to real mode:
-- You have 50,000 tokens (~30-40 queries)
-- Monitor usage as you go
-- Reset if you hit limits
-
-### Managing Costs
-
-Each student session costs ~$0.50-1.50 max:
-- Your 50K token limit caps cost
-- Most assignments use <20K tokens
-- Reset lets you start fresh
-
-**Study group total cost: ~$30-60 for entire 3-month program**
+**Study group total cost: ~$30-60 for entire 6-week program**
 
 ---
 
@@ -367,34 +319,34 @@ A: Ask your instructor - they might grant access for specific projects.
 
 ---
 
-## 🎯 Success Metrics
+## Success Metrics
 
 Track your progress:
 
 **Week 1-2:**
-- ✅ Completed 10+ mock queries
-- ✅ Understand what each server does
-- ✅ Written effective prompts
+- Ran all 6 built-in example prompts
+- Understand what each MCP server does
+- Written your own prompts with specific file paths
 
 **Week 3-4:**
-- ✅ Switched to real mode
-- ✅ Ran actual analyses on test data
-- ✅ Stayed within token limits
+- Explored different gene lists and analysis parameters
+- Combined multiple tools in a single prompt
+- Stayed within token limits
 
 **Week 5-6:**
-- ✅ Built custom MCP tool
-- ✅ Integrated into workflow
-- ✅ Helped another student
+- Built a custom MCP tool
+- Integrated into a workflow
+- Helped another student
 
 ---
 
-## 🚀 Ready to Start?
+## Ready to Start?
 
-1. Open the student app URL (or run locally)
-2. Check sidebar shows "🎓 Student Mode"
-3. Try your first query: `"What tools are available in spatialtools?"`
-4. Watch your usage counters
-5. Have fun learning! 🧬
+1. Open the student app URL provided by your instructor
+2. Check sidebar shows "Student Mode" with token/request counters
+3. Select **"Warm Up Servers"** from the Example Prompts dropdown and click Send
+4. Try each built-in prompt: Spatial Analysis, Multi-omics, Genomic QC, Pathway Enrichment
+5. Watch your usage counters in the sidebar
 
 **Remember**: Limits are your friend - they let you explore freely without worry!
 

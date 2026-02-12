@@ -1,8 +1,8 @@
 # Student MCP Chat App - For Study Group
 
-This is a **safety-limited version** of the MCP Chat app designed for the bioinformatics study group.
+This is a **safety-limited version** of the MCP Chat app designed for the bioinformatics study group (6 students, 6 weeks).
 
-## 🎓 Key Differences from Main App
+## Key Differences from Main App
 
 | Feature | This App (Students) | Main App (Instructor) |
 |---------|-------------------|---------------------|
@@ -15,41 +15,66 @@ This is a **safety-limited version** of the MCP Chat app designed for the bioinf
 | **Usage Display** | Always visible | Optional |
 | **Service Name** | `streamlit-mcp-chat-students` | `streamlit-mcp-chat` |
 
-## 🔗 Shared Infrastructure
+## Active MCP Servers (Default)
+
+The student app connects to **3 production servers** by default:
+
+| Server | Tools | Description |
+|--------|-------|-------------|
+| **spatialtools** | 10 | Spatial transcriptomics (Moran's I, cell deconvolution, DE) |
+| **multiomics** | 9 | Multi-omics integration (RNA/Protein/Phospho), pathway enrichment |
+| **fgbio** | 4 | Genomic QC and FASTQ validation |
+
+All servers read PatientOne sample data from GCS bucket `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`.
+
+## Example Prompts (6 built-in)
+
+| Prompt | Server(s) | What it demonstrates |
+|--------|-----------|---------------------|
+| **Warm Up Servers** | all 3 | Lists tools — wakes up cold Cloud Run instances |
+| **Spatial Analysis** | spatialtools | Moran's I autocorrelation on Visium data |
+| **Multi-omics Integration** | multiomics | Load/align/QC across RNA + protein + phospho |
+| **Genomic QC** | fgbio | FASTQ file validation and quality metrics |
+| **Pathway Enrichment** | multiomics | GO biological process enrichment |
+| **PatientOne Mini Workflow** | fgbio + spatialtools | 2-step: FASTQ QC then spatial autocorrelation |
+
+**Tip**: Run "Warm Up Servers" first to avoid cold-start delays (servers have `min-instances=0`).
+
+## Shared Infrastructure
 
 Both apps use:
-- ✅ **Same MCP servers** (no duplication)
-- ✅ **Same provider code** (copied from main app)
-- ✅ **Same utilities** (copied from main app)
+- **Same MCP servers** (no duplication)
+- **Same provider code** (copied from main app)
+- **Same utilities** (copied from main app)
 
-Only `app.py` differs (~100 lines of safety code).
+Only `app.py` differs (adds safety guardrails, forces Gemini, removes provider switching).
 
 **Note**: `providers/` and `utils/` are copied from `../streamlit-app/` to ensure Docker builds work correctly (symlinks don't work in Docker build context).
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 streamlit-app-students/
 ├── app.py                    # Student app with guardrails
 ├── providers/                # Copied from ../streamlit-app/providers/
-├── utils/                    # Copied from ../streamlit-app/utils/
+├── utils/
+│   ├── mcp_config.py         # Server URLs + 6 example prompts
+│   └── ...                   # Other utils (copied from main app)
+├── for-instructors/          # Instructor materials
+│   ├── 6-wk-course.md        # 6-session curriculum
+│   ├── TOKEN_ANALYSIS.md     # Token usage analysis
+│   └── COST_FORECAST.md      # Cost projections
 ├── .env.example              # Student-specific config
 ├── deploy.sh                 # Deploys to different service
 ├── STUDENT_GUIDE.md          # Student documentation
 └── README.md                 # This file
 ```
 
-**Maintenance Note**: When updating providers or utils in the main app, copy changes to student app:
-```bash
-cp -r ../streamlit-app/providers .
-cp -r ../streamlit-app/utils .
-```
-
-## 🚀 For Students
+## For Students
 
 See **[STUDENT_GUIDE.md](STUDENT_GUIDE.md)** for complete instructions.
 
-## 🚀 For Instructors
+## For Instructors
 
 ### Deploy Student App
 
@@ -59,7 +84,17 @@ cd ui/streamlit-app-students
 ./deploy.sh
 ```
 
-Deploys to: `streamlit-mcp-chat-students` service (separate from instructor app)
+Deploys to: `streamlit-mcp-chat-students` service (separate from instructor app).
+
+### Warm Up Servers Before Class
+
+Cloud Run servers with `min-instances=0` need 10-30s to cold start. Before a demo:
+```bash
+curl -s https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse &
+curl -s https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse &
+curl -s https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse &
+```
+Or use the **"Warm Up Servers"** example prompt in the app.
 
 ### Adjust Safety Limits
 
@@ -71,16 +106,16 @@ MAX_REQUESTS_PER_SESSION = 50
 
 Then redeploy: `./deploy.sh`
 
-## 📊 Expected Costs
+## Expected Costs
 
 - **Per student per session**: ~$0.50-1.50 (capped)
-- **Study group (10 students, 6 weeks)**: ~$50-100 total
+- **Study group (6 students, 6 weeks)**: ~$30-60 total
 
-## ⚙️ Safety Features
+## Safety Features
 
-- ✅ Token limits per session (50K max)
-- ✅ Request limits per session (50 max)
-- ✅ Real-time usage tracking in sidebar
-- ✅ Automatic warnings at 80%
-- ✅ Easy reset (clear conversation or refresh)
-- ✅ No authentication required (public access)
+- Token limits per session (50K max)
+- Request limits per session (50 max)
+- Real-time usage tracking in sidebar
+- Automatic warnings at 80%
+- Easy reset (clear conversation or refresh)
+- No authentication required (public access)
