@@ -90,8 +90,8 @@ sequenceDiagram
 
 - 💬 **Chat Interface** - Natural language interaction with MCP servers
 - 🤖 **Multi-Provider Support** - Choose between Claude (Anthropic) or Gemini (Google) LLMs
-- 🔧 **Server Selection** - Choose which of the 15 MCP servers to use
-- 🎯 **Example Prompts** - Quick-start templates for common workflows
+- 🔧 **Server Selection** - Choose which of the 13 MCP servers to use
+- 🎯 **Example Prompts** - 14 built-in prompts with GCS data paths for PatientOne
 - 📊 **Token Usage** - Track API usage per message
 - 🎨 **Clean UI** - Simple, Claude Desktop-like interface
 - ⚡ **Real-time** - Instant responses from deployed servers
@@ -150,7 +150,8 @@ Streamlit UI → MCP SSE Client → Cloud Run MCP Servers
 **Key Implementation:**
 - **SSE Client:** `utils/mcp_client.py` - Manages persistent connections to MCP servers
 - **Provider:** `providers/gemini_provider.py` - Implements agentic tool calling loop
-- **Schema Cleaning:** Removes JSON schema properties Gemini doesn't support (e.g., `additionalProperties`, `anyOf`)
+- **Schema Cleaning:** Strict whitelist removes JSON schema properties Gemini doesn't support (e.g., `additionalProperties`, `anyOf`)
+- **Tool Name Resolution:** Hyphenated server names (e.g., `cell-classify`) are sanitized to `cell_classify_*` for Gemini, then mapped back via `_gemini_name_map` for MCP dispatch
 - **Thought Signatures:** Preserves complete Part objects for Gemini's tool calling requirements
 
 **Why This Approach:**
@@ -171,7 +172,7 @@ When running on Cloud Run, select your preferred provider in the sidebar:
 ### Prerequisites
 
 - Python 3.11+
-- Anthropic API key ([get one here](https://console.anthropic.com/))
+- At least one API key: Anthropic ([get one](https://console.anthropic.com/)) or Google AI ([get one](https://aistudio.google.com/apikey))
 
 ### Installation
 
@@ -208,36 +209,40 @@ The app will open in your browser at http://localhost:8501
 
 ### 1. Select MCP Servers
 
-Use the sidebar to select which servers to enable:
+Use the sidebar to select which servers to enable. Default active: **spatialtools, multiomics, fgbio**.
 
-**Production Servers (11 — Real Analysis):**
-- **fgbio** - Genomic reference data and FASTQ validation
-- **multiomics** - Multi-omics integration (RNA/Protein/Phospho)
-- **spatialtools** - Spatial transcriptomics analysis
-- **perturbation** - GEARS perturbation prediction for treatment response
-- **deepcell** - DeepCell-TF cell segmentation and phenotyping
-- **openimagedata** - H&E/MxIF image loading and composites
-- **quantum-celltype-fidelity** - Quantum cell type validation and immune evasion detection
-- **epic** - Real Epic FHIR clinical data (local-only)
-- **genomic-results** - Somatic variants, CNV, HRD analysis
-- **cell-classify** - Cell phenotyping and classification
-- **patient-report** - PDF report generation
+**Production Servers (9 — Real Analysis):**
+- **fgbio** - Genomic reference data and FASTQ validation (4 tools)
+- **multiomics** - Multi-omics integration RNA/Protein/Phospho (9 tools)
+- **spatialtools** - Spatial transcriptomics analysis (10 tools)
+- **perturbation** - GEARS perturbation prediction for treatment response (8 tools)
+- **deepcell** - DeepCell-TF cell segmentation and phenotyping (3 tools)
+- **openimagedata** - H&E/MxIF image loading and composites (5 tools)
+- **quantum-celltype-fidelity** - Quantum cell type validation and immune evasion detection (6 tools)
+- **cell-classify** - Cell phenotyping and classification (3 tools)
+- **patient-report** - PDF report generation (5 tools)
 
-**Mock-by-Design:** mockepic (synthetic FHIR for demos)
-**Framework Servers:** tcga, seqera, huggingface
+**Mock Servers (4 — Demo/Workflow):**
+- **mockepic** - Synthetic FHIR clinical data
+- **tcga** - TCGA cancer genomics data
+- **seqera** - Nextflow workflow management
+- **huggingface** - AI/ML models for genomics
 
-### 2. Choose a Model
+### 2. Choose a Provider and Model
 
-Select from:
-- **claude-sonnet-4-5** (recommended) - Best balance of speed/quality
-- **claude-opus-4-5** - Highest quality, slower
-- **claude-haiku-4** - Fastest, most cost-effective
+Use the sidebar to switch between Claude and Gemini. Available models:
+
+**Claude:** `claude-sonnet-4-5` (recommended), `claude-opus-4-5`, `claude-haiku-4`
+**Gemini:** `gemini-3-flash-preview` (recommended), `gemini-2.5-flash`
 
 ### 3. Start Chatting
 
-Type your question or:
-- Click "Example Prompts" in sidebar to load pre-built queries
-- Try spatial analysis, pathway enrichment, multi-omics integration
+Type your question or use a built-in prompt:
+1. Select a prompt from the "Example Prompts" dropdown in the sidebar
+2. Preview the prompt text shown below the dropdown
+3. Click "Send Prompt" to execute
+
+Start with "Warm Up Servers" to wake Cloud Run instances, then try the analysis prompts.
 
 ### 4. View Responses
 
@@ -315,37 +320,48 @@ The trace feature helps:
 4. **Compliance** - Audit trail of data access
 5. **Documentation** - Creating workflow diagrams
 
-## Example Workflows
+## Example Prompts (14 Built-in)
 
-### Quick Tests
+The app includes 14 example prompts in the sidebar dropdown. All use PatientOne sample data from GCS (`gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`).
 
-**Spatial Analysis:**
-```
-Analyze the spatial transcriptomics data for Patient-001.
-Perform cell type deconvolution and identify key cell populations.
-```
+**Start here — wake up Cloud Run servers (cold starts take 10-30s):**
 
-**Pathway Enrichment:**
-```
-For the upregulated genes [TP53, BRCA1, MYC, KRAS],
-perform pathway enrichment analysis using GO_BP database.
-```
+| # | Prompt | Servers Used |
+|---|--------|-------------|
+| 1 | **Warm Up Servers** — Lists all tools from connected servers | All active |
 
-**Multi-omics Integration:**
-```
-Integrate RNA, protein, and phosphorylation data.
-Run HAllA association analysis and identify significant correlations.
-```
+**Core analysis prompts (tested, working with default servers):**
 
-### Complete PatientOne Workflow
+| # | Prompt | Servers Used |
+|---|--------|-------------|
+| 2 | **Spatial Analysis** — Moran's I for CD3D, CD8A, EPCAM, MKI67 | spatialtools |
+| 3 | **Multi-omics Integration** — RNA + Protein + Phospho integration | multiomics |
+| 4 | **Genomic QC** — FASTQ validation for PAT001 exome | fgbio |
+| 5 | **Pathway Enrichment** — GO_BP for TP53, BRCA1, MYC, KRAS | multiomics |
+| 6 | **Complete PatientOne Workflow** — FHIR + Spatial + Multi-omics | mockepic, spatialtools, multiomics |
 
-```
-For Patient-001 (ovarian cancer):
-1. Get clinical data from FHIR
-2. Retrieve spatial transcriptomics data
-3. Perform cell type deconvolution
-4. Run differential expression between tumor core and margin
-5. Generate treatment recommendations
+**Advanced prompts (require additional servers enabled):**
+
+| # | Prompt | Servers Needed |
+|---|--------|---------------|
+| 7 | **Batch Correction** — ComBat batch effects | multiomics |
+| 8 | **Predict Treatment Response** — GEARS model training | perturbation |
+| 9 | **Immunotherapy Prediction** — Anti-PD1/CTLA4 response | perturbation |
+| 10 | **Drug Screening** — Compare checkpoint/PARP/platinum | perturbation |
+| 11 | **Quantum Cell Type Fidelity** — Quantum embeddings | quantum-celltype-fidelity |
+| 12 | **Immune Evasion Detection** — Quantum fidelity scoring | quantum-celltype-fidelity |
+| 13 | **TLS Analysis** — Tertiary lymphoid structures | quantum-celltype-fidelity |
+| 14 | **Quantum + GEARS Validation** — Cross-method validation | perturbation, quantum-celltype-fidelity |
+
+### Cold Start Note
+
+MCP servers on Cloud Run use `min-instances=0` to save costs. First requests after idle periods may take 10-30 seconds. Use "Warm Up Servers" before running analysis prompts, or pre-warm with curl:
+
+```bash
+curl -s https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse &
+curl -s https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse &
+curl -s https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse &
+wait
 ```
 
 ## Configuration
@@ -400,7 +416,7 @@ The deployment script automatically sets the keys as Cloud Run environment varia
 
 ### MCP Server Configuration
 
-Server URLs are configured in `utils/mcp_config.py`. All 15 servers are pre-configured with GCP Cloud Run URLs.
+Server URLs are configured in `utils/mcp_config.py`. All 13 servers are pre-configured with GCP Cloud Run URLs.
 
 To add/modify servers:
 ```python
@@ -432,13 +448,13 @@ Provider Abstraction Layer
     │
     └─→ Gemini Provider (SSE-based MCP)
             ↓
-        MCP SSE Client ─→ Cloud Run MCP Servers (15 servers)
+        MCP SSE Client ─→ Cloud Run MCP Servers (13 servers)
             ↓                      ↓
         Google Gemini API ← Tool Results
             ↓
     [Manual agentic loop]
     ↓
-GCP Cloud Run MCP Servers (15 servers)
+GCP Cloud Run MCP Servers (13 servers)
     ↓
 Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 ```
@@ -447,7 +463,7 @@ Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 - **Provider Abstraction** - Unified interface for Claude and Gemini
 - **Claude Provider** - Uses Anthropic's native MCP support
 - **Gemini Provider** - Custom SSE client with manual tool orchestration
-- **MCP Servers** - 14 Cloud Run services + 1 local (11 production, 1 mock-by-design, 3 framework)
+- **MCP Servers** - 13 Cloud Run services (9 production, 4 mock/framework)
 - **Bioinformatics Tools** - Real analysis engines (STAR, scanpy, GEARS, etc.)
 
 ## Cost Estimates
@@ -491,8 +507,9 @@ ui/streamlit-app/
 │   └── gemini_provider.py     # Gemini with SSE-based MCP client
 └── utils/
     ├── __init__.py       # Package init
-    ├── mcp_config.py     # MCP server configurations
+    ├── mcp_config.py     # MCP server configurations + 14 example prompts
     ├── mcp_client.py     # SSE-based MCP client manager (for Gemini)
+    ├── mcp_mock.py       # Mock MCP client for local dev (USE_MOCK_MCP=true)
     ├── chat_handler.py   # Claude API integration (legacy)
     ├── trace_utils.py    # Orchestration trace extraction
     ├── trace_display.py  # Trace visualization components
