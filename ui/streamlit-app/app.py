@@ -510,8 +510,16 @@ def render_sidebar():
             index=0
         )
 
-        if selected_example and st.button("Load Prompt"):
-            st.session_state.example_prompt = EXAMPLE_PROMPTS[selected_example]
+        if selected_example:
+            # Show preview of the prompt
+            preview = EXAMPLE_PROMPTS[selected_example][:120]
+            if len(EXAMPLE_PROMPTS[selected_example]) > 120:
+                preview += "..."
+            st.caption(preview)
+
+            if st.button("Send Prompt", use_container_width=True):
+                st.session_state.pending_example = EXAMPLE_PROMPTS[selected_example]
+                st.rerun()
 
         st.markdown("---")
 
@@ -816,18 +824,16 @@ def main():
     st.title("🧬 Precision Medicine MCP Chat")
     st.markdown("Chat interface for testing deployed MCP servers on GCP Cloud Run")
 
-    # Check API key
-    if not st.session_state.chat_handler:
-        st.error("❌ ANTHROPIC_API_KEY not configured")
+    # Check that at least one provider is available
+    if not st.session_state.provider_instance and not st.session_state.chat_handler:
+        st.error("❌ No LLM provider configured")
         st.info("""
         **Setup Instructions:**
-        1. Set your API key: `export ANTHROPIC_API_KEY=your_key_here`
-        2. Restart this app
+        Set at least one API key:
+        - `ANTHROPIC_API_KEY=your_key` for Claude
+        - `GEMINI_API_KEY=your_key` for Gemini
 
-        Or create a `.env` file with:
-        ```
-        ANTHROPIC_API_KEY=your_key_here
-        ```
+        Or create a `.env` file with your key(s).
         """)
         return
 
@@ -839,19 +845,13 @@ def main():
     # Render chat history
     render_chat_history(show_trace=show_trace, trace_style=trace_style)
 
-    # Chat input
-    # Check for example prompt loaded
-    default_value = ""
-    if hasattr(st.session_state, 'example_prompt'):
-        default_value = st.session_state.example_prompt
-        delattr(st.session_state, 'example_prompt')
-
-    if prompt := st.chat_input("Ask me anything about precision medicine...", key="chat_input"):
+    # Chat input — handle pending example prompt or manual input
+    if "pending_example" in st.session_state:
+        pending = st.session_state.pending_example
+        del st.session_state.pending_example
+        handle_user_input(pending, model, max_tokens)
+    elif prompt := st.chat_input("Ask me anything about precision medicine...", key="chat_input"):
         handle_user_input(prompt, model, max_tokens)
-
-    # Show example if set
-    if default_value:
-        handle_user_input(default_value, model, max_tokens)
 
 
 if __name__ == "__main__":

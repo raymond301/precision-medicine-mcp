@@ -51,6 +51,7 @@ class MCPClientManager:
         self.sessions: Dict[str, ClientSession] = {}
         self.tools_cache: Dict[str, List[Dict]] = {}
         self._context_managers = []
+        self._gemini_name_map: Dict[str, tuple] = {}  # gemini_name -> (server_name, tool_name)
 
     async def __aenter__(self):
         """Enter async context - establish all MCP connections."""
@@ -236,14 +237,20 @@ class MCPClientManager:
             List of Gemini function declarations
         """
         gemini_tools = []
+        self._gemini_name_map = {}
 
         for tool in self.get_all_tools():
             # Clean the input schema for Gemini
             cleaned_schema = self._clean_schema_for_gemini(tool['input_schema'])
 
-            # Convert MCP tool schema to Gemini function declaration
+            # Gemini function names must match [a-zA-Z_][a-zA-Z0-9_]*
+            safe_name = f"{tool['server_name']}_{tool['name']}".replace("-", "_")
+
+            # Store mapping back to original names for tool execution
+            self._gemini_name_map[safe_name] = (tool['server_name'], tool['name'])
+
             function_declaration = {
-                "name": f"{tool['server_name']}_{tool['name']}",  # Prefix with server name
+                "name": safe_name,
                 "description": tool['description'],
                 "parameters": cleaned_schema
             }
@@ -251,6 +258,21 @@ class MCPClientManager:
             gemini_tools.append(function_declaration)
 
         return gemini_tools
+
+    def resolve_gemini_tool_name(self, gemini_name: str) -> tuple:
+        """Resolve a Gemini function name back to (server_name, tool_name).
+
+        Args:
+            gemini_name: The Gemini-safe function name
+
+        Returns:
+            Tuple of (server_name, tool_name) with original names
+        """
+        if gemini_name in self._gemini_name_map:
+            return self._gemini_name_map[gemini_name]
+        # Fallback to split (for servers without hyphens)
+        parts = gemini_name.split("_", 1)
+        return (parts[0], parts[1]) if len(parts) == 2 else (gemini_name, gemini_name)
 
     def convert_tools_to_claude_format(self) -> List[Dict]:
         """Convert MCP tools to Claude tool format.
@@ -273,13 +295,10 @@ class MCPClientManager:
         return claude_tools
 
     def _clean_schema_for_gemini(self, schema: Dict[str, Any]) -> Dict[str, Any]:
-        """Clean JSON schema to remove properties Gemini doesn't support.
+        """Clean JSON schema to only include properties Gemini supports.
 
-        Gemini's function calling doesn't support:
-        - additional_properties
-        - any_of, one_of, all_of
-        - $ref, $schema, $id
-        - And other advanced JSON schema features
+        Uses a strict whitelist — Gemini's Schema type only accepts specific
+        fields, and unknown fields cause pydantic ValidationError.
 
         Args:
             schema: Original JSON schema
@@ -292,28 +311,16 @@ class MCPClientManager:
 
         cleaned = {}
 
-        # List of keys to explicitly exclude
-        excluded_keys = {
-            "additional_properties", "additionalProperties",
-            "any_of", "anyOf", "one_of", "oneOf", "all_of", "allOf",
-            "$ref", "$schema", "$id", "definitions"
-        }
-
-        # List of allowed keys for Gemini
+        # Strict whitelist of keys Gemini Schema supports
         allowed_keys = {
-            "type", "properties", "required", "description",
-            "items", "enum", "format", "default", "minimum",
-            "maximum", "minLength", "maxLength", "pattern",
-            "minItems", "maxItems", "title"
+            "type", "format", "description", "nullable", "enum",
+            "max_items", "maxItems", "min_items", "minItems",
+            "properties", "required", "items",
         }
 
         for key, value in schema.items():
-            # Skip excluded keys
-            if key in excluded_keys:
+            if key not in allowed_keys:
                 continue
-
-            # Only keep allowed keys (or pass through if we're being permissive)
-            # For now, let's exclude known bad keys but allow others
 
             # Recursively clean nested schemas
             if key == "properties" and isinstance(value, dict):
@@ -324,16 +331,13 @@ class MCPClientManager:
             elif key == "items" and isinstance(value, dict):
                 cleaned[key] = self._clean_schema_for_gemini(value)
             elif isinstance(value, dict):
-                # Recursively clean any nested dict
                 cleaned[key] = self._clean_schema_for_gemini(value)
             elif isinstance(value, list):
-                # Clean items in lists
                 cleaned[key] = [
                     self._clean_schema_for_gemini(item) if isinstance(item, dict) else item
                     for item in value
                 ]
             else:
-                # Keep primitive values
                 cleaned[key] = value
 
         return cleaned

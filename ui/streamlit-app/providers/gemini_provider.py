@@ -334,19 +334,10 @@ class GeminiProvider(LLMProvider):
         results = []
 
         for tool_call in tool_calls:
-            # Parse server name and tool name (format: servername_toolname)
             full_name = tool_call["name"]
-            parts = full_name.split("_", 1)
 
-            if len(parts) != 2:
-                print(f"ERROR: Invalid tool name format: {full_name}", file=sys.stderr)
-                results.append({
-                    "name": full_name,
-                    "response": {"error": f"Invalid tool name format: {full_name}"}
-                })
-                continue
-
-            server_name, tool_name = parts
+            # Resolve Gemini-safe name back to original server/tool names
+            server_name, tool_name = mcp_manager.resolve_gemini_tool_name(full_name)
 
             # Call the tool via MCP manager
             try:

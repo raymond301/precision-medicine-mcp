@@ -180,20 +180,21 @@ def get_server_categories() -> Dict[str, List[str]]:
 
 # Example prompts for different use cases
 EXAMPLE_PROMPTS = {
-    "Spatial Analysis": "Analyze the spatial transcriptomics data for Patient-001 (PAT001-OVC-2025). Sample data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/. Perform cell type deconvolution and identify key cell populations.",
+    "Warm Up Servers": "List all available tools from the connected MCP servers. For each tool, show its name and a one-line description.",
 
-    "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data for Patient-001 (PAT001-OVC-2025). Data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/. Run HAllA association analysis and identify significant correlations.",
+    "Spatial Analysis": "Use the spatial_autocorrelation tool with expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv to calculate spatial autocorrelation for genes CD3D, CD8A, EPCAM, MKI67.",
 
-    "Genomic QC": "Validate the FASTQ files and check quality metrics. What is the average quality score and read length?",
+    "Multi-omics Integration": "Use the integrate_omics_data tool with rna_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv, protein_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_proteomics.csv, phospho_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_phosphoproteomics.csv. Report the number of common samples, features per modality, and QC metrics.",
+
+    "Genomic QC": "Validate the FASTQ file for Patient-001 (PAT001-OVC-2025) at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomics/fastq/PAT001_OVC_exome_R1.fastq.gz and check quality metrics. What is the average quality score and read length?",
 
     "Pathway Enrichment": "For the upregulated genes [TP53, BRCA1, MYC, KRAS], perform pathway enrichment analysis using GO_BP database.",
 
     "Complete PatientOne Workflow": """For Patient-001 (PAT001-OVC-2025, ovarian cancer). Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/:
-1. Get clinical data from FHIR
-2. Retrieve spatial transcriptomics data from gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/
-3. Perform cell type deconvolution
-4. Run differential expression between tumor core and margin
-5. Generate treatment recommendations using multiomics data from gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/""",
+1. Get clinical data from FHIR using query_patient_records with patient_id=PAT001-OVC-2025
+2. Use spatial_autocorrelation with expression_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv and coordinates_file=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv for genes CD3D, CD8A, EPCAM, MKI67
+3. Use integrate_omics_data with rna_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv, protein_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_proteomics.csv, phospho_path=gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_phosphoproteomics.csv
+4. Summarize findings across clinical, spatial, and multi-omics data""",
 
     "Batch Correction": "I have 3 batches of proteomics data with batch effects. Apply ComBat batch correction and verify PC1 no longer correlates with batch.",
 
