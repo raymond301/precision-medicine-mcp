@@ -884,11 +884,30 @@ async def calculate_spatial_autocorrelation(
         # Load or extract coordinates
         if coordinates_file:
             coord_data = pd.read_csv(coordinates_file, index_col=0)
-            # Assume coordinates have 'x' and 'y' or 'x_coord' and 'y_coord' columns
-            coord_cols = [c for c in coord_data.columns if 'x' in c.lower() or 'y' in c.lower()]
-            if len(coord_cols) < 2:
-                coord_cols = coord_data.columns[:2]  # Use first two columns
+            # Detect coordinate columns (handle Visium and generic formats)
+            col_lower = {c: c.lower() for c in coord_data.columns}
+            # Priority 1: Visium pixel coordinates
+            pxl_cols = [c for c, cl in col_lower.items() if 'pxl' in cl or 'pixel' in cl]
+            # Priority 2: x/y named columns
+            xy_cols = [c for c, cl in col_lower.items() if 'x' in cl or 'y' in cl]
+            # Priority 3: array row/col
+            array_cols = [c for c, cl in col_lower.items() if cl in ('array_row', 'array_col', 'row', 'col')]
+            if len(pxl_cols) >= 2:
+                coord_cols = pxl_cols[:2]
+            elif len(xy_cols) >= 2:
+                coord_cols = xy_cols[:2]
+            elif len(array_cols) >= 2:
+                coord_cols = array_cols[:2]
+            else:
+                # Last resort: first two numeric columns
+                numeric_cols = [c for c in coord_data.columns if coord_data[c].dtype in ('int64', 'float64')]
+                coord_cols = numeric_cols[:2] if len(numeric_cols) >= 2 else coord_data.columns[:2]
             coordinates = coord_data[coord_cols].values
+            # Auto-adjust distance threshold if using pixel coordinates with large spacing
+            coord_range = coordinates.max() - coordinates.min()
+            if distance_threshold == 100.0 and coord_range.max() > 500:
+                distance_threshold = coord_range.max() * 0.15
+                logger.info(f"Auto-adjusted distance_threshold to {distance_threshold:.0f} for pixel coordinates")
         elif 'x_coord' in expr_data.columns and 'y_coord' in expr_data.columns:
             # Coordinates embedded in expression file
             coordinates = expr_data[['x_coord', 'y_coord']].values

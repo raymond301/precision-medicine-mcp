@@ -120,6 +120,10 @@ def run_halla_analysis_impl(
             "Run integrate_omics_data first."
         )
 
+    # Handle nested format from save_integrated_data ({"omics_data": {...}, "metadata": ...})
+    if "omics_data" in integrated_data:
+        integrated_data = integrated_data["omics_data"]
+
     # Extract modality data
     if modality1 not in integrated_data or modality2 not in integrated_data:
         available = list(integrated_data.keys())
