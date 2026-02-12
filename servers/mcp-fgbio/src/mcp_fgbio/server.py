@@ -136,6 +136,41 @@ def _ensure_directories() -> None:
     _get_cache_dir().mkdir(parents=True, exist_ok=True)
 
 
+def _resolve_gcs_path(gcs_uri: str) -> str:
+    """Download a GCS file to a local temp path if needed.
+
+    If the path starts with gs://, downloads to a temp file and returns
+    the local path. Otherwise returns the path unchanged.
+
+    Args:
+        gcs_uri: A local path or gs:// URI
+
+    Returns:
+        Local filesystem path
+    """
+    if not gcs_uri.startswith("gs://"):
+        return gcs_uri
+
+    import tempfile
+    import fsspec
+
+    logger.info(f"Downloading GCS file: {gcs_uri}")
+    fs = fsspec.filesystem("gcs")
+
+    # Preserve the file extension for gzip detection
+    suffix = ""
+    if gcs_uri.endswith(".gz"):
+        suffix = ".gz"
+    elif "." in gcs_uri.split("/")[-1]:
+        suffix = "." + gcs_uri.split("/")[-1].rsplit(".", 1)[-1]
+
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+    fs.get(gcs_uri, tmp.name)
+    tmp.close()
+    logger.info(f"Downloaded to: {tmp.name}")
+    return tmp.name
+
+
 def _run_fgbio_command(
     args: list[str],
     timeout: int = TIMEOUT_SECONDS
@@ -488,6 +523,9 @@ async def validate_fastq(
         >>> print(f"Valid: {result['valid']}, Reads: {result['total_reads']}")
     """
     _ensure_directories()
+
+    # Resolve GCS paths to local temp files
+    fastq_path = _resolve_gcs_path(fastq_path)
 
     # =========================================================================
     # VALIDATION: Check FASTQ file format before processing

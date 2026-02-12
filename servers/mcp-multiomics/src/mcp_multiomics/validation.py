@@ -1,6 +1,7 @@
 """Input validation utilities for multi-omics data."""
 
 import pandas as pd
+import fsspec
 from pathlib import Path
 from typing import Tuple, List, Dict, Any, Optional
 
@@ -10,12 +11,17 @@ class ValidationError(Exception):
     pass
 
 
+def _is_gcs_path(file_path: str) -> bool:
+    """Check if path is a GCS URI."""
+    return file_path.startswith("gs://")
+
+
 def validate_file_exists(file_path: str, file_type: str = "file") -> Tuple[bool, List[str]]:
     """
     Validate that a file exists and is accessible.
 
     Args:
-        file_path: Path to file
+        file_path: Path to file (local or gs:// URI)
         file_type: Description of file type (e.g., "RNA data", "metadata")
 
     Returns:
@@ -27,6 +33,15 @@ def validate_file_exists(file_path: str, file_type: str = "file") -> Tuple[bool,
         errors.append(f"❌ No {file_type} path provided")
         errors.append(f"💡 Please specify a path to your {file_type} file")
         return False, errors
+
+    # GCS paths: use fsspec to check existence
+    if _is_gcs_path(file_path):
+        fs = fsspec.filesystem("gcs")
+        if not fs.exists(file_path):
+            errors.append(f"❌ {file_type.capitalize()} file not found: {file_path}")
+            errors.append(f"💡 Check that the GCS path is correct and accessible")
+            return False, errors
+        return True, []
 
     path = Path(file_path)
 
@@ -108,7 +123,7 @@ def validate_multiomics_file(
 
     # Read full file for additional checks
     try:
-        df_full = pd.read_csv(file_path, sep='\t' if '\t' in open(file_path, 'r').read(1000) else ',')
+        df_full = pd.read_csv(file_path, sep='\t' if '\t' in fsspec.open(file_path, 'r').open().read(1000) else ',')
     except Exception as e:
         errors.append(f"⚠️  Warning: Could not read full file for validation: {str(e)}")
         return True, errors, df  # Still return success with partial data
@@ -166,7 +181,7 @@ def validate_metadata_file(
 
     # Try to read file
     try:
-        df = pd.read_csv(file_path, sep='\t' if '\t' in open(file_path, 'r').read(1000) else ',')
+        df = pd.read_csv(file_path, sep='\t' if '\t' in fsspec.open(file_path, 'r').open().read(1000) else ',')
     except Exception as e:
         errors.append(f"❌ Cannot parse metadata file: {file_path}")
         errors.append(f"💡 Error: {str(e)}")
