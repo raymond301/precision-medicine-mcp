@@ -7,6 +7,7 @@ This is a **safety-limited version** of the MCP Chat app designed for the bioinf
 | Feature | This App (Students) | Main App (Instructor) |
 |---------|-------------------|---------------------|
 | **Purpose** | Learning with safety limits | Unrestricted testing |
+| **LLM Provider** | Gemini only (Flash/Pro) | Claude + Gemini |
 | **Token Limit** | 50,000 per session | Unlimited |
 | **Request Limit** | 50 per session | Unlimited |
 | **Cost Cap** | ~$1.50 per session | No limit |
@@ -53,7 +54,6 @@ See **[STUDENT_GUIDE.md](STUDENT_GUIDE.md)** for complete instructions.
 ### Deploy Student App
 
 ```bash
-export ANTHROPIC_API_KEY="your-key-here"
 export GEMINI_API_KEY="your-key-here"
 cd ui/streamlit-app-students
 ./deploy.sh

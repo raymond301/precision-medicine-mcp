@@ -337,7 +337,7 @@ Each student session costs ~$0.50-1.50 max:
 | **Warnings** | ✅ At 80% usage | ❌ None |
 | **Cost Protection** | ✅ Auto-stops | ❌ None |
 | **MCP Servers** | ✅ Same servers | ✅ Same servers |
-| **Providers** | ✅ Claude + Gemini | ✅ Claude + Gemini |
+| **Providers** | ✅ Gemini only (Flash/Pro) | ✅ Claude + Gemini |
 
 **You share the same MCP infrastructure** - only the safety limits differ!
 

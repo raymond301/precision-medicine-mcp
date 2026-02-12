@@ -129,12 +129,12 @@ def initialize_session_state():
         if "student_session_start" not in st.session_state:
             st.session_state.student_session_start = datetime.utcnow()
 
-    # Initialize provider selection (Cloud Run only)
+    # Initialize provider selection (Gemini-only for student app)
     if "llm_provider" not in st.session_state:
-        st.session_state.llm_provider = "claude"  # Default to Claude
+        st.session_state.llm_provider = "gemini"
 
     if "llm_model" not in st.session_state:
-        st.session_state.llm_model = "claude-sonnet-4-20250514"  # Default model
+        st.session_state.llm_model = "gemini-2.5-flash"
 
     # Initialize provider instance
     if "provider_instance" not in st.session_state:
@@ -273,100 +273,59 @@ def render_sidebar():
 
             st.markdown("---")
 
-        # Provider selection (available in all modes)
-        st.subheader("LLM Provider")
+        # Gemini provider (student app uses Gemini only)
+        st.subheader("Gemini")
 
-        available_providers = get_available_providers()
-
-        # Build provider options - show ALL providers, not just available ones
-        provider_options = []
-        provider_mapping = {}
-        for provider_key, provider_info in available_providers.items():
-            display_name = provider_info["name"]
-            # Add indicator if API key is missing
-            if not provider_info["available"]:
-                display_name += " (API key required)"
-            provider_options.append(display_name)
-            provider_mapping[display_name] = provider_key
-
-        if not provider_options:
-            st.error("No LLM providers configured.")
-            st.stop()
-
-        # Provider dropdown
-        current_provider_display = available_providers[st.session_state.llm_provider]["name"]
-        selected_provider_display = st.selectbox(
-            "Select Provider",
-            options=provider_options,
-            index=provider_options.index(current_provider_display) if current_provider_display in provider_options else 0,
-            help="Choose LLM provider for analysis"
-        )
-
-        # Update provider if changed
-        selected_provider_key = provider_mapping[selected_provider_display]
-        if selected_provider_key != st.session_state.llm_provider:
-            # Check if provider is available before switching
-            provider_info = available_providers[selected_provider_key]
-            if not provider_info["available"]:
-                st.error(f"⚠️ {provider_info['name']} API key not configured")
-                if "note" in provider_info:
-                    st.info(provider_info["note"])
-                st.info("Configure API key in deployment environment variables and redeploy")
-                st.stop()
-
-            st.session_state.llm_provider = selected_provider_key
+        # Ensure Gemini provider is initialized
+        if st.session_state.llm_provider != "gemini":
+            st.session_state.llm_provider = "gemini"
             try:
-                st.session_state.provider_instance = get_provider(provider_name=selected_provider_key)
-                st.success(f"✅ Switched to {selected_provider_display}")
+                st.session_state.provider_instance = get_provider(provider_name="gemini")
                 st.rerun()
             except (ValueError, ImportError) as e:
-                st.error(f"❌ Failed to initialize {selected_provider_display}: {str(e)}")
+                st.error(f"❌ Failed to initialize Gemini: {str(e)}")
                 st.stop()
+
+        # Check API key status
+        gemini_key = os.getenv("GEMINI_API_KEY")
+        if gemini_key:
+            st.success("✅ API Key Configured")
+        else:
+            st.error("⚠️ GEMINI_API_KEY not set")
+            st.stop()
 
         st.markdown("---")
 
-        # Model selection
+        # Model selection (Gemini models only)
         st.subheader("Model Settings")
 
-        # Dynamic model selection based on provider
-        if st.session_state.provider_instance:
-            available_providers = get_available_providers()
-            provider_info = available_providers.get(st.session_state.llm_provider, {})
-            available_models = provider_info.get("models", [])
+        available_providers = get_available_providers()
+        provider_info = available_providers.get("gemini", {})
+        available_models = provider_info.get("models", [])
 
-            if available_models:
-                model_options = [m["id"] for m in available_models]
-                model_labels = [m["name"] for m in available_models]
+        if available_models:
+            model_options = [m["id"] for m in available_models]
+            model_labels = [m["name"] for m in available_models]
+            model_display_map = {m["name"]: m["id"] for m in available_models}
 
-                # Create mapping for display
-                model_display_map = {m["name"]: m["id"] for m in available_models}
+            current_model = st.session_state.llm_model
+            try:
+                current_index = model_options.index(current_model)
+            except ValueError:
+                current_index = 0
+                st.session_state.llm_model = model_options[0]
 
-                current_model = st.session_state.llm_model
-                try:
-                    current_index = model_options.index(current_model)
-                except ValueError:
-                    current_index = 0
-                    st.session_state.llm_model = model_options[0]
-
-                selected_model_label = st.selectbox(
-                    f"{provider_info['name']} Model",
-                    options=model_labels,
-                    index=current_index,
-                    help=f"Select {provider_info['name']} model"
-                )
-                model = model_display_map[selected_model_label]
-                st.session_state.llm_model = model
-            else:
-                model = provider_info.get("default_model", "claude-sonnet-4-20250514")
-                st.session_state.llm_model = model
-        else:
-            # Local development - Claude only
-            model = st.selectbox(
-                "Claude Model",
-                options=["claude-sonnet-4-5", "claude-opus-4-5", "claude-haiku-4"],
-                index=0,
-                help="Select Claude model. Sonnet recommended for most tasks."
+            selected_model_label = st.selectbox(
+                "Gemini Model",
+                options=model_labels,
+                index=current_index,
+                help="Select Gemini model version"
             )
+            model = model_display_map[selected_model_label]
+            st.session_state.llm_model = model
+        else:
+            model = provider_info.get("default_model", "gemini-2.5-flash")
+            st.session_state.llm_model = model
 
         max_tokens = st.slider(
             "Max Tokens",
@@ -685,10 +644,6 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
 
     # Add user message to history
     st.session_state.messages.append({"role": "user", "content": prompt})
-
-    # Display user message immediately (before spinner starts)
-    with st.chat_message("user"):
-        st.markdown(prompt)
 
     # Get MCP server config
     mcp_servers = get_server_config(st.session_state.selected_servers)

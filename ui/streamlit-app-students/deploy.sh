@@ -9,20 +9,11 @@ PROJECT_ID="precision-medicine-poc"
 REGION="us-central1"
 SERVICE_NAME="streamlit-mcp-chat-students"  # Different service name
 
-# Check if ANTHROPIC_API_KEY is set
-if [ -z "$ANTHROPIC_API_KEY" ]; then
-    echo "Error: ANTHROPIC_API_KEY environment variable not set"
-    echo "Usage: export ANTHROPIC_API_KEY=your_key_here && ./deploy.sh"
+# Check if GEMINI_API_KEY is set (required for student app)
+if [ -z "$GEMINI_API_KEY" ]; then
+    echo "Error: GEMINI_API_KEY environment variable not set"
+    echo "Usage: export GEMINI_API_KEY=your_key_here && ./deploy.sh"
     exit 1
-fi
-
-# Check if GEMINI_API_KEY is set (optional)
-if [ -n "$GEMINI_API_KEY" ]; then
-    echo "Note: GEMINI_API_KEY is set - Gemini provider will be available"
-    GEMINI_ENV="GEMINI_API_KEY=$GEMINI_API_KEY,"
-else
-    echo "Note: GEMINI_API_KEY not set - Only Claude provider will be available"
-    GEMINI_ENV=""
 fi
 
 echo "=========================================="
@@ -47,7 +38,7 @@ gcloud run deploy "$SERVICE_NAME" \
     --min-instances 0 \
     --max-instances 5 \
     --timeout 300 \
-    --set-env-vars ${GEMINI_ENV}ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY",ENVIRONMENT=development,STUDENT_MODE=true,USE_MOCK_MCP=false \
+    --set-env-vars GEMINI_API_KEY="$GEMINI_API_KEY",ENVIRONMENT=development,STUDENT_MODE=true,USE_MOCK_MCP=false \
     --port 8501 \
     --quiet
 
