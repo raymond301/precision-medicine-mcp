@@ -38,7 +38,7 @@ wait
 **Meeting (60 min):**
 
 1. Demo (15 min): Instructor demos the student app solving real problems
-   - Open https://streamlit-mcp-chat-students-ondu7mwjpa-uc.a.run.app
+   - Open the student streamlit app 
    - Run "Warm Up Servers" — show tool discovery across 3 MCP servers
    - Run "Genomic QC" — FASTQ validation for PAT001 exome data from GCS
    - Run "Spatial Analysis" — Moran's I on Visium data for CD3D, CD8A, EPCAM, MKI67
