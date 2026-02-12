@@ -147,16 +147,9 @@ def initialize_session_state():
             if is_cloud_run():
                 st.error(f"Failed to initialize {st.session_state.llm_provider} provider: {str(e)}")
 
-    # Keep chat_handler for backward compatibility (local development)
+    # Legacy chat_handler no longer used (student app is Gemini-only)
     if "chat_handler" not in st.session_state:
-        api_key = os.getenv("ANTHROPIC_API_KEY")
-        if api_key:
-            try:
-                st.session_state.chat_handler = ChatHandler(api_key)
-            except ValueError:
-                st.session_state.chat_handler = None
-        else:
-            st.session_state.chat_handler = None
+        st.session_state.chat_handler = None
 
     # Initialize session tracking
     if "session_id" not in st.session_state:
@@ -228,15 +221,6 @@ def render_sidebar():
         if "user" in st.session_state:
             display_user_info(st.session_state.user, location="sidebar")
             display_logout_button()
-
-        st.markdown("---")
-
-        # API Key status
-        if st.session_state.chat_handler:
-            st.success("✅ API Key Configured")
-        else:
-            st.error("❌ API Key Missing")
-            st.info("Set ANTHROPIC_API_KEY environment variable")
 
         st.markdown("---")
 
@@ -625,11 +609,11 @@ def render_chat_history(show_trace: bool = False, trace_style: str = "log"):
 
 
 def handle_user_input(prompt: str, model: str, max_tokens: int):
-    """Handle user input and get response from Claude.
+    """Handle user input and get response from Gemini.
 
     Args:
         prompt: User's message
-        model: Claude model to use
+        model: Gemini model to use
         max_tokens: Maximum tokens for response
     """
     # Get user info for audit logging
@@ -895,17 +879,17 @@ def main():
     st.title("🧬 Precision Medicine MCP Chat")
     st.markdown("Chat interface for testing deployed MCP servers on GCP Cloud Run")
 
-    # Check API key
-    if not st.session_state.chat_handler:
-        st.error("❌ ANTHROPIC_API_KEY not configured")
+    # Check provider is initialized (Gemini for student app)
+    if not st.session_state.provider_instance:
+        st.error("❌ GEMINI_API_KEY not configured")
         st.info("""
         **Setup Instructions:**
-        1. Set your API key: `export ANTHROPIC_API_KEY=your_key_here`
+        1. Set your API key: `export GEMINI_API_KEY=your_key_here`
         2. Restart this app
 
         Or create a `.env` file with:
         ```
-        ANTHROPIC_API_KEY=your_key_here
+        GEMINI_API_KEY=your_key_here
         ```
         """)
         return
