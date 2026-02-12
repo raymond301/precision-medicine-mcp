@@ -113,7 +113,25 @@ graph LR
 
 ---
 
-## 🖼️ 3. Imaging Analysis
+## 🧬 3. Genomic Results
+
+**Somatic variant and copy number parsing with clinical annotation for individual patients**
+
+**Server:** mcp-genomic-results (4 tools, 100% real)
+
+**Key Features:**
+- VCF parsing with ClinVar/COSMIC annotation (TP53, PIK3CA, PTEN)
+- CNVkit .cns segment classification (amplifications/deletions)
+- Simplified HRD scoring (LOH+TAI+LST) with PARP inhibitor eligibility
+- Comprehensive genomic report aggregating all findings with therapy recommendations
+
+**Workflow:** `Seqera/sarek → VCF + CNS → Parse & Annotate → HRD Score → Genomic Report → Patient Report`
+
+📖 **[Detailed Architecture →](genomic-results/README.md)**
+
+---
+
+## 🖼️ 4. Imaging Analysis
 
 **Histology and multiplexed immunofluorescence (MxIF) image processing**
 
@@ -127,7 +145,7 @@ graph LR
 
 ---
 
-## 🔬 4. Multiomics Integration
+## 🔬 5. Multiomics Integration
 
 **PDX multi-omics data integration with preprocessing and therapeutic target prediction**
 
@@ -145,7 +163,7 @@ graph LR
 
 ---
 
-## 📍 5. Spatial Transcriptomics
+## 📍 6. Spatial Transcriptomics
 
 **Spatial gene expression analysis with tissue context**
 
@@ -162,7 +180,7 @@ graph LR
 
 ---
 
-## 🎯 6. Perturbation Prediction
+## 🎯 7. Perturbation Prediction
 
 **GEARS-based treatment response prediction using graph neural networks**
 
@@ -187,7 +205,7 @@ graph LR
 
 ---
 
-## 🤖 7. AI/ML Model Inference
+## 🤖 8. AI/ML Model Inference
 
 **Genomic foundation model inference for cell type prediction and sequence embedding**
 
@@ -204,7 +222,7 @@ graph LR
 
 ---
 
-## ⚛️ 7. Quantum Cell Type Fidelity
+## ⚛️ 9. Quantum Cell Type Fidelity
 
 **Quantum computing for cell type validation and immune evasion detection**
 
@@ -234,7 +252,7 @@ graph LR
 
 ---
 
-## ⚙️ 8. Workflow Orchestration
+## ⚙️ 10. Workflow Orchestration
 
 **Nextflow pipeline execution and monitoring via Seqera Platform**
 
@@ -260,7 +278,7 @@ graph LR
 **Data Modalities:** Clinical (FHIR) • Genomic (VCF) • Multiomics (RNA/Protein/Phospho) • Spatial (Visium) • Imaging (H&E, MxIF) • Perturbation (scRNA-seq)
 
 **Tests:**
-- 🧬 TEST_1: Clinical data retrieval (mcp-epic)
+- 🧬 TEST_1: Clinical data + genomic analysis (mcp-epic, mcp-genomic-results, mcp-fgbio, mcp-tcga)
 - 🔬 TEST_2: Multiomics integration (mcp-multiomics)
 - 📍 TEST_3: Spatial transcriptomics (mcp-spatialtools)
 - 🖼️ TEST_4: Imaging analysis (mcp-openimagedata, mcp-deepcell)
@@ -274,41 +292,48 @@ graph LR
 ___
 
 ```mermaid
-
 sequenceDiagram
     autonumber
     actor User as Clinician / Researcher
     participant AI as AI Orchestrator (Claude/Gemini)
-    box Silver MCP Server Layer
-        participant Clinical as Clinical (FHIR)
-        participant Bio as Omics/Imaging/Spatial
-        participant Quantum as Quantum/Perturbation
+    box Silver Clinical & Genomic
+        participant Clin as epic / mockepic
+        participant Gen as genomic-results / tcga / fgbio
     end
-    participant Output as Orchestrated Outputs
+    box LightBlue Omics, Spatial & Imaging
+        participant Omics as multiomics / spatialtools
+        participant Img as openimagedata / deepcell / cell-classify
+    end
+    box Wheat Advanced Modeling
+        participant Adv as perturbation / quantum / huggingface
+    end
 
-    User->>AI: Submit complex query (e.g., "Predict target for Patient X")
-    
+    User->>AI: Query (e.g., "Predict target for Patient X")
     activate AI
-    AI->>AI: Analyze query & route to tools
-    
-    par Parallel Data Retrieval
-        AI->>Clinical: Request EHR/FHIR data
-        Clinical-->>AI: Patient history
-        AI->>Bio: Fetch VCF/Imaging/Spatial data
-        Bio-->>AI: Genomic & Spatial profiles
+    AI->>AI: Route to tools
+
+    par Clinical + Genomic
+        AI->>Clin: EHR/FHIR data
+        Clin-->>AI: Patient history
+        AI->>Gen: VCF/CNS → variants, CNV, HRD
+        Gen-->>AI: Annotated findings
     end
 
-    opt Advanced Modeling
-        AI->>Quantum: Run Qiskit simulation / GEARS GNN
-        Quantum-->>AI: Perturbation results
+    par Omics + Imaging
+        AI->>Omics: RNA/Protein + Spatial analysis
+        Omics-->>AI: Integrated profiles
+        AI->>Img: H&E/MxIF segmentation
+        Img-->>AI: Cell phenotypes
     end
 
-    AI->>AI: Synthesize & Aggregate Data
-    
-    AI->>Output: Generate Targets & Visualizations
-    Output-->>User: Present Final Insights
+    opt Perturbation & Quantum
+        AI->>Adv: GEARS GNN / Qiskit simulation
+        Adv-->>AI: Predictions + fidelity
+    end
+
+    AI->>AI: Synthesize findings
+    AI-->>User: Targets, reports & visualizations
     deactivate AI
-
 ```
 
 ---
