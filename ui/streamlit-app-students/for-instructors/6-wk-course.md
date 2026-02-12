@@ -27,14 +27,6 @@ By the end, participants will:
 
 **Goal:** Show immediate practical value. No setup required — students only use the deployed student app.
 
-**Pre-session (Instructor):** Warm up servers 5 minutes before class:
-```bash
-curl -s https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse &
-curl -s https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse &
-curl -s https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse &
-wait
-```
-
 **Meeting (60 min):**
 
 1. Demo (15 min): Instructor demos the student app solving real problems
