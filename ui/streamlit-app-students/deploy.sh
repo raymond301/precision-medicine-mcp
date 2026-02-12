@@ -36,7 +36,7 @@ gcloud run deploy "$SERVICE_NAME" \
     --memory 1Gi \
     --cpu 1 \
     --min-instances 0 \
-    --max-instances 5 \
+    --max-instances 8 \
     --timeout 300 \
     --set-env-vars GEMINI_API_KEY="$GEMINI_API_KEY",ENVIRONMENT=development,STUDENT_MODE=true,USE_MOCK_MCP=false \
     --port 8501 \

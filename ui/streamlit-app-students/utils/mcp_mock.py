@@ -29,6 +29,7 @@ class MockMCPClientManager:
         self.server_configs = server_configs
         self.sessions: Dict[str, str] = {}
         self.tools_cache: Dict[str, List[Dict]] = {}
+        self._gemini_name_map: Dict[str, tuple] = {}
 
         print(f"DEBUG: Using MOCK MCP manager with {len(server_configs)} servers", file=sys.stderr)
 
@@ -409,11 +410,17 @@ Set USE_MOCK_MCP=false to use real MCP servers.
             List of Gemini function declarations
         """
         gemini_tools = []
+        self._gemini_name_map = {}
 
         for tool in self.get_all_tools():
-            # Use same format as real MCPClientManager
+            # Gemini function names must match [a-zA-Z_][a-zA-Z0-9_]*
+            safe_name = f"{tool['server_name']}_{tool['name']}".replace("-", "_")
+
+            # Store mapping back to original names for tool execution
+            self._gemini_name_map[safe_name] = (tool['server_name'], tool['name'])
+
             function_declaration = {
-                "name": f"{tool['server_name']}_{tool['name']}",
+                "name": safe_name,
                 "description": tool['description'],
                 "parameters": tool['input_schema']
             }
@@ -421,6 +428,21 @@ Set USE_MOCK_MCP=false to use real MCP servers.
             gemini_tools.append(function_declaration)
 
         return gemini_tools
+
+    def resolve_gemini_tool_name(self, gemini_name: str) -> tuple:
+        """Resolve a Gemini function name back to (server_name, tool_name).
+
+        Args:
+            gemini_name: The Gemini-safe function name
+
+        Returns:
+            Tuple of (server_name, tool_name) with original names
+        """
+        if gemini_name in self._gemini_name_map:
+            return self._gemini_name_map[gemini_name]
+        # Fallback to split
+        parts = gemini_name.split("_", 1)
+        return (parts[0], parts[1]) if len(parts) == 2 else (gemini_name, gemini_name)
 
     def convert_tools_to_claude_format(self) -> List[Dict]:
         """Convert MCP tools to Claude tool format.
