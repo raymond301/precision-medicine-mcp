@@ -59,16 +59,14 @@ wait
 
 Assignment 1: "Explore the Platform"
 
-1. Open the student app (URL provided in session)
+1. Open the student app (URL provided in session) — no install or setup needed
 2. Run all 6 built-in prompts again — this time read the full responses carefully
-3. Write 3 custom prompts related to YOUR work using the same GCS data paths:
-   - `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/` (Visium CSV files)
-   - `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/` (RNA/Protein/Phospho CSVs)
-   - `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomics/fastq/` (FASTQ files)
-4. Document:
+3. For "Spatial Analysis", try modifying the gene list in the chat box (e.g., replace CD3D with FOXP3 or CD68) and re-run to see how results change
+4. For "Pathway Enrichment", try your own gene list (e.g., genes from your research)
+5. Document:
    - Which built-in prompt was most relevant to your work?
    - What analysis do you do weekly that could be automated?
-   - What data formats do you work with most?
+   - What surprised you about the AI responses?
 
 **Deliverable:** 1-page document with your top 3 use cases
 
