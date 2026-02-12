@@ -180,7 +180,7 @@ def get_server_categories() -> Dict[str, List[str]]:
 
 # Example prompts for different use cases
 EXAMPLE_PROMPTS = {
-    "Spatial Analysis": "Analyze the spatial transcriptomics data for Patient-001 (PAT001-OVC-2025). Sample data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/. Perform cell type deconvolution and identify key cell populations.",
+    "Spatial Analysis": "Analyze the spatial transcriptomics data for Patient-001 (PAT001-OVC-2025). Expression data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_gene_expression.csv, Coordinates: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/visium_spatial_coordinates.csv. Calculate spatial autocorrelation for marker genes CD3D, CD8A, EPCAM, and MKI67.",
 
     "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data for Patient-001 (PAT001-OVC-2025). RNA data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv, Proteomics: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_proteomics.csv, Phosphoproteomics: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_phosphoproteomics.csv. Run HAllA association analysis and identify significant correlations.",
 

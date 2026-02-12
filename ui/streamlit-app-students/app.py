@@ -517,8 +517,12 @@ def render_sidebar():
             index=0
         )
 
-        if selected_example and st.button("Load Prompt"):
-            st.session_state.example_prompt = EXAMPLE_PROMPTS[selected_example]
+        # Show preview of selected prompt
+        if selected_example:
+            st.caption(EXAMPLE_PROMPTS[selected_example][:120] + "...")
+            if st.button("Send Prompt"):
+                st.session_state.pending_example = EXAMPLE_PROMPTS[selected_example]
+                st.rerun()
 
         st.markdown("---")
 
@@ -903,18 +907,13 @@ def main():
     render_chat_history(show_trace=show_trace, trace_style=trace_style)
 
     # Chat input
-    # Check for example prompt loaded
-    default_value = ""
-    if hasattr(st.session_state, 'example_prompt'):
-        default_value = st.session_state.example_prompt
-        delattr(st.session_state, 'example_prompt')
-
-    if prompt := st.chat_input("Ask me anything about precision medicine...", key="chat_input"):
+    # Check for pending example prompt (from sidebar button)
+    if "pending_example" in st.session_state:
+        pending = st.session_state.pending_example
+        del st.session_state.pending_example
+        handle_user_input(pending, model, max_tokens)
+    elif prompt := st.chat_input("Ask me anything about precision medicine...", key="chat_input"):
         handle_user_input(prompt, model, max_tokens)
-
-    # Show example if set
-    if default_value:
-        handle_user_input(default_value, model, max_tokens)
 
 
 if __name__ == "__main__":

@@ -12,19 +12,21 @@ def load_omics_data(file_path: str) -> pd.DataFrame:
     """Load omics data from CSV or TSV file.
 
     Args:
-        file_path: Path to data file
+        file_path: Path to data file (local or gs:// URI)
 
     Returns:
         DataFrame with features as rows, samples as columns
     """
-    path = Path(file_path)
-    if not path.exists():
-        raise FileNotFoundError(f"Data file not found: {file_path}")
+    # For local paths, check existence first
+    if not file_path.startswith("gs://"):
+        path = Path(file_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Data file not found: {file_path}")
 
     # Detect delimiter
     delimiter = "\t" if file_path.endswith((".tsv", ".txt")) else ","
 
-    # Load data
+    # Load data (pandas handles gs:// via fsspec+gcsfs)
     df = pd.read_csv(file_path, sep=delimiter, index_col=0)
 
     return df
