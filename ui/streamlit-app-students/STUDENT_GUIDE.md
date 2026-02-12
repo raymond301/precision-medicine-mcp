@@ -41,7 +41,7 @@ cp .env.example .env
 # Edit .env and paste the keys
 
 # 4. Install dependencies
-python3 -m pip install -r ../streamlit-app/requirements.txt
+python3 -m pip install -r requirements.txt
 
 # 5. Run the app
 streamlit run app.py
