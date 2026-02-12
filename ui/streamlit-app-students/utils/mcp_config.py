@@ -182,9 +182,9 @@ def get_server_categories() -> Dict[str, List[str]]:
 EXAMPLE_PROMPTS = {
     "Spatial Analysis": "Analyze the spatial transcriptomics data for Patient-001 (PAT001-OVC-2025). Sample data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/. Perform cell type deconvolution and identify key cell populations.",
 
-    "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data for Patient-001 (PAT001-OVC-2025). Data is in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/. Run HAllA association analysis and identify significant correlations.",
+    "Multi-omics Integration": "Integrate RNA, protein, and phosphorylation data for Patient-001 (PAT001-OVC-2025). RNA data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_rna_seq.csv, Proteomics: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_proteomics.csv, Phosphoproteomics: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/pdx_phosphoproteomics.csv. Run HAllA association analysis and identify significant correlations.",
 
-    "Genomic QC": "Validate the FASTQ files and check quality metrics. What is the average quality score and read length?",
+    "Genomic QC": "Validate the FASTQ file for Patient-001 (PAT001-OVC-2025) at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomics/fastq/PAT001_OVC_exome_R1.fastq.gz and check quality metrics. What is the average quality score and read length?",
 
     "Pathway Enrichment": "For the upregulated genes [TP53, BRCA1, MYC, KRAS], perform pathway enrichment analysis using GO_BP database.",
 
