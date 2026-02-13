@@ -775,9 +775,15 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
             st.session_state.total_queries += 1
             if usage:
                 st.session_state.total_tokens += usage.get("total_tokens", 0)
-                # Estimate cost (Sonnet pricing)
-                input_cost = usage.get("input_tokens", 0) * 0.003 / 1000
-                output_cost = usage.get("output_tokens", 0) * 0.015 / 1000
+                # Estimate cost based on active provider
+                if st.session_state.llm_provider == "gemini":
+                    # Gemini Flash pricing: $0.15/M input, $0.60/M output
+                    input_cost = usage.get("input_tokens", 0) * 0.00015 / 1000
+                    output_cost = usage.get("output_tokens", 0) * 0.0006 / 1000
+                else:
+                    # Claude Sonnet pricing: $3/M input, $15/M output
+                    input_cost = usage.get("input_tokens", 0) * 0.003 / 1000
+                    output_cost = usage.get("output_tokens", 0) * 0.015 / 1000
                 estimated_cost = input_cost + output_cost
                 st.session_state.total_cost += estimated_cost
 
