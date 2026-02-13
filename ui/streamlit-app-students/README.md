@@ -10,7 +10,9 @@ This is a **safety-limited version** of the MCP Chat app designed for the bioinf
 | **LLM Provider** | Gemini only (Flash/Pro) | Claude + Gemini |
 | **Token Limit** | 50,000 per session | Unlimited |
 | **Request Limit** | 50 per session | Unlimited |
+| **Cost Display** | Gemini Flash pricing | Per-provider pricing |
 | **Cost Cap** | ~$1.50 per session | No limit |
+| **File Upload** | Disabled (uses GCS data) | Full upload + GCS |
 | **Authentication** | None (public access) | Optional SSO |
 | **Usage Display** | Always visible | Optional |
 | **Service Name** | `streamlit-mcp-chat-students` | `streamlit-mcp-chat` |
@@ -25,7 +27,14 @@ The student app connects to **3 production servers** by default:
 | **multiomics** | 9 | Multi-omics integration (RNA/Protein/Phospho), pathway enrichment |
 | **fgbio** | 4 | Genomic QC and FASTQ validation |
 
-All servers read PatientOne sample data from GCS bucket `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`.
+All built-in prompts use PatientOne sample data from GCS bucket `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`.
+
+### Data Access
+
+- **Built-in prompts** reference PatientOne data in the instructor's GCS bucket
+- **Custom prompts** can reference any **public** GCS bucket (students type `gs://` paths in the chat box)
+- **File upload is disabled** — local files can't reach Cloud Run MCP servers
+- **Private buckets** are not accessible unless the Cloud Run service account has been granted read permission
 
 ## Example Prompts (6 built-in)
 
@@ -47,7 +56,7 @@ Both apps use:
 - **Same provider code** (copied from main app)
 - **Same utilities** (copied from main app)
 
-Only `app.py` differs (adds safety guardrails, forces Gemini, removes provider switching).
+Only `app.py` differs (adds safety guardrails, forces Gemini, removes provider switching, disables file upload).
 
 **Note**: `providers/` and `utils/` are copied from `../streamlit-app/` to ensure Docker builds work correctly (symlinks don't work in Docker build context).
 
@@ -106,10 +115,12 @@ MAX_REQUESTS_PER_SESSION = 50
 
 Then redeploy: `./deploy.sh`
 
-## Expected Costs
+## Expected Costs (Gemini Flash Pricing)
 
-- **Per student per session**: ~$0.50-1.50 (capped)
-- **Study group (6 students, 6 weeks)**: ~$30-60 total
+- **Per query**: ~$0.002 (e.g., Genomic QC with 12k input tokens)
+- **Per student per session** (10-15 queries): ~$0.02-0.03
+- **Study group (6 students, 6 weeks)**: ~$1-2 total
+- Cost display in the app uses actual Gemini Flash rates ($0.15/M input, $0.60/M output)
 
 ## Safety Features
 
@@ -119,3 +130,5 @@ Then redeploy: `./deploy.sh`
 - Automatic warnings at 80%
 - Easy reset (clear conversation or refresh)
 - No authentication required (public access)
+- File upload disabled (prevents confusion — local files can't reach Cloud Run servers)
+- Accurate Gemini Flash cost display (not inflated Claude pricing)
