@@ -47,7 +47,7 @@ Regardless of the underlying cloud infrastructure, the platform enforces:
 ## Related Documents
 
 - [Section 04: Compliance and Regulatory](04_COMPLIANCE_REGULATORY.md)
-- [Runbook: Secret and Key Rotation](RUNBOOK_SECRET_ROTATION.md)
+- [Runbook: Secret and Key Rotation](RUNBOOK_KEY_ROTATION.md)
 - [Runbook: P1 PHI Breach Response](RUNBOOK_P1_PHI_BREACH.md)
 
 **Next Section:** [07. Backup and Disaster Recovery →](07_BACKUP_DISASTER_RECOVERY.md)

@@ -118,7 +118,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 - **[Runbook: Disaster Recovery Failover](RUNBOOK_DR_FAILOVER.md)**
 - **[Runbook: Monthly Maintenance](RUNBOOK_MONTHLY_MAINTENANCE.md)**
 - **[Runbook: Capacity Planning](RUNBOOK_CAPACITY_PLANNING.md)**
-- **[Runbook: Secret and Key Rotation](RUNBOOK_SECRET_ROTATION.md)**
+- **[Runbook: Secret and Key Rotation](RUNBOOK_KEY_ROTATION.md)**
 - **[Runbook: User Provisioning](RUNBOOK_USER_PROVISIONING.md)**
 - **[Runbook: AI Drift Mitigation](RUNBOOK_AI_DRIFT_MITIGATION.md)**
 - **[Runbook: Vulnerability Remediation](RUNBOOK_VULNERABILITY_REMEDIATION.md)**
