@@ -7,10 +7,8 @@ Provides a Claude Desktop-like experience for bioinformatics workflows.
 import streamlit as st
 import os
 import uuid
-import tempfile
 from typing import List, Dict
 from datetime import datetime
-from pathlib import Path
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -63,15 +61,8 @@ from providers import (
 from utils.auth import require_authentication, display_user_info, display_logout_button
 from utils.audit_logger import get_audit_logger
 
-# Import file validation and GCS handling
-from utils.file_validator import validate_uploaded_file, sanitize_filename
-from utils.gcs_handler import (
-    is_gcs_path,
-    validate_gcs_uri,
-    get_gcs_file_metadata,
-    get_gcs_file_content,
-    get_gcs_files_metadata
-)
+# GCS handling (file upload disabled in student mode)
+from utils.gcs_handler import is_gcs_path, validate_gcs_uri
 
 # Page configuration
 st.set_page_config(
@@ -174,41 +165,6 @@ def initialize_session_state():
     # Initialize uploaded files storage
     if "uploaded_files" not in st.session_state:
         st.session_state.uploaded_files = {}  # filename -> {'path': temp_path, 'metadata': dict}
-
-
-def prepare_file_for_mcp(uploaded_file, metadata: Dict) -> str:
-    """Prepare uploaded file for MCP server access.
-
-    Writes validated file to a temporary directory and returns the path
-    for MCP servers to access.
-
-    Args:
-        uploaded_file: Streamlit UploadedFile object
-        metadata: File metadata dict from validation
-
-    Returns:
-        str: Absolute path to the temporary file
-
-    Example:
-        >>> temp_path = prepare_file_for_mcp(uploaded_file, metadata)
-        >>> # Pass temp_path to MCP tool call
-    """
-    # Create a temp directory if it doesn't exist
-    temp_dir = Path(tempfile.gettempdir()) / "mcp_uploads"
-    temp_dir.mkdir(exist_ok=True)
-
-    # Use sanitized filename
-    sanitized_name = metadata['sanitized_filename']
-    temp_path = temp_dir / sanitized_name
-
-    # Write file content
-    content = uploaded_file.read()
-    uploaded_file.seek(0)  # Reset file pointer
-
-    with open(temp_path, 'wb') as f:
-        f.write(content)
-
-    return str(temp_path)
 
 
 def render_sidebar():
@@ -386,126 +342,10 @@ def render_sidebar():
 
         st.markdown("---")
 
-        # File Upload Section
-        st.subheader("📁 File Upload")
-        st.caption("Upload bioinformatics data files")
-
-        uploaded_files = st.file_uploader(
-            "Choose files",
-            type=['fasta', 'fa', 'fna', 'fastq', 'fq', 'vcf', 'gff', 'gtf', 'bed',
-                  'csv', 'tsv', 'tab', 'txt', 'json', 'h5ad', 'h5',
-                  'png', 'jpg', 'jpeg', 'tiff', 'tif'],
-            accept_multiple_files=True,
-            help="Upload sequence files, annotations, tabular data, or images"
-        )
-
-        if uploaded_files:
-            st.caption(f"{len(uploaded_files)} file(s) selected")
-
-            for uploaded_file in uploaded_files:
-                # Validate each file
-                is_valid, errors, metadata = validate_uploaded_file(uploaded_file)
-
-                if is_valid:
-                    # Store validated file
-                    temp_path = prepare_file_for_mcp(uploaded_file, metadata)
-                    st.session_state.uploaded_files[metadata['sanitized_filename']] = {
-                        'path': temp_path,
-                        'metadata': metadata,
-                        'original_name': uploaded_file.name
-                    }
-
-                    # Show success with file info
-                    with st.expander(f"✅ {uploaded_file.name}", expanded=False):
-                        st.success("Valid file")
-                        col1, col2 = st.columns(2)
-                        col1.metric("Size", f"{metadata['size_mb']:.2f} MB")
-                        col2.metric("Type", metadata['extension'])
-                        if not metadata.get('is_binary', False):
-                            st.caption(f"Lines: {metadata.get('line_count', 'N/A')}")
-                else:
-                    # Show validation errors
-                    with st.expander(f"❌ {uploaded_file.name}", expanded=True):
-                        st.error("Invalid file")
-                        for error in errors:
-                            st.write(f"- {error}")
-
-        # GCS Path Input Section
-        st.caption("Or provide GCS bucket path")
-
-        gcs_uri = st.text_input(
-            "GCS URI",
-            placeholder="gs://bucket-name/path/to/file.fastq or gs://bucket-name/path/to/folder/",
-            help="Enter a Google Cloud Storage URI to a file or folder. For folders, all files will be loaded.",
-            key="gcs_uri_input"
-        )
-
-        if gcs_uri and gcs_uri.strip():
-            # Get metadata for file(s) - handles both single files and folders
-            success, metadata_list, meta_error = get_gcs_files_metadata(gcs_uri, use_mock=False)
-
-            if success:
-                # Store all files found
-                for metadata in metadata_list:
-                    file_gcs_uri = metadata['gcs_uri']
-
-                    # Store GCS file reference
-                    st.session_state.uploaded_files[metadata['sanitized_filename']] = {
-                        'path': file_gcs_uri,  # Store GCS path directly
-                        'metadata': metadata,
-                        'original_name': metadata['filename'],
-                        'source': 'gcs'
-                    }
-
-                # Show success - different display for single vs multiple files
-                if len(metadata_list) == 1:
-                    # Single file
-                    metadata = metadata_list[0]
-                    with st.expander(f"✅ {metadata['filename']} (GCS)", expanded=False):
-                        st.success("Valid GCS URI")
-                        col1, col2 = st.columns(2)
-                        col1.metric("Bucket", metadata['bucket'])
-                        col2.metric("Type", metadata['extension'])
-                        st.caption(f"Path: {metadata['blob_path']}")
-
-                        # Try to get content for small text files
-                        if not metadata.get('is_binary', False) and metadata['size_mb'] < 0.05:
-                            success_content, content, content_error = get_gcs_file_content(metadata['gcs_uri'], max_size_bytes=50000)
-                            if success_content:
-                                st.caption(f"✅ Content loaded ({len(content)} chars)")
-                                # Store content in metadata for inline inclusion
-                                metadata['_gcs_content'] = content
-                            else:
-                                st.caption(f"⚠️ Content not loaded: {content_error}")
-                else:
-                    # Multiple files from folder
-                    with st.expander(f"✅ {len(metadata_list)} files loaded from folder", expanded=True):
-                        st.success(f"Found {len(metadata_list)} files in GCS folder")
-
-                        # Show file list
-                        for metadata in metadata_list:
-                            col1, col2, col3 = st.columns([3, 1, 1])
-                            col1.write(f"📄 {metadata['filename']}")
-                            col2.write(f"{metadata['size_mb']:.2f} MB")
-                            col3.write(metadata['extension'])
-            else:
-                st.error(f"Error: {meta_error}")
-
-        # Show currently uploaded files
-        if st.session_state.uploaded_files:
-            st.caption(f"📎 {len(st.session_state.uploaded_files)} file(s) available for MCP")
-
-            # Button to clear all uploaded files
-            if st.button("Clear Files", key="clear_files"):
-                # Clean up temp files
-                for file_info in st.session_state.uploaded_files.values():
-                    try:
-                        if os.path.exists(file_info['path']):
-                            os.remove(file_info['path'])
-                    except Exception:
-                        pass
-                st.session_state.uploaded_files = {}
-                st.rerun()
+        # Data note (file upload disabled in student mode)
+        st.subheader("📁 Sample Data")
+        st.caption("All example prompts use PatientOne data from GCS:")
+        st.code("gs://sample-inputs-patientone/\n  patient-data/PAT001-OVC-2025/", language=None)
 
         st.markdown("---")
 
