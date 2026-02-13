@@ -23,6 +23,7 @@ Basic queries for clinical data and genomic variants
 - Identify pathogenic variants from VCF
 - Link clinical phenotype to genotype
 - Generate variant interpretation report
+- Identify immunotherapy targets and biomarkers
 
 **Servers used:** mcp-epic, mcp-mockepic, mcp-fgbio
 
@@ -77,6 +78,7 @@ End-to-end multi-modal analyses
 - Tumor microenvironment characterization
 - Drug resistance mechanism identification
 - Biomarker discovery workflow
+- Immunotherapy research workflow for cold tumors
 
 **Servers used:** All 15 servers (90 tools total)
 
@@ -375,6 +377,7 @@ Have a useful prompt? Share it!
 
 - **[PatientOne Guide](../test-docs/patient-one-scenario/README.md)** - Complete walkthrough
 - **[Test Prompts](../test-docs/patient-one-scenario/test-prompts/)** - 6 test scenarios
+- **[Immunotherapy Reference](../test-docs/patient-one-scenario/immunotherapy-reference.md)** - Next-gen immunotherapy candidates for cold tumors
 - **[Server Documentation](../../../servers/README.md)** - Tool reference
 - **[For Researchers](../../for-researchers/README.md)** - Analysis workflows
 

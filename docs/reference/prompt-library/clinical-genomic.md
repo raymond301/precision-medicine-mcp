@@ -462,6 +462,80 @@ Report any variants associated with platinum or PARP resistance.
 
 ---
 
+### 17. Identify Immunotherapy Targets and Biomarkers
+
+**Objective:** Assess PatientOne's tumor for immunotherapy target expression to evaluate candidacy for next-generation immunotherapies (bispecifics, vaccines, TIL therapy)
+
+```
+For PatientOne (PAT001-OVC-2025), analyze expression of immunotherapy-relevant
+targets and biomarkers across available multi-omics and spatial data.
+
+Data location: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/
+
+Check the following target categories:
+
+1. Checkpoint ligands (cadonilimab PD-1xCTLA-4 candidacy):
+   - CD274 (PD-L1): Expression level and spatial distribution
+   - CTLA4: Expression on T cells in stroma/periphery
+   - LAG3, HAVCR2 (TIM3), TIGIT: Alternative checkpoint targets
+   → If PD-L1 low but CTLA-4 present: dual blockade (cadonilimab) may be effective
+
+2. BiTE targets (ubamatamab MUC16xCD3 candidacy):
+   - MUC16: Expression level (correlates with CA-125 serum levels)
+   - CD3D, CD3E: T-cell presence (even if excluded from tumor)
+   → If MUC16 high + CD3+ cells in stroma: ubamatamab can redirect T cells
+
+3. Innate immune targets (NI-1801 MSLNxCD47 candidacy):
+   - MSLN (mesothelin): Tumor cell expression
+   - CD47: "Don't eat me" signal on tumor cells
+   - CD68: Macrophage presence in tumor/stroma
+   → If MSLN+ tumor + CD68+ macrophages present: NI-1801 can activate phagocytosis
+
+4. Vaccine targets (IGFBP-2 vaccine candidacy):
+   - IGFBP2: Overexpression in tumor vs. normal tissue
+   → If IGFBP2 overexpressed: vaccine can generate targeted T-cell response
+
+5. TIL feasibility markers (TIL therapy candidacy):
+   - CD8A: Presence at tumor periphery/stroma (TIL harvest site)
+   - Exhaustion markers: PDCD1 (PD-1), LAG3, HAVCR2, TIGIT on CD8+ cells
+   - Activation markers: GZMB, PRF1 (if available)
+   → If CD8+ at periphery with moderate exhaustion: TIL can be expanded ex vivo
+
+For each target, report:
+- Expression level (High/Medium/Low/Not detected/Not in panel)
+- Spatial distribution (tumor core, stroma, periphery, interface)
+- Immunotherapy candidacy assessment
+- Data source (Visium spatial, multi-omics RNA, multi-omics protein)
+
+NOTE: Not all targets may be present in PatientOne's synthetic 31-gene Visium
+panel. For targets not in the spatial panel, check multi-omics RNA data.
+If unavailable in both, note as "Not in current panel — requires additional assay."
+```
+
+**Expected Output:**
+
+| Target | Expression | Location | Source | Therapy Candidacy |
+|--------|-----------|----------|--------|-------------------|
+| CD274 (PD-L1) | Low | Stroma interface | Spatial/RNA | Low for mono; consider combination |
+| CTLA4 | Low-Medium | T cells in stroma | RNA | Supports dual blockade (cadonilimab) |
+| MUC16 | High | Tumor core + periphery | Clinical (CA-125) | Strong ubamatamab candidate |
+| CD3D/CD3E | Medium | Stroma, excluded from tumor | Spatial | T cells present for BiTE redirection |
+| MSLN | Medium-High | Tumor cells | RNA | NI-1801 candidate (verify expression) |
+| CD47 | High | Tumor cells | RNA | CD47 blockade relevant |
+| CD68 | Medium | Stroma | Spatial/Imaging | Macrophages available for NI-1801 |
+| IGFBP2 | Check RNA | Tumor | RNA | Vaccine candidate if overexpressed |
+| CD8A | Low (tumor), Medium (stroma) | Periphery/stroma | Spatial/Imaging | TIL harvest feasible from periphery |
+| PDCD1 (PD-1) | Medium | CD8+ T cells | RNA | Moderate exhaustion — TIL expandable |
+
+**Customize:**
+- Add/remove targets based on available panel genes
+- Adjust for different cancer types (different target priorities)
+- Focus on specific therapy: e.g., `Focus only on BiTE targets for ubamatamab assessment`
+
+**Reference:** See [Immunotherapy Reference](../test-docs/patient-one-scenario/immunotherapy-reference.md) for detailed candidate profiles and decision framework.
+
+---
+
 ## Troubleshooting
 
 **"VCF file not found"**

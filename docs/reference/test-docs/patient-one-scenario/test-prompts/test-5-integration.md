@@ -98,6 +98,27 @@ Expected recommendations should include:
 - Expected response rate based on immune phenotype
 - Could combination with other agents overcome exclusion?
 
+**Next-Generation Immunotherapy Candidates for Cold TME:**
+
+Given PatientOne's immune-excluded phenotype, evaluate these 5 next-gen immunotherapy approaches that may overcome cold TME limitations:
+
+1. **Cadonilimab (AK104)** — PD-1 x CTLA-4 bispecific antibody (Akeso). Dual checkpoint blockade may convert cold→hot TME. Active Phase II in recurrent ovarian ([NCT06560112](https://clinicaltrials.gov/study/NCT06560112)).
+   - *Analysis:* Use mcp-spatialtools to map PD-L1/CTLA-4 expression; mcp-perturbation to predict dual blockade effect.
+
+2. **NI-1801** — Mesothelin x CD47 innate cell engager (Light Chain Bio). Activates macrophages — bypasses T-cell requirement entirely. 75% 1-year OS in platinum-resistant + pembrolizumab ([NCT05403554](https://clinicaltrials.gov/study/NCT05403554)).
+   - *Analysis:* Use mcp-multiomics to check MSLN/CD47 expression; mcp-deepcell to quantify macrophage density.
+
+3. **Ubamatamab (REGN4018)** — MUC16 x CD3 BiTE (Regeneron). Forces T-cell killing of MUC16+ cells in cold tumors. Largest program: 890-patient Phase 1/2 ([NCT03564340](https://clinicaltrials.gov/study/NCT03564340)), Phase 2 platinum-resistant ([NCT06787612](https://clinicaltrials.gov/study/NCT06787612)).
+   - *Analysis:* Use mcp-mockepic for CA-125/MUC16 trends; mcp-spatialtools for CD3D/CD3E mapping.
+
+4. **IGFBP-2 Vaccine** — DNA plasmid vaccine (UW Medicine). >50% alive at 8 years in Phase I ([NCT01322802](https://clinicaltrials.gov/study/NCT01322802)). Generates new T-cell responses; best as maintenance strategy.
+   - *Analysis:* Use mcp-multiomics to check IGFBP2 expression levels.
+
+5. **TIL Therapy** — Engineered tumor-infiltrating lymphocytes (NCI, multiple). CD28/IL-15 methods improve persistence from cold tumors. NCI Phase II recruiting ([NCT01174121](https://clinicaltrials.gov/study/NCT01174121)).
+   - *Analysis:* Use mcp-spatialtools for CD8A at periphery; mcp-deepcell for CD8+ density assessment.
+
+> **See [Immunotherapy Reference](../immunotherapy-reference.md)** for detailed profiles, decision framework, and complete NCT ID listing.
+
 **C. Clinical Trial Opportunities:**
 
 For BRCA1-mutant, platinum-resistant, Stage IV HGSOC with:
@@ -109,6 +130,12 @@ Suggest trial types:
 - PARP + PI3K/AKT inhibitor combinations
 - Novel immunotherapy combinations
 - BRCA-targeted therapies
+- Bispecific antibody trials (cadonilimab PD-1xCTLA-4, ubamatamab MUC16xCD3, NI-1801 MSLNxCD47)
+- Cancer vaccine trials (IGFBP-2 DNA plasmid vaccine)
+- TIL (tumor-infiltrating lymphocyte) adoptive cell therapy trials
+- Checkpoint inhibitor + bispecific combinations
+
+> **Note:** Use **ClinicalTrials.gov MCP** and **PubMed MCP** (external tools available in Claude Desktop/Claude Code, not built into platform servers) to search for active recruiting trials. See [Immunotherapy Reference](../immunotherapy-reference.md) for verified NCT IDs.
 
 ### 4. BIOMARKERS FOR MONITORING
 

@@ -197,6 +197,9 @@ STEP 2: Trial Matching
   * PI3K/AKT/mTOR inhibitor trials
   * PARP inhibitor combinations
   * Immunotherapy + targeted therapy combinations
+  * Bispecific antibody trials (PD-1xCTLA-4, MUC16xCD3, MSLNxCD47)
+  * Cancer vaccine trials (IGFBP-2, neoantigen)
+  * TIL (tumor-infiltrating lymphocyte) adoptive cell therapy trials
 
 STEP 3: Eligibility Assessment
 - Check inclusion criteria:
@@ -218,6 +221,96 @@ RETURN:
 ```
 
 **Use Case:** Clinical trial enrollment, precision treatment access
+
+---
+
+### 5b. Immunotherapy Research Workflow for Cold Tumors (30 minutes)
+
+```
+Research next-generation immunotherapy candidates for PatientOne (PAT001-OVC-2025),
+a platinum-resistant Stage IV HGSOC patient with cold/immune-excluded TME.
+
+Patient data: gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/
+
+STEP 1: Characterize Immune Landscape (8 minutes)
+- Use mcp-spatialtools to map immune markers across tissue regions:
+  * CD8A, CD3E, CD4 (T-cell markers)
+  * CD68 (macrophage marker)
+  * FOXP3 (Treg marker, if available)
+  * Quantify immune exclusion: ratio of immune cells in stroma vs. tumor core
+- Use mcp-quantum-celltype-fidelity to assess T-cell states:
+  * Exhaustion markers: PDCD1 (PD-1), LAG3, HAVCR2 (TIM3), TIGIT
+  * Activation markers: GZMB, PRF1, IFNG (if available)
+- Use mcp-deepcell to quantify CD8+ cell density from IF imaging:
+  * Cells/mm² in tumor core vs. stroma vs. periphery
+  * Confirm immune-excluded phenotype
+
+STEP 2: Check Immunotherapy Target Expression (7 minutes)
+- Use mcp-multiomics to check RNA/protein levels for:
+  * Checkpoint ligands: CD274 (PD-L1), CTLA4, LAG3, HAVCR2, TIGIT
+    → Determines cadonilimab (PD-1xCTLA-4) candidacy
+  * BiTE targets: MUC16 expression level, CD3D/CD3E on T cells
+    → Determines ubamatamab (MUC16xCD3) candidacy
+  * Innate immune targets: MSLN (mesothelin), CD47, CD68
+    → Determines NI-1801 (MSLNxCD47) candidacy
+  * Vaccine targets: IGFBP2 expression level
+    → Determines IGFBP-2 vaccine candidacy
+- Use mcp-spatialtools to map target spatial distribution:
+  * Are targets expressed in tumor core, stroma, or both?
+  * Note: Not all targets may be in the 31-gene Visium panel — check multi-omics for missing genes
+
+STEP 3: Predict Treatment Response (7 minutes)
+- Use mcp-perturbation (GEARS) to predict gene expression changes for:
+  * Dual PD-1/CTLA-4 blockade (cadonilimab scenario)
+  * MUC16-directed T-cell activation (ubamatamab scenario)
+  * CD47 blockade + macrophage activation (NI-1801 scenario)
+- Use mcp-quantum-celltype-fidelity to predict:
+  * T-cell reactivation potential (for checkpoint/BiTE approaches)
+  * Cold→hot TME conversion likelihood
+
+STEP 4: Search Clinical Trials and Literature (5 minutes)
+NOTE: This step uses EXTERNAL MCP tools (not built into platform servers).
+These are available in Claude Desktop and Claude Code as separate MCP servers.
+- Use ClinicalTrials.gov MCP (external) to search for:
+  * Cadonilimab + ovarian cancer trials (e.g., NCT06560112)
+  * NI-1801 MSLN-targeting trials (e.g., NCT05403554)
+  * Ubamatamab MUC16xCD3 trials (e.g., NCT03564340, NCT06787612)
+  * IGFBP-2 vaccine trials (e.g., NCT01322802)
+  * TIL therapy in ovarian cancer (e.g., NCT01174121)
+- Use PubMed MCP (external) to search for:
+  * Latest efficacy data for each candidate
+  * Cold tumor immunotherapy conversion strategies
+  * HGSOC immunotherapy biomarker studies
+
+STEP 5: Rank Candidates for PatientOne (3 minutes)
+- Score each candidate on:
+  * Cold TME suitability (can it work without T-cell infiltration?)
+  * Target expression in PatientOne (confirmed from Steps 1-2)
+  * Predicted response (from Step 3)
+  * Clinical evidence strength (from Step 4)
+  * Trial accessibility (recruiting, location, eligibility match)
+- Generate ranked recommendation with rationale
+
+RETURN: Structured immunotherapy research report with:
+- Immune landscape characterization (hot/cold/excluded classification)
+- Target expression summary table (present/absent/unknown for each target)
+- Predicted response for each candidate (GEARS results)
+- Top 5 clinical trials with NCT IDs and eligibility match
+- Ranked immunotherapy recommendations (1-5) with evidence levels
+- Limitations noted (gene panel coverage, synthetic data caveats)
+```
+
+**Expected Results:**
+- **Immune landscape:** Cold/immune-excluded (CD8+ low in tumor, high in stroma)
+- **Top candidate:** Ubamatamab (MUC16/CA-125 highly expressed, largest trial program)
+- **Runner-up:** NI-1801 (bypasses T-cell requirement via innate immunity)
+- **Trials:** 5+ recruiting trials with NCT IDs matching PatientOne's profile
+
+**Time:** 30 minutes
+**Cost:** ~$2-5 (compute + tokens)
+**Use Case:** Immunotherapy research for cold/immune-excluded tumors, clinical trial matching for platinum-resistant HGSOC
+
+**Reference:** See [Immunotherapy Reference](../test-docs/patient-one-scenario/immunotherapy-reference.md) for detailed candidate profiles and decision framework.
 
 ---
 
