@@ -49,6 +49,49 @@ All built-in prompts use PatientOne sample data from GCS bucket `gs://sample-inp
 
 **Tip**: Run "Warm Up Servers" first to avoid cold-start delays (servers have `min-instances=0`).
 
+## Authentication & Data Flow
+
+The student app uses a simplified auth model — no login required. The instructor's API key is baked into the Cloud Run deployment.
+
+```mermaid
+graph LR
+    subgraph Students["Students (Browser)"]
+        S[Student Browser]
+    end
+
+    subgraph CloudRun["GCP Cloud Run"]
+        APP["Streamlit App<br/><i>--allow-unauthenticated</i><br/>ENVIRONMENT=development"]
+        MCP1["mcp-spatialtools"]
+        MCP2["mcp-multiomics"]
+        MCP3["mcp-fgbio"]
+    end
+
+    subgraph Google["Google APIs"]
+        GEMINI["Gemini API"]
+        GCS["GCS Bucket<br/>gs://sample-inputs-patientone/"]
+    end
+
+    S -- "No auth required<br/>(public URL)" --> APP
+    APP -- "GEMINI_API_KEY<br/>(env var, set by instructor)" --> GEMINI
+    APP -- "SSE connection<br/>(no auth)" --> MCP1
+    APP -- "SSE connection<br/>(no auth)" --> MCP2
+    APP -- "SSE connection<br/>(no auth)" --> MCP3
+    MCP1 -- "Service account IAM<br/>(implicit)" --> GCS
+    MCP2 -- "Service account IAM<br/>(implicit)" --> GCS
+    MCP3 -- "Service account IAM<br/>(implicit)" --> GCS
+
+    style Students fill:#e1f5ff
+    style CloudRun fill:#d4edda
+    style Google fill:#fff3cd
+```
+
+**Key points:**
+- **Students** access the app via a public Cloud Run URL (no login, no API keys)
+- **Gemini API key** is set as a Cloud Run env var by the instructor at deploy time — students never see it
+- **MCP servers** are public Cloud Run services (`--allow-unauthenticated`) — the Streamlit app connects via SSE
+- **GCS data access** uses the Cloud Run default service account's IAM permissions (implicit, no keys needed)
+- **The auth module** (`utils/auth.py`) supports Azure AD SSO via OAuth2 Proxy for hospital deployments, but in student mode (`ENVIRONMENT=development`) it returns a mock dev user and is effectively bypassed
+
 ## Shared Infrastructure
 
 Both apps use:
