@@ -4,11 +4,22 @@
 
 ---
 
+```mermaid
+graph LR
+    U[Streamlit UI<br>Claude / Gemini] --> O[AI Orchestrator]
+    O --> S1[Clinical<br>mcp-epic]
+    O --> S2[Genomic<br>fgbio · genomic-results]
+    O --> S3[Multi-Omics<br>multiomics]
+    O --> S4[Spatial<br>spatialtools]
+    O --> S5[Imaging<br>deepcell · openimagedata]
+    O --> S6[Prediction<br>perturbation · quantum]
+    O --> S7[Reporting<br>patient-report · cell-classify]
+    S1 & S2 & S3 & S4 & S5 & S6 & S7 --> GCP[GCP Cloud Run]
+```
+
 ## System Overview
 
-**A production-ready AI-orchestrated platform for precision oncology research**, integrating clinical (FHIR), genomic, multi-omics, spatial transcriptomics, and imaging data through 15 specialized MCP servers (90 bioinformatics tools) deployed on GCP Cloud Run. The system uses Claude or Gemini 3 to orchestrate complex multi-step analyses via natural language, reducing analysis time from 40 hours of manual bioinformatics work to 35 minutes of AI-orchestrated execution. Includes HIPAA compliance (de-identification, 10-year audit logs, bias detection), Bayesian uncertainty quantification for confident clinical decisions, and achieves significant cost savings (~$24-102 per analysis vs. $3,200 traditional). **PatientOne** demonstrates the complete workflow: Stage IV ovarian cancer analysis integrating clinical data, somatic variants, multi-omics (RNA/protein/phospho), spatial transcriptomics, and H&E imaging—with treatment response prediction via GEARS perturbation modeling and quantum fidelity analysis.
-
-**Technical implementation**: Multi-provider Streamlit UI supporting Claude (Anthropic's native MCP integration) and Gemini 3 (custom SSE-based MCP client with manual tool orchestration), with 11 production servers (fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, openimagedata, patient-report, genomic-results, epic), 1 local-only (epic), 1 mock by design (mockepic), and 3 framework/utility servers. Includes live monitoring dashboard for health tracking and token usage. The system handles GCS folder URIs (loads all files automatically), supports up to 30 tool-calling iterations for complex workflows, and includes comprehensive documentation for hospitals, researchers, developers, educators, patients, and funders. Validated against actual GCP deployment with 2026 pricing: ~$0.02-0.21 per Cloud Run analysis, free tier covers ~83 hours/month of testing.
+A production-ready AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (90 tools)** on GCP Cloud Run — reducing analysis from 40 hours to 35 minutes at ~$24-102 per patient vs. $3,200 traditional. The system is HIPAA-compliant, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end demo (**PatientOne**: Stage IV ovarian cancer).
 
 ---
 
