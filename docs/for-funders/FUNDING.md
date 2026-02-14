@@ -108,7 +108,7 @@ graph LR
 ### Production Readiness
 - ✅ **15 MCP servers deployed** (11 production-ready, 1 mock by design, 3 mocked for demo)
 
-> **Server details:** See [Platform Overview](../shared/platform-overview.md).
+> **Server details:** See [Platform Overview](../shared/README.md).
 
 - ✅ **90 tools** across all servers with comprehensive test coverage
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics

@@ -38,4 +38,4 @@
 ---
 
 **Full cost analysis:** [cost-analysis.md](cost-analysis.md)
-**Full platform overview:** [platform-overview.md](platform-overview.md)
+**Full platform overview:** [README.md](README.md)

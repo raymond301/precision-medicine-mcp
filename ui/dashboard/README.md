@@ -4,7 +4,7 @@
 
 Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 15 MCP servers plus 3 Streamlit client apps. Toggle **Live Mode** to poll real Cloud Run health status, query GCP Cloud Logging for live traffic metrics, and view actual token usage and costs from the audit log.
 
-> **Related:** [Cost Analysis](../../docs/shared/cost-analysis.md) | [Platform Overview](../../docs/shared/platform-overview.md) | [Deployment Templates](../../docs/shared/deployment-templates.md)
+> **Related:** [Cost Analysis](../../docs/shared/cost-analysis.md) | [Platform Overview](../../docs/shared/README.md) | [Deployment Templates](../../docs/shared/deployment-templates.md)
 
 ---
 

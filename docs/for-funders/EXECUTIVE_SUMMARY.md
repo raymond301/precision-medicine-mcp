@@ -97,7 +97,7 @@ graph LR
 - 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
 - ⚙️ **3 Framework/Utility**: mcp-tcga, mcp-seqera, mcp-huggingface
 
-> **Full server details:** See [Platform Overview](../shared/platform-overview.md) for the complete server status matrix.
+> **Full server details:** See [Platform Overview](../shared/README.md) for the complete server status matrix.
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification

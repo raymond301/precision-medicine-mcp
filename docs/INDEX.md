@@ -11,7 +11,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 Canonical single-source-of-truth documents referenced across the repository:
 
 - **[PatientOne Profile](shared/patientone-profile.md)** - Clinical profile, genomic findings, data locations
-- **[Platform Overview](shared/platform-overview.md)** - 15 servers, 90 tools, architecture summary
+- **[Platform Overview](shared/README.md)** - 15 servers, 90 tools, architecture summary
 - **[Value Proposition](shared/value-proposition.md)** - 40 hours → 35 minutes, cost savings, ROI
 - **[Cost Analysis](shared/cost-analysis.md)** - Per-patient costs, infrastructure, scaling projections
 - **[HIPAA Summary](shared/hipaa-summary.md)** - Compliance checklist, de-identification, retention

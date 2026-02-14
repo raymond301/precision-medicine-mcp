@@ -250,7 +250,7 @@ to identify concordant pathway activations.
 
 ## Production-Ready Servers
 
-> **Full server details:** See [Platform Overview](../shared/platform-overview.md) for the complete server status matrix.
+> **Full server details:** See [Platform Overview](../shared/README.md) for the complete server status matrix.
 
 **Quick Summary:**
 - ✅ **11/15 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)

@@ -89,4 +89,4 @@ ruff check src/ tests/
 ---
 
 **DRY_RUN mode details:** [dry-run-mode.md](dry-run-mode.md)
-**Server status matrix:** [platform-overview.md](platform-overview.md)
+**Server status matrix:** [README.md](README.md)
