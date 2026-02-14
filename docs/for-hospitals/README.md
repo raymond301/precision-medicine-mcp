@@ -199,9 +199,13 @@ graph TB
 
 **Savings:** $3,000,000 (traditional) - $72,640 (MCP) = **$2,927,360/year**
 
+> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
+
 ---
 
 ## HIPAA Compliance Summary
+
+> **Full details:** See [HIPAA Summary](../shared/hipaa-summary.md) and [HIPAA Compliance Documentation](compliance/hipaa.md).
 
 ### De-Identification
 - ✅ **Safe Harbor Method** - Removes all 18 HIPAA identifiers

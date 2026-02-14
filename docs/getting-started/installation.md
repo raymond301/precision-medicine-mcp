@@ -36,7 +36,7 @@ chmod +x scripts/setup_environment.sh
 
 ```bash
 # macOS
-cp configs/claude_desktop_config.json \
+cp docs/getting-started/desktop-configs/claude_desktop_config.json \
    ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Update paths in the config file to match your installation

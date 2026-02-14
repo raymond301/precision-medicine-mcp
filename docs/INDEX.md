@@ -6,6 +6,21 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 ---
 
+## 📋 Shared Reference Files
+
+Canonical single-source-of-truth documents referenced across the repository:
+
+- **[PatientOne Profile](shared/patientone-profile.md)** - Clinical profile, genomic findings, data locations
+- **[Platform Overview](shared/platform-overview.md)** - 15 servers, 90 tools, architecture summary
+- **[Value Proposition](shared/value-proposition.md)** - 40 hours → 35 minutes, cost savings, ROI
+- **[Cost Analysis](shared/cost-analysis.md)** - Per-patient costs, infrastructure, scaling projections
+- **[HIPAA Summary](shared/hipaa-summary.md)** - Compliance checklist, de-identification, retention
+- **[Server Installation](shared/server-installation.md)** - Standard Python MCP server setup
+- **[DRY_RUN Mode](shared/dry-run-mode.md)** - Mock mode explanation and per-server variables
+- **[Deployment Templates](shared/deployment-templates.md)** - Local, Streamlit Cloud, GCP Cloud Run
+
+---
+
 ## 🚀 Getting Started
 
 **New to the Precision Medicine MCP system? Start here:**
@@ -63,7 +78,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 - **[Compliance Overview](./for-hospitals/compliance/README.md)** - Compliance framework summary
 - **[HIPAA Compliance](./for-hospitals/compliance/hipaa.md)** - De-identification, audit logging, encryption
 - **[Data Governance](./for-hospitals/compliance/data-governance.md)** - GDPR, Common Rule, IRB requirements
-- **[Risk Assessment](./for-hospitals/compliance/risk-assessment.md)** - Risk mitigation strategies (if exists)
+- **[Risk Assessment](./for-hospitals/compliance/risk-assessment.md)** - Risk mitigation strategies
 - **[Disclaimers](./for-hospitals/compliance/disclaimers.md)** - Legal disclaimers and limitations
 
 ---

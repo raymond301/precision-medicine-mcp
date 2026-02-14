@@ -235,7 +235,7 @@ The `model_validator(mode='after')` approach is the cleanest solution that:
    - Added `parse_boolean_env_vars()` model validator
    - Replaced `__init__` directory creation with `ensure_directories()` method
 
-2. **configs/claude_desktop_config.json** (line 89)
+2. **docs/getting-started/desktop-configs/claude_desktop_config.json**
    - Changed `"MULTIOMICS_DRY_RUN": "true"` → `"false"`
 
 ## Status

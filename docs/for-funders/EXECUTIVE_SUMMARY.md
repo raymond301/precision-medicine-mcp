@@ -81,6 +81,8 @@ graph LR
 | **Demonstration** (small test files) | $6,000-9,000 | $157-479 | ~$7,000 |
 | **Production** (realistic 3-8 GB data) | $6,000-9,000 | $324-702 | ~$3,137 |
 
+> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) for detailed breakdowns.
+
 **Production Operational Costs:**
 - **Per Analysis**: $24-102 (includes compute, APIs, Claude tokens)
 - **Monthly Pilot** (5 users, 100 patients): ~$2,400-9,200
@@ -90,11 +92,12 @@ graph LR
 
 ## Technical Capabilities
 
-**15 MCP Servers:**
-- ✅ **11 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation), mcp-genomic-results (somatic/CNV/HRD), mcp-epic (local only)
-- 🏥 **1 Local Only**: mcp-epic (Epic FHIR integration)
+**15 MCP Servers (90 tools):**
+- ✅ **11 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation), mcp-genomic-results (somatic/CNV/HRD), mcp-epic (local only, Epic FHIR integration)
 - 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
 - ⚙️ **3 Framework/Utility**: mcp-tcga, mcp-seqera, mcp-huggingface
+
+> **Full server details:** See [Platform Overview](../shared/platform-overview.md) for the complete server status matrix.
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
@@ -110,6 +113,8 @@ graph LR
 - ✅ Built-in de-identification (HIPAA Safe Harbor method)
 - ✅ 10-year audit log retention
 - ✅ VPC isolation, encrypted secrets, Azure AD SSO
+
+> **Full HIPAA documentation:** See [HIPAA Summary](../shared/hipaa-summary.md) and [for-hospitals compliance docs](../for-hospitals/compliance/hipaa.md).
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration

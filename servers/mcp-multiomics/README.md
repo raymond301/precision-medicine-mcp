@@ -328,6 +328,8 @@ What data formats does the multi-omics server expect?
 
 ## Installation
 
+> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+
 ```bash
 cd servers/mcp-multiomics
 python -m venv venv
@@ -359,7 +361,9 @@ Add to Claude Desktop config (`~/Library/Application Support/Claude/claude_deskt
 
 **Important:** Use the full path to the venv Python executable, not just `python`.
 
-For a complete working config with all servers, see `../../configs/claude_desktop_config.json`.
+For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
+
+> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ## DRY_RUN Mode
 
@@ -370,6 +374,8 @@ Set `MULTIOMICS_DRY_RUN=true` to use realistic mock data without requiring:
 - Real file I/O operations
 
 Perfect for development, testing, and demonstrations!
+
+> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
 
 ## Data Format Requirements
 

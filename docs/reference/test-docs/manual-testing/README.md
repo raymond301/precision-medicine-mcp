@@ -85,7 +85,7 @@ For complete testing instructions, see:
 
 **To test MCP workflows:**
 - ✅ Use Claude Desktop (standalone app)
-- ✅ Configure with `../configs/claude_desktop_config.json`
+- ✅ Configure with [`docs/getting-started/desktop-configs/`](../../../getting-started/desktop-configs/)
 - ✅ Test with prompts from `PatientOne-OvarianCancer/implementation/ (see TEST_1-TEST_5.txt files)`
 
 ### Python Version Requirement

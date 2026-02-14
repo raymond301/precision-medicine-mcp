@@ -150,6 +150,8 @@ Step 4: Visualize (mcp-cell-classify)
 
 ## Installation
 
+> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+
 ### Local (Development)
 
 ```bash

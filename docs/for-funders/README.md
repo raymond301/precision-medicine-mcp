@@ -62,6 +62,8 @@
 | **Infrastructure Cost** | ~$1,000/month GCP |
 | **Per-Analysis Cost** | $24-102 (compute + API) |
 
+> **Detailed analysis:** See [Value Proposition](../shared/value-proposition.md) and [Cost Analysis](../shared/cost-analysis.md).
+
 ---
 
 ## Investment Tiers

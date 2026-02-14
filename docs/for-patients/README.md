@@ -14,7 +14,7 @@ Traditional cancer treatment uses a "one-size-fits-all" approach. But every pers
 
 ### Our Solution
 
-We've built a platform that analyzes all your cancer data together - medical records, genetic tests, tissue samples, and imaging - in about 90 minutes instead of 40 hours, at 1/10th the cost.
+We've built a platform that analyzes all your cancer data together - medical records, genetic tests, tissue samples, and imaging - in about 35 minutes instead of 40 hours, at 1/10th the cost.
 
 **How it works:**
 1. **Your doctors collect data** - Medical history, genetic tests, tissue samples
@@ -66,6 +66,8 @@ We've built a platform that analyzes all your cancer data together - medical rec
 
 ## Example: PatientOne Story (Fictional but Realistic)
 
+> **Full clinical profile:** See [PatientOne Profile](../shared/patientone-profile.md) for complete genomic findings and data details.
+
 ### Background
 
 **PatientOne is a fictional 58-year-old woman** with Stage IV ovarian cancer that stopped responding to standard chemotherapy (carboplatin + paclitaxel). Her doctors want to find better treatment options.
@@ -115,7 +117,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 
 ### What Protections Are in Place?
 
-**HIPAA Compliance**
+**HIPAA Compliance** (see [full HIPAA details](../shared/hipaa-summary.md))
 - All patient data automatically de-identified (names, dates, addresses removed)
 - 10-year audit trail of who accessed your data
 - Encrypted storage and transmission
@@ -219,7 +221,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 - Laboratory processes samples
 - Genetic sequencing completed
 - Platform performs integrated analysis
-- **Analysis time: 90 minutes** (but sample processing takes 2-3 weeks)
+- **Analysis time: 35 minutes** (but sample processing takes 2-3 weeks)
 
 **Week 3-4: Results & Discussion**
 - Your oncologist reviews results
@@ -233,7 +235,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 - **No cost to you** - Hospital or research grant pays
 
 **If paid privately:**
-- **Analysis cost:** $325-704 per patient
+- **Analysis cost:** $324-702 per patient (total, including infrastructure)
 - **Compare to:** $3,000-7,500 for commercial alternatives
 - **May be covered by insurance** (check with your plan)
 
@@ -280,7 +282,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 
 ### "Is this better than what my doctor would do anyway?"
 **A:** This analysis helps your doctor by:
-- Analyzing more data faster (90 min vs. 40 hours)
+- Analyzing more data faster (35 min vs. 40 hours)
 - Finding patterns humans might miss
 - Checking against thousands of research studies
 - Identifying clinical trials you might qualify for

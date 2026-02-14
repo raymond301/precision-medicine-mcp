@@ -10,7 +10,7 @@
 - ✅ **Run reproducible workflows** (differential expression, pathway enrichment, cell deconvolution)
 - ✅ **Integrate multiple data modalities** (RNA + Protein + Spatial + Clinical)
 - ✅ **Generate publication-quality results** (visualizations, statistical tests, reproducible methods)
-- ✅ **Scale analyses cost-effectively** ($25-104/patient vs. $6,000 traditional methods)
+- ✅ **Scale analyses cost-effectively** ($25-104/patient compute cost vs. $6,000 traditional methods)
 
 ---
 
@@ -250,6 +250,8 @@ to identify concordant pathway activations.
 
 ## Production-Ready Servers
 
+> **Full server details:** See [Platform Overview](../shared/platform-overview.md) for the complete server status matrix.
+
 **Quick Summary:**
 - ✅ **11/15 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
 - 🎭 **1/15 mock by design** (mcp-mockepic)
@@ -299,6 +301,7 @@ to identify concordant pathway activations.
 
 **Annual savings:** $577,600-585,500 (96% cost reduction)
 
+> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) and [Value Proposition](../shared/value-proposition.md) for detailed breakdowns.
 
 ---
 

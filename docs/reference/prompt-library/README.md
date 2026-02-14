@@ -86,30 +86,15 @@ End-to-end multi-modal analyses
 
 ## Quick Reference: PatientOne
 
+> **Full clinical profile:** See [PatientOne Profile](../../shared/patientone-profile.md) for complete genomic findings, treatment recommendations, and data details.
+
 **Patient ID:** `PAT001-OVC-2025`
+**Diagnosis:** Stage IV HGSOC, platinum-resistant, BRCA1 germline mutation
+**Key mutations:** TP53 R175H (73% VAF), PIK3CA E545K (42%), PTEN LOH (85%)
 
-**Available Data:**
-- Clinical: FHIR resources (mcp-mockepic)
-- Genomic: VCF file with TP53, BRCA1 variants
-- Multi-omics: RNA, Protein, Phospho (15 samples)
-- Spatial: Visium data (900 spots × 31 genes)
-- Imaging: H&E slides, multiplex IF
-
-**Data paths (GCS - for Streamlit UI and Cloud Run):**
-- Bucket: `gs://sample-inputs-patientone`
-- Clinical: Retrieved via API (mcp-mockepic)
-- Genomic: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/genomic/variants.vcf`
-- Multi-omics: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/`
-- Spatial: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/`
-- Imaging: `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/imaging/`
-- Perturbation: `gs://sample-inputs-patientone/perturbation/patientone_tcells.h5ad`
-
-**Data paths (local/DRY_RUN mode):**
-- Clinical: Retrieved via API
-- Genomic: `/data/patient-data/PAT001-OVC-2025/genomic/variants.vcf`
-- Multi-omics: `/data/patient-data/PAT001-OVC-2025/multiomics/`
-- Spatial: `/data/patient-data/PAT001-OVC-2025/spatial/`
-- Imaging: `/data/patient-data/PAT001-OVC-2025/imaging/`
+**Data paths (GCS):** `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`
+**Data paths (local):** `data/patient-data/PAT001-OVC-2025/`
+**Subdirectories:** `clinical/`, `genomics/`, `multiomics/`, `spatial/`, `imaging/`
 
 ---
 

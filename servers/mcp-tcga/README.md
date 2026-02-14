@@ -162,6 +162,8 @@ Returns: 1097 tumor samples, molecular subtypes, key mutations
 
 ## Installation
 
+> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+
 ```bash
 cd servers/mcp-tcga
 python -m venv venv
@@ -191,7 +193,7 @@ Add to Claude Desktop config (`~/Library/Application Support/Claude/claude_deskt
 
 **Important:** Use the full path to the venv Python executable, not just `python`. Claude Desktop requires absolute paths.
 
-For a complete working config with all 8 servers, see `../../configs/claude_desktop_config.json`.
+For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
 ## DRY_RUN Mode
 
@@ -201,6 +203,8 @@ Set `TCGA_DRY_RUN=true` to use realistic mock data without requiring:
 - Authentication tokens
 
 Perfect for development and testing!
+
+> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
 
 ## Example Workflows
 

@@ -21,6 +21,8 @@ MCP server for genomic reference data using the FGbio toolkit.
 - pip package manager
 - (Optional) FGbio JAR file for full functionality
 
+> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+
 ### Setup
 
 1. **Create a virtual environment:**
@@ -57,6 +59,8 @@ FGBIO_MAX_DOWNLOAD_SIZE_GB=10
 FGBIO_DRY_RUN=true
 ```
 
+> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+
 ## Usage
 
 ### Running the Server
@@ -91,7 +95,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 
 **Important:** Use the full path to the venv Python executable, not just `python`. Claude Desktop requires absolute paths to Python executables.
 
-For a complete working config with all 8 servers, see `../../configs/claude_desktop_config.json`.
+For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
 ## Available Tools
 
@@ -317,6 +321,8 @@ All tools implement comprehensive error handling:
 | `FGBIO_LOG_LEVEL` | `INFO` | Logging level |
 | `FGBIO_TIMEOUT_SECONDS` | `300` | Default operation timeout |
 | `FGBIO_MAX_DOWNLOAD_SIZE_GB` | `10` | Maximum download size |
+
+> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
 
 ## Troubleshooting
 
