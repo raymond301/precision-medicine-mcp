@@ -281,25 +281,7 @@ to identify concordant pathway activations.
 
 ## Estimated Cost Analysis
 
-### Per-Patient Analysis Costs
-
-| Analysis Type | Compute Cost | API Tokens | Total | Traditional Cost |
-|--------------|--------------|------------|-------|------------------|
-| **Demo (DRY_RUN)** | ~$0 | ~$0.32 | **~$0.32** | N/A |
-| **Small files (PatientOne)** | $24-48 | $1-2 | **$25-50** | $6,000 |
-| **Production (large files)** | $90-100 | $2-4 | **$92-104** | $6,000-9,000 |
-
-**Savings:** $3,098-3,176 per patient (52-98% cost reduction)
-
-### Cohort Analysis Costs (100 patients)
-
-| Component | Cost | Notes |
-|-----------|------|-------|
-| **Per-patient analysis** | $25-104 × 100 | $2,500-10,400 total |
-| **Infrastructure** | $1,000/month | GCP Cloud Run, storage |
-| **Total (annual)** | **$14,500-22,400** | vs. $600,000 traditional |
-
-**Annual savings:** $577,600-585,500 (96% cost reduction)
+Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$25-104** (production), compared to **$6,000-9,000** traditional — a **52-98% cost reduction**. A 100-patient cohort costs **$14,500-22,400/year** vs. $600,000 traditional (96% savings).
 
 > **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) and [Value Proposition](../shared/value-proposition.md) for detailed breakdowns.
 

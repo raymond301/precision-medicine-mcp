@@ -117,25 +117,7 @@ graph LR
 
 ### Deployment Status
 
-| Server | Tools | Status | GCP Deployed |
-|--------|-------|--------|--------------|
-| mcp-fgbio | 4 | ✅ Production (95% real) | Yes |
-| mcp-multiomics | 10 | ✅ Production (85% real) | Yes |
-| mcp-spatialtools | 14 | ✅ Production (95% real) | Yes |
-| mcp-deepcell | 3 | ✅ Production (100% real) | Yes |
-| mcp-perturbation | 8 | ✅ Production (100% real) | Yes |
-| mcp-quantum-celltype-fidelity | 6 | ✅ Production (100% real) | Yes |
-| mcp-epic | 4 | ✅ Production (Local only, HIPAA) | No |
-| mcp-openimagedata | 5 | ✅ Production (100% real) | Yes |
-| mcp-patient-report | 5 | ✅ Production (100% real) | Yes |
-| mcp-cell-classify | 3 | ✅ Production (100% real) | Yes |
-| mcp-genomic-results | 4 | ✅ Production (100% real) | Yes |
-| mcp-mockepic | 3 | 🎭 Mock (by design) | Yes |
-| mcp-tcga | 5 | ❌ Framework/Utility | Yes |
-| mcp-huggingface | 3 | ❌ Framework/Utility | Yes |
-| mcp-seqera | 3 | ❌ Framework/Utility | Yes |
-
-**Total: 15 servers, 90 tools**
+**15 servers / 90 tools** — 12 production (85-100% real), 1 mock (by design), 2 framework/utility. All except mcp-epic deployed to GCP Cloud Run.
 
 > **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md).
 

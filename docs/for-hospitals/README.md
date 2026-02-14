@@ -171,33 +171,11 @@ graph TB
 
 ## Cost Breakdown
 
-### Monthly Infrastructure Costs
-
-| Component | Cost | Notes |
-|-----------|------|-------|
-| **Cloud Run** | $400-800 | 15 servers, auto-scales with usage |
-| **Cloud Storage** | $100-200 | Patient data, analysis results |
-| **BigQuery** | $50-100 | FHIR data warehouse |
-| **Cloud Logging** | $200-400 | 10-year audit log retention |
-| **Networking** | $100-200 | VPC, Cloud NAT, egress |
-| **Secret Manager** | $10-20 | API keys, credentials |
-| **Total** | **$860-1,720/month** | ~$1,000/month average |
-
-### Per-Patient Analysis Costs
-
-| Component | Cost | Notes |
-|-----------|------|-------|
-| **GCP Compute** | $24-102 | Varies by data size (3-8 GB) |
-| **Claude API Tokens** | $1-2 | ~1M tokens per analysis |
-| **Total** | **$25-104/patient** | vs. $6,000 traditional |
-
-### Annual Total (500 Patients)
-
-- Infrastructure: $12,000-20,640/year
-- Per-patient: $12,500-52,000/year (500 patients)
-- **Total: $24,500-72,640/year**
-
-**Savings:** $3,000,000 (traditional) - $72,640 (MCP) = **$2,927,360/year**
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Infrastructure** | ~$1,000/month | Cloud Run, storage, logging, networking |
+| **Per-patient** | $25-104 | vs. $6,000 traditional |
+| **Annual (500 patients)** | $24,500-72,640 | **97% savings** vs. traditional |
 
 > **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
 
@@ -207,30 +185,11 @@ graph TB
 
 > **Full details:** See [HIPAA Summary](../shared/hipaa-summary.md) and [HIPAA Compliance Documentation](compliance/hipaa.md).
 
-### De-Identification
-- ✅ **Safe Harbor Method** - Removes all 18 HIPAA identifiers
-- ✅ **Automated** - Built into mcp-epic server
-- ✅ **Validated** - Tested with synthetic patient data
-
-### Audit Logging
-- ✅ **10-year retention** - GCP Cloud Logging + FHIR AuditEvent
-- ✅ **Comprehensive** - All API calls, data access, analysis requests logged
-- ✅ **Immutable** - Logs cannot be modified or deleted
-
-### Access Control
-- ✅ **Azure AD SSO** - Centralized user authentication
-- ✅ **Role-based access** - Clinician, bioinformatician, admin roles
-- ✅ **Identity-Aware Proxy** - All traffic authenticated before reaching servers
-
-### Encryption
-- ✅ **At rest** - AES-256 encryption for all Cloud Storage data
-- ✅ **In transit** - TLS 1.3 for all API calls
-- ✅ **Key management** - GCP Secret Manager with automatic rotation
-
-### Incident Response
-- ✅ **Documented procedures** - [Runbooks](../for-hospitals/RUNBOOKS/)
-- ✅ **Breach notification** - 60-day HIPAA timeline compliance
-- ✅ **Audit trail** - All incidents logged and tracked
+- ✅ **De-Identification** — Safe Harbor method, all 18 HIPAA identifiers removed automatically
+- ✅ **Audit Logging** — 10-year immutable retention via GCP Cloud Logging + FHIR AuditEvent
+- ✅ **Access Control** — Azure AD SSO, role-based access, Identity-Aware Proxy
+- ✅ **Encryption** — AES-256 at rest, TLS 1.3 in transit, automatic key rotation
+- ✅ **Incident Response** — Documented [runbooks](../for-hospitals/RUNBOOKS/), 60-day breach notification
 
 
 ---

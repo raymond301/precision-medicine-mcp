@@ -124,12 +124,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 - Only authorized medical staff can access
 
 **De-Identification**
-- 18 types of identifiers automatically removed:
-  - Names, addresses, phone numbers
-  - Dates (except year)
-  - Social Security numbers
-  - Medical record numbers
-  - Photos, biometric data
+- All 18 HIPAA identifiers automatically removed (names, dates, addresses, SSNs, medical record numbers, photos, and more)
 - De-identified data used for analysis and research
 
 **Your Rights**

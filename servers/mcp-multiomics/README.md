@@ -363,8 +363,6 @@ Add to Claude Desktop config (`~/Library/Application Support/Claude/claude_deskt
 
 For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
-
 ## DRY_RUN Mode
 
 Set `MULTIOMICS_DRY_RUN=true` to use realistic mock data without requiring:
