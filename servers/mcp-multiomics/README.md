@@ -328,7 +328,7 @@ What data formats does the multi-omics server expect?
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ```bash
 cd servers/mcp-multiomics
@@ -373,7 +373,7 @@ Set `MULTIOMICS_DRY_RUN=true` to use realistic mock data without requiring:
 
 Perfect for development, testing, and demonstrations!
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Data Format Requirements
 

@@ -20,7 +20,7 @@
 - **No patient privacy concerns** - Safe for classroom use, public demos, publications
 - **No IRB approval needed** - Freely shareable with students
 - **Realistic but synthetic** - Clinically plausible scenarios without real PHI
-- **Two patient datasets available:** (see [PatientOne Profile](../shared/patientone-profile.md) for full details)
+- **Two patient datasets available:** (see [PatientOne Profile](../reference/shared/patientone-profile.md) for full details)
   - **PAT001-OVC-2025** - Stage IV ovarian cancer (BRCA1+, platinum-resistant)
   - **PAT002-BC-2026** - Stage IIA breast cancer (BRCA2+, ER+/PR+/HER2-)
 
@@ -29,7 +29,7 @@
 - **Classroom pricing:** 20 students × $0.32 = **$6.40 per class session**
 - **Semester course:** 15 sessions × 20 students = **$96 total**
 - **Compare to:** Commercial platforms ($500-2,000 per student)
-- See [Cost Analysis](../shared/cost-analysis.md) and [DRY_RUN Mode Guide](../shared/dry-run-mode.md) for details
+- See [Cost Analysis](../reference/shared/cost-analysis.md) and [DRY_RUN Mode Guide](../reference/shared/dry-run-mode.md) for details
 
 ### Comprehensive Coverage
 All major bioinformatics domains in one platform:

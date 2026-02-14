@@ -36,7 +36,7 @@ MCP server for histology (H&E) and multiplexed immunofluorescence (MxIF) image p
 - Python 3.11 or higher
 - pip package manager
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ### Local Setup
 
@@ -70,7 +70,7 @@ IMAGE_OUTPUT_DIR=/workspace/output
 IMAGE_DRY_RUN=true
 ```
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Usage
 
@@ -109,7 +109,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 - Set `IMAGE_DRY_RUN=false` for real image processing
 - Ensure sufficient disk space for large TIFF files
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ## Available Tools
 
@@ -601,7 +601,7 @@ mcp-openimagedata/
 | `IMAGE_DRY_RUN` | `false` | Enable mock mode (no real processing) |
 | `IMAGE_LOG_LEVEL` | `INFO` | Logging level |
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Troubleshooting
 

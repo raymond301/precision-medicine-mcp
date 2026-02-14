@@ -4,7 +4,7 @@ Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using 15 M
 
 ## Overview
 
-> **Quick references:** [PatientOne Profile](../../../shared/patientone-profile.md) | [Platform Overview](../../../shared/README.md) | [DRY_RUN Mode](../../../shared/dry-run-mode.md) | [Cost Analysis](../../../shared/cost-analysis.md)
+> **Quick references:** [PatientOne Profile](../../shared/patientone-profile.md) | [Platform Overview](../../shared/README.md) | [DRY_RUN Mode](../../shared/dry-run-mode.md) | [Cost Analysis](../../shared/cost-analysis.md)
 
 PatientOne demonstrates end-to-end precision medicine analysis integrating:
 - **Clinical** data (demographics, CA-125 trends)

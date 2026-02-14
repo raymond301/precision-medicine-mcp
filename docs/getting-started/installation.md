@@ -259,7 +259,7 @@ Expected: Should return information about available patient data.
 
 After installation, you have access to **15 MCP servers**:
 
-📋 **[Complete Server Status](../shared/server-registry.md)** - Detailed capabilities matrix
+📋 **[Complete Server Status](../reference/shared/server-registry.md)** - Detailed capabilities matrix
 
 **Quick Reference:**
 
@@ -470,7 +470,7 @@ python -m json.tool < ~/Library/Application\ Support/Claude/claude_desktop_confi
 ## Related Documentation
 
 - **[Architecture Overview](../reference/architecture/README.md)** - System design
-- **[Server Status](../shared/server-registry.md)** - Implementation status and capabilities
+- **[Server Status](../reference/shared/server-registry.md)** - Implementation status and capabilities
 - **[Documentation Index](../INDEX.md)** - Role-specific guides and documentation
 - **[Test Documentation](../reference/test-docs/README.md)** - Testing strategies and prompts
 

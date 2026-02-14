@@ -464,7 +464,7 @@ Local HPC: Fixed institutional cost
 
 ### Deployment & Operations
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
-- **Server Status:** [Server Implementation Status](../../../shared/server-registry.md)
+- **Server Status:** [Server Implementation Status](../../shared/server-registry.md)
 
 ### External Resources
 - **Seqera Platform:** [https://seqera.io/](https://seqera.io/)

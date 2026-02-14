@@ -66,7 +66,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 
 ## Example: PatientOne Story (Fictional but Realistic)
 
-> **Full clinical profile:** See [PatientOne Profile](../shared/patientone-profile.md) for complete genomic findings and data details.
+> **Full clinical profile:** See [PatientOne Profile](../reference/shared/patientone-profile.md) for complete genomic findings and data details.
 
 ### Background
 
@@ -117,7 +117,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 
 ### What Protections Are in Place?
 
-**HIPAA Compliance** (see [full HIPAA details](../shared/hipaa-summary.md))
+**HIPAA Compliance** (see [full HIPAA details](../reference/shared/hipaa-summary.md))
 - All patient data automatically de-identified (names, dates, addresses removed)
 - 10-year audit trail of who accessed your data
 - Encrypted storage and transmission

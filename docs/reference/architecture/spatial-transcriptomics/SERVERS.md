@@ -65,7 +65,7 @@ This document provides quick links to the 3 core servers used in spatial transcr
 
 For deployment status of ALL 15 MCP servers (including multiomics, TCGA, seqera, etc.):
 
-**See:** [Server Implementation Status](../../../shared/server-registry.md)
+**See:** [Server Implementation Status](../../shared/server-registry.md)
 
 ---
 

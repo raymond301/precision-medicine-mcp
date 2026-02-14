@@ -162,7 +162,7 @@ Returns: 1097 tumor samples, molecular subtypes, key mutations
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ```bash
 cd servers/mcp-tcga
@@ -204,7 +204,7 @@ Set `TCGA_DRY_RUN=true` to use realistic mock data without requiring:
 
 Perfect for development and testing!
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Example Workflows
 

@@ -250,14 +250,14 @@ to identify concordant pathway activations.
 
 ## Production-Ready Servers
 
-> **Full server details:** See [Platform Overview](../shared/README.md) for the complete server status matrix.
+> **Full server details:** See [Platform Overview](../reference/shared/README.md) for the complete server status matrix.
 
 **Quick Summary:**
 - ✅ **11/15 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
 - 🎭 **1/15 mock by design** (mcp-mockepic)
 - ❌ **3/15 framework/utility** (mcp-tcga, mcp-huggingface, mcp-seqera)
 
-📋 **[See Complete Server Implementation Status →](../shared/server-registry.md)** - Comprehensive 1,000+ line status matrix with:
+📋 **[See Complete Server Implementation Status →](../reference/shared/server-registry.md)** - Comprehensive 1,000+ line status matrix with:
 - Real vs. mocked capabilities for each server
 - Tool-by-tool implementation details
 - Test coverage and production readiness assessment
@@ -283,7 +283,7 @@ to identify concordant pathway activations.
 
 Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$25-104** (production), compared to **$6,000-9,000** traditional — a **52-98% cost reduction**. A 100-patient cohort costs **$14,500-22,400/year** vs. $600,000 traditional (96% savings).
 
-> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) and [Value Proposition](../shared/value-proposition.md) for detailed breakdowns.
+> **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) and [Value Proposition](../reference/shared/value-proposition.md) for detailed breakdowns.
 
 ---
 

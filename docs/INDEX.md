@@ -10,14 +10,14 @@ This is your central navigation hub for all documentation. Use this index to qui
 
 Canonical single-source-of-truth documents referenced across the repository:
 
-- **[PatientOne Profile](shared/patientone-profile.md)** - Clinical profile, genomic findings, data locations
-- **[Platform Overview](shared/README.md)** - 15 servers, 90 tools, architecture summary
-- **[Value Proposition](shared/value-proposition.md)** - 40 hours → 35 minutes, cost savings, ROI
-- **[Cost Analysis](shared/cost-analysis.md)** - Per-patient costs, infrastructure, scaling projections
-- **[HIPAA Summary](shared/hipaa-summary.md)** - Compliance checklist, de-identification, retention
-- **[Server Installation](shared/server-installation.md)** - Standard Python MCP server setup
-- **[DRY_RUN Mode](shared/dry-run-mode.md)** - Mock mode explanation and per-server variables
-- **[Deployment Templates](shared/deployment-templates.md)** - Local, Streamlit Cloud, GCP Cloud Run
+- **[PatientOne Profile](reference/shared/patientone-profile.md)** - Clinical profile, genomic findings, data locations
+- **[Platform Overview](reference/shared/README.md)** - 15 servers, 90 tools, architecture summary
+- **[Value Proposition](reference/shared/value-proposition.md)** - 40 hours → 35 minutes, cost savings, ROI
+- **[Cost Analysis](reference/shared/cost-analysis.md)** - Per-patient costs, infrastructure, scaling projections
+- **[HIPAA Summary](reference/shared/hipaa-summary.md)** - Compliance checklist, de-identification, retention
+- **[Server Installation](reference/shared/server-installation.md)** - Standard Python MCP server setup
+- **[DRY_RUN Mode](reference/shared/dry-run-mode.md)** - Mock mode explanation and per-server variables
+- **[Deployment Templates](reference/shared/deployment-templates.md)** - Local, Streamlit Cloud, GCP Cloud Run
 
 ---
 
@@ -54,7 +54,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 **Technical system design and implementation:**
 
 - **[Architecture Overview](reference/architecture/README.md)** - System design principles
-- **[Server Status](shared/server-registry.md)** - Implementation status and capabilities matrix
+- **[Server Status](reference/shared/server-registry.md)** - Implementation status and capabilities matrix
 - **[Clinical-Spatial Bridge](reference/architecture/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
 - **[Error Handling](reference/architecture/error-handling.md)** - Error handling and retry logic
 - **[References](reference/architecture/references.md)** - Technical references and citations
@@ -188,7 +188,6 @@ precision-medicine-mcp/
 ├── llms.txt                # LLM-readable project summary
 ├── data/                   # Synthetic patient data (100% safe for demos)
 ├── docs/                   # Documentation organized by audience
-│   ├── shared/             # Canonical single-source-of-truth files
 │   ├── for-funders/        # ROI, competitive landscape, grant talking points, demos
 │   ├── for-hospitals/      # Deployment checklist, security overview, operations
 │   ├── for-developers/     # Architecture, contributing guide, quick reference
@@ -202,6 +201,7 @@ precision-medicine-mcp/
 │       ├── architecture/   # System design & modality workflows
 │       ├── deployment/     # GCP deployment status & guides
 │       ├── prompt-library/ # 20+ ready-to-use clinical prompts
+│       ├── shared/         # Canonical single-source-of-truth files
 │       └── test-docs/      # Testing guides & PatientOne scenarios
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts

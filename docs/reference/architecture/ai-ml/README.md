@@ -431,7 +431,7 @@ embedding_vector = [0.23, -0.15, 0.88, ..., 0.42]  # 768 dimensions
 
 ### Deployment & Operations
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
-- **Server Status:** [Server Implementation Status](../../../shared/server-registry.md)
+- **Server Status:** [Server Implementation Status](../../shared/server-registry.md)
 
 ### External Resources
 - **Hugging Face Models:** [https://huggingface.co/models](https://huggingface.co/models)

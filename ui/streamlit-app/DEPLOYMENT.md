@@ -2,7 +2,7 @@
 
 Complete guide for deploying the Streamlit MCP Chat interface across different environments.
 
-> **Common deployment patterns:** See [Deployment Templates](../../docs/shared/deployment-templates.md) for patterns shared across all UI applications.
+> **Common deployment patterns:** See [Deployment Templates](../../docs/reference/shared/deployment-templates.md) for patterns shared across all UI applications.
 
 ---
 

@@ -86,7 +86,7 @@ End-to-end multi-modal analyses
 
 ## Quick Reference: PatientOne
 
-> **Full clinical profile:** See [PatientOne Profile](../../shared/patientone-profile.md) for complete genomic findings, treatment recommendations, and data details.
+> **Full clinical profile:** See [PatientOne Profile](../shared/patientone-profile.md) for complete genomic findings, treatment recommendations, and data details.
 
 **Patient ID:** `PAT001-OVC-2025`
 **Diagnosis:** Stage IV HGSOC, platinum-resistant, BRCA1 germline mutation

@@ -40,7 +40,7 @@
 
 ### Technical Validation
 - **[Executive Summary](EXECUTIVE_SUMMARY.md)** - System architecture, capabilities, deployment timeline
-- **[Server Status](../shared/server-registry.md)** - Implementation status for all 15 servers
+- **[Server Status](../reference/shared/server-registry.md)** - Implementation status for all 15 servers
 - **[Testing Coverage](../../tests/README.md)** - 167 automated tests, 68% coverage
 
 ### Compliance & Risk
@@ -62,7 +62,7 @@
 | **Infrastructure Cost** | ~$1,000/month GCP |
 | **Per-Analysis Cost** | $24-102 (compute + API) |
 
-> **Detailed analysis:** See [Value Proposition](../shared/value-proposition.md) and [Cost Analysis](../shared/cost-analysis.md).
+> **Detailed analysis:** See [Value Proposition](../reference/shared/value-proposition.md) and [Cost Analysis](../reference/shared/cost-analysis.md).
 
 ---
 

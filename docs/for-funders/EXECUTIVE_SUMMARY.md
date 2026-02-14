@@ -81,7 +81,7 @@ graph LR
 | **Demonstration** (small test files) | $6,000-9,000 | $157-479 | ~$7,000 |
 | **Production** (realistic 3-8 GB data) | $6,000-9,000 | $324-702 | ~$3,137 |
 
-> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) for detailed breakdowns.
+> **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed breakdowns.
 
 **Production Operational Costs:**
 - **Per Analysis**: $24-102 (includes compute, APIs, Claude tokens)
@@ -97,7 +97,7 @@ graph LR
 - 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
 - ⚙️ **3 Framework/Utility**: mcp-tcga, mcp-seqera, mcp-huggingface
 
-> **Full server details:** See [Platform Overview](../shared/README.md) for the complete server status matrix.
+> **Full server details:** See [Platform Overview](../reference/shared/README.md) for the complete server status matrix.
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
@@ -114,7 +114,7 @@ graph LR
 - ✅ 10-year audit log retention
 - ✅ VPC isolation, encrypted secrets, Azure AD SSO
 
-> **Full HIPAA documentation:** See [HIPAA Summary](../shared/hipaa-summary.md) and [for-hospitals compliance docs](../for-hospitals/compliance/hipaa.md).
+> **Full HIPAA documentation:** See [HIPAA Summary](../reference/shared/hipaa-summary.md) and [for-hospitals compliance docs](../for-hospitals/compliance/hipaa.md).
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration

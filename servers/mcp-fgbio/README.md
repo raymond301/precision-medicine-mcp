@@ -21,7 +21,7 @@ MCP server for genomic reference data using the FGbio toolkit.
 - pip package manager
 - (Optional) FGbio JAR file for full functionality
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ### Setup
 
@@ -59,7 +59,7 @@ FGBIO_MAX_DOWNLOAD_SIZE_GB=10
 FGBIO_DRY_RUN=true
 ```
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Usage
 
@@ -322,7 +322,7 @@ All tools implement comprehensive error handling:
 | `FGBIO_TIMEOUT_SECONDS` | `300` | Default operation timeout |
 | `FGBIO_MAX_DOWNLOAD_SIZE_GB` | `10` | Maximum download size |
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Troubleshooting
 

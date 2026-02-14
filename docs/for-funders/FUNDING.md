@@ -12,7 +12,7 @@ The Precision Medicine MCP Platform reduces multi-omics precision medicine analy
 
 **This Solution:** AI (Claude + Gemini 3) orchestrates 15 specialized bioinformatics servers via natural language, completing analysis in 35 minutes.
 
-> **Detailed metrics:** See [Value Proposition](../shared/value-proposition.md) for complete ROI analysis.
+> **Detailed metrics:** See [Value Proposition](../reference/shared/value-proposition.md) for complete ROI analysis.
 
 ---
 
@@ -108,7 +108,7 @@ graph LR
 ### Production Readiness
 - ✅ **15 MCP servers deployed** (11 production-ready, 1 mock by design, 3 mocked for demo)
 
-> **Server details:** See [Platform Overview](../shared/README.md).
+> **Server details:** See [Platform Overview](../reference/shared/README.md).
 
 - ✅ **90 tools** across all servers with comprehensive test coverage
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
@@ -119,7 +119,7 @@ graph LR
 
 **15 servers / 90 tools** — 12 production (85-100% real), 1 mock (by design), 2 framework/utility. All except mcp-epic deployed to GCP Cloud Run.
 
-> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md).
+> **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md).
 
 ---
 

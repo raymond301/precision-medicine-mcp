@@ -54,7 +54,7 @@ See [GCP Testing Guide](../../docs/reference/deployment/GCP_TESTING_GUIDE.md) fo
 - pip package manager
 - (Optional) STAR aligner for alignment functionality
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ### Local Setup
 
@@ -93,7 +93,7 @@ SPATIAL_MAX_SPOTS=10000
 SPATIAL_DRY_RUN=true
 ```
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ### Installing STAR (Optional)
 
@@ -153,7 +153,7 @@ For GCP-deployed servers, use Claude API (see above).
 
 For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ## Available Tools
 
@@ -911,7 +911,7 @@ mcp-spatialtools/
 | `SPATIAL_TIMEOUT_SECONDS` | `600` | Default operation timeout |
 | `SPATIAL_MAX_SPOTS` | `10000` | Maximum spots per analysis |
 
-> See [DRY_RUN Mode Guide](../../docs/shared/dry-run-mode.md) for details on mock mode.
+> See [DRY_RUN Mode Guide](../../docs/reference/shared/dry-run-mode.md) for details on mock mode.
 
 ## Troubleshooting
 

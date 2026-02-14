@@ -177,13 +177,13 @@ graph TB
 | **Per-patient** | $25-104 | vs. $6,000 traditional |
 | **Annual (500 patients)** | $24,500-72,640 | **97% savings** vs. traditional |
 
-> **Full cost analysis:** See [Cost Analysis](../shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
+> **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
 
 ---
 
 ## HIPAA Compliance Summary
 
-> **Full details:** See [HIPAA Summary](../shared/hipaa-summary.md) and [HIPAA Compliance Documentation](compliance/hipaa.md).
+> **Full details:** See [HIPAA Summary](../reference/shared/hipaa-summary.md) and [HIPAA Compliance Documentation](compliance/hipaa.md).
 
 - ✅ **De-Identification** — Safe Harbor method, all 18 HIPAA identifiers removed automatically
 - ✅ **Audit Logging** — 10-year immutable retention via GCP Cloud Logging + FHIR AuditEvent

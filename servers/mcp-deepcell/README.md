@@ -212,7 +212,7 @@ Tool: classify_multi_marker (on mcp-cell-classify server)
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps. Note: this server requires Python 3.10 (not 3.11+) due to TensorFlow compatibility.
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps. Note: this server requires Python 3.10 (not 3.11+) due to TensorFlow compatibility.
 
 ### Prerequisites
 

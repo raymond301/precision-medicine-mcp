@@ -10,7 +10,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 **Annual ROI:** $313,700 (100 patients) | $1,568,500 (500 patients)
 **Cost per Patient:** $324 (vs. $6,000 traditional manual analysis)
 
-> **Cost methodology:** See [Cost Analysis](../shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
+> **Cost methodology:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
 
 ---
 

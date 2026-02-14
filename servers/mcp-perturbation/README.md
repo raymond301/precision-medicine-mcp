@@ -48,7 +48,7 @@ GEARS uses graph neural networks (GNNs) combined with gene regulatory network kn
 - PyTorch >= 2.0.0
 - CUDA (optional, for GPU acceleration)
 
-> **Standard setup:** See [Server Installation Guide](../../docs/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ### Install from Source
 

@@ -2,7 +2,7 @@
 
 Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect for data scientists and researchers who want to analyze spatial transcriptomics, multi-omics, and genomics data.
 
-> **Related:** [Deployment Templates](../../docs/shared/deployment-templates.md) | [Cost Analysis](../../docs/shared/cost-analysis.md) | [Platform Overview](../../docs/shared/README.md)
+> **Related:** [Deployment Templates](../../docs/reference/shared/deployment-templates.md) | [Cost Analysis](../../docs/reference/shared/cost-analysis.md) | [Platform Overview](../../docs/reference/shared/README.md)
 
 Live JupyterLab: https://jupyter-mcp-notebook-305650208648.us-central1.run.app
 

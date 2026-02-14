@@ -713,7 +713,7 @@ adata.write_h5ad("preprocessed.h5ad")
 - **[Perturbation Integration →](../perturbation/README.md)** (Combined quantum + GEARS analysis)
 - **[Multiomics Integration →](../multiomics/README.md)** (Quantum-enhanced associations)
 - **[PatientOne Workflow →](../../test-docs/patient-one-scenario/README.md)**
-- **[Server Status →](../../../shared/server-registry.md)**
+- **[Server Status →](../../shared/server-registry.md)**
 
 ---
 
