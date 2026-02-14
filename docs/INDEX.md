@@ -87,7 +87,6 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 **Deployment guides and infrastructure:**
 
-- **[Deployment Roadmap](./reference/archive/deployment/roadmap.md)** - Production deployment planning
 - **[Security Guide](reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
 - **[Hospital Deployment](./for-hospitals/)** - Enterprise deployment
   - [Operations Manual](./for-hospitals/OPERATIONS_MANUAL.md)
@@ -144,17 +143,6 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 ---
 
-## 🗄️ Archive
-
-**Outdated documentation preserved for historical reference:**
-
-- **[Archive Index](reference/archive/README.md)** - Why docs were archived
-- **[2025 Q3/Q4 Archive](reference/archive/2025-q3-q4)** - Pre-October 2025 docs
-
-⚠️ **Warning:** Archived documentation is outdated and should not be used for current implementations.
-
----
-
 ## 📖 Additional Resources
 
 ### Quick Links
@@ -170,7 +158,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **Install the system** → [Installation Guide](./getting-started/installation.md)
 - **Run my first analysis** → [Quick Test Prompts](reference/test-docs/manual-testing/quick-test-prompts.md)
 - **Understand costs** → [Cost and Budget Guide](./for-hospitals/operations/cost-and-budget.md)
-- **Deploy to production** → [Deployment Roadmap](./reference/archive/deployment/roadmap.md)
+- **Deploy to production** → [GCP Deployment Guide](reference/deployment/GCP_TESTING_GUIDE.md)
 - **Ensure HIPAA compliance** → [HIPAA Compliance](./for-hospitals/compliance/hipaa.md)
 - **Add a new server** → [Add New Modality Server](./for-developers/ADD_NEW_MODALITY_SERVER.md)
 - **Review patient results** → [CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)
@@ -214,8 +202,7 @@ precision-medicine-mcp/
 │       ├── architecture/   # System design & modality workflows
 │       ├── deployment/     # GCP deployment status & guides
 │       ├── prompt-library/ # 20+ ready-to-use clinical prompts
-│       ├── test-docs/      # Testing guides & PatientOne scenarios
-│       └── archive/        # Historical documentation & dev journals
+│       └── test-docs/      # Testing guides & PatientOne scenarios
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts
 │   ├── docker/             # Base Docker images for Cloud Run

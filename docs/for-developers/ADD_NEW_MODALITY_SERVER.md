@@ -850,7 +850,7 @@ Use this checklist when adding your new server:
 - [pytest-asyncio](https://pytest-asyncio.readthedocs.io/) - Testing async tools
 
 ### Deployment
-- [GCP Deployment Guide](../reference/archive/deployment/DEPLOYMENT_STATUS.md)
+- [GCP Deployment Guide](../reference/deployment/GCP_TESTING_GUIDE.md)
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
 
 ---

@@ -32,7 +32,7 @@
 - **[SECURITY_OVERVIEW.md](SECURITY_OVERVIEW.md)** - One-page security architecture summary
 - **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Step-by-step deployment requirements
 - **[Operations Manual](../for-hospitals/OPERATIONS_MANUAL.md)** - Day-to-day operations guide
-- **[Production Roadmap](../reference/archive/deployment/roadmap.md)** - 6-month deployment timeline
+- **[GCP Deployment Guide](../reference/deployment/GCP_TESTING_GUIDE.md)** - Deployment and testing
 
 ### Security & Compliance
 - **[HIPAA Compliance](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/compliance/hipaa.md)** - De-identification, audit logging, encryption

@@ -430,7 +430,7 @@ embedding_vector = [0.23, -0.15, 0.88, ..., 0.42]  # 768 dimensions
   - DRY_RUN mode configuration
 
 ### Deployment & Operations
-- **GCP Deployment:** [/docs/deployment/DEPLOYMENT_STATUS.md](../../archive/deployment/DEPLOYMENT_STATUS.md)
+- **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
 - **Server Status:** [Server Implementation Status](../../../shared/server-registry.md)
 
 ### External Resources

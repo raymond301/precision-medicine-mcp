@@ -100,7 +100,7 @@ After customizing, complete the [Integration Checklist](../../docs/for-developer
 1. **Read the full guide:** [docs/for-developers/automation-guides/ADD_NEW_MODALITY_SERVER.md](../../docs/for-developers/ADD_NEW_MODALITY_SERVER.md)
 2. **Study existing servers:** [servers/](../../servers/)
 3. **Test locally:** Use Claude Desktop to verify tools work
-4. **Deploy to GCP:** Follow [deployment guide](../../docs/reference/archive/deployment/DEPLOYMENT_STATUS.md)
+4. **Deploy to GCP:** Follow [deployment guide](../../docs/reference/deployment/GCP_TESTING_GUIDE.md)
 
 ---
 

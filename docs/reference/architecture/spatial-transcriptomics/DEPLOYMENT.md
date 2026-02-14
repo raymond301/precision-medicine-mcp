@@ -2,8 +2,8 @@
 
 For comprehensive deployment information, see:
 
-## 📋 [Deployment Status](../../archive/deployment/DEPLOYMENT_STATUS.md)
-Complete deployment history with revision numbers, new features, and configuration details.
+## 🧪 [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
+How to test deployed servers using Claude API (HTTP/SSE remote access).
 
 ## 🧪 [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
 How to test deployed servers using Claude API (HTTP/SSE remote access).
@@ -32,4 +32,4 @@ API key and secrets management, GCP Secret Manager integration.
 
 ---
 
-For detailed deployment procedures, rollback instructions, monitoring setup, and troubleshooting, see the comprehensive [Deployment Status](../../archive/deployment/DEPLOYMENT_STATUS.md) documentation.
+For deployment procedures, testing, and troubleshooting, see the [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md).

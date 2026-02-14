@@ -463,7 +463,7 @@ Local HPC: Fixed institutional cost
   - DRY_RUN mode details
 
 ### Deployment & Operations
-- **GCP Deployment:** [/docs/deployment/DEPLOYMENT_STATUS.md](../../archive/deployment/DEPLOYMENT_STATUS.md)
+- **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
 - **Server Status:** [Server Implementation Status](../../../shared/server-registry.md)
 
 ### External Resources

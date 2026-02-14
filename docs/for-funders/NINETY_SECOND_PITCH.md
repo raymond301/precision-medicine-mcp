@@ -199,7 +199,7 @@ See: [FUNDING.md](../for-funders/FUNDING.md) for detailed budget breakdown
 **For Hospital IT:**
 - Security review: [Security Guide](../reference/deployment/security.md)
 - HIPAA compliance: [HIPAA Guide](../for-hospitals/compliance/hipaa.md)
-- Deployment timeline: [Production Roadmap](../reference/archive/deployment/roadmap.md)
+- Deployment guide: [GCP Deployment Guide](../reference/deployment/GCP_TESTING_GUIDE.md)
 
 ---
 
