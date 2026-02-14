@@ -118,7 +118,7 @@ All cost estimates in this document reflect actual 2026 pricing and real deploym
 - Requires pre-aligned spatial transcriptomics data
 - Integrates FHIR clinical data from GCP Healthcare API
 
-**Script:** `tools/reports/generate_patient_report.py`
+**Script:** `servers/mcp-patient-report/scripts/generate_patient_report.py`
 
 **Performance:**
 - Runtime: ~12 seconds per patient

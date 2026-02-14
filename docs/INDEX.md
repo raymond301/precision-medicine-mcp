@@ -232,8 +232,6 @@ precision-medicine-mcp/
 │   └── utils/              # Helper functions
 ├── results/                # Analysis output files
 ├── tests/                  # 167 automated tests
-├── tools/                  # Automation & reporting tools
-│   └── reports/            # Patient report generation, CitL submission
 └── ui/                     # User interfaces
     ├── streamlit-app/      # Main Streamlit chat interface
     ├── streamlit-app-students/ # Student/classroom version

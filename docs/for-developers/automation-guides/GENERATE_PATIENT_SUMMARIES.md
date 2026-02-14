@@ -116,7 +116,7 @@ This guide provides **copy-paste prompt templates** for translating technical bi
 
 ```bash
 # Existing: Generate technical outputs
-python tools/reports/generate_patient_report.py \
+python servers/mcp-patient-report/scripts/generate_patient_report.py \
   --patient-id patient-001 \
   --output-dir outputs/for-researchers/patient-001/
 ```
@@ -127,7 +127,7 @@ python tools/reports/generate_patient_report.py \
 
 ```bash
 # Step 1: Generate technical outputs (unchanged)
-python tools/reports/generate_patient_report.py \
+python servers/mcp-patient-report/scripts/generate_patient_report.py \
   --patient-id patient-001 \
   --output-dir outputs/for-researchers/patient-001/
 
@@ -314,7 +314,7 @@ All three templates follow this format:
 
 ### Option 1: Claude API Integration (Recommended)
 
-Add to `tools/reports/generate_patient_report.py`:
+Add to `servers/mcp-patient-report/scripts/generate_patient_report.py`:
 
 ```python
 import anthropic

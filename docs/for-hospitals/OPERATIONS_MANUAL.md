@@ -700,7 +700,7 @@ AI-generated precision medicine reports require formal clinician validation befo
 
 **Step 1: Generate Draft Report** (Automated, ~30 seconds)
 ```bash
-python tools/reports/generate_patient_report.py \
+python servers/mcp-patient-report/scripts/generate_patient_report.py \
   --patient-id PAT001-OVC-2025 \
   --output-dir ./results \
   --generate-draft
@@ -717,7 +717,7 @@ python tools/reports/generate_patient_report.py \
 
 **Step 3: Submit Review** (Automated, ~5 seconds)
 ```bash
-python tools/reports/citl_submit_review.py \
+python servers/mcp-patient-report/scripts/citl_submit_review.py \
   --patient-id PAT001-OVC-2025 \
   --review-file ./results/PAT001-OVC-2025/citl_review_completed.json
 ```
@@ -726,7 +726,7 @@ python tools/reports/citl_submit_review.py \
 
 **Step 4: Finalize Report** (Automated, ~10 seconds, if APPROVED)
 ```bash
-python tools/reports/finalize_patient_report.py --patient-id PAT001-OVC-2025
+python servers/mcp-patient-report/scripts/finalize_patient_report.py --patient-id PAT001-OVC-2025
 ```
 
 **Output:** `final_report_approved.json` with status "clinically_approved"
