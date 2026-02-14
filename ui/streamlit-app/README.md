@@ -570,13 +570,6 @@ export GEMINI_API_KEY=your_key  # optional
 
 ## Roadmap
 
-**Completed Features:**
-- [x] Gemini provider with SSE-based MCP integration - ✅ Released v1.2.0
-- [x] Multi-provider abstraction layer (Claude + Gemini) - ✅ Released v1.2.0
-- [x] File upload (FASTQ, VCF, spatial data) - ✅ Released v1.1.0
-- [x] GCS bucket integration - ✅ Released v1.1.0
-- [x] Orchestration trace visualization - ✅ Released v1.0.0
-
 **Planned Features:**
 - [ ] Data visualization (spatial plots, pathway networks, cell type heatmaps)
 - [ ] Export conversation to PDF/Markdown with embedded traces

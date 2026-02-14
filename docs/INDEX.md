@@ -197,13 +197,16 @@ precision-medicine-mcp/
 ├── ACKNOWLEDGMENTS.md      # Credits & scientific references
 ├── LICENSE                 # Apache 2.0 License
 ├── README.md               # Main repository README
+├── llms.txt                # LLM-readable project summary
 ├── data/                   # Synthetic patient data (100% safe for demos)
 ├── docs/                   # Documentation organized by audience
+│   ├── shared/             # Canonical single-source-of-truth files
 │   ├── for-funders/        # ROI, competitive landscape, grant talking points, demos
 │   ├── for-hospitals/      # Deployment checklist, security overview, operations
 │   ├── for-developers/     # Architecture, contributing guide, quick reference
 │   ├── for-researchers/    # Analysis workflows, bioinformatics methods
 │   ├── for-educators/      # Classroom guides, learning objectives
+│   ├── for-operations/     # SLA, implementation guide, operations
 │   ├── for-patients/       # Patient-friendly resources
 │   ├── getting-started/    # Installation, quick start, desktop-configs
 │   ├── book/               # Quarto book: AI-Orchestrated Precision Oncology
@@ -212,7 +215,7 @@ precision-medicine-mcp/
 │       ├── deployment/     # GCP deployment status & guides
 │       ├── prompt-library/ # 20+ ready-to-use clinical prompts
 │       ├── test-docs/      # Testing guides & PatientOne scenarios
-│       └── archive/        # Historical documentation
+│       └── archive/        # Historical documentation & dev journals
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts
 │   ├── audit/              # Bias detection and audit tools
@@ -238,10 +241,15 @@ precision-medicine-mcp/
 │   ├── models/             # Data models
 │   ├── schemas/            # JSON schemas (CitL review, etc.)
 │   └── utils/              # Helper functions
+├── results/                # Analysis output files
 ├── tests/                  # 167 automated tests
 ├── tools/                  # Automation & reporting tools
 │   └── reports/            # Patient report generation, CitL submission
-└── ui/                     # Streamlit chat, Jupyter notebook
+└── ui/                     # User interfaces
+    ├── streamlit-app/      # Main Streamlit chat interface
+    ├── streamlit-app-students/ # Student/classroom version
+    ├── dashboard/          # Live monitoring dashboard
+    └── jupyter-notebook/   # Jupyter notebook interface
 ```
 
 ---

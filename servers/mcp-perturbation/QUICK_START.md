@@ -158,8 +158,8 @@ The server automatically scales down when idle, so you only pay for actual usage
 
 - [README.md](README.md) - Comprehensive documentation
 - [ARCHITECTURE.md](ARCHITECTURE.md) - System architecture with diagrams
-- [DEPLOYMENT_SUCCESS.md](DEPLOYMENT_SUCCESS.md) - Deployment details
-- [GEARS_MIGRATION_SUMMARY.md](GEARS_MIGRATION_SUMMARY.md) - Why we chose GEARS
+- [Deployment Success](../../docs/reference/archive/dev-journals/DEPLOYMENT_SUCCESS.md) - Deployment details
+- [GEARS Migration Summary](../../docs/reference/archive/dev-journals/GEARS_MIGRATION_SUMMARY.md) - Why we chose GEARS
 
 ---
 
