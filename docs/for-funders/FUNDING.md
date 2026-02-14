@@ -1,6 +1,6 @@
 # Precision Medicine MCP: Funding & Partnership Opportunities
 
-> **Transform 40 hours of manual bioinformatics into 35 minutes of AI-orchestrated analysis**
+> **Speed up 40 hours of manual bioinformatics 60x using AI-orchestrated analysis**
 
 ---
 
