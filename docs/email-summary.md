@@ -54,13 +54,13 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 
 ## Key Metrics
 
-- **Time Reduction:** 40 hours → 35 minutes (95% faster)
-- **Cost Reduction:** $3,200 → $24-102 per analysis
+- **Time Reduction:** 40 hours → 2-5 hours production (95% faster with AI orchestration)
+- **Cost per Patient:** $324-702 production (incl. infrastructure) vs. $6,000-9,000 traditional
+- **At Scale:** $16/patient at 500 patients/month (~$8,000/month total)
 - **Data Integration:** 5 modalities (clinical, genomic, multi-omics, spatial, imaging)
 - **HIPAA Compliant:** De-identification, 10-year audit logs, VPC isolation
-- **Deployment:** GCP Cloud Run (us-central1)
-- **UI:** Streamlit with Claude & Gemini 3 support
-- **Monitoring:** Live dashboard with token usage tracking
+- **Deployment:** 15 servers on GCP Cloud Run (us-central1), scale-to-zero
+- **UI:** Streamlit with Claude & Gemini 3 support + live monitoring dashboard
 
 ---
 
