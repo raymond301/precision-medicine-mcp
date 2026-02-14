@@ -218,9 +218,10 @@ precision-medicine-mcp/
 │       └── archive/        # Historical documentation & dev journals
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts
+│   ├── docker/             # Base Docker images for Cloud Run
 │   ├── audit/              # Bias detection and audit tools
 │   └── hospital-deployment/  # Hospital-specific infrastructure
-├── servers/                # 15 MCP servers (Python)
+├── servers/                # 15 MCP servers + boilerplate template (Python)
 │   ├── mcp-cell-classify/  # Cell phenotype classification
 │   ├── mcp-deepcell/       # Cell segmentation
 │   ├── mcp-epic/           # Epic FHIR integration
@@ -234,6 +235,7 @@ precision-medicine-mcp/
 │   ├── mcp-perturbation/   # GEARS treatment prediction
 │   ├── mcp-quantum-celltype-fidelity/ # Quantum fidelity
 │   ├── mcp-seqera/         # Workflow orchestration
+│   ├── mcp-server-boilerplate/ # Template for new servers
 │   ├── mcp-spatialtools/   # Spatial transcriptomics
 │   └── mcp-tcga/           # TCGA cohort data
 ├── shared/                 # Shared Python packages
