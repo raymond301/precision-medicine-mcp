@@ -206,16 +206,3 @@ Ready for immediate pilot deployment with clear path to institutional scale.
 **Date:** 2026-02-11
 **Status:** Ready for Funding Review
 **Contact:** Lynn Langit
-
-**Recent Updates:**
-- Deployed dedicated Student Streamlit app (Gemini-only, 6 tested prompts) for 6-week bioinformatics study group starting Feb 2026
-- Updated all Streamlit example prompts with explicit GCS data paths for PatientOne sample data
-- Fixed Gemini provider tool name resolution for hyphenated MCP servers (cell-classify, quantum-celltype-fidelity)
-- Added server warm-up prompt to mitigate Cloud Run cold starts
-- Reorganized Jupyter client into domain-based notebooks (imaging, genomics, clinical, workflow/ML, integration) for better usability and maintainability (Feb 2026)
-- Phase 1: Bayesian uncertainty quantification for quantum fidelity predictions (Jan 2026)
-- Updated tool counts: 90 tools across 15 servers
-- Added mcp-genomic-results server for somatic variant/CNV parsing with HRD scoring
-- Added mcp-patient-report server for PDF generation
-- Live monitoring dashboard with token usage tracking
-- Multi-provider AI support (Claude + Gemini 3)
