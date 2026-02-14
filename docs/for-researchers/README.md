@@ -257,7 +257,7 @@ to identify concordant pathway activations.
 - 🎭 **1/15 mock by design** (mcp-mockepic)
 - ❌ **3/15 framework/utility** (mcp-tcga, mcp-huggingface, mcp-seqera)
 
-📋 **[See Complete Server Implementation Status →](../reference/SERVER_REGISTRY.md)** - Comprehensive 1,000+ line status matrix with:
+📋 **[See Complete Server Implementation Status →](../shared/server-registry.md)** - Comprehensive 1,000+ line status matrix with:
 - Real vs. mocked capabilities for each server
 - Tool-by-tool implementation details
 - Test coverage and production readiness assessment

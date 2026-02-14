@@ -1,6 +1,6 @@
 # MCP Server Implementation Status Matrix
 
-> **ARCHIVED:** This document is a historical snapshot from Q3-Q4 2025. Server counts, tool counts, and status info are outdated. For current data, see **[servers/README.md](../../../../servers/README.md)** and **[SERVER_REGISTRY.md](../../SERVER_REGISTRY.md)**.
+> **ARCHIVED:** This document is a historical snapshot from Q3-Q4 2025. Server counts, tool counts, and status info are outdated. For current data, see **[servers/README.md](../../../../servers/README.md)** and **[SERVER_REGISTRY.md](../../../shared/server-registry.md)**.
 
 **Last Updated:** 2026-01-30
 **Purpose:** Clearly document what's real vs mocked in each server to prevent accidental use of synthetic data

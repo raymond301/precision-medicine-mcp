@@ -1,6 +1,6 @@
 > 📁 **Archived Documentation**
 > This deployment status log has been archived for reference.
-> For current server status, see [Server Registry](../../SERVER_REGISTRY.md) or [Architecture Status](../../SERVER_REGISTRY.md).
+> For current server status, see [Server Registry](../../../shared/server-registry.md) or [Architecture Status](../../../shared/server-registry.md).
 
 # GCP Cloud Run Deployment Status
 
