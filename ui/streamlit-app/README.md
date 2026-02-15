@@ -232,7 +232,7 @@ Use the sidebar to select which servers to enable. Default active: **spatialtool
 
 Use the sidebar to switch between Claude and Gemini. Available models:
 
-**Claude:** `claude-sonnet-4-5` (recommended), `claude-opus-4-5`, `claude-haiku-4`
+**Claude:** `claude-sonnet-4-5` (recommended), `claude-opus-4-5`, `claude-haiku-4`  
 **Gemini:** `gemini-3-flash-preview` (recommended), `gemini-2.5-flash`
 
 ### 3. Start Chatting
@@ -353,16 +353,6 @@ The app includes 14 example prompts in the sidebar dropdown. All use PatientOne 
 | 13 | **TLS Analysis** — Tertiary lymphoid structures | quantum-celltype-fidelity |
 | 14 | **Quantum + GEARS Validation** — Cross-method validation | perturbation, quantum-celltype-fidelity |
 
-### Cold Start Note
-
-MCP servers on Cloud Run use `min-instances=0` to save costs. First requests after idle periods may take 10-30 seconds. Use "Warm Up Servers" before running analysis prompts, or pre-warm with curl:
-
-```bash
-curl -s https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse &
-curl -s https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse &
-curl -s https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse &
-wait
-```
 
 ## Configuration
 
