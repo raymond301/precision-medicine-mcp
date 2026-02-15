@@ -516,9 +516,8 @@ See: Statistical Methods
 - Genomics: VCF, BAM, FASTQ
 - Multi-omics: CSV matrices (samples × features)
 - Spatial: 10x Visium format, Seurat objects
-- Imaging: TIFF, PNG, DICOM
+- Imaging: TIFF, PNG
 
-See: DATA_FORMATS.md (coming soon) for specifications
 
 ### "How do I ensure reproducibility?"
 **A:** Platform automatically tracks:

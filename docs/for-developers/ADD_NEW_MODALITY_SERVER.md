@@ -27,7 +27,7 @@
 ### What is a Modality?
 
 A **modality** is a distinct category of biomedical data with unique:
-- **Data format** (e.g., CSV expression matrices, VCF variants, DICOM images)
+- **Data format** (e.g., CSV expression matrices, VCF variants, TIFF images)
 - **Analysis methods** (e.g., differential expression, mutation calling, image segmentation)
 - **Tools/libraries** (e.g., scanpy, pysam, opencv)
 - **Domain knowledge** (e.g., spatial statistics, genomics, radiology)
