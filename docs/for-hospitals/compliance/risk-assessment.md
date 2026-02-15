@@ -398,8 +398,8 @@ For clinical decisions, consult qualified healthcare provider.
 ### Updated Documentation (4 files)
 1. `README.md` - Added production readiness status
 2. `architecture/README.md` - Added links to implementation status
-3. `test-docs/patient-one-scenario/README.md` - Added research use disclaimer
-4. `test-docs/patient-one-scenario/README.md` - Added comprehensive disclaimer
+3. `testing/patient-one/README.md` - Added research use disclaimer
+4. `testing/patient-one/README.md` - Added comprehensive disclaimer
 
 ---
 

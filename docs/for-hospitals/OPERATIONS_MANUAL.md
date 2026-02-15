@@ -743,7 +743,7 @@ python servers/mcp-patient-report/scripts/finalize_patient_report.py --patient-i
 
 - [CITL_WORKFLOW_GUIDE.md](citl-workflows/CITL_WORKFLOW_GUIDE.md) - Complete reviewer training
 - [CITL_EXAMPLES.md](citl-workflows/CITL_EXAMPLES.md) - Example APPROVE/REVISE/REJECT reviews
-- [TEST_6_CITL_REVIEW.txt](../reference/test-docs/patient-one-scenario/test-prompts/test-6-citl-review.md) - End-to-end test
+- [TEST_6_CITL_REVIEW.txt](../reference/testing/patient-one/test-prompts/test-6-citl-review.md) - End-to-end test
 
 ---
 

@@ -272,4 +272,4 @@ pytest -v -k "test_query_cohorts"
 
 ---
 
-**Built for the Precision Medicine MCP suite** (demonstrated in [PatientOne](../../docs/reference/test-docs/patient-one-scenario/README.md) workflow)
+**Built for the Precision Medicine MCP suite** (demonstrated in [PatientOne](../../docs/reference/testing/patient-one/README.md) workflow)

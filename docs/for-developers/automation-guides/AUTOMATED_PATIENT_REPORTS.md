@@ -684,7 +684,7 @@ python servers/mcp-patient-report/scripts/finalize_patient_report.py --patient-i
 **Documentation:**
 - **[CITL_WORKFLOW_GUIDE.md](../../for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)** - Complete clinician training
 - **[CITL_EXAMPLES.md](../../for-hospitals/citl-workflows/CITL_EXAMPLES.md)** - Example APPROVE/REVISE/REJECT scenarios
-- **[TEST_6_CITL_REVIEW](../../reference/test-docs/patient-one-scenario/test-prompts/test-6-citl-review.md)** - End-to-end test workflow
+- **[TEST_6_CITL_REVIEW](../../reference/testing/patient-one/test-prompts/test-6-citl-review.md)** - End-to-end test workflow
 
 ## API Reference
 

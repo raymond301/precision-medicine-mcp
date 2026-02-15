@@ -99,8 +99,8 @@ graph LR
 - Natural language queries → AI orchestration → 35-minute analysis
 
 **Learn More**
-- 📖 [Full Case Study: PatientOne Documentation →](docs/reference/test-docs/patient-one-scenario/README.md)
-- 📚 [Prompt Library](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/reference/prompt-library)
+- 📖 [Full Case Study: PatientOne Documentation →](docs/reference/testing/patient-one/README.md)
+- 📚 [Prompt Library](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/reference/prompts)
 - 🏗️ [Architecture Details](docs/reference/architecture/README.md)
 - 📚 [Documentation Hub](docs/INDEX.md)
 

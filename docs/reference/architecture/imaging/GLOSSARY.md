@@ -140,6 +140,6 @@ Imaging-specific terminology for histology and immunofluorescence analysis.
 ---
 
 **See Also:**
-- [Spatial Transcriptomics Glossary](../spatial-transcriptomics/GLOSSARY.md) - Spatial analysis terms
+- [Spatial Transcriptomics Glossary](../spatial/GLOSSARY.md) - Spatial analysis terms
 - [HE_WORKFLOW.md](HE_WORKFLOW.md) - H&E workflow guide
 - [MXIF_WORKFLOW.md](MXIF_WORKFLOW.md) - MxIF workflow guide

@@ -101,14 +101,14 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 **Test documentation, strategies, and test data:**
 
-- **[Test Documentation Index](reference/test-docs/README.md)** - Overview of all test documentation
-- **[Test Coverage & Guidelines](reference/test-docs/test-coverage.md)** - Test structure and best practices
-- **[Manual Testing](reference/test-docs/manual-testing)** - Quick test prompts and verification
-- **[PatientOne Scenario](reference/test-docs/patient-one-scenario)** - Complete end-to-end testing scenario
-  - [Quick Reference](reference/test-docs/patient-one-scenario/quick-reference.md)
-  - [CITL Quick Test](reference/test-docs/patient-one-scenario/citl-quick-test.md)
-  - [Test Prompts](reference/test-docs/patient-one-scenario/test-prompts) - Ready-to-use test prompts (6 tests)
-- **[Integration Testing](reference/test-docs/integration-testing)** - GCP and API testing
+- **[Test Documentation Index](reference/testing/README.md)** - Overview of all test documentation
+- **[Test Coverage & Guidelines](reference/testing/test-coverage.md)** - Test structure and best practices
+- **[Manual Testing](reference/testing)** - Quick test prompts and verification
+- **[PatientOne Scenario](reference/testing/patient-one)** - Complete end-to-end testing scenario
+  - [Quick Reference](reference/testing/patient-one/quick-reference.md)
+  - [CITL Quick Test](reference/testing/patient-one/citl-quick-test.md)
+  - [Test Prompts](reference/testing/patient-one/test-prompts) - Ready-to-use test prompts (6 tests)
+- **[Integration Testing](reference/testing)** - GCP and API testing
 
 ---
 
@@ -148,7 +148,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 ### Quick Links
 
 - **Installation:** [5-Minute Quick Start](./getting-started/installation.md#quick-start-5-minutes)
-- **Test It:** [PatientOne Quick Test](reference/test-docs/patient-one-scenario/quick-reference.md)
+- **Test It:** [PatientOne Quick Test](reference/testing/patient-one/quick-reference.md)
 - **Costs:** [Cost Overview](./for-hospitals/operations/cost-and-budget.md#cost-overview)
 - **HIPAA:** [HIPAA Quick Reference](./for-hospitals/compliance/hipaa.md#executive-summary)
 
@@ -156,13 +156,13 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 **I want to:**
 - **Install the system** → [Installation Guide](./getting-started/installation.md)
-- **Run my first analysis** → [Quick Test Prompts](reference/test-docs/manual-testing/quick-test-prompts.md)
+- **Run my first analysis** → [Quick Test Prompts](reference/testing/quick-test-prompts.md)
 - **Understand costs** → [Cost and Budget Guide](./for-hospitals/operations/cost-and-budget.md)
 - **Deploy to production** → [GCP Deployment Guide](reference/deployment/GCP_TESTING_GUIDE.md)
 - **Ensure HIPAA compliance** → [HIPAA Compliance](./for-hospitals/compliance/hipaa.md)
 - **Add a new server** → [Add New Modality Server](./for-developers/ADD_NEW_MODALITY_SERVER.md)
 - **Review patient results** → [CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)
-- **Test the system** → [PatientOne Scenario](reference/test-docs/patient-one-scenario/README.md)
+- **Test the system** → [PatientOne Scenario](reference/testing/patient-one/README.md)
 
 ### By Role
 
@@ -200,9 +200,9 @@ precision-medicine-mcp/
 │   └── reference/          # Technical reference (architecture, deployment, prompts, tests)
 │       ├── architecture/   # System design & modality workflows
 │       ├── deployment/     # GCP deployment status & guides
-│       ├── prompt-library/ # 20+ ready-to-use clinical prompts
+│       ├── prompts/ # 20+ ready-to-use clinical prompts
 │       ├── shared/         # Canonical single-source-of-truth files
-│       └── test-docs/      # Testing guides & PatientOne scenarios
+│       └── testing/      # Testing guides & PatientOne scenarios
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts
 │   ├── docker/             # Base Docker images for Cloud Run

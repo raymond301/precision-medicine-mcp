@@ -27,17 +27,17 @@ This demo showcases the full capabilities of the platform using **PatientOne** -
 - **[5-Minute Overview Video →](https://www.youtube.com/watch?v=LUldOHHX5Yo)** - Watch the full analysis
 
 ### 📖 Complete Documentation
-- **[PatientOne Scenario README →](../reference/test-docs/patient-one-scenario/README.md)** - Full case study
-- **[Architecture Overview →](../reference/test-docs/patient-one-scenario/architecture/overview.md)** - Workflow diagrams
-- **[Data Modes Guide →](../reference/test-docs/patient-one-scenario/data-modes-guide.md)** - DRY_RUN, MOCK, FULL modes
+- **[PatientOne Scenario README →](../reference/testing/patient-one/README.md)** - Full case study
+- **[Architecture Overview →](../reference/testing/patient-one/overview.md)** - Workflow diagrams
+- **[Data Modes Guide →](../reference/testing/patient-one/data-modes-guide.md)** - DRY_RUN, MOCK, FULL modes
 
 ### 📝 Test Prompts
-- **[Clinical & Genomic Prompts →](../reference/test-docs/patient-one-scenario/test-prompts/test-1-clinical-genomic.md)**
-- **[Multi-omics Prompts →](../reference/test-docs/patient-one-scenario/test-prompts/test-2-multiomics-enhanced.md)**
-- **[Spatial Analysis Prompts →](../reference/test-docs/patient-one-scenario/test-prompts/test-3-spatial.md)**
-- **[Imaging Prompts →](../reference/test-docs/patient-one-scenario/test-prompts/test-4-imaging.md)**
-- **[Integration Prompts →](../reference/test-docs/patient-one-scenario/test-prompts/test-5-integration.md)**
-- **[End-to-End Workflow →](../reference/test-docs/patient-one-scenario/end-to-end-test.md)**
+- **[Clinical & Genomic Prompts →](../reference/testing/patient-one/test-prompts/test-1-clinical-genomic.md)**
+- **[Multi-omics Prompts →](../reference/testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)**
+- **[Spatial Analysis Prompts →](../reference/testing/patient-one/test-prompts/test-3-spatial.md)**
+- **[Imaging Prompts →](../reference/testing/patient-one/test-prompts/test-4-imaging.md)**
+- **[Integration Prompts →](../reference/testing/patient-one/test-prompts/test-5-integration.md)**
+- **[End-to-End Workflow →](../reference/testing/patient-one/end-to-end-test.md)**
 
 ---
 
@@ -121,7 +121,7 @@ This demo showcases the full capabilities of the platform using **PatientOne** -
 ### Pathway 4: Full Multi-Modal Analysis (35 minutes)
 **Goal:** Complete precision medicine analysis integrating all modalities
 
-**See:** [End-to-End Test →](../reference/test-docs/patient-one-scenario/end-to-end-test.md)
+**See:** [End-to-End Test →](../reference/testing/patient-one/end-to-end-test.md)
 
 This workflow demonstrates:
 - Clinical context extraction
@@ -145,7 +145,7 @@ The platform supports three data modes for testing:
 
 **For demos, use MOCK mode** to show real results without compute costs.
 
-**See:** [Data Modes Guide →](../reference/test-docs/patient-one-scenario/data-modes-guide.md)
+**See:** [Data Modes Guide →](../reference/testing/patient-one/data-modes-guide.md)
 
 ---
 
@@ -198,7 +198,7 @@ Check data mode:
 ### Unexpected results
 ```
 Compare with expected outputs:
-  docs/test-docs/patient-one-scenario/test-prompts/
+  docs/testing/patient-one/test-prompts/
 
 Each prompt file includes expected results and validation criteria
 ```

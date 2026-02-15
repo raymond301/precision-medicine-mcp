@@ -456,8 +456,8 @@ python -m json.tool < ~/Library/Application\ Support/Claude/claude_desktop_confi
 **Now that you're set up:**
 
 1. ✅ Try the [Example Prompts](#usage-examples) above
-2. ✅ Explore [PatientOne Testing Scenario](../reference/test-docs/patient-one-scenario/README.md)
-3. ✅ Read [Test Prompts](../reference/test-docs/patient-one-scenario/test-prompts) for comprehensive workflows
+2. ✅ Explore [PatientOne Testing Scenario](../reference/testing/patient-one/README.md)
+3. ✅ Read [Test Prompts](../reference/testing/patient-one/test-prompts) for comprehensive workflows
 4. ✅ Review [Architecture Documentation](../reference/architecture/README.md)
 
 **For Development:**
@@ -472,7 +472,7 @@ python -m json.tool < ~/Library/Application\ Support/Claude/claude_desktop_confi
 - **[Architecture Overview](../reference/architecture/README.md)** - System design
 - **[Server Status](../reference/shared/server-registry.md)** - Implementation status and capabilities
 - **[Documentation Index](../INDEX.md)** - Role-specific guides and documentation
-- **[Test Documentation](../reference/test-docs/README.md)** - Testing strategies and prompts
+- **[Test Documentation](../reference/testing/README.md)** - Testing strategies and prompts
 
 ---
 

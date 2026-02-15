@@ -89,7 +89,7 @@ All major bioinformatics domains in one platform:
   - Treatment recommendations with rationale
   - Visualizations (plots, heatmaps)
 
-**See:** [PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md)
+**See:** [PatientOne Guide](../reference/testing/patient-one/README.md)
 
 ### 3. Assess Student Work
 
@@ -128,7 +128,7 @@ What clinical data is available for PatientOne (PAT001-OVC-2025)?
 
 ### 3. Complete PatientOne Workflow (25-35 minutes)
 
-Follow: [PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md)
+Follow: [PatientOne Guide](../reference/testing/patient-one/README.md)
 
 **What you'll learn:**
 - Load and interpret clinical data
@@ -385,7 +385,7 @@ Follow: [PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md
 ## Teaching Resources
 
 ### Instructor Materials
-- **[PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md)** - Complete walkthrough
+- **[PatientOne Guide](../reference/testing/patient-one/README.md)** - Complete walkthrough
 - **[Statistical Methods](../for-researchers/README.md)** - Detailed method explanations
 - **[Cost Analysis](../for-hospitals/operations/cost-and-budget.md)** - Budgeting for classroom use
 

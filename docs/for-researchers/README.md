@@ -74,7 +74,7 @@ graph LR
 **Goal:** Comprehensive multi-modal analysis of Stage IV ovarian cancer case
 
 1. **Set up environment** → [Installation Guide](../getting-started/installation.md) (10 min)
-2. **Run PatientOne workflow** → [PatientOne Guide](../reference/test-docs/patient-one-scenario/README.md) (25-35 min)
+2. **Run PatientOne workflow** → [PatientOne Guide](../reference/testing/patient-one/README.md) (25-35 min)
 3. **Review results** → results depend on which mcp servers are used in analysis, see detail below  
 
 **What you'll analyze:**

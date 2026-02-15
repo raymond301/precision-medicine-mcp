@@ -65,16 +65,16 @@ graph LR
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
-| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical/README.md](clinical/README.md) |
-| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic/README.md](genomic/README.md) |
-| 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | [genomic-results/README.md](genomic-results/README.md) |
+| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical.md](clinical.md) |
+| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic.md](genomic.md) |
+| 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | [genomic-results.md](genomic-results.md) |
 | 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell, mcp-cell-classify | 11 (5+3+3) | ✅ Production (100%) | [imaging/README.md](imaging/README.md) |
-| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics/README.md](multiomics/README.md) |
-| 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial-transcriptomics/README.md](spatial-transcriptomics/README.md) |
-| 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation/README.md](perturbation/README.md) |
-| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum/README.md](quantum/README.md) |
-| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml/README.md](ai-ml/README.md) |
-| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow/README.md](workflow/README.md) |
+| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics.md](multiomics.md) |
+| 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial/README.md](spatial/README.md) |
+| 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation.md](perturbation.md) |
+| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum.md](quantum.md) |
+| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml.md](ai-ml.md) |
+| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow.md](workflow.md) |
 
 
 ---
@@ -92,7 +92,7 @@ graph LR
 
 **Workflow:** `Patient EHR → FHIR API → De-identification → Clinical Data`
 
-📖 **[Detailed Architecture →](clinical/README.md)**
+📖 **[Detailed Architecture →](clinical.md)**
 
 ---
 
@@ -109,7 +109,7 @@ graph LR
 
 **Workflow:** `TCGA Database → Statistical Comparison → Survival Analysis → Integration`
 
-📖 **[Detailed Architecture →](genomic/README.md)**
+📖 **[Detailed Architecture →](genomic.md)**
 
 ---
 
@@ -127,7 +127,7 @@ graph LR
 
 **Workflow:** `Seqera/sarek → VCF + CNS → Parse & Annotate → HRD Score → Genomic Report → Patient Report`
 
-📖 **[Detailed Architecture →](genomic-results/README.md)**
+📖 **[Detailed Architecture →](genomic-results.md)**
 
 ---
 
@@ -159,7 +159,7 @@ graph LR
 
 **Workflow:** `RNA/Protein/Phospho → Validate → Preprocess → Integrate → HAllA → Meta-Analysis → Upstream Regulators`
 
-📖 **[Detailed Architecture →](multiomics/README.md)**
+📖 **[Detailed Architecture →](multiomics.md)**
 
 ---
 
@@ -176,7 +176,7 @@ graph LR
 
 **Workflows:** CSV (current) • FASTQ with STAR alignment (implemented)
 
-📖 **[Detailed Architecture →](spatial-transcriptomics/README.md)**
+📖 **[Detailed Architecture →](spatial/README.md)**
 
 ---
 
@@ -201,7 +201,7 @@ graph LR
 
 **Technology:** GEARS (Graph-Enhanced Gene Activation Modeling) - Nature Biotechnology 2024
 
-📖 **[Detailed Architecture →](perturbation/README.md)**
+📖 **[Detailed Architecture →](perturbation.md)**
 
 ---
 
@@ -218,7 +218,7 @@ graph LR
 
 **Workflow:** `Single-cell Data / DNA Sequences → Load Model → Generate Predictions → Integration`
 
-📖 **[Detailed Architecture →](ai-ml/README.md)**
+📖 **[Detailed Architecture →](ai-ml.md)**
 
 ---
 
@@ -248,7 +248,7 @@ graph LR
 
 **Integration:** Works with mcp-perturbation for dual quantum+GEARS validation
 
-📖 **[Detailed Architecture →](quantum/README.md)**
+📖 **[Detailed Architecture →](quantum.md)**
 
 ---
 
@@ -265,7 +265,7 @@ graph LR
 
 **Workflow:** `Select Pipeline → Configure → Choose Compute → Submit → Monitor → Retrieve Results`
 
-📖 **[Detailed Architecture →](workflow/README.md)**
+📖 **[Detailed Architecture →](workflow.md)**
 
 ---
 
@@ -286,8 +286,8 @@ graph LR
 - ⚛️ TEST_6: Quantum cell type fidelity (mcp-quantum-celltype-fidelity)
 - 🔄 TEST_7: Complete end-to-end workflow
 
-📖 **[PatientOne Workflow →](../test-docs/patient-one-scenario/README.md)**
-📖 **[PatientOne Architecture →](../test-docs/patient-one-scenario/architecture/overview.md)**
+📖 **[PatientOne Workflow →](../testing/patient-one/README.md)**
+📖 **[PatientOne Architecture →](../testing/patient-one/overview.md)**
 
 ___
 
