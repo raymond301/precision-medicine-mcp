@@ -110,14 +110,14 @@ graph LR
 
 > **Server details:** See [Platform Overview](../reference/shared/README.md).
 
-- ✅ **90 tools** across all servers with comprehensive test coverage
+- ✅ **80 tools** across all servers with comprehensive test coverage
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
 - ✅ **HIPAA-compliant infrastructure** ready (de-identification, audit logging, VPC isolation)
 - ✅ **End-to-end demo** tested with synthetic PatientOne ovarian cancer case
 
 ### Deployment Status
 
-**15 servers / 90 tools** — 12 production (85-100% real), 1 mock (by design), 2 framework/utility. All except mcp-epic deployed to GCP Cloud Run.
+**15 servers / 80 tools** — 12 production (85-100% real), 1 mock (by design), 2 framework/utility. All except mcp-epic deployed to GCP Cloud Run.
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md).
 

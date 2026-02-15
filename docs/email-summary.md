@@ -19,7 +19,7 @@ graph LR
 
 ## System Overview
 
-A production-ready AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (90 tools)** on GCP Cloud Run — reducing analysis from 40 hours to 35 minutes at ~$24-102 per patient vs. $3,200 traditional. The system is HIPAA-compliant, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end demo (**PatientOne**: Stage IV ovarian cancer).
+A production-ready AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (80 tools)** on GCP Cloud Run — reducing analysis from 40 hours to 35 minutes at ~$24-102 per patient vs. $3,200 traditional. The system is HIPAA-compliant, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end demo (**PatientOne**: Stage IV ovarian cancer).
 
 ---
 
@@ -48,7 +48,7 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 14. **mcp-seqera** - Workflow automation platform
 15. **mcp-huggingface** - AI model inference
 
-**Total:** 90 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
+**Total:** 80 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
 
 ---
 

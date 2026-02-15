@@ -20,7 +20,7 @@ graph LR
         LLM[Claude or Gemini]
     end
 
-    subgraph Servers["15 MCP Servers · 90 Tools"]
+    subgraph Servers["15 MCP Servers · 80 Tools"]
         direction TB
         IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
         GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
@@ -44,7 +44,7 @@ graph LR
 
 **Key Points:**
 - **AI Orchestration**: Claude + Gemini 3 AI coordinates 15 MCP servers via natural language
-- **90 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
+- **80 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
 - **Production Ready**: 11 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
 - **Cost Efficient**: ~$24-102 per analysis (includes compute, APIs, Claude tokens)
 
@@ -59,7 +59,7 @@ graph LR
 - Scalable from 100-patient pilot to institutional biobank
 
 **For Bioinformaticians:**
-- Unified platform for 90 bioinformatics tools across 15 MCP servers
+- Unified platform for 80 bioinformatics tools across 15 MCP servers
 - Natural language interface eliminates manual pipeline coding
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -92,7 +92,7 @@ graph LR
 
 ## Technical Capabilities
 
-**15 MCP Servers (90 tools):**
+**15 MCP Servers (80 tools):**
 - ✅ **11 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation), mcp-genomic-results (somatic/CNV/HRD), mcp-epic (local only, Epic FHIR integration)
 - 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
 - ⚙️ **3 Framework/Utility**: mcp-tcga, mcp-seqera, mcp-huggingface

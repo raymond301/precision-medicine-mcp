@@ -93,7 +93,7 @@ End-to-end multi-modal analyses
 - Biomarker discovery workflow
 - Immunotherapy research workflow for cold tumors
 
-**Servers used:** All 15 servers (90 tools total)
+**Servers used:** All 15 servers (80 tools total)
 
 ---
 

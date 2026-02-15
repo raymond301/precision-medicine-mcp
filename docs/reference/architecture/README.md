@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 15 MCP Servers (90 Tools)"]
+    subgraph MCP["🔧 15 MCP Servers (80 Tools)"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga/genomic-results]
@@ -61,7 +61,7 @@ graph LR
 
 ## 📊 Architecture by Analysis Modality
 
-10 analysis modalities, 15 specialized servers, 90 tools:
+11 analysis modalities, 15 specialized servers, 80 tools:
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
@@ -74,6 +74,7 @@ graph LR
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation.md](perturbation.md) |
 | ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum.md](quantum.md) |
 | 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml.md](ai-ml.md) |
+| 📄 **Patient Reports** | mcp-patient-report | 5 | ✅ Production (100%) | [../../servers/mcp-patient-report/README.md](../../servers/mcp-patient-report/README.md) |
 | ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow.md](workflow.md) |
 
 

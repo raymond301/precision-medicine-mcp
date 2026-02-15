@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 15 | **Production Ready:** 11 (73%) | **Total Tools:** 90
+**Total Servers:** 15 | **Production Ready:** 11 (73%) | **Total Tools:** 80
 
 📁 **[Individual Server Documentation →](../../servers/README.md)**
 

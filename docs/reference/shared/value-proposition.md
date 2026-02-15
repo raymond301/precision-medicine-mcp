@@ -30,7 +30,7 @@
 
 ## What Makes This Possible
 
-- **15 MCP servers** with 90 specialized bioinformatics tools
+- **15 MCP servers** with 80 specialized bioinformatics tools
 - **AI orchestration** via natural language (Claude + Gemini)
 - **Multi-modal integration** across 5 data types in a single workflow
 - **DRY_RUN mode** for zero-risk testing and demonstrations
