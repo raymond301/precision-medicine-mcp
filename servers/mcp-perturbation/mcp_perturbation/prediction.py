@@ -102,7 +102,7 @@ class PerturbationPredictor:
 
     def apply_perturbation_to_patient(
         self,
-        wrapper,  # ScGenWrapper instance
+        wrapper,  # trained model wrapper (e.g., GEARSWrapper)
         patient_adata: ad.AnnData,
         ctrl_key: str,
         stim_key: str,
@@ -112,7 +112,7 @@ class PerturbationPredictor:
         """Apply learned perturbation to patient data.
 
         Args:
-            wrapper: Trained ScGenWrapper instance
+            wrapper: Trained model wrapper (e.g., GEARSWrapper)
             patient_adata: Patient's baseline scRNA-seq data
             ctrl_key: Control condition label
             stim_key: Treatment condition label
@@ -199,7 +199,7 @@ class PerturbationPredictor:
         """Predict multiple cell types in batch.
 
         Args:
-            wrapper: Trained ScGenWrapper
+            wrapper: Trained model wrapper
             patient_adata: Patient data
             cell_types: List of cell types to predict
             ctrl_key: Control condition label
