@@ -550,7 +550,7 @@ Return:
 
 **Related Prompts:**
 - [Clinical-Genomic Prompts](clinical-genomic.md) - Link genomic variants to multi-omics
-- [Spatial Prompts](spatial-transcriptomics.md) - Add spatial context to omics
+- [Spatial Prompts](spatial.md) - Add spatial context to omics
 - [Complete Workflows](workflows.md) - Integrate everything
 
 ---

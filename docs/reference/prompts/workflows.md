@@ -495,7 +495,7 @@ RETURN: Updated report (changes highlighted, revised recommendations)
 **Related Prompts:**
 - [Clinical-Genomic](clinical-genomic.md)
 - [Multi-Omics](multiomics.md)
-- [Spatial Transcriptomics](spatial-transcriptomics.md)
+- [Spatial Transcriptomics](spatial.md)
 
 ---
 

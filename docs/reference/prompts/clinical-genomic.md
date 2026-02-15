@@ -557,7 +557,7 @@ If unavailable in both, note as "Not in current panel — requires additional as
 
 **Related Prompts:**
 - [Multi-Omics Prompts](multiomics.md) - Integrate genomic with expression data
-- [Spatial Prompts](spatial-transcriptomics.md) - Add spatial context
+- [Spatial Prompts](spatial.md) - Add spatial context
 - [Complete Workflows](workflows.md) - End-to-end analyses
 
 ---
