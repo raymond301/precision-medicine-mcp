@@ -16,7 +16,7 @@
 | 🧪 **mcp-perturbation** | 8 | ✅ 100% real (GEARS) | [README →](mcp-perturbation/README.md) |
 | ⚛️ **mcp-quantum-celltype-fidelity** | 6 | ✅ 100% real (Qiskit) | [README →](mcp-quantum-celltype-fidelity/README.md) |
 | 🖼️ **mcp-openimagedata** | 5 | ✅ 100% real | [README →](mcp-openimagedata/README.md) |
-| 🖼️ **mcp-deepcell** | 4 | ✅ 100% real (Cloud Run) | [README →](mcp-deepcell/README.md) |
+| 🖼️ **mcp-deepcell** | 3 | ✅ 100% real (Cloud Run) | [README →](mcp-deepcell/README.md) |
 | 🔬 **mcp-cell-classify** | 3 | ✅ 100% real | [README →](mcp-cell-classify/README.md) |
 | 🧪 **mcp-tcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-tcga/README.md) |
 | 🤖 **mcp-huggingface** | 3 | ❌ Mocked (HF-ready) | — |
