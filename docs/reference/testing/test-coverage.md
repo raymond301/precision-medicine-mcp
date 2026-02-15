@@ -22,7 +22,7 @@
 | Server | Coverage | Tests | Status | Production Ready |
 |--------|----------|-------|--------|------------------|
 | 🧬 **mcp-fgbio** | 77% | 29 | ✅ Complete | ✅ YES (95% real) |
-| 🔬 **mcp-multiomics** | 68% | 91 | ✅ Complete | ✅ YES (85% real) |
+| 🔬 **mcp-multiomics** | 68% | 91 | ✅ Complete | ✅ YES (95% real) |
 | 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke | ❌ Mocked |
 | 🤖 **mcp-huggingface** | 56% | 12 | ✅ Smoke | ❌ Mocked |
 | ⚙️ **mcp-seqera** | 56% | 6 | ✅ Smoke | ❌ Mocked |

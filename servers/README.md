@@ -11,7 +11,7 @@
 | 🏥 **mcp-epic** | 4 | ✅ 100% real (local only) | [Testing Guide →](mcp-epic/CLAUDE_DESKTOP_TESTING.md) |
 | 🎭 **mcp-mockepic** | 3 | 🎭 Mock by design (GCP) | — |
 | 🧬 **mcp-fgbio** | 4 | ✅ 95% real | [README →](mcp-fgbio/README.md) |
-| 🔬 **mcp-multiomics** | 10 | ✅ 85% real | [README →](mcp-multiomics/README.md) |
+| 🔬 **mcp-multiomics** | 10 | ✅ 95% real | [README →](mcp-multiomics/README.md) |
 | 📍 **mcp-spatialtools** | 14 | ✅ 95% real | [README →](mcp-spatialtools/README.md) |
 | 🧪 **mcp-perturbation** | 8 | ✅ 100% real (GEARS) | [README →](mcp-perturbation/README.md) |
 | ⚛️ **mcp-quantum-celltype-fidelity** | 6 | ✅ 100% real (Qiskit) | [README →](mcp-quantum-celltype-fidelity/README.md) |

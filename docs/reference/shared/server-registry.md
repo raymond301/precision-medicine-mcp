@@ -11,7 +11,7 @@
 | Server | Tools | Status | Key Capabilities | Documentation |
 |--------|-------|--------|------------------|---------------|
 | **mcp-fgbio** | 4 | 95% Real | FASTQ/VCF QC, genome refs, variant calling | [README](../../servers/mcp-fgbio/README.md) |
-| **mcp-multiomics** | 10 | 85% Real | HAllA integration, Stouffer meta-analysis, upstream regulators | [README](../../servers/mcp-multiomics/README.md) |
+| **mcp-multiomics** | 10 | 95% Real | HAllA integration, Stouffer meta-analysis, upstream regulators, heatmap, PCA | [README](../../servers/mcp-multiomics/README.md) |
 | **mcp-spatialtools** | 14 | 95% Real | Spatial DE, STAR alignment, ComBat, pathway enrichment | [README](../../servers/mcp-spatialtools/README.md) |
 | **mcp-perturbation** | 8 | 100% Real | GEARS GNN treatment response, perturbation prediction | [README](../../servers/mcp-perturbation/README.md) |
 | **mcp-quantum-celltype-fidelity** | 6 | 100% Real | Quantum PQCs, fidelity analysis, Bayesian UQ, immune evasion | [README](../../servers/mcp-quantum-celltype-fidelity/README.md) |

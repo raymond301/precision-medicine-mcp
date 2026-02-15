@@ -96,7 +96,7 @@ graph LR
 - **Example:** "Perform spatial pathway enrichment on PatientOne tumor regions"
 
 **Multi-Omics Integration:**
-- **Server:** mcp-multiomics (85% real, 12 tools)
+- **Server:** mcp-multiomics (95% real, 10 tools)
 - **Examples:** [Multi-omics README](../../servers/mcp-multiomics/README.md) (10 min)
 - **Capabilities:** HAllA integration, Stouffer meta-analysis, upstream regulators
 - **Example:** "Integrate RNA, protein, and phospho data using Stouffer's method"

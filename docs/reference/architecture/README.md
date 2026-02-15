@@ -69,7 +69,7 @@ graph LR
 | 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic.md](genomic.md) |
 | 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | [genomic-results.md](genomic-results.md) |
 | 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell, mcp-cell-classify | 11 (5+3+3) | ✅ Production (100%) | [imaging/README.md](imaging/README.md) |
-| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (85%) | [multiomics.md](multiomics.md) |
+| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (95%) | [multiomics.md](multiomics.md) |
 | 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial/README.md](spatial/README.md) |
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation.md](perturbation.md) |
 | ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum.md](quantum.md) |
@@ -149,7 +149,7 @@ graph LR
 
 **PDX multi-omics data integration with preprocessing and therapeutic target prediction**
 
-**Server:** mcp-multiomics (10 tools, 85% real)
+**Server:** mcp-multiomics (10 tools, 95% real)
 
 **Key Features:**
 - Preprocessing pipeline (batch correction, KNN imputation, QC visualization)
