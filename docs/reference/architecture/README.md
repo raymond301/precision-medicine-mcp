@@ -338,6 +338,8 @@ sequenceDiagram
 
 ---
 
+**See also:** [Next Steps & Enhancements](next-steps.md) — prioritized enhancement inventory for all 15 servers
+
 **Organization Principle:**
 - `docs/architecture/` = High-level design & workflows by modality + cross-cutting architecture
 - `servers/` = Detailed tool specifications & implementation
