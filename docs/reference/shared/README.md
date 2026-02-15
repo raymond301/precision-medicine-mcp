@@ -54,4 +54,3 @@ The Precision Medicine MCP platform uses **15 MCP servers** providing **90 tools
 
 ---
 
-**Full server documentation:** [`servers/README.md`](../../servers/README.md)
