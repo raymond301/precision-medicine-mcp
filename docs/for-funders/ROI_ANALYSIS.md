@@ -23,7 +23,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 | **Bioinformatics Labor** | $6,000-9,000<br/>(40 hours × $150-225/hr) | $300-600<br/>(oversight: 2 hours × $150-300/hr) | **$5,700-8,400** |
 | **Compute Resources** | $200-500<br/>(HPC cluster time) | $24-102<br/>(GCP Cloud Run + storage) | **$176-398** |
 | **API/LLM Costs** | $0 | $1-3<br/>(Claude tokens) | **-$3** |
-| **Total Per Patient** | **$6,200-9,500** | **$325-704** | **$5,875-8,796** |
+| **Total Per Patient** | **$6,200-9,500** | **$324-702** | **$5,875-8,796** |
 
 **Average Savings:** **$3,098-3,176 per patient**
 
@@ -139,15 +139,14 @@ Comprehensive return on investment analysis for institutional funders and hospit
 
 ### Time to Actionable Results
 
-| Stage | Traditional | MCP Platform | Time Saved |
-|-------|------------|--------------|------------|
-| Data preparation | 4-8 hours | 10 minutes | 3.8-7.8 hours |
-| Genomic analysis | 8-12 hours | 15 minutes | 7.8-11.8 hours |
-| Multi-omics integration | 12-16 hours | 25 minutes | 11.6-15.6 hours |
-| Spatial analysis | 8-12 hours | 20 minutes | 7.7-11.7 hours |
-| Imaging analysis | 4-8 hours | 15 minutes | 3.8-7.8 hours |
-| Report generation | 4-8 hours | 10 minutes | 3.8-7.8 hours |
-| **Total** | **40-64 hours** | **35 minutes** | **39.4-63.4 hours** |
+| Stage | Traditional | MCP DRY_RUN (demo) | MCP Production |
+|-------|------------|-------------------|----------------|
+| Clinical & Genomic | 12-20 hours | 4-6 min | 15-30 min |
+| Multi-omics integration | 12-16 hours | 5-8 min | 30-60 min |
+| Spatial analysis | 8-12 hours | 4-6 min | 45-90 min |
+| Imaging analysis | 4-8 hours | 3-5 min | 40-90 min |
+| Report generation | 4-8 hours | 5-8 min | 15-30 min |
+| **Total** | **40-64 hours** | **25-35 min** | **2-5 hours** |
 
 **Clinical Benefit:**
 - **Same-day results** vs. 5-8 business days
@@ -224,7 +223,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 ### MCP Platform (This Solution)
 
 **Pros:**
-- 35 minutes per patient (vs. 40 hours)
+- 2-5 hours per patient production (vs. 40 hours traditional); 25-35 min DRY_RUN demo
 - Multi-modal integration (genomics + spatial + imaging + clinical)
 - Natural language interface
 - Open source and transparent
@@ -234,7 +233,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 - 3 framework/utility servers + 1 mock by design (need real API access)
 - Not yet FDA-approved
 
-**Cost:** $325-704 per patient (all modalities)
+**Cost:** $324-702 per patient (all modalities)
 
 ---
 

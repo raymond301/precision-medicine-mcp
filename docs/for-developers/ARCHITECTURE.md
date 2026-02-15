@@ -406,7 +406,7 @@ raise ValueError(
 **User Prompt:**
 > "Perform comprehensive multi-modal analysis for PatientOne (PAT001-OVC-2025) and identify top 3 treatment targets."
 
-**Orchestrated Workflow (35 minutes):**
+**Orchestrated Workflow (DRY_RUN: ~35 minutes / Production: 2-5 hours):**
 
 ```
 [0-5 min] Clinical Context
@@ -441,7 +441,7 @@ raise ValueError(
 - 3 calls to mcp-fgbio
 - 4 calls to mcp-multiomics
 - 3 calls to mcp-spatialtools
-- **Total: 12 tool calls, 35 minutes, $87 cost**
+- **Total: 12 tool calls, ~35 min DRY_RUN / 2-5 hrs production**
 
 ---
 
@@ -457,7 +457,7 @@ raise ValueError(
 | **Heavy computation** | 30-300 sec | Batch correction, dimensionality reduction |
 | **External API calls** | 1-10 sec | NCBI, KEGG (with caching) |
 
-**Total workflow:** 5-35 minutes for comprehensive multi-modal analysis
+**Total workflow:** 25-35 min DRY_RUN / 2-5 hours production for comprehensive multi-modal analysis
 
 ### Scalability
 

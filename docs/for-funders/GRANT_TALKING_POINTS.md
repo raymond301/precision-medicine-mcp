@@ -6,7 +6,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 ## Elevator Pitch (30 seconds)
 
-> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 35 minutes of AI-orchestrated execution, saving $3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 15 deployed servers, 80 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
+> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 2-5 hours, saving ~$3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 15 deployed servers, 80 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
 
 ---
 
@@ -42,8 +42,8 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
    - Not just "side-by-side" but true cross-modal analysis
 
 3. **Speed & Cost Breakthrough**
-   - **68x faster**: 40 hours → 35 minutes
-   - **10x cheaper**: $325 vs. $3,000-7,500 (commercial alternatives)
+   - **8-20x faster**: 40 hours → 2-5 hours (production); 25-35 min in DRY_RUN demo
+   - **10-18x cheaper**: $324-702 total per patient vs. $6,000-9,000 traditional
    - **Same-day results** enable faster clinical decision-making
 
 4. **Open Source & Transparent**
@@ -125,7 +125,7 @@ Compare to traditional: 40 hours, $6,000
 - Everolimus or alpelisib (mTOR/PI3K inhibitors) for pathway activation
 - Immune checkpoint inhibitors (PD-1/PD-L1) based on spatial microenvironment
 
-**Analysis Time:** 35 minutes (full multi-modal workflow)
+**Analysis Time:** 25-35 minutes DRY_RUN demo (production: 2-5 hours)
 **Cost:** $87 (compute + API tokens)
 
 ---
@@ -188,7 +188,7 @@ Compare to traditional: 40 hours, $6,000
 ## Broader Impact
 
 ### Healthcare Access
-- **Democratize precision medicine:** $325/patient enables broader access vs. $3,000-7,500 commercial alternatives
+- **Democratize precision medicine:** $324-702/patient enables broader access vs. $6,000-9,000 traditional analysis
 - **Community hospitals:** Can afford comprehensive analysis, not just academic medical centers
 - **Underserved populations:** Lower cost = more patients can access personalized treatment
 
@@ -244,7 +244,7 @@ Compare to traditional: 40 hours, $6,000
 - PatientOne case study validates end-to-end workflow
 
 **3. Scalable & Cost-Effective**
-- $325/patient is 10x cheaper than commercial alternatives
+- $324-702/patient is 10-18x cheaper than traditional analysis ($6,000-9,000)
 - Cloud-native architecture scales to thousands of patients
 - Open source enables community adoption without vendor lock-in
 
@@ -266,9 +266,9 @@ Compare to traditional: 40 hours, $6,000
 
 **Background:** Comprehensive precision medicine requires integrating clinical (EHR), genomic, multi-omic, spatial transcriptomic, and imaging data—a process that takes 40 hours and $6,000-9,000 per patient, creating a clinical bottleneck. Commercial alternatives (Foundation Medicine, Tempus) cost $3,000-7,500 but analyze genomics only, missing critical spatial and imaging context.
 
-**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 35 minutes at $325/patient—10x cost savings with true multi-modal integration. Clinicians use natural language to query 15 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 15 deployed servers, 80 tools, and HIPAA-compliant infrastructure.
+**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 2-5 hours (production) at $324-702/patient—saving ~$3,137 avg per patient with true multi-modal integration. Clinicians use natural language to query 15 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 15 deployed servers, 80 tools, and HIPAA-compliant infrastructure. DRY_RUN demos complete in 25-35 minutes with synthetic data.
 
-**Preliminary Data:** PatientOne case study (Stage IV ovarian cancer, synthetic data) demonstrated end-to-end workflow in 35 minutes, identifying actionable targets (BRCA1 variant, PI3K/AKT/mTOR pathway activation, immune microenvironment exhaustion) and treatment recommendations (olaparib, everolimus, checkpoint inhibitors) consistent with clinical guidelines.
+**Preliminary Data:** PatientOne case study (Stage IV ovarian cancer, synthetic data) demonstrated end-to-end DRY_RUN workflow in 25-35 minutes, identifying actionable targets (BRCA1 variant, PI3K/AKT/mTOR pathway activation, immune microenvironment exhaustion) and treatment recommendations (olaparib, everolimus, checkpoint inhibitors) consistent with clinical guidelines.
 
 **Specific Aims:** (1) Validate clinical utility through retrospective analysis of 100 ovarian cancer patients; (2) Assess scalability and cost-effectiveness in prospective 500-patient cohort; (3) Implement HIPAA-compliant infrastructure with Epic FHIR integration.
 

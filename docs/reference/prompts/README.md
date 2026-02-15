@@ -87,7 +87,7 @@ Cell segmentation and phenotyping for H&E and MxIF images
 End-to-end multi-modal analyses
 
 **Examples:**
-- PatientOne comprehensive analysis (35 minutes)
+- PatientOne comprehensive analysis (25-35 min DRY_RUN / 2-5 hrs production)
 - Tumor microenvironment characterization
 - Drug resistance mechanism identification
 - Biomarker discovery workflow

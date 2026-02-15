@@ -993,7 +993,7 @@ For 100 patients per year:
 **Step 4: Beyond Money**
 
 What else matters besides cost?
-- Time to results (40 hours → 35 minutes)
+- Time to results (40 hours → 2-5 hours production)
 - Patient outcomes (better treatment selection)
 - Research productivity (more analyses possible)
 - Clinician satisfaction
@@ -1063,8 +1063,8 @@ Intangible Benefits:
 
 1. Time Savings:
    - Traditional: 40 hours per analysis
-   - MCP: 35 minutes
-   - Time saved: 3,942 hours per year (100 patients)
+   - MCP production: 2-5 hours (DRY_RUN demo: 25-35 minutes)
+   - Time saved: 3,500-3,800 hours per year (100 patients)
    - = 2 full-time bioinformaticians freed up for other work
 
 2. Patient Outcomes:

@@ -19,7 +19,7 @@ graph LR
 
 ## System Overview
 
-A production-ready AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (80 tools)** on GCP Cloud Run — reducing analysis from 40 hours to 35 minutes at ~$24-102 per patient vs. $3,200 traditional. The system is HIPAA-compliant, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end demo (**PatientOne**: Stage IV ovarian cancer).
+A production-ready AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (80 tools)** on GCP Cloud Run — reducing production analysis from 40 hours to 2-5 hours at $324-702 per patient vs. $6,000-9,000 traditional ($3,137 avg savings). DRY_RUN demos complete in 25-35 minutes at ~$1. The system is HIPAA-compliant, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end demo (**PatientOne**: Stage IV ovarian cancer).
 
 ---
 
@@ -54,7 +54,7 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 
 ## Key Metrics
 
-- **Time Reduction:** 40 hours → 2-5 hours production (95% faster with AI orchestration)
+- **Time Reduction:** 40 hours → 2-5 hours production (8-20x faster with AI orchestration)
 - **Cost per Patient:** $324-702 production (incl. infrastructure) vs. $6,000-9,000 traditional
 - **At Scale:** $16/patient at 500 patients/month (~$8,000/month total)
 - **Data Integration:** 5 modalities (clinical, genomic, multi-omics, spatial, imaging)

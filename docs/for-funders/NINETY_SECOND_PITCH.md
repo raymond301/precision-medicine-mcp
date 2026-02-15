@@ -70,11 +70,12 @@ How long would this spatial pathway enrichment analysis take manually vs. with M
 | Approach | Time | Cost | Expertise Required |
 |----------|------|------|-------------------|
 | **Manual** | 8-12 hours | $400-800 (bioinformatics labor) | PhD-level |
-| **MCP Platform** | 35 minutes | $24-102 (compute + API) | Basic training |
+| **MCP Platform (DRY_RUN demo)** | 25-35 minutes | ~$1 (tokens only) | Basic training |
+| **MCP Platform (production)** | 2-5 hours | $324-702 (total per patient) | Basic training |
 
-**Savings:** ~$300-700 per analysis, **40 hours → 35 minutes** for full multi-omics workflow
+**Savings:** ~$3,137 avg per patient, **40 hours → 2-5 hours** for full production multi-omics workflow
 
-**Key Talking Point:** *"68x faster - enabling same-day precision medicine decisions"*
+**Key Talking Point:** *"8-20x faster — enabling same-day precision medicine decisions"*
 
 ---
 
@@ -93,7 +94,7 @@ Traditional Approach:
 
 MCP Platform:
 - 100 patients × $324/patient = $32,400/year (compute + API)
-- 100 patients × 35 minutes/patient = 58 hours/year (oversight + validation)
+- 100 patients × 2-5 hours/patient = 200-500 hours/year (production analysis + validation)
 
 Annual Savings:
 - Cost: $567,600 saved

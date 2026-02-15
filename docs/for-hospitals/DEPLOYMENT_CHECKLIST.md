@@ -120,7 +120,7 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 - [ ] **mcp-mockepic** - Synthetic FHIR data for testing
 
 ### Integration Testing
-- [ ] End-to-end workflow: PatientOne full analysis (35 minutes)
+- [ ] End-to-end workflow: PatientOne full analysis (25-35 min DRY_RUN)
 - [ ] Multi-user test: 5 concurrent analyses
 - [ ] Load test: 20 analyses in 1 hour
 - [ ] Cost validation: $24-102 per analysis

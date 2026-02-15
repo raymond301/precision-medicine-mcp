@@ -54,7 +54,7 @@
 
 | Metric | Value |
 |--------|-------|
-| **Time Savings** | 40 hours → 35 minutes (68x faster) |
+| **Time Savings** | 40 hours → 2-5 hours production (8-20x faster) |
 | **Cost Savings** | $3,098-3,176 per patient |
 | **Annual ROI (100 patients)** | $313,700 |
 | **Annual ROI (500 patients)** | $1,568,500 |
@@ -87,7 +87,7 @@
 - Most hospitals can't afford comprehensive multi-omics analysis
 
 **This Solution:**
-- **35 minutes** for complete analysis (genomics + spatial + imaging + clinical)
+- **2-5 hours** for complete production analysis (genomics + spatial + imaging + clinical); 25-35 min DRY_RUN demo
 - **$324 per patient** (vs. $6,000 traditional)
 - **Natural language interface** - no coding required for clinicians
 - **HIPAA-compliant** - ready for hospital production

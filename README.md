@@ -7,7 +7,7 @@
 
 <img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/repo-image.png">
 
-> **40 hours of manual bioinformatics → 60x speed-up with AI-orchestration of MCP-tools**
+> **40 hours of manual bioinformatics → 2-5 hours with AI-orchestrated MCP tools (8-20x faster)**
 >
 > 15 specialized MCP servers | 80 analysis tools | Multi-provider AI (Claude + Gemini 3) | Stage IV Ovarian Cancer demo
 

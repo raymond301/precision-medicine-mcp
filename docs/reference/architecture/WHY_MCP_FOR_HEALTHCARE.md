@@ -56,7 +56,7 @@ Claude: [Automatically orchestrates 5 MCP servers:]
   → mcp-spatialtools: Analyze spatial regions
   → Integration: Combine results, rank targets
 
-Result: Top 3 targets identified in 35 minutes
+Result: Top 3 targets identified in 2-5 hours (production) or 25-35 min (DRY_RUN demo)
 ```
 
 No Python scripts, no manual file conversions, no copy-paste.
@@ -169,11 +169,11 @@ graph LR
 
 | Aspect | Manual Approach | Scripted Approach | **MCP Platform** |
 |--------|-----------------|-------------------|------------------|
-| **Time per patient** | 40 hours | 8 hours | **35 minutes** |
+| **Time per patient** | 40 hours | 8 hours | **2-5 hours** (production) |
 | **Expertise required** | PhD-level bioinformatics | MS + coding skills | **Basic training** |
 | **Reproducibility** | Low (manual steps) | Medium (version drift) | **High (versioned servers)** |
 | **Error rate** | High (copy-paste errors) | Medium (script bugs) | **Low (automated QC)** |
-| **Cost per patient** | $3,200 (40 hrs × $80/hr) | $640 (8 hrs × $80/hr) | **$24-102 (compute only)** |
+| **Cost per patient** | $3,200 (40 hrs × $80/hr) | $640 (8 hrs × $80/hr) | **$324-702 (total)** |
 | **Accessibility** | Academic centers only | Medium (requires engineers) | **Any hospital** |
 | **Multi-modal integration** | Very difficult | Difficult | **Built-in** |
 
@@ -241,7 +241,7 @@ MCP standardizes:
 ## Success Metrics
 
 **Pilot deployment (6 months, 100 patients):**
-- ✅ **Time reduction:** 40 hours → 35 minutes (68x faster)
+- ✅ **Time reduction:** 40 hours → 2-5 hours production (8-20x faster)
 - ✅ **Cost savings:** $313,700 (100 patients × $3,137 savings)
 - ✅ **Accessibility:** 5 clinicians trained (previously required 2 PhD bioinformaticians)
 - ✅ **Reproducibility:** 100% consistent results on repeat analysis

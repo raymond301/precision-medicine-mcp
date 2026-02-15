@@ -169,7 +169,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 **Business Impact:**
 - Users: 5 (pilot) → 20 (production)
 - Patients: 100 (pilot) → 500 (Year 1)
-- Cost: $24-102 per analysis (vs. $3,200-9,000 traditional)
+- Cost: $324-702 total per patient (vs. $6,000-9,000 traditional), ~$3,137 avg savings
 
 **Research Outcomes:**
 - Analysis results supporting 2+ manuscripts

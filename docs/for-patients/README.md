@@ -14,7 +14,7 @@ Traditional cancer treatment uses a "one-size-fits-all" approach. But every pers
 
 ### Our Solution
 
-We've built a platform that analyzes all your cancer data together - medical records, genetic tests, tissue samples, and imaging - in about 35 minutes instead of 40 hours, at 1/10th the cost.
+We've built a platform that analyzes all your cancer data together - medical records, genetic tests, tissue samples, and imaging - in about 2-5 hours instead of 40 hours, at a fraction of the cost.
 
 **How it works:**
 1. **Your doctors collect data** - Medical history, genetic tests, tissue samples
@@ -216,7 +216,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 - Laboratory processes samples
 - Genetic sequencing completed
 - Platform performs integrated analysis
-- **Analysis time: 35 minutes** (but sample processing takes 2-3 weeks)
+- **Analysis time: 2-5 hours** (but sample processing takes 2-3 weeks)
 
 **Week 3-4: Results & Discussion**
 - Your oncologist reviews results
@@ -277,7 +277,7 @@ We've built a platform that analyzes all your cancer data together - medical rec
 
 ### "Is this better than what my doctor would do anyway?"
 **A:** This analysis helps your doctor by:
-- Analyzing more data faster (35 min vs. 40 hours)
+- Analyzing more data faster (2-5 hours vs. 40 hours)
 - Finding patterns humans might miss
 - Checking against thousands of research studies
 - Identifying clinical trials you might qualify for

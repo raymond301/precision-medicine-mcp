@@ -39,21 +39,21 @@ For patient PAT001-OVC-2025 with Stage IV platinum-resistant ovarian cancer:
 Provide a 1-page executive summary with:
 - Key molecular findings (3 bullet points)
 - Treatment recommendations with evidence strength
-- Cost comparison: Traditional analysis ($6,000-9,000) vs MCP ($24-102)
-- Time savings: 40 hours manual → 35 minutes AI-orchestrated
+- Cost comparison: Traditional analysis ($6,000-9,000) vs MCP ($324-702 total per patient)
+- Time savings: 40 hours manual → 2-5 hours production (8-20x faster)
 ```
 
 **Expected Output:**
 - **Clinical Impact:** Actionable treatment plan with molecular evidence
 - **Cost Savings:** $3,137 average savings per patient
-- **Time Savings:** 98% reduction in analysis time (40 hours → 35 min)
+- **Time Savings:** 40 hours → 2-5 hours production (25-35 min DRY_RUN demo)
 - **Quality:** Multi-modal integration across 5 data types
 - **Business Metrics:** ROI, cost per analysis, time to results
 
 **Target Metrics to Highlight:**
 - Accuracy: >95% concordance with manual analysis
-- Cost: $24-102 per analysis vs $6,000-9,000 traditional
-- Speed: 35 minutes vs 40 hours
+- Cost: $324-702 total per patient vs $6,000-9,000 traditional
+- Speed: 2-5 hours production vs 40 hours (8-20x faster)
 - Scalability: 100-500 patients per year
 
 ---
@@ -89,8 +89,8 @@ Demonstrate cost-effectiveness of the Precision Medicine MCP system:
 
 4. **Time Savings:**
    - Traditional: 40 hours × 100 patients = 4,000 hours (2 FTEs)
-   - MCP: 35 minutes × 100 patients = 58 hours (0.03 FTE)
-   - **Time saved:** 3,942 hours annually
+   - MCP production: 2-5 hours × 100 patients = 200-500 hours (0.1-0.25 FTE)
+   - **Time saved:** 3,500-3,800 hours annually
 
 5. **ROI Calculation:**
    - Initial investment: $50K-75K (setup) + $24K-72K (annual operational)
@@ -112,9 +112,9 @@ Provide a financial summary table with:
 - **Scalability:** Costs scale linearly, manual costs don't
 
 **Business Impact:**
-- **Cost per patient:** 96% reduction ($9,000 → $102)
-- **Analysis capacity:** 10× increase with same staffing
-- **Time to results:** 98% reduction (40 hours → 35 min)
+- **Cost per patient:** $324-702 total vs. $6,000-9,000 traditional (~$3,137 savings)
+- **Analysis capacity:** 8-20× increase with same staffing
+- **Time to results:** 40 hours → 2-5 hours production (8-20x faster)
 
 ---
 
@@ -451,7 +451,7 @@ Show research value by:
 - **5-year ROI:** $1.6M-7.8M
 
 **Clinical:**
-- **Time to results:** 35 minutes vs 40 hours (98% faster)
+- **Time to results:** 2-5 hours production vs 40 hours (8-20x faster)
 - **Treatment confidence:** 92% vs 65% (evidence from 4 modalities)
 - **Response rate improvement:** 30-40% → 50-60%
 - **Guideline compliance:** 100% NCCN alignment

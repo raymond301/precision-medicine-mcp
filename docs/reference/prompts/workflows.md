@@ -8,7 +8,7 @@ End-to-end multi-modal precision medicine analyses.
 
 ## PatientOne Complete Analysis
 
-### 1. Comprehensive Multi-Modal Analysis (35 minutes)
+### 1. Comprehensive Multi-Modal Analysis (25-35 min DRY_RUN / 2-5 hrs production)
 
 ```
 Perform comprehensive multi-modal analysis for PatientOne (PAT001-OVC-2025)
@@ -63,8 +63,8 @@ RETURN: Structured report with:
   2. Everolimus (mTOR inhibitor) - Pathway activation
   3. Pembrolizumab (Checkpoint inhibitor) - Immune edges
 
-**Time:** 35 minutes
-**Cost:** ~$87 (compute + API tokens)
+**Time:** 25-35 min (DRY_RUN) / 2-5 hours (production)
+**Cost:** ~$1 (DRY_RUN) / $324-702 total per patient (production)
 
 ---
 

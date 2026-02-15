@@ -1,16 +1,16 @@
 # Precision Medicine MCP: Funding & Partnership Opportunities
 
-> **Speed up 40 hours of manual bioinformatics 60x using AI-orchestrated analysis**
+> **40 hours of manual bioinformatics → 2-5 hours with AI-orchestrated analysis (8-20x faster)**
 
 ---
 
 ## 💡 The Opportunity
 
-The Precision Medicine MCP Platform reduces multi-omics precision medicine analysis from **40 hours of manual work** to **35 minutes** of AI-orchestrated analysis, saving **$3,098-3,176 per patient** while maintaining HIPAA compliance.
+The Precision Medicine MCP Platform reduces multi-omics precision medicine analysis from **40 hours of manual work** to **2-5 hours** of AI-orchestrated analysis (production), saving **$3,098-3,176 per patient** while maintaining HIPAA compliance. DRY_RUN demos complete in 25-35 minutes with synthetic data.
 
 **The Problem:** Stage IV ovarian cancer patients face platinum resistance with limited treatment options. Comprehensive multi-omics analysis (genomics + spatial transcriptomics + imaging) could identify personalized targets, but the 40-hour manual analysis time makes it clinically impractical.
 
-**This Solution:** AI (Claude + Gemini 3) orchestrates 15 specialized bioinformatics servers via natural language, completing analysis in 35 minutes.
+**This Solution:** AI (Claude + Gemini 3) orchestrates 15 specialized bioinformatics servers via natural language, completing production analysis in 2-5 hours (vs. 40 hours traditional).
 
 > **Detailed metrics:** See [Value Proposition](../reference/shared/value-proposition.md) for complete ROI analysis.
 
@@ -27,7 +27,7 @@ graph LR
 
     subgraph Output["💰 Value Created"]
         REPLACE[Replaces Manual<br/>$6,000-9,000]
-        SPEED[40 hours → 35 min<br/>68x faster]
+        SPEED[40 hours → 2-5 hrs<br/>8-20x faster]
         SAVINGS[$3,098-3,176<br/>savings/patient]
     end
 
@@ -89,7 +89,7 @@ graph LR
 - **Limited access**: Only available at academic medical centers with dedicated bioinformatics teams
 
 **This Solution:**
-- Natural language AI orchestration reduces **40 hours → 35 minutes**
+- Natural language AI orchestration reduces **40 hours → 2-5 hours** (production)
 - **$3,098-3,176 savings per patient**
 - HIPAA-compliant, production-ready for hospital deployment
 - Demonstrated with PatientOne case study (Stage IV HGSOC)
@@ -135,6 +135,6 @@ graph LR
 1. Install Claude Desktop with MCP servers ([Setup Guide](../getting-started/installation.md))
 2. Use synthetic PatientOne data (100% safe, no PHI)
 3. Run the 90-second demo prompts
-4. See 40 hours → 35 minutes in action
+4. See 40 hours → 25-35 minutes in DRY_RUN demo mode
 
 ---
