@@ -38,6 +38,7 @@ from .tools.preprocessing import (
 )
 from .tools.halla import run_halla_analysis_impl
 from .tools.upstream_regulators import predict_upstream_regulators_impl
+from .tools.visualization import create_multiomics_heatmap_impl, run_multiomics_pca_impl
 
 # Configure logging
 logging.basicConfig(
@@ -790,8 +791,15 @@ def create_multiomics_heatmap(
             "status": "success (DRY_RUN mode)",
         })
 
-    # TODO: Implement visualization
-    raise NotImplementedError("Heatmap visualization not yet implemented")
+    # Real implementation
+    result = create_multiomics_heatmap_impl(
+        data_path=data_path,
+        features=features,
+        cluster_rows=cluster_rows,
+        cluster_cols=cluster_cols,
+        output_path=output_path,
+    )
+    return add_research_disclaimer(result, "visualization")
 
 
 @mcp.tool()
@@ -856,8 +864,15 @@ def run_multiomics_pca(
             "status": "success (DRY_RUN mode)",
         })
 
-    # TODO: Implement PCA analysis
-    raise NotImplementedError("PCA analysis not yet implemented")
+    # Real implementation
+    result = run_multiomics_pca_impl(
+        data_path=data_path,
+        modalities=modalities,
+        n_components=n_components,
+        scale_features=scale_features,
+        output_path=output_path,
+    )
+    return add_research_disclaimer(result, "analysis")
 
 
 @mcp.tool()

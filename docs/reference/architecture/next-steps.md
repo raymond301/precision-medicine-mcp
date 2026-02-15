@@ -15,7 +15,7 @@
 | 5 | mcp-fgbio | Partial real | Finish `fetch_reference_genome`; add BAM tools | Medium |
 | 6 | mcp-genomic-results | ~95% real | TMB calculation; MSI detection | High |
 | 7 | mcp-huggingface | Mocked | Wire up real HF Hub inference | High |
-| 8 | mcp-multiomics | Partial real | Implement heatmap + PCA (NotImplementedError stubs) | High |
+| 8 | mcp-multiomics | ~95% real | Replace hardcoded upstream regulator DBs with live API | Medium |
 | 9 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
 | 10 | mcp-patient-report | Partial | Implement `approve_patient_report` workflow | High |
 | 11 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
@@ -91,12 +91,12 @@
 | Implement real `embed_sequences` with tokenization | Feature | Large |
 | Wire up retry/circuit-breaker for HF Hub API | Reliability | Small |
 
-### 8. mcp-multiomics (Partial real)
+### 8. mcp-multiomics (~95% real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
-| Implement `create_multiomics_heatmap` (currently raises NotImplementedError) | Fix | Medium |
-| Implement `run_multiomics_pca` (currently raises NotImplementedError) | Fix | Medium |
+| ~~Implement `create_multiomics_heatmap`~~ | ~~Fix~~ | Done |
+| ~~Implement `run_multiomics_pca`~~ | ~~Fix~~ | Done |
 | Replace hardcoded upstream regulator DBs with live API | Feature | Large |
 | Test and document R-based HAllA integration path | Quality | Small |
 
