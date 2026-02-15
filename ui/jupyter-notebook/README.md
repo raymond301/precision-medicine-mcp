@@ -4,7 +4,6 @@ Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect fo
 
 > **Related:** [Deployment Templates](../../docs/reference/shared/deployment-templates.md) | [Cost Analysis](../../docs/reference/shared/cost-analysis.md) | [Platform Overview](../../docs/reference/shared/README.md)
 
-Live JupyterLab: https://jupyter-mcp-notebook-305650208648.us-central1.run.app
 
 <img src="../../data/images/jupyter-preview.png" width="800" alt="Jupyter Notebook Preview" style="display:none">
 
@@ -62,14 +61,6 @@ jupyter lab
 ```
 
 The notebooks will open in your browser at http://localhost:8888
-
-### Cloud Access (No Installation)
-
-Simply open the live JupyterLab instance:
-
-https://jupyter-mcp-notebook-305650208648.us-central1.run.app
-
-**Note:** The cloud instance is public and resets on each deployment. For persistent work, use local installation or save your notebooks elsewhere.
 
 ## Project Structure
 
@@ -180,8 +171,6 @@ export ANTHROPIC_API_KEY=your_key_here
 ./deploy.sh
 ```
 
-Live URL: https://jupyter-mcp-notebook-305650208648.us-central1.run.app
-
 ### GCP Vertex AI Workbench (Alternative)
 
 ```bash
@@ -200,7 +189,7 @@ export ANTHROPIC_API_KEY=your_key_here
 ### MCP Servers Not Responding
 1. Check server status in [GCP Cloud Run Console](https://console.cloud.google.com/run)
 2. Verify URLs match deployed URLs
-3. Test: `curl https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse`
+3. Test: `curl https://<your-streamlit-app-url>.a.run.app/sse`
 
 ### Module Import Errors
 ```bash
