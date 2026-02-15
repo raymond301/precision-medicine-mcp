@@ -4,7 +4,6 @@ Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect fo
 
 > **Related:** [Deployment Templates](../../docs/reference/shared/deployment-templates.md) | [Cost Analysis](../../docs/reference/shared/cost-analysis.md) | [Platform Overview](../../docs/reference/shared/README.md)
 
-
 <img src="../../data/images/jupyter-preview.png" width="800" alt="Jupyter Notebook Preview" style="display:none">
 
 ## Features
@@ -203,16 +202,7 @@ pip install -r requirements.txt
 - **MCP Spec:** [Model Context Protocol](https://modelcontextprotocol.io/)
 - **Anthropic Docs:** [Claude API](https://docs.anthropic.com/)
 
-## License
 
-See the main repository [LICENSE](../../LICENSE) file.
-
----
-
-**Built with:**
-[Jupyter](https://jupyter.org/) |
-[Anthropic Claude API](https://www.anthropic.com/) |
-[Model Context Protocol](https://modelcontextprotocol.io/) |
 [GCP Cloud Run](https://cloud.google.com/run)
 
 **Part of the Precision Medicine MCP suite** - Enabling AI-driven bioinformatics for cancer research.
