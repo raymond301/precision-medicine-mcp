@@ -2,7 +2,7 @@
 
 Copy-paste prompts for Visium spatial RNA-seq analysis.
 
-**Servers used:** mcp-spatialtools, mcp-openimagedata
+**Servers used:** mcp-spatialtools (14 tools), mcp-openimagedata (5 tools)
 
 ---
 

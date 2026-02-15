@@ -2,7 +2,7 @@
 
 Cell segmentation, quantification, and phenotyping for H&E and multiplexed immunofluorescence (MxIF) images.
 
-**Servers used:** mcp-openimagedata, mcp-deepcell (segmentation + quantification), mcp-cell-classify (classification + visualization)
+**Servers used:** mcp-openimagedata (5 tools), mcp-deepcell (3 tools: segment_cells, quantify_markers, generate_segmentation_overlay), mcp-cell-classify (3 tools: classify_cell_states, classify_multi_marker, generate_phenotype_visualization)
 
 ---
 

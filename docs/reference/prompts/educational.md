@@ -54,7 +54,7 @@ Found 15 MCP servers:
 
 2. mcp-multiomics (Multi-Omics Integration)
    - Handles: RNA-seq, proteomics, phosphoproteomics
-   - Tools: 9 tools
+   - Tools: 10 tools
    - Status: Production-ready
 
 3. mcp-spatialtools (Spatial Transcriptomics)

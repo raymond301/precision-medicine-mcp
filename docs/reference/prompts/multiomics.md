@@ -2,7 +2,7 @@
 
 Copy-paste prompts for integrating RNA, protein, and phosphoproteomics data.
 
-**Servers used:** mcp-multiomics, mcp-fgbio
+**Servers used:** mcp-multiomics (10 tools), mcp-fgbio (4 tools)
 
 ---
 

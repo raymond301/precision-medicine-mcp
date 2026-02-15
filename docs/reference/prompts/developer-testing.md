@@ -50,12 +50,14 @@ Found 14 tools in mcp-spatialtools:
 ```
 Test the mcp-multiomics server by:
 
-1. List all available tools (should be 9+ tools)
+1. List all available tools (should be 10 tools)
 2. Check tool categories:
    - Data preprocessing (validate_multiomics_data, preprocess_multiomics_data, visualize_data_quality)
    - Integration (integrate_omics_data)
-   - Association testing (calculate_halla, calculate_stouffer_meta)
+   - Association testing (run_halla_analysis, calculate_stouffer_meta)
+   - Visualization (create_multiomics_heatmap, run_multiomics_pca)
    - Interpretation (predict_upstream_regulators)
+   - Utilities (estimate_analysis_cost)
 
 3. Verify each tool has:
    - Input parameters defined
@@ -70,20 +72,21 @@ Test the mcp-multiomics server by:
 **Expected Output:**
 ```
 ✅ Server: mcp-multiomics (RUNNING)
-✅ Tools found: 9
+✅ Tools found: 10
 ✅ All tools have complete documentation
 ✅ Dry-run mode: FUNCTIONAL
 
 Tool Categories:
-- Preprocessing: 3 tools ✓
-- Integration: 1 tool ✓
-- Association: 2 tools ✓
-- Interpretation: 1 tool ✓
-- Utilities: 2 tools ✓
+- Preprocessing: 3 tools ✓ (validate, preprocess, visualize_data_quality)
+- Integration: 1 tool ✓ (integrate_omics_data)
+- Association: 2 tools ✓ (run_halla_analysis, calculate_stouffer_meta)
+- Visualization: 2 tools ✓ (create_multiomics_heatmap, run_multiomics_pca)
+- Interpretation: 1 tool ✓ (predict_upstream_regulators)
+- Utilities: 1 tool ✓ (estimate_analysis_cost)
 ```
 
 **Pass Criteria:**
-- ✅ 9+ tools available
+- ✅ 10 tools available
 - ✅ All tools documented
 - ✅ Dry-run call succeeds
 
