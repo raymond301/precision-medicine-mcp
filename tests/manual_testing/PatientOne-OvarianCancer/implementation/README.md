@@ -1,6 +1,6 @@
 # Patient One - Stage IV Ovarian Cancer Synthetic Dataset
 
-**Purpose:** Comprehensive synthetic dataset for end-to-end testing of all 15 MCP servers
+**Purpose:** Comprehensive synthetic dataset for end-to-end testing of all MCP servers
 
 **Patient ID:** PAT001-OVC-2025
 **Diagnosis:** Stage IV High-Grade Serous Ovarian Carcinoma (HGSOC)

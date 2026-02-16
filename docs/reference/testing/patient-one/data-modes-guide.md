@@ -146,7 +146,7 @@ Look for DRY_RUN environment variables (should all be `"true"`):
         "SPATIAL_DRY_RUN": "true"
       }
     }
-    // ... all 15 servers with DRY_RUN=true
+    // ... all servers with DRY_RUN=true
   }
 }
 ```
@@ -368,7 +368,7 @@ After modifying configuration:
 # The servers will reload with new DRY_RUN=false settings
 ```
 
-Verify servers loaded correctly in Claude Desktop (should see all 15 servers in available tools).
+Verify servers loaded correctly in Claude Desktop (should see all servers in available tools).
 
 ---
 
@@ -1000,4 +1000,4 @@ convert input.png output.tiff
 
 **Last Updated:** December 27, 2025
 **Version:** 1.0
-**Covers:** DRY_RUN and Actual Data modes for all 15 MCP servers
+**Covers:** DRY_RUN and Actual Data modes for all MCP servers

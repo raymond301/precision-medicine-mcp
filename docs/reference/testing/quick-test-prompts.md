@@ -8,7 +8,7 @@ Copy and paste these into Claude Desktop to test your MCP server integration.
 What MCP servers are currently available? List each one with a brief description.
 ```
 
-**Expected:** You should see all 15 servers listed (spatialtools, epic, fgbio, etc.)
+**Expected:** You should see all servers listed (spatialtools, epic, fgbio, etc.)
 
 ---
 

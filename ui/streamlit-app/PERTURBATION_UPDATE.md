@@ -76,7 +76,7 @@ cd ui/streamlit-app
 **Results:**
 - ✅ Streamlit starts successfully on port 8501
 - ✅ HTTP 200 response from localhost:8501
-- ✅ mcp_config.py loads 15 servers correctly
+- ✅ mcp_config.py loads all servers correctly
 - ✅ perturbation server in Production category
 - ✅ All configurations valid
 

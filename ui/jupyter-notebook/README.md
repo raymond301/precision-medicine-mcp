@@ -86,7 +86,7 @@ ui/jupyter-notebook/
 
 ## Available MCP Servers
 
-All 15 servers are pre-configured in `mcp_utils.py`:
+All servers are pre-configured in `mcp_utils.py`:
 
 ### Imaging (production)
 - **deepcell** - DeepCell-TF cell segmentation and marker quantification for MxIF

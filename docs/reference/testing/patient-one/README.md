@@ -1,6 +1,6 @@
 # PatientOne: Quick Start Guide
 
-Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using 15 MCP servers
+Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using all MCP servers
 
 ## Overview
 
@@ -86,7 +86,7 @@ python3 --version  # Should show 3.11 or higher
 2. **Verify Claude Desktop configuration:**
 ```bash
 cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
-# Should show all 15 MCP servers configured
+# Should show all MCP servers configured
 ```
 
 3. **Confirm data files exist:**
@@ -112,7 +112,7 @@ cd manual_testing
 cp docs/getting-started/desktop-configs/claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Restart Claude Desktop
-# Verify servers loaded (should see 15 servers in Claude Desktop)
+# Verify servers loaded (should see all servers in Claude Desktop)
 
 # Test basic server connectivity
 ./verify_servers.sh
@@ -356,7 +356,7 @@ The PatientOne workflow uses the **open-source DeepCell-TF library** (https://gi
 ---
 
 ### TEST_5: Integration & Recommendations
-**Servers:** All 15 servers (synthesis)
+**Servers:** All servers (synthesis)
 **Files:** None (builds on previous tests)
 
 **What it does:**

@@ -2,7 +2,7 @@
 
 ## Overview
 
-PatientOne demonstrates how Claude orchestrates 15 MCP servers to deliver comprehensive precision medicine analysis for a patient with Stage IV Ovarian Cancer. This end-to-end workflow integrates clinical, genomic, multiomics, spatial, and imaging data to identify resistance mechanisms and actionable treatment targets.
+PatientOne demonstrates how Claude orchestrates multiple MCP servers to deliver comprehensive precision medicine analysis for a patient with Stage IV Ovarian Cancer. This end-to-end workflow integrates clinical, genomic, multiomics, spatial, and imaging data to identify resistance mechanisms and actionable treatment targets.
 
 **What makes PatientOne unique:** Unlike traditional bioinformatics pipelines that analyze individual data types in isolation, PatientOne shows how AI can seamlessly integrate across all modalities through **natural language**—replacing weeks of glue code with conversational requests.
 
@@ -19,7 +19,7 @@ flowchart LR
     end
 
     subgraph Integration["AI Integration Layer"]
-        CLAUDE[Claude Desktop<br/>MCP Orchestration<br/>15 Servers • 80 Tools]
+        CLAUDE[Claude Desktop<br/>MCP Orchestration]
     end
 
     subgraph Output["Precision Medicine Output"]
@@ -105,7 +105,7 @@ How do we integrate:
 - Available therapeutic options
 
 **Traditional Approach:** Weeks of custom scripts, multiple software tools, manual data wrangling, siloed analysis
-**PatientOne with MCP:** Conversational requests that orchestrate 80 tools across 15 servers automatically
+**PatientOne with MCP:** Conversational requests that orchestrate tools across all servers automatically
 
 
 ## Architecture Overview
@@ -189,9 +189,7 @@ How do we integrate:
 | **6. Workflow Orchestration** | Seqera | `launch_nextflow_pipeline`, `monitor_workflow_status` | Reproducible pipeline execution |
 | **7. ML Inference** | HuggingFace | `predict_cell_type`, `embed_sequences` | Cell type predictions, sequence embeddings |
 
-**Total Servers:** 15
-**Total Tools:** 80
-**Integration:** Seamless orchestration through natural language prompts
+**Integration:** Seamless orchestration of all servers and tools through natural language prompts
 
 ---
 
@@ -289,7 +287,7 @@ All synthetic patient data located in: `/data/patient-data/PAT001-OVC-2025/`
 ### For Developers (`patient-one-outputs/for-developer/`)
 - **MCP_Report_PAT001.pdf:** Technical validation report showing all MCP server calls, data flows, and integration points
 - **MCP_Report_PAT001_v2.0_NewSections.pdf:** Enhanced version with additional sections and analysis details
-- **MCP_Servers_Reference_Guide.pdf:** Complete documentation of 15 servers and 80 tools used
+- **MCP_Servers_Reference_Guide.pdf:** Complete documentation of all servers and tools used
 - **Full_Test_Prompt.pdf:** End-to-end prompt that reproduces entire analysis
 
 ### For Care Teams (`patient-one-outputs/for-care-team/`)
@@ -386,7 +384,7 @@ While PatientOne uses synthetic data, the workflow represents a **real clinical 
 User Prompt → Claude Desktop → MCP Protocol → Server Selection
                                     ↓
                     ┌───────────────────────────────┐
-                    │  15 MCP Servers (80 Tools)    │
+                    │  All MCP Servers              │
                     │  Each with specialized tools  │
                     └───────────────────────────────┘
                                     ↓

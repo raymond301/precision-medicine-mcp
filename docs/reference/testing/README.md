@@ -59,7 +59,7 @@ This section covers scripts and documentation for manually testing the Precision
 
 | File | Purpose | Usage |
 |------|---------|-------|
-| `install_dependencies.sh` | Install all dependencies for 15 MCP servers | `./install_dependencies.sh` |
+| `install_dependencies.sh` | Install all dependencies for all MCP servers | `./install_dependencies.sh` |
 | `verify_servers.sh` | Verify all servers can be imported | `./verify_servers.sh` |
 | `setup_and_test_servers.sh` | Combined setup and verification | `./setup_and_test_servers.sh --install` |
 | `test_all_servers.py` | Python-based server verification | `python3 test_all_servers.py` |
@@ -73,7 +73,7 @@ This section covers scripts and documentation for manually testing the Precision
 This will:
 - Create Python 3.11 virtual environments for each server
 - Install FastMCP and all dependencies
-- Set up 15 servers in development mode
+- Set up all servers in development mode
 
 **Time:** ~5-10 minutes
 

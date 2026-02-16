@@ -21,7 +21,7 @@ Reusable prompts for precision medicine analyses. Copy, paste, and customize for
 | Multi-Omics | [multiomics.md](multiomics.md) | 17 | mcp-multiomics (10 tools) |
 | Spatial Transcriptomics | [spatial.md](spatial.md) | 18 | mcp-spatialtools (14 tools) |
 | Imaging | [imaging.md](imaging.md) | 8 | mcp-deepcell (3), mcp-cell-classify (3), mcp-openimagedata (5) |
-| End-to-End Workflows | [workflows.md](workflows.md) | 10 | All 15 servers (80 tools) |
+| End-to-End Workflows | [workflows.md](workflows.md) | 10 | All servers (see [Registry](../shared/server-registry.md)) |
 
 ---
 

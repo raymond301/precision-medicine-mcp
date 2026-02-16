@@ -17,7 +17,7 @@ graph LR
         SCRNA[Single-cell<br/>scRNA-seq]
     end
 
-    subgraph MCP["🔧 15 MCP Servers (80 Tools)"]
+    subgraph MCP["🔧 MCP Servers"]
         direction TB
         S1[Clinical<br/>epic/mockepic]
         S2[Genomic<br/>fgbio/tcga/genomic-results]
@@ -61,7 +61,7 @@ graph LR
 
 ## 📊 Architecture by Analysis Modality
 
-11 analysis modalities, 15 specialized servers, 80 tools:
+11 analysis modalities across multiple specialized servers and tools (see [Server Registry](../shared/server-registry.md)):
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
@@ -272,7 +272,7 @@ graph LR
 
 ## 🏥 End-to-End Example: PatientOne
 
-**Complete precision medicine workflow combining all 15 MCP servers**
+**Complete precision medicine workflow combining all MCP servers**
 
 **Use Case:** Stage IV High-Grade Serous Ovarian Cancer (HGSOC), platinum-resistant
 **Patient:** PAT001-OVC-2025 (synthetic test case)
@@ -339,7 +339,7 @@ sequenceDiagram
 
 ---
 
-**See also:** [Next Steps & Enhancements](next-steps.md) — prioritized enhancement inventory for all 15 servers
+**See also:** [Next Steps & Enhancements](next-steps.md) — prioritized enhancement inventory for all servers
 
 **Organization Principle:**
 - `docs/architecture/` = High-level design & workflows by modality + cross-cutting architecture

@@ -2,7 +2,7 @@
 
 **Real-time observability for MCP server token usage, latency, and costs**
 
-Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all 15 MCP servers plus 3 Streamlit client apps. Toggle **Live Mode** to poll real Cloud Run health status, query GCP Cloud Logging for live traffic metrics, and view actual token usage and costs from the audit log.
+Monitor and optimize your precision medicine MCP server architecture for production deployment. Track "cost per insight" and identify optimization opportunities across all MCP servers plus 3 Streamlit client apps. Toggle **Live Mode** to poll real Cloud Run health status, query GCP Cloud Logging for live traffic metrics, and view actual token usage and costs from the audit log.
 
 > **Related:** [Cost Analysis](../../docs/reference/shared/cost-analysis.md) | [Platform Overview](../../docs/reference/shared/README.md) | [Deployment Templates](../../docs/reference/shared/deployment-templates.md)
 
@@ -27,7 +27,7 @@ streamlit run streamlit_app.py
 
 ### For Platform Builders
 - **Cost Visibility**: See exactly how much each tool call costs in real-time
-- **Performance Monitoring**: Track latency across all 15 MCP servers
+- **Performance Monitoring**: Track latency across all MCP servers
 - **Resource Planning**: Project monthly/annual costs based on usage patterns
 - **Optimization Guidance**: Get specific recommendations to reduce costs
 
@@ -84,7 +84,7 @@ streamlit run streamlit_app.py
 The dashboard includes sample metrics from **PatientOne Complete Workflow**:
 - **Patient**: PAT001-OVC-2025 (Stage IV HGSOC)
 - **Analysis**: End-to-end precision medicine workflow
-- **Servers**: All 15 MCP servers (mcp-epic, mcp-spatialtools, mcp-multiomics, etc.)
+- **Servers**: All MCP servers (mcp-epic, mcp-spatialtools, mcp-multiomics, etc.)
 - **Tool Calls**: 27 tool invocations
 - **Total Cost**: $1.45 (Claude Sonnet 4.5)
 - **Duration**: 127 seconds
@@ -170,7 +170,7 @@ aggregator = MetricsAggregator("path/to/your/metrics.yaml")
 
 Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 
-1. **Health-polls** all 18 Cloud Run services (15 MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
+1. **Health-polls** all 18 Cloud Run services (all MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
 2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-service request counts, avg/p95 latency, and error rates.
 3. **Queries mcp-audit-log** for actual token usage and costs logged by Streamlit clients via `audit_logger.py`. Shows total tokens, costs, and per-MCP-server breakdown.
 
@@ -481,7 +481,7 @@ fig.show()
 - ✅ **Gemini 3 pricing** added to cost calculator (Flash: $0.50/$3.00, Pro: $2.00/$12.00)
 - ✅ **Streamlit client monitoring** — dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 - ✅ **Live token usage & costs** — queries mcp-audit-log for actual LLM usage from Streamlit clients
-- ✅ **18 services monitored** — 15 MCP servers + 3 Streamlit clients
+- ✅ **18 services monitored** — all MCP servers + 3 Streamlit clients
 - ✅ **Improved health checks** — uses root `/` endpoint, treats any HTTP response as healthy
 - ✅ **High-cost server detection** — flags servers >$0.50/24h in optimization view
 

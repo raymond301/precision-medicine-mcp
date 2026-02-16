@@ -1,6 +1,6 @@
 # 🧬 MCP Server Implementation
 
-15 specialized MCP servers for precision medicine analysis with 80 tools.
+Specialized MCP servers for precision medicine analysis. For current server and tool counts, see the [Server Registry](../docs/reference/shared/server-registry.md).
 
 ---
 

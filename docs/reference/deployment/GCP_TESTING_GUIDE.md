@@ -13,7 +13,7 @@
 
 ## **Answer to Your Question:**
 
-**Q: Can I still use Claude Desktop to test the 15 MCP servers deployed on GCP?**
+**Q: Can I still use Claude Desktop to test the MCP servers deployed on GCP?**
 
 **A: NO** - Claude Desktop only supports STDIO transport (local process spawning). It cannot connect to remote HTTP/SSE endpoints.
 
@@ -88,7 +88,7 @@ response = client.beta.messages.create(
             "url": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
             "name": "spatialtools",
         },
-        # ... add all 15 servers
+        # ... add all servers
     ],
     tools=[{
         "type": "mcp_toolset",
