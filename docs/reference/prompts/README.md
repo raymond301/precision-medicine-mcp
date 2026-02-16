@@ -18,9 +18,9 @@ Reusable prompts for precision medicine analyses. Copy, paste, and customize for
 | Modality | File | Prompts | Servers |
 |----------|------|---------|---------|
 | Clinical & Genomic | [clinical-genomic.md](clinical-genomic.md) | 17 | mcp-mockepic, mcp-fgbio, mcp-genomic-results |
-| Multi-Omics | [multiomics.md](multiomics.md) | 17 | mcp-multiomics (10 tools) |
-| Spatial Transcriptomics | [spatial.md](spatial.md) | 18 | mcp-spatialtools (14 tools) |
-| Imaging | [imaging.md](imaging.md) | 8 | mcp-deepcell (3), mcp-cell-classify (3), mcp-openimagedata (5) |
+| Multi-Omics | [multiomics.md](multiomics.md) | 17 | mcp-multiomics |
+| Spatial Transcriptomics | [spatial.md](spatial.md) | 18 | mcp-spatialtools |
+| Imaging | [imaging.md](imaging.md) | 8 | mcp-deepcell, mcp-cell-classify, mcp-openimagedata |
 | End-to-End Workflows | [workflows.md](workflows.md) | 10 | All servers (see [Registry](../shared/server-registry.md)) |
 
 ---
