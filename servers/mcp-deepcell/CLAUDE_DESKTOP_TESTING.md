@@ -55,9 +55,10 @@ What tools are available from the deepcell server?
 
 **Expected Output:**
 - `segment_cells` - Nuclear and membrane segmentation
-- `classify_cell_states` - Intensity-based classification
+- `quantify_markers` - Per-cell marker intensity quantification
 - `generate_segmentation_overlay` - Boundary visualization
-- `generate_phenotype_visualization` - Phenotype coloring
+
+> **Note:** Classification tools (`classify_cell_states`, `generate_phenotype_visualization`) have moved to **mcp-cell-classify**.
 
 ---
 

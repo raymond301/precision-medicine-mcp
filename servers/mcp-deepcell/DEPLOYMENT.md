@@ -151,9 +151,10 @@ Add to your Claude Desktop MCP config:
 ### API Endpoints
 
 - `POST /segment_cells` - Segment cells in microscopy images
-- `POST /classify_cell_states` - Classify cell phenotypes
+- `POST /quantify_markers` - Per-cell marker intensity quantification
 - `POST /generate_segmentation_overlay` - Visualize segmentation
-- `POST /generate_phenotype_visualization` - Visualize phenotypes
+
+> **Note:** Classification endpoints (`classify_cell_states`, `generate_phenotype_visualization`) have moved to **mcp-cell-classify**.
 
 ### Example Request
 
