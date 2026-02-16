@@ -147,7 +147,7 @@ Even in worst case, the **50K limit prevents runaway costs** - maximum $0.45 per
 
 ### Why Token Usage Is High
 See **TOKEN_ANALYSIS.md** for full details:
-- **Tool schema overhead**: ~12K tokens (23 tools) sent with EVERY query
+- **Tool schema overhead**: ~14K tokens (28 tools) sent with EVERY query
 - **Conversation history**: Grows with each exchange (~10K by 5th query)
 - **System prompt**: ~2-3K tokens describing servers
 - **Actual query + response**: Only ~1-3K tokens

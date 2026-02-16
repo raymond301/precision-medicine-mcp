@@ -90,7 +90,7 @@ graph LR
 **Goal:** Deep dive into spatial, multi-omics, or genomic analysis
 
 **Spatial Transcriptomics:**
-- **Server:** mcp-spatialtools (95% real, 10 tools)
+- **Server:** mcp-spatialtools (95% real, 14 tools)
 - **Quick start:** [Spatial Quick Start](../../servers/mcp-spatialtools/QUICKSTART.md) (15 min)
 - **Capabilities:** STAR alignment, ComBat batch correction, pathway enrichment, Moran's I
 - **Example:** "Perform spatial pathway enrichment on PatientOne tumor regions"
@@ -102,7 +102,7 @@ graph LR
 - **Example:** "Integrate RNA, protein, and phospho data using Stouffer's method"
 
 **Genomic Variants:**
-- **Server:** mcp-fgbio (95% real, 6 tools)
+- **Server:** mcp-fgbio (95% real, 4 tools)
 - **Examples:** [fgbio README](../../servers/mcp-fgbio/README.md) (10 min)
 - **Capabilities:** VCF validation, variant annotation, reference genome management
 - **Example:** "Identify pathogenic variants in PatientOne VCF file"

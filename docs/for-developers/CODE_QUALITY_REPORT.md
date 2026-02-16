@@ -357,7 +357,7 @@ class TestTools:
 - mcp-multiomics: 10+ tools (integration, HAllA, Stouffer, preprocessing)
 - mcp-tcga: 5 tools (cancer genomics data queries)
 - mcp-openimagedata: 5 tools (image data management)
-- mcp-deepcell: 4 tools (cell segmentation)
+- mcp-deepcell: 3 tools (cell segmentation)
 - mcp-fgbio: 4 tools (genomics reference data, validation)
 - mcp-epic: 4 tools (FHIR integration)
 - mcp-mockepic: 3 tools (mock FHIR for testing)

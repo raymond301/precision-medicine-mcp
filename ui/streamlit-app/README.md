@@ -213,8 +213,8 @@ Use the sidebar to select which servers to enable. Default active: **spatialtool
 
 **Production Servers (9 — Real Analysis):**
 - **fgbio** - Genomic reference data and FASTQ validation (4 tools)
-- **multiomics** - Multi-omics integration RNA/Protein/Phospho (9 tools)
-- **spatialtools** - Spatial transcriptomics analysis (10 tools)
+- **multiomics** - Multi-omics integration RNA/Protein/Phospho (10 tools)
+- **spatialtools** - Spatial transcriptomics analysis (14 tools)
 - **perturbation** - GEARS perturbation prediction for treatment response (8 tools)
 - **deepcell** - DeepCell-TF cell segmentation and phenotyping (3 tools)
 - **openimagedata** - H&E/MxIF image loading and composites (5 tools)

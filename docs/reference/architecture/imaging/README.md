@@ -86,7 +86,7 @@ graph TB
 
 ### Servers
 - **[mcp-openimagedata README](../../../../servers/mcp-openimagedata/README.md)** - Histology image processing (5 tools, 100% real)
-- **[mcp-deepcell README](../../../../servers/mcp-deepcell/README.md)** - Cell segmentation and phenotyping (4 tools, 100% real)
+- **[mcp-deepcell README](../../../../servers/mcp-deepcell/README.md)** - Cell segmentation and phenotyping (3 tools, 100% real)
 
 ### Reference
 - **[GLOSSARY.md](GLOSSARY.md)** - Imaging terminology (H&E, MxIF, DeepCell, segmentation)

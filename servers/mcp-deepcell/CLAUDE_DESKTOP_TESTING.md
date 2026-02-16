@@ -40,7 +40,7 @@ Prompt:
 What MCP servers are available?
 ```
 
-Expected: Should list "deepcell" with 4 tools.
+Expected: Should list "deepcell" with 3 tools.
 
 ---
 

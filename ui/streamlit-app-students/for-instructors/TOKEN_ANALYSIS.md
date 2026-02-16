@@ -12,16 +12,16 @@ Every Claude API call includes **ALL tool schemas** from selected servers, regar
 
 | Server | Tools | Estimated Schema Size |
 |--------|-------|----------------------|
-| spatialtools | 10 tools | ~5K tokens |
-| multiomics | 9 tools | ~4.5K tokens |
+| spatialtools | 14 tools | ~7K tokens |
+| multiomics | 10 tools | ~5K tokens |
 | fgbio | 4 tools | ~2K tokens |
-| **TOTAL** | **23 tools** | **~12K tokens** |
+| **TOTAL** | **28 tools** | **~14K tokens** |
 
 ### Token Breakdown Per Query
 
 | Component | Tokens | % of Total |
 |-----------|--------|------------|
-| **Tool schemas** (23 tools) | 10-12K | 48% |
+| **Tool schemas** (28 tools) | 12-14K | 48% |
 | **System prompt** (server descriptions) | 2-3K | 12% |
 | **Conversation history** (previous turns) | 8-10K | 40% |
 | **User query** | 100-500 | <2% |
@@ -158,10 +158,10 @@ The 50K token limit per session means:
 ## Optimization Options (Future)
 
 ### Reduce Tool Overhead
-Currently: 23 tools (3 servers) = ~12K tokens per query
+Currently: 28 tools (3 servers) = ~14K tokens per query
 
 **Option 1**: Start with 1 server (spatialtools only)
-- 10 tools = ~5K tokens
+- 14 tools = ~7K tokens
 - Saves ~7K per query
 - ~30% cost reduction
 
