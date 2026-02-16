@@ -1,10 +1,14 @@
 # Installation Guide
 
-Complete guide for setting up the Precision Medicine MCP system with Claude Desktop.
+Complete guide for setting up the Precision Medicine MCP system. Choose your preferred interface:
+
+- **[Claude Code (CLI)](#quick-start-claude-code)** — Best for developers, students, and study groups
+- **[Claude Desktop (GUI)](#quick-start-claude-desktop)** — Best for clinicians and non-technical users
 
 ## Table of Contents
 
-- [Quick Start (5 Minutes)](#quick-start-5-minutes)
+- [Quick Start: Claude Code (5 Minutes)](#quick-start-claude-code)
+- [Quick Start: Claude Desktop (10 Minutes)](#quick-start-claude-desktop)
 - [Complete Setup](#complete-setup)
 - [Verification](#verification)
 - [Usage Examples](#usage-examples)
@@ -12,35 +16,103 @@ Complete guide for setting up the Precision Medicine MCP system with Claude Desk
 
 ---
 
-## Quick Start (5 Minutes)
+## Quick Start: Claude Code
+
+Use Claude Code (the CLI) to explore the codebase, run tests, and interact with servers from your terminal.
+
+### 1. Prerequisites
+
+```bash
+python3 --version   # Should be 3.11 or higher
+git --version
+uv --version        # Python package manager (see below if not installed)
+```
+
+**Install `uv`** (if not already installed):
+```bash
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Or via Homebrew
+brew install uv
+```
+
+**Install Claude Code** (requires Node.js 18+):
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+### 2. Clone and Explore
+
+```bash
+git clone https://github.com/lynnlangit/spatial-mcp.git
+cd spatial-mcp
+
+# Launch Claude Code
+claude
+```
+
+Claude Code reads the `CLAUDE.md` file at the repo root and understands the project structure automatically.
+
+### 3. Try These in Claude Code
+
+```
+What MCP servers are in this repo and what do they do?
+```
+
+```
+Run the tests for mcp-multiomics
+```
+
+```
+Show me the PatientOne synthetic data files
+```
+
+```
+Explain how the mcp-spatialtools server works
+```
+
+### 4. Run a Server Locally (optional)
+
+```bash
+cd servers/mcp-fgbio
+uv run python -m mcp_fgbio
+# Server starts on stdio — press Ctrl+C to stop
+```
+
+---
+
+## Quick Start: Claude Desktop
 
 If you already have Claude Desktop installed and want to get started quickly:
 
 ### 1. Verify Prerequisites
 
 ```bash
-python --version  # Should be 3.11 or higher
+python3 --version   # Should be 3.11 or higher
 git --version
+uv --version        # See Claude Code section above for install instructions
 ```
 
-### 2. Clone and Setup
+### 2. Clone Repository
 
 ```bash
 git clone https://github.com/lynnlangit/spatial-mcp.git
 cd spatial-mcp
-chmod +x scripts/setup_environment.sh
-./scripts/setup_environment.sh
 ```
 
 ### 3. Configure Claude Desktop
 
 ```bash
-# macOS
+# macOS — copy the pre-built config
 cp docs/getting-started/desktop-configs/claude_desktop_config.json \
    ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
-# Update paths in the config file to match your installation
+# IMPORTANT: Edit the config file to replace paths with YOUR installation path
+# The default config uses /Users/lynnlangit/Documents/GitHub/spatial-mcp/
 ```
+
+See [desktop-configs/README.md](desktop-configs/README.md) for the template and path details.
 
 ### 4. Restart Claude Desktop
 
@@ -56,7 +128,7 @@ What MCP servers are available?
 
 You should see all servers listed.
 
-**🎉 Done! Jump to [Usage Examples](#usage-examples) to start analyzing spatial transcriptomics data.**
+**Done! Jump to [Usage Examples](#usage-examples) to start analyzing spatial transcriptomics data.**
 
 ---
 
@@ -83,55 +155,36 @@ git clone https://github.com/lynnlangit/spatial-mcp.git
 cd spatial-mcp
 ```
 
-### 3. Environment Setup
+### 3. Install `uv` (Python Package Manager)
 
-The setup script creates the directory structure and installs dependencies:
-
-```bash
-chmod +x scripts/setup_environment.sh
-./scripts/setup_environment.sh
-```
-
-**What this script does:**
-- Creates data directories (reference, patient-data, cache)
-- Sets up Python virtual environments for each server
-- Installs dependencies
-- Configures environment variables
-
-**Directory Structure Created:**
-
-```
-spatial-mcp/
-├── data/
-│   ├── reference/          # Reference genomes
-│   ├── patient-data/       # Patient data (PatientOne synthetic data)
-│   ├── cache/              # Temporary files and caches
-│   └── multiomics/         # Multi-omics data
-├── servers/
-│   ├── mcp-fgbio/          # Genomic reference data server
-│   ├── mcp-spatialtools/   # Spatial processing server
-│   ├── mcp-multiomics/     # Multi-omics integration server
-│   ├── mcp-tcga/           # TCGA data server
-│   └── ... (6 more servers)
-└── configs/
-    └── claude_desktop_config.json
-```
-
-### 4. Install MCP Servers
-
-Each server has its own virtual environment:
+This project uses [`uv`](https://docs.astral.sh/uv/) to manage dependencies — it replaces pip/venv with a single fast tool:
 
 ```bash
-# Example: Install mcp-spatialtools
-cd servers/mcp-spatialtools
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -e ".[dev]"
-pytest  # Run tests to verify
-deactivate
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Or via Homebrew
+brew install uv
+
+# Verify
+uv --version
 ```
 
-Repeat for other servers you need.
+### 4. Install and Test a Server
+
+Each server is a standalone Python project with a `pyproject.toml`. Use `uv` to install and run:
+
+```bash
+# Example: Install and test mcp-multiomics
+cd servers/mcp-multiomics
+uv run pytest -v    # uv automatically creates venv and installs deps
+
+# Example: Install and test mcp-spatialtools
+cd ../mcp-spatialtools
+uv run pytest -v
+```
+
+Repeat for other servers you want to use. `uv run` handles virtual environments automatically — no manual `venv` or `pip install` needed.
 
 ### 5. Configure Environment Variables
 
@@ -159,41 +212,25 @@ SPATIAL_TIMEOUT_SECONDS=300
 - **Linux:** `~/.config/Claude/claude_desktop_config.json`
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
-**Configuration Template:**
+**Configuration:** Use the pre-built config or the template:
 
-```json
-{
-  "mcpServers": {
-    "spatialtools": {
-      "command": "python",
-      "args": ["-m", "mcp_spatialtools"],
-      "cwd": "/absolute/path/to/spatial-mcp/servers/mcp-spatialtools",
-      "env": {
-        "PYTHONPATH": "/absolute/path/to/spatial-mcp/servers/mcp-spatialtools/src",
-        "SPATIAL_DATA_DIR": "/absolute/path/to/spatial-mcp/data",
-        "SPATIAL_CACHE_DIR": "/absolute/path/to/spatial-mcp/data/cache",
-        "SPATIAL_DRY_RUN": "false"
-      }
-    },
-    "epic": {
-      "command": "python",
-      "args": ["-m", "mcp_epic"],
-      "cwd": "/absolute/path/to/spatial-mcp/servers/mcp-epic",
-      "env": {
-        "PYTHONPATH": "/absolute/path/to/spatial-mcp/servers/mcp-epic/src",
-        "GCP_PROJECT_ID": "precision-medicine-poc",
-        "GCP_REGION": "us-central1",
-        "GOOGLE_APPLICATION_CREDENTIALS": "/absolute/path/to/spatial-mcp/infrastructure/deployment/mcp-server-key.json"
-      }
-    }
-  }
-}
+```bash
+# Option A: Copy pre-built config (paths set for /Users/lynnlangit/...)
+cp docs/getting-started/desktop-configs/claude_desktop_config.json \
+   ~/Library/Application\ Support/Claude/claude_desktop_config.json
+
+# Option B: Copy template and customize paths
+cp docs/getting-started/desktop-configs/claude_desktop_config.template.json \
+   ~/Library/Application\ Support/Claude/claude_desktop_config.json
+# Then edit the file to replace /ABSOLUTE/PATH/TO/ with your actual path
 ```
 
+The config uses `uv run --directory` to launch each server — no manual venv setup needed. See [desktop-configs/README.md](desktop-configs/README.md) for details.
+
 **⚠️ Important:**
-- Replace all `/absolute/path/to/spatial-mcp` with your actual installation path
+- Replace all path placeholders with your actual installation path
 - Use absolute paths, not relative paths
-- Verify JSON syntax before saving
+- Verify JSON syntax: `python3 -m json.tool < ~/Library/Application\ Support/Claude/claude_desktop_config.json`
 
 ### 7. Restart Claude Desktop
 
@@ -210,15 +247,14 @@ After editing configuration:
 
 ```bash
 cd servers/mcp-spatialtools
-source venv/bin/activate
-python -c "import mcp_spatialtools; print('✓ mcp-spatialtools installed')"
+uv run python -c "import mcp_spatialtools; print('✓ mcp-spatialtools installed')"
 ```
 
 ### 2. Run Tests
 
 ```bash
 cd servers/mcp-spatialtools
-pytest -v
+uv run pytest -v
 
 # Expected output:
 # test_server.py::test_differential_expression PASSED
@@ -391,8 +427,7 @@ cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 ```bash
 cd /path/to/spatial-mcp/servers/mcp-spatialtools
-source venv/bin/activate
-python -m mcp_spatialtools
+uv run python -m mcp_spatialtools
 
 # Expected output: "Server running on stdio..."
 ```
@@ -409,19 +444,14 @@ ls -la /path/to/spatial-mcp/infrastructure/deployment/mcp-server-key.json
 
 **Solutions:**
 
-1. **Verify PYTHONPATH in config:**
-   ```json
-   "env": {
-     "PYTHONPATH": "/absolute/path/to/spatial-mcp/servers/mcp-spatialtools/src"
-   }
-   ```
-
-2. **Reinstall in development mode:**
+1. **Reinstall with uv:**
    ```bash
    cd servers/mcp-spatialtools
-   source venv/bin/activate
-   pip install -e .
+   uv sync
+   uv run python -c "import mcp_spatialtools; print('OK')"
    ```
+
+2. **If using Claude Desktop, verify the config uses `uv run --directory`** (not raw `python`). See [desktop-configs/README.md](desktop-configs/README.md).
 
 ### Issue: Performance/Timeouts
 
@@ -476,7 +506,7 @@ python -m json.tool < ~/Library/Application\ Support/Claude/claude_desktop_confi
 
 ---
 
-**Last Updated:** 2026-01-13
+**Last Updated:** 2026-02-16
 
 **Support:**
 - Documentation: `/docs` directory

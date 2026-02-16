@@ -54,7 +54,23 @@ All major bioinformatics domains in one platform:
 
 ### 1. Set Up Class Environment (30-60 minutes)
 
-**Option A: Cloud-Based (Recommended for large classes)**
+**Option A: Claude Code CLI (Recommended for study groups and workshops)**
+```bash
+# Prerequisites: Python 3.11+, git, Node.js 18+
+# Install uv (Python package manager)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install Claude Code
+npm install -g @anthropic-ai/claude-code
+
+# Clone and start exploring
+git clone https://github.com/lynnlangit/spatial-mcp.git
+cd spatial-mcp
+claude    # Launch Claude Code — it reads CLAUDE.md automatically
+```
+Students can explore the codebase, run tests, and ask questions in the terminal. Time: 5-10 minutes per student.
+
+**Option B: Cloud-Based (Recommended for large classes)**
 ```bash
 # Deploy to GCP with DRY_RUN mode (synthetic data)
 ./infrastructure/deployment/deploy_to_gcp.sh --development
@@ -63,7 +79,7 @@ All major bioinformatics domains in one platform:
 # No local installation needed
 ```
 
-**Option B: Local Installation (Best for small classes/workshops)**
+**Option C: Claude Desktop GUI (Best for non-technical users)**
 ```bash
 # Students install Claude Desktop locally
 # Follow installation guide: docs/getting-started/installation.md
@@ -104,13 +120,14 @@ All major bioinformatics domains in one platform:
 
 ## Quick Start for Students
 
-### 1. Install & Setup (10-15 minutes)
+### 1. Install & Setup (5-15 minutes)
 
 Follow: [Installation Guide](../getting-started/installation.md)
 
-**What you'll install:**
-- Claude Desktop (local) OR access Streamlit UI (cloud)
-- MCP servers (configured by instructor)
+**What you'll install (pick one):**
+- **Claude Code** (CLI, recommended) — explore and run tests from your terminal
+- **Claude Desktop** (GUI) — visual interface for running analyses
+- **Streamlit UI** (cloud) — browser-based, no local install needed
 
 ### 2. Try Your First Analysis (5 minutes)
 
@@ -425,7 +442,7 @@ Interested in piloting this platform in your course?
 Production mode (real data): Requires institutional GCP account and varies by usage.
 
 ### "Can students work on their own computers?"
-**A:** Yes with Claude Desktop (local installation). OR use cloud-based Streamlit UI (no local install needed).
+**A:** Yes! Three options: (1) Claude Code CLI for terminal-based exploration, (2) Claude Desktop GUI for visual analysis, or (3) cloud-based Streamlit UI (no local install needed).
 
 ### "What if students find bugs or have questions?"
 **A:** Students can:
@@ -441,7 +458,7 @@ Production mode (real data): Requires institutional GCP account and varies by us
 **A:** Yes for advanced high school (AP Biology, AP Computer Science). Requires basic biology knowledge and comfort with technology. Instructor guidance recommended.
 
 ### "What if my institution blocks Claude Desktop?"
-**A:** Use cloud-based Streamlit UI instead. Deployed on GCP, accessible via browser.
+**A:** Use Claude Code (CLI-based, runs in terminal) or the cloud-based Streamlit UI (browser-accessible, deployed on GCP).
 
 ---
 
@@ -454,4 +471,4 @@ Production mode (real data): Requires institutional GCP account and varies by us
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-16
