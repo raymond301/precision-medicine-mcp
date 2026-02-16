@@ -25,8 +25,8 @@ API key and secrets management, GCP Secret Manager integration.
 ./infrastructure/deployment/deploy_to_gcp.sh --development
 ```
 
-**Current Status (as of Jan 10, 2026):**
-- **Deployed:** 6/15 servers (spatialtools, openimagedata, fgbio, multiomics, epic, mockepic)
+**Current Status:**
+- **Deployed:** 14/15 servers on GCP Cloud Run (all except mcp-epic which is local-only)
 - **Mode:** Development (public) + Production (epic - private)
 - **Region:** us-central1
 

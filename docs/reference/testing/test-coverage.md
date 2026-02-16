@@ -10,7 +10,7 @@
 |--------|-------|--------|
 | **Overall Coverage** | 56.9% | ⬆️ +27.5 points from baseline |
 | **Automated Tests** | 167+ | ✅ 15/15 servers tested |
-| **Production Ready** | 11/15 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report |
+| **Production Ready** | 11/15 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-cell-classify, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report, mcp-genomic-results |
 | **GCP Deployed** | 14/15 servers | ✅ All validated on Cloud Run (mcp-epic local only) |
 
 ---

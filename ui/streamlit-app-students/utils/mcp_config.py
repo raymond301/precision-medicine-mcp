@@ -1,6 +1,7 @@
 """MCP Server Configuration
 
-Contains URLs and metadata for all 15 MCP servers (14 deployed + 1 local-only).
+Contains URLs and metadata for 13 MCP servers configured in the student app
+(excludes mcp-epic which is local-only and mcp-genomic-results).
 """
 
 from typing import Dict, List, TypedDict
@@ -33,14 +34,14 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "url": "http://localhost:8002/sse" if USE_LOCAL_SERVERS else "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Multi-omics integration (RNA/Protein/Phospho)",
         "status": "production",
-        "tools_count": 9
+        "tools_count": 10
     },
     "spatialtools": {
         "name": "spatialtools",
         "url": "http://localhost:8000/sse" if USE_LOCAL_SERVERS else "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Spatial transcriptomics analysis",
         "status": "production",
-        "tools_count": 10
+        "tools_count": 14
     },
     "tcga": {
         "name": "tcga",
@@ -61,14 +62,14 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "url": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Nextflow workflow management",
         "status": "mock",
-        "tools_count": 5
+        "tools_count": 3
     },
     "huggingface": {
         "name": "huggingface",
         "url": "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app/sse",
         "description": "AI/ML models for genomics",
         "status": "mock",
-        "tools_count": 4
+        "tools_count": 3
     },
     "deepcell": {
         "name": "deepcell",
@@ -89,7 +90,7 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "url": "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Mock EHR/FHIR data",
         "status": "mock",
-        "tools_count": 5
+        "tools_count": 3
     },
     "perturbation": {
         "name": "perturbation",

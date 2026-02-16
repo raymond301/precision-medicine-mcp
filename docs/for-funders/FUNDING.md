@@ -117,7 +117,7 @@ graph LR
 
 ### Deployment Status
 
-**15 servers / 80 tools** — 12 production (85-100% real), 1 mock (by design), 2 framework/utility. All except mcp-epic deployed to GCP Cloud Run.
+**15 servers / 80 tools** — 11 production (85-100% real), 1 mock (by design), 3 mocked for demo. All except mcp-epic deployed to GCP Cloud Run.
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md).
 
