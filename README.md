@@ -9,7 +9,7 @@
 
 > **40 hours of manual bioinformatics → 2-5 hours with AI-orchestrated MCP tools (8-20x faster)**
 >
-> 15 specialized MCP servers | 80 analysis tools | Multi-provider AI (Claude + Gemini 3) | Stage IV Ovarian Cancer demo
+> 15 specialized MCP servers | 80 analysis tools | Multi-provider AI (Claude or Gemini) | Stage IV Ovarian Cancer demo
 
 ---
 
@@ -22,14 +22,14 @@
 
 ## 🚀 Quick Start by Role
 
-| You Are... | Start Here | Time to Value |
-|------------|------------|---------------|
-| 🏥 **Hospital IT/Admin** | [Hospital Deployment](docs/for-hospitals/README.md) | 30 min overview |
-| 🔬 **Bioinformatician** | [Researcher Guide](docs/for-researchers/README.md) | 25-35 min demo |
-| 💻 **MCP Developer** | [Developer Guide](docs/for-developers/README.md) | 1 hour setup |
-| 🎓 **Educator/Student** | [Educational Guide](docs/for-educators/README.md) | 25 min tutorial |
-| 👥 **Patient/Family** | [Patient Resources](docs/for-patients/README.md) | 10 min read |
-| 💰 **Funder/Grant Reviewer** | [FUNDING.md](docs/for-funders/FUNDING.md) | 5 min |
+| You Are... | Start Here |
+|------------|------------|
+| 🏥 **Hospital IT/Admin** | [Hospital Deployment](docs/for-hospitals/README.md) |
+| 🔬 **Bioinformatician** | [Researcher Guide](docs/for-researchers/README.md) |
+| 💻 **MCP Developer** | [Developer Guide](docs/for-developers/README.md) |
+| 🎓 **Educator/Student** | [Educational Guide](docs/for-educators/README.md) |
+| 👥 **Patient/Family** | [Patient Resources](docs/for-patients/README.md) |
+| 💰 **Funder/Grant Reviewer** | [FUNDING.md](docs/for-funders/FUNDING.md) |
 
 ---
 
@@ -99,7 +99,7 @@ graph LR
 - Natural language queries → AI orchestration → 35-minute analysis
 
 **Learn More**
-- 📖 [Full Case Study: PatientOne Documentation →](docs/reference/testing/patient-one/README.md)
+- 📖 [Full Case Study: PatientOne Documentation](docs/reference/testing/patient-one/README.md)
 - 📚 [Prompt Library](https://github.com/lynnlangit/precision-medicine-mcp/tree/main/docs/reference/prompts)
 - 🏗️ [Architecture Details](docs/reference/architecture/README.md)
 - 📚 [Documentation Hub](docs/INDEX.md)
