@@ -9,7 +9,7 @@ Precision Medicine MCP Platform — an AI-orchestrated system for precision onco
 ## Repository Structure
 
 ```
-spatial-mcp/
+precision-medicine-mcp/
 ├── servers/                    # MCP servers (Python, FastMCP)
 │   ├── mcp-fgbio/             # Genomic reference data (4 tools)
 │   ├── mcp-multiomics/        # RNA/Protein/Phospho integration (10 tools)
