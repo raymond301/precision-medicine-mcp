@@ -131,13 +131,13 @@ Before starting analysis, verify image quality:
      - overlay_color: "green"
      ```
 
-   - **Phenotype visualization** (use tool: `generate_phenotype_visualization` from mcp-deepcell):
+   - **Phenotype visualization** (use tool: `generate_phenotype_visualization` from mcp-cell-classify):
      * Heatmap showing CD8+ cell density across tissue
      * Hotspots indicate immune infiltration
      * Expected: Peripheral clustering, central exclusion
 
      ```
-     Tool: generate_phenotype_visualization (mcp-deepcell)
+     Tool: generate_phenotype_visualization (mcp-cell-classify)
      Inputs:
      - segmentation_results: (output from segment_cells)
      - phenotype_name: "CD8+"
@@ -159,12 +159,12 @@ Before starting analysis, verify image quality:
      - overlay_color: "yellow"
      ```
 
-   - **Phenotype visualization** (use tool: `generate_phenotype_visualization` from mcp-deepcell):
+   - **Phenotype visualization** (use tool: `generate_phenotype_visualization` from mcp-cell-classify):
      * Spatial map of Ki67+ cell density
      * Expected: Heterogeneous distribution, higher in some regions
 
      ```
-     Tool: generate_phenotype_visualization (mcp-deepcell)
+     Tool: generate_phenotype_visualization (mcp-cell-classify)
      Inputs:
      - segmentation_results: (output from segment_cells)
      - phenotype_name: "Ki67+"
@@ -187,7 +187,7 @@ Before starting analysis, verify image quality:
      - normalize: true
      ```
 
-   - **Cell phenotype segmentation** (use tool: `generate_phenotype_visualization` from mcp-deepcell):
+   - **Cell phenotype segmentation** (use tool: `generate_phenotype_visualization` from mcp-cell-classify):
      * Cells colored by phenotype
      * TP53+/KI67+ = yellow
      * TP53+/KI67- = red
@@ -196,7 +196,7 @@ Before starting analysis, verify image quality:
      * Expected: Dominant yellow population (~40-50%)
 
      ```
-     Tool: generate_phenotype_visualization (mcp-deepcell)
+     Tool: generate_phenotype_visualization (mcp-cell-classify)
      Inputs:
      - segmentation_results: (output from classify_cell_states)
      - phenotype_categories: ["TP53+/KI67+", "TP53+/KI67-", "TP53-/KI67+", "TP53-/KI67-"]

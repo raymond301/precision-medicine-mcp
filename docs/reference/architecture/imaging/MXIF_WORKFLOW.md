@@ -136,7 +136,7 @@ Segment individual cells from fluorescence images using DeepCell-TF.
 **Future:** Will use real DeepCell-TF implementation for production
 
 ### Step 4: Quantify Marker Expression
-**Tool:** `classify_cell_states` (mcp-deepcell)
+**Tool:** `classify_cell_states` (mcp-cell-classify)
 
 **Status:** ⚠️ Currently mocked - returns random classifications
 

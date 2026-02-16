@@ -9,7 +9,7 @@
 **mcp-deepcell Service:**
 - URL: https://mcp-deepcell-ondu7mwjpa-uc.a.run.app
 - Status: Production (real DeepCell-TF segmentation)
-- Tools: 4 (segment_cells, classify_cell_states, generate_segmentation_overlay, generate_phenotype_visualization)
+- Tools: 3 (segment_cells, quantify_markers, generate_segmentation_overlay)
 
 **Test Data:**
 - Location: `gs://sample-inputs-patientone/mcp-deepcell-test-data/test_data/`

@@ -166,8 +166,8 @@ async def my_tool():
 ```
 User prompt → Claude decides workflow:
   1. Call mcp-epic.get_patient_demographics()
-  2. Call mcp-spatialtools.load_spatial_data()
-  3. Call mcp-spatialtools.run_pathway_enrichment()
+  2. Call mcp-spatialtools.get_spatial_data_for_patient()
+  3. Call mcp-spatialtools.perform_pathway_enrichment()
   4. Synthesize results into report
 ```
 
@@ -414,19 +414,19 @@ raise ValueError(
   → Returns: Stage IV HGSOC, platinum-resistant, CA-125 elevated
 
 [5-12 min] Genomic Analysis
-  → mcp-fgbio.load_reference_genome(build="GRCh38")
-  → mcp-fgbio.analyze_variants(vcf_path="/data/PAT001/genomic/variants.vcf")
+  → mcp-fgbio.fetch_reference_genome(build="GRCh38")
+  → mcp-genomic-results.parse_somatic_variants(vcf_path="/data/PAT001/genomic/variants.vcf")
   → Returns: TP53 mutation, BRCA1 germline variant
 
 [12-22 min] Multi-Omics Integration
-  → mcp-multiomics.load_omics_data(patient_id="PAT001-OVC-2025")
-  → mcp-multiomics.run_stouffer_meta_analysis(modalities=["rna","protein","phospho"])
-  → mcp-multiomics.pathway_enrichment(method="gsea")
+  → mcp-multiomics.integrate_omics_data(patient_id="PAT001-OVC-2025")
+  → mcp-multiomics.calculate_stouffer_meta(modalities=["rna","protein","phospho"])
+  → mcp-multiomics.predict_upstream_regulators(method="gsea")
   → Returns: PI3K/AKT/mTOR pathway activation (p<0.001)
 
 [22-32 min] Spatial Transcriptomics
-  → mcp-spatialtools.load_visium_data(sample_id="PAT001-tumor-region-1")
-  → mcp-spatialtools.spatial_pathway_enrichment()
+  → mcp-spatialtools.get_spatial_data_for_patient(patient_id="PAT001-tumor-region-1")
+  → mcp-spatialtools.perform_pathway_enrichment()
   → Returns: Spatial heterogeneity, immune exhaustion in tumor core
 
 [32-35 min] Report Synthesis

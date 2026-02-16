@@ -46,7 +46,7 @@ sequenceDiagram
     Note over Claude: Claude analyzes request<br/>and decides to use MCP tool
 
     Note over User,MCP: Step 4: Claude Calls MCP Tool
-    Claude->>MCP: Tool Call: cell_type_deconvolution<br/>Parameters: {<br/>  "spatial_data": "gs://...spatial.h5ad",<br/>  "method": "card"<br/>}
+    Claude->>MCP: Tool Call: deconvolve_cell_types<br/>Parameters: {<br/>  "spatial_data": "gs://...spatial.h5ad",<br/>  "method": "card"<br/>}
 
     Note over User,MCP: Step 5: MCP Server Processes Request
     MCP->>GCS: Access file using service account<br/>GET gs://precision-medicine-data/.../spatial.h5ad
@@ -67,7 +67,7 @@ sequenceDiagram
 
     Streamlit-->>User: Display:<br/>1. Claude's interpretation<br/>2. Analysis results<br/>3. Orchestration trace showing spatialtools call
 
-    Note over User: User sees:<br/>✅ Cell types identified<br/>✅ Spatial distribution analyzed<br/>🔍 Trace shows spatialtools→cell_type_deconvolution
+    Note over User: User sees:<br/>✅ Cell types identified<br/>✅ Spatial distribution analyzed<br/>🔍 Trace shows spatialtools→deconvolve_cell_types
 ```
 
 ### Key Architecture Benefits
@@ -292,7 +292,7 @@ Step 2: 🔬 Multi-Omics
 - Result: 42 significant associations found
 
 Step 3: 🗺️ Spatial Transcriptomics
-- Tool: cell_type_deconvolution
+- Tool: deconvolve_cell_types
 - Input: {'spatial_data': 'visium_data.h5ad'}
 - Result: Identified 8 cell types, CD8+ T-cells enriched in margin
 ```

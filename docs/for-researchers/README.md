@@ -300,11 +300,11 @@ Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$25-104** (productio
 
 **Workflow:**
 ```
-1. Load spatial data → mcp-spatialtools.load_visium_data()
-2. Cell type deconvolution → mcp-spatialtools.cell_type_deconvolution()
-3. Spatial neighborhood analysis → mcp-spatialtools.spatial_neighborhood()
-4. Pathway enrichment by region → mcp-spatialtools.spatial_pathway_enrichment()
-5. Visualization → mcp-spatialtools.create_spatial_plot()
+1. Load spatial data → mcp-spatialtools.get_spatial_data_for_patient()
+2. Cell type deconvolution → mcp-spatialtools.deconvolve_cell_types()
+3. Spatial autocorrelation → mcp-spatialtools.calculate_spatial_autocorrelation()
+4. Pathway enrichment by region → mcp-spatialtools.perform_pathway_enrichment()
+5. Visualization → mcp-spatialtools.generate_spatial_heatmap()
 ```
 
 **Publications enabled:**
@@ -324,11 +324,11 @@ Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$25-104** (productio
 
 **Workflow:**
 ```
-1. Load multi-omics → mcp-multiomics.load_omics_data()
+1. Load multi-omics → mcp-multiomics.integrate_omics_data()
 2. Stratify by response → Use clinical data to group responders vs. non-responders
-3. Differential expression → mcp-multiomics.differential_expression()
-4. Pathway enrichment → mcp-multiomics.pathway_enrichment()
-5. Validate with genomics → mcp-fgbio.variant_pathway_mapping()
+3. Association analysis → mcp-multiomics.run_halla_analysis()
+4. Pathway analysis → mcp-multiomics.predict_upstream_regulators()
+5. Validate with genomics → mcp-fgbio.query_gene_annotations()
 ```
 
 **Publications enabled:**
@@ -349,12 +349,12 @@ Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$25-104** (productio
 **Workflow:**
 ```
 Discovery:
-1. Feature selection → mcp-multiomics.differential_expression()
-2. Pathway enrichment → mcp-multiomics.pathway_enrichment()
+1. Feature selection → mcp-multiomics.run_halla_analysis()
+2. Pathway analysis → mcp-multiomics.predict_upstream_regulators()
 3. Candidate biomarkers → Top genes/pathways
 
 Validation:
-4. Load validation cohort → mcp-tcga.query_cohort_data()
+4. Load validation cohort → mcp-tcga.query_tcga_cohorts()
 5. Test biomarkers → Statistical validation
 6. Clinical correlation → Link to outcomes
 ```
@@ -376,7 +376,7 @@ Validation:
 
 **Workflow:**
 ```
-1. Load cohort data → mcp-multiomics.load_cohort()
+1. Load cohort data → mcp-multiomics.integrate_omics_data()
 2. Dimensionality reduction → PCA, UMAP
 3. Clustering → Identify subtypes
 4. Characterize subtypes → Pathway enrichment per cluster

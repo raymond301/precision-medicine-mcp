@@ -259,7 +259,7 @@ async def get_reference_genome_info(genome: str, model: str = "haiku"):
 
 **Savings**: 30-50% for repeated analyses
 
-**Target**: `mcp-multiomics.perform_halla_analysis` (18K input, 6.8K output tokens)
+**Target**: `mcp-multiomics.run_halla_analysis` (18K input, 6.8K output tokens)
 
 **Implementation**:
 ```python
@@ -270,7 +270,7 @@ def cache_key(data):
     return hashlib.md5(json.dumps(data).encode()).hexdigest()
 
 @mcp.tool()
-async def perform_halla_analysis(data):
+async def run_halla_analysis(data):
     key = cache_key(data)
     if key in cache:
         return cache[key]

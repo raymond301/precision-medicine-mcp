@@ -28,11 +28,11 @@ Expected output:
 Found 14 tools in mcp-spatialtools:
 1. align_spatial_data - Align FASTQ to reference genome using STAR
 2. perform_batch_correction - ComBat batch effect correction
-3. perform_cell_type_deconvolution - Estimate cell type proportions
+3. deconvolve_cell_types - Estimate cell type proportions
 4. perform_differential_expression - Compare gene expression between groups
 5. perform_pathway_enrichment - Find enriched pathways
 6. calculate_spatial_autocorrelation - Moran's I for spatial patterns
-7. visualize_spatial_expression - Generate spatial heatmaps
+7. generate_spatial_heatmap - Generate spatial heatmaps
 ... (14 total)
 ```
 

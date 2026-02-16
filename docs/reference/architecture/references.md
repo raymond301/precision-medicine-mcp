@@ -47,7 +47,7 @@ Curated list of key publications, datasets, and technical resources for precisio
 **Meta-Analysis with Stouffer's Method**
 - **Citation:** Stouffer et al., "The American Soldier" (1949)
 - **Summary:** Combines p-values from independent tests using Z-score transformation
-- **Implementation:** Used in `mcp-multiomics.perform_stouffer_meta_analysis()`
+- **Implementation:** Used in `mcp-multiomics.calculate_stouffer_meta()`
 
 ---
 
