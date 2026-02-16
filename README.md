@@ -96,7 +96,7 @@ graph LR
 **What This Demonstrates:**
 - Clinical data (Epic FHIR) + Genomics (VCF) + Multi-omics (RNA/Protein/Phospho)
 - Spatial transcriptomics (10x Visium) + Imaging (H&E, MxIF)
-- Natural language queries → AI orchestration → 35-minute analysis
+- Natural language queries → AI orchestration → 35-minute analysis (DRY_RUN data)
 
 **Learn More**
 - 📖 [Full Case Study: PatientOne Documentation](docs/reference/testing/patient-one/README.md)
