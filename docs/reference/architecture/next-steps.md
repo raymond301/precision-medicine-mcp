@@ -19,7 +19,7 @@
 | 9 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
 | 10 | mcp-patient-report | Partial | Implement `approve_patient_report` workflow | High |
 | 11 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
-| 12 | mcp-quantum | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
+| 12 | mcp-quantum-celltype-fidelity | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
 | 13 | mcp-seqera | Mocked | Wire up real Seqera Platform API | High |
 | 14 | mcp-spatialtools | 95% real | Harmony/Scanorama batch correction | Low |
 | 15 | mcp-tcga | Mocked | Wire up real GDC API | High |
@@ -126,7 +126,6 @@
 | Implement GEO dataset download (`_download_from_geo`) | Feature | Medium |
 | Add authentication to Cloud Run endpoint | Security | Small |
 | GPU upgrade for faster GEARS training | Performance | Medium |
-| Remove dead `scgen_wrapper.py` code | Cleanup | Small |
 | Test with real PatientOne data | Quality | Small |
 
 ### 12. mcp-quantum-celltype-fidelity (Production, CPU)
