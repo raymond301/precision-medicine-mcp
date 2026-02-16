@@ -5,7 +5,7 @@ Patient ID: PAT001-OVC-2025
 
 ⚠️ UPDATED: Now includes preprocessing pipeline and upstream regulator prediction
 
-## Multi-Omics PDX Analysis (use mcp-multiomics - 9 tools)
+## Multi-Omics PDX Analysis (use mcp-multiomics - 10 tools)
 
 For patient PAT001-OVC-2025, analyze platinum resistance in PDX models using the COMPLETE workflow:
 
