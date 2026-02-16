@@ -180,6 +180,55 @@
         "CELL_CLASSIFY_OUTPUT_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/output",
         "CELL_CLASSIFY_DRY_RUN": "true"
       }
+    },
+    "epic": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-epic",
+        "python",
+        "-m",
+        "mcp_epic"
+      ],
+      "env": {
+        "EPIC_FHIR_ENDPOINT": "",
+        "EPIC_CLIENT_ID": "",
+        "EPIC_CLIENT_SECRET": "",
+        "DEIDENTIFY_ENABLED": "true"
+      }
+    },
+    "perturbation": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-perturbation",
+        "python",
+        "-m",
+        "mcp_perturbation"
+      ],
+      "env": {
+        "PERTURBATION_DATA_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/perturbation",
+        "PERTURBATION_MODEL_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/models/perturbation",
+        "PERTURBATION_DRY_RUN": "true"
+      }
+    },
+    "quantum-celltype-fidelity": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-quantum-celltype-fidelity",
+        "python",
+        "-m",
+        "quantum_celltype_fidelity"
+      ],
+      "env": {
+        "QUANTUM_BACKEND": "cpu",
+        "QUANTUM_DATA_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/quantum",
+        "QUANTUM_CACHE_DIR": "/Users/lynnlangit/Documents/GitHub/spatial-mcp/data/cache/quantum"
+      }
     }
   }
 }

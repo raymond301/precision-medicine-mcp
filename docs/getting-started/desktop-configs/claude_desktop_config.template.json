@@ -1,92 +1,233 @@
 {
   "mcpServers": {
     "fgbio": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-fgbio/venv/bin/python",
-      "args": ["-m", "mcp_fgbio"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-fgbio",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-fgbio",
+        "python",
+        "-m",
+        "mcp_fgbio"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-fgbio/src",
         "FGBIO_REFERENCE_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/reference",
         "FGBIO_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/cache",
         "FGBIO_DRY_RUN": "true"
       }
     },
     "spatialtools": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-spatialtools/venv/bin/python",
-      "args": ["-m", "mcp_spatialtools"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-spatialtools",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-spatialtools",
+        "python",
+        "-m",
+        "mcp_spatialtools"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-spatialtools/src",
         "SPATIAL_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data",
         "SPATIAL_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/cache",
         "SPATIAL_DRY_RUN": "true"
       }
     },
     "openimagedata": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-openimagedata/venv/bin/python",
-      "args": ["-m", "mcp_openimagedata"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-openimagedata",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-openimagedata",
+        "python",
+        "-m",
+        "mcp_openimagedata"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-openimagedata/src",
         "IMAGE_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/patient-data/PAT001-OVC-2025/imaging",
         "IMAGE_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/patient-data/PAT001-OVC-2025/imaging/cache",
         "IMAGE_DRY_RUN": "true"
       }
     },
     "seqera": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-seqera/venv/bin/python",
-      "args": ["-m", "mcp_seqera"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-seqera",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-seqera",
+        "python",
+        "-m",
+        "mcp_seqera"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-seqera/src",
         "SEQERA_DRY_RUN": "true"
       }
     },
-    "huggingface": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-huggingface/venv/bin/python",
-      "args": ["-m", "mcp_huggingface"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-huggingface",
+    "genomic-results": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-genomic-results",
+        "python",
+        "-m",
+        "mcp_genomic_results"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-huggingface/src",
+        "GENOMIC_RESULTS_DRY_RUN": "true"
+      }
+    },
+    "huggingface": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-huggingface",
+        "python",
+        "-m",
+        "mcp_huggingface"
+      ],
+      "env": {
         "HF_DRY_RUN": "true"
       }
     },
-    "deepcell": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-deepcell/venv/bin/python",
-      "args": ["-m", "mcp_deepcell"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-deepcell",
-      "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-deepcell/src",
-        "DEEPCELL_DRY_RUN": "true"
-      }
-    },
     "mockepic": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-mockepic/venv/bin/python",
-      "args": ["-m", "mcp_mockepic"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-mockepic",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-mockepic",
+        "python",
+        "-m",
+        "mcp_mockepic"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-mockepic/src",
         "EPIC_DRY_RUN": "true"
       }
     },
     "tcga": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-tcga/venv/bin/python",
-      "args": ["-m", "mcp_tcga"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-tcga",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-tcga",
+        "python",
+        "-m",
+        "mcp_tcga"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-tcga/src",
         "TCGA_DRY_RUN": "true"
       }
     },
-    "patient-report": {
-      "command": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report/venv/bin/python",
-      "args": ["-m", "mcp_patient_report"],
-      "cwd": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report",
+    "multiomics": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-multiomics",
+        "python",
+        "-m",
+        "mcp_multiomics"
+      ],
       "env": {
-        "PYTHONPATH": "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report/src",
+        "MULTIOMICS_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/multiomics",
+        "MULTIOMICS_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/cache/multiomics",
+        "MULTIOMICS_DRY_RUN": "true"
+      }
+    },
+    "patient-report": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-patient-report",
+        "python",
+        "-m",
+        "mcp_patient_report"
+      ],
+      "env": {
         "PATIENT_REPORT_OUTPUT_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/reports",
         "PATIENT_REPORT_TEMPLATES_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/templates/patient_report",
         "PATIENT_REPORT_DRY_RUN": "true"
+      }
+    },
+    "deepcell": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-deepcell",
+        "python",
+        "-m",
+        "mcp_deepcell"
+      ],
+      "env": {
+        "DEEPCELL_OUTPUT_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/output",
+        "DEEPCELL_DRY_RUN": "true",
+        "DEEPCELL_USE_GPU": "false"
+      }
+    },
+    "cell-classify": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-cell-classify",
+        "python",
+        "-m",
+        "mcp_cell_classify"
+      ],
+      "env": {
+        "CELL_CLASSIFY_OUTPUT_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/output",
+        "CELL_CLASSIFY_DRY_RUN": "true"
+      }
+    },
+    "epic": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-epic",
+        "python",
+        "-m",
+        "mcp_epic"
+      ],
+      "env": {
+        "EPIC_FHIR_ENDPOINT": "",
+        "EPIC_CLIENT_ID": "",
+        "EPIC_CLIENT_SECRET": "",
+        "DEIDENTIFY_ENABLED": "true"
+      }
+    },
+    "perturbation": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-perturbation",
+        "python",
+        "-m",
+        "mcp_perturbation"
+      ],
+      "env": {
+        "PERTURBATION_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/perturbation",
+        "PERTURBATION_MODEL_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/models/perturbation",
+        "PERTURBATION_DRY_RUN": "true"
+      }
+    },
+    "quantum-celltype-fidelity": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-quantum-celltype-fidelity",
+        "python",
+        "-m",
+        "quantum_celltype_fidelity"
+      ],
+      "env": {
+        "QUANTUM_BACKEND": "cpu",
+        "QUANTUM_DATA_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/quantum",
+        "QUANTUM_CACHE_DIR": "/ABSOLUTE/PATH/TO/spatial-mcp/data/cache/quantum"
       }
     }
   }

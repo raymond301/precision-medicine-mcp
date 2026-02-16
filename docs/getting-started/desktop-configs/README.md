@@ -13,8 +13,8 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 **Purpose:** Production-ready configuration with full absolute paths to all MCP servers.
 
 **Contains:**
-- All MCP servers (fgbio, spatialtools, openimagedata, seqera, huggingface, mockepic, tcga, multiomics, perturbation, quantum-celltype-fidelity, patient-report, deepcell, cell-classify, genomic-results, epic)
-- Full absolute paths to Python 3.11 virtual environments (uses `uv run` syntax)
+- All 15 MCP servers (fgbio, spatialtools, openimagedata, seqera, genomic-results, huggingface, mockepic, tcga, multiomics, patient-report, deepcell, cell-classify, epic, perturbation, quantum-celltype-fidelity)
+- Uses `uv run --directory` syntax (no manual venv setup needed)
 - All required environment variables
 - DRY_RUN mode enabled by default for quick & safe testing
 
@@ -34,19 +34,19 @@ cp claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_deskt
 **Purpose:** Template for other users or different installations.
 
 **Contains:**
-- Same structure as the main config
-- Placeholder paths: `/ABSOLUTE/PATH/TO/precision-medicine-mcp/...`
+- Same structure as the main config (all 15 servers)
+- Uses `uv run --directory` syntax (same as main config)
+- Placeholder paths: `/ABSOLUTE/PATH/TO/spatial-mcp/...`
 
 **How to use:**
 1. Copy template to a new file
 2. Replace all `/ABSOLUTE/PATH/TO/` placeholders with your actual installation path
-3. Verify all venv Python executables exist
-4. Copy to Claude Desktop config location
+3. Copy to Claude Desktop config location
 
 **Example replacements:**
 ```
-Before: "/ABSOLUTE/PATH/TO/precision-medicine-mcp/servers/mcp-fgbio/venv/bin/python"
-After:  "/Users/yourname/projects/precision-medicine-mcp/servers/mcp-fgbio/venv/bin/python"
+Before: "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-fgbio"
+After:  "/Users/yourname/projects/spatial-mcp/servers/mcp-fgbio"
 ```
 
 ---
@@ -54,9 +54,9 @@ After:  "/Users/yourname/projects/precision-medicine-mcp/servers/mcp-fgbio/venv/
 
 ## 🔧 Configuration Details
 
-### Why Full Venv Paths?
+### Why `uv run --directory`?
 
-Claude Desktop runs in a sandboxed environment and cannot resolve `python` or `python3` commands. You **must** provide the full absolute path to the Python executable in each server's virtual environment.
+Claude Desktop runs in a sandboxed environment and cannot resolve `python` or `python3` commands. Using `uv run --directory` lets `uv` handle the virtual environment and dependencies automatically.
 
 **❌ This will NOT work:**
 ```json
@@ -65,7 +65,8 @@ Claude Desktop runs in a sandboxed environment and cannot resolve `python` or `p
 
 **✅ This WILL work:**
 ```json
-"command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-fgbio/venv/bin/python"
+"command": "uv",
+"args": ["run", "--directory", "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-fgbio", "python", "-m", "mcp_fgbio"]
 ```
 
 ### Environment Variables
@@ -87,6 +88,10 @@ Each server requires specific environment variables:
 | **perturbation** | `PERTURBATION_DATA_DIR`<br>`PERTURBATION_MODEL_DIR`<br>`PERTURBATION_DRY_RUN` | Perturbation data<br>Model storage<br>Mock execution mode |
 | **quantum-celltype-fidelity** | `QUANTUM_BACKEND`<br>`QUANTUM_DATA_DIR`<br>`QUANTUM_CACHE_DIR` | CPU/GPU backend<br>Data directory<br>Cache location |
 | **patient-report** | `PATIENT_REPORT_OUTPUT_DIR`<br>`PATIENT_REPORT_TEMPLATES_DIR`<br>`PATIENT_REPORT_DRY_RUN` | Report output<br>Templates path<br>Mock execution mode |
+| **deepcell** | `DEEPCELL_OUTPUT_DIR`<br>`DEEPCELL_DRY_RUN`<br>`DEEPCELL_USE_GPU` | Output directory<br>Mock execution mode<br>GPU acceleration |
+| **cell-classify** | `CELL_CLASSIFY_OUTPUT_DIR`<br>`CELL_CLASSIFY_DRY_RUN` | Output directory<br>Mock execution mode |
+| **genomic-results** | `GENOMIC_RESULTS_DRY_RUN` | Mock execution mode |
+| **epic** | `EPIC_FHIR_ENDPOINT`<br>`EPIC_CLIENT_ID`<br>`EPIC_CLIENT_SECRET`<br>`DEIDENTIFY_ENABLED` | FHIR endpoint URL<br>OAuth client ID<br>OAuth client secret<br>PHI de-identification |
 
 ### DRY_RUN Mode
 
@@ -112,7 +117,7 @@ To disable DRY_RUN mode (use real tools):
 
 The current configuration is set up for:
 ```
-/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/
+/Users/lynnlangit/Documents/GitHub/spatial-mcp/
 ```
 
 If you cloned the repository to a different location, you'll need to:
@@ -139,7 +144,7 @@ for server in fgbio spatialtools openimagedata seqera huggingface mockepic tcga 
 done
 ```
 
-Expected: All 11 server directories should be found (deepcell may be separate)
+Expected: All server directories should be found
 
 ### Verify in Claude Desktop
 
@@ -206,11 +211,9 @@ Expected response: List of all servers with their tools
 
 **Solution:** Reinstall specific server:
 ```bash
-cd ../servers/mcp-fgbio  # Change to problematic server
-rm -rf venv
-python3.11 -m venv venv
-source venv/bin/activate
-pip install -e ".[dev]"
+cd servers/mcp-fgbio  # Change to problematic server
+uv sync
+uv run python -c "import mcp_fgbio; print('OK')"
 ```
 
 ### Issue: Config file gets overwritten
