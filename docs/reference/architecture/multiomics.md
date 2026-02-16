@@ -299,7 +299,7 @@ For detailed implementation information, see:
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
 
 ### Additional Resources
-- **Data Governance:** [data-governance.md](../../../for-hospitals/compliance/data-governance.md)
+- **Data Governance:** [data-governance.md](../../for-hospitals/compliance/data-governance.md)
 
 ---
 
@@ -314,7 +314,7 @@ For detailed implementation information, see:
 ## Related Workflows
 
 - [Spatial Transcriptomics](spatial/README.md) - Gene expression spatial patterns (TEST_3)
-- [Imaging Analysis](../imaging/README.md) - Histology and cell segmentation (TEST_4)
+- [Imaging Analysis](imaging/README.md) - Histology and cell segmentation (TEST_4)
 - [PatientOne Workflow](../testing/patient-one/README.md) - Complete precision medicine workflow
 
 ---

@@ -8,7 +8,7 @@ How to test deployed servers using Claude API (HTTP/SSE remote access).
 ## 🧪 [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
 How to test deployed servers using Claude API (HTTP/SSE remote access).
 
-## 🔒 [Security Guide](../../deployment/SECURITY.md)
+## 🔒 [Security Guide](../../deployment/security.md)
 API key and secrets management, GCP Secret Manager integration.
 
 ---
