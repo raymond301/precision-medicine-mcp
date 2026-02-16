@@ -7,7 +7,7 @@
 ## What You Can Accomplish Here
 
 - ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (15 servers, 80 tools, FastMCP patterns, Claude + Gemini API orchestration)
+- ✅ **Understand system architecture** (FastMCP patterns, Claude + Gemini API orchestration; see [Server Registry](../reference/shared/server-registry.md) for counts)
 - ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
 - ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
 - ✅ **Contribute to codebase** (coding standards, PR guidelines)
@@ -28,7 +28,7 @@
 **Total Time:** 4-8 hours from template to deployed server
 
 ### 2. Understanding the Architecture (30-60 min)
-**Goal:** Understand how 15 MCP servers orchestrate precision medicine workflows
+**Goal:** Understand how the MCP servers orchestrate precision medicine workflows
 
 1. **System overview** → [ARCHITECTURE.md](ARCHITECTURE.md) (15 min)
 2. **Best reference implementation** → [mcp-multiomics README](../../servers/mcp-multiomics/README.md) (15 min)
@@ -51,7 +51,7 @@
 
 ### Getting Started
 - **[README.md](README.md)** *(this file)* - Navigation hub for developers
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture overview (15 servers, data flow, integration)
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture overview (data flow, integration)
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Cheat sheet for common tasks
 
 ### Building New Servers
@@ -190,7 +190,7 @@ graph TB
 - ❌ **3/15 fully mocked** (20%) - mcp-tcga, mcp-huggingface, mcp-seqera
 - 🎭 **1/15 mock by design** (7%) - mcp-mockepic (synthetic for demos)
 
-**Total:** 15 servers, 80 tools, comprehensive test coverage
+**Total:** See [Server Registry](../reference/shared/server-registry.md) for current server and tool counts. Comprehensive test coverage
 
 📋 **[Complete Server Implementation Status →](../reference/architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status

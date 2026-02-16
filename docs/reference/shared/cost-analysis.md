@@ -23,7 +23,7 @@
 
 | Component | Monthly Cost | Notes |
 |-----------|-------------|-------|
-| Cloud Run (15 servers) | ~$50-200 | Scale-to-zero when idle |
+| Cloud Run (all servers) | ~$50-200 | Scale-to-zero when idle |
 | Cloud Storage (GCS) | ~$5-20 | Patient data + results |
 | Cloud Logging | ~$10-30 | 10-year HIPAA retention |
 | Networking (VPC, NAT) | ~$30-50 | VPN + private access |

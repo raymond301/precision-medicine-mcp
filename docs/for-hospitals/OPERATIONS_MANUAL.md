@@ -56,7 +56,7 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 
 ## Architecture
 
-📋 **[See Complete Server Status →](../../servers/README.md#-server-status)** - All 15 MCP servers with tools, status, and documentation
+📋 **[See Complete Server Status →](../../servers/README.md#-server-status)** - All MCP servers with tools, status, and documentation
 
 ### High-Level Architecture
 
@@ -222,7 +222,7 @@ curl https://oauth2-proxy-jupyter-{hash}.run.app/ping
 
 **Current Configuration (Phase 1 - Simplified):**
 - All users have identical access (no RBAC)
-- Can use all 15 MCP servers
+- Can use all MCP servers
 - Can analyze all 100 test patients
 
 **Future Enhancements (Phase 2):**

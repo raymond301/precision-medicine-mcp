@@ -332,7 +332,7 @@ class TestTools:
 - No performance/load tests for large datasets
 
 **Recommendations:**
-- **P1:** Add integration tests for all 80 MCP tools
+- **P1:** Add integration tests for all MCP tools
 - **P1:** Add error handling tests for each tool (invalid inputs, missing files, etc.)
 - **P2:** Increase test coverage to >80% for critical servers (spatialtools, multiomics, epic)
 - **P2:** Add property-based testing for statistical functions using `hypothesis`
@@ -347,7 +347,7 @@ class TestTools:
 **Score: 5/5** (Excellent)
 
 **Findings:**
-- **80 MCP tools registered** across all servers using `@mcp.tool()` decorator
+- **All MCP tools registered** across all servers using `@mcp.tool()` decorator
 - Consistent tool naming conventions (snake_case)
 - All tools are async or properly handled
 - Tools properly grouped by functionality
@@ -1041,7 +1041,7 @@ logger.warning(f"Retry attempt {attempt} for download after error: {e}")
 | Issue | Impact | Effort | Priority |
 |-------|--------|--------|----------|
 | **Standardize import paths** (remove sys.path manipulation) | Fragile deployments, import errors | 4h | P1 |
-| **Add integration tests** for all 80 MCP tools | Undetected regressions, reliability | 20h | P1 |
+| **Add integration tests** for all MCP tools | Undetected regressions, reliability | 20h | P1 |
 | **Implement reference genome caching** in mcp-fgbio | Slow startup, bandwidth waste | 4h | P1 |
 | **Add HIPAA audit logging** in mcp-epic | Compliance requirement | 6h | P1 |
 | **Add comprehensive test coverage** (current <50% estimated) | Production bugs, debugging difficulty | 30h | P1 |
@@ -1190,7 +1190,7 @@ Despite areas for improvement, this codebase demonstrates **strong engineering p
 The precision-medicine-mcp repository is a **well-architected, security-conscious platform** with strong foundational code quality. The codebase demonstrates excellent practices in input validation, error handling, HIPAA compliance, and bias detection - critical for production deployment in hospital settings.
 
 **Key Achievements:**
-- 80 MCP tools across 15 servers
+- MCP tools across all servers (see [Server Registry](../reference/shared/server-registry.md) for current counts)
 - Zero security vulnerabilities (no hardcoded secrets, no path traversal, no injection risks)
 - HIPAA-compliant de-identification
 - Comprehensive bias detection aligned with FDA/AMA/NIH standards

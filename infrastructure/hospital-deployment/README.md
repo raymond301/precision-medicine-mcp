@@ -440,7 +440,7 @@ Each script uses these environment variables (set in script or export):
   - 100% ($1,000) - Budget exceeded
 
 ### Cost Breakdown (Estimated)
-- Cloud Run: $400/month (15 servers, moderate usage)
+- Cloud Run: $400/month (all servers, moderate usage)
 - VPC/Networking: $50/month
 - Storage: $100/month (100 patients)
 - Anthropic API: $500/month (5 users, optimized usage)

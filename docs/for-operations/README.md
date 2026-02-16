@@ -100,7 +100,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
   P0-P3 severity definitions, response times, escalation paths
 
 - **[Appendix B: Infrastructure Components](APPENDIX_B_INFRASTRUCTURE_COMPONENTS.md)**  
-  Complete inventory of 15 MCP servers, storage, network, IAM components
+  Complete inventory of all MCP servers, storage, network, IAM components
 
 - **[Appendix C: AI Agent Performance Metrics](APPENDIX_C_AI_AGENT_METRICS.md)**  
   Agent behavioral baselines, accuracy thresholds, drift detection
@@ -202,7 +202,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 The system is **100% dependent** on Anthropic's Claude API for AI orchestration:
 
 - **If api.anthropic.com is unreachable for >5 minutes:**
-  - ✅ All 15 MCP servers remain online (containers running)
+  - ✅ All MCP servers remain online (containers running)
   - ❌ Zero analysis capacity (no AI orchestration possible)
   
 - **Mitigation:** Accept risk. Anthropic historical uptime: ~99.9%

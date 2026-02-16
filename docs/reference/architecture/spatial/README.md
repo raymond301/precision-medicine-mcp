@@ -85,7 +85,7 @@ graph TB
 
 ### Core Documentation
 - **[OVERVIEW.md](OVERVIEW.md)** - System architecture and design principles
-- **[SERVERS.md](SERVERS.md)** - All 15 MCP servers
+- **[SERVERS.md](SERVERS.md)** - All MCP servers
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** - GCP Cloud Run deployment
 
 ### Workflows

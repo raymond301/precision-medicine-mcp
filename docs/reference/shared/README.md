@@ -1,6 +1,6 @@
 # Platform Overview (Canonical Reference)
 
-The Precision Medicine MCP platform uses **15 MCP servers** providing **80 tools** for AI-orchestrated precision oncology analysis.
+The Precision Medicine MCP platform uses multiple MCP servers providing specialized tools for AI-orchestrated precision oncology analysis. For current counts, see the [Server Registry](server-registry.md).
 
 ---
 
@@ -36,7 +36,7 @@ The Precision Medicine MCP platform uses **15 MCP servers** providing **80 tools
 │           AI Orchestration (Claude/Gemini)        │
 │   Natural language → tool calls → integration    │
 ├─────────────────────────────────────────────────┤
-│              15 MCP Servers (80 tools)            │
+│          MCP Servers (see server-registry.md)      │
 │   Clinical │ Genomic │ Spatial │ Imaging │ ...   │
 ├─────────────────────────────────────────────────┤
 │                 Data Layer                        │

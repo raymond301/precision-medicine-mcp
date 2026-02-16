@@ -54,7 +54,7 @@ This document summarizes the risk mitigation work completed for the Precision Me
 
 **Deliverables:**
 - `docs/architecture/servers.md` (900+ lines)
-- Production readiness assessment for all 15 servers
+- Production readiness assessment for all servers
 - Real vs. mocked percentage breakdown
 - Integration testing requirements
 - Links added to main README
@@ -74,7 +74,7 @@ This document summarizes the risk mitigation work completed for the Precision Me
 **Objective:** Add prominent warnings when servers are running in DRY_RUN mode with synthetic data.
 
 **Deliverables:**
-- Added `add_dry_run_warning()` function to all 15 servers
+- Added `add_dry_run_warning()` function to all servers
 - Startup logging warnings when DRY_RUN=true
 - Wrapped all DRY_RUN returns with warning banners
 - Runtime warnings in mcp-multiomics outputs

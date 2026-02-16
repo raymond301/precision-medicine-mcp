@@ -1,7 +1,9 @@
 """MCP Server Configuration
 
-Contains URLs and metadata for 13 MCP servers configured in the student app
+Contains URLs and metadata for MCP servers configured in the student app
 (excludes mcp-epic which is local-only and mcp-genomic-results).
+
+Source of truth for server/tool counts: docs/reference/shared/server-registry.md
 """
 
 from typing import Dict, List, TypedDict

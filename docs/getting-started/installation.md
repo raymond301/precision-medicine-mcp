@@ -54,7 +54,7 @@ Open Claude Desktop and try:
 What MCP servers are available?
 ```
 
-You should see all 15 servers listed.
+You should see all servers listed.
 
 **🎉 Done! Jump to [Usage Examples](#usage-examples) to start analyzing spatial transcriptomics data.**
 
@@ -257,7 +257,7 @@ Expected: Should return information about available patient data.
 
 ### Available MCP Servers
 
-After installation, you have access to **15 MCP servers**:
+After installation, you have access to the following **MCP servers**:
 
 📋 **[Complete Server Status](../reference/shared/server-registry.md)** - Detailed capabilities matrix
 

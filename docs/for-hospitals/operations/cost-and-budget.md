@@ -60,7 +60,7 @@ Comprehensive guide to understanding, estimating, tracking, and controlling cost
 The cost estimates in this document have been validated against our production GCP deployment:
 
 **Cloud Infrastructure (Verified):**
-- ✅ **15 MCP servers deployed** on GCP Cloud Run (us-central1)
+- ✅ **All MCP servers deployed** on GCP Cloud Run (us-central1)
 - ✅ **Resource allocation**: Most servers 2Gi/2CPU, spatial+perturbation 4Gi/2CPU
 - ✅ **Actual test data size**: 3.9 MiB matches ~5MB assumption
   - Spatial: 511 KiB (matches "315 KB demo" after filtering)
@@ -101,7 +101,7 @@ All cost estimates in this document reflect actual 2026 pricing and real deploym
 | **TEST_2: Multi-Omics** | MultiOmics | 2,500 / 4,000 | 5-8 min | ~$1 |
 | **TEST_3: Spatial** | SpatialTools, DeepCell | 2,000 / 3,500 | 4-6 min | ~$1 |
 | **TEST_4: Imaging** | OpenImageData, DeepCell | 1,800 / 3,000 | 3-5 min | ~$1 |
-| **TEST_5: Integration** | All 15 servers | 3,000 / 5,000 | 5-7 min | ~$1 |
+| **TEST_5: Integration** | All servers | 3,000 / 5,000 | 5-7 min | ~$1 |
 | **TOTAL** | - | **11,300 / 19,000** | **25-35 min** | **~$1** |
 
 **Cost Calculation (Claude Sonnet 4.5 pricing):**
@@ -714,7 +714,7 @@ export MULTIOMICS_DRY_RUN=false
 - Most MCP servers: 2Gi memory, 2 vCPU
 - Large MCP servers (spatialtools, perturbation): 4Gi memory, 2 vCPU
 - Streamlit UI: 1Gi memory, 1 vCPU
-- 15 MCP servers + 1 UI = 16 Cloud Run services
+- All MCP servers + 1 UI deployed as Cloud Run services
 
 **Status:** ✅ Implemented (WI-6 from Risk Mitigation Workplan)
 **Risk Reduced:** R6 (Unexpected costs) - 70% reduction (7/10 → 2/10)

@@ -8,7 +8,7 @@ Cheat sheet for common development tasks in the precision-medicine-mcp platform.
 
 ```
 spatial-mcp/
-├── servers/                      # 15 MCP servers
+├── servers/                      # MCP servers
 │   ├── mcp-fgbio/               # Reference genomes, VCF/FASTQ
 │   ├── mcp-multiomics/          # RNA/Protein/Phospho (best reference, 91 tests)
 │   ├── mcp-spatialtools/        # Spatial transcriptomics
