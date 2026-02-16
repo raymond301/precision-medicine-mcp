@@ -66,7 +66,7 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 
 ## Live Demo
 
-- **Streamlit UI (Developer):** streamlit app — Multi-provider (Claude + Gemini), 14 example prompts, all 13 servers selectable
+- **Streamlit UI (Developer):** streamlit app — Multi-provider (Claude + Gemini), 14 example prompts, 13 of 15 servers selectable (excludes local-only mcp-epic and mcp-genomic-results)
 - **Streamlit UI (Student):** student streamlit app -  for 6-week bioinformatics course (Gemini-only, 6 tested prompts, 3 default servers). URL shared with enrolled students only.
 - **PatientOne Scenario:** Stage IV ovarian cancer complete analysis
 - **Test Data:** Available in GCS at `gs://sample-inputs-patientone/`

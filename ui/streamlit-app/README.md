@@ -406,7 +406,7 @@ The deployment script automatically sets the keys as Cloud Run environment varia
 
 ### MCP Server Configuration
 
-Server URLs are configured in `utils/mcp_config.py`. All 13 servers are pre-configured with GCP Cloud Run URLs.
+Server URLs are configured in `utils/mcp_config.py`. 13 of 15 servers are pre-configured with GCP Cloud Run URLs (excludes local-only mcp-epic and mcp-genomic-results).
 
 To add/modify servers:
 ```python
@@ -438,13 +438,13 @@ Provider Abstraction Layer
     │
     └─→ Gemini Provider (SSE-based MCP)
             ↓
-        MCP SSE Client ─→ Cloud Run MCP Servers (13 servers)
+        MCP SSE Client ─→ Cloud Run MCP Servers (13 of 15)
             ↓                      ↓
         Google Gemini API ← Tool Results
             ↓
     [Manual agentic loop]
     ↓
-GCP Cloud Run MCP Servers (13 servers)
+GCP Cloud Run MCP Servers (13 of 15)
     ↓
 Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 ```
