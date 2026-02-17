@@ -276,7 +276,7 @@ If you have access to an Intel Mac or Linux system:
 ```bash
 # Clone repo
 git clone <repo-url>
-cd spatial-mcp/servers/mcp-deepcell
+cd precision-medicine-mcp/servers/mcp-deepcell
 
 # Use Python 3.10
 python3.10 -m venv venv

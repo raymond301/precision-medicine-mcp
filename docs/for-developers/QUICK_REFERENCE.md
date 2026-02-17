@@ -39,8 +39,8 @@ spatial-mcp/
 
 ```bash
 # Clone repository
-git clone https://github.com/org/spatial-mcp.git
-cd spatial-mcp
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
 
 # Create virtual environment
 python3.11 -m venv venv

@@ -53,11 +53,11 @@ We are committed to providing a welcoming and inclusive environment for all cont
 ```bash
 # Fork the repository on GitHub
 # Then clone your fork
-git clone https://github.com/YOUR_USERNAME/spatial-mcp.git
-cd spatial-mcp
+git clone https://github.com/YOUR_USERNAME/precision-medicine-mcp.git
+cd precision-medicine-mcp
 
 # Add upstream remote
-git remote add upstream https://github.com/ORIGINAL_ORG/spatial-mcp.git
+git remote add upstream https://github.com/lynnlangit/precision-medicine-mcp.git
 ```
 
 ### Development Setup

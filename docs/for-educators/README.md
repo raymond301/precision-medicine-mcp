@@ -64,8 +64,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 npm install -g @anthropic-ai/claude-code
 
 # Clone and start exploring
-git clone https://github.com/lynnlangit/spatial-mcp.git
-cd spatial-mcp
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
 claude    # Launch Claude Code — it reads CLAUDE.md automatically
 ```
 Students can explore the codebase, run tests, and ask questions in the terminal. Time: 5-10 minutes per student.

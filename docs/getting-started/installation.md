@@ -45,8 +45,8 @@ npm install -g @anthropic-ai/claude-code
 ### 2. Clone and Explore
 
 ```bash
-git clone https://github.com/lynnlangit/spatial-mcp.git
-cd spatial-mcp
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
 
 # Launch Claude Code
 claude
@@ -97,8 +97,8 @@ uv --version        # See Claude Code section above for install instructions
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/lynnlangit/spatial-mcp.git
-cd spatial-mcp
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
 ```
 
 ### 3. Configure Claude Desktop
@@ -151,8 +151,8 @@ Download and install from [claude.ai/download](https://claude.ai/download).
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/lynnlangit/spatial-mcp.git
-cd spatial-mcp
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
 ```
 
 ### 3. Install `uv` (Python Package Manager)

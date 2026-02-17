@@ -564,8 +564,8 @@ sudo chown $USER:$USER /opt/bias-audits
 cd /opt/bias-audits
 
 # Clone repository (or copy relevant files)
-git clone https://github.com/lynnlangit/precision-medicine-mcp.git spatial-mcp
-cd spatial-mcp
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp
 
 # Create Python virtual environment
 python3.11 -m venv /opt/bias-audits/venv

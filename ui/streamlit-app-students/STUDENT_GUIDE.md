@@ -31,8 +31,8 @@ Just click and start using! No setup needed.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/spatial-mcp
-cd spatial-mcp/ui/streamlit-app-students
+git clone https://github.com/lynnlangit/precision-medicine-mcp.git
+cd precision-medicine-mcp/ui/streamlit-app-students
 
 # 2. Copy environment file
 cp .env.example .env
