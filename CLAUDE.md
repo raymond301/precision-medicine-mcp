@@ -19,7 +19,7 @@ precision-medicine-mcp/
 │   ├── mcp-perturbation/      # Perturbation prediction (8 tools)
 │   ├── mcp-quantum-celltype-fidelity/  # Quantum cell type fidelity (6 tools)
 │   ├── mcp-openimagedata/     # Histology image processing (5 tools)
-│   ├── mcp-deepcell/          # Cell segmentation (4 tools)
+│   ├── mcp-deepcell/          # Cell segmentation (3 tools)
 │   ├── mcp-cell-classify/     # Cell phenotype classification (3 tools)
 │   ├── mcp-tcga/              # TCGA cohort comparison (5 tools, mocked)
 │   ├── mcp-huggingface/       # ML model inference (3 tools, mocked)

@@ -2,7 +2,7 @@
 
 **Purpose:** Concrete demonstration of bias audit methodology on PatientOne precision medicine workflow
 
-**Patient:** PAT001-OVC-2025 (63-year-old woman, Stage IV HGSOC, platinum-resistant)
+**Patient:** PAT001-OVC-2025 (58-year-old woman, Stage IV HGSOC, platinum-resistant)
 
 **Audit Date:** 2026-01-12
 
@@ -51,7 +51,7 @@
 ### Patient Profile
 
 **Demographics:**
-- **Age:** 63 years
+- **Age:** 58 years
 - **Sex:** Female
 - **Ancestry:** Self-reported European (White)
 - **Diagnosis:** Stage IV High-Grade Serous Ovarian Carcinoma (HGSOC)

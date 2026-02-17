@@ -19,7 +19,7 @@
 | Analysis Mode | Traditional Cost | MCP Cost | Savings |
 |---------------|-----------------|----------|---------|
 | **DRY_RUN** (demo, synthetic data) | N/A | ~$1 (tokens only) | — |
-| **Production** (per-analysis compute) | $6,000-9,000 | $24-102 | ~$6,000+ |
+| **Production** (per-analysis compute) | $6,000-9,000 | $24-104 | ~$6,000+ |
 | **Production** (total per patient, incl. infrastructure) | $6,000-9,000 | $324-702 | ~$3,137 avg |
 
 **Note on cost ranges:**

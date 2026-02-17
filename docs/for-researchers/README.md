@@ -10,7 +10,7 @@
 - ✅ **Run reproducible workflows** (differential expression, pathway enrichment, cell deconvolution)
 - ✅ **Integrate multiple data modalities** (RNA + Protein + Spatial + Clinical)
 - ✅ **Generate publication-quality results** (visualizations, statistical tests, reproducible methods)
-- ✅ **Scale analyses cost-effectively** ($25-104/patient compute cost vs. $6,000 traditional methods)
+- ✅ **Scale analyses cost-effectively** ($24-104/patient compute cost vs. $6,000 traditional methods)
 
 ---
 
@@ -281,7 +281,7 @@ to identify concordant pathway activations.
 
 ## Estimated Cost Analysis
 
-Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$25-104** (production), compared to **$6,000-9,000** traditional — a **52-98% cost reduction**. A 100-patient cohort costs **$14,500-22,400/year** vs. $600,000 traditional (96% savings).
+Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$24-104** (production), compared to **$6,000-9,000** traditional — a **52-98% cost reduction**. A 100-patient cohort costs **$14,500-22,400/year** vs. $600,000 traditional (96% savings).
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) and [Value Proposition](../reference/shared/value-proposition.md) for detailed breakdowns.
 

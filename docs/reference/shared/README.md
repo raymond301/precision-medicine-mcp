@@ -16,7 +16,7 @@ The Precision Medicine MCP platform uses multiple MCP servers providing speciali
 | mcp-perturbation | 8 | ✅ Production | Perturbation prediction (GEARS, Nature Biotech 2024) |
 | mcp-quantum-celltype-fidelity | 6 | ✅ Production | Quantum cell type fidelity (Qiskit) |
 | mcp-openimagedata | 5 | ✅ Production | Histology image processing, MxIF compositing |
-| mcp-deepcell | 4 | ✅ Production | DeepCell-TF cell segmentation (Cloud Run) |
+| mcp-deepcell | 3 | ✅ Production | DeepCell-TF cell segmentation (Cloud Run) |
 | mcp-cell-classify | 3 | ✅ Production | Cell phenotype classification |
 | mcp-tcga | 5 | ❌ Mocked | TCGA cohort comparison (GDC-ready) |
 | mcp-huggingface | 3 | ❌ Mocked | ML model inference (HF-ready) |

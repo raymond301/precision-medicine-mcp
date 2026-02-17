@@ -5,7 +5,7 @@
 | Analysis Mode | Traditional | MCP Platform | Savings |
 |---------------|-------------|-------------|---------|
 | **DRY_RUN** (synthetic data, demo) | N/A | ~$1 | — |
-| **Production compute** (API + Cloud Run) | $6,000-9,000 | $25-104 | ~$6,000+ |
+| **Production compute** (API + Cloud Run) | $6,000-9,000 | $24-104 | ~$6,000+ |
 | **Production total** (incl. infrastructure) | $6,000-9,000 | $324-702 | ~$3,137 avg |
 
 ## Cost Breakdown by Test (DRY_RUN Mode)

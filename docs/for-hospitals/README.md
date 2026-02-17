@@ -174,7 +174,7 @@ graph TB
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Infrastructure** | ~$1,000/month | Cloud Run, storage, logging, networking |
-| **Per-patient** | $25-104 | vs. $6,000 traditional |
+| **Per-patient** | $24-104 | vs. $6,000 traditional |
 | **Annual (500 patients)** | $24,500-72,640 | **97% savings** vs. traditional |
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.

@@ -90,7 +90,7 @@ sequenceDiagram
 
 - 💬 **Chat Interface** - Natural language interaction with MCP servers
 - 🤖 **Multi-Provider Support** - Choose between Claude (Anthropic) or Gemini (Google) LLMs
-- 🔧 **Server Selection** - Choose which of the 13 MCP servers to use
+- 🔧 **Server Selection** - Choose which of the 14 MCP servers to use
 - 🎯 **Example Prompts** - 14 built-in prompts with GCS data paths for PatientOne
 - 📊 **Token Usage** - Track API usage per message
 - 🎨 **Clean UI** - Simple, Claude Desktop-like interface
