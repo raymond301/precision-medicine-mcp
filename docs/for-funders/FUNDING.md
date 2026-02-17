@@ -106,18 +106,10 @@ graph LR
 ## Technical Validation
 
 ### Production Readiness
-- ✅ **15 MCP servers deployed** (11 production-ready, 1 mock by design, 3 mocked for demo)
-
-> **Server details:** See [Platform Overview](../reference/shared/README.md).
-
-- ✅ **80 tools** across all servers with comprehensive test coverage
+- ✅ **15 MCP servers deployed** — 11 production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
 - ✅ **HIPAA-compliant infrastructure** ready (de-identification, audit logging, VPC isolation)
 - ✅ **End-to-end demo** tested with synthetic PatientOne ovarian cancer case
-
-### Deployment Status
-
-**15 servers / 80 tools** — 11 production (85-100% real), 1 mock (by design), 3 mocked for demo. All except mcp-epic deployed to GCP Cloud Run.
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md).
 

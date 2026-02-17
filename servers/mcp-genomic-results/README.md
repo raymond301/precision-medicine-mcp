@@ -15,13 +15,9 @@ MCP server for parsing somatic variant (VCF) and copy number (CNS) results with 
 
 **Requires:** Python 3.11+
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
 ```bash
-# Install
-cd servers/mcp-genomic-results
-pip install -e ".[dev]"
-
 # Run (stdio transport for Claude Desktop)
 python -m mcp_genomic_results
 

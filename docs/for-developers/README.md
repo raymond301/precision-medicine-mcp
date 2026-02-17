@@ -185,12 +185,9 @@ graph TB
 
 ## Server Status Overview
 
-**Production Status:**
-- ✅ **11/15 servers production-ready** (73%) - mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-deepcell, mcp-cell-classify, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report, mcp-genomic-results, mcp-epic
-- ❌ **3/15 fully mocked** (20%) - mcp-tcga, mcp-huggingface, mcp-seqera
-- 🎭 **1/15 mock by design** (7%) - mcp-mockepic (synthetic for demos)
+**Production Status:** 11/15 servers production-ready (73%), 3 fully mocked, 1 mock by design.
 
-**Total:** See [Server Registry](../reference/shared/server-registry.md) for current server and tool counts. Comprehensive test coverage
+**Total:** See [Server Registry](../reference/shared/server-registry.md) for current server and tool counts.
 
 📋 **[Complete Server Implementation Status →](../reference/architecture/README.md)** - Comprehensive documentation including:
 - Detailed tool-by-tool implementation status

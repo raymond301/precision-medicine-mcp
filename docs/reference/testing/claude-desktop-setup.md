@@ -1,5 +1,7 @@
 # Claude Desktop File Access Guide
 
+> **Patient reference:** [PatientOne Profile](../shared/patientone-profile.md)
+
 ## Problem: Claude Desktop Cannot See Repository Files
 
 Claude Desktop's MCP servers run in containerized/isolated environments and can only access files in specific configured directories.

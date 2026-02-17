@@ -4,9 +4,9 @@
 
 This directory contains **100% synthetic patient data** created for demonstration and testing purposes. The data represents a realistic but completely fabricated Stage IV High-Grade Serous Ovarian Carcinoma (HGSOC) patient case.
 
-**Patient:** Sarah Anderson (synthetic)
-**Diagnosis:** Stage IV HGSOC, Platinum-Resistant
+**Patient:** Sarah Anderson (synthetic) — Stage IV HGSOC, Platinum-Resistant
 **Purpose:** Demonstrate precision medicine MCP server workflows
+**Full profile:** See [PatientOne Profile](../../../docs/reference/shared/patientone-profile.md)
 
 ---
 

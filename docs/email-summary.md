@@ -23,32 +23,11 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 
 ---
 
-## MCP Servers (15 Total)
+## MCP Servers (15 Total, 80 Tools)
 
-### Production Servers (11 deployed)
-1. **mcp-fgbio** - Genomic reference validation
-2. **mcp-multiomics** - Multi-omics data integration
-3. **mcp-spatialtools** - Spatial transcriptomics analysis
-4. **mcp-perturbation** - Treatment response prediction (GEARS)
-5. **mcp-quantum-celltype-fidelity** - Quantum computing cell analysis (Qiskit)
-6. **mcp-deepcell** - Cell segmentation (DeepCell-TF)
-7. **mcp-cell-classify** - Cell phenotype classification
-8. **mcp-openimagedata** - Histology image processing (registration, feature extraction, MxIF compositing)
-9. **mcp-patient-report** - Patient-facing PDF report generation
-10. **mcp-genomic-results** - Somatic variant/CNV parsing with clinical annotations and HRD scoring
+11 production-ready, 1 local-only (Epic FHIR), 1 mock by design, 3 framework/utility. Covers genomics, multi-omics, spatial transcriptomics, imaging, cell segmentation, perturbation prediction, quantum computing, and patient reporting.
 
-### Local Only (1)
-11. **mcp-epic** - Clinical FHIR data (Epic integration)
-
-### Mock by Design (1)
-12. **mcp-mockepic** - Mock FHIR data (intentionally synthetic for demos)
-
-### Mock Servers (3)
-13. **mcp-tcga** - Cancer genomics data
-14. **mcp-seqera** - Workflow automation platform
-15. **mcp-huggingface** - AI model inference
-
-**Total:** 80 bioinformatics tools across all servers (including Bayesian uncertainty quantification for quantum predictions)
+> **Full details:** See [Server Registry](reference/shared/server-registry.md)
 
 ---
 

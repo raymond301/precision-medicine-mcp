@@ -4,6 +4,7 @@
 **Purpose:** Complete patient analysis workflows for precision oncology
 **Time per prompt:** 5-45 minutes
 **Expected output:** Clinical reports, treatment recommendations, scientific analysis
+**Patient data:** [PatientOne Profile](../shared/patientone-profile.md) (PAT001-OVC-2025)
 
 ---
 

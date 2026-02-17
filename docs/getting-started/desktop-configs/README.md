@@ -95,21 +95,9 @@ Each server requires specific environment variables:
 
 ### DRY_RUN Mode
 
-All servers are configured with `DRY_RUN=true`. This means:
-- ✅ Tools simulate execution without external dependencies
-- ✅ No actual downloads or intensive computations
-- ✅ Perfect for testing workflow orchestration
-- ✅ Responses include expected results format
+All servers are configured with `DRY_RUN=true` by default (synthetic data, no external dependencies). To disable, set the server-specific variable to `false` (e.g., `"FGBIO_DRY_RUN": "false"`).
 
-To disable DRY_RUN mode (use real tools):
-```json
-"FGBIO_DRY_RUN": "false"
-```
-
-**Warning:** Disabling DRY_RUN requires:
-- Actual bioinformatics tools installed (STAR, samtools, bedtools, etc.)
-- Reference genomes downloaded (~30GB for hg38)
-- Significant compute resources (16GB+ RAM)
+> **Full details:** See [DRY_RUN Mode Guide](../../../docs/reference/shared/dry-run-mode.md) for per-server variables and requirements.
 
 ---
 

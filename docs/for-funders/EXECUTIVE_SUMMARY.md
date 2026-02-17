@@ -69,35 +69,19 @@ graph LR
 
 ## Financial Summary
 
-### Return on Investment
+**Payback Period:** First 2-3 patients analyzed | **Annual ROI:** ~$313K (100 patients), ~$1.6M (500 patients)
+**Per-Patient Cost:** $324-702 (vs. $6,000-9,000 traditional) — ~$3,137 average savings
+**Production Compute:** $24-104 per analysis (includes compute, APIs, Claude tokens)
 
-**Payback Period:** First 2-3 patients analyzed
-**Annual ROI:** ~$313K savings (100 patients) | ~$1.6M savings (500 patients)
-
-**Cost Comparison (Per Patient):**
-
-| Analysis Type | Traditional | MCP System | Savings |
-|--------------|-------------|------------|---------|
-| **Demonstration** (small test files) | $6,000-9,000 | $157-479 | ~$7,000 |
-| **Production** (realistic 3-8 GB data) | $6,000-9,000 | $324-702 | ~$3,137 |
-
-> **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed breakdowns.
-
-**Production Operational Costs:**
-- **Per Analysis**: $24-102 (includes compute, APIs, Claude tokens)
-- **Monthly Pilot** (5 users, 100 patients): ~$2,400-9,200
-- **Annual Production** (20 users, 500 patients): ~$12,000-51,000
+> **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed breakdowns and [ROI Analysis](ROI_ANALYSIS.md) for investment tier returns.
 
 ---
 
 ## Technical Capabilities
 
-**15 MCP Servers (80 tools):**
-- ✅ **11 Production (deployed)**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation (GEARS), mcp-quantum-celltype-fidelity (Qiskit), mcp-deepcell (DeepCell-TF), mcp-cell-classify (phenotyping), mcp-openimagedata, mcp-patient-report (PDF generation), mcp-genomic-results (somatic/CNV/HRD), mcp-epic (local only, Epic FHIR integration)
-- 🎭 **1 Mock by Design**: mcp-mockepic (synthetic EHR for demos)
-- ⚙️ **3 Framework/Utility**: mcp-tcga, mcp-seqera, mcp-huggingface
+**15 MCP Servers (80 tools):** 11 production-ready, 1 mock by design, 3 framework/utility.
 
-> **Full server details:** See [Platform Overview](../reference/shared/README.md) for the complete server status matrix.
+> **Full server details:** See [Server Registry](../reference/shared/server-registry.md) for the complete server status matrix.
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification

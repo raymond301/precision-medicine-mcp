@@ -2,7 +2,7 @@
 
 **Purpose:** Comprehensive test of all MCP servers using realistic synthetic patient data
 
-**Patient ID:** PAT001-OVC-2025
+**Patient ID:** PAT001-OVC-2025 — See [PatientOne Profile](../../shared/patientone-profile.md)
 
 ---
 

@@ -54,25 +54,9 @@ See [GCP Testing Guide](../../docs/reference/deployment/GCP_TESTING_GUIDE.md) fo
 - pip package manager
 - (Optional) STAR aligner for alignment functionality
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
-### Local Setup
-
-1. **Create a virtual environment:**
-
-```bash
-cd servers/mcp-spatialtools
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-2. **Install dependencies:**
-
-```bash
-pip install -e ".[dev]"
-```
-
-3. **Set up environment variables:**
+### Environment Variables
 
 Create a `.env` file in the server directory:
 
@@ -152,8 +136,6 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 For GCP-deployed servers, use Claude API (see above).
 
 For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
-
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ## Available Tools
 

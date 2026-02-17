@@ -92,9 +92,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 ### Technical Validation
 
 **System Status:**
-- ✅ **15 servers deployed** on GCP Cloud Run (production infrastructure)
-- ✅ **80 bioinformatics tools** with comprehensive test coverage
-- ✅ **11/15 servers production-ready** (fgbio, multiomics, spatialtools, epic, deepcell, perturbation, quantum-celltype-fidelity, cell-classify, openimagedata, patient-report, genomic-results)
+- ✅ **15 servers deployed** on GCP Cloud Run — 11 production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
 - ✅ **End-to-end demo** validated with synthetic PatientOne ovarian cancer case
 
 **Performance Metrics (PatientOne Case Study):**

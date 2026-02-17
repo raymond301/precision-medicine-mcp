@@ -212,25 +212,9 @@ Tool: classify_multi_marker (on mcp-cell-classify server)
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps. Note: this server requires Python 3.10 (not 3.11+) due to TensorFlow compatibility.
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps. **Note:** This server requires **Python 3.10** (not 3.11+) due to TensorFlow 2.8.x compatibility. Platform: Linux x86_64 (Cloud Run, GCE) or macOS with Docker.
 
-### Prerequisites
-
-- **Python:** 3.10 (required for TensorFlow 2.8.x compatibility)
-- **Platform:** Linux x86_64 (Cloud Run, GCE) or macOS with Docker
-
-### Local Setup (Development)
-
-```bash
-cd servers/mcp-deepcell
-python3.10 -m venv venv
-source venv/bin/activate
-pip install -e ".[dev]"
-
-export DEEPCELL_OUTPUT_DIR=./data/output
-export DEEPCELL_DRY_RUN=false
-export DEEPCELL_USE_GPU=false
-```
+**Server-specific environment variables:** `DEEPCELL_OUTPUT_DIR`, `DEEPCELL_DRY_RUN`, `DEEPCELL_USE_GPU`
 
 ### Docker Setup
 

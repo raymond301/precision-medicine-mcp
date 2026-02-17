@@ -1,5 +1,7 @@
 # Quick Test Reference Card
 
+> **Patient reference:** [PatientOne Profile](../../shared/patientone-profile.md)
+
 ## Problem: Context Limit + File Access
 
 The full end-to-end test is too large for Claude Desktop, and Claude Desktop's MCP servers run in containerized environments that can't access arbitrary file paths.

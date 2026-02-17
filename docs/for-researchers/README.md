@@ -252,17 +252,9 @@ to identify concordant pathway activations.
 
 > **Full server details:** See [Platform Overview](../reference/shared/README.md) for the complete server status matrix.
 
-**Quick Summary:**
-- ✅ **11/15 servers production-ready** (mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
-- 🎭 **1/15 mock by design** (mcp-mockepic)
-- ❌ **3/15 framework/utility** (mcp-tcga, mcp-huggingface, mcp-seqera)
+**Quick Summary:** 11/15 servers production-ready, 1 mock by design, 3 framework/utility.
 
-📋 **[See Complete Server Implementation Status →](../reference/shared/server-registry.md)** - Comprehensive 1,000+ line status matrix with:
-- Real vs. mocked capabilities for each server
-- Tool-by-tool implementation details
-- Test coverage and production readiness assessment
-- DRY_RUN mode behavior documentation
-- Visual status diagrams and deployment info
+📋 **[See Server Registry →](../reference/shared/server-registry.md)** for complete status matrix, tool-by-tool details, test coverage, and DRY_RUN mode behavior.
 
 ### Production Roadmap (6-12 months)
 

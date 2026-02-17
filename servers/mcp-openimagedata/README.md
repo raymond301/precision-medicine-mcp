@@ -36,25 +36,9 @@ MCP server for histology (H&E) and multiplexed immunofluorescence (MxIF) image p
 - Python 3.11 or higher
 - pip package manager
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
-### Local Setup
-
-1. **Create a virtual environment:**
-
-```bash
-cd servers/mcp-openimagedata
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-2. **Install dependencies:**
-
-```bash
-pip install -e ".[dev]"
-```
-
-3. **Set up environment variables:**
+### Environment Variables
 
 Create a `.env` file in the server directory:
 
@@ -108,8 +92,6 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 - Use the full path to the venv Python executable
 - Set `IMAGE_DRY_RUN=false` for real image processing
 - Ensure sufficient disk space for large TIFF files
-
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
 
 ## Available Tools
 

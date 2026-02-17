@@ -162,38 +162,9 @@ Returns: 1097 tumor samples, molecular subtypes, key mutations
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config. For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
-```bash
-cd servers/mcp-tcga
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -e ".[dev]"
-```
-
-## Configuration
-
-Add to Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
-
-```json
-{
-  "mcpServers": {
-    "tcga": {
-      "command": "/absolute/path/to/precision-medicine-mcp/servers/mcp-tcga/venv/bin/python",
-      "args": ["-m", "mcp_tcga"],
-      "cwd": "/absolute/path/to/precision-medicine-mcp/servers/mcp-tcga",
-      "env": {
-        "PYTHONPATH": "/absolute/path/to/precision-medicine-mcp/servers/mcp-tcga/src",
-        "TCGA_DRY_RUN": "true"
-      }
-    }
-  }
-}
-```
-
-**Important:** Use the full path to the venv Python executable, not just `python`. Claude Desktop requires absolute paths.
-
-For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
+**Server-specific environment variables:** `TCGA_DRY_RUN`
 
 ## DRY_RUN Mode
 

@@ -65,26 +65,9 @@ flowchart LR
 
 ### Patient Profile (Synthetic Data)
 
-**Patient ID:** PAT001-OVC-2025
-**Demographics:** Sarah Anderson (pseudonym), 58-year-old female, Caucasian
-**Diagnosis:** Stage IV High-Grade Serous Ovarian Carcinoma (HGSOC)
-**FIGO Stage:** IVB (pleural effusion, distant metastases)
-**Treatment History:**
-- Primary debulking surgery (2023)
-- First-line: Carboplatin + Paclitaxel (6 cycles) - Initial response
-- Recurrence at 8 months → Platinum-resistant disease
-- Second-line: Doxil (pegylated liposomal doxorubicin) - Partial response
-- Current status: Stable disease, considering clinical trial enrollment
+**Patient:** PAT001-OVC-2025 — Sarah Anderson, 58yo, Stage IV HGSOC, platinum-resistant, BRCA1 germline mutation.
 
-**Family History:** Mother diagnosed with breast cancer at age 52
-**Germline Status:** BRCA1 pathogenic mutation (c.5266dupC, p.Gln1756fs)
-
-**Clinical Markers:**
-- CA-125 trajectory:
-  - Diagnosis: 1,456 U/mL
-  - Post-treatment nadir: 22 U/mL
-  - Platinum-resistant recurrence: 389 U/mL
-  - Current: 289 U/mL (stable on second-line therapy)
+> **Full profile:** See [PatientOne Profile](../../shared/patientone-profile.md) for complete demographics, treatment history, genomic markers, and clinical data.
 
 ---
 

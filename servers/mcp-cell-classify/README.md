@@ -150,17 +150,7 @@ Step 4: Visualize (mcp-cell-classify)
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
-
-### Local (Development)
-
-```bash
-cd servers/mcp-cell-classify
-pip install -e ".[dev]"
-
-# Run with dry run mode
-CELL_CLASSIFY_DRY_RUN=true python -m mcp_cell_classify
-```
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
 ### Docker
 

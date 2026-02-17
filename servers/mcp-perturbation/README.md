@@ -48,43 +48,16 @@ GEARS uses graph neural networks (GNNs) combined with gene regulatory network kn
 - PyTorch >= 2.0.0
 - CUDA (optional, for GPU acceleration)
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
-### Install from Source
+### Key Dependencies
 
-```bash
-cd servers/mcp-perturbation
-pip install -e .
-
-# For development
-pip install -e ".[dev]"
-```
-
-The installation will automatically install:
-- `cell-gears` - GEARS perturbation prediction
-- `torch-geometric` - Graph neural network framework
-- `scanpy`, `anndata` - Single-cell data handling
-- Modern compatible versions of all dependencies
-
-**Installation time:** ~2-3 minutes
-**No dependency conflicts!** All packages are modern and compatible.
-
-### Dependencies
-
-Core dependencies:
 - `cell-gears` - GEARS perturbation prediction (Nature Biotech 2024)
 - `torch-geometric` - Graph neural network framework
-- `scanpy` - Single-cell analysis
-- `anndata` - Single-cell data structures
+- `scanpy`, `anndata` - Single-cell data handling
 - `torch` - Deep learning framework (PyTorch)
-- `mcp` / `fastmcp` - MCP server framework
 
-**GEARS advantages:**
-- ✅ Modern Python 3.11+ compatible
-- ✅ 40% better performance than VAE methods (Nature Biotechnology 2024)
-- ✅ Handles multi-gene perturbations
-- ✅ Integrates biological knowledge graphs
-- ✅ Active maintenance and support
+**GEARS advantages:** Modern Python 3.11+ compatible, 40% better performance than VAE methods, handles multi-gene perturbations, integrates biological knowledge graphs.
 
 ---
 

@@ -328,40 +328,9 @@ What data formats does the multi-omics server expect?
 
 ## Installation
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config. For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
-```bash
-cd servers/mcp-multiomics
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\\Scripts\\activate
-pip install -e ".[dev]"
-```
-
-## Configuration
-
-Add to Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
-
-```json
-{
-  "mcpServers": {
-    "multiomics": {
-      "command": "/absolute/path/to/precision-medicine-mcp/servers/mcp-multiomics/venv/bin/python",
-      "args": ["-m", "mcp_multiomics"],
-      "cwd": "/absolute/path/to/precision-medicine-mcp/servers/mcp-multiomics",
-      "env": {
-        "PYTHONPATH": "/absolute/path/to/precision-medicine-mcp/servers/mcp-multiomics/src",
-        "MULTIOMICS_DATA_DIR": "/absolute/path/to/data/multiomics",
-        "MULTIOMICS_CACHE_DIR": "/absolute/path/to/cache/multiomics",
-        "MULTIOMICS_DRY_RUN": "true"
-      }
-    }
-  }
-}
-```
-
-**Important:** Use the full path to the venv Python executable, not just `python`.
-
-For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
+**Server-specific environment variables:** `MULTIOMICS_DATA_DIR`, `MULTIOMICS_CACHE_DIR`, `MULTIOMICS_DRY_RUN`
 
 ## DRY_RUN Mode
 

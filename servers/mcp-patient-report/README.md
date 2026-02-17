@@ -22,12 +22,7 @@ This MCP server transforms complex genomic, spatial, and clinical analysis resul
 
 **Requires:** Python 3.11+
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
-
-```bash
-cd servers/mcp-patient-report
-pip install -e .
-```
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
 ### PDF Generation (Optional)
 

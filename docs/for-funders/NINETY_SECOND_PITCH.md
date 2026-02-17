@@ -114,10 +114,9 @@ Annual Savings:
 ### "Is this production-ready?"
 
 **Answer:**
-- ✅ 11/15 servers production-ready (fgbio, multiomics, spatialtools, epic, deepcell, perturbation, quantum-celltype-fidelity, cell-classify, openimagedata, patient-report, genomic-results)
+- ✅ 11/15 servers production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
 - ✅ 167 automated tests, 68% coverage
 - ✅ HIPAA-compliant infrastructure (de-identification, audit logging, VPC isolation)
-- ⚠️ 1 mock by design (mockepic), 3 framework/utility (tcga, huggingface, seqera)
 - **Timeline:** 6 months to full production with hospital Epic FHIR integration
 
 ### "What about security and compliance?"

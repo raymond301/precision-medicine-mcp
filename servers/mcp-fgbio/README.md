@@ -21,25 +21,9 @@ MCP server for genomic reference data using the FGbio toolkit.
 - pip package manager
 - (Optional) FGbio JAR file for full functionality
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
-### Setup
-
-1. **Create a virtual environment:**
-
-```bash
-cd servers/mcp-fgbio
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-2. **Install dependencies:**
-
-```bash
-pip install -e ".[dev]"
-```
-
-3. **Set up environment variables:**
+### Environment Variables
 
 Create a `.env` file in the server directory:
 

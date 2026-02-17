@@ -18,6 +18,8 @@ Comprehensive guide to understanding, estimating, tracking, and controlling cost
 
 ## Cost Overview
 
+> **Canonical cost reference:** See [Cost Analysis](../../reference/shared/cost-analysis.md) and [Value Proposition](../../reference/shared/value-proposition.md) for baseline per-patient costs and ROI data.
+
 ### Why Cost Management Matters
 
 **Financial Transparency:**

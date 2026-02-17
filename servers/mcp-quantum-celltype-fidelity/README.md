@@ -173,14 +173,7 @@ Export embeddings for downstream analysis.
 
 **Requires:** Python 3.11+
 
-> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for common setup steps (venv, pip install, Claude Desktop config).
-
-### Standard Installation (CPU)
-
-```bash
-cd servers/mcp-quantum-celltype-fidelity
-pip install -e .
-```
+> **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config.
 
 ### GPU Installation (CUDA + cuQuantum)
 

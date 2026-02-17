@@ -275,7 +275,7 @@ graph TD
 - FDA approval pathway for multi-modal AI/ML system unclear
 - CLIA/CAP certification expensive and time-consuming
 
-**Our Head Start:** 15 servers deployed, 80 tools, comprehensive documentation
+**Our Head Start:** 15 servers deployed, 80 tools ([Server Registry](../reference/shared/server-registry.md)), comprehensive documentation
 
 ---
 

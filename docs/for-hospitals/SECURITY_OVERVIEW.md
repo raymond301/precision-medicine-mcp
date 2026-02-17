@@ -55,6 +55,8 @@ graph TB
 
 ## Security Controls (HIPAA Compliance)
 
+> **Canonical reference:** See [HIPAA Summary](../reference/shared/hipaa-summary.md) for platform-wide compliance overview.
+
 ### 1. Network Security
 | Control | Implementation | HIPAA Requirement |
 |---------|----------------|-------------------|
