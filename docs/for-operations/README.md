@@ -38,7 +38,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 
 ### System Scope
 
-- **15 MCP Servers** (11 production, 1 mock-by-design, 3 framework/utility)
+- **MCP Servers** ([Server Registry](../reference/shared/server-registry.md)) on Cloud Run
 - **Google Cloud Platform** (Cloud Run, Healthcare API, Cloud Storage)
 - **Anthropic Claude API** (AI orchestration layer)
 - **Data Types:** Clinical (FHIR), genomic (VCF/FASTQ), multi-omics, spatial transcriptomics, imaging

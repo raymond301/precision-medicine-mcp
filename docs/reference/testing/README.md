@@ -85,9 +85,7 @@ This will:
 
 Expected output:
 ```
-Servers working: 15/15
-Total tools: 80
-🎉 All MCP servers are operational!
+All MCP servers are operational!
 ```
 
 **Time:** ~10-30 seconds
@@ -109,24 +107,7 @@ All servers require **Python 3.11+**. The install script automatically uses `pyt
 
 ### Server Test Status
 
-| Server | Tools | Status |
-|--------|-------|--------|
-| mcp-fgbio | 4 | ✅ |
-| mcp-multiomics | 10 | ✅ |
-| mcp-spatialtools | 14 | ✅ |
-| mcp-epic | 4 | ✅ |
-| mcp-mockepic | 3 | ✅ |
-| mcp-perturbation | 8 | ✅ |
-| mcp-quantum-celltype-fidelity | 6 | ✅ |
-| mcp-openimagedata | 5 | ✅ |
-| mcp-deepcell | 3 | ✅ |
-| mcp-cell-classify | 3 | ✅ |
-| mcp-patient-report | 5 | ✅ |
-| mcp-genomic-results | 4 | ✅ |
-| mcp-tcga | 5 | ✅ |
-| mcp-huggingface | 3 | ✅ |
-| mcp-seqera | 3 | ✅ |
-| **TOTAL** | **80** | **✅** |
+See [Server Registry](../shared/server-registry.md) for current server names, tool counts, and status.
 
 ---
 

@@ -32,7 +32,7 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 
 ### Key Components
 
-1. **15 MCP Servers** - Bioinformatics analysis tools (Cloud Run)
+1. **MCP Servers** — Bioinformatics analysis tools on Cloud Run ([Server Registry](../reference/shared/server-registry.md))
 2. **Streamlit UI** - Web-based chat interface
 3. **Jupyter Notebooks** - Interactive data science environment
 4. **OAuth2 Proxy** - Azure AD SSO authentication

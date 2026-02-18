@@ -44,12 +44,9 @@ The precision-medicine-mcp platform consists of 5 architectural layers:
                      ▼
 ┌──────────────────────────────────────────────────────────────┐
 │                   SERVER EXECUTION LAYER                      │
-│         15 MCP Servers (FastMCP-based)                       │
-│         • 11 production-ready (fgbio, multiomics, spatial,   │
-│           epic, deepcell, cell-classify, openimagedata,      │
-│           perturbation, quantum, patient-report,             │
-│           genomic-results)                                    │
-│         • 4 mocked (tcga, huggingface, seqera, mockepic)    │
+│         MCP Servers (FastMCP-based)                           │
+│         • Most production-ready (see Server Registry)        │
+│         • Some mocked (tcga, huggingface, seqera, mockepic) │
 └────────────────────┬─────────────────────────────────────────┘
                      │
                      ▼

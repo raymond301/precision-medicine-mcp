@@ -62,7 +62,7 @@
 
 ---
 
-## System Architecture (15 MCP Servers)
+## System Architecture ([Server Registry](../reference/shared/server-registry.md))
 
 ```mermaid
 graph TB
@@ -177,15 +177,17 @@ graph TB
 ```
 
 **Legend:**
-- ✅ **Production** (11/15): Real data, comprehensive tests, deployed
-- 🔧 **Framework** (3/15): API stubs ready for integration (tcga, huggingface, seqera)
-- 🎭 **Mock by Design** (1/15): Intentionally synthetic for demos (mockepic)
+- ✅ **Production**: Real data, comprehensive tests, deployed
+- 🔧 **Framework**: API stubs ready for integration (tcga, huggingface, seqera)
+- 🎭 **Mock by Design**: Intentionally synthetic for demos (mockepic)
+
+See [Server Registry](../reference/shared/server-registry.md) for current counts and status.
 
 ---
 
 ## Server Status Overview
 
-**Production Status:** 11/15 servers production-ready (73%), 3 fully mocked, 1 mock by design.
+**Production Status:** Most servers production-ready.
 
 **Total:** See [Server Registry](../reference/shared/server-registry.md) for current server and tool counts.
 

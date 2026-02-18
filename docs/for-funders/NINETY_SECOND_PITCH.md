@@ -114,7 +114,7 @@ Annual Savings:
 ### "Is this production-ready?"
 
 **Answer:**
-- ✅ 11/15 servers production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
+- ✅ Most servers production-ready ([Server Registry](../reference/shared/server-registry.md))
 - ✅ 167 automated tests, 68% coverage
 - ✅ HIPAA-compliant architecture (de-identification, audit logging, VPC isolation)
 - ⚠️ Validated on synthetic data only — no real-patient pilot yet

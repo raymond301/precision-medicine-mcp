@@ -8,7 +8,7 @@ Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect fo
 
 ## Features
 
-- **15 MCP Servers** - Access all deployed bioinformatics tools
+- **MCP Servers** — Access all deployed bioinformatics tools ([Server Registry](../../docs/reference/shared/server-registry.md))
 - **Group-based notebooks** - Organized by domain (imaging, genomics, clinical, workflow/ML)
 - **Shared MCPClient** - Single `mcp_utils.py` module used by all notebooks
 - **Token usage tracking** - Monitor API costs per query

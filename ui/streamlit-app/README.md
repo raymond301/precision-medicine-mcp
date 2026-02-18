@@ -406,7 +406,7 @@ The deployment script automatically sets the keys as Cloud Run environment varia
 
 ### MCP Server Configuration
 
-Server URLs are configured in `utils/mcp_config.py`. 13 of 15 servers are pre-configured with GCP Cloud Run URLs (excludes local-only mcp-epic and mcp-genomic-results).
+Server URLs are configured in `utils/mcp_config.py`. Most servers are pre-configured with GCP Cloud Run URLs (excludes local-only mcp-epic and mcp-genomic-results). See [Server Registry](../../docs/reference/shared/server-registry.md) for the full list.
 
 To add/modify servers:
 ```python

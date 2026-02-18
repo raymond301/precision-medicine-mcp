@@ -8,7 +8,7 @@
 
 - ✅ **Understand the value proposition** in under 5 minutes
 - ✅ **Review detailed ROI analysis** ($3,098-3,176 savings per patient)
-- ✅ **Evaluate technical readiness** (11 of 15 servers production-ready, 80 tools)
+- ✅ **Evaluate technical readiness** (most servers production-ready — [Server Registry](../reference/shared/server-registry.md))
 - ✅ **Assess investment tiers** ($50K pilot to $150K multi-site)
 - ✅ **Review risk assessment** (LOW technical/compliance, MEDIUM overall including adoption and vendor dependency)
 - ✅ **Access demo materials** for presentations and grant applications
@@ -40,7 +40,7 @@
 
 ### Technical Validation
 - **[Executive Summary](EXECUTIVE_SUMMARY.md)** - System architecture, capabilities, deployment timeline
-- **[Server Status](../reference/shared/server-registry.md)** - Implementation status for all 15 servers
+- **[Server Status](../reference/shared/server-registry.md)** - Implementation status for all servers
 - **[Testing Coverage](../../tests/README.md)** - 167 automated tests, 68% coverage
 
 ### Compliance & Risk
@@ -72,7 +72,7 @@
 | Tier | Investment | Timeline | Deliverable |
 |------|-----------|----------|-------------|
 | **Pilot** | $50,000 | 6 months | 3 production servers, 100 patients, training |
-| **Production** | $75,000/year | 12 months | 15 servers, 500 patients, Epic integration |
+| **Production** | $75,000/year | 12 months | All servers, 500 patients, Epic integration |
 | **Multi-Site** | $150,000/year | 18 months | 3-5 hospitals, 2,500+ patients, IRB support |
 
 ---

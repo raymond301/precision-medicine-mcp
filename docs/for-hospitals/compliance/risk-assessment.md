@@ -63,7 +63,7 @@ This document summarizes the risk mitigation work completed for the Precision Me
 - **R3:** 9/10 → 4/10 (44% reduction)
 
 **Key Metrics:**
-- 11/15 servers production-ready
+- Most servers production-ready ([Server Registry](../../reference/shared/server-registry.md))
 - 3/15 framework/utility, 1/15 mock by design
 - Clear documentation prevents accidental deployment
 
@@ -513,7 +513,7 @@ For clinical decisions, consult qualified healthcare provider.
 ### Challenges Faced
 1. **Inherent AI Risks** - Some risks (R1, R2) cannot be fully eliminated
 2. **Enforcement Limitations** - Policies require institutional enforcement
-3. **Mocked Server Limitations** - 4/15 servers not production-ready (3 framework + 1 mock-by-design)
+3. **Mocked Server Limitations** - Some servers not production-ready (see [Server Registry](../../reference/shared/server-registry.md))
 4. **User Behavior** - Cannot control whether users follow guidelines
 
 ### Recommendations for Future Work

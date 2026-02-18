@@ -546,7 +546,7 @@ def get_optimization_recommendations(server_metrics: Dict) -> List[str]:
 ### LiveServerMonitor
 
 ```python
-# Health polling (async, all 18 services in parallel: 15 MCP + 3 Streamlit)
+# Health polling (async, all services in parallel: MCP servers + Streamlit clients)
 def get_live_health() -> Dict[str, Dict]:
     """Sync entry-point.  Returns {server_name: {status, latency_ms, checked_at, error, http_code}}."""
 

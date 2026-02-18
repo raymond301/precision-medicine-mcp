@@ -23,7 +23,7 @@ API key and secrets management, GCP Secret Manager integration.
 ```
 
 **Current Status:**
-- **Deployed:** 14/15 servers on GCP Cloud Run (all except mcp-epic which is local-only)
+- **Deployed:** All servers on GCP Cloud Run except mcp-epic (local-only) — see [Server Registry](../../shared/server-registry.md)
 - **Mode:** Development (public) + Production (epic - private)
 - **Region:** us-central1
 

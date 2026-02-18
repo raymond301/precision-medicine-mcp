@@ -232,7 +232,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 
 **Cons:**
 - Requires initial infrastructure setup (GCP org + Azure AD prerequisites may add 3-6 months)
-- 3 framework/utility servers + 1 mock by design (need real API access)
+- Some servers mocked or framework/utility (need real API access — see [Server Registry](../reference/shared/server-registry.md))
 - Not yet FDA-approved or clinically validated on real patient data
 - Depends on commercial AI APIs (Claude/Gemini) — mitigated by dual-provider support
 - Cost savings are modeled projections, not yet measured in production

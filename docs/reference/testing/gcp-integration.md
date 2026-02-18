@@ -1,6 +1,6 @@
 # GCP MCP Server Test Plan
 
-Simple functional tests for all 14 deployed MCP servers.
+Simple functional tests for all deployed MCP servers ([Server Registry](../shared/server-registry.md)).
 
 ---
 

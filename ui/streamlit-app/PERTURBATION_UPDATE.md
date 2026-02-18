@@ -33,7 +33,7 @@ Added the new mcp-perturbation server to the Streamlit MCP Chat UI, making GEARS
 }
 ```
 
-**Server count:** 14 → 15 servers
+**Server count:** Updated (see [Server Registry](../../docs/reference/shared/server-registry.md))
 **Production servers:** 3 → 4 servers (fgbio, multiomics, spatialtools, perturbation)
 
 ### 2. Added Example Prompts

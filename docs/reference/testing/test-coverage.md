@@ -10,8 +10,8 @@
 |--------|-------|--------|
 | **Overall Coverage** | 56.9% | ⬆️ +27.5 points from baseline |
 | **Automated Tests** | 167+ | ✅ All servers tested |
-| **Production Ready** | 11/15 servers | mcp-multiomics, mcp-fgbio, mcp-spatialtools, mcp-epic, mcp-deepcell, mcp-cell-classify, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-openimagedata, mcp-patient-report, mcp-genomic-results |
-| **GCP Deployed** | 14/15 servers | ✅ All validated on Cloud Run (mcp-epic local only) |
+| **Production Ready** | See [Server Registry](../shared/server-registry.md) | Most servers production-ready |
+| **GCP Deployed** | See [Server Registry](../shared/server-registry.md) | All validated on Cloud Run (mcp-epic local only) |
 
 ---
 
@@ -19,19 +19,21 @@
 
 📋 **[See Server Status →](../../../servers/README.md#-server-status)** - Complete server status and implementation details
 
-| Server | Coverage | Tests | Status | Production Ready |
-|--------|----------|-------|--------|------------------|
-| 🧬 **mcp-fgbio** | 77% | 29 | ✅ Complete | ✅ YES (95% real) |
-| 🔬 **mcp-multiomics** | 68% | 91 | ✅ Complete | ✅ YES (95% real) |
-| 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke | ✅ YES (100% real) |
-| 🤖 **mcp-huggingface** | 56% | 12 | ✅ Smoke | ❌ Mocked |
-| ⚙️ **mcp-seqera** | 56% | 6 | ✅ Smoke | ❌ Mocked |
-| 🏥 **mcp-epic** | 58% | 12 | ✅ Complete | ✅ YES (100% real) |
-| 🖼️ **mcp-openimagedata** | 55% | 30 | ✅ Full | ✅ YES (100% real) |
-| 🧪 **mcp-tcga** | 35% | 5 | ✅ Smoke | ❌ Mocked |
-| 📍 **mcp-spatialtools** | 23% | 5 | ✅ Smoke | ✅ YES (95% real) |
-| 🔬 **mcp-cell-classify** | — | — | ✅ Smoke | ✅ YES (100% real) |
-| 🧬 **mcp-genomic-results** | — | 20 | ✅ Smoke | ✅ YES (100% real) |
+| Server | Coverage | Tests | Status |
+|--------|----------|-------|--------|
+| 🧬 **mcp-fgbio** | 77% | 29 | ✅ Complete |
+| 🔬 **mcp-multiomics** | 68% | 91 | ✅ Complete |
+| 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke |
+| 🤖 **mcp-huggingface** | 56% | 12 | ✅ Smoke |
+| ⚙️ **mcp-seqera** | 56% | 6 | ✅ Smoke |
+| 🏥 **mcp-epic** | 58% | 12 | ✅ Complete |
+| 🖼️ **mcp-openimagedata** | 55% | 30 | ✅ Full |
+| 🧪 **mcp-tcga** | 35% | 5 | ✅ Smoke |
+| 📍 **mcp-spatialtools** | 23% | 5 | ✅ Smoke |
+| 🔬 **mcp-cell-classify** | — | — | ✅ Smoke |
+| 🧬 **mcp-genomic-results** | — | 20 | ✅ Smoke |
+
+For production readiness status, see [Server Registry](../shared/server-registry.md).
 
 **Note:** Low test coverage ≠ low production readiness. mcp-spatialtools has 23% coverage but is 95% production-ready with real implementations.
 

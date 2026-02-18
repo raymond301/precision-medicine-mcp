@@ -11,7 +11,7 @@ This is your central navigation hub for all documentation. Use this index to qui
 Canonical single-source-of-truth documents referenced across the repository:
 
 - **[PatientOne Profile](reference/shared/patientone-profile.md)** - Clinical profile, genomic findings, data locations
-- **[Platform Overview](reference/shared/README.md)** - 15 servers, 80 tools, architecture summary
+- **[Platform Overview](reference/shared/README.md)** - Servers, tools, architecture summary
 - **[Server Registry](reference/shared/server-registry.md)** - Server/tool counts, production readiness
 - **[Value Proposition](reference/shared/value-proposition.md)** - 40 hours → 2-5 hours (production), cost savings, ROI
 - **[Cost Analysis](reference/shared/cost-analysis.md)** - Per-patient costs, infrastructure, scaling projections
@@ -68,7 +68,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 - **[Cost and Budget Management](./for-hospitals/operations/cost-and-budget.md)** - Cost estimation, tracking, and optimization
 - **[Data Governance](./for-hospitals/compliance/data-governance.md)** - Data handling policies and procedures
-- **[Live Monitoring Dashboard](../ui/dashboard/README.md)** - Real-time health monitoring for 15 MCP servers + 3 Streamlit clients, token usage tracking, cost optimization
+- **[Live Monitoring Dashboard](../ui/dashboard/README.md)** - Real-time health monitoring for MCP servers + Streamlit clients, token usage tracking, cost optimization
 
 ---
 
@@ -209,7 +209,7 @@ precision-medicine-mcp/
 │   ├── docker/             # Base Docker images for Cloud Run
 │   ├── audit/              # Bias detection and audit tools
 │   └── hospital-deployment/  # Hospital-specific infrastructure
-├── servers/                # 15 MCP servers + boilerplate template (Python)
+├── servers/                # MCP servers + boilerplate template (Python)
 │   ├── mcp-cell-classify/  # Cell phenotype classification
 │   ├── mcp-deepcell/       # Cell segmentation
 │   ├── mcp-epic/           # Epic FHIR integration

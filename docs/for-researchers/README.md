@@ -252,13 +252,13 @@ to identify concordant pathway activations.
 
 > **Full server details:** See [Platform Overview](../reference/shared/README.md) for the complete server status matrix.
 
-**Quick Summary:** 11/15 servers production-ready, 1 mock by design, 3 framework/utility.
+**Quick Summary:** Most servers production-ready.
 
 📋 **[See Server Registry →](../reference/shared/server-registry.md)** for complete status matrix, tool-by-tool details, test coverage, and DRY_RUN mode behavior.
 
 ### Production Roadmap
 
-**Current:** 11 production-ready servers (fgbio, multiomics, spatialtools, epic, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, openimagedata, patient-report, genomic-results)
+**Current:** Most servers production-ready — see [Server Registry](../reference/shared/server-registry.md) for details
 
 **Next (3-6 months):**
 - mcp-tcga: Integrate real GDC API for TCGA cohort data

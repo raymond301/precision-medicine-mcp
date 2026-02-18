@@ -6,7 +6,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 ## Elevator Pitch (30 seconds)
 
-> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 2-5 hours, with modeled savings of ~$3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform reduces the minimum team size from ~10 FTEs to ~3, making precision oncology feasible for community hospitals. It's been validated end-to-end on synthetic data with 11 of 15 servers production-ready and HIPAA-compliant architecture. We're seeking [$ AMOUNT] to run a clinical pilot at [INSTITUTION] to validate cost savings and clinical concordance with real patient data."
+> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 2-5 hours, with modeled savings of ~$3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform reduces the minimum team size from ~10 FTEs to ~3, making precision oncology feasible for community hospitals. It's been validated end-to-end on synthetic data with most servers production-ready and HIPAA-compliant architecture. We're seeking [$ AMOUNT] to run a clinical pilot at [INSTITUTION] to validate cost savings and clinical concordance with real patient data."
 
 ---
 
@@ -33,7 +33,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 1. **Natural Language Orchestration**
    - First platform to use AI (Claude API) to orchestrate bioinformatics servers
    - Clinicians describe what they need in English, not code
-   - AI automatically coordinates 15 specialized servers
+   - AI automatically coordinates specialized MCP servers
 
 2. **True Multi-Modal Integration**
    - Only platform integrating **5 data modalities** in single analysis:
@@ -93,7 +93,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 ### Technical Validation
 
 **System Status:**
-- ✅ **15 servers deployed** on GCP Cloud Run — 11 production-ready, 1 local-only (Epic FHIR), 1 mock by design, 3 framework/utility ([Server Registry](../reference/shared/server-registry.md))
+- ✅ **MCP servers deployed** on GCP Cloud Run — most production-ready ([Server Registry](../reference/shared/server-registry.md))
 - ✅ **End-to-end workflow** validated with synthetic PatientOne ovarian cancer case
 - ⚠️ Not yet validated on real patient data — clinical pilot is the proposed next step
 
@@ -240,7 +240,7 @@ Compare to traditional: 40 hours, $6,000
 - No existing solution integrates all 5 data modalities with natural language interface
 
 **2. Technically De-Risked**
-- 11/15 servers production-ready, deployed and tested on GCP Cloud Run
+- Most servers production-ready, deployed and tested on GCP Cloud Run ([Server Registry](../reference/shared/server-registry.md))
 - 167 automated tests demonstrate technical maturity
 - PatientOne synthetic case study validates end-to-end workflow
 - Dual AI provider support (Claude + Gemini) mitigates vendor dependency
@@ -269,7 +269,7 @@ Compare to traditional: 40 hours, $6,000
 
 **Background:** Comprehensive precision medicine requires integrating clinical (EHR), genomic, multi-omic, spatial transcriptomic, and imaging data—a process that takes 40 hours and $6,000-9,000 per patient, creating a clinical bottleneck. Commercial alternatives (Foundation Medicine, Tempus) cost $3,000-7,500 but analyze genomics only, missing critical spatial and imaging context.
 
-**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 2-5 hours (production) at a projected $324-702/patient — modeled savings of ~$3,137 per patient with true multi-modal integration. Clinicians use natural language to query 15 specialized bioinformatics servers, and AI (Claude or Gemini) automatically orchestrates data retrieval, analysis, and reporting. The platform has 11 production-ready servers (80 tools total), HIPAA-compliant architecture, and has been validated end-to-end on synthetic data. DRY_RUN demos complete in 25-35 minutes.
+**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 2-5 hours (production) at a projected $324-702/patient — modeled savings of ~$3,137 per patient with true multi-modal integration. Clinicians use natural language to query specialized bioinformatics MCP servers, and AI (Claude or Gemini) automatically orchestrates data retrieval, analysis, and reporting. The platform has most servers production-ready ([Server Registry](../reference/shared/server-registry.md)), HIPAA-compliant architecture, and has been validated end-to-end on synthetic data. DRY_RUN demos complete in 25-35 minutes.
 
 **Preliminary Data:** PatientOne case study (Stage IV ovarian cancer, synthetic data) demonstrated end-to-end DRY_RUN workflow in 25-35 minutes, identifying actionable targets (BRCA1 variant, PI3K/AKT/mTOR pathway activation, immune microenvironment exhaustion) and treatment recommendations (olaparib, everolimus, checkpoint inhibitors) consistent with clinical guidelines.
 

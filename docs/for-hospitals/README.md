@@ -96,7 +96,7 @@
 **Deliverable:** Test queries working with synthetic data
 
 ### Month 3-4: Pilot Deployment
-- [ ] Deploy all 15 servers
+- [ ] Deploy all servers ([Server Registry](../reference/shared/server-registry.md))
 - [ ] Epic FHIR production connection (read-only)
 - [ ] 10-20 test patients analyzed
 - [ ] User training (5 pilot users: 2 clinicians, 3 bioinformaticians)

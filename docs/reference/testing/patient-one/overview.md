@@ -160,7 +160,7 @@ How do we integrate:
 
 ## MCP Server Orchestration
 
-### How All 15 Servers Contribute
+### How MCP Servers Contribute
 
 | Workflow Stage | MCP Servers Engaged | Tools Used | Output |
 |---|---|---|---|

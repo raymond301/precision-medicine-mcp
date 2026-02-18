@@ -13,7 +13,7 @@ import getpass
 import anthropic
 
 # ---------------------------------------------------------------------------
-# Server configuration -- all 14 deployed MCP servers on GCP Cloud Run
+# Server configuration -- deployed MCP servers on GCP Cloud Run
 # ---------------------------------------------------------------------------
 
 MCP_SERVERS: Dict[str, Dict[str, Any]] = {

@@ -297,26 +297,7 @@ After installation, you have access to the following **MCP servers**:
 
 📋 **[Complete Server Status](../reference/shared/server-registry.md)** - Detailed capabilities matrix
 
-**Quick Reference:**
-
-- ✅ **spatialtools** - Spatial transcriptomics (14 tools)
-- ✅ **multiomics** - RNA/Protein/Phospho integration (10 tools)
-- ✅ **fgbio** - Reference genomes, VCF/FASTQ (4 tools)
-- ✅ **epic** - GCP Healthcare API FHIR integration (4 tools)
-- ✅ **perturbation** - Perturbation prediction (8 tools)
-- ✅ **quantum-celltype-fidelity** - Quantum cell type fidelity (6 tools)
-- ✅ **openimagedata** - Histology image processing (5 tools)
-- ✅ **patient-report** - PDF report generation (5 tools)
-- ✅ **genomic-results** - Somatic variant/CNV parsing (4 tools)
-- ✅ **deepcell** - Cell segmentation (3 tools)
-- ✅ **cell-classify** - Cell phenotype classification (3 tools)
-- 🟡 **tcga, huggingface, seqera** - Mocked (available in DRY_RUN mode)
-- 🔵 **mockepic** - Synthetic FHIR for demos (mock by design)
-
-**Legend:**
-- ✅ **Production** = Real data mode, fully functional (11 servers)
-- 🟡 **Mocked** = DRY_RUN only, pending real API integration (3 servers)
-- 🔵 **Mock by design** = Synthetic data for testing/demos (1 server)
+See [Server Registry](../reference/shared/server-registry.md) for all servers, tool counts, and production status.
 
 ### Example 1: Analyze Patient-001 (Complete Workflow)
 

@@ -4,7 +4,7 @@
 
 The **Precision Medicine MCP System** is an AI-orchestrated platform integrating clinical (FHIR), genomic, spatial transcriptomics, and imaging data for precision oncology research. Built on the Model Context Protocol (MCP), this system enables AI to orchestrate complex multi-omics analyses while maintaining HIPAA compliance and cost efficiency.
 
-**Status:** POC validated on synthetic data; 11 of 15 servers production-ready; 6-month deployment path to hospital pilot
+**Status:** POC validated on synthetic data; most servers production-ready ([Server Registry](../reference/shared/server-registry.md)); 6-month deployment path to hospital pilot
 
 ---
 
@@ -20,7 +20,7 @@ graph LR
         LLM[Claude or Gemini]
     end
 
-    subgraph Servers["15 MCP Servers · 80 Tools"]
+    subgraph Servers["MCP Servers & Tools"]
         direction TB
         IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
         GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
@@ -43,9 +43,9 @@ graph LR
 ```
 
 **Key Points:**
-- **AI Orchestration**: Claude + Gemini 3 AI coordinates 15 MCP servers via natural language
-- **80 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
-- **Production Ready**: 11 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
+- **AI Orchestration**: Claude + Gemini 3 AI coordinates MCP servers via natural language ([Server Registry](../reference/shared/server-registry.md))
+- **Specialized Tools**: Bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
+- **Production Ready**: Most servers deployed to Cloud Run; 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
 - **Cost Efficient**: $24-104 compute per analysis; $324-702 total per patient including personnel (see Financial Summary)
 
 ---
@@ -61,7 +61,7 @@ graph LR
 - Enables community hospitals and mid-size cancer centers to offer precision oncology programs that previously required large academic medical center teams
 
 **For Bioinformaticians:**
-- Unified platform for 80 bioinformatics tools across 15 MCP servers
+- Unified platform for bioinformatics tools across MCP servers ([Server Registry](../reference/shared/server-registry.md))
 - Natural language interface reduces manual pipeline coding (bioinformatician oversight still required for clinical interpretation)
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -89,7 +89,7 @@ graph LR
 
 ## Technical Capabilities
 
-**15 MCP Servers (80 tools):** 11 production-ready, 1 mock by design, 3 framework/utility.
+**MCP Servers and Tools** ([Server Registry](../reference/shared/server-registry.md)): most production-ready, 1 mock by design, 3 framework/utility.
 
 > **Full server details:** See [Server Registry](../reference/shared/server-registry.md) for the complete server status matrix.
 
@@ -107,13 +107,13 @@ graph LR
 - ✅ Built-in de-identification (HIPAA Safe Harbor method)
 - ✅ 10-year audit log retention
 - ✅ VPC isolation, encrypted secrets, Azure AD SSO
-- ⚠️ Epic FHIR integration (mcp-epic) runs local-only, not on Cloud Run — PHI never leaves the hospital network. This is by design but requires separate infrastructure from the other 14 servers.
+- ⚠️ Epic FHIR integration (mcp-epic) runs local-only, not on Cloud Run — PHI never leaves the hospital network. This is by design but requires separate infrastructure from the other servers.
 
 > **Full HIPAA documentation:** See [HIPAA Summary](../reference/shared/hipaa-summary.md) and [for-hospitals compliance docs](../for-hospitals/compliance/hipaa.md).
 
 ### Deployment Timeline (6 Months)
 - **Month 1-2**: Infrastructure setup, Azure AD SSO, core 3 servers, Epic FHIR integration
-- **Month 3-4**: All 15 servers deployed, 10-20 test patients, user training, security audit
+- **Month 3-4**: All servers deployed, 10-20 test patients, user training, security audit
 - **Month 5-6**: Monitoring/alerting, compliance validation, knowledge transfer, production launch (100 patients)
 
 ### Requirements
@@ -167,7 +167,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 **What has been validated:**
 - End-to-end workflow on synthetic data (PatientOne: PAT001-OVC-2025, 100% synthetic)
-- 11 of 15 MCP servers passing automated test suites
+- Most MCP servers passing automated test suites ([Server Registry](../reference/shared/server-registry.md))
 - Cloud Run deployment and scaling on GCP
 - Dual-provider orchestration (Claude and Gemini both calling MCP tools)
 - DRY_RUN mode for safe testing without real data or costly compute

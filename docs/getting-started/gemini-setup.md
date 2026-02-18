@@ -133,7 +133,7 @@ Once mockepic works, add servers to `~/.gemini/settings.json` one at a time. Sta
 }
 ```
 
-For the full list of all 15 servers and their environment variables, see the [Claude Desktop config template](desktop-configs/claude_desktop_config.template.json) — the server names, args, and env vars are identical for Gemini.
+For the full list of all servers and their environment variables, see the [Claude Desktop config template](desktop-configs/claude_desktop_config.template.json) — the server names, args, and env vars are identical for Gemini.
 
 ---
 
@@ -277,7 +277,7 @@ For instructors setting up a study group on corporate Macs:
 
 ## Related Documentation
 
-- **[Server Registry](../reference/shared/server-registry.md)** — All 15 servers with tool counts
+- **[Server Registry](../reference/shared/server-registry.md)** — All servers with tool counts
 - **[DRY_RUN Mode](../reference/shared/dry-run-mode.md)** — How mock mode works
 - **[Claude Desktop Configs](desktop-configs/README.md)** — Server config template (same env vars work for Gemini)
 - **[Installation Guide](installation.md)** — Claude-specific setup

@@ -10,7 +10,7 @@ The Precision Medicine MCP Platform reduces multi-omics precision medicine analy
 
 **The Problem:** Stage IV ovarian cancer patients face platinum resistance with limited treatment options. Comprehensive multi-omics analysis (genomics + spatial transcriptomics + imaging) could identify personalized targets, but the 40-hour manual analysis time makes it clinically impractical.
 
-**This Solution:** AI (Claude + Gemini 3) orchestrates 15 specialized bioinformatics servers via natural language, completing production analysis in 2-5 hours (vs. 40 hours traditional).
+**This Solution:** AI (Claude + Gemini 3) orchestrates specialized bioinformatics MCP servers ([Server Registry](../reference/shared/server-registry.md)) via natural language, completing production analysis in 2-5 hours (vs. 40 hours traditional).
 
 > **Detailed metrics:** See [Value Proposition](../reference/shared/value-proposition.md) for complete ROI analysis.
 
@@ -107,7 +107,7 @@ graph LR
 ## Technical Validation
 
 ### Technical Readiness
-- ✅ **15 MCP servers deployed** — 11 production-ready, 1 local-only (Epic FHIR), 1 mock by design, 3 framework/utility ([Server Registry](../reference/shared/server-registry.md))
+- ✅ **MCP servers deployed** — most production-ready ([Server Registry](../reference/shared/server-registry.md))
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
 - ✅ **HIPAA-compliant architecture** ready (de-identification, audit logging, VPC isolation)
 - ✅ **End-to-end workflow** validated with synthetic PatientOne ovarian cancer case

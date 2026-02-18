@@ -13,7 +13,7 @@ This folder contains configuration files for connecting Claude Desktop to the Pr
 **Purpose:** Production-ready configuration with full absolute paths to all MCP servers.
 
 **Contains:**
-- All 15 MCP servers (fgbio, spatialtools, openimagedata, seqera, genomic-results, huggingface, mockepic, tcga, multiomics, patient-report, deepcell, cell-classify, epic, perturbation, quantum-celltype-fidelity)
+- All MCP servers ([Server Registry](../../../docs/reference/shared/server-registry.md))
 - Uses `uv run --directory` syntax (no manual venv setup needed)
 - All required environment variables
 - DRY_RUN mode enabled by default for quick & safe testing
@@ -34,7 +34,7 @@ cp claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_deskt
 **Purpose:** Template for other users or different installations.
 
 **Contains:**
-- Same structure as the main config (all 15 servers)
+- Same structure as the main config (all servers)
 - Uses `uv run --directory` syntax (same as main config)
 - Placeholder paths: `/ABSOLUTE/PATH/TO/spatial-mcp/...`
 
