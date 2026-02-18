@@ -299,13 +299,24 @@ After installation, you have access to the following **MCP servers**:
 
 **Quick Reference:**
 
-- ✅ **spatialtools** - Spatial transcriptomics analysis (14 tools, 95% real implementation)
-- ✅ **epic** - GCP Healthcare API FHIR integration (4 tools, 100% real)
-- 🟡 **fgbio, multiomics, tcga, openimagedata, seqera, huggingface, deepcell, mockepic** - Available in DRY_RUN mode
+- ✅ **spatialtools** - Spatial transcriptomics (14 tools)
+- ✅ **multiomics** - RNA/Protein/Phospho integration (10 tools)
+- ✅ **fgbio** - Reference genomes, VCF/FASTQ (4 tools)
+- ✅ **epic** - GCP Healthcare API FHIR integration (4 tools)
+- ✅ **perturbation** - Perturbation prediction (8 tools)
+- ✅ **quantum-celltype-fidelity** - Quantum cell type fidelity (6 tools)
+- ✅ **openimagedata** - Histology image processing (5 tools)
+- ✅ **patient-report** - PDF report generation (5 tools)
+- ✅ **genomic-results** - Somatic variant/CNV parsing (4 tools)
+- ✅ **deepcell** - Cell segmentation (3 tools)
+- ✅ **cell-classify** - Cell phenotype classification (3 tools)
+- 🟡 **tcga, huggingface, seqera** - Mocked (available in DRY_RUN mode)
+- 🔵 **mockepic** - Synthetic FHIR for demos (mock by design)
 
 **Legend:**
-- ✅ **ACTIVE** = Real data mode, fully functional
-- 🟡 **DRY_RUN** = Mock mode for testing
+- ✅ **Production** = Real data mode, fully functional (11 servers)
+- 🟡 **Mocked** = DRY_RUN only, pending real API integration (3 servers)
+- 🔵 **Mock by design** = Synthetic data for testing/demos (1 server)
 
 ### Example 1: Analyze Patient-001 (Complete Workflow)
 
