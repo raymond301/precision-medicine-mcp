@@ -184,6 +184,7 @@ Complete directory structure showing all major components:
 ```
 precision-medicine-mcp/
 ├── ACKNOWLEDGMENTS.md      # Credits & scientific references
+├── CLAUDE.md               # Claude Code project context
 ├── LICENSE                 # Apache 2.0 License
 ├── README.md               # Main repository README
 ├── llms.txt                # LLM-readable project summary
@@ -232,7 +233,7 @@ precision-medicine-mcp/
 │   ├── schemas/            # JSON schemas (CitL review, etc.)
 │   └── utils/              # Helper functions
 ├── results/                # Analysis output files
-├── tests/                  # 167 automated tests
+├── tests/                  # Automated tests (unit, integration, verification)
 └── ui/                     # User interfaces
     ├── streamlit-app/      # Main Streamlit chat interface
     ├── streamlit-app-students/ # Student/classroom version
