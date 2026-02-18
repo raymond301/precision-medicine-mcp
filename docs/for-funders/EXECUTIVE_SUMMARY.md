@@ -217,7 +217,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 ## Competitive Advantages
 
-**vs. Traditional Pipelines:** Natural language interface, 10x faster (estimated), improved reproducibility through automated orchestration, built-in HIPAA compliance
+**vs. Traditional Pipelines:** Natural language interface, 8-20x faster (estimated), improved reproducibility through automated orchestration, built-in HIPAA compliance
 
 **vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction ($24-104 vs. $300-500/analysis), multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
 
