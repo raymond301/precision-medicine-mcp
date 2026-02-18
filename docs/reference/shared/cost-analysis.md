@@ -17,7 +17,7 @@
 | TEST_3: Spatial Transcriptomics | 4-6 min | ~$0.20 | 45-90 min | $8-17 |
 | TEST_4: Histology & Imaging | 3-5 min | ~$0.15 | 40-90 min | $10-36 |
 | TEST_5: Integrated Report | 5-8 min | ~$0.25 | 15-30 min | $5-12 |
-| **TOTAL** | **25-35 min** | **~$1** | **2-5 hours** | **$31-88** |
+| **TOTAL** | **25-35 min** | **~$1** | **An estimated 2-5 hours** | **$31-88** |
 
 ## Monthly Infrastructure Costs
 
