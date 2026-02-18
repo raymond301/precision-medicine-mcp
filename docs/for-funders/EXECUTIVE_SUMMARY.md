@@ -2,9 +2,9 @@
 
 ## Overview
 
-The **Precision Medicine MCP System** is a production-ready AI-orchestrated platform integrating clinical (FHIR), genomic, spatial transcriptomics, and imaging data for precision oncology research. Built on the Model Context Protocol (MCP), this system enables AI to orchestrate complex multi-omics analyses while maintaining HIPAA compliance and cost efficiency.
+The **Precision Medicine MCP System** is an AI-orchestrated platform integrating clinical (FHIR), genomic, spatial transcriptomics, and imaging data for precision oncology research. Built on the Model Context Protocol (MCP), this system enables AI to orchestrate complex multi-omics analyses while maintaining HIPAA compliance and cost efficiency.
 
-**Status:** POC complete, production-ready for hospital deployment
+**Status:** POC validated on synthetic data; 11 of 15 servers production-ready; 6-month deployment path to hospital pilot
 
 ---
 
@@ -46,21 +46,23 @@ graph LR
 - **AI Orchestration**: Claude + Gemini 3 AI coordinates 15 MCP servers via natural language
 - **80 Tools**: Specialized bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
 - **Production Ready**: 11 servers deployed to Cloud Run, 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
-- **Cost Efficient**: ~$24-102 per analysis (includes compute, APIs, Claude tokens)
+- **Cost Efficient**: $24-104 compute per analysis; $324-702 total per patient including personnel (see Financial Summary)
 
 ---
 
 ## Value Proposition
 
 **For Research Hospitals:**
+- Reduce minimum viable precision medicine team from ~10 FTEs to ~3 (2 clinicians + 1-2 bioinformaticians)
 - Reduce multi-omics analysis time from weeks to hours
-- $3,137 average savings per patient vs. traditional manual analysis
+- $3,137 average savings per patient vs. traditional manual analysis (see cost breakdown below)
 - HIPAA-compliant with built-in de-identification and 10-year audit logging
 - Scalable from 100-patient pilot to institutional biobank
+- Enables community hospitals and mid-size cancer centers to offer precision oncology programs that previously required large academic medical center teams
 
 **For Bioinformaticians:**
 - Unified platform for 80 bioinformatics tools across 15 MCP servers
-- Natural language interface eliminates manual pipeline coding
+- Natural language interface reduces manual pipeline coding (bioinformatician oversight still required for clinical interpretation)
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
 - Domain-organized Jupyter notebooks (imaging, genomics, clinical, workflow/ML) for interactive analysis
@@ -70,8 +72,16 @@ graph LR
 ## Financial Summary
 
 **Payback Period:** First 2-3 patients analyzed | **Annual ROI:** ~$313K (100 patients), ~$1.6M (500 patients)
-**Per-Patient Cost:** $324-702 (vs. $6,000-9,000 traditional) — ~$3,137 average savings
-**Production Compute:** $24-104 per analysis (includes compute, APIs, Claude tokens)
+
+**Per-Patient Cost Breakdown:**
+
+| Component | Cost | What It Covers |
+|-----------|------|----------------|
+| **Compute + AI tokens** | $24-104 | Cloud Run, Claude/Gemini API calls per analysis |
+| **Personnel + overhead** | $300-600 | Bioinformatician review, clinical interpretation, reporting |
+| **Total per patient** | $324-702 | Full analysis cycle (vs. $6,000-9,000 traditional) |
+
+**Average savings:** ~$3,137 per patient. Note: Savings estimates are modeled, not yet validated in a clinical pilot (see Validation Status below).
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed breakdowns and [ROI Analysis](ROI_ANALYSIS.md) for investment tier returns.
 
@@ -97,6 +107,7 @@ graph LR
 - ✅ Built-in de-identification (HIPAA Safe Harbor method)
 - ✅ 10-year audit log retention
 - ✅ VPC isolation, encrypted secrets, Azure AD SSO
+- ⚠️ Epic FHIR integration (mcp-epic) runs local-only, not on Cloud Run — PHI never leaves the hospital network. This is by design but requires separate infrastructure from the other 14 servers.
 
 > **Full HIPAA documentation:** See [HIPAA Summary](../reference/shared/hipaa-summary.md) and [for-hospitals compliance docs](../for-hospitals/compliance/hipaa.md).
 
@@ -106,7 +117,13 @@ graph LR
 - **Month 5-6**: Monitoring/alerting, compliance validation, knowledge transfer, production launch (100 patients)
 
 ### Requirements
-- Existing HIPAA-compliant GCP organization ✓
+
+**Prerequisites (must exist before the 6-month timeline starts):**
+- Existing HIPAA-compliant GCP organization (if not in place, add 3-6 months)
+- Azure AD federation configured for SSO
+- Epic integration team available for FHIR API access
+
+**Deployment resources:**
 - Dedicated GCP project (~$1,000/month)
 - Hospital IT, Azure AD admin, Epic integration team coordination
 - 5 pilot users: 2 clinicians, 3 bioinformaticians
@@ -115,11 +132,12 @@ graph LR
 
 ## Risk Assessment
 
-- **Technical Risks:** LOW - Auto-scaling, fallback to mock data, comprehensive error handling
-- **Financial Risks:** LOW - Daily monitoring, cost alerts at 80%, model optimization (Haiku)
-- **Compliance Risks:** LOW - Built-in de-identification, audit logging, VPC isolation, encrypted secrets
-- **Adoption Risks:** MEDIUM - Mitigated through extensive training, Streamlit UI for clinicians, Jupyter for bioinformaticians
-- **Overall Risk:** LOW - Technical and compliance risks well-mitigated; adoption risks addressable
+- **Technical Risks:** LOW — Auto-scaling, fallback to mock data, comprehensive error handling
+- **Financial Risks:** LOW — Daily monitoring, cost alerts at 80%, model optimization (Haiku)
+- **Compliance Risks:** LOW — Built-in de-identification, audit logging, VPC isolation, encrypted secrets
+- **AI Vendor Dependency:** MEDIUM — The orchestration layer depends on commercial APIs from Anthropic (Claude) and Google (Gemini). Mitigations: dual-provider support (if one changes pricing or deprecates models, the other provides fallback), MCP server layer is provider-agnostic (servers work with any LLM that supports tool calling), and no PHI is sent to AI providers (only de-identified data)
+- **Adoption Risks:** MEDIUM-HIGH — Multi-stakeholder hospital coordination (IT, Azure AD admins, Epic team, clinicians, bioinformaticians) is historically the top failure mode for health IT projects. Mitigated through phased rollout, Streamlit UI for clinicians, Jupyter for bioinformaticians, and dedicated training sessions
+- **Overall Risk:** MEDIUM — Technical and compliance risks well-mitigated; adoption and vendor dependency require active management
 
 ---
 
@@ -145,6 +163,41 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 ---
 
+## Validation Status
+
+**What has been validated:**
+- End-to-end workflow on synthetic data (PatientOne: PAT001-OVC-2025, 100% synthetic)
+- 11 of 15 MCP servers passing automated test suites
+- Cloud Run deployment and scaling on GCP
+- Dual-provider orchestration (Claude and Gemini both calling MCP tools)
+- DRY_RUN mode for safe testing without real data or costly compute
+
+**What has NOT yet been validated:**
+- Real patient data in a clinical setting (no pilot with actual patients to date)
+- Cost savings estimates ($3,137/patient) — modeled from traditional workflow comparisons, not measured in production
+- Clinical concordance — AI-generated treatment recommendations have not been compared against oncologist decisions in a prospective study
+- The "41% error reduction" cited in Competitive Advantages is an estimate based on reproducibility improvements from automated vs. manual pipelines, not a clinical trial result
+
+**Validation roadmap (during pilot):**
+- Month 3-4: Run 10-20 de-identified patients through the system alongside standard clinical workflow
+- Month 5-6: Compare AI-assisted analysis time, cost, and concordance with clinician-generated reports
+- Post-pilot: Publish validation results; establish baseline metrics for production monitoring
+
+---
+
+## Clinical Governance
+
+**Regulatory posture:** This system is designed as a **clinical decision support tool**, not a diagnostic device. Under the FDA's 21st Century Cures Act exemptions, CDS tools that present information for clinician review (without replacing clinical judgment) are exempt from FDA device clearance, provided they meet four criteria: (1) not intended to acquire or process signals from the patient, (2) intended for clinician use, (3) intended to enable the clinician to independently review the basis for recommendations, (4) not intended to replace clinical judgment. This system is designed to satisfy all four criteria. Hospitals should confirm this classification with their regulatory counsel prior to deployment.
+
+**Clinical override workflow:** All analysis outputs are presented as recommendations for clinician review — the system does not make autonomous treatment decisions. Clinicians can accept, modify, or reject any recommendation. All decisions (including overrides) are logged in the audit trail.
+
+**When the system is wrong:** Bayesian uncertainty quantification flags low-confidence results. Bias auditing identifies population-specific limitations. However, ultimate clinical responsibility rests with the treating physician. Hospitals deploying this system should establish:
+- Clear documentation that AI outputs are advisory, not prescriptive
+- A review process for cases where AI and clinician disagree
+- Incident reporting procedures for incorrect or misleading AI outputs
+
+---
+
 ## Success Metrics
 
 **Technical Performance:**
@@ -164,11 +217,11 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 ## Competitive Advantages
 
-**vs. Traditional Pipelines:** Natural language interface, 10x faster, 41% error reduction, built-in HIPAA compliance
+**vs. Traditional Pipelines:** Natural language interface, 10x faster (estimated), improved reproducibility through automated orchestration, built-in HIPAA compliance
 
-**vs. Commercial Platforms:** Open-source, 75-90% cost reduction ($25-120 vs. $300-500/analysis), multi-modal integration, hospital-controlled data
+**vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction ($24-104 vs. $300-500/analysis), multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
 
-**vs. Manual Integration:** Reproducible workflows, automated harmonization, evidence-based pathway analysis
+**vs. Manual Integration:** Reproducible workflows, automated harmonization, evidence-based pathway analysis, reduced minimum team size
 
 ---
 
@@ -176,17 +229,18 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 ## Conclusion
 
 The Precision Medicine MCP System delivers:
-- **$3,137 savings per patient** vs. traditional analysis
-- **HIPAA-compliant, production-ready** architecture with bias auditing
-- **6-month deployment** timeline from approval to production
-- **Low risk** with comprehensive technical and compliance mitigation
-- **Strong ROI**: Payback in 2-3 patients, $313K-1.6M annual savings
+- **Team compression**: Reduces minimum precision medicine team from ~10 FTEs to ~3, making precision oncology feasible for mid-size hospitals
+- **$3,137 modeled savings per patient** vs. traditional analysis (to be validated during pilot)
+- **HIPAA-compliant architecture** with bias auditing, de-identification, and clinical governance framework
+- **6-month deployment** timeline from approval to production (assumes GCP and Azure AD prerequisites in place)
+- **Medium overall risk** with technical and compliance risks well-mitigated; adoption and AI vendor dependency require active management
+- **Strong projected ROI**: Payback in 2-3 patients, $313K-1.6M annual savings
 
-Ready for immediate pilot deployment with clear path to institutional scale.
+**Next step:** Fund a 6-month pilot at a single site to validate cost savings, clinical concordance, and adoption feasibility with real (de-identified) patient data.
 
 ---
 
-**Document Version:** 1.4
-**Date:** 2026-02-11
+**Document Version:** 1.5
+**Date:** 2026-02-16
 **Status:** Ready for Funding Review
 **Contact:** Lynn Langit
