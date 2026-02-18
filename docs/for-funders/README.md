@@ -8,9 +8,9 @@
 
 - ✅ **Understand the value proposition** in under 5 minutes
 - ✅ **Review detailed ROI analysis** ($3,098-3,176 savings per patient)
-- ✅ **Evaluate technical readiness** (15 servers deployed, 80 tools)
+- ✅ **Evaluate technical readiness** (11 of 15 servers production-ready, 80 tools)
 - ✅ **Assess investment tiers** ($50K pilot to $150K multi-site)
-- ✅ **Review risk assessment** (LOW technical/financial/compliance risks)
+- ✅ **Review risk assessment** (LOW technical/compliance, MEDIUM overall including adoption and vendor dependency)
 - ✅ **Access demo materials** for presentations and grant applications
 
 ---
@@ -60,7 +60,8 @@
 | **Annual ROI (500 patients)** | $1,568,500 |
 | **Payback Period** | First 2-3 patients analyzed |
 | **Infrastructure Cost** | ~$1,000/month GCP |
-| **Per-Analysis Cost** | $24-102 (compute + API) |
+| **Per-Analysis Compute** | $24-102 (compute + API) |
+| **Per-Patient Total** | $324-702 (including personnel) |
 
 > **Detailed analysis:** See [Value Proposition](../reference/shared/value-proposition.md) and [Cost Analysis](../reference/shared/cost-analysis.md).
 
@@ -88,9 +89,10 @@
 
 **This Solution:**
 - **2-5 hours** for complete production analysis (genomics + spatial + imaging + clinical); 25-35 min DRY_RUN demo
-- **$324 per patient** (vs. $6,000 traditional)
-- **Natural language interface** - no coding required for clinicians
-- **HIPAA-compliant** - ready for hospital production
+- **$324-702 per patient** (projected, vs. $6,000-9,000 traditional) — modeled savings, pending clinical validation
+- **Team compression** — reduces minimum precision medicine team from ~10 FTEs to ~3
+- **Natural language interface** — bioinformatician oversight still required for clinical interpretation
+- **HIPAA-compliant architecture** — validated on synthetic data, 6-month deployment path to hospital pilot
 
 ---
 

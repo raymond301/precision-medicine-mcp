@@ -73,9 +73,9 @@ How long would this spatial pathway enrichment analysis take manually vs. with M
 | **MCP Platform (DRY_RUN demo)** | 25-35 minutes | ~$1 (tokens only) | Basic training |
 | **MCP Platform (production)** | 2-5 hours | $324-702 (total per patient) | Basic training |
 
-**Savings:** ~$3,137 avg per patient, **40 hours → 2-5 hours** for full production multi-omics workflow
+**Modeled Savings:** ~$3,137 avg per patient, **40 hours → 2-5 hours** for full production multi-omics workflow (savings projected from workflow comparisons, not yet measured in clinical pilot)
 
-**Key Talking Point:** *"8-20x faster — enabling same-day precision medicine decisions"*
+**Key Talking Point:** *"8-20x faster (estimated) — enabling same-day precision medicine decisions"*
 
 ---
 
@@ -116,8 +116,11 @@ Annual Savings:
 **Answer:**
 - ✅ 11/15 servers production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
 - ✅ 167 automated tests, 68% coverage
-- ✅ HIPAA-compliant infrastructure (de-identification, audit logging, VPC isolation)
-- **Timeline:** 6 months to full production with hospital Epic FHIR integration
+- ✅ HIPAA-compliant architecture (de-identification, audit logging, VPC isolation)
+- ⚠️ Validated on synthetic data only — no real-patient pilot yet
+- ⚠️ Cost savings ($3,137/patient) are modeled, not measured in production
+- **Timeline:** 6 months to hospital pilot (assumes GCP org and Azure AD already in place)
+- **Regulatory posture:** Clinical decision support tool (FDA CDS exemption pathway, not a diagnostic device)
 
 ### "What about security and compliance?"
 
@@ -169,8 +172,9 @@ See: [FUNDING.md](../for-funders/FUNDING.md) for detailed budget breakdown
 1. **Start with the problem** - "40 hours is clinically impractical for urgent treatment decisions"
 2. **Show live results** - Run the prompts, don't just describe them
 3. **Emphasize natural language** - "No coding required, just ask questions"
-4. **Highlight cost savings** - "$3,137 per patient adds up fast"
-5. **End with call-to-action** - "Let's discuss a 6-month pilot at your institution"
+4. **Highlight team compression** - "Reduces the minimum precision medicine team from ~10 to ~3"
+5. **Be honest about status** - "Validated on synthetic data; next step is a 6-month clinical pilot"
+6. **End with call-to-action** - "Let's discuss a 6-month pilot at your institution"
 
 ---
 

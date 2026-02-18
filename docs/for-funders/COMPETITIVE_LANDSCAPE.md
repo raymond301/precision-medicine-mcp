@@ -44,11 +44,13 @@ graph TD
 ```
 
 **Key Differentiators:**
-- ✅ **Lowest cost** for comprehensive multi-modal analysis ($324-702 vs. $6,000-9,000)
-- ✅ **Fastest** results (2-5 hours production vs. 5-8 days commercial; 25-35 min DRY_RUN demo)
-- ✅ **Natural language interface** (no coding required)
-- ✅ **Open source** (transparent algorithms)
-- ❌ Not yet clinically validated (FDA approval pending)
+- ✅ **Lowest projected cost** for comprehensive multi-modal analysis ($324-702 vs. $6,000-9,000) — modeled, pending clinical validation
+- ✅ **Fastest** estimated results (2-5 hours production vs. 5-8 days commercial; 25-35 min DRY_RUN demo)
+- ✅ **Natural language interface** (bioinformatician oversight still required)
+- ✅ **Open source** (transparent algorithms, no vendor lock-in on server layer)
+- ✅ **Team compression** — reduces minimum precision medicine team from ~10 FTEs to ~3
+- ❌ Not yet clinically validated (validated on synthetic data only)
+- ❌ Depends on commercial AI APIs (Claude/Gemini) — mitigated by dual-provider support
 
 ---
 
@@ -173,7 +175,7 @@ graph TD
 - **Requires PhD-level bioinformaticians**
 - **Hard to scale** (limited personnel)
 
-**Our Advantage:** 8-20x faster (production), $3,137 average savings per patient
+**Our Advantage:** 8-20x faster (estimated, production), $3,137 modeled average savings per patient
 
 ---
 
@@ -275,7 +277,7 @@ graph TD
 - FDA approval pathway for multi-modal AI/ML system unclear
 - CLIA/CAP certification expensive and time-consuming
 
-**Our Head Start:** 15 servers deployed, 80 tools ([Server Registry](../reference/shared/server-registry.md)), comprehensive documentation
+**Our Head Start:** 11 of 15 servers production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md)), comprehensive documentation, dual AI provider support (Claude + Gemini)
 
 ---
 
@@ -352,12 +354,15 @@ graph TD
 > "The fastest, most affordable way to perform comprehensive multi-modal precision medicine analysis"
 
 **Key Proof Points:**
-- 8-20x faster than manual analysis (40 hours → 2-5 hours production)
-- 10-18x cheaper than traditional analysis ($324-702 vs. $6,000-9,000)
+- 8-20x faster than manual analysis (estimated: 40 hours → 2-5 hours production)
+- 10-18x cheaper than traditional analysis (projected: $324-702 vs. $6,000-9,000)
 - Only platform integrating 5 modalities with natural language interface
+- Reduces minimum precision medicine team from ~10 FTEs to ~3
+
+**Validation Status:** End-to-end workflow validated on synthetic data. Cost savings and speed claims are modeled projections; a clinical pilot is required to confirm.
 
 **Target Personas:**
-1. **Hospital CFOs** - Focus on cost savings ($3,137 per patient)
+1. **Hospital CFOs** - Focus on team compression and projected cost savings
 2. **Research Directors** - Focus on multi-modal capabilities and speed
 3. **Bioinformaticians** - Focus on ease of use and open source nature
 

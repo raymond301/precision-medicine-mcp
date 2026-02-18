@@ -6,7 +6,7 @@
 
 ## 💡 The Opportunity
 
-The Precision Medicine MCP Platform reduces multi-omics precision medicine analysis from **40 hours of manual work** to **2-5 hours** of AI-orchestrated analysis (production), saving **$3,098-3,176 per patient** while maintaining HIPAA compliance. DRY_RUN demos complete in 25-35 minutes with synthetic data.
+The Precision Medicine MCP Platform reduces multi-omics precision medicine analysis from **40 hours of manual work** to **2-5 hours** of AI-orchestrated analysis (production), with modeled savings of **$3,098-3,176 per patient** while maintaining HIPAA compliance. DRY_RUN demos complete in 25-35 minutes with synthetic data. Savings estimates are projected from workflow comparisons; clinical pilot validation is the next step.
 
 **The Problem:** Stage IV ovarian cancer patients face platinum resistance with limited treatment options. Comprehensive multi-omics analysis (genomics + spatial transcriptomics + imaging) could identify personalized targets, but the 40-hour manual analysis time makes it clinically impractical.
 
@@ -53,7 +53,7 @@ graph LR
 - Training and documentation
 
 **Timeline:** 6 months
-**ROI:** ~$313K savings (100 patients) = **6.3x return**
+**Projected ROI:** ~$313K modeled savings (100 patients) = **6.3x return** (to be validated during pilot)
 
 ### Tier 2: Production Deployment ($75,000/year)
 **Deliverables:**
@@ -90,9 +90,10 @@ graph LR
 
 **This Solution:**
 - Natural language AI orchestration reduces **40 hours → 2-5 hours** (production)
-- **$3,098-3,176 savings per patient**
-- HIPAA-compliant, production-ready for hospital deployment
-- Demonstrated with PatientOne case study (Stage IV HGSOC)
+- **$3,098-3,176 modeled savings per patient** (to be validated during pilot)
+- HIPAA-compliant architecture with 6-month deployment path to hospital pilot
+- Reduces minimum precision medicine team from ~10 FTEs to ~3 (2 clinicians + 1-2 bioinformaticians)
+- Demonstrated with synthetic PatientOne case study (Stage IV HGSOC)
 
 **Impact:**
 - Faster identification of actionable therapeutic targets
@@ -105,11 +106,13 @@ graph LR
 
 ## Technical Validation
 
-### Production Readiness
-- ✅ **15 MCP servers deployed** — 11 production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
+### Technical Readiness
+- ✅ **15 MCP servers deployed** — 11 production-ready, 1 local-only (Epic FHIR), 1 mock by design, 3 framework/utility ([Server Registry](../reference/shared/server-registry.md))
 - ✅ **Live monitoring dashboard** on Cloud Run — real-time health polling + Cloud Logging metrics
-- ✅ **HIPAA-compliant infrastructure** ready (de-identification, audit logging, VPC isolation)
-- ✅ **End-to-end demo** tested with synthetic PatientOne ovarian cancer case
+- ✅ **HIPAA-compliant architecture** ready (de-identification, audit logging, VPC isolation)
+- ✅ **End-to-end workflow** validated with synthetic PatientOne ovarian cancer case
+- ⚠️ **Not yet validated** on real patient data — clinical pilot is the proposed next step
+- ⚠️ **AI vendor dependency** — orchestration depends on Claude/Gemini APIs; mitigated by dual-provider support and provider-agnostic MCP server layer
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md).
 

@@ -6,7 +6,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 ## Elevator Pitch (30 seconds)
 
-> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 2-5 hours, saving ~$3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform is production-ready with 15 deployed servers, 80 tools, and HIPAA-compliant infrastructure. We're seeking [$ AMOUNT] to [pilot/scale/validate] the system at [INSTITUTION] for [USE CASE]."
+> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 2-5 hours, with modeled savings of ~$3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform reduces the minimum team size from ~10 FTEs to ~3, making precision oncology feasible for community hospitals. It's been validated end-to-end on synthetic data with 11 of 15 servers production-ready and HIPAA-compliant architecture. We're seeking [$ AMOUNT] to run a clinical pilot at [INSTITUTION] to validate cost savings and clinical concordance with real patient data."
 
 ---
 
@@ -41,10 +41,11 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
      - Spatial Transcriptomics (10x Visium) + Imaging (H&E, MxIF)
    - Not just "side-by-side" but true cross-modal analysis
 
-3. **Speed & Cost Breakthrough**
-   - **8-20x faster**: 40 hours → 2-5 hours (production); 25-35 min in DRY_RUN demo
-   - **10-18x cheaper**: $324-702 total per patient vs. $6,000-9,000 traditional
+3. **Speed & Cost Breakthrough** (modeled, pending clinical validation)
+   - **8-20x faster** (estimated): 40 hours → 2-5 hours (production); 25-35 min in DRY_RUN demo
+   - **10-18x cheaper** (projected): $324-702 total per patient vs. $6,000-9,000 traditional
    - **Same-day results** enable faster clinical decision-making
+   - **Team compression**: Reduces minimum precision medicine team from ~10 FTEs to ~3
 
 4. **Open Source & Transparent**
    - All algorithms open source (Apache 2.0 license)
@@ -73,7 +74,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 - Track: compute costs, bioinformatics time, system uptime, clinician satisfaction
 - Compare to traditional bioinformatics workflows
 
-**Expected Outcome:** $3,137 average savings per patient, 95% system uptime
+**Expected Outcome:** Validate modeled $3,137 average savings per patient, achieve 95% system uptime
 
 ### Aim 3: Implement HIPAA-Compliant Infrastructure
 **Objective:** Deploy production-grade infrastructure meeting all HIPAA/HITECH requirements for patient data.
@@ -92,8 +93,9 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 ### Technical Validation
 
 **System Status:**
-- ✅ **15 servers deployed** on GCP Cloud Run — 11 production-ready, 80 tools ([Server Registry](../reference/shared/server-registry.md))
-- ✅ **End-to-end demo** validated with synthetic PatientOne ovarian cancer case
+- ✅ **15 servers deployed** on GCP Cloud Run — 11 production-ready, 1 local-only (Epic FHIR), 1 mock by design, 3 framework/utility ([Server Registry](../reference/shared/server-registry.md))
+- ✅ **End-to-end workflow** validated with synthetic PatientOne ovarian cancer case
+- ⚠️ Not yet validated on real patient data — clinical pilot is the proposed next step
 
 **Performance Metrics (PatientOne Case Study):**
 | Analysis Component | Time | Cost |
@@ -186,7 +188,8 @@ Compare to traditional: 40 hours, $6,000
 ## Broader Impact
 
 ### Healthcare Access
-- **Democratize precision medicine:** $324-702/patient enables broader access vs. $6,000-9,000 traditional analysis
+- **Reduce minimum team size:** From ~10 FTEs to ~3 (2 clinicians + 1-2 bioinformaticians), making precision oncology feasible for mid-size hospitals
+- **Democratize precision medicine:** $324-702/patient (projected) enables broader access vs. $6,000-9,000 traditional analysis
 - **Community hospitals:** Can afford comprehensive analysis, not just academic medical centers
 - **Underserved populations:** Lower cost = more patients can access personalized treatment
 
@@ -201,7 +204,7 @@ Compare to traditional: 40 hours, $6,000
 - **Interdisciplinary collaboration:** Platform bridges clinicians, bioinformaticians, AI researchers
 
 ### Economic Impact
-- **Cost savings:** $3,137/patient × 400K patients/year = **$1.25B annual US savings**
+- **Projected cost savings:** $3,137/patient × 400K patients/year = **$1.25B potential annual US savings** (extrapolated from modeled per-patient savings; actual impact depends on adoption and clinical validation)
 - **Job creation:** Support engineers, bioinformatics consultants, training specialists
 - **Commercial licensing:** Revenue opportunities for hospitals and research institutions
 
@@ -237,18 +240,20 @@ Compare to traditional: 40 hours, $6,000
 - No existing solution integrates all 5 data modalities with natural language interface
 
 **2. Technically De-Risked**
-- 15/15 servers already deployed and tested
+- 11/15 servers production-ready, deployed and tested on GCP Cloud Run
 - 167 automated tests demonstrate technical maturity
-- PatientOne case study validates end-to-end workflow
+- PatientOne synthetic case study validates end-to-end workflow
+- Dual AI provider support (Claude + Gemini) mitigates vendor dependency
 
 **3. Scalable & Cost-Effective**
 - $324-702/patient is 10-18x cheaper than traditional analysis ($6,000-9,000)
 - Cloud-native architecture scales to thousands of patients
 - Open source enables community adoption without vendor lock-in
 
-**4. Immediate Clinical Impact**
-- 35-minute AI-orchestrated analysis enables same-day treatment decisions
-- Already tested with synthetic ovarian cancer case (PatientOne)
+**4. Clear Path to Clinical Impact**
+- 2-5 hour production analysis enables same-day treatment decisions (35-minute DRY_RUN demo)
+- Workflow validated with synthetic ovarian cancer case (PatientOne)
+- Designed as clinical decision support (FDA CDS exemption pathway) — clinician always makes final decision
 - Extensible to other cancer types and diseases
 
 **5. Strong Team & Institutional Support**
@@ -264,7 +269,7 @@ Compare to traditional: 40 hours, $6,000
 
 **Background:** Comprehensive precision medicine requires integrating clinical (EHR), genomic, multi-omic, spatial transcriptomic, and imaging data—a process that takes 40 hours and $6,000-9,000 per patient, creating a clinical bottleneck. Commercial alternatives (Foundation Medicine, Tempus) cost $3,000-7,500 but analyze genomics only, missing critical spatial and imaging context.
 
-**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 2-5 hours (production) at $324-702/patient—saving ~$3,137 avg per patient with true multi-modal integration. Clinicians use natural language to query 15 specialized bioinformatics servers, and Claude API automatically orchestrates data retrieval, analysis, and reporting. The platform is production-ready with 15 deployed servers, 80 tools, and HIPAA-compliant infrastructure. DRY_RUN demos complete in 25-35 minutes with synthetic data.
+**Innovation:** We developed an AI-orchestrated platform using the Model Context Protocol (MCP) that reduces multi-modal analysis from 40 hours to 2-5 hours (production) at a projected $324-702/patient — modeled savings of ~$3,137 per patient with true multi-modal integration. Clinicians use natural language to query 15 specialized bioinformatics servers, and AI (Claude or Gemini) automatically orchestrates data retrieval, analysis, and reporting. The platform has 11 production-ready servers (80 tools total), HIPAA-compliant architecture, and has been validated end-to-end on synthetic data. DRY_RUN demos complete in 25-35 minutes.
 
 **Preliminary Data:** PatientOne case study (Stage IV ovarian cancer, synthetic data) demonstrated end-to-end DRY_RUN workflow in 25-35 minutes, identifying actionable targets (BRCA1 variant, PI3K/AKT/mTOR pathway activation, immune microenvironment exhaustion) and treatment recommendations (olaparib, everolimus, checkpoint inhibitors) consistent with clinical guidelines.
 

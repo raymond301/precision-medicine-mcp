@@ -6,9 +6,11 @@ Comprehensive return on investment analysis for institutional funders and hospit
 
 ## Executive Summary
 
-**Payback Period:** First 2-3 patients analyzed
-**Annual ROI:** $313,700 (100 patients) | $1,568,500 (500 patients)
-**Cost per Patient:** $324 (vs. $6,000 traditional manual analysis)
+**Projected Payback Period:** First 2-3 patients analyzed
+**Projected Annual ROI:** $313,700 (100 patients) | $1,568,500 (500 patients)
+**Cost per Patient:** $324-702 total (compute + personnel) vs. $6,000-9,000 traditional manual analysis
+
+> **Important:** All ROI figures in this document are **modeled projections** based on workflow comparisons with traditional bioinformatics analysis. They have not yet been validated in a clinical pilot with real patient data. A funded pilot is required to confirm these estimates.
 
 > **Cost methodology:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
 
@@ -25,7 +27,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 | **API/LLM Costs** | $0 | $1-3<br/>(Claude tokens) | **-$3** |
 | **Total Per Patient** | **$6,200-9,500** | **$324-702** | **$5,875-8,796** |
 
-**Average Savings:** **$3,098-3,176 per patient**
+**Modeled Average Savings:** **$3,098-3,176 per patient** (projected, pending clinical validation)
 
 ---
 
@@ -229,11 +231,13 @@ Comprehensive return on investment analysis for institutional funders and hospit
 - Open source and transparent
 
 **Cons:**
-- Requires initial infrastructure setup
+- Requires initial infrastructure setup (GCP org + Azure AD prerequisites may add 3-6 months)
 - 3 framework/utility servers + 1 mock by design (need real API access)
-- Not yet FDA-approved
+- Not yet FDA-approved or clinically validated on real patient data
+- Depends on commercial AI APIs (Claude/Gemini) — mitigated by dual-provider support
+- Cost savings are modeled projections, not yet measured in production
 
-**Cost:** $324-702 per patient (all modalities)
+**Cost:** $324-702 per patient (all modalities) — projected, pending validation
 
 ---
 
@@ -284,6 +288,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 **Recommended Tier:** Pilot ($50K)
 - 50-100 patients per year
 - Prove value before full investment
+- Reduces minimum viable team from ~10 FTEs to ~3 (the key enabler for community hospitals)
 - Partner with academic center
 
 ### For Multi-Hospital Systems
