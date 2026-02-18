@@ -180,7 +180,7 @@ All cost estimates in this document reflect actual 2026 pricing and real deploym
 - **Processing time:** 2-6× longer (optimized algorithms prevent 300× slowdown)
 - **Compute costs:** 3-5× higher due to longer processing, larger memory
 - **Token costs:** Only ~2× higher despite massive data increase (servers return summaries!)
-- **Total cost:** $7-29 → **$24-102** (3-4× more expensive for realistic hospital data)
+- **Total cost:** $7-29 → **$24-104** (3-4× more expensive for realistic hospital data)
 
 ### Cloud Run Cost Calculation Example
 

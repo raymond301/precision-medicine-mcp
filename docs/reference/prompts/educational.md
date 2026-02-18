@@ -1009,19 +1009,13 @@ What else matters besides cost?
 ```
 Step 1 - Cost Calculation:
 
-Traditional Manual Approach:
-- Bioinformatician: 40 hrs × $75 = $3,000
-- Compute: $2,000-4,000
-- Sequencing: $1,000-2,000
-- Total: $6,000-9,000 per patient
+Traditional Manual Approach: Thousands per patient (labor + compute + sequencing)
 
-MCP Approach:
-- Compute: $22-99
-- APIs: $1
-- Claude: $1-2
-- Total: $24-102 per patient
+MCP Approach: Low per-patient compute cost (compute + APIs + Claude tokens)
 
-Cost Savings: $3,137 average per patient (96% reduction!)
+See Cost Analysis (docs/reference/shared/cost-analysis.md) and
+Value Proposition (docs/reference/shared/value-proposition.md)
+for detailed cost breakdowns and savings projections.
 
 Step 2 - Value Calculation:
 
@@ -1036,21 +1030,15 @@ Cost of Treatment Failure:
 - Value of avoided failures: 20 × $75,000 = $1,500,000
 
 Total Value Per 100 Patients:
-- Direct cost savings: 100 × $3,137 = $313,700
-- Avoided treatment failures: $1,500,000
-- Total value: $1,813,700 per year
+- Direct cost savings: Significant projected savings per patient (see Value Proposition)
+- Avoided treatment failures: Major additional value
+- See Value Proposition (docs/reference/shared/value-proposition.md) for detailed projections
 
 Step 3 - ROI Calculation:
 
-Initial Investment:
-- Setup: $62,500 (midpoint of $50-75K)
-- Annual operational: $48,000 (midpoint of $24-72K)
-- Total Year 1: $110,500
-
-Annual Savings (100 patients):
-- Direct: $313,700
-- Avoided failures: $1,500,000
-- Total annual value: $1,813,700
+See Value Proposition (docs/reference/shared/value-proposition.md) and
+ROI Analysis (docs/for-funders/ROI_ANALYSIS.md) for detailed
+investment tiers, payback period, and ROI projections.
 
 ROI Calculations:
 - Payback period: 0.06 years = 3 weeks!

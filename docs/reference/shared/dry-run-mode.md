@@ -49,7 +49,7 @@ Each server returns clinically realistic synthetic data based on the PatientOne 
 ## Cost
 
 - **DRY_RUN:** ~$1 total for full PatientOne workflow (25-35 minutes, tokens only)
-- **Production:** $24-104 per patient analysis (compute + API costs)
+- **Production:** Low per-patient compute cost ([Cost Analysis](cost-analysis.md))
 
 ## Production
 

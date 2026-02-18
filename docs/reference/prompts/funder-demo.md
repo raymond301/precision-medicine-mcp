@@ -1,5 +1,7 @@
 # Funder Demo Prompts
 
+> **Cost figures source:** Base figures from [Cost Analysis](../../shared/cost-analysis.md) and [Value Proposition](../../shared/value-proposition.md). Inline numbers are required for live demo scripts.
+
 **Audience:** Grant Reviewers, Funding Agencies, Hospital Decision-Makers
 **Purpose:** High-impact demonstrations showing ROI and clinical value
 **Time per prompt:** 5-10 minutes
@@ -76,7 +78,7 @@ Demonstrate cost-effectiveness of the Precision Medicine MCP system:
    - **100 patients:** $600,000-900,000
 
 2. **MCP System Costs:**
-   - Per analysis: $24-102 (compute + APIs + Claude tokens)
+   - Per analysis: $24-104 (compute + APIs + Claude tokens)
      * Compute (GCP): $22-99
      * External APIs: ~$1
      * Claude tokens: ~$1-2
@@ -206,9 +208,9 @@ Demonstrate scalability of the MCP system across a hospital network:
 
 **Scaling Economics:**
 - Infrastructure scales automatically (Cloud Run)
-- Per-patient costs remain constant ($24-102)
+- Per-patient costs remain constant ($24-104)
 - No linear increase in staffing (1 admin can manage 100+ users)
-- **Cost per patient at scale:** $24-102 (same as pilot)
+- **Cost per patient at scale:** $24-104 (same as pilot)
 
 **Comparison to Manual Scaling:**
 - Manual: 100 patients → 2 FTEs, 500 patients → 10 FTEs (linear)
@@ -226,7 +228,7 @@ Provide a scaling roadmap with:
 **Expected Output:**
 - **Scalability:** 5 → 100 users with same infrastructure
 - **Volume:** 100 → 2,500 patients per year
-- **Cost per patient:** Constant ($24-102) regardless of volume
+- **Cost per patient:** Constant ($24-104) regardless of volume
 - **Staffing:** Sub-linear scaling (100× volume = 5× staffing)
 
 **Scaling Metrics:**
@@ -445,7 +447,7 @@ Show research value by:
 ## Summary: Key Metrics for Funders
 
 **Financial:**
-- **Cost per patient:** $24-102 (96% reduction from $6,000-9,000)
+- **Cost per patient:** $24-104 (96% reduction from $6,000-9,000)
 - **Annual savings:** $313K (100 patients) to $1.6M (500 patients)
 - **Payback period:** 2-3 patients
 - **5-year ROI:** $1.6M-7.8M

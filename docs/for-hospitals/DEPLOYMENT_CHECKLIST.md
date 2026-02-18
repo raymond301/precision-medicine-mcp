@@ -123,7 +123,7 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 - [ ] End-to-end workflow: PatientOne full analysis (25-35 min DRY_RUN)
 - [ ] Multi-user test: 5 concurrent analyses
 - [ ] Load test: 20 analyses in 1 hour
-- [ ] Cost validation: $24-104 per analysis
+- [ ] Cost validation: verify per-analysis costs match [Cost Analysis](../reference/shared/cost-analysis.md) targets
 - [ ] Error handling: graceful failures, retry logic
 
 ---
@@ -225,7 +225,7 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 
 ### Operational
 - [ ] **User Satisfaction:** >4.0/5.0 average rating
-- [ ] **Cost:** Within $24-104/patient target
+- [ ] **Cost:** Within per-patient target ([Cost Analysis](../reference/shared/cost-analysis.md))
 - [ ] **Time Savings:** Estimated >90% reduction vs. manual (40 hours → <4 hours, pending validation)
 
 ### Clinical

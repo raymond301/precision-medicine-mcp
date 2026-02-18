@@ -23,7 +23,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 | Component | Traditional Manual | MCP Platform | Savings |
 |-----------|-------------------|--------------|---------|
 | **Bioinformatics Labor** | $6,000-9,000<br/>(40 hours × $150-225/hr) | $300-600<br/>(oversight: 2 hours × $150-300/hr) | **$5,700-8,400** |
-| **Compute Resources** | $200-500<br/>(HPC cluster time) | $24-102<br/>(GCP Cloud Run + storage) | **$176-398** |
+| **Compute Resources** | $200-500<br/>(HPC cluster time) | $24-104<br/>(GCP Cloud Run + storage) | **$176-398** |
 | **API/LLM Costs** | $0 | $1-3<br/>(Claude tokens) | **-$3** |
 | **Total Per Patient** | **$6,200-9,500** | **$324-702** | **$5,875-8,796** |
 
@@ -39,7 +39,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 |--------------|-------------|-------|
 | **GCP Infrastructure** | $12,000 | Cloud Run, storage, networking |
 | **Claude API Tokens** | $100-200 | Claude tokens per patient |
-| **Compute (per analysis)** | $2,400-10,200 | $24-102 × 100 patients |
+| **Compute (per analysis)** | $2,400-10,400 | $24-104 × 100 patients |
 | **Support & Maintenance** | $10,000 | Updates, bug fixes, monitoring |
 | **Training & Documentation** | $5,000 | Initial year only |
 | **Total Annual** | **$29,500-37,400** | |
@@ -52,7 +52,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 |--------------|-------------|-------|
 | **GCP Infrastructure** | $24,000 | Scaled compute resources |
 | **Claude API Tokens** | $500-1,000 | Claude tokens per patient |
-| **Compute (per analysis)** | $12,000-51,000 | $24-102 × 500 patients |
+| **Compute (per analysis)** | $12,000-52,000 | $24-104 × 500 patients |
 | **Support & Maintenance** | $20,000 | Dedicated support engineer |
 | **Epic FHIR Integration** | $15,000 | Initial setup + maintenance |
 | **Total Annual** | **$71,500-111,000** | |

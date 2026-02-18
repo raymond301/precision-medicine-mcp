@@ -230,8 +230,8 @@ We've built a platform that analyzes all your cancer data together - medical rec
 - **No cost to you** - Hospital or research grant pays
 
 **If paid privately:**
-- **Analysis cost:** $324-702 per patient (total, including infrastructure)
-- **Compare to:** $3,000-7,500 for commercial alternatives
+- **Analysis cost:** Significantly lower than traditional methods
+- **Compare to:** Much less expensive than commercial alternatives
 - **May be covered by insurance** (check with your plan)
 
 **Not included:**

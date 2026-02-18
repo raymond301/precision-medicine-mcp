@@ -173,7 +173,7 @@ graph LR
 | **Expertise required** | PhD-level bioinformatics | MS + coding skills | **Basic training** |
 | **Reproducibility** | Low (manual steps) | Medium (version drift) | **High (versioned servers)** |
 | **Error rate** | High (copy-paste errors) | Medium (script bugs) | **Low (automated QC)** |
-| **Cost per patient** | $3,200 (40 hrs × $80/hr) | $640 (8 hrs × $80/hr) | **$324-702 (total)** |
+| **Cost per patient** | $3,200 (40 hrs × $80/hr) | $640 (8 hrs × $80/hr) | **Significant reduction** ([Cost Analysis](../../shared/cost-analysis.md)) |
 | **Accessibility** | Academic centers only | Medium (requires engineers) | **Any hospital** |
 | **Multi-modal integration** | Very difficult | Difficult | **Built-in** |
 
@@ -242,7 +242,7 @@ MCP standardizes:
 
 **Pilot deployment targets (6 months, 100 patients — projections pending clinical validation):**
 - **Time reduction:** Estimated 40 hours → 2-5 hours production (8-20x faster)
-- **Cost savings:** ~$313,700 modeled (100 patients × $3,137 modeled savings)
+- **Cost savings:** Significant modeled savings for 100-patient cohort ([Value Proposition](../../shared/value-proposition.md))
 - **Accessibility:** 5 clinicians trained (previously required 2 PhD bioinformaticians)
 - **Reproducibility:** Consistent results on repeat analysis (validated on synthetic data)
 - **Multi-modal integration:** 5 data types integrated (previously siloed)

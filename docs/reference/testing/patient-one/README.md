@@ -210,10 +210,8 @@ Run all modular tests sequentially for comprehensive precision medicine analysis
 
 **Cost Breakdown:**
 - **DRY_RUN:** Claude token usage only (~30K tokens) - ~$1
-- **Real Data (Demonstration):** Compute ($7-24) + APIs (~$1) + Claude tokens (~$1) = **$8-26 total**
-- **Real Data (Production):** Compute ($22-101) + APIs (~$1) + Claude tokens (~$1-2) = **$24-104 total**
-  - 3-4× more expensive due to 300-1500× larger data files
-  - **Token costs stay low** (~$1-2) because MCP servers return summaries, not raw 3-8 GB files!
+- **Real Data:** See [Cost Analysis](../../shared/cost-analysis.md) for detailed per-mode cost breakdowns
+  - Token costs stay low because MCP servers return summaries, not raw 3-8 GB files!
 
 **Instructions:**
 1. Open each `TEST_*.txt` file in `implementation/` directory

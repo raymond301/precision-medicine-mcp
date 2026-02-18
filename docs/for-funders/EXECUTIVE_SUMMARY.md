@@ -46,7 +46,7 @@ graph LR
 - **AI Orchestration**: Claude + Gemini 3 AI coordinates MCP servers via natural language ([Server Registry](../reference/shared/server-registry.md))
 - **Specialized Tools**: Bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
 - **Production Ready**: Most servers deployed to Cloud Run; 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
-- **Cost Efficient**: $24-104 compute per analysis; $324-702 total per patient including personnel (see Financial Summary)
+- **Cost Efficient**: Low per-analysis compute cost; significant per-patient cost reduction vs. traditional methods (see Financial Summary and [Cost Analysis](../reference/shared/cost-analysis.md))
 
 ---
 
@@ -55,7 +55,7 @@ graph LR
 **For Research Hospitals:**
 - Reduce minimum viable precision medicine team from ~10 FTEs to ~3 (2 clinicians + 1-2 bioinformaticians)
 - Reduce multi-omics analysis time from weeks to hours
-- $3,137 average savings per patient vs. traditional manual analysis (see cost breakdown below)
+- Significant projected savings per patient vs. traditional manual analysis ([Value Proposition](../reference/shared/value-proposition.md))
 - HIPAA-compliant with built-in de-identification and 10-year audit logging
 - Scalable from 100-patient pilot to institutional biobank
 - Enables community hospitals and mid-size cancer centers to offer precision oncology programs that previously required large academic medical center teams
@@ -71,17 +71,9 @@ graph LR
 
 ## Financial Summary
 
-**Payback Period:** First 2-3 patients analyzed | **Annual ROI:** ~$313K (100 patients), ~$1.6M (500 patients)
+Projected payback within first few patients analyzed. Significant annual ROI at both pilot (100-patient) and production (500-patient) scale.
 
-**Per-Patient Cost Breakdown:**
-
-| Component | Cost | What It Covers |
-|-----------|------|----------------|
-| **Compute + AI tokens** | $24-104 | Cloud Run, Claude/Gemini API calls per analysis |
-| **Personnel + overhead** | $300-600 | Bioinformatician review, clinical interpretation, reporting |
-| **Total per patient** | $324-702 | Full analysis cycle (vs. $6,000-9,000 traditional) |
-
-**Average savings:** ~$3,137 per patient. Note: Savings estimates are modeled, not yet validated in a clinical pilot (see Validation Status below).
+Per-patient costs represent a significant reduction vs. traditional methods (compute + personnel). Savings estimates are modeled, not yet validated in a clinical pilot (see Validation Status below).
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed breakdowns and [ROI Analysis](ROI_ANALYSIS.md) for investment tier returns.
 
@@ -124,7 +116,7 @@ graph LR
 - Epic integration team available for FHIR API access
 
 **Deployment resources:**
-- Dedicated GCP project (~$1,000/month)
+- Dedicated GCP project (modest monthly infrastructure cost — see [Cost Analysis](../reference/shared/cost-analysis.md))
 - Hospital IT, Azure AD admin, Epic integration team coordination
 - 5 pilot users: 2 clinicians, 3 bioinformaticians
 
@@ -174,7 +166,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 **What has NOT yet been validated:**
 - Real patient data in a clinical setting (no pilot with actual patients to date)
-- Cost savings estimates ($3,137/patient) — modeled from traditional workflow comparisons, not measured in production
+- Cost savings estimates ([Value Proposition](../reference/shared/value-proposition.md)) — modeled from traditional workflow comparisons, not measured in production
 - Clinical concordance — AI-generated treatment recommendations have not been compared against oncologist decisions in a prospective study
 - The "41% error reduction" cited in Competitive Advantages is an estimate based on reproducibility improvements from automated vs. manual pipelines, not a clinical trial result
 
@@ -206,7 +198,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 **Business Impact:**
 - Users: 5 (pilot) → 20 (production)
 - Patients: 100 (pilot) → 500 (Year 1)
-- Cost: $324-702 total per patient (vs. $6,000-9,000 traditional), ~$3,137 avg savings
+- Cost: Significant per-patient cost reduction vs. traditional methods ([Cost Analysis](../reference/shared/cost-analysis.md))
 
 **Research Outcomes:**
 - Analysis results supporting 2+ manuscripts
@@ -219,7 +211,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 **vs. Traditional Pipelines:** Natural language interface, 8-20x faster (estimated), improved reproducibility through automated orchestration, built-in HIPAA compliance
 
-**vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction ($24-104 vs. $300-500/analysis), multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
+**vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction ([Cost Analysis](../reference/shared/cost-analysis.md)), multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
 
 **vs. Manual Integration:** Reproducible workflows, automated harmonization, evidence-based pathway analysis, reduced minimum team size
 
@@ -230,11 +222,11 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 The Precision Medicine MCP System delivers:
 - **Team compression**: Reduces minimum precision medicine team from ~10 FTEs to ~3, making precision oncology feasible for mid-size hospitals
-- **$3,137 modeled savings per patient** vs. traditional analysis (to be validated during pilot)
+- **Significant modeled savings per patient** vs. traditional analysis ([Value Proposition](../reference/shared/value-proposition.md)), to be validated during pilot
 - **HIPAA-compliant architecture** with bias auditing, de-identification, and clinical governance framework
 - **6-month deployment** timeline from approval to production (assumes GCP and Azure AD prerequisites in place)
 - **Medium overall risk** with technical and compliance risks well-mitigated; adoption and AI vendor dependency require active management
-- **Strong projected ROI**: Payback in 2-3 patients, $313K-1.6M annual savings
+- **Strong projected ROI**: Payback in first few patients, significant annual savings ([Value Proposition](../reference/shared/value-proposition.md))
 
 **Next step:** Fund a 6-month pilot at a single site to validate cost savings, clinical concordance, and adoption feasibility with real (de-identified) patient data.
 

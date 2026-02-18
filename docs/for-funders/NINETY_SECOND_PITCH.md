@@ -1,5 +1,7 @@
 # 90-Second Funding Demo
 
+> **Cost figures source:** Base figures from [Cost Analysis](../reference/shared/cost-analysis.md) and [Value Proposition](../reference/shared/value-proposition.md). Inline numbers retained for live demo script.
+
 These prompts demonstrate the platform's value in under 2 minutes for funders, grant reviewers, and hospital decision-makers.
 
 ---

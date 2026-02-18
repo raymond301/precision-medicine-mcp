@@ -13,7 +13,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **[PatientOne Profile](reference/shared/patientone-profile.md)** - Clinical profile, genomic findings, data locations
 - **[Platform Overview](reference/shared/README.md)** - Servers, tools, architecture summary
 - **[Server Registry](reference/shared/server-registry.md)** - Server/tool counts, production readiness
-- **[Value Proposition](reference/shared/value-proposition.md)** - 40 hours → 2-5 hours (production), cost savings, ROI
+- **[Value Proposition](reference/shared/value-proposition.md)** - Time savings, cost savings, ROI
 - **[Cost Analysis](reference/shared/cost-analysis.md)** - Per-patient costs, infrastructure, scaling projections
 - **[HIPAA Summary](reference/shared/hipaa-summary.md)** - Compliance checklist, de-identification, retention
 - **[Server Installation](reference/shared/server-installation.md)** - Standard Python MCP server setup

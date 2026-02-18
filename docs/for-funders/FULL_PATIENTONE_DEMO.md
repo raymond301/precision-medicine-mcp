@@ -141,7 +141,7 @@ The platform supports three data modes for testing:
 |------|-------------|----------|------|
 | **DRY_RUN** | No real computation, returns mock schemas | Quick testing, CI/CD | Free |
 | **MOCK** | Pre-computed results from cache | Demos, training | Free |
-| **FULL** | Real computation on synthetic data | Validation, development | $24-102/patient |
+| **FULL** | Real computation on synthetic data | Validation, development | Low per-patient compute cost ([Cost Analysis](../reference/shared/cost-analysis.md)) |
 
 **For demos, use MOCK mode** to show real results without compute costs.
 

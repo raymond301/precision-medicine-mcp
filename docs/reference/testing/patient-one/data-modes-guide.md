@@ -24,8 +24,7 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 
 **📊 Quick Cost Comparison:**
 - **DRY_RUN:** 25-35 min, ~$1 total (tokens only)
-- **Actual Data (Small Files):** 2-4 hours, $8-26 total (demonstration)
-- **Actual Data (Production):** 2-4 hours (pre-aligned) or 4-8 hours (raw FASTQ), $24-104 total
+- **Actual Data:** Costs scale with data size and mode. See [Cost Analysis](../../../for-hospitals/operations/cost-and-budget.md) for detailed breakdowns.
   - **Key insight:** Token costs stay low even with 3-8 GB files because MCP servers return summaries!
 
 **[→ See Full Cost Analysis & ROI](../../../for-hospitals/operations/cost-and-budget.md)**
@@ -61,8 +60,8 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 | **Data Source** | Synthetic responses | Your small test files in `/data/patient-data/` | Production hospital data (3-8 GB per patient) |
 | **External APIs** | None (mocked) | Real calls (TCGA, HuggingFace, etc.) | Real calls (TCGA, HuggingFace, etc.) |
 | **Execution Time** | Fast (25-35 min total) | Longer (2-4 hours total) | 2-4 hours (pre-aligned) or 4-8 hours (raw FASTQ) |
-| **Cost** | **~$1 total** | **$8-26 total** | **$24-104 total** |
-| **Cost Breakdown** | Claude tokens only (~30K tokens = ~$1) | Compute ($7-24) + APIs (~$1) + Claude tokens (~$1) | Compute ($22-99) + APIs (~$1) + Claude tokens (~$1-2) |
+| **Cost** | **~$1 total** | Low | See [Cost Analysis](../../shared/cost-analysis.md) |
+| **Cost Breakdown** | Claude tokens only (~30K tokens = ~$1) | Compute + APIs + Claude tokens | Compute + APIs + Claude tokens |
 | **Claude Token Cost** | ~$1 | ~$1 | **~$1-2** (stays low - servers return summaries!) |
 | **Data Volume** | Minimal (synthetic) | 4.9 MB (315 KB spatial, 505 KB multi-omics) | 3-8 GB (100-500 MB spatial, 2.7 GB multi-omics raw) |
 | **Setup Required** | Minimal | Data files + environment config |

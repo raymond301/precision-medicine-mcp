@@ -9,7 +9,7 @@
 - ✅ **Understand deployment requirements** (GCP, Epic FHIR, Azure AD)
 - ✅ **Review security & HIPAA compliance** (de-identification, audit logging, encryption)
 - ✅ **Plan 6-month deployment timeline** (infrastructure → pilot → production)
-- ✅ **Assess operational costs** ($1,000/month infrastructure + $24-104/patient)
+- ✅ **Assess operational costs** (modest monthly infrastructure + low per-patient compute — [Cost Analysis](../reference/shared/cost-analysis.md))
 - ✅ **Access deployment checklist** and runbooks for common issues
 
 ---
@@ -173,9 +173,9 @@ graph TB
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Infrastructure** | ~$1,000/month | Cloud Run, storage, logging, networking |
-| **Per-patient** | $24-104 | vs. $6,000 traditional |
-| **Annual (500 patients)** | $24,500-72,640 | **97% savings** vs. traditional |
+| **Infrastructure** | Modest monthly cost | Cloud Run, storage, logging, networking |
+| **Per-patient** | Low compute cost | Significant reduction vs. traditional |
+| **Annual (500 patients)** | Significant savings | See Cost Analysis for details |
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) for detailed cost breakdowns by analysis mode.
 

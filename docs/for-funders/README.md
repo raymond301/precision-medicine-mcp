@@ -54,16 +54,11 @@
 
 | Metric | Value |
 |--------|-------|
-| **Time Savings** | 40 hours → 2-5 hours production (8-20x faster) |
-| **Cost Savings** | $3,098-3,176 per patient |
-| **Annual ROI (100 patients)** | $313,700 |
-| **Annual ROI (500 patients)** | $1,568,500 |
-| **Payback Period** | First 2-3 patients analyzed |
-| **Infrastructure Cost** | ~$1,000/month GCP |
-| **Per-Analysis Compute** | $24-102 (compute + API) |
-| **Per-Patient Total** | $324-702 (including personnel) |
+| **Time Savings** | Major time reduction (8-20x faster) |
+| **Cost Savings** | Significant per-patient savings |
+| **Payback Period** | First few patients analyzed |
 
-> **Detailed analysis:** See [Value Proposition](../reference/shared/value-proposition.md) and [Cost Analysis](../reference/shared/cost-analysis.md).
+> **Full details:** See [Value Proposition](../reference/shared/value-proposition.md) for ROI and savings, and [Cost Analysis](../reference/shared/cost-analysis.md) for per-patient and infrastructure costs.
 
 ---
 
@@ -84,12 +79,12 @@
 **The Problem:**
 - Stage IV ovarian cancer: **30% 5-year survival rate**
 - Precision medicine analysis takes **40 hours** - too slow for urgent treatment decisions
-- Manual analysis costs **$6,000-9,000 per patient**
+- Manual analysis costs thousands per patient ([Cost Analysis](../reference/shared/cost-analysis.md))
 - Most hospitals can't afford comprehensive multi-omics analysis
 
 **This Solution:**
 - **2-5 hours** for complete production analysis (genomics + spatial + imaging + clinical); 25-35 min DRY_RUN demo
-- **$324-702 per patient** (projected, vs. $6,000-9,000 traditional) — modeled savings, pending clinical validation
+- **Significant per-patient cost reduction** vs. traditional methods (projected, [Cost Analysis](../reference/shared/cost-analysis.md)) — modeled savings, pending clinical validation
 - **Team compression** — reduces minimum precision medicine team from ~10 FTEs to ~3
 - **Natural language interface** — bioinformatician oversight still required for clinical interpretation
 - **HIPAA-compliant architecture** — validated on synthetic data, 6-month deployment path to hospital pilot

@@ -1,5 +1,7 @@
 # Competitive Landscape Analysis
 
+> **Cost figures source:** Base figures from [Cost Analysis](../reference/shared/cost-analysis.md) and [Value Proposition](../reference/shared/value-proposition.md). Inline numbers retained for competitive comparison context.
+
 How the Precision Medicine MCP Platform compares to existing solutions in the precision oncology market.
 
 ---

@@ -21,14 +21,14 @@ The Precision Medicine MCP Platform reduces multi-omics precision medicine analy
 ```mermaid
 graph LR
     subgraph Input["💰 Investment"]
-        COMPUTE[Compute Cost<br/>$24-104/patient]
-        INFRA[Infrastructure<br/>$1,000/month]
+        COMPUTE[Compute Cost<br/>per patient]
+        INFRA[Infrastructure<br/>monthly]
     end
 
     subgraph Output["💰 Value Created"]
-        REPLACE[Replaces Manual<br/>$6,000-9,000]
+        REPLACE[Replaces Manual<br/>Analysis]
         SPEED[40 hours → 2-5 hrs<br/>8-20x faster]
-        SAVINGS[$3,098-3,176<br/>savings/patient]
+        SAVINGS[Significant<br/>savings/patient]
     end
 
     Input --> Output
@@ -37,9 +37,7 @@ graph LR
     style Output fill:#d4edda,stroke:#28a745
 ```
 
-**Annual Savings:**
-- 100 patients/year = **$313,700 saved**
-- 500 patients/year = **$1,568,500 saved**
+**Annual Savings:** Significant projected savings at both pilot (100-patient) and production (500-patient) scale. See [Value Proposition](../reference/shared/value-proposition.md) for details.
 
 ---
 
