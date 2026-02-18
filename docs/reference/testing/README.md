@@ -85,8 +85,8 @@ This will:
 
 Expected output:
 ```
-Servers working: 9/9
-Total tools: 36
+Servers working: 15/15
+Total tools: 80
 🎉 All MCP servers are operational!
 ```
 
@@ -112,15 +112,21 @@ All servers require **Python 3.11+**. The install script automatically uses `pyt
 | Server | Tools | Status |
 |--------|-------|--------|
 | mcp-fgbio | 4 | ✅ |
-| mcp-spatialtools | 8 | ✅ |
-| mcp-openimagedata | 3 | ✅ |
-| mcp-seqera | 3 | ✅ |
-| mcp-huggingface | 3 | ✅ |
-| mcp-deepcell | 2 | ✅ |
-| mcp-epic | 3 | ✅ |
+| mcp-multiomics | 10 | ✅ |
+| mcp-spatialtools | 14 | ✅ |
+| mcp-epic | 4 | ✅ |
+| mcp-mockepic | 3 | ✅ |
+| mcp-perturbation | 8 | ✅ |
+| mcp-quantum-celltype-fidelity | 6 | ✅ |
+| mcp-openimagedata | 5 | ✅ |
+| mcp-deepcell | 3 | ✅ |
+| mcp-cell-classify | 3 | ✅ |
+| mcp-patient-report | 5 | ✅ |
+| mcp-genomic-results | 4 | ✅ |
 | mcp-tcga | 5 | ✅ |
-| mcp-multiomics | 9 | ✅ |
-| **TOTAL** | **40** | **✅** |
+| mcp-huggingface | 3 | ✅ |
+| mcp-seqera | 3 | ✅ |
+| **TOTAL** | **80** | **✅** |
 
 ---
 

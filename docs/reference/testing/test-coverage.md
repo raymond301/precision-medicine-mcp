@@ -23,7 +23,7 @@
 |--------|----------|-------|--------|------------------|
 | 🧬 **mcp-fgbio** | 77% | 29 | ✅ Complete | ✅ YES (95% real) |
 | 🔬 **mcp-multiomics** | 68% | 91 | ✅ Complete | ✅ YES (95% real) |
-| 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke | ❌ Mocked |
+| 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke | ✅ YES (100% real) |
 | 🤖 **mcp-huggingface** | 56% | 12 | ✅ Smoke | ❌ Mocked |
 | ⚙️ **mcp-seqera** | 56% | 6 | ✅ Smoke | ❌ Mocked |
 | 🏥 **mcp-epic** | 58% | 12 | ✅ Complete | ✅ YES (100% real) |
@@ -65,11 +65,11 @@
 MULTIOMICS_DRY_RUN="true" servers/mcp-multiomics/venv/bin/python -m pytest tests/unit/mcp-multiomics/ -v
 FGBIO_DRY_RUN="true" servers/mcp-fgbio/venv/bin/python -m pytest tests/unit/mcp-fgbio/ -v
 SPATIAL_DRY_RUN="true" servers/mcp-spatialtools/venv/bin/python -m pytest tests/unit/mcp-spatialtools/ -v
+DEEPCELL_DRY_RUN="true" servers/mcp-deepcell/venv/bin/python -m pytest tests/unit/mcp-deepcell/ -v
 ```
 
 **Mocked servers:**
 ```bash
-DEEPCELL_DRY_RUN="true" servers/mcp-deepcell/venv/bin/python -m pytest tests/unit/mcp-deepcell/ -v
 TCGA_DRY_RUN="true" servers/mcp-tcga/venv/bin/python -m pytest tests/unit/mcp-tcga/ -v
 ```
 

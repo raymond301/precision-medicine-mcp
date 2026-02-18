@@ -1,6 +1,6 @@
 # GCP MCP Server Test Plan
 
-Simple functional tests for all 9 deployed MCP servers.
+Simple functional tests for all 14 deployed MCP servers.
 
 ---
 
@@ -292,7 +292,7 @@ Create `tests/integration/test_all_gcp_servers.py`:
 ```python
 #!/usr/bin/env python3
 """
-Simple functional test for all 9 GCP-deployed MCP servers.
+Simple functional test for all 14 GCP-deployed MCP servers.
 Tests that each server responds and lists available tools.
 """
 
