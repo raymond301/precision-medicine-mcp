@@ -12,7 +12,7 @@ Traditional bioinformatics requires:
 - **Manual data wrangling** between tools (VCF → BED → CSV conversions)
 - **Custom scripts** for each integration (Python glue code, shell pipelines)
 - **Deep expertise** in multiple domains (genomics, statistics, imaging, clinical data)
-- **Significant time** per patient (40 hours of manual analysis)
+- **Significant time** per patient (an estimated 40 hours of manual analysis)
 - **Error-prone** copy-paste between tools (Excel → R → Python → clinical report)
 
 **Example Traditional Workflow:**
@@ -56,7 +56,7 @@ Claude: [Automatically orchestrates 5 MCP servers:]
   → mcp-spatialtools: Analyze spatial regions
   → Integration: Combine results, rank targets
 
-Result: Top 3 targets identified in 2-5 hours (production) or 25-35 min (DRY_RUN demo)
+Result: Top 3 targets identified in an estimated 2-5 hours (production) or 25-35 min (DRY_RUN demo)
 ```
 
 No Python scripts, no manual file conversions, no copy-paste.
@@ -169,7 +169,7 @@ graph LR
 
 | Aspect | Manual Approach | Scripted Approach | **MCP Platform** |
 |--------|-----------------|-------------------|------------------|
-| **Time per patient** | 40 hours | 8 hours | **2-5 hours** (production) |
+| **Time per patient** | ~40 hours | ~8 hours | **~2-5 hours** (estimated, production) |
 | **Expertise required** | PhD-level bioinformatics | MS + coding skills | **Basic training** |
 | **Reproducibility** | Low (manual steps) | Medium (version drift) | **High (versioned servers)** |
 | **Error rate** | High (copy-paste errors) | Medium (script bugs) | **Low (automated QC)** |
@@ -240,12 +240,12 @@ MCP standardizes:
 
 ## Success Metrics
 
-**Pilot deployment (6 months, 100 patients):**
-- ✅ **Time reduction:** 40 hours → 2-5 hours production (8-20x faster)
-- ✅ **Cost savings:** $313,700 (100 patients × $3,137 savings)
-- ✅ **Accessibility:** 5 clinicians trained (previously required 2 PhD bioinformaticians)
-- ✅ **Reproducibility:** 100% consistent results on repeat analysis
-- ✅ **Multi-modal integration:** 5 data types integrated (previously siloed)
+**Pilot deployment targets (6 months, 100 patients — projections pending clinical validation):**
+- **Time reduction:** Estimated 40 hours → 2-5 hours production (8-20x faster)
+- **Cost savings:** ~$313,700 modeled (100 patients × $3,137 modeled savings)
+- **Accessibility:** 5 clinicians trained (previously required 2 PhD bioinformaticians)
+- **Reproducibility:** Consistent results on repeat analysis (validated on synthetic data)
+- **Multi-modal integration:** 5 data types integrated (previously siloed)
 
 ---
 

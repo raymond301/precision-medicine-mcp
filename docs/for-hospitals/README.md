@@ -9,7 +9,7 @@
 - ✅ **Understand deployment requirements** (GCP, Epic FHIR, Azure AD)
 - ✅ **Review security & HIPAA compliance** (de-identification, audit logging, encryption)
 - ✅ **Plan 6-month deployment timeline** (infrastructure → pilot → production)
-- ✅ **Assess operational costs** ($1,000/month infrastructure + $24-102/patient)
+- ✅ **Assess operational costs** ($1,000/month infrastructure + $24-104/patient)
 - ✅ **Access deployment checklist** and runbooks for common issues
 
 ---
@@ -96,7 +96,7 @@
 **Deliverable:** Test queries working with synthetic data
 
 ### Month 3-4: Pilot Deployment
-- [ ] Deploy all 15 production servers
+- [ ] Deploy all 15 servers
 - [ ] Epic FHIR production connection (read-only)
 - [ ] 10-20 test patients analyzed
 - [ ] User training (5 pilot users: 2 clinicians, 3 bioinformaticians)
@@ -204,7 +204,7 @@ graph TB
 | **Financial** | LOW | Daily cost monitoring, budget alerts at 80%, Haiku model optimization |
 | **Adoption** | MEDIUM | Training program, Streamlit UI, natural language interface |
 
-**Overall Risk:** LOW - Well-mitigated across all dimensions
+**Overall Risk:** MEDIUM - Technical and compliance risks well-mitigated; adoption and vendor dependency require active management
 
 ---
 

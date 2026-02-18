@@ -126,7 +126,7 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 
 ## Server Inventory
 
-### Production Servers (Real Analysis)
+### Production Servers (11 — Real Analysis)
 
 | Server | Status | URL | Service Account | Memory | CPU | Min Instances |
 |--------|--------|-----|-----------------|--------|-----|---------------|
@@ -134,16 +134,22 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 | **mcp-multiomics** | Production | `mcp-multiomics-{hash}.run.app` | `mcp-multiomics-sa` | 4Gi | 2 | 0 |
 | **mcp-spatialtools** | Production | `mcp-spatialtools-{hash}.run.app` | `mcp-spatialtools-sa` | 4Gi | 2 | 0 |
 | **mcp-epic** | Production | `mcp-epic-{hash}.run.app` | `mcp-epic-sa` | 2Gi | 2 | 0 |
+| **mcp-perturbation** | Production | `mcp-perturbation-{hash}.run.app` | `mcp-perturbation-sa` | 4Gi | 2 | 0 |
+| **mcp-quantum-celltype-fidelity** | Production | `mcp-quantum-{hash}.run.app` | `mcp-quantum-sa` | 2Gi | 2 | 0 |
+| **mcp-deepcell** | Production | `mcp-deepcell-{hash}.run.app` | `mcp-deepcell-sa` | 4Gi | 2 | 0 |
+| **mcp-cell-classify** | Production | `mcp-cell-classify-{hash}.run.app` | `mcp-cell-classify-sa` | 2Gi | 2 | 0 |
+| **mcp-openimagedata** | Production | `mcp-openimagedata-{hash}.run.app` | `mcp-openimagedata-sa` | 4Gi | 2 | 0 |
+| **mcp-patient-report** | Production | `mcp-patient-report-{hash}.run.app` | `mcp-patient-report-sa` | 2Gi | 2 | 0 |
+| **mcp-genomic-results** | Production | `mcp-genomic-results-{hash}.run.app` | `mcp-genomic-results-sa` | 2Gi | 2 | 0 |
 
-### Mock/Demo Servers (Limited Functionality)
+### Mock/Demo Servers (4 — Limited Functionality)
 
 | Server | Status | URL | Purpose |
 |--------|--------|-----|---------|
-| **mcp-tcga** | Mock | `mcp-tcga-{hash}.run.app` | TCGA data demo |
-| **mcp-openimagedata** | Partial | `mcp-openimagedata-{hash}.run.app` | Imaging data (30% real) |
-| **mcp-seqera** | Mock | `mcp-seqera-{hash}.run.app` | Workflow demo |
-| **mcp-huggingface** | Mock | `mcp-huggingface-{hash}.run.app` | Model integration demo |
-| **mcp-deepcell** | Mock | `mcp-deepcell-{hash}.run.app` | Segmentation demo |
+| **mcp-tcga** | Mock | `mcp-tcga-{hash}.run.app` | TCGA cohort queries (synthetic) |
+| **mcp-huggingface** | Mock | `mcp-huggingface-{hash}.run.app` | ML model inference (API ready, awaiting models) |
+| **mcp-seqera** | Mock | `mcp-seqera-{hash}.run.app` | Nextflow workflow orchestration (demo) |
+| **mcp-mockepic** | Mock | `mcp-mockepic-{hash}.run.app` | Synthetic FHIR data for testing (by design) |
 
 ### User Interfaces
 
