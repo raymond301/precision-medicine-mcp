@@ -10,7 +10,7 @@
 - ✅ **Run reproducible workflows** (differential expression, pathway enrichment, cell deconvolution)
 - ✅ **Integrate multiple data modalities** (RNA + Protein + Spatial + Clinical)
 - ✅ **Generate publication-quality results** (visualizations, statistical tests, reproducible methods)
-- ✅ **Scale analyses cost-effectively** ($24-104/patient compute cost vs. $6,000 traditional methods)
+- ✅ **Scale analyses cost-effectively** ($24-104/patient compute cost vs. $6,000-9,000 traditional methods)
 
 ---
 
@@ -256,15 +256,14 @@ to identify concordant pathway activations.
 
 📋 **[See Server Registry →](../reference/shared/server-registry.md)** for complete status matrix, tool-by-tool details, test coverage, and DRY_RUN mode behavior.
 
-### Production Roadmap (6-12 months)
+### Production Roadmap
 
-**Phase 1 (Current):** 4 production-ready servers (fgbio, multiomics, spatialtools, epic)
+**Current:** 11 production-ready servers (fgbio, multiomics, spatialtools, epic, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, openimagedata, patient-report, genomic-results)
 
-**Phase 2 (3-6 months):**
+**Next (3-6 months):**
 - mcp-tcga: Integrate real GDC API for TCGA cohort data
-- mcp-deepcell: Integrate DeepCell API for cell segmentation
 
-**Phase 3 (6-12 months):**
+**Future (6-12 months):**
 - mcp-huggingface: Integrate genomic foundation models
 - mcp-seqera: Integrate Nextflow workflow orchestration
 - New servers: Metabolomics, radiomics, single-cell
@@ -273,7 +272,7 @@ to identify concordant pathway activations.
 
 ## Estimated Cost Analysis
 
-Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$24-104** (production), compared to **$6,000-9,000** traditional — a **52-98% cost reduction**. A 100-patient cohort costs **$14,500-22,400/year** vs. $600,000 traditional (96% savings).
+Per-patient cost ranges from **~$0.32** (DRY_RUN demo) to **$24-104** (production), compared to an estimated **$6,000-9,000** traditional — a modeled **52-98% cost reduction**. A 100-patient cohort is projected at **$14,500-22,400/year** vs. ~$600,000 traditional (~96% modeled savings, pending clinical validation).
 
 > **Full cost analysis:** See [Cost Analysis](../reference/shared/cost-analysis.md) and [Value Proposition](../reference/shared/value-proposition.md) for detailed breakdowns.
 
