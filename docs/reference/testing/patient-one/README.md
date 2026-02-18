@@ -204,14 +204,14 @@ Run all modular tests sequentially for comprehensive precision medicine analysis
 | **TEST_5** | Integration & Recommendations | 10-20 min | 10-20 min | ~$1-2 | ~$1-2 |
 | **TOTAL (Compute + API)** | Complete Analysis | **2-4 hours** | **4-8 hours** | **$23-90** | **$28-100** |
 | **+ Claude Tokens** | - | - | - | **~$1-2** | **~$1-2** |
-| **GRAND TOTAL** | - | **2-4 hours** | **4-8 hours** | **$24-92** | **$29-102** |
+| **GRAND TOTAL** | - | **2-4 hours** | **4-8 hours** | **$24-92** | **$29-104** |
 
 **Data sizes:** 100-500 MB spatial (3,000-5,000 spots × 18,000-30,000 genes), 15-20 MB multi-omics processed (or 2.7 GB raw), 500 MB - 2 GB imaging
 
 **Cost Breakdown:**
 - **DRY_RUN:** Claude token usage only (~30K tokens) - ~$1
 - **Real Data (Demonstration):** Compute ($7-24) + APIs (~$1) + Claude tokens (~$1) = **$8-26 total**
-- **Real Data (Production):** Compute ($22-99) + APIs (~$1) + Claude tokens (~$1-2) = **$24-102 total**
+- **Real Data (Production):** Compute ($22-101) + APIs (~$1) + Claude tokens (~$1-2) = **$24-104 total**
   - 3-4× more expensive due to 300-1500× larger data files
   - **Token costs stay low** (~$1-2) because MCP servers return summaries, not raw 3-8 GB files!
 
