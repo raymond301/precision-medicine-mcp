@@ -86,6 +86,15 @@ Students can explore the codebase, run tests, and ask questions in the terminal.
 # Time: 10-15 minutes per student
 ```
 
+**Option D: Gemini in VSCode (For teams without Claude access)**
+```bash
+# For organizations with Google Gemini licenses but no Claude approval
+# Students use VSCode + Gemini Code Assist extension with MCP servers
+# Follow Gemini setup guide: docs/getting-started/gemini-setup.md
+# IMPORTANT: Students must enable "Agent Mode" in the Gemini panel
+# Time: 10-15 minutes per student
+```
+
 ### 2. Assign PatientOne Case Study (25-35 minutes)
 
 **Case:** PAT001-OVC-2025 - 58-year-old female, Stage IV HGSOC, platinum-resistant
@@ -127,6 +136,7 @@ Follow: [Installation Guide](../getting-started/installation.md)
 **What you'll install (pick one):**
 - **Claude Code** (CLI, recommended) — explore and run tests from your terminal
 - **Claude Desktop** (GUI) — visual interface for running analyses
+- **Gemini in VSCode** — for teams with Gemini licenses ([setup guide](../getting-started/gemini-setup.md))
 - **Streamlit UI** (cloud) — browser-based, no local install needed
 
 ### 2. Try Your First Analysis (5 minutes)
@@ -442,7 +452,7 @@ Interested in piloting this platform in your course?
 Production mode (real data): Requires institutional GCP account and varies by usage.
 
 ### "Can students work on their own computers?"
-**A:** Yes! Three options: (1) Claude Code CLI for terminal-based exploration, (2) Claude Desktop GUI for visual analysis, or (3) cloud-based Streamlit UI (no local install needed).
+**A:** Yes! Four options: (1) Claude Code CLI for terminal-based exploration, (2) Claude Desktop GUI for visual analysis, (3) Gemini in VSCode for teams with Gemini licenses, or (4) cloud-based Streamlit UI (no local install needed).
 
 ### "What if students find bugs or have questions?"
 **A:** Students can:
@@ -458,7 +468,10 @@ Production mode (real data): Requires institutional GCP account and varies by us
 **A:** Yes for advanced high school (AP Biology, AP Computer Science). Requires basic biology knowledge and comfort with technology. Instructor guidance recommended.
 
 ### "What if my institution blocks Claude Desktop?"
-**A:** Use Claude Code (CLI-based, runs in terminal) or the cloud-based Streamlit UI (browser-accessible, deployed on GCP).
+**A:** Use Claude Code (CLI-based, runs in terminal), the cloud-based Streamlit UI (browser-accessible, deployed on GCP), or switch to Gemini — see the [Gemini Setup Guide](../getting-started/gemini-setup.md). All MCP servers work with both Claude and Gemini.
+
+### "My institution only has Gemini licenses, not Claude. Can we still use this?"
+**A:** Yes! All MCP servers work with Gemini. Follow the [Gemini Setup Guide](../getting-started/gemini-setup.md). The key difference: enable **Agent Mode** in VSCode so Gemini actually calls tools instead of describing them. The student Streamlit app (`ui/streamlit-app-students/`) is also Gemini-native.
 
 ---
 
