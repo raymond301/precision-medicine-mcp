@@ -21,7 +21,7 @@ The Precision Medicine MCP Platform reduces multi-omics precision medicine analy
 ```mermaid
 graph LR
     subgraph Input["💰 Investment"]
-        COMPUTE[Compute Cost<br/>$24-102/patient]
+        COMPUTE[Compute Cost<br/>$24-104/patient]
         INFRA[Infrastructure<br/>$1,000/month]
     end
 

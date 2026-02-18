@@ -12,12 +12,12 @@
 | 2 | mcp-mockepic | Mock (by design) | FHIR R4-compliant output format | Low |
 | 3 | mcp-cell-classify | Production | FlowSOM/Leiden clustering methods | Medium |
 | 4 | mcp-deepcell | Production (Phase 1) | Morphology, tracking, export tools (Phase 2) | High |
-| 5 | mcp-fgbio | Partial real | Finish `fetch_reference_genome`; add BAM tools | Medium |
-| 6 | mcp-genomic-results | ~95% real | TMB calculation; MSI detection | High |
+| 5 | mcp-fgbio | Production (95% Real) | Finish `fetch_reference_genome`; add BAM tools | Medium |
+| 6 | mcp-genomic-results | Production (100% Real) | TMB calculation; MSI detection | High |
 | 7 | mcp-huggingface | Mocked | Wire up real HF Hub inference | High |
 | 8 | mcp-multiomics | ~95% real | Replace hardcoded upstream regulator DBs with live API | Medium |
 | 9 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
-| 10 | mcp-patient-report | Partial | Implement `approve_patient_report` workflow | High |
+| 10 | mcp-patient-report | Production (100% Real) | Implement `approve_patient_report` workflow | High |
 | 11 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
 | 12 | mcp-quantum-celltype-fidelity | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
 | 13 | mcp-seqera | Mocked | Wire up real Seqera Platform API | High |
@@ -63,7 +63,7 @@
 | `export_cell_data` — CSV, AnnData, CellProfiler formats | Feature | Medium |
 | Add comprehensive test suite (unit + integration) | Quality | Medium |
 
-### 5. mcp-fgbio (Partial real)
+### 5. mcp-fgbio (Production, 95% Real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -72,7 +72,7 @@
 | Add BAM/CRAM consensus calling tools (fgbio Java) | Feature | Large |
 | Add retry/backoff for NCBI FTP downloads | Reliability | Small |
 
-### 6. mcp-genomic-results (~95% real)
+### 6. mcp-genomic-results (Production, 100% Real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -109,7 +109,7 @@
 | Add automated necrosis/cellularity detection | Feature | Medium |
 | Add spatial correlation with gene expression data | Feature | Medium |
 
-### 10. mcp-patient-report (Partial)
+### 10. mcp-patient-report (Production, 100% Real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
