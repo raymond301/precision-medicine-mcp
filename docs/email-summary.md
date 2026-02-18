@@ -19,7 +19,7 @@ graph LR
 
 ## System Overview
 
-A production-ready AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (80 tools)** on GCP Cloud Run — reducing production analysis from 40 hours to 2-5 hours at $324-702 per patient vs. $6,000-9,000 traditional ($3,137 avg savings). DRY_RUN demos complete in 25-35 minutes at ~$1. The system is HIPAA-compliant, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end demo (**PatientOne**: Stage IV ovarian cancer).
+An AI-orchestrated platform for precision oncology that integrates clinical, genomic, multi-omics, spatial transcriptomics, and imaging data through **15 MCP servers (80 tools)** on GCP Cloud Run — reducing production analysis from an estimated 40 hours to 2-5 hours at a projected $324-702 per patient (compute + personnel) vs. $6,000-9,000 traditional (~$3,137 modeled avg savings, pending clinical validation). DRY_RUN demos complete in 25-35 minutes at ~$1. The system has HIPAA-compliant architecture, supports Claude and Gemini via a multi-provider Streamlit UI, and includes a live monitoring dashboard, comprehensive audience-specific documentation, and a validated end-to-end workflow on synthetic data (**PatientOne**: Stage IV ovarian cancer). Reduces minimum precision medicine team from ~10 FTEs to ~3.
 
 ---
 
@@ -33,8 +33,9 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 
 ## Key Metrics
 
-- **Time Reduction:** 40 hours → 2-5 hours production (8-20x faster with AI orchestration)
-- **Cost per Patient:** $324-702 production (incl. infrastructure) vs. $6,000-9,000 traditional
+- **Time Reduction:** 40 hours → 2-5 hours production (estimated 8-20x faster with AI orchestration)
+- **Cost per Patient:** $24-104 compute + $300-600 personnel = $324-702 total (projected) vs. $6,000-9,000 traditional
+- **Team Compression:** Minimum precision medicine team from ~10 FTEs to ~3
 - **At Scale:** $16/patient at 500 patients/month (~$8,000/month total)
 - **Data Integration:** 5 modalities (clinical, genomic, multi-omics, spatial, imaging)
 - **HIPAA Compliant:** De-identification, 10-year audit logs, VPC isolation
@@ -65,6 +66,6 @@ A production-ready AI-orchestrated platform for precision oncology that integrat
 
 **Repository:** https://github.com/lynnlangit/precision-medicine-mcp
 
-**Status:** Production-ready, validated deployment (February 2026). Includes dedicated student app for 6-week bioinformatics course.
+**Status:** POC validated on synthetic data; 11 of 15 servers production-ready; 6-month deployment path to hospital pilot (February 2026). Includes dedicated student app for 6-week bioinformatics course.
 
 **License:** Apache 2.0
