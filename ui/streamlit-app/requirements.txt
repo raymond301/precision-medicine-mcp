@@ -2,7 +2,7 @@
 
 # Core dependencies
 streamlit>=1.30.0
-anthropic>=0.42.0
+anthropic>=0.75.0  # Required for top-level cache_control (automatic caching)
 
 # LLM Provider SDKs
 google-genai>=1.40.0  # Optional: Gemini provider support

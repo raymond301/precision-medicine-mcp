@@ -108,21 +108,8 @@ class AnthropicProvider(LLMProvider):
                     for msg in messages
                 ]
 
-                # Build system prompt
+                # Build system prompt (plain string — automatic caching handles it)
                 system_prompt = self._build_system_prompt(mcp_servers, uploaded_files)
-
-                # Enable prompt caching: mark last tool definition
-                if claude_tools:
-                    claude_tools[-1]["cache_control"] = {"type": "ephemeral"}
-
-                # Build cacheable system prompt (list of content blocks)
-                system_blocks = [
-                    {
-                        "type": "text",
-                        "text": system_prompt,
-                        "cache_control": {"type": "ephemeral"}
-                    }
-                ]
 
                 # Agentic loop: keep calling until no more tool calls
                 max_iterations = 30
@@ -140,14 +127,17 @@ class AnthropicProvider(LLMProvider):
                     iteration += 1
                     print(f"DEBUG: Iteration {iteration}", file=sys.stderr)
 
-                    # Call Claude with current conversation and tools
+                    # Call Claude with automatic caching enabled.
+                    # Top-level cache_control auto-caches tools, system, and
+                    # the growing conversation prefix across loop iterations.
                     response = self.client.messages.create(
                         model=model,
                         max_tokens=max_tokens,
                         temperature=temperature,
                         messages=conversation_history,
                         tools=claude_tools,
-                        system=system_blocks
+                        system=system_prompt,
+                        cache_control={"type": "ephemeral"}
                     )
 
                     # Accumulate usage from this iteration
