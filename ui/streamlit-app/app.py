@@ -1013,6 +1013,19 @@ def _run_next_benchmark_step():
     done.append(result)
     st.session_state["benchmark_done"] = done
 
+    # Log this individual prompt result to audit log
+    try:
+        audit_logger = get_audit_logger()
+        user = st.session_state.get("user", {"email": "dev@localhost", "user_id": "dev"})
+        audit_logger.log_benchmark_prompt(
+            user_email=user["email"],
+            user_id=user["user_id"],
+            session_id=st.session_state.get("session_id", "unknown"),
+            result=result.to_dict()
+        )
+    except Exception:
+        pass  # Don't fail benchmark on audit log errors
+
     # Rerun to process the next item (or finalize)
     st.rerun()
 

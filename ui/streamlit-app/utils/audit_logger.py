@@ -317,6 +317,40 @@ class AuditLogger:
             "session_id": session_id
         })
 
+    def log_benchmark_prompt(
+        self,
+        user_email: str,
+        user_id: str,
+        session_id: str,
+        result: Dict
+    ):
+        """Log a single benchmark prompt result as it completes.
+
+        Args:
+            user_email: User's email (will be hashed)
+            user_id: User's ID
+            session_id: Session ID
+            result: Result dict from BenchmarkResult.to_dict()
+        """
+        self._log_event("benchmark_prompt", {
+            "user_email_hash": self._hash_email(user_email),
+            "user_id": user_id,
+            "session_id": session_id,
+            "prompt_name": result.get("prompt_name", ""),
+            "provider": result.get("provider", ""),
+            "model": result.get("model", ""),
+            "run_type": result.get("run_type", ""),
+            "input_tokens": result.get("input_tokens", 0),
+            "output_tokens": result.get("output_tokens", 0),
+            "total_tokens": result.get("total_tokens", 0),
+            "cache_read_tokens": result.get("cache_read_tokens", 0),
+            "cache_creation_tokens": result.get("cache_creation_tokens", 0),
+            "iterations": result.get("iterations", 1),
+            "duration_ms": result.get("duration_ms", 0),
+            "estimated_cost": result.get("estimated_cost", 0),
+            "error": result.get("error"),
+        })
+
     def log_benchmark_run(
         self,
         user_email: str,
