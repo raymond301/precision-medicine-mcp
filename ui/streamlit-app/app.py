@@ -584,11 +584,25 @@ def render_sidebar():
                     )
                     benchmark_providers.append(("gemini", gemini_model_id))
 
-            # Run buttons
-            if st.button("Run Benchmark", key="run_benchmark",
-                         use_container_width=True,
-                         disabled=not selected_prompts or not benchmark_providers):
-                _run_benchmark(selected_prompts, benchmark_providers)
+            # Show progress if benchmark is running
+            if st.session_state.get("benchmark_running"):
+                queue = st.session_state.get("benchmark_queue", [])
+                done = st.session_state.get("benchmark_done", [])
+                total = len(queue) + len(done)
+                if total > 0:
+                    st.progress(len(done) / total,
+                                text=f"Running {len(done)+1}/{total}...")
+                if st.button("Cancel Benchmark", key="cancel_benchmark",
+                             use_container_width=True):
+                    st.session_state["benchmark_running"] = False
+                    st.session_state["benchmark_queue"] = []
+                    st.rerun()
+            else:
+                # Run button
+                if st.button("Run Benchmark", key="run_benchmark",
+                             use_container_width=True,
+                             disabled=not selected_prompts or not benchmark_providers):
+                    _start_benchmark(selected_prompts, benchmark_providers)
 
     return model, max_tokens, show_trace, trace_style
 
@@ -889,64 +903,133 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
             st.rerun()
 
 
-def _run_benchmark(selected_prompts: List[str], benchmark_providers: List[tuple]):
-    """Execute token benchmark and display results.
+def _start_benchmark(selected_prompts: List[str], benchmark_providers: List[tuple]):
+    """Initialize benchmark queue and start incremental execution.
+
+    Builds a queue of (prompt_name, prompt_text, provider_key, model, run_type)
+    tuples. Each Streamlit rerun processes one item, keeping the connection alive.
 
     Args:
         selected_prompts: List of prompt names to benchmark
         benchmark_providers: List of (provider_key, model_id) tuples
     """
-    from utils.benchmark import TokenBenchmark, BenchmarkResult
+    queue = []
+    for run_type in ["cold", "warm"]:
+        for prompt_name in selected_prompts:
+            prompt_text = EXAMPLE_PROMPTS.get(prompt_name)
+            if not prompt_text:
+                continue
+            for provider_key, model_id in benchmark_providers:
+                queue.append((prompt_name, prompt_text, provider_key, model_id, run_type))
+
+    st.session_state["benchmark_queue"] = queue
+    st.session_state["benchmark_done"] = []
+    st.session_state["benchmark_running"] = True
+    st.session_state["benchmark_providers_config"] = benchmark_providers
+    # Clear previous results
+    st.session_state.pop("benchmark_results", None)
+    st.session_state.pop("benchmark_csv", None)
+    st.rerun()
+
+
+def _run_next_benchmark_step():
+    """Run a single benchmark prompt then rerun. Called once per Streamlit cycle."""
+    if not st.session_state.get("benchmark_running"):
+        return
+
+    queue = st.session_state.get("benchmark_queue", [])
+    done = st.session_state.get("benchmark_done", [])
+
+    if not queue:
+        # All done — finalize results
+        _finalize_benchmark(done)
+        return
+
+    # Pop the next item
+    prompt_name, prompt_text, provider_key, model_id, run_type = queue.pop(0)
+    st.session_state["benchmark_queue"] = queue
+
+    # Run this single prompt
+    from utils.benchmark import BenchmarkResult
+    import time
+
+    try:
+        provider_instance = get_provider(provider_name=provider_key)
+        mcp_servers = get_server_config(st.session_state.selected_servers)
+
+        messages = [ChatMessage(role="user", content=prompt_text)]
+        start = time.time()
+
+        chat_response = provider_instance.send_message(
+            messages=messages,
+            mcp_servers=mcp_servers,
+            model=model_id,
+            max_tokens=4096,
+            uploaded_files=st.session_state.get("uploaded_files"),
+        )
+
+        duration_ms = (time.time() - start) * 1000
+        usage = chat_response.usage
+
+        if usage:
+            # Cache-aware cost
+            cache_read = usage.cache_read_tokens
+            cache_creation = usage.cache_creation_tokens
+            raw_input = usage.input_tokens
+            if provider_key == "gemini":
+                uncached = max(0, raw_input - cache_read)
+                cost = (uncached * 0.00015 / 1000 + cache_read * 0.000015 / 1000
+                        + usage.output_tokens * 0.0006 / 1000)
+            else:
+                uncached = max(0, raw_input - cache_read - cache_creation)
+                cost = (uncached * 0.003 / 1000 + cache_read * 0.0003 / 1000
+                        + cache_creation * 0.00375 / 1000
+                        + usage.output_tokens * 0.015 / 1000)
+
+            result = BenchmarkResult(
+                prompt_name=prompt_name, provider=provider_key, model=model_id,
+                run_type=run_type, input_tokens=usage.input_tokens,
+                output_tokens=usage.output_tokens, total_tokens=usage.total_tokens,
+                cache_read_tokens=cache_read, cache_creation_tokens=cache_creation,
+                iterations=usage.iterations, duration_ms=duration_ms,
+                estimated_cost=cost,
+            )
+        else:
+            result = BenchmarkResult(
+                prompt_name=prompt_name, provider=provider_key, model=model_id,
+                run_type=run_type, duration_ms=duration_ms,
+                error="No usage info returned",
+            )
+
+    except Exception as e:
+        result = BenchmarkResult(
+            prompt_name=prompt_name, provider=provider_key, model=model_id,
+            run_type=run_type, error=str(e)[:200],
+        )
+
+    done.append(result)
+    st.session_state["benchmark_done"] = done
+
+    # Rerun to process the next item (or finalize)
+    st.rerun()
+
+
+def _finalize_benchmark(results):
+    """Convert completed benchmark results to DataFrame and log.
+
+    Args:
+        results: List of BenchmarkResult objects
+    """
+    from utils.benchmark import TokenBenchmark
     from utils.audit_logger import get_audit_logger
     import pandas as pd
 
-    # Build prompt dict
-    prompts = {name: EXAMPLE_PROMPTS[name] for name in selected_prompts
-                if name in EXAMPLE_PROMPTS}
+    st.session_state["benchmark_running"] = False
+    st.session_state["benchmark_queue"] = []
 
-    # Build provider instances
-    providers = []
-    for provider_key, model_id in benchmark_providers:
-        try:
-            instance = get_provider(provider_name=provider_key)
-            providers.append((provider_key, instance, model_id))
-        except Exception as e:
-            st.error(f"Failed to init {provider_key}: {e}")
-
-    if not providers:
-        st.error("No providers available")
+    if not results:
         return
 
-    # Get MCP server config
-    mcp_servers = get_server_config(st.session_state.selected_servers)
-    if not mcp_servers:
-        st.error("No MCP servers selected")
-        return
-
-    benchmark = TokenBenchmark(
-        prompts=prompts,
-        providers=providers,
-        mcp_servers=mcp_servers,
-        uploaded_files=st.session_state.get("uploaded_files"),
-    )
-
-    # Run cold + warm
-    progress = st.progress(0, text="Starting cold run...")
-    total_runs = len(prompts) * len(providers) * 2  # cold + warm
-    run_count = [0]
-
-    def update_progress(status: str):
-        run_count[0] += 1
-        progress.progress(
-            min(run_count[0] / total_runs, 1.0),
-            text=status
-        )
-
-    results = benchmark.run_cold(progress_callback=update_progress)
-    results += benchmark.run_warm(progress_callback=update_progress)
-    progress.progress(1.0, text="Complete!")
-
-    # Convert to DataFrame
     rows = [r.to_dict() for r in results]
     df = pd.DataFrame(rows)
 
@@ -955,25 +1038,46 @@ def _run_benchmark(selected_prompts: List[str], benchmark_providers: List[tuple]
         denom = df["cache_read_tokens"] + df["input_tokens"]
         df["cache_hit_rate"] = (df["cache_read_tokens"] / denom.replace(0, 1)).round(3)
 
-    # Store in session state
     st.session_state["benchmark_results"] = df
     st.session_state["benchmark_csv"] = TokenBenchmark.results_to_csv_string(results)
 
     # Log to audit
-    audit_logger = get_audit_logger()
-    user = st.session_state.get("user", {"email": "dev@localhost", "user_id": "dev"})
-    audit_logger.log_benchmark_run(
-        user_email=user["email"],
-        user_id=user["user_id"],
-        session_id=st.session_state.get("session_id", "unknown"),
-        prompt_count=len(prompts),
-        provider_count=len(providers),
-        results=rows
-    )
+    try:
+        audit_logger = get_audit_logger()
+        user = st.session_state.get("user", {"email": "dev@localhost", "user_id": "dev"})
+        audit_logger.log_benchmark_run(
+            user_email=user["email"],
+            user_id=user["user_id"],
+            session_id=st.session_state.get("session_id", "unknown"),
+            prompt_count=len(set(r.prompt_name for r in results)),
+            provider_count=len(set(r.provider for r in results)),
+            results=rows
+        )
+    except Exception:
+        pass  # Don't fail benchmark on audit log errors
 
 
 def render_benchmark_results():
     """Render benchmark results if available."""
+    # Show in-progress status
+    if st.session_state.get("benchmark_running"):
+        done = st.session_state.get("benchmark_done", [])
+        queue = st.session_state.get("benchmark_queue", [])
+        total = len(done) + len(queue)
+        st.markdown("---")
+        st.subheader("Benchmark In Progress")
+        st.progress(len(done) / max(total, 1),
+                     text=f"Completed {len(done)} of {total} runs...")
+        if done:
+            last = done[-1]
+            status = f"Last: {last.prompt_name} ({last.provider}, {last.run_type})"
+            if last.error:
+                status += f" - Error: {last.error[:80]}"
+            else:
+                status += f" - {last.total_tokens:,} tokens, {last.duration_ms:.0f}ms"
+            st.caption(status)
+        return
+
     if "benchmark_results" not in st.session_state:
         return
 
@@ -1068,6 +1172,9 @@ def main():
 
     # Render chat history
     render_chat_history(show_trace=show_trace, trace_style=trace_style)
+
+    # Run next benchmark step if benchmark is in progress
+    _run_next_benchmark_step()
 
     # Render benchmark results if available
     render_benchmark_results()
