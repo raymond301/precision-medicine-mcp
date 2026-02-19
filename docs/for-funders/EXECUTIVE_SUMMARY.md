@@ -4,7 +4,7 @@
 
 The **Precision Medicine MCP System** is an AI-orchestrated platform integrating clinical (FHIR), genomic, spatial transcriptomics, and imaging data for precision oncology research. Built on the Model Context Protocol (MCP), this system enables AI to orchestrate complex multi-omics analyses while maintaining HIPAA compliance and cost efficiency.
 
-**Status:** POC validated on synthetic data; most servers production-ready ([Server Registry](../reference/shared/server-registry.md)); 6-month deployment path to hospital pilot
+**Status:** POC validated on synthetic data; majority of servers are production-ready (not mocked); next step is deployment to hospital pilot
 
 ---
 
@@ -43,7 +43,7 @@ graph LR
 ```
 
 **Key Points:**
-- **AI Orchestration**: Claude + Gemini 3 AI coordinates MCP servers via natural language ([Server Registry](../reference/shared/server-registry.md))
+- **AI Orchestration**: Claude + Gemini 3 AI coordinates multiple MCP servers via natural language  
 - **Specialized Tools**: Bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
 - **Production Ready**: Most servers deployed to Cloud Run; 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
 - **Cost Efficient**: Low per-analysis compute cost; significant per-patient cost reduction vs. traditional methods (see Financial Summary and [Cost Analysis](../reference/shared/cost-analysis.md))
@@ -61,7 +61,7 @@ graph LR
 - Enables community hospitals and mid-size cancer centers to offer precision oncology programs that previously required large academic medical center teams
 
 **For Bioinformaticians:**
-- Unified platform for bioinformatics tools across MCP servers ([Server Registry](../reference/shared/server-registry.md))
+- Unified platform for bioinformatics tools across multiple MCP servers  
 - Natural language interface reduces manual pipeline coding (bioinformatician oversight still required for clinical interpretation)
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -82,8 +82,6 @@ Per-patient costs represent a significant reduction vs. traditional methods (com
 ## Technical Capabilities
 
 **MCP Servers and Tools** ([Server Registry](../reference/shared/server-registry.md)): most production-ready, 1 mock by design, 3 framework/utility.
-
-> **Full server details:** See [Server Registry](../reference/shared/server-registry.md) for the complete server status matrix.
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
@@ -159,7 +157,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 **What has been validated:**
 - End-to-end workflow on synthetic data (PatientOne: PAT001-OVC-2025, 100% synthetic)
-- Most MCP servers passing automated test suites ([Server Registry](../reference/shared/server-registry.md))
+- Majority of MCP servers have (passing) automated test suites 
 - Cloud Run deployment and scaling on GCP
 - Dual-provider orchestration (Claude and Gemini both calling MCP tools)
 - DRY_RUN mode for safe testing without real data or costly compute
@@ -198,7 +196,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 **Business Impact:**
 - Users: 5 (pilot) → 20 (production)
 - Patients: 100 (pilot) → 500 (Year 1)
-- Cost: Significant per-patient cost reduction vs. traditional methods ([Cost Analysis](../reference/shared/cost-analysis.md))
+- Cost: Significant per-patient cost reduction vs. traditional methods  
 
 **Research Outcomes:**
 - Analysis results supporting 2+ manuscripts
@@ -211,7 +209,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 **vs. Traditional Pipelines:** Natural language interface, 8-20x faster (estimated), improved reproducibility through automated orchestration, built-in HIPAA compliance
 
-**vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction ([Cost Analysis](../reference/shared/cost-analysis.md)), multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
+**vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction, multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
 
 **vs. Manual Integration:** Reproducible workflows, automated harmonization, evidence-based pathway analysis, reduced minimum team size
 
@@ -222,7 +220,7 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 The Precision Medicine MCP System delivers:
 - **Team compression**: Reduces minimum precision medicine team from ~10 FTEs to ~3, making precision oncology feasible for mid-size hospitals
-- **Significant modeled savings per patient** vs. traditional analysis ([Value Proposition](../reference/shared/value-proposition.md)), to be validated during pilot
+- **Significant modeled savings per patient** vs. traditional analysis (to be validated during pilot)
 - **HIPAA-compliant architecture** with bias auditing, de-identification, and clinical governance framework
 - **6-month deployment** timeline from approval to production (assumes GCP and Azure AD prerequisites in place)
 - **Medium overall risk** with technical and compliance risks well-mitigated; adoption and AI vendor dependency require active management
