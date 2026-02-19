@@ -39,7 +39,7 @@ gcloud run deploy streamlit-mcp-chat \
     --region us-central1 \
     --project precision-medicine-poc \
     --allow-unauthenticated \
-    --memory 1Gi \
+    --memory 2Gi \
     --cpu 1 \
     --min-instances 0 \
     --max-instances 5 \

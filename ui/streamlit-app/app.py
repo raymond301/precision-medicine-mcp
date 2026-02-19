@@ -954,7 +954,10 @@ def _run_next_benchmark_step():
     import time
 
     try:
-        provider_instance = get_provider(provider_name=provider_key)
+        # Reuse existing provider instance to avoid memory accumulation
+        provider_instance = st.session_state.provider_instance
+        if provider_instance is None or provider_instance.get_provider_name().lower() != provider_key:
+            provider_instance = get_provider(provider_name=provider_key)
         mcp_servers = get_server_config(st.session_state.selected_servers)
 
         messages = [ChatMessage(role="user", content=prompt_text)]
