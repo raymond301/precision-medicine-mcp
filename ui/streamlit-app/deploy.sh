@@ -39,7 +39,7 @@ gcloud run deploy "$SERVICE_NAME" \
     --platform managed \
     --region "$REGION" \
     --project "$PROJECT_ID" \
-    --allow-unauthenticated \
+    --no-allow-unauthenticated \
     --memory 2Gi \
     --cpu 1 \
     --min-instances 0 \
@@ -66,6 +66,10 @@ echo "   $SERVICE_URL"
 echo ""
 echo "📊 View logs:"
 echo "   gcloud logging read \"resource.type=cloud_run_revision AND resource.labels.service_name=$SERVICE_NAME\" --limit=50 --project=$PROJECT_ID"
+echo ""
+echo "🔒 Access via proxy (requires gcloud auth):"
+echo "   gcloud run services proxy $SERVICE_NAME --region $REGION --project $PROJECT_ID"
+echo "   Then open: http://localhost:8080"
 echo ""
 echo "🔧 Manage service:"
 echo "   https://console.cloud.google.com/run/detail/$REGION/$SERVICE_NAME?project=$PROJECT_ID"

@@ -38,7 +38,7 @@ gcloud run deploy streamlit-mcp-chat \
     --platform managed \
     --region us-central1 \
     --project precision-medicine-poc \
-    --allow-unauthenticated \
+    --no-allow-unauthenticated \
     --memory 2Gi \
     --cpu 1 \
     --min-instances 0 \
@@ -58,3 +58,7 @@ SERVICE_URL=$(gcloud run services describe streamlit-mcp-chat \
     --format 'value(status.url)')
 
 echo "🌐 Streamlit URL: $SERVICE_URL"
+echo ""
+echo "🔒 This service requires authentication."
+echo "   Access via proxy:  gcloud run services proxy streamlit-mcp-chat --region us-central1 --project precision-medicine-poc"
+echo "   Then open:         http://localhost:8080"

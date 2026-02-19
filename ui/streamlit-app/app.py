@@ -96,7 +96,7 @@ def initialize_session_state():
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "selected_servers" not in st.session_state:
-        st.session_state.selected_servers = ["spatialtools", "multiomics", "fgbio"]
+        st.session_state.selected_servers = ["fgbio"]
 
     # Initialize provider selection (Cloud Run only)
     if "llm_provider" not in st.session_state:
