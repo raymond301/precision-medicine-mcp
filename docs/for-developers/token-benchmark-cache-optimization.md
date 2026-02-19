@@ -8,18 +8,35 @@ We want to compare Claude vs Gemini token usage across common bioinformatics pro
 2. **Only final-iteration usage** — Both providers loop up to 30 tool-calling iterations but only reported the *last* response's tokens, not cumulative across all iterations.
 3. **No automated benchmark mode** — Couldn't batch-run all 14 prompts on both providers and export a comparison report.
 
-Additionally, **Claude prompt caching was not enabled** — it requires explicit `cache_control` breakpoints on the system prompt and tool definitions. Gemini has implicit caching (automatic since May 2025) but we weren't tracking whether it was hitting.
+Additionally, **Claude prompt caching was not enabled**. Gemini has implicit caching (automatic since May 2025) but we weren't tracking whether it was hitting.
 
 ## How Caching Works
 
-### Claude — Explicit
+### Claude — Automatic Caching (February 2026)
 
-- Must add `cache_control: {"type": "ephemeral"}` breakpoints on content blocks
-- Cacheable: system prompt, tool definitions, conversation prefix
+As of February 2026, Claude supports **automatic caching** via a single top-level `cache_control` parameter on the API request. This replaces the previous approach of placing explicit `cache_control` breakpoints on individual content blocks.
+
+- Add `cache_control: {"type": "ephemeral"}` at the **top level** of `messages.create()`
+- The system automatically applies the cache breakpoint to the last cacheable block
+- In multi-turn conversations and agentic loops, the cache point **moves forward automatically** as the conversation grows
+- No need to manually mark system prompts, tool definitions, or message blocks
 - 5-minute TTL (refreshed on use), or 1-hour TTL at 2x write cost
 - **Reads cost 0.1x** (90% discount); writes cost 1.25x (25% premium)
 - Minimum cacheable: 1,024 tokens (Sonnet), 4,096 tokens (Opus/Haiku)
-- Best targets: system prompt (~500 tokens) + tool definitions (many tokens with 5-6 servers)
+- Up to 4 cache breakpoints supported (automatic uses one slot)
+- Can be combined with explicit block-level breakpoints for fine-grained control
+
+**Why automatic caching is ideal for our agentic loop:**
+
+| Request | Content | Cache behavior |
+|---------|---------|----------------|
+| Iteration 1 | tools + system + user message | Everything written to cache |
+| Iteration 2 | tools + system + user + assistant + tool_result | Iteration 1 content read from cache; new content written |
+| Iteration 3 | tools + system + user + ... + tool_result_2 | Iterations 1-2 read from cache; new content written |
+
+Each agentic loop iteration benefits from the cache of all prior iterations without any manual bookkeeping.
+
+**Reference:** [Prompt Caching docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching)
 
 ### Gemini — Implicit (automatic)
 
@@ -56,23 +73,28 @@ In both providers' agentic loops, we now accumulate usage from every iteration (
 - After each `messages.create()` / `generate_content()` call, add that response's usage to the running totals
 - Return the cumulative totals in the final `ChatResponse`
 
-### Step 3: Enabled Claude prompt caching
+### Step 3: Enabled Claude automatic prompt caching
 
 **File:** `ui/streamlit-app/providers/anthropic_provider.py`
 
-Changed `_build_system_prompt` output to be wrapped in a cacheable content block with `cache_control`. Marked the last tool definition with a cache breakpoint. This caches the system prompt + all tool definitions — the two largest repeated prefixes.
+Added a single top-level `cache_control` parameter to the `messages.create()` call. This uses Claude's automatic caching (released February 2026) which automatically caches everything up to the last cacheable block and moves the cache breakpoint forward as the conversation grows during the agentic loop.
 
 ```python
-# System prompt as cacheable content block
-system_blocks = [
-    {"type": "text", "text": system_prompt,
-     "cache_control": {"type": "ephemeral"}}
-]
-
-# Tool definitions — mark last tool as cache breakpoint
-if claude_tools:
-    claude_tools[-1]["cache_control"] = {"type": "ephemeral"}
+# Automatic caching — one parameter handles tools, system, and conversation
+response = self.client.messages.create(
+    model=model,
+    max_tokens=max_tokens,
+    temperature=temperature,
+    messages=conversation_history,
+    tools=claude_tools,
+    system=system_prompt,        # plain string, no content blocks needed
+    cache_control={"type": "ephemeral"}  # auto-caches the entire prefix
+)
 ```
+
+This replaced an earlier explicit approach that required wrapping the system prompt in content blocks and mutating tool definitions. The automatic approach is simpler and also caches the growing conversation history between agentic loop iterations (which the explicit approach did not).
+
+**Requires:** `anthropic>=0.75.0` (updated in `requirements.txt`)
 
 ### Step 4: Extracted cache fields from both provider responses
 
@@ -135,11 +157,13 @@ Added `log_benchmark_run()` method that logs the full benchmark results to GCP C
 | File | Change |
 |------|--------|
 | `providers/base.py` | Add cache fields + iterations to UsageInfo |
-| `providers/anthropic_provider.py` | Enable cache_control, cumulative usage tracking, extract cache fields |
+| `providers/anthropic_provider.py` | Enable automatic caching, cumulative usage tracking, extract cache fields |
 | `providers/gemini_provider.py` | Cumulative usage tracking, extract cached_content_token_count |
-| `app.py` | Display cache metrics, benchmark UI, cache-aware cost calc |
+| `requirements.txt` | Bump `anthropic>=0.75.0` for automatic caching support |
+| `app.py` | Display cache metrics, incremental benchmark UI, cache-aware cost calc |
 | `utils/benchmark.py` | **New** — benchmark runner class |
 | `utils/audit_logger.py` | Add log_benchmark_run() method |
+| `deploy.sh`, `deploy_now.sh` | Increase Cloud Run memory from 1Gi to 2Gi |
 
 ## Test Protocol
 
@@ -183,7 +207,8 @@ For each provider (Claude Sonnet 4.6, Gemini 3 Flash):
 
 ### Expected insights
 
-- **System prompt + tools caching**: With 5-6 servers, tool definitions are likely 2,000-5,000 tokens. Caching these saves 90% on every follow-up call in the agentic loop (iterations 2-N of a single prompt) and across prompts in the same session.
+- **Automatic caching across agentic loop iterations**: With automatic caching, each iteration of the tool-calling loop caches the entire prefix (tools + system + conversation so far). Iterations 2-N read the growing prefix from cache at 0.1x cost. This is especially impactful for multi-step prompts with 3+ iterations.
+- **System prompt + tools caching**: With 5-6 servers, tool definitions are likely 2,000-5,000 tokens. These are cached automatically and reused across all iterations and across prompts within the 5-minute TTL window.
 - **Multi-step prompts**: Prompts like #6 (Complete Workflow) make 3+ API calls in the loop. Cumulative tracking will reveal the true token cost vs. the previously reported final-iteration-only number.
 - **Gemini implicit caching**: May already be providing savings we weren't seeing because `cached_content_token_count` wasn't tracked.
 - **Prompt pattern guidance**: If caching is effective, guidance is: "Keep the same servers selected across prompts in a session" and "Run related analyses together rather than switching contexts."
