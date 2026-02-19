@@ -584,25 +584,60 @@ def render_sidebar():
                     )
                     benchmark_providers.append(("gemini", gemini_model_id))
 
-            # Show progress if benchmark is running
+            # Track completed phases
+            phases_done = st.session_state.get("benchmark_phases_done", set())
+
+            # Show progress if a phase is running
             if st.session_state.get("benchmark_running"):
+                phase = st.session_state.get("benchmark_phase", "")
                 queue = st.session_state.get("benchmark_queue", [])
                 done = st.session_state.get("benchmark_done", [])
                 total = len(queue) + len(done)
                 if total > 0:
                     st.progress(len(done) / total,
-                                text=f"Running {len(done)+1}/{total}...")
-                if st.button("Cancel Benchmark", key="cancel_benchmark",
+                                text=f"{phase.title()}: {len(done)+1}/{total}...")
+                if st.button("Cancel", key="cancel_benchmark",
                              use_container_width=True):
                     st.session_state["benchmark_running"] = False
                     st.session_state["benchmark_queue"] = []
                     st.rerun()
             else:
-                # Run button
-                if st.button("Run Benchmark", key="run_benchmark",
-                             use_container_width=True,
-                             disabled=not selected_prompts or not benchmark_providers):
-                    _start_benchmark(selected_prompts, benchmark_providers)
+                # Phase status indicators
+                for phase_name in ["cold", "warm", "repeat"]:
+                    if phase_name in phases_done:
+                        st.caption(f"  {phase_name.title()} — done")
+
+                # Phase buttons
+                can_run = selected_prompts and benchmark_providers
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    if st.button("Cold", key="run_cold",
+                                 use_container_width=True,
+                                 disabled=not can_run):
+                        _start_benchmark_phase(
+                            selected_prompts, benchmark_providers, "cold")
+                with col2:
+                    if st.button("Warm", key="run_warm",
+                                 use_container_width=True,
+                                 disabled=not can_run or "cold" not in phases_done):
+                        _start_benchmark_phase(
+                            selected_prompts, benchmark_providers, "warm")
+                with col3:
+                    if st.button("Repeat", key="run_repeat",
+                                 use_container_width=True,
+                                 disabled=not can_run or "warm" not in phases_done):
+                        _start_benchmark_phase(
+                            selected_prompts, benchmark_providers, "repeat")
+
+                # Reset button (only if any phase completed)
+                if phases_done:
+                    if st.button("Reset All Results", key="reset_benchmark",
+                                 use_container_width=True):
+                        st.session_state.pop("benchmark_phases_done", None)
+                        st.session_state.pop("benchmark_all_results", None)
+                        st.session_state.pop("benchmark_results", None)
+                        st.session_state.pop("benchmark_csv", None)
+                        st.rerun()
 
     return model, max_tokens, show_trace, trace_style
 
@@ -903,32 +938,45 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
             st.rerun()
 
 
-def _start_benchmark(selected_prompts: List[str], benchmark_providers: List[tuple]):
-    """Initialize benchmark queue and start incremental execution.
+# Multi-step prompts used for the "repeat" benchmark phase
+REPEAT_PROMPTS = [
+    "Complete PatientOne Workflow",
+    "Predict Treatment Response",
+    "Quantum + GEARS Validation",
+]
 
-    Builds a queue of (prompt_name, prompt_text, provider_key, model, run_type)
-    tuples. Each Streamlit rerun processes one item, keeping the connection alive.
+
+def _start_benchmark_phase(
+    selected_prompts: List[str],
+    benchmark_providers: List[tuple],
+    phase: str
+):
+    """Initialize a single benchmark phase and start incremental execution.
 
     Args:
         selected_prompts: List of prompt names to benchmark
         benchmark_providers: List of (provider_key, model_id) tuples
+        phase: One of "cold", "warm", "repeat"
     """
+    # For repeat phase, only use multi-step prompts that are in the selection
+    if phase == "repeat":
+        prompts_to_run = [p for p in REPEAT_PROMPTS if p in selected_prompts]
+    else:
+        prompts_to_run = selected_prompts
+
     queue = []
-    for run_type in ["cold", "warm"]:
-        for prompt_name in selected_prompts:
-            prompt_text = EXAMPLE_PROMPTS.get(prompt_name)
-            if not prompt_text:
-                continue
-            for provider_key, model_id in benchmark_providers:
-                queue.append((prompt_name, prompt_text, provider_key, model_id, run_type))
+    for prompt_name in prompts_to_run:
+        prompt_text = EXAMPLE_PROMPTS.get(prompt_name)
+        if not prompt_text:
+            continue
+        for provider_key, model_id in benchmark_providers:
+            queue.append((prompt_name, prompt_text, provider_key, model_id, phase))
 
     st.session_state["benchmark_queue"] = queue
     st.session_state["benchmark_done"] = []
     st.session_state["benchmark_running"] = True
+    st.session_state["benchmark_phase"] = phase
     st.session_state["benchmark_providers_config"] = benchmark_providers
-    # Clear previous results
-    st.session_state.pop("benchmark_results", None)
-    st.session_state.pop("benchmark_csv", None)
     st.rerun()
 
 
@@ -949,9 +997,12 @@ def _run_next_benchmark_step():
     prompt_name, prompt_text, provider_key, model_id, run_type = queue.pop(0)
     st.session_state["benchmark_queue"] = queue
 
-    # Run this single prompt
+    # Run this single prompt with a timeout to prevent websocket disconnects
     from utils.benchmark import BenchmarkResult
     import time
+    import concurrent.futures
+
+    BENCHMARK_PROMPT_TIMEOUT = 90  # seconds — keeps us under Streamlit's websocket timeout
 
     try:
         # Reuse existing provider instance to avoid memory accumulation
@@ -963,13 +1014,43 @@ def _run_next_benchmark_step():
         messages = [ChatMessage(role="user", content=prompt_text)]
         start = time.time()
 
-        chat_response = provider_instance.send_message(
+        # Run in a thread with timeout so long-running prompts don't block
+        executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        future = executor.submit(
+            provider_instance.send_message,
             messages=messages,
             mcp_servers=mcp_servers,
             model=model_id,
             max_tokens=4096,
             uploaded_files=st.session_state.get("uploaded_files"),
         )
+        try:
+            chat_response = future.result(timeout=BENCHMARK_PROMPT_TIMEOUT)
+        except concurrent.futures.TimeoutError:
+            executor.shutdown(wait=False, cancel_futures=True)
+            duration_ms = (time.time() - start) * 1000
+            result = BenchmarkResult(
+                prompt_name=prompt_name, provider=provider_key, model=model_id,
+                run_type=run_type, duration_ms=duration_ms,
+                error=f"Timeout: exceeded {BENCHMARK_PROMPT_TIMEOUT}s",
+            )
+            done.append(result)
+            st.session_state["benchmark_done"] = done
+            try:
+                audit_logger = get_audit_logger()
+                user = st.session_state.get("user", {"email": "dev@localhost", "user_id": "dev"})
+                audit_logger.log_benchmark_prompt(
+                    user_email=user["email"],
+                    user_id=user["user_id"],
+                    session_id=st.session_state.get("session_id", "unknown"),
+                    result=result.to_dict()
+                )
+            except Exception:
+                pass
+            st.rerun()
+            return
+        finally:
+            executor.shutdown(wait=False)
 
         duration_ms = (time.time() - start) * 1000
         usage = chat_response.usage
@@ -1031,22 +1112,34 @@ def _run_next_benchmark_step():
 
 
 def _finalize_benchmark(results):
-    """Convert completed benchmark results to DataFrame and log.
+    """Finalize a benchmark phase: accumulate results, rebuild DataFrame, log.
 
     Args:
-        results: List of BenchmarkResult objects
+        results: List of BenchmarkResult objects from the current phase
     """
     from utils.benchmark import TokenBenchmark
     from utils.audit_logger import get_audit_logger
     import pandas as pd
 
+    phase = st.session_state.get("benchmark_phase", "cold")
     st.session_state["benchmark_running"] = False
     st.session_state["benchmark_queue"] = []
 
     if not results:
         return
 
-    rows = [r.to_dict() for r in results]
+    # Mark this phase as done
+    phases_done = st.session_state.get("benchmark_phases_done", set())
+    phases_done.add(phase)
+    st.session_state["benchmark_phases_done"] = phases_done
+
+    # Accumulate results across phases
+    all_results = st.session_state.get("benchmark_all_results", [])
+    all_results.extend(results)
+    st.session_state["benchmark_all_results"] = all_results
+
+    # Rebuild DataFrame from all accumulated results
+    rows = [r.to_dict() for r in all_results]
     df = pd.DataFrame(rows)
 
     # Add cache hit rate column
@@ -1055,10 +1148,11 @@ def _finalize_benchmark(results):
         df["cache_hit_rate"] = (df["cache_read_tokens"] / denom.replace(0, 1)).round(3)
 
     st.session_state["benchmark_results"] = df
-    st.session_state["benchmark_csv"] = TokenBenchmark.results_to_csv_string(results)
+    st.session_state["benchmark_csv"] = TokenBenchmark.results_to_csv_string(all_results)
 
-    # Log to audit
+    # Log this phase to audit
     try:
+        phase_rows = [r.to_dict() for r in results]
         audit_logger = get_audit_logger()
         user = st.session_state.get("user", {"email": "dev@localhost", "user_id": "dev"})
         audit_logger.log_benchmark_run(
@@ -1067,7 +1161,7 @@ def _finalize_benchmark(results):
             session_id=st.session_state.get("session_id", "unknown"),
             prompt_count=len(set(r.prompt_name for r in results)),
             provider_count=len(set(r.provider for r in results)),
-            results=rows
+            results=phase_rows
         )
     except Exception:
         pass  # Don't fail benchmark on audit log errors
@@ -1077,16 +1171,17 @@ def render_benchmark_results():
     """Render benchmark results if available."""
     # Show in-progress status
     if st.session_state.get("benchmark_running"):
+        phase = st.session_state.get("benchmark_phase", "")
         done = st.session_state.get("benchmark_done", [])
         queue = st.session_state.get("benchmark_queue", [])
         total = len(done) + len(queue)
         st.markdown("---")
-        st.subheader("Benchmark In Progress")
+        st.subheader(f"Benchmark: {phase.title()} Phase")
         st.progress(len(done) / max(total, 1),
                      text=f"Completed {len(done)} of {total} runs...")
         if done:
             last = done[-1]
-            status = f"Last: {last.prompt_name} ({last.provider}, {last.run_type})"
+            status = f"Last: {last.prompt_name} ({last.provider})"
             if last.error:
                 status += f" - Error: {last.error[:80]}"
             else:
@@ -1099,11 +1194,13 @@ def render_benchmark_results():
 
     df = st.session_state["benchmark_results"]
     csv_data = st.session_state.get("benchmark_csv", "")
+    phases_done = st.session_state.get("benchmark_phases_done", set())
 
     st.markdown("---")
-    st.subheader("Benchmark Results")
+    phases_label = ", ".join(sorted(phases_done)).title()
+    st.subheader(f"Benchmark Results ({phases_label})")
 
-    # Summary metrics
+    # Summary metrics per provider
     for provider_key in df["provider"].unique():
         prov_df = df[df["provider"] == provider_key]
         col1, col2, col3, col4 = st.columns(4)
