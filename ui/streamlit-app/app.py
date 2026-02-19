@@ -1002,7 +1002,7 @@ def _run_next_benchmark_step():
     import time
     import concurrent.futures
 
-    BENCHMARK_PROMPT_TIMEOUT = 90  # seconds — keeps us under Streamlit's websocket timeout
+    BENCHMARK_PROMPT_TIMEOUT = 180  # seconds per prompt (safe with per-prompt rerun cycles)
 
     try:
         # Reuse existing provider instance to avoid memory accumulation
