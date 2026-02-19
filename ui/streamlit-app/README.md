@@ -118,9 +118,9 @@ Streamlit UI → Claude API (with MCP servers) → Response
 - Built-in orchestration
 
 **Models:**
-- `claude-sonnet-4-5` (recommended)
-- `claude-opus-4-5`
-- `claude-haiku-4`
+- `claude-sonnet-4-6` (recommended)
+- `claude-opus-4-6`
+- `claude-haiku-4-5`
 
 ### Gemini (Google) - SSE-Based MCP Integration
 
@@ -232,7 +232,7 @@ Use the sidebar to select which servers to enable. Default active: **spatialtool
 
 Use the sidebar to switch between Claude and Gemini. Available models:
 
-**Claude:** `claude-sonnet-4-5` (recommended), `claude-opus-4-5`, `claude-haiku-4`  
+**Claude:** `claude-sonnet-4-6` (recommended), `claude-opus-4-6`, `claude-haiku-4-5`  
 **Gemini:** `gemini-3-flash-preview` (recommended), `gemini-2.5-flash`
 
 ### 3. Start Chatting
@@ -386,7 +386,7 @@ ANTHROPIC_API_KEY=your_anthropic_key_here
 GEMINI_API_KEY=your_google_ai_key_here
 
 # Optional
-DEFAULT_MODEL=claude-sonnet-4-5
+DEFAULT_MODEL=claude-sonnet-4-6
 DEFAULT_MAX_TOKENS=4096
 ```
 

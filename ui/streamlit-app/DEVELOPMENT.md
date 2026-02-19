@@ -133,7 +133,7 @@ ENVIRONMENT=development          # development or production
 ```bash
 GEMINI_API_KEY=...              # Enables Gemini provider
 USE_MOCK_MCP=true               # Enable mock mode (default: false)
-DEFAULT_MODEL=claude-sonnet-4-5  # Default LLM model
+DEFAULT_MODEL=claude-sonnet-4-6  # Default LLM model
 DEFAULT_MAX_TOKENS=4096         # Default max tokens
 ```
 

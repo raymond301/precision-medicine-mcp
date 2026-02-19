@@ -27,7 +27,7 @@ class ChatHandler:
         self,
         messages: List[Dict[str, str]],
         mcp_servers: List[Dict],
-        model: str = "claude-sonnet-4-5",
+        model: str = "claude-sonnet-4-6",
         max_tokens: int = 4096,
         temperature: float = 1.0,
         uploaded_files: Optional[Dict] = None

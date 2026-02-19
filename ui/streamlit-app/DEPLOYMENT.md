@@ -291,7 +291,7 @@ GEMINI_API_KEY=AIza...               # Optional, for Gemini
 **Optional:**
 ```bash
 ENVIRONMENT=production               # Environment name
-DEFAULT_MODEL=claude-sonnet-4-5      # Default LLM model
+DEFAULT_MODEL=claude-sonnet-4-6      # Default LLM model
 DEFAULT_MAX_TOKENS=4096              # Default token limit
 LOG_LEVEL=INFO                       # Logging level
 ```

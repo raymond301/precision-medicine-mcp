@@ -31,7 +31,7 @@ class AnthropicProvider(LLMProvider):
         self,
         messages: List[ChatMessage],
         mcp_servers: List[Dict],
-        model: str = "claude-sonnet-4-20250514",
+        model: str = "claude-sonnet-4-6",
         max_tokens: int = 4096,
         temperature: float = 1.0,
         uploaded_files: Optional[Dict] = None
@@ -284,10 +284,9 @@ class AnthropicProvider(LLMProvider):
     def get_model_display_name(self, model: str) -> str:
         """Get human-readable model name."""
         model_names = {
-            "claude-sonnet-4-20250514": "Claude Sonnet 4.5",
-            "claude-sonnet-4-5": "Claude Sonnet 4.5",
-            "claude-opus-4-5": "Claude Opus 4.5",
-            "claude-haiku-4": "Claude Haiku 4"
+            "claude-sonnet-4-6": "Claude Sonnet 4.6",
+            "claude-opus-4-6": "Claude Opus 4.6",
+            "claude-haiku-4-5": "Claude Haiku 4.5"
         }
         return model_names.get(model, model)
 

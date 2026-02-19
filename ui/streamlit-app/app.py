@@ -103,7 +103,7 @@ def initialize_session_state():
         st.session_state.llm_provider = "claude"  # Default to Claude
 
     if "llm_model" not in st.session_state:
-        st.session_state.llm_model = "claude-sonnet-4-20250514"  # Default model
+        st.session_state.llm_model = "claude-sonnet-4-6"  # Default model
 
     # Initialize provider instance
     if "provider_instance" not in st.session_state:
@@ -293,13 +293,13 @@ def render_sidebar():
                 model = model_display_map[selected_model_label]
                 st.session_state.llm_model = model
             else:
-                model = provider_info.get("default_model", "claude-sonnet-4-20250514")
+                model = provider_info.get("default_model", "claude-sonnet-4-6")
                 st.session_state.llm_model = model
         else:
             # Local development - Claude only
             model = st.selectbox(
                 "Claude Model",
-                options=["claude-sonnet-4-5", "claude-opus-4-5", "claude-haiku-4"],
+                options=["claude-sonnet-4-6", "claude-opus-4-6", "claude-haiku-4-5"],
                 index=0,
                 help="Select Claude model. Sonnet recommended for most tasks."
             )

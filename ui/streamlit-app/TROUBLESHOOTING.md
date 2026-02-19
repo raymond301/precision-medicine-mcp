@@ -78,7 +78,7 @@ echo $GEMINI_API_KEY
 ### Slow Responses
 
 **Optimization strategies:**
-- Use **claude-haiku-4** for faster responses (vs Sonnet/Opus)
+- Use **claude-haiku-4-5** for faster responses (vs Sonnet/Opus)
 - Reduce **max_tokens** slider to 2048 or 1024
 - Select fewer MCP servers (only enable what you need)
 - Check GCP Cloud Run logs for server performance bottlenecks
@@ -158,7 +158,7 @@ gcloud logging read \
 # Fix: Ensure ANTHROPIC_API_KEY is set
 # Check: echo $ANTHROPIC_API_KEY
 
-# Error: "Model not found: claude-sonnet-4-20250514"
+# Error: "Model not found: claude-sonnet-4-6"
 # Fix: Model IDs change over time, check latest available models
 # Visit: https://docs.anthropic.com/claude/docs/models-overview
 ```

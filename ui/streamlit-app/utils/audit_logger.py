@@ -392,7 +392,7 @@ audit_log.log_mcp_query(
     user_id="abc123",
     servers=["spatialtools", "multiomics"],
     prompt="Analyze patient data...",
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     session_id="sess_123"
 )
 
