@@ -1142,10 +1142,19 @@ def _finalize_benchmark(results):
     rows = [r.to_dict() for r in all_results]
     df = pd.DataFrame(rows)
 
-    # Add cache hit rate column
+    # Compute real input tokens and cache hit rate
+    # Claude reports input_tokens as uncached only; real total = input + cache_read + cache_creation
+    # Gemini reports input_tokens as the full total (includes cached portion)
     if "cache_read_tokens" in df.columns and "input_tokens" in df.columns:
-        denom = df["cache_read_tokens"] + df["input_tokens"]
-        df["cache_hit_rate"] = (df["cache_read_tokens"] / denom.replace(0, 1)).round(3)
+        cache_creation = df.get("cache_creation_tokens", 0)
+        # Real input: for Claude = input + cache_read + cache_creation; for Gemini = input (already total)
+        df["real_input_tokens"] = df["input_tokens"] + df["cache_read_tokens"] + cache_creation
+        gemini_mask = df["provider"] == "gemini"
+        df.loc[gemini_mask, "real_input_tokens"] = df.loc[gemini_mask, "input_tokens"]
+        # Cache hit rate = cache_read / real_input
+        df["cache_hit_rate"] = (
+            df["cache_read_tokens"] / df["real_input_tokens"].replace(0, 1)
+        ).round(3)
 
     st.session_state["benchmark_results"] = df
     st.session_state["benchmark_csv"] = TokenBenchmark.results_to_csv_string(all_results)
@@ -1204,12 +1213,20 @@ def render_benchmark_results():
     for provider_key in df["provider"].unique():
         prov_df = df[df["provider"] == provider_key]
         col1, col2, col3, col4 = st.columns(4)
-        col1.metric(f"{provider_key} Total Input", f"{prov_df['input_tokens'].sum():,}")
+        # Use real_input_tokens (accounts for Claude's split reporting)
+        input_col = "real_input_tokens" if "real_input_tokens" in prov_df.columns else "input_tokens"
+        col1.metric(f"{provider_key} Total Input", f"{prov_df[input_col].sum():,}")
         col2.metric(f"Total Output", f"{prov_df['output_tokens'].sum():,}")
         col3.metric(f"Total Cost", f"${prov_df['estimated_cost'].sum():.4f}")
-        col4.metric(f"Avg Cache Hit",
-                     f"{prov_df.get('cache_hit_rate', prov_df['cache_read_tokens'] * 0).mean():.1%}"
-                     if "cache_hit_rate" in prov_df.columns else "N/A")
+        # Only average cache hit over runs that had cache reads
+        if "cache_hit_rate" in prov_df.columns:
+            cached_runs = prov_df[prov_df["cache_read_tokens"] > 0]
+            if not cached_runs.empty:
+                col4.metric(f"Avg Cache Hit", f"{cached_runs['cache_hit_rate'].mean():.1%}")
+            else:
+                col4.metric(f"Avg Cache Hit", "0%")
+        else:
+            col4.metric(f"Avg Cache Hit", "N/A")
 
     # Data table
     st.dataframe(df, use_container_width=True)
