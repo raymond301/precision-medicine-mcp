@@ -130,6 +130,11 @@ class GeminiProvider(LLMProvider):
                 conversation_history = gemini_messages.copy()
                 all_tool_calls = []  # Track all tool calls for trace
 
+                # Cumulative usage tracking across all iterations
+                cumulative_input = 0
+                cumulative_output = 0
+                cumulative_cache_read = 0
+
                 while iteration < max_iterations:
                     iteration += 1
                     print(f"DEBUG: Iteration {iteration}", file=sys.stderr)
@@ -143,6 +148,14 @@ class GeminiProvider(LLMProvider):
                         max_tokens=max_tokens,
                         temperature=temperature
                     )
+
+                    # Accumulate usage from this iteration
+                    if hasattr(response, 'usage_metadata'):
+                        um = response.usage_metadata
+                        cumulative_input += getattr(um, 'prompt_token_count', 0) or 0
+                        cumulative_output += getattr(um, 'candidates_token_count', 0) or 0
+                        cumulative_cache_read += getattr(
+                            um, 'cached_content_token_count', 0) or 0
 
                     # Check if response contains tool calls
                     tool_calls, original_parts = self._extract_tool_calls(response)
@@ -162,9 +175,16 @@ class GeminiProvider(LLMProvider):
                         # No more tool calls - we're done
                         print(f"DEBUG: No tool calls, finishing after {iteration} iterations", file=sys.stderr)
 
-                        # Extract final response
+                        # Extract final response with cumulative usage
                         content = self._format_response(response)
-                        usage = self._get_usage_info(response)
+                        usage = UsageInfo(
+                            input_tokens=cumulative_input,
+                            output_tokens=cumulative_output,
+                            total_tokens=cumulative_input + cumulative_output,
+                            cache_read_tokens=cumulative_cache_read,
+                            cache_creation_tokens=0,  # Gemini uses implicit caching
+                            iterations=iteration
+                        )
 
                         return ChatResponse(
                             content=content,
@@ -512,7 +532,7 @@ IMPORTANT: When calling MCP tools with these files:
         return "\n\n".join(parts) if parts else "No response generated"
 
     def _get_usage_info(self, response) -> Optional[UsageInfo]:
-        """Extract usage information from Gemini response.
+        """Extract usage information from Gemini response (single-iteration fallback).
 
         Args:
             response: Gemini response object
@@ -522,10 +542,12 @@ IMPORTANT: When calling MCP tools with these files:
         """
         if hasattr(response, 'usage_metadata'):
             usage = response.usage_metadata
+            cache_read = getattr(usage, 'cached_content_token_count', 0) or 0
             return UsageInfo(
                 input_tokens=getattr(usage, 'prompt_token_count', 0),
                 output_tokens=getattr(usage, 'candidates_token_count', 0),
-                total_tokens=getattr(usage, 'total_token_count', 0)
+                total_tokens=getattr(usage, 'total_token_count', 0),
+                cache_read_tokens=cache_read
             )
 
         return None

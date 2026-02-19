@@ -21,6 +21,9 @@ class UsageInfo:
     input_tokens: int
     output_tokens: int
     total_tokens: int
+    cache_read_tokens: int = 0       # tokens served from cache
+    cache_creation_tokens: int = 0   # tokens written to cache (Claude only)
+    iterations: int = 1              # number of agentic loop iterations
 
 
 @dataclass

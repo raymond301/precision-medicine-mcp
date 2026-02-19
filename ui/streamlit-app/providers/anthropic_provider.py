@@ -111,11 +111,30 @@ class AnthropicProvider(LLMProvider):
                 # Build system prompt
                 system_prompt = self._build_system_prompt(mcp_servers, uploaded_files)
 
+                # Enable prompt caching: mark last tool definition
+                if claude_tools:
+                    claude_tools[-1]["cache_control"] = {"type": "ephemeral"}
+
+                # Build cacheable system prompt (list of content blocks)
+                system_blocks = [
+                    {
+                        "type": "text",
+                        "text": system_prompt,
+                        "cache_control": {"type": "ephemeral"}
+                    }
+                ]
+
                 # Agentic loop: keep calling until no more tool calls
                 max_iterations = 30
                 iteration = 0
                 conversation_history = api_messages.copy()
                 all_tool_calls = []  # Track all tool calls for trace
+
+                # Cumulative usage tracking across all iterations
+                cumulative_input = 0
+                cumulative_output = 0
+                cumulative_cache_read = 0
+                cumulative_cache_creation = 0
 
                 while iteration < max_iterations:
                     iteration += 1
@@ -128,8 +147,17 @@ class AnthropicProvider(LLMProvider):
                         temperature=temperature,
                         messages=conversation_history,
                         tools=claude_tools,
-                        system=system_prompt
+                        system=system_blocks
                     )
+
+                    # Accumulate usage from this iteration
+                    if hasattr(response, 'usage') and response.usage:
+                        cumulative_input += response.usage.input_tokens
+                        cumulative_output += response.usage.output_tokens
+                        cumulative_cache_read += getattr(
+                            response.usage, 'cache_read_input_tokens', 0) or 0
+                        cumulative_cache_creation += getattr(
+                            response.usage, 'cache_creation_input_tokens', 0) or 0
 
                     # Check if response contains tool calls
                     tool_calls = self._extract_tool_calls(response)
@@ -142,9 +170,16 @@ class AnthropicProvider(LLMProvider):
                         # No more tool calls - we're done
                         print(f"DEBUG: No tool calls, finishing after {iteration} iterations", file=sys.stderr)
 
-                        # Extract final response
+                        # Extract final response with cumulative usage
                         content = self._format_response(response)
-                        usage = self._get_usage_info(response)
+                        usage = UsageInfo(
+                            input_tokens=cumulative_input,
+                            output_tokens=cumulative_output,
+                            total_tokens=cumulative_input + cumulative_output,
+                            cache_read_tokens=cumulative_cache_read,
+                            cache_creation_tokens=cumulative_cache_creation,
+                            iterations=iteration
+                        )
 
                         return ChatResponse(
                             content=content,
@@ -419,11 +454,15 @@ CRITICAL: When the user asks you to analyze GCS files, you MUST call the MCP too
         return "\n\n".join(parts) if parts else "Empty response"
 
     def _get_usage_info(self, response: anthropic.types.Message) -> Optional[UsageInfo]:
-        """Extract usage information from response."""
+        """Extract usage information from response (single-iteration fallback)."""
         if hasattr(response, 'usage') and response.usage:
+            cache_read = getattr(response.usage, 'cache_read_input_tokens', 0) or 0
+            cache_creation = getattr(response.usage, 'cache_creation_input_tokens', 0) or 0
             return UsageInfo(
                 input_tokens=response.usage.input_tokens,
                 output_tokens=response.usage.output_tokens,
-                total_tokens=response.usage.input_tokens + response.usage.output_tokens
+                total_tokens=response.usage.input_tokens + response.usage.output_tokens,
+                cache_read_tokens=cache_read,
+                cache_creation_tokens=cache_creation
             )
         return None

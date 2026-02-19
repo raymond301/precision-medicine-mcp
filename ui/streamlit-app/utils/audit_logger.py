@@ -317,6 +317,45 @@ class AuditLogger:
             "session_id": session_id
         })
 
+    def log_benchmark_run(
+        self,
+        user_email: str,
+        user_id: str,
+        session_id: str,
+        prompt_count: int,
+        provider_count: int,
+        results: List[Dict]
+    ):
+        """Log a benchmark run with full results.
+
+        Args:
+            user_email: User's email (will be hashed)
+            user_id: User's ID
+            session_id: Session ID
+            prompt_count: Number of prompts benchmarked
+            provider_count: Number of providers tested
+            results: List of result dicts from BenchmarkResult.to_dict()
+        """
+        # Compute summary stats
+        total_tokens = sum(r.get("total_tokens", 0) for r in results)
+        total_cost = sum(r.get("estimated_cost", 0) for r in results)
+        total_cache_read = sum(r.get("cache_read_tokens", 0) for r in results)
+        error_count = sum(1 for r in results if r.get("error"))
+
+        self._log_event("benchmark", {
+            "user_email_hash": self._hash_email(user_email),
+            "user_id": user_id,
+            "session_id": session_id,
+            "prompt_count": prompt_count,
+            "provider_count": provider_count,
+            "run_count": len(results),
+            "total_tokens": total_tokens,
+            "total_cost_usd": total_cost,
+            "total_cache_read_tokens": total_cache_read,
+            "error_count": error_count,
+            "results": results
+        })
+
     def log_session_end(
         self,
         user_email: str,

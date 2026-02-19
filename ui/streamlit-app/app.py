@@ -544,6 +544,52 @@ def render_sidebar():
             st.session_state.traces = {}  # Clear traces too
             st.rerun()
 
+        st.markdown("---")
+
+        # Token Benchmark section
+        st.subheader("Token Benchmark")
+        with st.expander("Run benchmark", expanded=False):
+            st.caption("Compare token usage across prompts and providers")
+
+            # Prompt selection
+            all_prompt_names = list(EXAMPLE_PROMPTS.keys())
+            selected_prompts = st.multiselect(
+                "Prompts to benchmark",
+                options=all_prompt_names,
+                default=all_prompt_names,
+                key="benchmark_prompts"
+            )
+
+            # Provider selection
+            benchmark_providers = []
+            avail = get_available_providers()
+            if avail.get("claude", {}).get("available"):
+                run_claude = st.checkbox("Claude", value=True, key="bench_claude")
+                if run_claude:
+                    claude_models = avail["claude"].get("models", [])
+                    claude_model_id = st.selectbox(
+                        "Claude model",
+                        [m["id"] for m in claude_models],
+                        key="bench_claude_model"
+                    )
+                    benchmark_providers.append(("claude", claude_model_id))
+            if avail.get("gemini", {}).get("available"):
+                run_gemini = st.checkbox("Gemini", value=True, key="bench_gemini")
+                if run_gemini:
+                    gemini_models = avail["gemini"].get("models", [])
+                    gemini_model_id = st.selectbox(
+                        "Gemini model",
+                        [m["id"] for m in gemini_models],
+                        key="bench_gemini_model"
+                    )
+                    benchmark_providers.append(("gemini", gemini_model_id))
+
+            # Run buttons
+            if st.button("Run Benchmark", key="run_benchmark",
+                         use_container_width=True,
+                         disabled=not selected_prompts or not benchmark_providers):
+                _run_benchmark(selected_prompts, benchmark_providers)
+
     return model, max_tokens, show_trace, trace_style
 
 
@@ -584,10 +630,33 @@ def render_chat_history(show_trace: bool = False, trace_style: str = "log"):
             if "usage" in message and message["usage"]:
                 with st.expander("Token Usage"):
                     usage = message["usage"]
-                    col1, col2, col3 = st.columns(3)
-                    col1.metric("Input", usage.get("input_tokens", 0))
-                    col2.metric("Output", usage.get("output_tokens", 0))
-                    col3.metric("Total", usage.get("total_tokens", 0))
+                    cache_read = usage.get("cache_read_tokens", 0)
+                    cache_creation = usage.get("cache_creation_tokens", 0)
+                    iterations = usage.get("iterations", 1)
+
+                    if cache_read > 0:
+                        col1, col2, col3, col4 = st.columns(4)
+                        col1.metric("Input", f"{usage.get('input_tokens', 0):,}")
+                        col2.metric("Output", f"{usage.get('output_tokens', 0):,}")
+                        col3.metric("Total", f"{usage.get('total_tokens', 0):,}")
+                        col4.metric("Cached", f"{cache_read:,}")
+                    else:
+                        col1, col2, col3 = st.columns(3)
+                        col1.metric("Input", f"{usage.get('input_tokens', 0):,}")
+                        col2.metric("Output", f"{usage.get('output_tokens', 0):,}")
+                        col3.metric("Total", f"{usage.get('total_tokens', 0):,}")
+
+                    # Show extra details if multi-iteration or cache write
+                    details = []
+                    if iterations > 1:
+                        details.append(f"Iterations: {iterations}")
+                    if cache_creation > 0:
+                        details.append(f"Cache Write: {cache_creation:,} tokens")
+                    if cache_read > 0:
+                        hit_rate = cache_read / (cache_read + usage.get("input_tokens", 1))
+                        details.append(f"Cache Hit Rate: {hit_rate:.0%}")
+                    if details:
+                        st.caption(" | ".join(details))
 
             # Show trace for assistant messages if enabled
             if message["role"] == "assistant" and show_trace:
@@ -689,7 +758,10 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
                     usage = {
                         "input_tokens": chat_response.usage.input_tokens,
                         "output_tokens": chat_response.usage.output_tokens,
-                        "total_tokens": chat_response.usage.total_tokens
+                        "total_tokens": chat_response.usage.total_tokens,
+                        "cache_read_tokens": chat_response.usage.cache_read_tokens,
+                        "cache_creation_tokens": chat_response.usage.cache_creation_tokens,
+                        "iterations": chat_response.usage.iterations
                     }
 
                 # Keep raw response and metadata for trace building
@@ -724,14 +796,25 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
             st.session_state.total_queries += 1
             if usage:
                 st.session_state.total_tokens += usage.get("total_tokens", 0)
-                # Estimate cost based on active provider
+                # Cache-aware cost estimation
+                cache_read = usage.get("cache_read_tokens", 0)
+                cache_creation = usage.get("cache_creation_tokens", 0)
+                raw_input = usage.get("input_tokens", 0)
+
                 if st.session_state.llm_provider == "gemini":
                     # Gemini Flash pricing: $0.15/M input, $0.60/M output
-                    input_cost = usage.get("input_tokens", 0) * 0.00015 / 1000
+                    # Cached reads at 0.1x rate
+                    uncached_input = max(0, raw_input - cache_read)
+                    input_cost = (uncached_input * 0.00015 / 1000
+                                  + cache_read * 0.000015 / 1000)
                     output_cost = usage.get("output_tokens", 0) * 0.0006 / 1000
                 else:
                     # Claude Sonnet pricing: $3/M input, $15/M output
-                    input_cost = usage.get("input_tokens", 0) * 0.003 / 1000
+                    # Cached reads at 0.1x, cache writes at 1.25x
+                    uncached_input = max(0, raw_input - cache_read - cache_creation)
+                    input_cost = (uncached_input * 0.003 / 1000
+                                  + cache_read * 0.0003 / 1000
+                                  + cache_creation * 0.00375 / 1000)
                     output_cost = usage.get("output_tokens", 0) * 0.015 / 1000
                 estimated_cost = input_cost + output_cost
                 st.session_state.total_cost += estimated_cost
@@ -806,6 +889,141 @@ def handle_user_input(prompt: str, model: str, max_tokens: int):
             st.rerun()
 
 
+def _run_benchmark(selected_prompts: List[str], benchmark_providers: List[tuple]):
+    """Execute token benchmark and display results.
+
+    Args:
+        selected_prompts: List of prompt names to benchmark
+        benchmark_providers: List of (provider_key, model_id) tuples
+    """
+    from utils.benchmark import TokenBenchmark, BenchmarkResult
+    from utils.audit_logger import get_audit_logger
+    import pandas as pd
+
+    # Build prompt dict
+    prompts = {name: EXAMPLE_PROMPTS[name] for name in selected_prompts
+                if name in EXAMPLE_PROMPTS}
+
+    # Build provider instances
+    providers = []
+    for provider_key, model_id in benchmark_providers:
+        try:
+            instance = get_provider(provider_name=provider_key)
+            providers.append((provider_key, instance, model_id))
+        except Exception as e:
+            st.error(f"Failed to init {provider_key}: {e}")
+
+    if not providers:
+        st.error("No providers available")
+        return
+
+    # Get MCP server config
+    mcp_servers = get_server_config(st.session_state.selected_servers)
+    if not mcp_servers:
+        st.error("No MCP servers selected")
+        return
+
+    benchmark = TokenBenchmark(
+        prompts=prompts,
+        providers=providers,
+        mcp_servers=mcp_servers,
+        uploaded_files=st.session_state.get("uploaded_files"),
+    )
+
+    # Run cold + warm
+    progress = st.progress(0, text="Starting cold run...")
+    total_runs = len(prompts) * len(providers) * 2  # cold + warm
+    run_count = [0]
+
+    def update_progress(status: str):
+        run_count[0] += 1
+        progress.progress(
+            min(run_count[0] / total_runs, 1.0),
+            text=status
+        )
+
+    results = benchmark.run_cold(progress_callback=update_progress)
+    results += benchmark.run_warm(progress_callback=update_progress)
+    progress.progress(1.0, text="Complete!")
+
+    # Convert to DataFrame
+    rows = [r.to_dict() for r in results]
+    df = pd.DataFrame(rows)
+
+    # Add cache hit rate column
+    if "cache_read_tokens" in df.columns and "input_tokens" in df.columns:
+        denom = df["cache_read_tokens"] + df["input_tokens"]
+        df["cache_hit_rate"] = (df["cache_read_tokens"] / denom.replace(0, 1)).round(3)
+
+    # Store in session state
+    st.session_state["benchmark_results"] = df
+    st.session_state["benchmark_csv"] = TokenBenchmark.results_to_csv_string(results)
+
+    # Log to audit
+    audit_logger = get_audit_logger()
+    user = st.session_state.get("user", {"email": "dev@localhost", "user_id": "dev"})
+    audit_logger.log_benchmark_run(
+        user_email=user["email"],
+        user_id=user["user_id"],
+        session_id=st.session_state.get("session_id", "unknown"),
+        prompt_count=len(prompts),
+        provider_count=len(providers),
+        results=rows
+    )
+
+
+def render_benchmark_results():
+    """Render benchmark results if available."""
+    if "benchmark_results" not in st.session_state:
+        return
+
+    df = st.session_state["benchmark_results"]
+    csv_data = st.session_state.get("benchmark_csv", "")
+
+    st.markdown("---")
+    st.subheader("Benchmark Results")
+
+    # Summary metrics
+    for provider_key in df["provider"].unique():
+        prov_df = df[df["provider"] == provider_key]
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric(f"{provider_key} Total Input", f"{prov_df['input_tokens'].sum():,}")
+        col2.metric(f"Total Output", f"{prov_df['output_tokens'].sum():,}")
+        col3.metric(f"Total Cost", f"${prov_df['estimated_cost'].sum():.4f}")
+        col4.metric(f"Avg Cache Hit",
+                     f"{prov_df.get('cache_hit_rate', prov_df['cache_read_tokens'] * 0).mean():.1%}"
+                     if "cache_hit_rate" in prov_df.columns else "N/A")
+
+    # Data table
+    st.dataframe(df, use_container_width=True)
+
+    # Bar chart: token usage by prompt, grouped by provider + run type
+    try:
+        import altair as alt
+        chart_df = df[df["error"].isna() | (df["error"] == "None")].copy()
+        if not chart_df.empty:
+            chart_df["label"] = chart_df["provider"] + " (" + chart_df["run_type"] + ")"
+            chart = alt.Chart(chart_df).mark_bar().encode(
+                x=alt.X("prompt_name:N", title="Prompt", sort=None),
+                y=alt.Y("total_tokens:Q", title="Total Tokens"),
+                color="label:N",
+                xOffset="label:N"
+            ).properties(width=700, height=400, title="Token Usage by Prompt")
+            st.altair_chart(chart, use_container_width=True)
+    except ImportError:
+        pass  # altair not available
+
+    # CSV download
+    if csv_data:
+        st.download_button(
+            "Export CSV",
+            data=csv_data,
+            file_name="benchmark_results.csv",
+            mime="text/csv",
+            key="download_benchmark"
+        )
+
+
 def main():
     """Main application."""
     # Require authentication (SSO via OAuth2 Proxy)
@@ -850,6 +1068,9 @@ def main():
 
     # Render chat history
     render_chat_history(show_trace=show_trace, trace_style=trace_style)
+
+    # Render benchmark results if available
+    render_benchmark_results()
 
     # Chat input — handle pending example prompt or manual input
     if "pending_example" in st.session_state:
