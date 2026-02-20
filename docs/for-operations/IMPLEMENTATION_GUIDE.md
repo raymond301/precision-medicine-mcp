@@ -137,11 +137,11 @@ precision-medicine-mcp/
 ```markdown
 ## Documentation
 
-- [Architecture](architectuREADME.md)
-- [Executive Summary](docs/EXECUTIVE_SUMMARY.md)
-- [Hospital Deployment](docs/hospital-deployment/)
-- **[Service Level Agreement (SLA)](docs/operations/sREADME.md)** ← Add this link
-- [Operations Manual](docs/hospital-deployment/OPERATIONS_MANUAL.md)
+- [Architecture](docs/reference/architecture/README.md)
+- [Executive Summary](docs/for-funders/EXECUTIVE_SUMMARY.md)
+- [Hospital Deployment](docs/for-hospitals/)
+- **[Service Level Agreement (SLA)](docs/for-operations/sla/README.md)** ← Add this link
+- [Operations Manual](docs/for-operations/OPERATIONS_MANUAL.md)
 ```
 
 ---
