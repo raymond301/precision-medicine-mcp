@@ -86,21 +86,7 @@ gcloud run services proxy streamlit-mcp-chat \
 
 Use the sidebar to select which servers to enable. Default: **fgbio** (keeps token costs low).
 
-**Production Servers (9):**
-
-| Server | Tools | Description |
-|--------|-------|-------------|
-| fgbio | 4 | Genomic reference data and FASTQ validation |
-| multiomics | 10 | RNA/Protein/Phospho integration |
-| spatialtools | 14 | Spatial transcriptomics analysis |
-| perturbation | 8 | GEARS perturbation prediction |
-| deepcell | 3 | DeepCell-TF cell segmentation |
-| openimagedata | 5 | H&E/MxIF image loading and composites |
-| quantum-celltype-fidelity | 6 | Quantum cell type validation and immune evasion |
-| cell-classify | 3 | Cell phenotyping and classification |
-| patient-report | 5 | PDF report generation |
-
-**Mock Servers (4):** mockepic, tcga, seqera, huggingface
+See [Server Registry](../../docs/reference/shared/server-registry.md) for the full list of servers and tools (production and mock).
 
 ### 2. Choose a Provider and Model
 
@@ -402,15 +388,6 @@ lsof -ti:8501 | xargs kill -9
 
 ---
 
-## Cost Estimates
+## Cost
 
-**Per prompt (average):**
-
-| Provider | Avg Cost | Speed (simple) | Speed (complex) |
-|----------|----------|----------------|-----------------|
-| Claude Sonnet 4.6 | ~$0.04 | ~17s | ~60s |
-| Gemini 3 Flash | ~$0.005 | ~9s | ~45s |
-
-Claude's automatic caching reduces cost ~69% on warm prompts. See [Benchmark Findings](../../docs/for-developers/benchmark-findings-2026-02-19.md) for details.
-
-**See also:** [Cost Analysis](../../docs/for-hospitals/operations/cost-and-budget.md)
+Claude's automatic caching provides estimated cost savings on warm prompts. Gemini Flash is cheaper for simple queries. See [Benchmark Findings](../../docs/for-developers/benchmark-findings-2026-02-19.md) for details and [Cost Analysis](../../docs/for-hospitals/operations/cost-and-budget.md) for budget planning.

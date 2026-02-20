@@ -301,7 +301,7 @@ Each session gives you 50,000 tokens (~30-40 queries):
 
 1. **Ask in Slack/Discord** - Other students might have same question
 2. **Pair with a buddy** - Two heads better than one
-3. **Check DEVELOPMENT.md** - Technical details there
+3. **Check README.md** - Technical details there
 
 ### Common Questions
 
