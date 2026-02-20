@@ -56,8 +56,8 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 - **[Architecture Overview](reference/architecture/README.md)** - System design principles
 - **[Server Status](reference/shared/server-registry.md)** - Implementation status and capabilities matrix
-- **[Clinical-Spatial Bridge](reference/architecture/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
-- **[Error Handling](reference/architecture/error-handling.md)** - Error handling and retry logic
+- **[Clinical-Spatial Bridge](reference/architecture/clinical/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
+- **[Error Handling](reference/architecture/platform/error-handling.md)** - Error handling and retry logic
 - **[References](reference/architecture/references.md)** - Technical references and citations
 
 ---

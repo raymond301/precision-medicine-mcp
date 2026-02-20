@@ -402,9 +402,9 @@ All PatientOne analyses are:
 ## Related Documentation
 
 - **Main Project:** [Precision Medicine MCP Servers →](../../README.md)
-- **Spatial Transcriptomics Workflow:** [Architecture →](../../../architecture/spatial/README.md)
-- **Imaging Analysis Workflow:** [Architecture →](../../../architecture/imaging/README.md)
-- **Multiomics Workflow:** [Architecture →](../../../architecture/multiomics/README.md)
+- **Spatial Transcriptomics Workflow:** [Architecture →](../../architecture/spatial/README.md)
+- **Imaging Analysis Workflow:** [Architecture →](../../architecture/imaging/README.md)
+- **Multiomics Workflow:** [Architecture →](../../architecture/rna/multiomics.md)
 - **Testing Guide:** [PatientOne Implementation →](../README.md)
 
 ---

@@ -65,17 +65,17 @@ graph LR
 
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
-| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical.md](clinical.md) |
-| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [genomic.md](genomic.md) |
-| 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | [genomic-results.md](genomic-results.md) |
+| 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical/ehr-integration.md](clinical/ehr-integration.md) |
+| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [dna/genomic-cohorts.md](dna/genomic-cohorts.md) |
+| 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | [dna/genomic-results.md](dna/genomic-results.md) |
 | 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell, mcp-cell-classify | 11 (5+3+3) | ✅ Production (100%) | [imaging/README.md](imaging/README.md) |
-| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (95%) | [multiomics.md](multiomics.md) |
+| 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (95%) | [rna/multiomics.md](rna/multiomics.md) |
 | 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial/README.md](spatial/README.md) |
-| 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [perturbation.md](perturbation.md) |
-| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [quantum.md](quantum.md) |
-| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [ai-ml.md](ai-ml.md) |
+| 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [rna/perturbation.md](rna/perturbation.md) |
+| ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [rna/quantum-fidelity.md](rna/quantum-fidelity.md) |
+| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [platform/ai-ml.md](platform/ai-ml.md) |
 | 📄 **Patient Reports** | mcp-patient-report | 5 | ✅ Production (100%) | [../../servers/mcp-patient-report/README.md](../../servers/mcp-patient-report/README.md) |
-| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [workflow.md](workflow.md) |
+| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [platform/workflow.md](platform/workflow.md) |
 
 
 ---
@@ -93,7 +93,7 @@ graph LR
 
 **Workflow:** `Patient EHR → FHIR API → De-identification → Clinical Data`
 
-📖 **[Detailed Architecture →](clinical.md)**
+📖 **[Detailed Architecture →](clinical/ehr-integration.md)**
 
 ---
 
@@ -110,7 +110,7 @@ graph LR
 
 **Workflow:** `TCGA Database → Statistical Comparison → Survival Analysis → Integration`
 
-📖 **[Detailed Architecture →](genomic.md)**
+📖 **[Detailed Architecture →](dna/genomic-cohorts.md)**
 
 ---
 
@@ -128,7 +128,7 @@ graph LR
 
 **Workflow:** `Seqera/sarek → VCF + CNS → Parse & Annotate → HRD Score → Genomic Report → Patient Report`
 
-📖 **[Detailed Architecture →](genomic-results.md)**
+📖 **[Detailed Architecture →](dna/genomic-results.md)**
 
 ---
 
@@ -160,7 +160,7 @@ graph LR
 
 **Workflow:** `RNA/Protein/Phospho → Validate → Preprocess → Integrate → HAllA → Meta-Analysis → Upstream Regulators`
 
-📖 **[Detailed Architecture →](multiomics.md)**
+📖 **[Detailed Architecture →](rna/multiomics.md)**
 
 ---
 
@@ -202,7 +202,7 @@ graph LR
 
 **Technology:** GEARS (Graph-Enhanced Gene Activation Modeling) - Nature Biotechnology 2024
 
-📖 **[Detailed Architecture →](perturbation.md)**
+📖 **[Detailed Architecture →](rna/perturbation.md)**
 
 ---
 
@@ -219,7 +219,7 @@ graph LR
 
 **Workflow:** `Single-cell Data / DNA Sequences → Load Model → Generate Predictions → Integration`
 
-📖 **[Detailed Architecture →](ai-ml.md)**
+📖 **[Detailed Architecture →](platform/ai-ml.md)**
 
 ---
 
@@ -249,7 +249,7 @@ graph LR
 
 **Integration:** Works with mcp-perturbation for dual quantum+GEARS validation
 
-📖 **[Detailed Architecture →](quantum.md)**
+📖 **[Detailed Architecture →](rna/quantum-fidelity.md)**
 
 ---
 
@@ -266,7 +266,7 @@ graph LR
 
 **Workflow:** `Select Pipeline → Configure → Choose Compute → Submit → Monitor → Retrieve Results`
 
-📖 **[Detailed Architecture →](workflow.md)**
+📖 **[Detailed Architecture →](platform/workflow.md)**
 
 ---
 
@@ -342,7 +342,7 @@ sequenceDiagram
 **See also:** [Next Steps & Enhancements](next-steps.md) — prioritized enhancement inventory for all servers
 
 **Organization Principle:**
-- `docs/architecture/` = High-level design & workflows by modality + cross-cutting architecture
+- `docs/architecture/` = High-level design & workflows organized by analysis type (`dna/`, `rna/`, `clinical/`, `spatial/`, `imaging/`, `platform/`)
 - `servers/` = Detailed tool specifications & implementation
 - `docs/` = Operational guides & deployment
 - `tests/` = End-to-end use cases & validation

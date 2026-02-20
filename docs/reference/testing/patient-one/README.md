@@ -644,7 +644,7 @@ After completing PatientOne:
 1. **Explore Individual Workflows:**
    - [Spatial Transcriptomics](../../architecture/spatial/README.md) (TEST_3)
    - [Imaging Analysis](../../architecture/imaging/README.md) (TEST_4)
-   - [Multiomics Integration](../../architecture/multiomics/README.md) (TEST_2)
+   - [Multiomics Integration](../../architecture/rna/multiomics.md) (TEST_2)
 
 2. **Customize for Your Data:**
    - Replace synthetic patient data with your own

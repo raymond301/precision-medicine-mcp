@@ -255,7 +255,7 @@ See [Server Registry](../reference/shared/server-registry.md) for current counts
 
 ### Architecture Documentation
 - **System Design:** [Architecture Overview](../reference/architecture/README.md)
-- **Data Flow:** [Clinical-Spatial Integration](../reference/architecture/clinical-spatial-bridge.md)
+- **Data Flow:** [Clinical-Spatial Integration](../reference/architecture/clinical/clinical-spatial-bridge.md)
 
 ### Testing Resources
 - **Unit Tests:** [Test Examples](../../tests/unit/)
