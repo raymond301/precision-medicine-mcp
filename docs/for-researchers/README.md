@@ -16,7 +16,10 @@ graph LR
     style D fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
 ```
 
-> **Load:** Clinical, Genomic, Multi-omics, Spatial, Imaging | **Analyze:** Diff expression, pathway enrichment, cell deconvolution, batch correction, spatial autocorrelation, multi-omics integration | **Integrate:** RNA + Protein + Spatial + Clinical in one analysis | **Publish:** Visualizations, statistical tests, treatment targets, reproducible methods | **Cost:** ~$87/patient ([details](../reference/shared/cost-analysis.md))
+> **Load:** Clinical, Genomic, Multi-omics, Spatial, Imaging  
+> **Analyze:** Diff expression, pathway enrichment, cell deconvolution, batch correction, spatial autocorrelation, multi-omics integration  
+> **Integrate:** RNA + Protein + Spatial + Clinical in one analysis  
+> **Publish:** Visualizations, statistical tests, treatment targets, reproducible methods  
 
 ---
 
