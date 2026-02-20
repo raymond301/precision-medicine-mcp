@@ -6,11 +6,17 @@
 
 ## What You Can Accomplish Here
 
-- ✅ **Analyze patient data** (clinical, genomic, multi-omics, spatial, imaging)
-- ✅ **Run reproducible workflows** (differential expression, pathway enrichment, cell deconvolution)
-- ✅ **Integrate multiple data modalities** (RNA + Protein + Spatial + Clinical)
-- ✅ **Generate publication-quality results** (visualizations, statistical tests, reproducible methods)
-- ✅ **Scale analyses cost-effectively** (low per-patient compute cost vs. traditional methods — [Cost Analysis](../reference/shared/cost-analysis.md))
+```mermaid
+graph LR
+    A["📁 Load Data<br/>5 modalities"] --> B["🔬 Analyze<br/>6 workflows"] --> C["🔗 Integrate<br/>cross-modal"] --> D["📊 Publish<br/>reproducible results"]
+
+    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style B fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style D fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+```
+
+> **Load:** Clinical, Genomic, Multi-omics, Spatial, Imaging | **Analyze:** Diff expression, pathway enrichment, cell deconvolution, batch correction, spatial autocorrelation, multi-omics integration | **Integrate:** RNA + Protein + Spatial + Clinical in one analysis | **Publish:** Visualizations, statistical tests, treatment targets, reproducible methods | **Cost:** ~$87/patient ([details](../reference/shared/cost-analysis.md))
 
 ---
 
