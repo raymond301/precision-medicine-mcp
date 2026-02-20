@@ -67,6 +67,8 @@ flowchart LR
 
 **Patient:** PAT001-OVC-2025 — Sarah Anderson, 58yo, Stage IV HGSOC, platinum-resistant, BRCA1 germline mutation.
 
+**Clinical scenario:** Post-second-line chemotherapy failure — Molecular Tumor Board convened to identify salvage therapies and matching clinical trials.
+
 > **Full profile:** See [PatientOne Profile](../../shared/patientone-profile.md) for complete demographics, treatment history, genomic markers, and clinical data.
 
 ---
@@ -86,6 +88,7 @@ How do we integrate:
 - Tumor microenvironment composition
 - Pathway-level dysregulation
 - Available therapeutic options
+- Longitudinal clinical history integrated with real-time molecular profile (no data silos)
 
 **Traditional Approach:** Weeks of custom scripts, multiple software tools, manual data wrangling, siloed analysis
 **PatientOne with MCP:** Conversational requests that orchestrate tools across all servers automatically
@@ -230,19 +233,21 @@ All synthetic patient data located in: `/data/patient-data/PAT001-OVC-2025/`
 - **BRCA1 germline mutation:** HRD-positive → PARP inhibitor candidate, BUT PIK3CA pathway may confer resistance
 - **Platinum-free interval:** 8 months → platinum-resistant category
 
-### 4. Actionable Treatment Recommendations
+### 4. MTB-Ready Treatment Recommendations
 
-**Primary Target: PI3K/AKT Pathway**
+> All recommendations are presented for Molecular Tumor Board review using AMP/ASCO/CAP evidence tiers. Clinician validation is required via the [CITL workflow](../../../for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md) before clinical use.
+
+**Primary Target: PI3K/AKT Pathway** *(Tier 1 — FDA-approved biomarker)*
 - Consider: **Alpelisib** (PIK3CA inhibitor) given E545K mutation
 - Rationale: Direct target of activating mutation, demonstrated efficacy in PIK3CA-mutant cancers
 - Clinical trial: NCT03602859 (alpelisib + paclitaxel in ovarian cancer)
 
-**Secondary Target: Immune Checkpoint**
+**Secondary Target: Immune Checkpoint** *(Tier 2 — evidence from other tumor types)*
 - Consider: **Anti-PD-1** (pembrolizumab, nivolumab) to overcome immune exclusion
 - Rationale: C1 immunoreactive subtype suggests immune-responsive potential
 - Combination: Alpelisib + anti-PD-1 may reverse exclusion + activate cytotoxic response
 
-**PARP Inhibitor Re-consideration**
+**PARP Inhibitor Re-consideration** *(Tier 1 — FDA-approved for BRCA1+ ovarian)*
 - Given BRCA1 mutation + HRD score 42, PARP inhibitor (olaparib, niraparib) remains option
 - Caution: PIK3CA pathway activation may limit efficacy
 - Strategy: Sequence after PI3K inhibitor or combination approach
@@ -331,8 +336,8 @@ All test prompts available in:
 
 ### Paradigm Shift in Precision Medicine
 
-**From:** AI tools for bioinformatics analysis
-**To:** AI as orchestrator of complete precision medicine workflows
+**From:** Siloed tools requiring weeks of glue code
+**To:** AI-assisted clinical decision support for Molecular Tumor Boards
 
 PatientOne demonstrates that with MCP servers, Claude can seamlessly coordinate across:
 - ✅ EHR systems (clinical context)

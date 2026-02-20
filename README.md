@@ -84,7 +84,19 @@ graph LR
     style ServerTypes fill:#d4edda
     style Output fill:#d1ecf1
 ```
-    
+
+---
+
+## Security & Clinical Governance
+
+This platform is a **clinical decision support** tool — AI assists clinicians, never replaces them.
+
+- **HIPAA Safe Harbor de-identification** — all 18 PHI identifiers removed before data leaves the hospital environment ([details](docs/for-hospitals/compliance/hipaa.md))
+- **Clinician-in-the-Loop (CITL)** — every AI-generated report requires clinician APPROVE/REVISE/REJECT before clinical use ([workflow](docs/for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md))
+- **Isolated deployment** — MCP servers run inside hospital VPC; patient data never leaves the controlled network ([security](docs/for-hospitals/SECURITY_OVERVIEW.md))
+- **Immutable audit trails** — 10-year retention of all queries, tool calls, and outputs ([compliance](docs/for-hospitals/compliance/hipaa.md))
+- **Synthetic data only** in this repository — no real PHI
+
 ---
 
 ## Featured Use Case: PatientOne
@@ -96,7 +108,8 @@ graph LR
 **What This Demonstrates:**
 - Clinical data (Epic FHIR) + Genomics (VCF) + Multi-omics (RNA/Protein/Phospho)
 - Spatial transcriptomics (10x Visium) + Imaging (H&E, MxIF)
-- Natural language queries → AI orchestration → 35-minute analysis (DRY_RUN data)
+- Natural language queries → AI orchestration → Clinician review → 35-minute analysis (DRY_RUN data)
+- All outputs are recommendations for Molecular Tumor Board review, not autonomous decisions
 
 **Learn More**
 - 📖 [Full Case Study: PatientOne Documentation](docs/reference/testing/patient-one/README.md)
