@@ -2,574 +2,415 @@
 
 A visual chat interface for testing deployed MCP servers on GCP Cloud Run. Provides a Claude Desktop-like experience for bioinformatics workflows.
 
-
 <img src="../../data/images/streamlit-ui-preview.png" width="800" alt="Streamlit Chat UI Preview">
-
-## Architecture: GCS File Analysis Flow
-
-The following diagram shows how a user request flows through the system when analyzing files stored in Google Cloud Storage:
-
-```mermaid
-sequenceDiagram
-    actor User
-    participant Streamlit as Streamlit UI<br/>(Cloud Run)
-    participant GCS as Google Cloud Storage<br/>(GCS Bucket)
-    participant Claude as Claude API<br/>(Anthropic)
-    participant MCP as MCP Server<br/>(spatialtools on Cloud Run)
-
-    Note over User,MCP: Step 1: User Provides GCS File Path
-    User->>Streamlit: Enter GCS URI:<br/>gs://precision-medicine-data/patient-001/spatial.h5ad
-    Streamlit->>Streamlit: Validate GCS URI format<br/>(gcs_handler.validate_gcs_uri)
-
-    opt Small File (< 50KB)
-        Streamlit->>GCS: Get file metadata & download content
-        GCS-->>Streamlit: Return file metadata + content
-        Streamlit->>Streamlit: Store content for inline inclusion
-    end
-
-    opt Large File
-        Streamlit->>GCS: Get file metadata only
-        GCS-->>Streamlit: Return metadata (size, type, path)
-        Streamlit->>Streamlit: Store GCS URI path
-    end
-
-    Streamlit-->>User: ✅ Valid GCS URI<br/>Display file metadata
-
-    Note over User,MCP: Step 2: User Asks Analysis Question
-    User->>Streamlit: "Perform cell type deconvolution<br/>on the spatial transcriptomics data"
-
-    Streamlit->>Streamlit: Prepare chat message<br/>+ file context in system prompt
-
-    Note over User,MCP: Step 3: Send Request to Claude API
-    Streamlit->>Claude: messages.create(<br/>  messages=[user query],<br/>  mcp_servers=[spatialtools],<br/>  tools=[mcp_toolset],<br/>  system=prompt with GCS URI<br/>)
-
-    Note over Claude: Claude analyzes request<br/>and decides to use MCP tool
-
-    Note over User,MCP: Step 4: Claude Calls MCP Tool
-    Claude->>MCP: Tool Call: deconvolve_cell_types<br/>Parameters: {<br/>  "spatial_data": "gs://...spatial.h5ad",<br/>  "method": "card"<br/>}
-
-    Note over User,MCP: Step 5: MCP Server Processes Request
-    MCP->>GCS: Access file using service account<br/>GET gs://precision-medicine-data/.../spatial.h5ad
-    GCS-->>MCP: Return file data (stream)
-
-    MCP->>MCP: Load H5AD file<br/>Run cell type deconvolution<br/>Generate results
-
-    Note over User,MCP: Step 6: Return Analysis Results
-    MCP-->>Claude: Tool Result: {<br/>  "cell_types": ["CD8+ T-cells", "B-cells", ...],<br/>  "proportions": {...},<br/>  "spatial_distribution": {...}<br/>}
-
-    Note over Claude: Claude interprets results<br/>and formats response
-
-    Claude-->>Streamlit: API Response:<br/>- Text content with interpretation<br/>- mcp_tool_use blocks<br/>- mcp_tool_result blocks
-
-    Note over User,MCP: Step 7: Display Results to User
-    Streamlit->>Streamlit: Extract orchestration trace<br/>(trace_utils.extract_tool_calls)
-    Streamlit->>Streamlit: Format response text<br/>(chat_handler.format_response)
-
-    Streamlit-->>User: Display:<br/>1. Claude's interpretation<br/>2. Analysis results<br/>3. Orchestration trace showing spatialtools call
-
-    Note over User: User sees:<br/>✅ Cell types identified<br/>✅ Spatial distribution analyzed<br/>🔍 Trace shows spatialtools→deconvolve_cell_types
-```
-
-### Key Architecture Benefits
-
-- **☁️ Cloud-to-Cloud Transfer** - MCP servers access GCS directly (no local bottleneck)
-- **🔒 Service Account Security** - IAM-based access control for GCS buckets
-- **⚡ Inline Optimization** - Small files (< 50KB) analyzed directly by Claude
-- **💰 Cost Efficient** - Data stays within GCP region (free egress within us-central1)
-- **🏥 HIPAA Compliant** - No data leaves GCP infrastructure when configured properly
-
-### Flow Summary
-
-1. **File Registration** - User enters `gs://bucket/path/file` → Streamlit validates and fetches metadata
-2. **Query Processing** - User asks analysis question → Streamlit builds system prompt with GCS URI
-3. **Tool Orchestration** - Claude API selects appropriate MCP tool and passes GCS URI
-4. **Cloud Analysis** - MCP server accesses GCS file directly and performs bioinformatics analysis
-5. **Results Display** - Claude interprets results → User sees interpretation + orchestration trace
 
 ## Features
 
-- 💬 **Chat Interface** - Natural language interaction with MCP servers
-- 🤖 **Multi-Provider Support** - Choose between Claude (Anthropic) or Gemini (Google) LLMs
-- 🔧 **Server Selection** - Choose which of the 14 MCP servers to use
-- 🎯 **Example Prompts** - 14 built-in prompts with GCS data paths for PatientOne
-- 📊 **Token Usage** - Track API usage per message
-- 🎨 **Clean UI** - Simple, Claude Desktop-like interface
-- ⚡ **Real-time** - Instant responses from deployed servers
-- 🔍 **Orchestration Trace** - See which servers were called and in what order
-- 📁 **File Upload** - Secure upload for 21+ bioinformatics file formats (FASTQ, VCF, BAM, H5AD, etc.)
-- ☁️ **GCS Integration** - Direct access to files in Google Cloud Storage buckets
+- **Chat Interface** — Natural language interaction with MCP servers
+- **Multi-Provider** — Choose between Claude (Anthropic) or Gemini (Google) LLMs
+- **Server Selection** — Choose which MCP servers to enable (default: fgbio)
+- **14 Example Prompts** — Built-in prompts with GCS data paths for PatientOne
+- **Token Usage & Caching** — Per-message token tracking with cache metrics (Claude automatic caching, Gemini implicit caching)
+- **Token Benchmark** — 3-phase benchmark (Cold/Warm/Repeat) comparing providers across all prompts
+- **Orchestration Trace** — See which servers were called and in what order (4 view styles)
+- **File Upload** — Secure upload for 21+ bioinformatics file formats (FASTQ, VCF, BAM, H5AD, etc.)
+- **GCS Integration** — Direct access to files in Google Cloud Storage buckets
+- **Audit Logging** — Per-prompt logging to GCP Cloud Logging
+- **IAM Authentication** — Cloud Run IAM-based access control (no public access)
 
-## LLM Provider Support
+---
 
-The Streamlit UI supports two LLM providers, each with different MCP integration approaches:
-
-### Claude (Anthropic) - Native MCP Support
-
-Claude uses Anthropic's native MCP integration where Claude API directly orchestrates MCP servers.
-
-**Architecture:**
-```
-Streamlit UI → Claude API (with MCP servers) → Response
-```
-
-**Features:**
-- Native MCP server support via Claude API
-- Automatic tool discovery and calling
-- Built-in orchestration
-
-**Models:**
-- `claude-sonnet-4-6` (recommended)
-- `claude-opus-4-6`
-- `claude-haiku-4-5`
-
-### Gemini (Google) - SSE-Based MCP Integration
-
-Gemini uses a custom SSE-based MCP client that connects directly to MCP servers and manually orchestrates tool calls.
-
-**Architecture:**
-```
-Streamlit UI → MCP SSE Client → Cloud Run MCP Servers
-            ↓                           ↓
-        Gemini API ← Tool Results ← Tool Execution
-```
-
-**How It Works:**
-1. **MCP Client Manager** establishes SSE connections to Cloud Run MCP servers
-2. **Tool Discovery** fetches available tools from each server
-3. **Schema Cleaning** converts MCP tool schemas to Gemini function declarations
-4. **Agentic Loop** manages multi-turn tool calling:
-   - Gemini decides which tools to call
-   - Streamlit executes tools via MCP SSE client
-   - Results fed back to Gemini for interpretation
-5. **Cloud Run Auth** uses Google Cloud ID tokens for server authentication
-
-**Models:**
-- `gemini-3-flash-preview` (recommended)
-- `gemini-2.5-flash`
-
-**Key Implementation:**
-- **SSE Client:** `utils/mcp_client.py` - Manages persistent connections to MCP servers
-- **Provider:** `providers/gemini_provider.py` - Implements agentic tool calling loop
-- **Schema Cleaning:** Strict whitelist removes JSON schema properties Gemini doesn't support (e.g., `additionalProperties`, `anyOf`)
-- **Tool Name Resolution:** Hyphenated server names (e.g., `cell-classify`) are sanitized to `cell_classify_*` for Gemini, then mapped back via `_gemini_name_map` for MCP dispatch
-- **Thought Signatures:** Preserves complete Part objects for Gemini's tool calling requirements
-
-**Why This Approach:**
-- Gemini's Interactions API doesn't support remote MCP servers or tool configuration
-- Direct SSE connections provide full control over tool calling behavior
-- Works with existing Cloud Run MCP server deployments
-- Enables Gemini to call the same MCP tools as Claude
-
-**Switching Providers:**
-
-When running on Cloud Run, select your preferred provider in the sidebar:
-1. Set `GEMINI_API_KEY` environment variable for Gemini support
-2. Use the "LLM Provider" dropdown to switch between Claude and Gemini
-3. Both providers work with the same MCP servers
-
-## Quick Start (2 minutes)
+## Quick Start
 
 ### Prerequisites
 
 - Python 3.11+
 - At least one API key: Anthropic ([get one](https://console.anthropic.com/)) or Google AI ([get one](https://aistudio.google.com/apikey))
 
-### Installation
+### Local Development
 
 ```bash
-# 1. Navigate to the UI directory
 cd ui/streamlit-app
 
-# 2. Create virtual environment
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 
-# 3. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
-# Includes: streamlit, anthropic, google-cloud-storage, google-cloud-logging
 
-# 4. Set your API key
-export ANTHROPIC_API_KEY=your_key_here  # On Windows: set ANTHROPIC_API_KEY=your_key_here
+# Set API keys (option A: environment variables)
+export ANTHROPIC_API_KEY=your_key_here
+export GEMINI_API_KEY=your_key_here  # optional
 
-# Or create a .env file:
+# Set API keys (option B: .env file)
 cp .env.example .env
-# Edit .env and add your API key
+# Edit .env and add your keys
 
-# 5. (Optional) Configure GCS access for Cloud Storage features
-# If using GCS file access, authenticate with GCP:
-gcloud auth application-default login
-
-# 6. Run the app
+# Run the app
 streamlit run app.py
 ```
 
-The app will open in your browser at http://localhost:8501
+The app opens at http://localhost:8501.
+
+**Mock mode** (no Cloud Run connections needed):
+```bash
+export USE_MOCK_MCP=true
+streamlit run app.py
+```
+
+### Deploy to Cloud Run
+
+```bash
+cd ui/streamlit-app
+
+# Set keys in .env file, then:
+./deploy_now.sh
+```
+
+The service deploys with IAM authentication (no public access). Access via proxy:
+
+```bash
+gcloud run services proxy streamlit-mcp-chat \
+  --region us-central1 \
+  --project precision-medicine-poc
+
+# Then open http://localhost:8080
+```
+
+---
 
 ## Usage
 
 ### 1. Select MCP Servers
 
-Use the sidebar to select which servers to enable. Default active: **spatialtools, multiomics, fgbio**.
+Use the sidebar to select which servers to enable. Default: **fgbio** (keeps token costs low).
 
-**Production Servers (9 — Real Analysis):**
-- **fgbio** - Genomic reference data and FASTQ validation (4 tools)
-- **multiomics** - Multi-omics integration RNA/Protein/Phospho (10 tools)
-- **spatialtools** - Spatial transcriptomics analysis (14 tools)
-- **perturbation** - GEARS perturbation prediction for treatment response (8 tools)
-- **deepcell** - DeepCell-TF cell segmentation and phenotyping (3 tools)
-- **openimagedata** - H&E/MxIF image loading and composites (5 tools)
-- **quantum-celltype-fidelity** - Quantum cell type validation and immune evasion detection (6 tools)
-- **cell-classify** - Cell phenotyping and classification (3 tools)
-- **patient-report** - PDF report generation (5 tools)
+**Production Servers (9):**
 
-**Mock Servers (4 — Demo/Workflow):**
-- **mockepic** - Synthetic FHIR clinical data
-- **tcga** - TCGA cancer genomics data
-- **seqera** - Nextflow workflow management
-- **huggingface** - AI/ML models for genomics
+| Server | Tools | Description |
+|--------|-------|-------------|
+| fgbio | 4 | Genomic reference data and FASTQ validation |
+| multiomics | 10 | RNA/Protein/Phospho integration |
+| spatialtools | 14 | Spatial transcriptomics analysis |
+| perturbation | 8 | GEARS perturbation prediction |
+| deepcell | 3 | DeepCell-TF cell segmentation |
+| openimagedata | 5 | H&E/MxIF image loading and composites |
+| quantum-celltype-fidelity | 6 | Quantum cell type validation and immune evasion |
+| cell-classify | 3 | Cell phenotyping and classification |
+| patient-report | 5 | PDF report generation |
+
+**Mock Servers (4):** mockepic, tcga, seqera, huggingface
 
 ### 2. Choose a Provider and Model
 
-Use the sidebar to switch between Claude and Gemini. Available models:
-
-**Claude:** `claude-sonnet-4-6` (recommended), `claude-opus-4-6`, `claude-haiku-4-5`  
+**Claude:** `claude-sonnet-4-6` (recommended), `claude-opus-4-6`, `claude-haiku-4-5`
 **Gemini:** `gemini-3-flash-preview` (recommended), `gemini-2.5-flash`
 
 ### 3. Start Chatting
 
-Type your question or use a built-in prompt:
-1. Select a prompt from the "Example Prompts" dropdown in the sidebar
-2. Preview the prompt text shown below the dropdown
-3. Click "Send Prompt" to execute
+Type a question or select from the 14 built-in prompts in the sidebar. Start with "Warm Up Servers" to wake Cloud Run instances, then try analysis prompts.
 
-Start with "Warm Up Servers" to wake Cloud Run instances, then try the analysis prompts.
+### 4. View Results
 
-### 4. View Responses
+- Chat history with full conversation
+- Token usage per message (input, output, cache read/write, iterations)
+- Orchestration trace showing which MCP servers were called
 
-- Chat history shows full conversation
-- Token usage displayed per message
-- Server status cards show active servers
+---
 
-## Orchestration Trace Feature
+## LLM Providers
 
-The Streamlit UI includes an "Orchestration Trace" feature that shows which MCP servers were called during each query. This makes the "invisible orchestration" visible, helping users understand:
+### Claude (Anthropic) — Native MCP
 
-- **How** Claude orchestrates multiple specialized servers
-- **Which** data sources contributed to each recommendation
-- **The flow** of data through the precision medicine pipeline
-
-### Enabling the Trace
-
-1. In the sidebar, toggle **"Show trace for responses"**
-2. Select your preferred trace style:
-   - **Log View (📝)** - Simple text-based step-by-step log
-   - **Card View (🎴)** - Visual cards for each server call
-   - **Timeline View (📈)** - Horizontal timeline showing the flow
-   - **Sequence Diagram (📊)** - Mermaid diagram (copyable)
-
-### What the Trace Shows
-
-For each server call, you'll see:
-- Which MCP server was called (with icon and description)
-- What tool was invoked
-- Input parameters passed to the tool
-- Result summary
-- Timing metrics (duration, tokens, estimated cost)
-
-### Example Trace Output
+Claude uses Anthropic's native MCP integration. The API directly orchestrates MCP servers.
 
 ```
-🔍 Orchestration Trace (3 server calls)
-
-Step 1: 🧬 Genomics (FGbio)
-- Tool: validate_fastq
-- Input: {'file': 'patient_001.fastq'}
-- Result: Valid FASTQ, 1.2M reads
-
-Step 2: 🔬 Multi-Omics
-- Tool: run_halla_analysis
-- Input: {'data_file': 'multiomics.tsv'}
-- Result: 42 significant associations found
-
-Step 3: 🗺️ Spatial Transcriptomics
-- Tool: deconvolve_cell_types
-- Input: {'spatial_data': 'visium_data.h5ad'}
-- Result: Identified 8 cell types, CD8+ T-cells enriched in margin
+Streamlit UI -> Claude API (with MCP servers) -> Response
 ```
 
-### Exporting Traces
+- Automatic prompt caching (system prompt + tool definitions cached at 0.1x cost)
+- Cumulative token tracking across agentic loop iterations
 
-Click the download buttons to export:
-- **📥 Download JSON** - Complete trace data for programmatic use
-- **📥 Download Mermaid** - Sequence diagram for documentation
+### Gemini (Google) — SSE-Based MCP
 
-### Educational Value
+Gemini uses a custom SSE client that connects to MCP servers and manually orchestrates tool calls.
 
-The trace feature helps:
-- **Students** - See how agentic AI actually works
-- **Funders** - Demos become self-explanatory
-- **Clinicians** - Understand which data sources contributed
-- **Developers** - Debug when something goes wrong
-- **Hospital IT** - Audit trail for compliance
+```
+Streamlit UI -> MCP SSE Client -> Cloud Run MCP Servers
+            |                           |
+        Gemini API <- Tool Results <- Tool Execution
+```
 
-### Use Cases
+- SSE connections to each Cloud Run server
+- Schema cleaning converts MCP tool schemas to Gemini function declarations
+- Agentic loop manages multi-turn tool calling
+- Implicit caching (automatic but unreliable — hits ~19% of the time)
 
-1. **Education** - Teaching bioinformatics workflows
-2. **Demos** - Showing platform capabilities to funders
-3. **Debugging** - Understanding why a query failed
-4. **Compliance** - Audit trail of data access
-5. **Documentation** - Creating workflow diagrams
+---
 
-## Example Prompts (14 Built-in)
+## Token Benchmark
 
-The app includes 14 example prompts in the sidebar dropdown. All use PatientOne sample data from GCS (`gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`).
+The app includes a 3-phase token benchmark for comparing providers:
 
-**Start here — wake up Cloud Run servers (cold starts take 10-30s):**
+| Phase | What it does | Runs |
+|-------|-------------|------|
+| **Cold** | Fresh cache, baseline token usage | 14 prompts x 2 providers = 28 |
+| **Warm** | Same session, measures cache hits | 14 prompts x 2 providers = 28 |
+| **Repeat** | 3 multi-step prompts again, confirms cache stability | 3 prompts x 2 providers = 6 |
 
-| # | Prompt | Servers Used |
-|---|--------|-------------|
-| 1 | **Warm Up Servers** — Lists all tools from connected servers | All active |
+Each prompt has a 180-second timeout. Results are logged per-prompt to GCP Cloud Logging and can be exported as CSV.
 
-**Core analysis prompts (tested, working with default servers):**
+**Key findings** (see `docs/for-developers/benchmark-findings-2026-02-19.md`):
+- Claude caching reduces cost 69% on warm prompts (~14,600 tokens of system+tools cached)
+- Gemini Flash is 8x cheaper and 2x faster on simple prompts
+- Multi-step prompts can take 1-7 agentic loop iterations (unpredictable)
 
-| # | Prompt | Servers Used |
-|---|--------|-------------|
-| 2 | **Spatial Analysis** — Moran's I for CD3D, CD8A, EPCAM, MKI67 | spatialtools |
-| 3 | **Multi-omics Integration** — RNA + Protein + Phospho integration | multiomics |
-| 4 | **Genomic QC** — FASTQ validation for PAT001 exome | fgbio |
-| 5 | **Pathway Enrichment** — GO_BP for TP53, BRCA1, MYC, KRAS | multiomics |
-| 6 | **Complete PatientOne Workflow** — FHIR + Spatial + Multi-omics | mockepic, spatialtools, multiomics |
+---
 
-**Advanced prompts (require additional servers enabled):**
+## Orchestration Trace
 
-| # | Prompt | Servers Needed |
-|---|--------|---------------|
-| 7 | **Batch Correction** — ComBat batch effects | multiomics |
-| 8 | **Predict Treatment Response** — GEARS model training | perturbation |
-| 9 | **Immunotherapy Prediction** — Anti-PD1/CTLA4 response | perturbation |
-| 10 | **Drug Screening** — Compare checkpoint/PARP/platinum | perturbation |
-| 11 | **Quantum Cell Type Fidelity** — Quantum embeddings | quantum-celltype-fidelity |
-| 12 | **Immune Evasion Detection** — Quantum fidelity scoring | quantum-celltype-fidelity |
-| 13 | **TLS Analysis** — Tertiary lymphoid structures | quantum-celltype-fidelity |
-| 14 | **Quantum + GEARS Validation** — Cross-method validation | perturbation, quantum-celltype-fidelity |
+Toggle "Show trace for responses" in the sidebar. Four view styles:
 
+- **Log View** — Text-based step-by-step log
+- **Card View** — Visual cards for each server call
+- **Timeline View** — Horizontal timeline showing flow
+- **Sequence Diagram** — Mermaid diagram (copyable)
+
+Each trace shows: server called, tool invoked, input parameters, result summary, timing metrics.
+
+Export traces as JSON or Mermaid via download buttons.
+
+---
+
+## File Upload & GCS Access
+
+### Local Upload
+
+Drag-and-drop files in the sidebar. Supports 21+ formats: FASTA, FASTQ, VCF, GFF, GTF, BED, CSV, TSV, JSON, H5AD, HDF5, PNG, JPEG, TIFF, BAM, and more.
+
+Security: extension whitelist, magic bytes verification, content validation, filename sanitization, 100MB limit.
+
+Small files (< 50KB) are included inline for the LLM to analyze directly. Large files pass metadata only — MCP tools access the data.
+
+### GCS Access
+
+Enter a GCS URI (`gs://bucket/path/file`) in the sidebar. MCP servers on Cloud Run access GCS files directly via service account (cloud-to-cloud, no local bottleneck).
+
+```bash
+# Grant Cloud Run service account access to a GCS bucket
+PROJECT_NUMBER=$(gcloud projects describe precision-medicine-poc --format="value(projectNumber)")
+SERVICE_ACCOUNT="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
+gsutil iam ch serviceAccount:${SERVICE_ACCOUNT}:objectViewer gs://your-bucket-name
+```
+
+---
 
 ## Configuration
 
-### API Key Security
-
-**API keys are stored differently depending on environment:**
-
-| Environment | Storage Method | Security |
-|-------------|---------------|----------|
-| **Local Development** | `.env` file (gitignored) | Not committed to git, local machine only |
-| **GCP Cloud Run** | Environment variable (encrypted) | Encrypted at rest, managed by Google Cloud |
-| **Browser/Client** | Never exposed | Keys stay on server, never sent to browser |
-
-**Important Security Notes:**
-- ✅ `.env` file is in `.gitignore` - never committed to git
-- ✅ Cloud Run environment variables are encrypted at rest
-- ✅ API keys are only used server-side, never exposed to browser
-- ✅ Use separate API keys for development vs production
-- ❌ Never hardcode API keys in source code
-- ❌ Never commit `.env` files to git
-
 ### Environment Variables
 
-**For Local Development:**
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `ANTHROPIC_API_KEY` | Yes (for Claude) | Anthropic API key |
+| `GEMINI_API_KEY` | No | Google AI API key (enables Gemini provider) |
+| `USE_MOCK_MCP` | No | `true` for mock mode (no Cloud Run connections) |
+| `DEFAULT_MODEL` | No | Default LLM model (default: `claude-sonnet-4-6`) |
+| `DEFAULT_MAX_TOKENS` | No | Default max tokens (default: 4096) |
+| `ENVIRONMENT` | No | `development` or `production` |
 
-Create a `.env` file (from `.env.example`):
+### MCP Server URLs
+
+Server URLs are configured in `utils/mcp_config.py`. See [Server Registry](../../docs/reference/shared/server-registry.md) for the full list.
+
+### Authentication
+
+The app deploys with `--no-allow-unauthenticated` (Cloud Run IAM). To grant access:
 
 ```bash
-# Required (at least one)
-ANTHROPIC_API_KEY=your_anthropic_key_here
-GEMINI_API_KEY=your_google_ai_key_here
-
-# Optional
-DEFAULT_MODEL=claude-sonnet-4-6
-DEFAULT_MAX_TOKENS=4096
+gcloud run services add-iam-policy-binding streamlit-mcp-chat \
+  --member=user:you@example.com \
+  --role=roles/run.invoker \
+  --region us-central1 \
+  --project precision-medicine-poc
 ```
 
-**For Cloud Run Deployment:**
-
-API keys are passed as environment variables during deployment:
-
+Access via authenticated proxy:
 ```bash
-export ANTHROPIC_API_KEY=your_anthropic_key_here
-export GEMINI_API_KEY=your_google_ai_key_here
-./deploy.sh
+gcloud run services proxy streamlit-mcp-chat \
+  --region us-central1 --project precision-medicine-poc
+# Open http://localhost:8080
 ```
 
-The deployment script automatically sets the keys as Cloud Run environment variables (encrypted).
-
-**Note:** You can use either provider independently - only the corresponding API key is required.
-
-### MCP Server Configuration
-
-Server URLs are configured in `utils/mcp_config.py`. Most servers are pre-configured with GCP Cloud Run URLs (excludes local-only mcp-epic and mcp-genomic-results). See [Server Registry](../../docs/reference/shared/server-registry.md) for the full list.
-
-To add/modify servers:
-```python
-# Edit utils/mcp_config.py
-MCP_SERVERS = {
-    "your_server": {
-        "name": "your_server",
-        "url": "https://your-server.run.app/sse",
-        "description": "Server description",
-        "status": "production",  # or "mock"
-        "tools_count": 5
-    }
-}
-```
+---
 
 ## Architecture
 
-### Multi-Provider System
-
 ```
 Streamlit UI (Browser)
-    ↓
+    |
 Provider Abstraction Layer
-    ├─→ Claude Provider (Native MCP)
-    │       ↓
-    │   Anthropic Claude API
-    │       ↓
-    │   [Direct MCP orchestration]
-    │
-    └─→ Gemini Provider (SSE-based MCP)
-            ↓
-        MCP SSE Client ─→ Cloud Run MCP Servers (13 of 15)
-            ↓                      ↓
-        Google Gemini API ← Tool Results
-            ↓
+    |-- Claude Provider (Native MCP)
+    |       |
+    |   Anthropic Claude API
+    |       |
+    |   [Direct MCP orchestration, automatic caching]
+    |
+    +-- Gemini Provider (SSE-based MCP)
+            |
+        MCP SSE Client --> Cloud Run MCP Servers (13 of 15)
+            |                      |
+        Google Gemini API <- Tool Results
+            |
     [Manual agentic loop]
-    ↓
+    |
 GCP Cloud Run MCP Servers (13 of 15)
-    ↓
+    |
 Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 ```
-
-**Key Components:**
-- **Provider Abstraction** - Unified interface for Claude and Gemini
-- **Claude Provider** - Uses Anthropic's native MCP support
-- **Gemini Provider** - Custom SSE client with manual tool orchestration
-- **MCP Servers** - 13 Cloud Run services (9 production, 4 mock/framework)
-- **Bioinformatics Tools** - Real analysis engines (STAR, scanpy, GEARS, etc.)
-
-## Cost Estimates
-
-**Per Message:**
-- Input: ~500-2000 tokens ($0.003-0.012 with Sonnet)
-- Output: ~1000-4000 tokens ($0.015-0.060 with Sonnet)
-- **Total: ~$0.02-0.08 per exchange**
-
-**Typical Session (10 messages):**
-- ~$0.20-0.80 total
-
-**See:** [Cost Analysis](../../docs/for-hospitals/operations/cost-and-budget.md) for detailed breakdowns
-
-## Additional Documentation
-
-For detailed guides on specific topics, see:
-
-- **[📁 File Handling Guide](FILE_HANDLING.md)** - Local file upload and GCS integration
-- **[🚀 Deployment Guide](DEPLOYMENT.md)** - Deploy to local, Streamlit Cloud, or GCP Cloud Run
-- **[🔧 Troubleshooting Guide](TROUBLESHOOTING.md)** - Common issues and solutions
-- **[🤖 Provider Architecture](providers/README.md)** - Claude vs Gemini implementation details
-
-## Development
 
 ### Project Structure
 
 ```
 ui/streamlit-app/
-├── app.py                 # Main Streamlit application
-├── requirements.txt       # Python dependencies (includes mcp>=1.0.0)
-├── .env.example          # Environment variable template
-├── .gitignore            # Git ignore rules
-├── README.md             # This file
-├── Dockerfile            # Container image for Cloud Run
-├── deploy.sh             # Deployment script for GCP
-├── providers/            # LLM provider abstraction layer
-│   ├── __init__.py       # Provider factory and discovery
-│   ├── base.py           # Abstract base class for providers
-│   ├── anthropic_provider.py  # Claude with native MCP support
-│   └── gemini_provider.py     # Gemini with SSE-based MCP client
+├── app.py                          # Main Streamlit application
+├── requirements.txt                # Python dependencies
+├── Dockerfile                      # Container image for Cloud Run
+├── deploy.sh                       # Deployment script (parameterized)
+├── deploy_now.sh                   # Quick deploy (reads .env)
+├── validate.sh                     # Pre-deployment validation
+├── .env.example                    # Environment variable template
+├── providers/
+│   ├── __init__.py                 # Provider factory
+│   ├── base.py                     # Abstract base class + UsageInfo
+│   ├── anthropic_provider.py       # Claude with native MCP + caching
+│   └── gemini_provider.py          # Gemini with SSE-based MCP client
 └── utils/
-    ├── __init__.py       # Package init
-    ├── mcp_config.py     # MCP server configurations + 14 example prompts
-    ├── mcp_client.py     # SSE-based MCP client manager (for Gemini)
-    ├── mcp_mock.py       # Mock MCP client for local dev (USE_MOCK_MCP=true)
-    ├── chat_handler.py   # Claude API integration (legacy)
-    ├── trace_utils.py    # Orchestration trace extraction
-    ├── trace_display.py  # Trace visualization components
-    ├── file_validator.py # File upload security validation
-    ├── gcs_handler.py    # Google Cloud Storage integration
-    ├── auth.py           # Authentication (SSO)
-    └── audit_logger.py   # Audit logging
+    ├── mcp_config.py               # Server configs + 14 example prompts
+    ├── mcp_client.py               # SSE-based MCP client (for Gemini)
+    ├── mcp_mock.py                 # Mock MCP client (USE_MOCK_MCP=true)
+    ├── trace_utils.py              # Orchestration trace extraction
+    ├── trace_display.py            # Trace visualization components
+    ├── file_validator.py           # File upload security validation
+    ├── gcs_handler.py              # Google Cloud Storage integration
+    ├── audit_logger.py             # Audit logging (GCP Cloud Logging)
+    └── auth.py                     # Authentication (SSO)
 ```
 
-### Adding New Features
+---
 
-**Add a new example prompt:**
-```python
-# Edit utils/mcp_config.py
-EXAMPLE_PROMPTS["Your New Prompt"] = "Your prompt text here..."
-```
+## Deployment Options
 
-**Add custom styling:**
-```python
-# Edit app.py, add to st.markdown() CSS block
-st.markdown("""
-<style>
-    .your-custom-class {
-        /* your styles */
-    }
-</style>
-""", unsafe_allow_html=True)
-```
+| Environment | Best For | Auth | Cost |
+|-------------|----------|------|------|
+| **Local** | Testing, debugging | None | Free |
+| **Streamlit Cloud** | Public demos | None (public) | Free |
+| **GCP Cloud Run** | Production | IAM | ~$5-20/month |
 
-**Add response visualization:**
-```python
-# In app.py, after displaying response:
-if "spatial_data" in response_text:
-    import pandas as pd
-    # Create visualization
-    st.plotly_chart(your_plot)
-```
+### Cloud Run Details
 
-## Deployment
+The deploy scripts use these settings:
 
-The Streamlit app can be deployed in three ways:
+| Setting | Value |
+|---------|-------|
+| Region | us-central1 |
+| Memory | 2Gi |
+| CPU | 1 |
+| Min instances | 0 (scales to zero) |
+| Max instances | 5 |
+| Timeout | 300s |
+| Auth | IAM (no public access) |
+| Port | 8501 |
 
-| Environment | Best For | Cost | Setup Time |
-|-------------|----------|------|------------|
-| **Local Development** | Testing, debugging | Free | 5 minutes |
-| **Streamlit Cloud** | Public demos, education | Free | 10 minutes |
-| **GCP Cloud Run** | Production, hospital use | ~$5-20/month | 15 minutes |
+### Rollback
 
-**Quick Deploy to Cloud Run:**
 ```bash
-cd ui/streamlit-app
-export ANTHROPIC_API_KEY=your_key
-export GEMINI_API_KEY=your_key  # optional
-./deploy_now.sh
+# List revisions
+gcloud run revisions list --service streamlit-mcp-chat --region us-central1
+
+# Rollback to a previous revision
+gcloud run services update-traffic streamlit-mcp-chat \
+  --to-revisions REVISION_NAME=100 --region us-central1
 ```
 
-**See [Deployment Guide](DEPLOYMENT.md)** for complete instructions on all deployment options, including CI/CD, monitoring, security, and rollback procedures.
+### Monitoring
 
-## Roadmap
+```bash
+# View logs
+gcloud logging read \
+  "resource.type=cloud_run_revision AND resource.labels.service_name=streamlit-mcp-chat" \
+  --limit 50 --project precision-medicine-poc
 
-**Planned Features:**
-- [ ] Data visualization (spatial plots, pathway networks, cell type heatmaps)
-- [ ] Export conversation to PDF/Markdown with embedded traces
-- [ ] Workflow templates (save/load common analysis workflows)
-- [ ] Multi-user support (Google SSO authentication)
-- [ ] Response streaming (real-time token display)
-- [ ] Server health monitoring dashboard
-- [ ] Cost tracking per session with budget alerts
-- [ ] Batch file processing (analyze multiple FASTQ files)
-- [ ] Interactive parameter tuning for MCP tools
-- [ ] Additional LLM providers (OpenAI, Azure, Bedrock)
+# Errors only
+gcloud logging read \
+  "resource.labels.service_name=streamlit-mcp-chat AND severity>=ERROR" \
+  --limit 20 --project precision-medicine-poc
 
+# Health check
+curl https://YOUR-SERVICE-URL/_stcore/health
+```
 
+---
+
+## Troubleshooting
+
+### API Keys
+
+```bash
+# "API Key Missing" — set the environment variable or .env file
+export ANTHROPIC_API_KEY=your_key_here
+
+# "Invalid API key" — check for extra spaces or quotes
+echo $ANTHROPIC_API_KEY
+```
+
+### Server Connection
+
+```bash
+# Check server is responding
+curl https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse
+
+# Timeout errors are normal for long analyses (GEARS training: 5-10 min)
+# Increase timeout: --timeout 600 in deploy script
+```
+
+### Provider Issues
+
+- **Claude "Provider not available"** — check `ANTHROPIC_API_KEY` is set
+- **Gemini "Connection to MCP server failed"** — check firewall allows HTTPS to `*.run.app`
+- **Gemini "Maximum tool calling iterations reached"** — break query into smaller steps
+
+### Deployment
+
+```bash
+# "Container failed to start" — check logs
+gcloud logging read "resource.type=cloud_run_revision" --limit 50
+
+# "Port already in use" locally
+lsof -ti:8501 | xargs kill -9
+
+# Validate before deploying (catches errors before 5-min Cloud Run build)
+./validate.sh && ./deploy_now.sh
+```
+
+### Performance
+
+- Use `claude-haiku-4-5` or `gemini-3-flash-preview` for faster responses
+- Select fewer MCP servers (only enable what you need)
+- Default is fgbio only to keep token costs low
+- First request after idle has a cold start (10-30s)
+
+---
+
+## Cost Estimates
+
+**Per prompt (average):**
+
+| Provider | Avg Cost | Speed (simple) | Speed (complex) |
+|----------|----------|----------------|-----------------|
+| Claude Sonnet 4.6 | ~$0.04 | ~17s | ~60s |
+| Gemini 3 Flash | ~$0.005 | ~9s | ~45s |
+
+Claude's automatic caching reduces cost ~69% on warm prompts. See [Benchmark Findings](../../docs/for-developers/benchmark-findings-2026-02-19.md) for details.
+
+**See also:** [Cost Analysis](../../docs/for-hospitals/operations/cost-and-budget.md)
