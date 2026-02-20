@@ -6,11 +6,17 @@
 
 ## What You Can Accomplish Here
 
-- ✅ **Teach precision medicine** with real-world case studies (100% synthetic data)
-- ✅ **Demonstrate bioinformatics workflows** (differential expression, pathway enrichment, spatial analysis)
-- ✅ **Practice AI-assisted research** (natural language → bioinformatics pipelines)
-- ✅ **Learn cost-effectively** (DRY_RUN mode ~$0.32 per complete analysis)
-- ✅ **Publish educational materials** (no patient privacy concerns)
+```mermaid
+graph LR
+    A["📋 Prepare<br/>synthetic data, no IRB"] --> B["🎓 Teach<br/>case studies"] --> C["🧪 Practice<br/>AI-assisted research"] --> D["📄 Publish<br/>educational materials"]
+
+    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style B fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style D fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+```
+
+> **Prepare:** 100% synthetic data, no IRB needed, DRY_RUN mode ~$0.32/analysis | **Teach:** Real-world precision medicine case studies and bioinformatics workflows | **Practice:** Natural language → diff expression, pathway enrichment, spatial analysis | **Publish:** No patient privacy concerns — safe for papers, demos, sharing
 
 ---
 
