@@ -87,4 +87,4 @@ gcloud run deploy {app-name} \
 ---
 
 **Cost analysis:** [cost-analysis.md](cost-analysis.md)
-**HIPAA deployment:** [`docs/for-hospitals/DEPLOYMENT_CHECKLIST.md`](../for-hospitals/DEPLOYMENT_CHECKLIST.md)
+**HIPAA deployment:** [`docs/for-hospitals/DEPLOYMENT_CHECKLIST.md`](../../for-hospitals/DEPLOYMENT_CHECKLIST.md)

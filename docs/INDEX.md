@@ -91,9 +91,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **[Security Guide](reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
 - **[Hospital Deployment](./for-hospitals/)** - Enterprise deployment
   - [Operations Manual](./for-hospitals/OPERATIONS_MANUAL.md)
-  - [Admin Guide](./for-hospitals/ADMIN_GUIDE.md)
   - [User Guide](./for-hospitals/USER_GUIDE.md)
-  - [Audit Log Guide](./for-hospitals/AUDIT_LOG_GUIDE.md)
   - [Runbooks](./for-hospitals/RUNBOOKS/) - Incident response procedures
 
 ---
@@ -118,9 +116,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 **Clinical decision support and review processes:**
 
 - **[Clinical Overview](./for-hospitals/citl-workflows/)** - Clinical workflows overview
-- **[CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)** - Clinician-in-the-Loop workflow
-- **[CITL Review Template](./for-hospitals/citl-workflows/CITL_REVIEW_TEMPLATE.md)** - Review form template
-- **[CITL Examples](./for-hospitals/citl-workflows/CITL_EXAMPLES.md)** - Example reviews
+- **[CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)** - Clinician-in-the-Loop workflow, review templates, and examples
 
 ---
 
@@ -130,8 +126,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 - **[Ethics Overview](./for-hospitals/ethics/README.md)** - Ethics framework
 - **[Bias Framework](./for-hospitals/ethics/ETHICS_AND_BIAS.md)** - Bias detection and mitigation
-- **[Audit Checklist](./for-hospitals/ethics/BIAS_AUDIT_CHECKLIST.md)** - Step-by-step bias audit
-- **[Implementation](./for-hospitals/ethics/IMPLEMENTATION_PLAN.md)** - Implementation guidelines
+- **[Bias Audit Guide](./for-hospitals/ethics/BIAS_AUDIT_GUIDE.md)** - Step-by-step bias audit
 
 ---
 

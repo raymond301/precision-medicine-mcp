@@ -381,7 +381,7 @@ Quantum → Encode as quantum state → Compute fidelity change
 Combined Report: GEARS prediction + Quantum validation
 ```
 
-📖 **[Quantum Architecture →](quantum.md)**
+📖 **[Quantum Architecture →](quantum-fidelity.md)**
 
 ### With Clinical Data (`mcp-epic`)
 
@@ -518,11 +518,11 @@ Combined Report: GEARS prediction + Quantum validation
 
 ## Related Documentation
 
-- **[Server Implementation →](../../../servers/mcp-perturbation/README.md)**
-- **[PatientOne Workflow →](../testing/patient-one/README.md)**
-- **[Server Status →](../shared/server-registry.md)**
+- **[Server Implementation →](../../../../servers/mcp-perturbation/README.md)**
+- **[PatientOne Workflow →](../../testing/patient-one/README.md)**
+- **[Server Status →](../../shared/server-registry.md)**
 - **[Multiomics Integration →](multiomics.md)**
-- **[Quantum Cell Type Fidelity →](quantum.md)** (Combined quantum + GEARS validation)
+- **[Quantum Cell Type Fidelity →](quantum-fidelity.md)** (Combined quantum + GEARS validation)
 
 ---
 

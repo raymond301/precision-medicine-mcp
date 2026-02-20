@@ -15,7 +15,7 @@
 
 ## Key Genomic Findings
 
-Source: [`data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf`](../../data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf)
+Source: [`data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf`](../../../data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf)
 
 | Gene | Variant | Type | VAF | Clinical Significance |
 |------|---------|------|-----|----------------------|
@@ -68,4 +68,4 @@ Based on integrated analysis (BRCA1 germline + PIK3CA E545K + spatial microenvir
 
 ---
 
-**Full dataset documentation:** [`data/patient-data/PAT001-OVC-2025/README.md`](../../data/patient-data/PAT001-OVC-2025/README.md)
+**Full dataset documentation:** [`data/patient-data/PAT001-OVC-2025/README.md`](../../../data/patient-data/PAT001-OVC-2025/README.md)

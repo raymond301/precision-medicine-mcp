@@ -103,7 +103,7 @@ graph TB
 
 **DRY_RUN Mode:** Default true - returns realistic mock data without GDC downloads
 
-**For detailed specifications:** [mcp-tcga README](../../../servers/mcp-tcga/README.md)
+**For detailed specifications:** [mcp-tcga README](../../../../servers/mcp-tcga/README.md)
 
 ---
 
@@ -357,7 +357,7 @@ PIK3CA H1047R: 8% cohort frequency (actionable mutation)
 ## 📖 Detailed Documentation
 
 ### Server Documentation
-- **mcp-tcga:** [/servers/mcp-tcga/README.md](../../../servers/mcp-tcga/README.md)
+- **mcp-tcga:** [/servers/mcp-tcga/README.md](../../../../servers/mcp-tcga/README.md)
   - Tool specifications with parameters
   - GDC API integration details
   - DRY_RUN mode configuration
@@ -365,16 +365,16 @@ PIK3CA H1047R: 8% cohort frequency (actionable mutation)
 
 ### Deployment & Operations
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
-- **Server Status:** [Server Implementation Status](../shared/server-registry.md)
+- **Server Status:** [Server Implementation Status](../../shared/server-registry.md)
 
 ---
 
 ## Related Workflows
 
-- [Clinical Data](clinical.md) - Diagnosis-cohort matching
-- [Multi-omics Integration](multiomics.md) - RNA-protein validation
-- [Spatial Transcriptomics](spatial/README.md) - Spatial-bulk comparison
-- [PatientOne Workflow](../testing/patient-one/README.md) - Complete precision medicine workflow
+- [Clinical Data](../clinical/ehr-integration.md) - Diagnosis-cohort matching
+- [Multi-omics Integration](../rna/multiomics.md) - RNA-protein validation
+- [Spatial Transcriptomics](../spatial/README.md) - Spatial-bulk comparison
+- [PatientOne Workflow](../../testing/patient-one/README.md) - Complete precision medicine workflow
 
 ---
 

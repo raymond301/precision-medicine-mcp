@@ -499,9 +499,8 @@ To support ethical AI practices and comply with FDA, AMA, and NIH standards, the
 
 **Related Documentation:**
 - [Ethics & Bias Framework](../../docs/for-hospitals/ethics/ETHICS_AND_BIAS.md) - Comprehensive methodology
-- [Bias Audit Checklist](../../docs/for-hospitals/ethics/BIAS_AUDIT_CHECKLIST.md) - Step-by-step guide
+- [Bias Audit Guide](../../docs/for-hospitals/ethics/BIAS_AUDIT_GUIDE.md) - Step-by-step guide
 - [Operations Manual - Bias Auditing](../../docs/for-hospitals/OPERATIONS_MANUAL.md#bias-auditing-procedures) - Procedures
-- [Admin Guide - Bias Audit Scheduling](../../docs/for-hospitals/ADMIN_GUIDE.md#bias-audit-scheduling) - Scheduling
 
 ### Prerequisites
 
@@ -837,9 +836,7 @@ gsutil iam ch serviceAccount:mcp-audit-sa@$PROJECT_ID.iam.gserviceaccount.com:ro
 
 ### For Administrators
 - **[Operations Manual](../../docs/for-hospitals/OPERATIONS_MANUAL.md)**: System architecture and operations
-- **[Admin Guide](../../docs/for-hospitals/ADMIN_GUIDE.md)**: User management, monitoring, security
 - **[HIPAA Compliance](../../docs/for-hospitals/compliance/hipaa.md)**: Compliance validation
-- **[Audit Log Guide](../../docs/for-hospitals/AUDIT_LOG_GUIDE.md)**: Log access and reporting
 
 ### Runbooks
 - **[Server Down](../../docs/for-hospitals/RUNBOOKS/server-down.md)**: Server troubleshooting

@@ -1,6 +1,6 @@
 # Funder Demo Prompts
 
-> **Cost figures source:** Base figures from [Cost Analysis](../../shared/cost-analysis.md) and [Value Proposition](../../shared/value-proposition.md). Inline numbers are required for live demo scripts.
+> **Cost figures source:** Base figures from [Cost Analysis](../shared/cost-analysis.md) and [Value Proposition](../shared/value-proposition.md). Inline numbers are required for live demo scripts.
 
 **Audience:** Grant Reviewers, Funding Agencies, Hospital Decision-Makers
 **Purpose:** High-impact demonstrations showing ROI and clinical value

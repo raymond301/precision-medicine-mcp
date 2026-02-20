@@ -68,10 +68,10 @@ graph TB
 ## Quick Navigation
 
 ### Server
-- **[mcp-genomic-results README](../../../servers/mcp-genomic-results/README.md)** - Server details, usage examples, environment variables
+- **[mcp-genomic-results README](../../../../servers/mcp-genomic-results/README.md)** - Server details, usage examples, environment variables
 
 ### Reference
-- **[PatientOne Workflow](../testing/patient-one/README.md)** - End-to-end precision medicine workflow
+- **[PatientOne Workflow](../../testing/patient-one/README.md)** - End-to-end precision medicine workflow
 
 ---
 
@@ -178,11 +178,11 @@ graph LR
 
 ## Related Workflows
 
-- [Genomic Cohorts (TCGA)](genomic.md) - Population-level genomic context
-- [Workflow Orchestration (Seqera)](workflow.md) - Upstream nf-core/sarek pipeline
-- [Multiomics Integration](multiomics.md) - RNA/Protein/Phospho integration
-- [PatientOne Workflow](../testing/patient-one/README.md) - Complete end-to-end workflow
+- [Genomic Cohorts (TCGA)](genomic-cohorts.md) - Population-level genomic context
+- [Workflow Orchestration (Seqera)](../platform/workflow.md) - Upstream nf-core/sarek pipeline
+- [Multiomics Integration](../rna/multiomics.md) - RNA/Protein/Phospho integration
+- [PatientOne Workflow](../../testing/patient-one/README.md) - Complete end-to-end workflow
 
 ---
 
-**See also:** [Main Architecture](../README.md) | [PatientOne README](../testing/patient-one/README.md)
+**See also:** [Main Architecture](../README.md) | [PatientOne README](../../testing/patient-one/README.md)

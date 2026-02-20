@@ -709,11 +709,11 @@ adata.write_h5ad("preprocessed.h5ad")
 
 ## Related Documentation
 
-- **[Server Implementation →](../../../servers/mcp-quantum-celltype-fidelity/README.md)**
+- **[Server Implementation →](../../../../servers/mcp-quantum-celltype-fidelity/README.md)**
 - **[Perturbation Integration →](perturbation.md)** (Combined quantum + GEARS analysis)
 - **[Multiomics Integration →](multiomics.md)** (Quantum-enhanced associations)
-- **[PatientOne Workflow →](../testing/patient-one/README.md)**
-- **[Server Status →](../shared/server-registry.md)**
+- **[PatientOne Workflow →](../../testing/patient-one/README.md)**
+- **[Server Status →](../../shared/server-registry.md)**
 
 ---
 

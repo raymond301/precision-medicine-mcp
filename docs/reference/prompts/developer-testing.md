@@ -572,7 +572,7 @@ Track Claude API usage for PatientOne complete workflow:
    - Total tokens (input + output)
    - Cost per test
    - Total workflow cost
-3. Compare to budget targets in [Cost Analysis](../../shared/cost-analysis.md)
+3. Compare to budget targets in [Cost Analysis](../shared/cost-analysis.md)
 
 Expected:
 - TEST_1: ~8K tokens, $0.05

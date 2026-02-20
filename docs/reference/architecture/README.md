@@ -74,7 +74,7 @@ graph LR
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [rna/perturbation.md](rna/perturbation.md) |
 | ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [rna/quantum-fidelity.md](rna/quantum-fidelity.md) |
 | 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [platform/ai-ml.md](platform/ai-ml.md) |
-| 📄 **Patient Reports** | mcp-patient-report | 5 | ✅ Production (100%) | [../../servers/mcp-patient-report/README.md](../../servers/mcp-patient-report/README.md) |
+| 📄 **Patient Reports** | mcp-patient-report | 5 | ✅ Production (100%) | [servers/mcp-patient-report/README.md](../../../servers/mcp-patient-report/README.md) |
 | ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [platform/workflow.md](platform/workflow.md) |
 
 

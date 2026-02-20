@@ -116,7 +116,7 @@ graph TB
 
 **DRY_RUN Mode:** Default true - simulates job submission without actual execution
 
-**For detailed specifications:** [mcp-seqera README](../../../servers/README.md#mcp-seqera)
+**For detailed specifications:** [mcp-seqera README](../../../../servers/README.md#mcp-seqera)
 
 ---
 
@@ -456,7 +456,7 @@ Local HPC: Fixed institutional cost
 ## 📖 Detailed Documentation
 
 ### Server Documentation
-- **mcp-seqera:** [/servers/mcp-seqera/README.md](../../../servers/README.md#mcp-seqera)
+- **mcp-seqera:** [/servers/mcp-seqera/README.md](../../../../servers/README.md#mcp-seqera)
   - Tool specifications with examples
   - Seqera Platform API integration
   - Compute environment configuration
@@ -464,7 +464,7 @@ Local HPC: Fixed institutional cost
 
 ### Deployment & Operations
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
-- **Server Status:** [Server Implementation Status](../shared/server-registry.md)
+- **Server Status:** [Server Implementation Status](../../shared/server-registry.md)
 
 ### External Resources
 - **Seqera Platform:** [https://seqera.io/](https://seqera.io/)
@@ -475,10 +475,10 @@ Local HPC: Fixed institutional cost
 
 ## Related Workflows
 
-- [Spatial Transcriptomics](spatial/README.md) - FASTQ alignment integration
-- [Genomic Analysis](genomic.md) - Variant calling workflows
-- [Multi-omics Integration](multiomics.md) - Large-scale preprocessing
-- [PatientOne Workflow](../testing/patient-one/README.md) - Complete precision medicine workflow
+- [Spatial Transcriptomics](../spatial/README.md) - FASTQ alignment integration
+- [Genomic Analysis](../dna/genomic-cohorts.md) - Variant calling workflows
+- [Multi-omics Integration](../rna/multiomics.md) - Large-scale preprocessing
+- [PatientOne Workflow](../../testing/patient-one/README.md) - Complete precision medicine workflow
 
 ---
 

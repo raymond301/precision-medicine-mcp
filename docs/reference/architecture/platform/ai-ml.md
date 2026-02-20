@@ -109,7 +109,7 @@ graph TB
 
 **DRY_RUN Mode:** Default true - returns mock predictions without model loading
 
-**For detailed specifications:** [mcp-huggingface README](../../../servers/README.md#mcp-huggingface)
+**For detailed specifications:** [mcp-huggingface README](../../../../servers/README.md#mcp-huggingface)
 
 ---
 
@@ -423,7 +423,7 @@ embedding_vector = [0.23, -0.15, 0.88, ..., 0.42]  # 768 dimensions
 ## 📖 Detailed Documentation
 
 ### Server Documentation
-- **mcp-huggingface:** [/servers/mcp-huggingface/README.md](../../../servers/README.md#mcp-huggingface)
+- **mcp-huggingface:** [/servers/mcp-huggingface/README.md](../../../../servers/README.md#mcp-huggingface)
   - Tool specifications with examples
   - Model selection guide
   - Hugging Face API integration
@@ -431,7 +431,7 @@ embedding_vector = [0.23, -0.15, 0.88, ..., 0.42]  # 768 dimensions
 
 ### Deployment & Operations
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
-- **Server Status:** [Server Implementation Status](../shared/server-registry.md)
+- **Server Status:** [Server Implementation Status](../../shared/server-registry.md)
 
 ### External Resources
 - **Hugging Face Models:** [https://huggingface.co/models](https://huggingface.co/models)
@@ -442,10 +442,10 @@ embedding_vector = [0.23, -0.15, 0.88, ..., 0.42]  # 768 dimensions
 
 ## Related Workflows
 
-- [Spatial Transcriptomics](spatial/README.md) - Cell type deconvolution validation
-- [Multi-omics Integration](multiomics.md) - Multi-modal feature fusion
-- [Genomic Analysis](genomic.md) - Variant effect prediction
-- [PatientOne Workflow](../testing/patient-one/README.md) - Complete precision medicine workflow
+- [Spatial Transcriptomics](../spatial/README.md) - Cell type deconvolution validation
+- [Multi-omics Integration](../rna/multiomics.md) - Multi-modal feature fusion
+- [Genomic Analysis](../dna/genomic-cohorts.md) - Variant effect prediction
+- [PatientOne Workflow](../../testing/patient-one/README.md) - Complete precision medicine workflow
 
 ---
 

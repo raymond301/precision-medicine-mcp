@@ -56,5 +56,5 @@ All 18 HIPAA identifiers are removed before data enters the MCP system:
 
 ---
 
-**Full HIPAA documentation:** [`docs/for-hospitals/compliance/hipaa.md`](../for-hospitals/compliance/hipaa.md)
-**Security overview:** [`docs/for-hospitals/SECURITY_OVERVIEW.md`](../for-hospitals/SECURITY_OVERVIEW.md)
+**Full HIPAA documentation:** [`docs/for-hospitals/compliance/hipaa.md`](../../for-hospitals/compliance/hipaa.md)
+**Security overview:** [`docs/for-hospitals/SECURITY_OVERVIEW.md`](../../for-hospitals/SECURITY_OVERVIEW.md)

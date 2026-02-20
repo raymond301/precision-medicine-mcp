@@ -216,7 +216,7 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 ## Related Workflows
 
 - [Spatial Transcriptomics](../spatial/README.md) - Gene expression analysis (TEST_3)
-- [Multiomics Integration](../multiomics.md) - RNA/Protein/Phospho integration (TEST_2)
+- [Multiomics Integration](../rna/multiomics.md) - RNA/Protein/Phospho integration (TEST_2)
 - [PatientOne Workflow](../../testing/patient-one/README.md) - Complete end-to-end workflow
 
 ---

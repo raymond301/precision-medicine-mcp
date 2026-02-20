@@ -102,7 +102,7 @@ graph TB
 **Rate Limiting:** 1000 requests/hour with exponential backoff
 **De-identification:** HIPAA Safe Harbor - removes all 18 identifiers
 
-**For detailed specifications:** [mcp-epic README](../../../servers/README.md#mcp-epic)
+**For detailed specifications:** [mcp-epic README](../../../../servers/README.md#mcp-epic)
 
 ---
 
@@ -122,7 +122,7 @@ graph TB
 **Use Case:** Development, testing, public demos (no credentials needed)
 **Resource:** `ehr://patients/mock` - Patient database metadata
 
-**For detailed specifications:** [mcp-mockepic README](../../../servers/README.md#mcp-mockepic)
+**For detailed specifications:** [mcp-mockepic README](../../../../servers/README.md#mcp-mockepic)
 
 ---
 
@@ -300,39 +300,39 @@ export DEIDENTIFY_ENABLED="true"
 - Multi-omics reveals PI3K/AKT pathway activation
 - TCGA comparison: Patient in high-risk group based on mutation profile
 
-**Test File:** [TEST_1_CLINICAL](../testing/patient-one/test-prompts/test-1-clinical-genomic.md)
+**Test File:** [TEST_1_CLINICAL](../../testing/patient-one/test-prompts/test-1-clinical-genomic.md)
 
 ---
 
 ## 📖 Detailed Documentation
 
 ### Server Documentation
-- **mcp-epic:** [/servers/mcp-epic/README.md](../../../servers/README.md#mcp-epic)
+- **mcp-epic:** [/servers/mcp-epic/README.md](../../../../servers/README.md#mcp-epic)
   - OAuth 2.0 setup and credentials
   - De-identification implementation details
   - Tool specifications with examples
   - FHIR resource mapping
 
-- **mcp-mockepic:** [/servers/mcp-mockepic/README.md](../../../servers/README.md#mcp-mockepic)
+- **mcp-mockepic:** [/servers/mcp-mockepic/README.md](../../../../servers/README.md#mcp-mockepic)
   - Synthetic data generation methodology
   - Tool specifications with examples
   - Resource endpoints
   - DRY_RUN mode configuration
 
 ### Deployment & Operations
-- **Hospital Deployment:** [/docs/for-hospitals/](../../for-hospitals)
-- **HIPAA Compliance:** [/docs/for-hospitals/compliance/hipaa.md](../../for-hospitals/compliance/hipaa.md)
+- **Hospital Deployment:** [/docs/for-hospitals/](../../../for-hospitals)
+- **HIPAA Compliance:** [/docs/for-hospitals/compliance/hipaa.md](../../../for-hospitals/compliance/hipaa.md)
 - **GCP Healthcare API Setup:** [/docs/deployment/GET_STARTED.md](../../deployment/GET_STARTED.md)
 
 ---
 
 ## Related Workflows
 
-- [Multi-omics Integration](multiomics.md) - Biomarker-expression correlation
-- [Spatial Transcriptomics](spatial/README.md) - Clinical-spatial outcome linkage
-- [Genomic Cohorts](genomic.md) - Patient-cohort comparison
-- [PatientOne Workflow](../testing/patient-one/README.md) - Complete precision medicine workflow
+- [Multi-omics Integration](../rna/multiomics.md) - Biomarker-expression correlation
+- [Spatial Transcriptomics](../spatial/README.md) - Clinical-spatial outcome linkage
+- [Genomic Cohorts](../dna/genomic-cohorts.md) - Patient-cohort comparison
+- [PatientOne Workflow](../../testing/patient-one/README.md) - Complete precision medicine workflow
 
 ---
 
-**See also:** [Main Architecture](../README.md) | [Server Implementation Status](../shared/server-registry.md)
+**See also:** [Main Architecture](../README.md) | [Server Implementation Status](../../shared/server-registry.md)

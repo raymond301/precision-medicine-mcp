@@ -179,7 +179,7 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 **Utility (1 tool)**:
 10. `estimate_analysis_cost` - Estimate compute cost for analysis  
 
-**For detailed tool specifications:** See [mcp-multiomics README](../../../servers/mcp-multiomics/README.md)  
+**For detailed tool specifications:** See [mcp-multiomics README](../../../../servers/mcp-multiomics/README.md)  
 
 ### Resources (4 total)  
 - `multiomics://config` - Server configuration and preprocessing settings  
@@ -278,7 +278,7 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 - ABCB1 overexpression (drug efflux)
 - Predicted targets: Alpelisib (PIK3CA), Venetoclax (BCL2)
 
-**Test File:** [TEST_2_MULTIOMICS](../testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)
+**Test File:** [TEST_2_MULTIOMICS](../../testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)
 
 ---
 
@@ -287,7 +287,7 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 For detailed implementation information, see:
 
 ### Server Documentation
-- **mcp-multiomics:** [/servers/mcp-multiomics/README.md](../../../servers/mcp-multiomics/README.md)
+- **mcp-multiomics:** [/servers/mcp-multiomics/README.md](../../../../servers/mcp-multiomics/README.md)
   - Tool specifications with parameters and returns
   - Installation and configuration
   - Example workflows
@@ -295,28 +295,28 @@ For detailed implementation information, see:
   - Testing procedures
 
 ### Deployment & Operations
-- **Current Status:** [Server Status](../shared/server-registry.md)
+- **Current Status:** [Server Status](../../shared/server-registry.md)
 - **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
 
 ### Additional Resources
-- **Data Governance:** [data-governance.md](../../for-hospitals/compliance/data-governance.md)
+- **Data Governance:** [data-governance.md](../../../for-hospitals/compliance/data-governance.md)
 
 ---
 
 ## Quick Start
 
-**For users:** Read the [mcp-multiomics README](../../../servers/mcp-multiomics/README.md) → Run [PatientOne TEST_2](../testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)
+**For users:** Read the [mcp-multiomics README](../../../../servers/mcp-multiomics/README.md) → Run [PatientOne TEST_2](../../testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)
 
-**For developers:** See [server README](../../../servers/mcp-multiomics/README.md) for tool details and implementation
+**For developers:** See [server README](../../../../servers/mcp-multiomics/README.md) for tool details and implementation
 
 ---
 
 ## Related Workflows
 
-- [Spatial Transcriptomics](spatial/README.md) - Gene expression spatial patterns (TEST_3)
-- [Imaging Analysis](imaging/README.md) - Histology and cell segmentation (TEST_4)
-- [PatientOne Workflow](../testing/patient-one/README.md) - Complete precision medicine workflow
+- [Spatial Transcriptomics](../spatial/README.md) - Gene expression spatial patterns (TEST_3)
+- [Imaging Analysis](../imaging/README.md) - Histology and cell segmentation (TEST_4)
+- [PatientOne Workflow](../../testing/patient-one/README.md) - Complete precision medicine workflow
 
 ---
 
-**See also:** [Main Architecture](../README.md) | [PatientOne Workflow](../testing/patient-one/README.md)
+**See also:** [Main Architecture](../README.md) | [PatientOne Workflow](../../testing/patient-one/README.md)

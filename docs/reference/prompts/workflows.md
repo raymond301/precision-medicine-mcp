@@ -64,7 +64,7 @@ RETURN: Structured report with:
   3. Pembrolizumab (Checkpoint inhibitor) - Immune edges
 
 **Time:** 25-35 min (DRY_RUN) / 2-5 hours (production)
-**Cost:** ~$1 (DRY_RUN) / see [Cost Analysis](../../shared/cost-analysis.md) for production costs
+**Cost:** ~$1 (DRY_RUN) / see [Cost Analysis](../shared/cost-analysis.md) for production costs
 
 ---
 

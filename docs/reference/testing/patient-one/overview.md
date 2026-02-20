@@ -57,7 +57,7 @@ flowchart LR
 
 **All data is synthetic.** Any resemblance to actual patients is coincidental.
 
-**See [complete disclaimers →](../../../../for-hospitals/compliance/disclaimers.md)**
+**See [complete disclaimers →](../../../for-hospitals/compliance/disclaimers.md)**
 
 ---
 
@@ -314,7 +314,7 @@ PatientOne supports two modes:
 
 For detailed instructions:
 - [PatientOne Quick Start Guide →](../README.md) - How to run the tests
-- [Data Modes Configuration Guide →](../data-modes-guide.md) - DRY_RUN vs Actual Data setup
+- [Data Modes Configuration Guide →](data-modes-guide.md) - DRY_RUN vs Actual Data setup
 
 ### Test Prompts
 
@@ -401,7 +401,7 @@ All PatientOne analyses are:
 
 ## Related Documentation
 
-- **Main Project:** [Precision Medicine MCP Servers →](../../README.md)
+- **Main Project:** [Precision Medicine MCP Servers →](../../../README.md)
 - **Spatial Transcriptomics Workflow:** [Architecture →](../../architecture/spatial/README.md)
 - **Imaging Analysis Workflow:** [Architecture →](../../architecture/imaging/README.md)
 - **Multiomics Workflow:** [Architecture →](../../architecture/rna/multiomics.md)
