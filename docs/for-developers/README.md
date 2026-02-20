@@ -6,11 +6,18 @@
 
 ## What You Can Accomplish Here
 
-- ✅ **Build custom MCP servers** for new data modalities (metabolomics, radiomics, single-cell)
-- ✅ **Understand system architecture** (FastMCP patterns, Claude + Gemini API orchestration; see [Server Registry](../reference/shared/server-registry.md) for counts)
-- ✅ **Review testing best practices** (91 tests in mcp-multiomics, 68% coverage)
-- ✅ **Deploy to production** (GCP Cloud Run, Docker, SSE transport)
-- ✅ **Contribute to codebase** (coding standards, PR guidelines)
+```mermaid
+graph LR
+    A["📐 Learn<br/>architecture"] --> B["🔨 Build<br/>new servers"] --> C["🧪 Test<br/>validate"] --> D["🚀 Deploy<br/>production"] --> E["🤝 Contribute<br/>upstream"]
+
+    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style B fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style D fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+    style E fill:#fce4ec,stroke:#e91e63,stroke-width:2px
+```
+
+> **Learn:** FastMCP patterns, Claude + Gemini orchestration ([Server Registry](../reference/shared/server-registry.md)) | **Build:** Custom MCP servers for new modalities (metabolomics, radiomics, single-cell) | **Test:** 91 tests in mcp-multiomics, 68% coverage target | **Deploy:** GCP Cloud Run, Docker, SSE transport | **Contribute:** Coding standards, PR guidelines
 
 ---
 
