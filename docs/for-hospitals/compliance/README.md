@@ -13,8 +13,7 @@ HIPAA, data governance, and regulatory compliance documentation.
 
 - [Main Documentation Index](../../INDEX.md)
 - [Operations Manual](../OPERATIONS_MANUAL.md)
-- [Admin Guide](../ADMIN_GUIDE.md)
 
 ---
 
-**Last Updated:** 2026-01-13
+**Last Updated:** 2026-02-19

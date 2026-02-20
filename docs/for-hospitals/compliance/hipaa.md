@@ -587,6 +587,4 @@ Privacy Officer: _________________ Date: _________
 - Principal Investigator: _________________ Date: _________
 
 **Related Documents:**
-- [Operations Manual](../OPERATIONS_MANUAL.md)
-- [Admin Guide](../ADMIN_GUIDE.md)
-- [Audit Log Guide](../AUDIT_LOG_GUIDE.md)
+- [Operations Manual](../OPERATIONS_MANUAL.md) - Includes admin, audit logging, and cost management

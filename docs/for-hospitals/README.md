@@ -19,7 +19,7 @@
 1. **Review security overview** → [SECURITY_OVERVIEW.md](SECURITY_OVERVIEW.md) (10 min)
 2. **Check deployment requirements** → [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) (15 min)
 3. **Review existing hospital deployment guides** → [Operations Manual](../for-hospitals/OPERATIONS_MANUAL.md) (30 min)
-4. **Assess HIPAA compliance** → [HIPPA_DETAILS](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/compliance/hipaa.md) (20 min)
+4. **Assess HIPAA compliance** → [HIPAA Details](compliance/hipaa.md) (20 min)
 5. **Schedule technical Q&A** → Contact information below
 
 **Total Time Investment:** 75 minutes to full evaluation
@@ -31,24 +31,23 @@
 ### Deployment Planning
 - **[SECURITY_OVERVIEW.md](SECURITY_OVERVIEW.md)** - One-page security architecture summary
 - **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Step-by-step deployment requirements
-- **[Operations Manual](../for-hospitals/OPERATIONS_MANUAL.md)** - Day-to-day operations guide
+- **[Operations Manual](OPERATIONS_MANUAL.md)** - Day-to-day operations guide
 - **[GCP Deployment Guide](../reference/deployment/GCP_TESTING_GUIDE.md)** - Deployment and testing
 
 ### Security & Compliance
-- **[HIPAA Compliance](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/compliance/hipaa.md)** - De-identification, audit logging, encryption
-- **[Data Governance](https://github.com/lynnlangit/precision-medicine-mcp/blob/main/docs/for-hospitals/compliance/data-governance.md)** - Data retention, privacy policies
+- **[HIPAA Compliance](compliance/hipaa.md)** - De-identification, audit logging, encryption
+- **[Data Governance](compliance/data-governance.md)** - Data retention, privacy policies
 - **[Security Guide](../reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
 
-### User Management
-- **[Admin Guide](../for-hospitals/ADMIN_GUIDE.md)** - User management, monitoring, backups
-- **[User Guide](../for-hospitals/USER_GUIDE.md)** - For clinicians and researchers
-- **[Audit Log Guide](../for-hospitals/AUDIT_LOG_GUIDE.md)** - 10-year retention compliance
+### User & Operations
+- **[User Guide](USER_GUIDE.md)** - For clinicians and researchers
+- **[Operations Manual](OPERATIONS_MANUAL.md)** - Admin, monitoring, audit logging, cost management, troubleshooting
 
 ### Troubleshooting
-- **[Runbooks](../for-hospitals/RUNBOOKS/)** - Incident response procedures
-  - [Server Down](../for-hospitals/RUNBOOKS/server-down.md)
-  - [Epic Connection Failure](../for-hospitals/RUNBOOKS/epic-connection-failure.md)
-  - [SSO Issues](../for-hospitals/RUNBOOKS/sso-issues.md)
+- **[Runbooks](RUNBOOKS/)** - Incident response procedures
+  - [Server Down](RUNBOOKS/server-down.md)
+  - [Epic Connection Failure](RUNBOOKS/epic-connection-failure.md)
+  - [SSO Issues](RUNBOOKS/sso-issues.md)
 
 ---
 
@@ -198,7 +197,7 @@ graph TB
 
 | Risk Category | Level | Mitigation |
 |--------------|-------|------------|
-| **Technical** | LOW | Auto-scaling, comprehensive error handling, 167 tests |
+| **Technical** | LOW | Auto-scaling, comprehensive error handling, extensive test suite |
 | **Security** | LOW | VPC isolation, encryption, de-identification, audit logging |
 | **Compliance** | LOW | HIPAA Safe Harbor, 10-year logs, Azure AD SSO |
 | **Financial** | LOW | Daily cost monitoring, budget alerts at 80%, Haiku model optimization |
@@ -262,4 +261,4 @@ graph TB
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-19

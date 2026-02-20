@@ -551,46 +551,42 @@ cost = estimator.storage_cost(10, duration_days=30, storage_class="aws_s3_ia")
 | Automated Report | ~$1 | $50 | Quick analysis (pre-aligned data) |
 | Real Data (Small Files) | $13 (avg) | $650 | Full analysis with MCP orchestration |
 
-**ROI:** Replaces ~40 hours of manual bioinformatics work per patient ($80/hr × 40 = $3,200)
-**Annual Savings:** $159,350 using automated reports
+**Estimated ROI:** Replaces ~40 hours of manual bioinformatics work per patient — see [Cost Analysis](../../reference/shared/cost-analysis.md) for detailed savings estimates.
 
 ### Academic Research Lab (Production Data)
 
 **Scenario:** 50 patient analyses per year with realistic hospital data volumes
 
-| Mode | Cost per Patient | Annual Cost |
-|------|-----------------|-------------|
-| Real Data (Pre-aligned) | $50 (avg) | $2,500 |
-| Real Data (Raw FASTQ) | $85 (avg) | $4,250 |
+| Mode | Estimated Cost per Patient | Estimated Annual Cost |
+|------|---------------------------|----------------------|
+| Real Data (Pre-aligned) | ~$50 (avg) | ~$2,500 |
+| Real Data (Raw FASTQ) | ~$85 (avg) | ~$4,250 |
 
-**ROI:** Replaces ~40 hours of manual work per patient ($3,200)
-**Annual Savings:** $157,500 (pre-aligned) or $155,750 (raw FASTQ)
+**Estimated ROI:** See [Cost Analysis](../../reference/shared/cost-analysis.md) for per-patient savings vs. traditional manual analysis.
 
 ### Clinical Genomics Center (Production Data)
 
 **Scenario:** 500 patient analyses per year
 
-| Mode | Cost per Patient | Annual Cost |
-|------|-----------------|-------------|
-| Automated Report | ~$1 | $500 |
-| Real Data (Pre-aligned) | $50 (avg) | $25,000 |
-| Real Data (Raw FASTQ) | $85 (avg) | $42,500 |
+| Mode | Estimated Cost per Patient | Estimated Annual Cost |
+|------|---------------------------|----------------------|
+| Automated Report | ~$1 | ~$500 |
+| Real Data (Pre-aligned) | ~$50 (avg) | ~$25,000 |
+| Real Data (Raw FASTQ) | ~$85 (avg) | ~$42,500 |
 
-**ROI:** Reduces time-to-result from 2-3 weeks to 4-6 hours
-**Annual Savings:** ~$1.6M using automated reports (vs manual $3,200/patient)
+**Estimated ROI:** Reduces time-to-result from 2-3 weeks to 4-6 hours. See [Cost Analysis](../../reference/shared/cost-analysis.md) for estimated savings.
 
 ### Pharmaceutical R&D (Production Data)
 
 **Scenario:** 200 PDX model analyses per year
 
-| Mode | Cost per Analysis | Annual Cost |
-|------|------------------|-------------|
-| Automated Report | ~$1 | $200 |
-| Real Data (Pre-aligned) | $50 (avg) | $10,000 |
-| Real Data (Raw FASTQ) | $85 (avg) | $17,000 |
+| Mode | Estimated Cost per Analysis | Estimated Annual Cost |
+|------|----------------------------|----------------------|
+| Automated Report | ~$1 | ~$200 |
+| Real Data (Pre-aligned) | ~$50 (avg) | ~$10,000 |
+| Real Data (Raw FASTQ) | ~$85 (avg) | ~$17,000 |
 
-**ROI:** Accelerates target identification from weeks → hours
-**Cost avoidance:** Reduces need for manual bioinformatics staff (~$500K/year)
+**Estimated ROI:** Accelerates target identification from weeks to hours. See [Cost Analysis](../../reference/shared/cost-analysis.md) for estimated cost savings.
 
 ---
 
@@ -705,7 +701,7 @@ export MULTIOMICS_DRY_RUN=false
 
 ---
 
-**Last Updated:** 2026-01-22
+**Last Updated:** 2026-02-19
 
 **Pricing basis:**
 - **Claude Sonnet 4.5**: $3/M input tokens, $15/M output tokens ([source](https://platform.claude.com/docs/en/about-claude/pricing))

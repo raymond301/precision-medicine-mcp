@@ -10,7 +10,7 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 - [ ] **IRB Approval** (if using for research) - 4-8 weeks
 - [ ] **IT Security Review** - Security officer sign-off
 - [ ] **HIPAA Compliance Review** - Legal/compliance team approval
-- [ ] **Budget Approval** - $50K-75K initial + $24K-72K annual
+- [ ] **Budget Approval** - See [Cost Analysis](../reference/shared/cost-analysis.md) for estimated initial and annual costs
 - [ ] **Epic Integration Request** - Submit to Epic team (6-8 week lead time)
 
 ### Technical Prerequisites
@@ -34,7 +34,7 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
   - [ ] Cloud Logging API
   - [ ] IAM API
 - [ ] Configure billing alerts (80%, 90%, 100% thresholds)
-- [ ] Set up budget: $2,000/month initial
+- [ ] Set up budget (see [Cost Analysis](../reference/shared/cost-analysis.md) for estimates)
 
 ### Networking
 - [ ] Create VPC: `precision-medicine-vpc`
@@ -239,7 +239,7 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 
 - **[Runbooks](../for-hospitals/RUNBOOKS/)** - Common issues and resolutions
 - **[Operations Manual](../for-hospitals/OPERATIONS_MANUAL.md)** - Day-to-day operations
-- **[Admin Guide](../for-hospitals/ADMIN_GUIDE.md)** - User management, monitoring
+- **[Operations Manual](OPERATIONS_MANUAL.md)** - User management, monitoring, troubleshooting
 
 ---
 
@@ -258,4 +258,4 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-19

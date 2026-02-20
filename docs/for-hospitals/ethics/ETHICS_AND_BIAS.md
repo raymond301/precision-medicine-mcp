@@ -1991,9 +1991,7 @@ expression_ref = merge_references([
 ---
 
 **For implementation details, see:**
-- [BIAS_AUDIT_CHECKLIST.md](BIAS_AUDIT_CHECKLIST.md) - Practical checklist
-- [PATIENTONE_BIAS_AUDIT.md](PATIENTONE_BIAS_AUDIT.md) - Concrete demonstration
-- [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) - Week-by-week plan
+- [BIAS_AUDIT_GUIDE.md](BIAS_AUDIT_GUIDE.md) - Practical checklist with PatientOne demonstration
 
 **Questions?** Contact precision-medicine-mcp maintainers or file an issue on GitHub.
 

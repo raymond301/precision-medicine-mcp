@@ -109,7 +109,7 @@ The MCP system uses Claude AI to help you analyze spatial transcriptomics and mu
 │  │ ☑ epic       │             │                 │  │
 │  │              │             └─────────────────┘  │
 │  │ Model        │             ┌─────────────────┐  │
-│  │ sonnet-4-5 ▼ │             │ Type message... │  │
+│  │ sonnet-4-6 ▼ │             │ Type message... │  │
 │  │              │             └─────────────────┘  │
 │  │ Max Tokens   │                                  │
 │  │ [=====] 4096 │                                  │
@@ -133,9 +133,9 @@ Choose which analysis tools to use:
 
 **2. Choose Model (Sidebar)**
 
-- **claude-sonnet-4-5** (Recommended) - Best balance of speed and quality
-- **claude-opus-4-5** - Highest quality, slower, more expensive
-- **claude-haiku-4** - Fastest, most cost-effective
+- **claude-sonnet-4-6** (Recommended) - Best balance of speed and quality
+- **claude-opus-4-6** - Highest quality, slower, more expensive
+- **claude-haiku-4-5** - Fastest, most cost-effective
 
 **3. Adjust Max Tokens (Sidebar)**
 
@@ -243,7 +243,7 @@ client = MCPClient()
 result = client.call_servers(
     prompt="For patient RESEARCH-PAT001, get clinical demographics from Epic.",
     servers=["epic"],
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=2048
 )
 
@@ -578,10 +578,9 @@ Estimated cost: $0.0283
   - Sonnet: ~$3/million input, ~$15/million output
   - Typical query: $0.02-0.08
 
-**Budget implications:**
-- 25 queries/day * $0.05/query = $1.25/day
-- 30 days * $1.25 = ~$37.50/month per user
-- 5 users = ~$187.50/month (well under $1,000 budget)
+**Estimated budget implications:**
+- Costs vary by model and query complexity — see [Cost Analysis](../reference/shared/cost-analysis.md)
+- A soft daily query limit per user is recommended to manage costs
 
 ### Interpreting Spatial Analysis Results
 
@@ -666,7 +665,7 @@ A: See [Troubleshooting](#troubleshooting) section. If unresolved, contact suppo
 A: Typically $0.02-0.08 per query with Sonnet model. You can see exact cost in token usage display.
 
 **Q: Is there a usage limit?**
-A: Soft limit of ~25 queries/day per user to stay within $1,000/month budget. If you need more, contact the PI.
+A: Soft daily limit per user — see [Cost Analysis](../reference/shared/cost-analysis.md) for budget details. If you need more, contact the PI.
 
 **Q: Which model should I use?**
 A:
@@ -834,5 +833,5 @@ Have an idea to improve the system?
 
 **Quick Links:**
 - [Operations Manual](OPERATIONS_MANUAL.md) - For IT staff
-- [Admin Guide](ADMIN_GUIDE.md) - For administrators
+- [Operations Manual](OPERATIONS_MANUAL.md) - For administrators
 - [Troubleshooting Runbooks](RUNBOOKS/) - Detailed error resolution

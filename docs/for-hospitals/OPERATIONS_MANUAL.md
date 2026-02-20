@@ -1,8 +1,8 @@
 # Operations Manual - Precision Medicine MCP Servers
 ## Research Hospital Production Deployment
 
-**Version:** 1.0
-**Last Updated:** 2025-12
+**Version:** 1.1
+**Last Updated:** 2026-02-19
 **Deployment:** HIPAA-Compliant Production
 **Environment:** GCP Cloud Run
 
@@ -19,6 +19,10 @@
 - [Incident Response](#incident-response)
 - [Maintenance Procedures](#maintenance-procedures)
 - [Bias Auditing Procedures](#bias-auditing-procedures)
+- [Cost Management](#cost-management)
+- [Configuration Management](#configuration-management)
+- [Audit Logging](#audit-logging)
+- [Troubleshooting](#troubleshooting)
 - [Security Operations](#security-operations)
 - [Contact Information](#contact-information)
 
@@ -126,30 +130,9 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 
 ## Server Inventory
 
-### Production Servers (11 — Real Analysis)
+See [Server Registry](../reference/shared/server-registry.md) for the complete list of servers and tools.
 
-| Server | Status | URL | Service Account | Memory | CPU | Min Instances |
-|--------|--------|-----|-----------------|--------|-----|---------------|
-| **mcp-fgbio** | Production | `mcp-fgbio-{hash}.run.app` | `mcp-fgbio-sa` | 2Gi | 2 | 0 |
-| **mcp-multiomics** | Production | `mcp-multiomics-{hash}.run.app` | `mcp-multiomics-sa` | 4Gi | 2 | 0 |
-| **mcp-spatialtools** | Production | `mcp-spatialtools-{hash}.run.app` | `mcp-spatialtools-sa` | 4Gi | 2 | 0 |
-| **mcp-epic** | Production | `mcp-epic-{hash}.run.app` | `mcp-epic-sa` | 2Gi | 2 | 0 |
-| **mcp-perturbation** | Production | `mcp-perturbation-{hash}.run.app` | `mcp-perturbation-sa` | 4Gi | 2 | 0 |
-| **mcp-quantum-celltype-fidelity** | Production | `mcp-quantum-{hash}.run.app` | `mcp-quantum-sa` | 2Gi | 2 | 0 |
-| **mcp-deepcell** | Production | `mcp-deepcell-{hash}.run.app` | `mcp-deepcell-sa` | 4Gi | 2 | 0 |
-| **mcp-cell-classify** | Production | `mcp-cell-classify-{hash}.run.app` | `mcp-cell-classify-sa` | 2Gi | 2 | 0 |
-| **mcp-openimagedata** | Production | `mcp-openimagedata-{hash}.run.app` | `mcp-openimagedata-sa` | 4Gi | 2 | 0 |
-| **mcp-patient-report** | Production | `mcp-patient-report-{hash}.run.app` | `mcp-patient-report-sa` | 2Gi | 2 | 0 |
-| **mcp-genomic-results** | Production | `mcp-genomic-results-{hash}.run.app` | `mcp-genomic-results-sa` | 2Gi | 2 | 0 |
-
-### Mock/Demo Servers (4 — Limited Functionality)
-
-| Server | Status | URL | Purpose |
-|--------|--------|-----|---------|
-| **mcp-tcga** | Mock | `mcp-tcga-{hash}.run.app` | TCGA cohort queries (synthetic) |
-| **mcp-huggingface** | Mock | `mcp-huggingface-{hash}.run.app` | ML model inference (API ready, awaiting models) |
-| **mcp-seqera** | Mock | `mcp-seqera-{hash}.run.app` | Nextflow workflow orchestration (demo) |
-| **mcp-mockepic** | Mock | `mcp-mockepic-{hash}.run.app` | Synthetic FHIR data for testing (by design) |
+**Deployment summary:** 13 MCP servers on Cloud Run + 2 local-only (mcp-epic, mcp-genomic-results). Most servers use 2Gi/2vCPU; larger servers (spatialtools, perturbation, deepcell, openimagedata) use 4Gi/2vCPU. All scale to zero by default (min-instances=0).
 
 ### User Interfaces
 
@@ -259,7 +242,7 @@ curl https://oauth2-proxy-jupyter-{hash}.run.app/ping
 |-------|-----------|--------------|
 | **Server Down** | 10+ 5xx errors in 5 minutes | Hospital IT + Dev Team |
 | **High Error Rate** | >5% error rate | Hospital IT + Dev Team |
-| **Budget Alert** | 50%, 75%, 90%, 100% of $1,000/month | PI + Finance |
+| **Budget Alert** | 50%, 75%, 90%, 100% of monthly budget ([Cost Analysis](../reference/shared/cost-analysis.md)) | PI + Finance |
 | **Epic FHIR Failures** | 5+ failures in 10 minutes | Dev Team + Hospital IT |
 | **De-ID Failures** | Any de-identification failure | Dev Team + Privacy Officer |
 
@@ -691,8 +674,7 @@ Next Audit: 2026-04-12 (Q2)
 ### Related Documentation
 
 - [Ethics & Bias Framework](ethics/ETHICS_AND_BIAS.md) - Comprehensive methodology
-- [Bias Audit Checklist](ethics/BIAS_AUDIT_CHECKLIST.md) - Step-by-step guide
-- [PatientOne Bias Audit](ethics/PATIENTONE_BIAS_AUDIT.md) - Example demonstration
+- [Bias Audit Guide](ethics/BIAS_AUDIT_GUIDE.md) - Step-by-step checklist with PatientOne example
 
 ---
 
@@ -719,7 +701,7 @@ python servers/mcp-patient-report/scripts/generate_patient_report.py \
 - Assesses NCCN + institutional guideline compliance
 - Reviews quality flags (sample size, FDR thresholds, data completeness)
 - Makes decision: APPROVE / REVISE / REJECT
-- Completes review form: `citl-workflows/CITL_REVIEW_TEMPLATE.md`
+- Completes review form (see [CITL Workflow Guide](citl-workflows/CITL_WORKFLOW_GUIDE.md))
 
 **Step 3: Submit Review** (Automated, ~5 seconds)
 ```bash
@@ -747,9 +729,165 @@ python servers/mcp-patient-report/scripts/finalize_patient_report.py --patient-i
 
 ### Related Documentation
 
-- [CITL_WORKFLOW_GUIDE.md](citl-workflows/CITL_WORKFLOW_GUIDE.md) - Complete reviewer training
-- [CITL_EXAMPLES.md](citl-workflows/CITL_EXAMPLES.md) - Example APPROVE/REVISE/REJECT reviews
+- [CITL_WORKFLOW_GUIDE.md](citl-workflows/CITL_WORKFLOW_GUIDE.md) - Complete reviewer training, examples, and review template
 - [TEST_6_CITL_REVIEW.txt](../reference/testing/patient-one/test-prompts/test-6-citl-review.md) - End-to-end test
+
+---
+
+## Cost Management
+
+See [Cost Analysis](../reference/shared/cost-analysis.md) for estimated per-patient costs, budget projections, and ROI data. For detailed cost breakdowns by analysis mode (DRY_RUN, real data, production), see [Cost and Budget Guide](operations/cost-and-budget.md).
+
+### Optimization Tips
+
+1. **Use Haiku for simple queries** — 10x cheaper than Sonnet ($0.25 vs $3 per million input tokens)
+2. **Scale mock servers to zero** — Mock servers (tcga, seqera, huggingface, deepcell, mockepic) don't need min-instances
+3. **Monitor token usage** — Find high-usage users and educate on cost-saving practices
+4. **Right-size compute** — Most servers work well at 2Gi/2vCPU; only spatialtools and perturbation need 4Gi
+
+### Budget Alerts
+
+Configured at 50%, 75%, 90%, 100% of monthly budget via GCP Cloud Monitoring. Alerts go to PI + Finance.
+
+---
+
+## Configuration Management
+
+### Backing Up Configuration (Weekly)
+
+```bash
+#!/bin/bash
+BACKUP_DIR="backups/$(date +%Y%m%d)"
+mkdir -p $BACKUP_DIR
+
+# Export Cloud Run service configs
+for service in mcp-fgbio mcp-multiomics mcp-spatialtools streamlit-mcp-chat; do
+  gcloud run services describe $service \
+    --region=us-central1 --format=yaml > $BACKUP_DIR/$service.yaml
+done
+
+# Export IAM policies and secrets list
+gcloud projects get-iam-policy <PROJECT_ID> > $BACKUP_DIR/iam_policy.yaml
+gcloud secrets list --format=yaml > $BACKUP_DIR/secrets_list.yaml
+
+tar -czf $BACKUP_DIR.tar.gz $BACKUP_DIR && rm -rf $BACKUP_DIR
+```
+
+### Updating Environment Variables
+
+```bash
+# Update single variable
+gcloud run services update mcp-spatialtools \
+  --update-env-vars=SPATIAL_DRY_RUN=false --region=us-central1
+
+# Update multiple variables
+gcloud run services update mcp-multiomics \
+  --update-env-vars=MULTIOMICS_DRY_RUN=false,MULTIOMICS_LOG_LEVEL=DEBUG \
+  --region=us-central1
+```
+
+### Managing Service Accounts
+
+```bash
+# List service accounts
+gcloud iam service-accounts list --project=<PROJECT_ID>
+
+# View permissions for a service account
+gcloud projects get-iam-policy <PROJECT_ID> \
+  --flatten="bindings[].members" \
+  --filter="bindings.members:serviceAccount:mcp-fgbio-sa@<PROJECT_ID>.iam.gserviceaccount.com"
+```
+
+---
+
+## Audit Logging
+
+### What is Logged
+
+All events are logged to GCP Cloud Logging with 10-year retention (HIPAA-compliant).
+
+| Event | What's Captured | PHI Safe? |
+|-------|----------------|-----------|
+| `user_login` | Email hash, display name, timestamp | Yes (hashed) |
+| `mcp_query` | Servers used, prompt length, first 100 chars, model | Yes (truncated) |
+| `mcp_response` | Token usage, estimated cost, duration | Yes |
+| `epic_fhir_call` | Resource type, resource ID, status | Yes (de-identified) |
+| `deidentification` | Method, identifiers removed count, success/fail | Yes |
+| `citl_review` | Reviewer, decision, signature hash, findings count | Yes (hashed) |
+| `error` | Error type, message (truncated), servers involved | Yes (truncated) |
+
+**Note:** Full prompts are NOT logged to prevent accidental PHI exposure.
+
+### Accessing Logs
+
+```bash
+# Via Cloud Console (easiest)
+# Open: https://console.cloud.google.com/logs/query
+
+# Via gcloud CLI
+gcloud logging read 'jsonPayload.event="user_login"' \
+  --limit=50 --format='table(timestamp, jsonPayload.display_name)'
+```
+
+### Key Audit Queries
+
+```bash
+# User login frequency (last 30 days)
+gcloud logging read 'jsonPayload.event="user_login"
+  AND timestamp>="$(date -d "30 days ago" -I)T00:00:00Z"' \
+  --format=json | jq -r '.[] | .jsonPayload.user_email_hash' | sort | uniq -c | sort -rn
+
+# Total cost (last month)
+gcloud logging read 'jsonPayload.event="mcp_response"
+  AND timestamp>="$(date -d "30 days ago" -I)T00:00:00Z"' \
+  --format=json | jq -r '.[] | .jsonPayload.estimated_cost_usd' | \
+  awk '{sum+=$1} END {print "Total cost: $" sum}'
+
+# De-identification failures (should be zero)
+gcloud logging read 'jsonPayload.event="deidentification" AND jsonPayload.success=false' --limit=50
+
+# Epic FHIR failures
+gcloud logging read 'jsonPayload.event="epic_fhir_call" AND jsonPayload.status="error"' --limit=50
+```
+
+### Retention & Compliance
+
+- **Duration:** 10 years (3,650 days) — exceeds HIPAA minimum of 6 years
+- **Storage:** Cloud Logging bucket `hipaa-audit-logs` (us-central1)
+- **Access:** Privacy Officer + IT Security (full), admins (read-only)
+- **Monthly export:** `gcloud logging read 'resource.type="cloud_run_revision"' --format=json > audit-logs-$(date +%Y%m).json`
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+| Issue | Diagnosis | Resolution |
+|-------|-----------|------------|
+| **OAuth2 "Access Denied"** | Check OAuth2 Proxy logs | Verify user in `precision-medicine-users` AD group; check redirect URI in Azure AD app |
+| **Server 5xx errors** | Check server logs for errors | Verify secrets accessible; check VPC connectivity; rollback if recent deployment |
+| **Epic FHIR connection fails** | Check epic_fhir_call error logs | Test endpoint manually; verify OAuth token; switch to mcp-mockepic temporarily |
+| **Budget overrun** | Check billing in Cloud Console | Identify high-usage users; educate on Haiku model; request budget increase from PI |
+| **Slow query responses** | Check Cloud Monitoring latency | Increase CPU/memory; set min-instances=1 to avoid cold starts; use Haiku for simple queries |
+
+### Viewing Server Logs
+
+```bash
+# Real-time logs
+gcloud run services logs read mcp-fgbio --region=us-central1 --follow
+
+# Recent errors only
+gcloud logging read 'resource.type="cloud_run_revision"
+  AND resource.labels.service_name="mcp-fgbio" AND severity>=ERROR' --limit=50
+
+# Rolling back a failed deployment
+gcloud run revisions list --service=mcp-fgbio --region=us-central1
+gcloud run services update-traffic mcp-fgbio \
+  --to-revisions=mcp-fgbio-00042-xyz=100 --region=us-central1
+```
+
+For detailed runbooks, see [RUNBOOKS/](RUNBOOKS/).
 
 ---
 
@@ -855,10 +993,11 @@ gcloud container images describe gcr.io/{PROJECT_ID}/mcp-fgbio:latest \
 
 **Document History:**
 - v1.0 (2025-12-30): Initial operations manual for production deployment
+- v1.1 (2026-02-19): Consolidated admin guide, audit log guide, cost management, and troubleshooting into single document
 - Next Review: 2026-03-30 (quarterly)
 
 **Related Documents:**
 - [User Guide](USER_GUIDE.md) - For end users
-- [Admin Guide](ADMIN_GUIDE.md) - For administrators
 - [HIPAA Compliance](compliance/hipaa.md) - Compliance documentation
+- [Cost & Budget Guide](operations/cost-and-budget.md) - Detailed cost breakdowns
 - [Runbooks](RUNBOOKS/) - Incident response procedures
