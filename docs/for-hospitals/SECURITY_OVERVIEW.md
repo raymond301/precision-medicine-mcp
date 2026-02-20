@@ -20,7 +20,7 @@ graph TB
         end
 
         subgraph Application["Application Layer"]
-            SERVERS[14 MCP Servers<br/>Cloud Run<br/>No Public IPs<br/>+ 1 Local-Only (epic)]
+            SERVERS[13 MCP Servers<br/>Cloud Run<br/>No Public IPs<br/>+ 2 Local-Only<br/>epic, genomic-results]
         end
 
         subgraph DataLayer["Data Layer"]
@@ -260,4 +260,4 @@ mcp-epic server automatically removes all HIPAA-defined identifiers:
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-19
