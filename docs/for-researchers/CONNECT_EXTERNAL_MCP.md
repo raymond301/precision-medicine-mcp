@@ -8,7 +8,7 @@ Add literature search, clinical trials, preprint access, and ML model discovery 
 | **Setup** | Toggle on in Settings > Connectors | Add config JSON or use `claude mcp add` CLI |
 | **Install** | Nothing to install | Requires Node.js, Python, or similar |
 | **Auth** | Handled by Anthropic | You manage API keys and tokens |
-| **Examples below** | ClinicalTrials.gov, bioRxiv, PubMed | Hugging Face |
+| **Examples below** | ClinicalTrials.gov, bioRxiv, PubMed, Seqera | Hugging Face |
 
 ---
 
@@ -104,6 +104,36 @@ in high-grade serous ovarian cancer."
 ovarian cancer published since 2023."
 ```
 
+### Seqera
+
+Nextflow workflow orchestration via Seqera Platform. Launch nf-core pipelines, monitor runs, search modules, and troubleshoot failures via natural language. Free for all Seqera users.
+
+> **Cost:** The Seqera connector itself is free. Seqera Platform has a free Cloud Basic tier (250 runs, 3 users). Academic institutions can apply for free Cloud Pro. Compute (if using Seqera Cloud): $0.10/CPU-hour, $0.025/GiB-hour. See [seqera.io/pricing](https://seqera.io/pricing/).
+
+#### Available Tools (7)
+
+| Tool | What it does | Example use |
+|------|-------------|-------------|
+| `call_seqera_api` | Call Seqera Platform API endpoints | Get details on a specific workflow run |
+| `search_seqera_api` | Search across Seqera Platform resources | Find recent failed runs in your workspace |
+| `call_data_tool` | Manage and access datasets in Seqera | List datasets available for a pipeline |
+| `search_data_tool` | Search for data tools and resources | Find data tools for spatial transcriptomics |
+| `describe_nfcore_module` | Get details on a specific nf-core module | Describe the STAR alignment module |
+| `search_nfcore_module` | Search the nf-core module registry | Find modules for variant calling |
+| `nfcore_suggest_analysis` | Suggest nf-core pipelines for your analysis | Recommend a pipeline for RNA-seq of HGSOC samples |
+
+#### Example Prompts
+
+```
+"What nf-core pipelines are available for spatial transcriptomics analysis?"
+
+"Search Seqera for my recent workflow runs and tell me if any failed.
+If so, what went wrong?"
+
+"Suggest an analysis pipeline for bulk RNA-seq of platinum-resistant
+high-grade serous ovarian cancer samples, and describe the key modules."
+```
+
 ---
 
 ## Community MCP Servers (self-hosted)
@@ -167,6 +197,9 @@ foundation models."
 - [ClinicalTrials.gov connector tutorial](https://claude.com/resources/tutorials/using-the-clinicaltrials-gov-connector-in-claude)
 - [bioRxiv connector tutorial](https://claude.com/resources/tutorials/using-the-biorxiv-and-medrxiv-connector-in-claude)
 - [PubMed connector tutorial](https://claude.com/resources/tutorials/using-the-pubmed-connector-in-claude)
+- [Seqera MCP blog post](https://seqera.io/blog/seqera-mcp/) (announcement and overview)
+- [Seqera MCP page](https://seqera.io/mcp/) (setup instructions)
+- [Seqera pricing](https://seqera.io/pricing/) (free tier and compute costs)
 - [All connectors overview](https://claude.com/connectors)
 
 **Community servers:**
