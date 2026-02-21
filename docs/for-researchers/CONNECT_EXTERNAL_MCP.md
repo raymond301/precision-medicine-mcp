@@ -3,17 +3,19 @@
 Add literature search, clinical trials, preprint access, and ML model discovery to your precision medicine workflow. These run alongside our custom servers — no changes to existing platform configuration.
 
 ```mermaid
-graph LR
-    subgraph "Anthropic Connectors - toggle on, no install"
+graph TD
+    subgraph hosted["Anthropic Connectors (hosted, toggle on)"]
         CT[ClinicalTrials.gov<br/>6 tools]
         BIO[bioRxiv & medRxiv<br/>9 tools]
         PM[PubMed<br/>5 capabilities]
         SQ[Seqera<br/>7 tools]
     end
-    subgraph "Community Servers - install locally"
+    subgraph local["Community Servers (self-hosted)"]
         CB[cBioPortal · TCGA<br/>12 tools]
         HF[Hugging Face<br/>7 tools]
     end
+    style hosted fill:#f0f8f0,stroke:#4a9
+    style local fill:#f0f0f8,stroke:#49a
     style CT fill:#e8f4e8,stroke:#4a9
     style BIO fill:#e8f4e8,stroke:#4a9
     style PM fill:#e8f4e8,stroke:#4a9
