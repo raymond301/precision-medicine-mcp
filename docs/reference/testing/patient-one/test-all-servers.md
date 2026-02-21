@@ -47,7 +47,6 @@ If all servers are working correctly, you should see:
 | 4 | **openimagedata** | Fetches and processes histology images |
 | 5 | **deepcell** | Performs cell segmentation |
 | 6 | **spatialtools** | Processes spatial transcriptomics |
-| 7 | **huggingface** | Lists available ML models |
 | 8 | **multiomics** | Validates multi-omics data |
 | 9 | **seqera** | Lists workflow pipelines |
 

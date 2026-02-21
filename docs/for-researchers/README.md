@@ -273,7 +273,6 @@ to identify concordant pathway activations.
 - mcp-tcga: Integrate real GDC API for TCGA cohort data
 
 **Future (6-12 months):**
-- mcp-huggingface: Integrate genomic foundation models
 - mcp-seqera: Integrate Nextflow workflow orchestration
 - New servers: Metabolomics, radiomics, single-cell
 

@@ -25,7 +25,7 @@ graph LR
         IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
         GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
         CLINICAL["Clinical<br/>epic · mockepic · patient-report<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 FHIR"]
-        WORKFLOW["Workflow & ML<br/>seqera · huggingface · quantum-celltype-fidelity<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 Cross-modality"]
+        WORKFLOW["Workflow & ML<br/>seqera · quantum-celltype-fidelity<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 Cross-modality"]
     end
 
     subgraph Output["Outputs"]

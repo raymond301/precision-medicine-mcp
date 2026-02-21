@@ -419,18 +419,6 @@ SERVER_INFO = {
         'color': '#f8d7da',
         'description': 'Cell detection and quantification'
     },
-    'mcp-huggingface': {
-        'display_name': 'ML Models',
-        'icon': '🤗',
-        'color': '#f8d7da',
-        'description': 'Biomedical ML models'
-    },
-    'huggingface': {
-        'display_name': 'ML Models',
-        'icon': '🤗',
-        'color': '#f8d7da',
-        'description': 'Biomedical ML models'
-    },
 
     'mcp-seqera': {
         'display_name': 'Workflows (Nextflow)',

@@ -17,7 +17,6 @@ SERVERS=(
     "mcp-spatialtools"
     "mcp-openimagedata"
     "mcp-seqera"
-    "mcp-huggingface"
     "mcp-deepcell"
     "mcp-mockepic"
     "mcp-tcga"

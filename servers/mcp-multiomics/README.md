@@ -531,7 +531,6 @@ pytest tests/test_integration.py -v
 - `mcp-fgbio`: Reference genome data for gene annotations
 - `mcp-spatialtools`: Spatial transcriptomics analysis and clustering
 - `mcp-tcga`: Compare PDX results to TCGA cohorts
-- `mcp-huggingface`: Apply ML models to multi-omics features
 
 ## Preprocessing Requirements (IMPORTANT)
 

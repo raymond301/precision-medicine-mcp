@@ -253,7 +253,7 @@ All synthetic data files have been generated and are ready for end-to-end testin
 
 **Status:** ✅ **ALL FILES COMPLETE AND READY FOR TESTING**
 
-**Test Coverage:** All MCP servers (epic, mockepic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, cell-classify, genomic-results, patient-report, perturbation, quantum-celltype-fidelity, seqera, huggingface)
+**Test Coverage:** All MCP servers (epic, mockepic, fgbio, tcga, multiomics, spatialtools, openimagedata, deepcell, cell-classify, genomic-results, patient-report, perturbation, quantum-celltype-fidelity, seqera)
 
 **Estimated Testing Time:** 30-45 minutes for complete end-to-end workflows
 

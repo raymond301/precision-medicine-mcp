@@ -211,7 +211,6 @@ precision-medicine-mcp/
 │   ├── mcp-epic/           # Epic FHIR integration
 │   ├── mcp-fgbio/          # Reference genomes, FASTQ QC
 │   ├── mcp-genomic-results/ # Somatic variant/CNV/HRD
-│   ├── mcp-huggingface/    # AI/ML inference
 │   ├── mcp-mockepic/       # Mock Epic for testing
 │   ├── mcp-multiomics/     # Multi-omics integration
 │   ├── mcp-openimagedata/  # Imaging data (H&E, MxIF)

@@ -105,13 +105,6 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
         "status": "mock",
         "tools_count": 5,
     },
-    "huggingface": {
-        "url": "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "AI/ML models for genomics",
-        "group": "workflow-ml",
-        "status": "mock",
-        "tools_count": 4,
-    },
     "quantum-celltype-fidelity": {
         "url": "https://mcp-quantum-celltype-fidelity-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Quantum computing for cell type validation and immune evasion detection",
@@ -126,7 +119,7 @@ SERVER_GROUPS = {
     "imaging":     ["deepcell", "cell-classify", "openimagedata"],
     "genomics":    ["fgbio", "multiomics", "spatialtools", "tcga", "perturbation", "genomic-results"],
     "clinical":    ["mockepic", "patient-report"],
-    "workflow-ml": ["seqera", "huggingface", "quantum-celltype-fidelity"],
+    "workflow-ml": ["seqera", "quantum-celltype-fidelity"],
 }
 
 

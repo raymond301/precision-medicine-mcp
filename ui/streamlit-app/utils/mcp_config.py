@@ -66,13 +66,6 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "status": "mock",
         "tools_count": 3
     },
-    "huggingface": {
-        "name": "huggingface",
-        "url": "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "AI/ML models for genomics",
-        "status": "mock",
-        "tools_count": 3
-    },
     "deepcell": {
         "name": "deepcell",
         "url": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
@@ -175,7 +168,6 @@ def get_server_categories() -> Dict[str, List[str]]:
         "Mock Servers (Workflow Demo)": [
             "tcga",
             "seqera",
-            "huggingface",
             "mockepic"
         ]
     }

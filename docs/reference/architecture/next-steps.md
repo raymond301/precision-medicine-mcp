@@ -14,7 +14,6 @@
 | 4 | mcp-deepcell | Production (Phase 1) | Morphology, tracking, export tools (Phase 2) | High |
 | 5 | mcp-fgbio | Production (95% Real) | Finish `fetch_reference_genome`; add BAM tools | Medium |
 | 6 | mcp-genomic-results | Production (100% Real) | TMB calculation; MSI detection | High |
-| 7 | mcp-huggingface | Mocked | Wire up real HF Hub inference | High |
 | 8 | mcp-multiomics | ~95% real | Replace hardcoded upstream regulator DBs with live API | Medium |
 | 9 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
 | 10 | mcp-patient-report | Production (100% Real) | Implement `approve_patient_report` workflow | High |
@@ -82,16 +81,7 @@
 | Replace hardcoded annotations with ClinVar/VEP API | Feature | Large |
 | Add FHIR DiagnosticReport export | Feature | Medium |
 
-### 7. mcp-huggingface (Mocked)
-
-| Enhancement | Type | Effort |
-|-------------|------|--------|
-| Wire up real HF Hub model loading (DNABERT-2, Geneformer) | Feature | Large |
-| Implement real `predict_cell_type` inference pipeline | Feature | Large |
-| Implement real `embed_sequences` with tokenization | Feature | Large |
-| Wire up retry/circuit-breaker for HF Hub API | Reliability | Small |
-
-### 8. mcp-multiomics (~95% real)
+### 7. mcp-multiomics (~95% real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -178,7 +168,7 @@
 
 | Enhancement | Servers Affected | Effort |
 |-------------|-----------------|--------|
-| Retry/backoff + circuit breaker for all external APIs | epic, fgbio, seqera, tcga, huggingface | Medium |
+| Retry/backoff + circuit breaker for all external APIs | epic, fgbio, seqera, tcga | Medium |
 | FHIR R4 compliance for clinical data exchange | epic, mockepic, patient-report, genomic-results | Large |
 | GPU acceleration | quantum, perturbation, deepcell | Large |
 | Authentication on Cloud Run endpoints | perturbation, seqera, quantum | Small |

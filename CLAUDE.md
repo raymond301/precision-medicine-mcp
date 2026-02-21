@@ -22,7 +22,6 @@ precision-medicine-mcp/
 │   ├── mcp-deepcell/          # Cell segmentation (3 tools)
 │   ├── mcp-cell-classify/     # Cell phenotype classification (3 tools)
 │   ├── mcp-tcga/              # TCGA cohort comparison (5 tools, mocked)
-│   ├── mcp-huggingface/       # ML model inference (3 tools, mocked)
 │   ├── mcp-seqera/            # Nextflow workflows (3 tools, mocked)
 │   ├── mcp-patient-report/    # PDF report generation (5 tools)
 │   ├── mcp-genomic-results/   # Somatic variant/CNV parsing (4 tools)

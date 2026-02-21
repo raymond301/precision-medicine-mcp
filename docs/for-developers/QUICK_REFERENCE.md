@@ -22,7 +22,6 @@ spatial-mcp/
 │   ├── mcp-cell-classify/       # Cell phenotype classification (production)
 │   ├── mcp-patient-report/      # PDF report generation (production)
 │   ├── mcp-genomic-results/     # Somatic variant/CNV parsing (production)
-│   ├── mcp-huggingface/         # ML models (mocked)
 │   └── mcp-seqera/              # Nextflow (mocked)
 ├── tests/
 │   ├── unit/                    # Unit tests by server

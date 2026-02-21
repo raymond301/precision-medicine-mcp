@@ -56,12 +56,6 @@ SERVERS = [
         "env": {"SEQERA_DRY_RUN": "true"}
     },
     {
-        "name": "mcp-huggingface",
-        "path": "servers/mcp-huggingface",
-        "module": "mcp_huggingface",
-        "env": {"HF_DRY_RUN": "true"}
-    },
-    {
         "name": "mcp-deepcell",
         "path": "servers/mcp-deepcell",
         "module": "mcp_deepcell",

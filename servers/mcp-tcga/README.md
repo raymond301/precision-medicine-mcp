@@ -225,7 +225,6 @@ pytest -v -k "test_query_cohorts"
 **Works with:**
 - `mcp-fgbio`: Reference genomes for coordinate mapping
 - `mcp-spatialtools`: Align spatial regions with TCGA subtypes
-- `mcp-huggingface`: ML model predictions vs. TCGA labels
 - `mcp-epic`: Clinical data comparison
 
 ## Technical Details

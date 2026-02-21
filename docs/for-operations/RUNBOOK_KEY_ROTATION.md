@@ -54,7 +54,6 @@ gcloud iam service-accounts keys delete OLD_KEY_ID \
 
 | Secret | Used By | Config Location |
 | :--- | :--- | :--- |
-| `HF_TOKEN` | mcp-huggingface | `claude_desktop_config.json` → env |
 | `SEQERA_ACCESS_TOKEN` | mcp-seqera | `claude_desktop_config.json` → env |
 | Service account keys | All servers (GCS access) | Environment or key file |
 | TLS certificates | API Gateway | Cloud-managed |

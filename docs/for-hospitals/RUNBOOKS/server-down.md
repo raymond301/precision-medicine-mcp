@@ -22,7 +22,7 @@
 ```bash
 # Check all server statuses
 for server in mcp-fgbio mcp-multiomics mcp-spatialtools mcp-epic \
-              mcp-tcga mcp-openimagedata mcp-seqera mcp-huggingface \
+              mcp-tcga mcp-openimagedata mcp-seqera \
               mcp-deepcell mcp-mockepic; do
   echo "=== $server ==="
   gcloud run services describe $server \

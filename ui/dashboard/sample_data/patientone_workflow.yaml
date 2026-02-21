@@ -187,17 +187,7 @@ tool_calls:
     latency_ms: 2600
     status: "success"
 
-  # Phase 7: AI/ML Model Inference (mcp-huggingface) - DRY_RUN
-  - server: "mcp-huggingface"
-    tool: "predict_cell_types"
-    timestamp: "2025-12-29T11:33:32Z"
-    input_tokens: 3200
-    output_tokens: 900
-    latency_ms: 1400
-    status: "dry_run"
-    note: "Mocked - would call DNABERT-2 in production"
-
-  # Phase 8: Workflow Orchestration (mcp-seqera) - DRY_RUN
+  # Phase 7: Workflow Orchestration (mcp-seqera) - DRY_RUN
   - server: "mcp-seqera"
     tool: "submit_nf_core_pipeline"
     timestamp: "2025-12-29T11:33:38Z"
@@ -278,14 +268,6 @@ server_metrics:
     avg_latency_ms: 3400
     status: "mocked"
 
-  mcp-huggingface:
-    tool_calls: 1
-    input_tokens: 3200
-    output_tokens: 900
-    total_latency_ms: 1400
-    avg_latency_ms: 1400
-    status: "mocked"
-
   mcp-seqera:
     tool_calls: 1
     input_tokens: 4800
@@ -357,6 +339,6 @@ insights_generated:
 optimization_notes:
   - "mcp-multiomics has highest token usage (62.2K total) - consider caching HAllA results"
   - "mcp-spatialtools generates 6 visualizations - consider batch generation to reduce overhead"
-  - "mcp-tcga, mcp-huggingface, mcp-seqera, mcp-deepcell are mocked - cost will increase in production"
+  - "mcp-tcga, mcp-seqera, mcp-deepcell are mocked - cost will increase in production"
   - "Average latency is 3.6s per tool call - acceptable for research workflows"
   - "Consider using Haiku for simple queries (mcp-fgbio reference lookups could save 92%)"

@@ -293,36 +293,6 @@ tcga_breaker = CircuitBreaker(
 )
 ```
 
-#### **mcp-huggingface** (Currently Mocked)
-
-**Location:** `servers/mcp-huggingface/src/mcp_huggingface/server.py`
-
-**Example Integration (commented code):**
-```python
-# Retry model loading
-@retry_with_backoff(
-    max_retries=3,
-    base_delay=2.0,
-    max_delay=30.0,
-    exceptions=(requests.HTTPError,)
-)
-async def _load_hf_model(model_name: str):
-    from huggingface_hub import hf_hub_download
-    model_path = hf_hub_download(
-        repo_id=model_name,
-        filename="pytorch_model.bin",
-        token=HF_TOKEN
-    )
-    return model_path
-
-# Circuit breaker for HuggingFace Hub
-hf_hub_breaker = CircuitBreaker(
-    failure_threshold=5,
-    recovery_timeout=120.0,  # 2 minutes
-    name="HuggingFace-Hub-API"
-)
-```
-
 #### **mcp-seqera** (Currently Mocked)
 
 **Location:** `servers/mcp-seqera/src/mcp_seqera/server.py`

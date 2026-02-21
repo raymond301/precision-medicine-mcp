@@ -81,7 +81,6 @@ Each server requires specific environment variables:
 | **spatialtools** | `SPATIAL_DATA_DIR`<br>`SPATIAL_DRY_RUN` | Data directory<br>Mock execution mode |
 | **openimagedata** | `IMAGE_DATA_DIR`<br>`IMAGE_DRY_RUN` | Image storage<br>Mock execution mode |
 | **seqera** | `SEQERA_DRY_RUN` | Mock execution mode |
-| **huggingface** | `HF_DRY_RUN` | Mock execution mode |
 | **mockepic** | `EPIC_DRY_RUN` | Mock execution mode |
 | **tcga** | `TCGA_DRY_RUN` | Mock execution mode |
 | **multiomics** | `MULTIOMICS_DATA_DIR`<br>`MULTIOMICS_CACHE_DIR`<br>`MULTIOMICS_DRY_RUN` | Multi-omics data directory<br>Cache location<br>Mock execution mode |
@@ -126,7 +125,7 @@ Expected output: Should show the config JSON
 
 ### Verify All Server Paths Exist
 ```bash
-for server in fgbio spatialtools openimagedata seqera huggingface mockepic tcga multiomics perturbation quantum-celltype-fidelity patient-report; do
+for server in fgbio spatialtools openimagedata seqera mockepic tcga multiomics perturbation quantum-celltype-fidelity patient-report; do
   echo "Checking mcp-$server..."
   ls /Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-$server/
 done

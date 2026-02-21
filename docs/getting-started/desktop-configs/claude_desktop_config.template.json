@@ -76,20 +76,6 @@
         "GENOMIC_RESULTS_DRY_RUN": "true"
       }
     },
-    "huggingface": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-huggingface",
-        "python",
-        "-m",
-        "mcp_huggingface"
-      ],
-      "env": {
-        "HF_DRY_RUN": "true"
-      }
-    },
     "mockepic": {
       "command": "uv",
       "args": [

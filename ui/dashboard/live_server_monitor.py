@@ -38,7 +38,6 @@ MCP_SERVERS: Dict[str, str] = {
     "mcp-openimagedata":             "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app",
     "mcp-mockepic":                  "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app",
     "mcp-seqera":                    "https://mcp-seqera-ondu7mwjpa-uc.a.run.app",
-    "mcp-huggingface":               "https://mcp-huggingface-ondu7mwjpa-uc.a.run.app",
     "mcp-patient-report":            "https://mcp-patient-report-ondu7mwjpa-uc.a.run.app",
     "mcp-genomic-results":           "https://mcp-genomic-results-ondu7mwjpa-uc.a.run.app",
 }

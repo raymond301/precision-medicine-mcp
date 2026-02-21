@@ -949,7 +949,6 @@ Part of the Precision Medicine MCP suite (demonstrated in [PatientOne](../../doc
 - **mcp-tcga** - TCGA cancer genomics data
 - **mcp-multiomics** - Multi-omics integration (RNA/protein/phospho)
 - **mcp-deepcell** - Cell segmentation for imaging
-- **mcp-huggingface** - ML models for genomics
 - **mcp-seqera** - Nextflow workflow orchestration
 
 ---

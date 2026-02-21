@@ -157,7 +157,7 @@ For clinical decisions, consult qualified healthcare provider.
   - `optional_api_call()` decorator
   - `CircuitBreaker` class
 - Real implementation in mcp-fgbio for reference genome downloads
-- Integration guides added to mcp-tcga, mcp-huggingface, mcp-seqera
+- Integration guides added to mcp-tcga, mcp-seqera
 - `docs/ERROR_HANDLING_RETRY_LOGIC.md` (comprehensive documentation)
 
 **Risk Reduction:**
@@ -391,7 +391,7 @@ For clinical decisions, consult qualified healthcare provider.
    - Added validation imports and integration
    - Added retry logic to downloads
 
-3-9. All other servers (mcp-spatialtools, mcp-openimagedata, mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera, mcp-mockepic)
+3-9. All other servers (mcp-spatialtools, mcp-openimagedata, mcp-tcga, mcp-deepcell, mcp-seqera, mcp-mockepic)
    - Added DRY_RUN warnings
    - Added retry utility imports and integration guides
 

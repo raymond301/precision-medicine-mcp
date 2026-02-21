@@ -58,19 +58,6 @@
         "SEQERA_DRY_RUN": "true"
       }
     },
-    "huggingface": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-huggingface",
-        "python",
-        "-m",
-        "mcp_huggingface"
-      ],
-      "env": {
-        "HF_DRY_RUN": "true"
-      }
-    },
     "deepcell": {
       "command": "uvx",
       "args": [

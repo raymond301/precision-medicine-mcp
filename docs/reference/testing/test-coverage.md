@@ -24,7 +24,6 @@
 | 🧬 **mcp-fgbio** | 77% | 29 | ✅ Complete |
 | 🔬 **mcp-multiomics** | 68% | 91 | ✅ Complete |
 | 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke |
-| 🤖 **mcp-huggingface** | 56% | 12 | ✅ Smoke |
 | ⚙️ **mcp-seqera** | 56% | 6 | ✅ Smoke |
 | 🏥 **mcp-epic** | 58% | 12 | ✅ Complete |
 | 🖼️ **mcp-openimagedata** | 55% | 30 | ✅ Full |

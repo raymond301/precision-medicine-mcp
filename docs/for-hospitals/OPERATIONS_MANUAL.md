@@ -741,7 +741,7 @@ See [Cost Analysis](../reference/shared/cost-analysis.md) for estimated per-pati
 ### Optimization Tips
 
 1. **Use Haiku for simple queries** — 10x cheaper than Sonnet ($0.25 vs $3 per million input tokens)
-2. **Scale mock servers to zero** — Mock servers (tcga, seqera, huggingface, deepcell, mockepic) don't need min-instances
+2. **Scale mock servers to zero** — Mock servers (tcga, seqera, deepcell, mockepic) don't need min-instances
 3. **Monitor token usage** — Find high-usage users and educate on cost-saving practices
 4. **Right-size compute** — Most servers work well at 2Gi/2vCPU; only spatialtools and perturbation need 4Gi
 

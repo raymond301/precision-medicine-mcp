@@ -80,7 +80,6 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 | **mcp-multiomics** | Returns synthetic resistance signatures | Processes real RNA/Protein/Phospho data |
 | **mcp-spatialtools** | Returns mock spatial patterns | Analyzes real Visium/Xenium data |
 | **mcp-tcga** | Returns mock cohort comparisons | Queries real TCGA database |
-| **mcp-huggingface** | Returns mock predictions | Calls HuggingFace API with real models |
 | **mcp-deepcell** | Returns mock segmentation | Runs DeepCell segmentation models |
 | **mcp-mockepic** | Returns mock EHR data | Queries mock EHR (always synthetic) |
 | **mcp-seqera** | Returns mock workflow status | Launches real Nextflow workflows |
@@ -289,14 +288,6 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
         // TCGA may require API configuration
       }
     },
-    "mcp-huggingface": {
-      "command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-huggingface/venv/bin/python",
-      "args": ["-m", "mcp_huggingface"],
-      "env": {
-        "HF_DRY_RUN": "false",
-        "HF_TOKEN": "your_huggingface_token_here"  // Required for actual API calls
-      }
-    },
     "mcp-deepcell": {
       "command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-deepcell/venv/bin/python",
       "args": ["-m", "mcp_deepcell"],
@@ -339,14 +330,6 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
 - Adjust file paths to match your system
 
 #### 2. Obtain API Keys (If Using External Services)
-
-**HuggingFace (for ML models):**
-```bash
-# Get token from https://huggingface.co/settings/tokens
-export HF_TOKEN="hf_your_token_here"
-
-# Or add to claude_desktop_config.json (recommended)
-```
 
 **Seqera Platform (for Nextflow workflows):**
 ```bash
@@ -777,26 +760,6 @@ pwd  # Check current directory
 # https://portal.gdc.cancer.gov/
 ```
 
-#### Issue: "HuggingFace Authentication Failed"
-
-**Cause:** Missing or invalid HF_TOKEN
-
-**Solution:**
-```bash
-# 1. Get token from https://huggingface.co/settings/tokens
-# 2. Add to configuration:
-{
-  "mcp-huggingface": {
-    "env": {
-      "HF_TOKEN": "hf_your_actual_token_here",
-      "HF_DRY_RUN": "false"
-    }
-  }
-}
-
-# 3. Restart Claude Desktop
-```
-
 #### Issue: "Out of Memory during image processing"
 
 **Cause:** Large TIFF images exceeding available RAM
@@ -987,7 +950,6 @@ convert input.png output.tiff
 
 ### External Links
 - [TCGA API Documentation](https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/)
-- [HuggingFace API](https://huggingface.co/docs/api-inference/index)
 - [Seqera Platform](https://seqera.io/platform/)
 - [DeepCell Documentation](https://deepcell.readthedocs.io/)
 

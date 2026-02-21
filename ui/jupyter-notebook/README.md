@@ -23,7 +23,7 @@ Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect fo
 | `01-imaging.ipynb` | deepcell, cell-classify, openimagedata | Cell segmentation, phenotyping, MxIF images |
 | `02-genomics-omics.ipynb` | fgbio, multiomics, spatialtools, tcga, perturbation | FASTQ QC, spatial analysis, multi-omics, GEARS |
 | `03-clinical.ipynb` | mockepic, patient-report | EHR/FHIR data, patient-facing reports |
-| `04-workflow-ml.ipynb` | seqera, huggingface, quantum-celltype-fidelity | Nextflow, ML models, quantum fidelity |
+| `04-workflow-ml.ipynb` | seqera, quantum-celltype-fidelity | Nextflow, quantum fidelity |
 | `05-integration.ipynb` | cross-server | PatientOne end-to-end precision-medicine workflows |
 
 The original `mcp_client.ipynb` is retained for backwards compatibility.
@@ -106,7 +106,6 @@ All servers are pre-configured in `mcp_utils.py`:
 
 ### Workflow / ML
 - **seqera** - Nextflow workflow management (mock)
-- **huggingface** - AI/ML models for genomics (mock)
 - **quantum-celltype-fidelity** - Quantum computing for cell type validation and immune evasion (production)
 
 ## MCPClient API Reference

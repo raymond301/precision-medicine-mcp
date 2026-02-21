@@ -138,7 +138,7 @@ This Service Level Agreement (SLA) defines the infrastructure and operational co
 |------|---------|--------------|------------------|-----------------|
 | **Tier 1 - Critical Clinical** | mcp-fgbio, mcp-multiomics, mcp-mockepic | **99.99%** | ≤ 4.3 minutes | ≤ 52.6 minutes |
 | **Tier 2 - Clinical Support** | mcp-spatialtools, mcp-openimagedata | **99.9%** | ≤ 43 minutes | ≤ 8.77 hours |
-| **Tier 3 - Administrative** | mcp-tcga, mcp-deepcell, mcp-huggingface, mcp-seqera | **99.5%** | ≤ 3.6 hours | ≤ 43.8 hours |
+| **Tier 3 - Administrative** | mcp-tcga, mcp-deepcell, mcp-seqera | **99.5%** | ≤ 3.6 hours | ≤ 43.8 hours |
 
 ### Incident Response Times
 

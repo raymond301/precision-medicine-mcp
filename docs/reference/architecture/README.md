@@ -24,7 +24,7 @@ graph LR
         S3[Spatial<br/>spatialtools]
         S4[Multiomics<br/>multiomics]
         S5[Imaging<br/>openimagedata<br/>deepcell/cell-classify]
-        S6[AI/ML<br/>huggingface<br/>seqera]
+        S6[Workflows<br/>seqera]
         S7[Perturbation<br/>perturbation<br/>GEARS]
         S8[Quantum<br/>quantum-celltype-fidelity]
     end
@@ -73,7 +73,6 @@ graph LR
 | 📍 **Spatial Transcriptomics** | mcp-fgbio, mcp-spatialtools | 18 (4+14) | ✅ Production (95%) | [spatial/README.md](spatial/README.md) |
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [rna/perturbation.md](rna/perturbation.md) |
 | ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [rna/quantum-fidelity.md](rna/quantum-fidelity.md) |
-| 🤖 **AI/ML Inference** | mcp-huggingface | 3 | ❌ Mocked (HF-ready) | [platform/ai-ml.md](platform/ai-ml.md) |
 | 📄 **Patient Reports** | mcp-patient-report | 5 | ✅ Production (100%) | [servers/mcp-patient-report/README.md](../../../servers/mcp-patient-report/README.md) |
 | ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [platform/workflow.md](platform/workflow.md) |
 
@@ -208,18 +207,11 @@ graph LR
 
 ## 🤖 8. AI/ML Model Inference
 
-**Genomic foundation model inference for cell type prediction and sequence embedding**
+**Genomic foundation model inference is now served by the external Hugging Face MCP server.**
 
-**Server:** mcp-huggingface (DNABERT-2, Geneformer, Nucleotide-Transformer)
+See [CONNECT_EXTERNAL_MCP.md](../../../docs/for-researchers/CONNECT_EXTERNAL_MCP.md) for setup instructions.
 
-**Key Features:**
-- Cell type annotation from single-cell expression data
-- DNA/RNA sequence embeddings (768-dimensional vectors)
-- Variant effect scoring via embedding distance
-
-**Workflow:** `Single-cell Data / DNA Sequences → Load Model → Generate Predictions → Integration`
-
-📖 **[Detailed Architecture →](platform/ai-ml.md)**
+📖 **[AI/ML Architecture Reference →](platform/ai-ml.md)**
 
 ---
 
@@ -306,7 +298,7 @@ sequenceDiagram
         participant Img as openimagedata / deepcell / cell-classify
     end
     box Wheat Advanced Modeling
-        participant Adv as perturbation / quantum / huggingface
+        participant Adv as perturbation / quantum
     end
 
     User->>AI: Query (e.g., "Predict target for Patient X")
