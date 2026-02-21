@@ -4,13 +4,13 @@ Add literature search, clinical trials, preprint access, and ML model discovery 
 
 ```mermaid
 graph LR
-    subgraph Anthropic Connectors — toggle on, no install
+    subgraph "Anthropic Connectors - toggle on, no install"
         CT[ClinicalTrials.gov<br/>6 tools]
         BIO[bioRxiv & medRxiv<br/>9 tools]
         PM[PubMed<br/>5 capabilities]
         SQ[Seqera<br/>7 tools]
     end
-    subgraph Community Servers — install locally
+    subgraph "Community Servers - install locally"
         CB[cBioPortal · TCGA<br/>12 tools]
         HF[Hugging Face<br/>7 tools]
     end
