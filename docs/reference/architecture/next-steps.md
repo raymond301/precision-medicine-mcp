@@ -1,6 +1,6 @@
 # Next Steps & Enhancements by MCP Server
 
-**Last Updated:** 2026-02-15
+**Last Updated:** 2026-02-21
 
 ---
 
@@ -14,14 +14,14 @@
 | 4 | mcp-deepcell | Production (Phase 1) | Morphology, tracking, export tools (Phase 2) | High |
 | 5 | mcp-fgbio | Production (95% Real) | Finish `fetch_reference_genome`; add BAM tools | Medium |
 | 6 | mcp-genomic-results | Production (100% Real) | TMB calculation; MSI detection | High |
-| 8 | mcp-multiomics | ~95% real | Replace hardcoded upstream regulator DBs with live API | Medium |
-| 9 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
-| 10 | mcp-patient-report | Production (100% Real) | Implement `approve_patient_report` workflow | High |
-| 11 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
-| 12 | mcp-quantum-celltype-fidelity | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
-| 13 | mcp-seqera | Mocked | Wire up real Seqera Platform API | High |
-| 14 | mcp-spatialtools | 95% real | Harmony/Scanorama batch correction | Low |
-| 15 | mcp-tcga | Mocked | Wire up real GDC API | High |
+| 7 | mcp-multiomics | ~95% real | Replace hardcoded upstream regulator DBs with live API | Medium |
+| 8 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
+| 9 | mcp-patient-report | Production (100% Real) | Implement `approve_patient_report` workflow | High |
+| 10 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
+| 11 | mcp-quantum-celltype-fidelity | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
+| 12 | mcp-seqera | Mocked | Wire up real Seqera Platform API | High |
+| 13 | mcp-spatialtools | 95% real | Harmony/Scanorama batch correction | Low |
+| 14 | mcp-tcga | Mocked | Wire up real GDC API | High |
 
 ---
 
@@ -90,7 +90,7 @@
 | Replace hardcoded upstream regulator DBs with live API | Feature | Large |
 | Test and document R-based HAllA integration path | Quality | Small |
 
-### 9. mcp-openimagedata (Production)
+### 8. mcp-openimagedata (Production)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -99,7 +99,7 @@
 | Add automated necrosis/cellularity detection | Feature | Medium |
 | Add spatial correlation with gene expression data | Feature | Medium |
 
-### 10. mcp-patient-report (Production, 100% Real)
+### 9. mcp-patient-report (Production, 100% Real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -109,7 +109,7 @@
 | Improve multi-modal consistency checks (placeholder) | Quality | Medium |
 | Create distinct one-page report template | Feature | Small |
 
-### 11. mcp-perturbation (Production, GEARS)
+### 10. mcp-perturbation (Production, GEARS)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -118,7 +118,7 @@
 | GPU upgrade for faster GEARS training | Performance | Medium |
 | Test with real PatientOne data | Quality | Small |
 
-### 12. mcp-quantum-celltype-fidelity (Production, CPU)
+### 11. mcp-quantum-celltype-fidelity (Production, CPU)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -129,7 +129,7 @@
 | Amplitude amplification for rare cell types | Feature | Medium |
 | Wire up GEARS integration for combined analysis | Feature | Medium |
 
-### 13. mcp-seqera (Mocked)
+### 12. mcp-seqera (Mocked)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -138,7 +138,7 @@
 | Add workflow monitoring / log retrieval tool | Feature | Medium |
 | Add compute environment management tool | Feature | Medium |
 
-### 14. mcp-spatialtools (95% real)
+### 13. mcp-spatialtools (95% real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -151,7 +151,7 @@
 | Gene ID conversion (ENSEMBL/Entrez to Symbol) | Feature | Small |
 | Performance optimization for 10K+ spots | Performance | Medium |
 
-### 15. mcp-tcga (Mocked)
+### 14. mcp-tcga (Mocked)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -161,6 +161,22 @@
 | Add `get_copy_number_data` tool (GISTIC2) | Feature | Medium |
 | Add mutation co-occurrence analysis | Feature | Medium |
 | Add CPTAC proteomics integration | Feature | Large |
+
+> **Note:** The external [cBioPortal MCP server](../../for-researchers/CONNECT_EXTERNAL_MCP.md) (12 tools) can query TCGA and cancer genomics data now, complementing this mocked server.
+
+---
+
+## External MCP Servers
+
+Several community MCP servers now complement or replace internal servers. See [CONNECT_EXTERNAL_MCP.md](../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup instructions.
+
+| External Server | Tools | Complements |
+|----------------|-------|-------------|
+| Hugging Face MCP | 7 | Replaced mcp-huggingface (removed) |
+| cBioPortal MCP | 12 | mcp-tcga (TCGA data, cancer genomics) |
+| ClinicalTrials.gov MCP | 6 | New capability (trial search/matching) |
+| bioRxiv/PubMed MCP | 3 | New capability (literature search) |
+| Seqera MCP | 7 | mcp-seqera (real Nextflow orchestration) |
 
 ---
 
