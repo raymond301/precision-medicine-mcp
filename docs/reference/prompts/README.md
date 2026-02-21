@@ -62,8 +62,8 @@ For multi-step analyses, number each step and name the MCP server to use.
 - **[Test Prompts](../testing/patient-one/test-prompts/)** - 6 test scenarios
 - **[Immunotherapy Reference](../testing/patient-one/immunotherapy-reference.md)** - Cold tumor candidates
 - **[Server Documentation](../../../servers/README.md)** - Tool reference
-- **[Connect External MCP Servers](../../for-researchers/CONNECT_EXTERNAL_MCP.md)** - ClinicalTrials.gov, PubMed, bioRxiv, Hugging Face
+- **[Connect External MCP Servers](../../for-researchers/CONNECT_EXTERNAL_MCP.md)** - ClinicalTrials.gov, PubMed, bioRxiv, Hugging Face, cBioPortal, Seqera
 
 ---
 
-**Last Updated:** 2026-02-14
+**Last Updated:** 2026-02-21

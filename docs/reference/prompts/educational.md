@@ -62,7 +62,7 @@ Found MCP servers:
    - Tools: 14 tools
    - Status: Production-ready
 
-... (15 total servers)
+... (14 total servers)
 
 Task 2 - mcp-spatialtools Tools:
 
