@@ -244,13 +244,13 @@ Provider Abstraction Layer
     |
     +-- Gemini Provider (SSE-based MCP)
             |
-        MCP SSE Client --> Cloud Run MCP Servers (13 of 15)
+        MCP SSE Client --> Cloud Run MCP Servers
             |                      |
         Google Gemini API <- Tool Results
             |
     [Manual agentic loop]
     |
-GCP Cloud Run MCP Servers (13 of 15)
+GCP Cloud Run MCP Servers
     |
 Bioinformatics Tools (STAR, ComBat, HAllA, GEARS, etc.)
 ```

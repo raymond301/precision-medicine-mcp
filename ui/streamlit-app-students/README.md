@@ -21,11 +21,13 @@ This is a **safety-limited version** of the MCP Chat app designed for the bioinf
 
 The student app connects to **3 production servers** by default:
 
-| Server | Tools | Description |
-|--------|-------|-------------|
-| **spatialtools** | 10 | Spatial transcriptomics (Moran's I, cell deconvolution, DE) |
-| **multiomics** | 9 | Multi-omics integration (RNA/Protein/Phospho), pathway enrichment |
-| **fgbio** | 4 | Genomic QC and FASTQ validation |
+| Server | Description |
+|--------|-------------|
+| **spatialtools** | Spatial transcriptomics (Moran's I, cell deconvolution, DE) |
+| **multiomics** | Multi-omics integration (RNA/Protein/Phospho), pathway enrichment |
+| **fgbio** | Genomic QC and FASTQ validation |
+
+See [Server Registry](../../docs/reference/shared/server-registry.md) for tool counts and full server list.
 
 All built-in prompts use PatientOne sample data from GCS bucket `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`.
 
