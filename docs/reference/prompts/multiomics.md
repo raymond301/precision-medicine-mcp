@@ -520,7 +520,9 @@ Return:
 
 **Customize:**
 - Combination therapy: `Suggest drug combinations for activated pathways`
-- Clinical trials: `Search ClinicalTrials.gov for matching trials`
+- Clinical trials: Use ClinicalTrials.gov connector to search for trials
+  targeting activated pathways. Use PubMed for published efficacy data.
+  See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
 
 ---
 

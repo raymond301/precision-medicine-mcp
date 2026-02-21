@@ -53,6 +53,11 @@ RETURN: Structured report with:
 - Visualizations: Volcano plot, pathway heatmap, spatial map
 ```
 
+**Extend with external sources:** After identifying treatment targets, use
+ClinicalTrials.gov and PubMed connectors to search for active trials and
+supporting literature. See [PROMPT 5b](#5b-immunotherapy-research-workflow-for-cold-tumors-30-minutes)
+for a detailed example, or [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup.
+
 **Expected Results:**
 - **Clinical:** 58F, Stage IV HGSOC, platinum-resistant
 - **Genomic:** TP53 mutated, BRCA1 germline variant
@@ -140,6 +145,11 @@ RETURN:
 - Alternative treatment recommendations
 ```
 
+**Extend with external sources:** Search PubMed for resistance mechanism
+publications and bioRxiv for preprints on emerging bypass strategies.
+Search ClinicalTrials.gov for trials targeting the identified resistance
+pathways. See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
+
 **Use Case:** Second-line treatment selection, clinical trial matching
 
 ---
@@ -200,6 +210,9 @@ STEP 2: Trial Matching
   * Bispecific antibody trials (PD-1xCTLA-4, MUC16xCD3, MSLNxCD47)
   * Cancer vaccine trials (IGFBP-2, neoantigen)
   * TIL (tumor-infiltrating lymphocyte) adoptive cell therapy trials
+
+NOTE: STEP 2 uses the ClinicalTrials.gov connector (external).
+See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup.
 
 STEP 3: Eligibility Assessment
 - Check inclusion criteria:
@@ -407,6 +420,9 @@ STEP 2: Literature Validation
 - Top findings (TP53, BRCA1, PI3K pathway)
 - Compare to published HGSOC studies
 - Check expected prevalence (TP53 in 96% of HGSOC)
+
+TIP: Use PubMed and bioRxiv connectors to search for validation studies
+programmatically rather than manually. See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
 
 STEP 3: Cohort Validation
 - Query TCGA ovarian cancer cohort (mcp-tcga)

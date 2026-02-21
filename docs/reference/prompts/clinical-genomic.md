@@ -432,6 +432,10 @@ For each druggable variant, report:
 - Expand drug database (include investigational agents)
 - Filter by approval status: `Only FDA-approved drugs`
 
+**Extend with external sources:** Use ClinicalTrials.gov connector to find
+active trials for each druggable variant. Use PubMed connector to retrieve
+latest efficacy data. See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
+
 ---
 
 ### 16. Identify Resistance Mechanisms
@@ -531,6 +535,11 @@ If unavailable in both, note as "Not in current panel — requires additional as
 - Add/remove targets based on available panel genes
 - Adjust for different cancer types (different target priorities)
 - Focus on specific therapy: e.g., `Focus only on BiTE targets for ubamatamab assessment`
+
+**Extend with external sources:** Search ClinicalTrials.gov for recruiting
+trials matching each immunotherapy candidate (e.g., ubamatamab, cadonilimab).
+Search PubMed and bioRxiv for latest efficacy and safety data.
+See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
 
 **Reference:** See [Immunotherapy Reference](../testing/patient-one/immunotherapy-reference.md) for detailed candidate profiles and decision framework.
 
