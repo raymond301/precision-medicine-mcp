@@ -99,7 +99,7 @@ This platform is a **clinical decision support** tool — AI assists clinicians,
 
 ---
 
-## Featured Use Case: PatientOne
+## Featured Use Case: Patient One
 
 <kbd><img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/tests/manual_testing/PatientOne-OvarianCancer/architecture/patient-one-holistic.png" width=800></kbd>
 
