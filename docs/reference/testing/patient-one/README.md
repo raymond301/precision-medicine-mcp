@@ -1,4 +1,4 @@
-# PatientOne: Quick Start Guide
+# Patient One: Quick Start Guide
 
 Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using all MCP servers
 
@@ -137,7 +137,7 @@ PatientOne can run in two modes:
 
 ---
 
-## Try PatientOne in 5 Minutes
+## Try Patient One in 5 Minutes
 
 ### Option 1: Quick Demo (Single Test)
 
@@ -147,7 +147,7 @@ Run **TEST_1** to see clinical + genomic integration:
 
 2. **Copy/paste this prompt:**
 ```
-I want to run the PatientOne clinical and genomic analysis (TEST_1).
+I want to run the Patient One clinical and genomic analysis (TEST_1).
 
 Please read the following files:
 - /Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/clinical/patient_demographics.json
@@ -161,7 +161,7 @@ Then:
 4. Use tcga server to compare mutations to TCGA ovarian cancer cohort and identify molecular subtype
 5. Synthesize findings into a clinical summary
 
-This is TEST_1 from the PatientOne workflow.
+This is TEST_1 from the Patient One workflow.
 ```
 
 3. **Expected output:**
@@ -243,7 +243,7 @@ MxIF (Multiplexed Immunofluorescence) enables imaging of multiple protein marker
 - Spatial context preserved across all markers (same cells in all images)
 - Quantitative phenotyping (e.g., TP53+/Ki67+ double-positive cells)
 
-The PatientOne workflow uses the **open-source DeepCell-TF library** (https://github.com/vanvalenlab/deepcell-tf) for AI-based cell segmentation in MxIF images.
+The Patient One workflow uses the **open-source DeepCell-TF library** (https://github.com/vanvalenlab/deepcell-tf) for AI-based cell segmentation in MxIF images.
 
 **When to use DeepCell in PatientOne Workflow:**
 - ✅ MxIF/IF images requiring cell segmentation and quantification (CD8, Ki67, TP53/Ki67/DAPI multiplex)
@@ -419,7 +419,7 @@ Comprehensive report including:
 
 ### Overview
 
-The PatientOne workflow has undergone comprehensive bias auditing to ensure algorithmic fairness across diverse patient populations. This audit demonstrates our commitment to ethical AI and compliance with FDA, AMA, and NIH standards.
+The Patient One workflow has undergone comprehensive bias auditing to ensure algorithmic fairness across diverse patient populations. This audit demonstrates our commitment to ethical AI and compliance with FDA, AMA, and NIH standards.
 
 **Audit Date:** 2026-01-12
 **Risk Level:** MEDIUM (acceptable with mitigations)
@@ -637,7 +637,7 @@ For detailed guidance on configuring Claude Desktop for file access, see:
 
 ## Next Steps
 
-After completing PatientOne:
+After completing Patient One:
 
 1. **Explore Individual Workflows:**
    - [Spatial Transcriptomics](../../architecture/spatial/README.md) (TEST_3)
