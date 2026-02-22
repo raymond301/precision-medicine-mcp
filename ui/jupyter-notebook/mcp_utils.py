@@ -52,14 +52,14 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
         "description": "Multi-omics integration (RNA/Protein/Phospho)",
         "group": "genomics",
         "status": "production",
-        "tools_count": 9,
+        "tools_count": 10,
     },
     "spatialtools": {
         "url": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Spatial transcriptomics analysis",
         "group": "genomics",
         "status": "production",
-        "tools_count": 10,
+        "tools_count": 14,
     },
     "tcga": {
         "url": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
@@ -88,7 +88,7 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
         "description": "Mock EHR/FHIR data",
         "group": "clinical",
         "status": "mock",
-        "tools_count": 5,
+        "tools_count": 3,
     },
     "patient-report": {
         "url": "https://mcp-patient-report-ondu7mwjpa-uc.a.run.app/sse",
