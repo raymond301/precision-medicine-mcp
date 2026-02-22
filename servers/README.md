@@ -18,7 +18,7 @@ Specialized MCP servers for precision medicine analysis. For current server and 
 | 🖼️ **mcp-openimagedata** | 5 | ✅ 100% real | [README →](mcp-openimagedata/README.md) |
 | 🖼️ **mcp-deepcell** | 3 | ✅ 100% real (Cloud Run) | [README →](mcp-deepcell/README.md) |
 | 🔬 **mcp-cell-classify** | 3 | ✅ 100% real | [README →](mcp-cell-classify/README.md) |
-| 🧪 **mcp-tcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-tcga/README.md) |
+| 🧪 **mcp-mocktcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-mocktcga/README.md) |
 | 📄 **mcp-patient-report** | 5 | ✅ 100% real | [README →](mcp-patient-report/README.md) |
 | 🧬 **mcp-genomic-results** | 4 | ✅ 100% real | [README →](mcp-genomic-results/README.md) |
 
@@ -44,7 +44,7 @@ Use these for real analysis:
 ### 🎭 Development/Demo Servers
 Mock implementations for workflow demonstration:
 - 🎭 **mcp-mockepic** - Synthetic FHIR data (by design)
-- 🧪 **mcp-tcga** - TCGA cohort comparison ([README](mcp-tcga/README.md))
+- 🧪 **mcp-mocktcga** - Mock TCGA cohort comparison ([README](mcp-mocktcga/README.md))
 
 ---
 

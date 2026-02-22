@@ -427,7 +427,7 @@ TIP: Use PubMed and bioRxiv connectors to search for validation studies
 programmatically rather than manually. See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
 
 STEP 3: Cohort Validation
-- Query TCGA ovarian cancer cohort (mcp-tcga)
+- Query TCGA ovarian cancer cohort (mcp-mocktcga)
   TIP: Use cBioPortal connector for live TCGA-OV mutation and expression data.
   See [Connect External MCP](../../for-researchers/CONNECT_EXTERNAL_MCP.md).
 - Compare PatientOne pathway activation to cohort

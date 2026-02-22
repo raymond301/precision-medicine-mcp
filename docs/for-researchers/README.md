@@ -270,7 +270,7 @@ to identify concordant pathway activations.
 **Current:** Most servers production-ready — see [Server Registry](../reference/shared/server-registry.md) for details
 
 **Next (3-6 months):**
-- mcp-tcga: Integrate real GDC API for TCGA cohort data
+- mcp-mocktcga → mcp-tcga: Wire up real GDC API for TCGA cohort data
 
 **Future (6-12 months):**
 - New servers: Metabolomics, radiomics, single-cell
@@ -352,7 +352,7 @@ Discovery:
 3. Candidate biomarkers → Top genes/pathways
 
 Validation:
-4. Load validation cohort → mcp-tcga.query_tcga_cohorts()
+4. Load validation cohort → mcp-mocktcga.query_tcga_cohorts()
 5. Test biomarkers → Statistical validation
 6. Clinical correlation → Link to outcomes
 ```

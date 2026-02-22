@@ -27,7 +27,7 @@ export {SERVER_NAME}_DRY_RUN=true
 | mcp-deepcell | `DEEPCELL_DRY_RUN` |
 | mcp-cell-classify | `CELL_CLASSIFY_DRY_RUN` |
 | mcp-openimagedata | `IMAGE_DRY_RUN` |
-| mcp-tcga | `TCGA_DRY_RUN` |
+| mcp-mocktcga | `MOCKTCGA_DRY_RUN` |
 | mcp-genomic-results | `GENOMIC_RESULTS_DRY_RUN` |
 | mcp-quantum-celltype-fidelity | `QUANTUM_DRY_RUN` |
 

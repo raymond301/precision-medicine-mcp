@@ -60,7 +60,7 @@ Curated list of key publications, datasets, and technical resources for precisio
 - **Link:** https://portal.gdc.cancer.gov/projects/TCGA-OV
 - **Data Types:** WXS, RNA-seq, SNP arrays, clinical data
 - **Sample Size:** 600+ High-Grade Serous Ovarian Carcinoma samples
-- **Relevance:** Reference cohort for mcp-tcga server, pathway curation
+- **Relevance:** Reference cohort for mcp-mocktcga server, pathway curation
 
 **TCGA Publications:**
 - Integrated genomic analyses of ovarian carcinoma (Nature, 2011)

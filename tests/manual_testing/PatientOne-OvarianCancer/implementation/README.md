@@ -110,7 +110,7 @@ data/patient-data/PAT001-OVC-2025/
 ### Workflow 1: EHR → TCGA Comparison
 ```
 1. Get patient data (mcp-epic)
-2. Compare to TCGA-OV cohort (mcp-tcga)
+2. Compare to TCGA-OV cohort (mcp-mocktcga)
 3. Identify similar cases and outcomes
 ```
 

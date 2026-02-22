@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mcp-tcga"
+name = "mcp-mocktcga"
 version = "0.1.0"
-description = "MCP server for TCGA cancer genomics data integration"
+description = "MCP mock server for synthetic TCGA cancer genomics data"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [

@@ -10,25 +10,25 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create directory structure
-RUN mkdir -p /app/servers/mcp-tcga /app/shared/utils
+RUN mkdir -p /app/servers/mcp-mocktcga /app/shared/utils
 
 # Copy temporarily staged shared utilities
 COPY _shared_temp/utils/ /app/shared/utils/
 
 # Copy server code
-COPY . /app/servers/mcp-tcga/
+COPY . /app/servers/mcp-mocktcga/
 
 # Install Python dependencies
-WORKDIR /app/servers/mcp-tcga
+WORKDIR /app/servers/mcp-mocktcga
 RUN pip install --no-cache-dir -e .
 
 # Set environment variables for SSE transport
 ENV MCP_TRANSPORT=sse
 ENV MCP_PORT=3003
 ENV PYTHONPATH=/app/shared/utils:${PYTHONPATH}
-ENV TCGA_DRY_RUN=false
-ENV TCGA_DATA_DIR=/app/data/tcga
-ENV TCGA_CACHE_DIR=/app/data/cache/tcga
+ENV MOCKTCGA_DRY_RUN=false
+ENV MOCKTCGA_DATA_DIR=/app/data/tcga
+ENV MOCKTCGA_CACHE_DIR=/app/data/cache/tcga
 
 # Create data directories
 RUN mkdir -p /app/data/tcga /app/data/cache/tcga
@@ -37,4 +37,4 @@ RUN mkdir -p /app/data/tcga /app/data/cache/tcga
 EXPOSE 3003
 
 # Run the server
-CMD ["python", "-m", "mcp_tcga"]
+CMD ["python", "-m", "mcp_mocktcga"]

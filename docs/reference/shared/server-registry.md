@@ -28,7 +28,7 @@
 
 | Server | Tools | Purpose | Documentation |
 |--------|-------|---------|---------------|
-| **mcp-tcga** | 5 | TCGA cohort queries, survival analysis (synthetic) | [README](../../../servers/mcp-tcga/README.md) |
+| **mcp-mocktcga** | 5 | Mock TCGA cohort queries, survival analysis (synthetic) | [README](../../../servers/mcp-mocktcga/README.md) |
 | **mcp-mockepic** | 3 | Synthetic FHIR data for testing (by design) | [Source](../../../servers/mcp-mockepic/) |
 
 ---
@@ -45,7 +45,7 @@
 
 ### By Analysis Type
 - **Clinical Data**: mcp-epic (real EHR), mcp-mockepic (synthetic)
-- **Genomics**: mcp-fgbio (QC/variants), mcp-genomic-results (somatic/CNV/HRD), mcp-tcga (cohort comparison - mocked)
+- **Genomics**: mcp-fgbio (QC/variants), mcp-genomic-results (somatic/CNV/HRD), mcp-mocktcga (cohort comparison - mocked)
 - **Multi-omics**: mcp-multiomics (integration/meta-analysis)
 - **Spatial**: mcp-spatialtools (spatial transcriptomics)
 - **Imaging**: mcp-deepcell (cell segmentation + quantification), mcp-cell-classify (phenotype classification), mcp-openimagedata (histology + registration + features)
@@ -53,7 +53,7 @@
 - **Reports**: mcp-patient-report (patient-facing summaries)
 ### By Production Readiness
 - **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-epic, mcp-openimagedata, mcp-patient-report, mcp-genomic-results
-- **Not Ready**: mcp-tcga (synthetic data)
+- **Not Ready**: mcp-mocktcga (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
 
 ---

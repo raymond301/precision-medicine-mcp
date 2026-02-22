@@ -557,7 +557,7 @@ Correlation analysis with mcp-multiomics data
 ## Integration Points
 - Clinical data (mcp-epic) → Sample metadata
 - Multiomics (mcp-multiomics) → Transcriptomics correlation
-- TCGA (mcp-tcga) → Population metabolite profiles
+- TCGA (mcp-mocktcga) → Population metabolite profiles
 ```
 
 **5.3 Update Main Documentation**

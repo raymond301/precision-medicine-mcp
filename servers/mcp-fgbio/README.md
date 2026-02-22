@@ -360,5 +360,5 @@ See the main repository LICENSE file.
 
 Part of the Precision Medicine MCP suite (demonstrated in [PatientOne](../../docs/reference/testing/patient-one/README.md) workflow):
 
-- **mcp-tcga** - TCGA cancer genomics data
+- **mcp-mocktcga** - Mock TCGA cancer genomics data
 - **mcp-spatialtools** - Spatial transcriptomics processing

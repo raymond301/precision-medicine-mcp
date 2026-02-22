@@ -231,7 +231,7 @@ Standard checkpoint inhibitors (anti-PD-1/PD-L1 monotherapy) show limited effica
 | **Image analysis** | Built-in | mcp-openimagedata | Analyze IF/MxIF immune staining |
 | **Genomic analysis** | Built-in | mcp-fgbio | Check genomic alterations in immunotherapy targets |
 | **Clinical data** | Built-in | mcp-mockepic | Retrieve biomarkers (CA-125/MUC16), treatment history |
-| **TCGA comparison** | Built-in | mcp-tcga | Compare immune profiles to TCGA ovarian cohort |
+| **TCGA comparison** | Built-in | mcp-mocktcga | Compare immune profiles to TCGA ovarian cohort |
 | **Clinical trial search** | External MCP | ClinicalTrials.gov MCP | Search recruiting trials, check eligibility |
 | **Literature search** | External MCP | PubMed MCP | Find clinical evidence, review articles |
 | **Mutation analysis** | Future work | cBioPortal MCP | Cross-reference mutations across cancer cohorts |

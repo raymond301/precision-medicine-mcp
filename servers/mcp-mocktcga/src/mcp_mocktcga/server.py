@@ -1,4 +1,4 @@
-"""MCP TCGA server - The Cancer Genome Atlas data integration."""
+"""MCP Mock TCGA server - Synthetic Cancer Genome Atlas data for testing."""
 
 import json
 import logging
@@ -25,11 +25,11 @@ except ImportError:
         sys.path.insert(0, str(_shared_utils_path))
     from api_retry import retry_with_backoff, optional_api_call, CircuitBreaker
 
-mcp = FastMCP("tcga")
+mcp = FastMCP("mocktcga")
 
 def _is_dry_run() -> bool:
     """Check if DRY_RUN mode is enabled."""
-    return os.getenv("TCGA_DRY_RUN", "false").lower() == "true"
+    return os.getenv("MOCKTCGA_DRY_RUN", "false").lower() == "true"
 
 DRY_RUN = _is_dry_run()
 
@@ -49,7 +49,7 @@ This result was generated in DRY_RUN mode and does NOT represent real analysis.
 🔴 CRITICAL: Do NOT use this data for research decisions or publications.
 🔴 All values are SYNTHETIC/MOCKED and have no scientific validity.
 
-To enable real data processing, set: TCGA_DRY_RUN=false
+To enable real data processing, set: MOCKTCGA_DRY_RUN=false
 
 ═══════════════════════════════════════════════════════════════════════════
 
@@ -64,7 +64,7 @@ To enable real data processing, set: TCGA_DRY_RUN=false
     return result
 
 
-DRY_RUN = os.getenv("TCGA_DRY_RUN", "true").lower() == "true"
+DRY_RUN = os.getenv("MOCKTCGA_DRY_RUN", "true").lower() == "true"
 
 
 # ============================================================================
@@ -479,17 +479,17 @@ def get_brca_cohort_info() -> str:
 
 
 def main() -> None:
-    """Run the MCP TCGA server."""
-    logger.info("Starting mcp-tcga server...")
+    """Run the MCP Mock TCGA server."""
+    logger.info("Starting mcp-mocktcga server...")
 
     if DRY_RUN:
         logger.warning("=" * 80)
         logger.warning("⚠️  DRY_RUN MODE ENABLED - RETURNING SYNTHETIC DATA")
         logger.warning("⚠️  Results are MOCKED and do NOT represent real analysis")
-        logger.warning("⚠️  Set TCGA_DRY_RUN=false for production use")
+        logger.warning("⚠️  Set MOCKTCGA_DRY_RUN=false for production use")
         logger.warning("=" * 80)
     else:
-        logger.info("✅ Real data processing mode enabled (TCGA_DRY_RUN=false)")
+        logger.info("✅ Real data processing mode enabled (MOCKTCGA_DRY_RUN=false)")
 
     # Get transport and port from environment
     transport = os.getenv("MCP_TRANSPORT", "stdio")

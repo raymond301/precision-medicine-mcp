@@ -64,7 +64,7 @@ graph LR
 | Modality | Servers | Tools | Status | Documentation |
 |----------|---------|-------|--------|---------------|
 | 🧬 **Clinical Data** | mcp-epic, mcp-mockepic | 7 (4+3) | ✅ Production/Mock | [clinical/ehr-integration.md](clinical/ehr-integration.md) |
-| 🧪 **Genomic Cohorts** | mcp-tcga | 5 | ❌ Mocked (GDC-ready) | [dna/genomic-cohorts.md](dna/genomic-cohorts.md) |
+| 🧪 **Genomic Cohorts** | mcp-mocktcga | 5 | ❌ Mocked (GDC-ready) | [dna/genomic-cohorts.md](dna/genomic-cohorts.md) |
 | 🧬 **Genomic Results** | mcp-genomic-results | 4 | ✅ Production (100%) | [dna/genomic-results.md](dna/genomic-results.md) |
 | 🖼️ **Imaging** | mcp-openimagedata, mcp-deepcell, mcp-cell-classify | 11 (5+3+3) | ✅ Production (100%) | [imaging/README.md](imaging/README.md) |
 | 🔬 **Multiomics** | mcp-multiomics | 10 | ✅ Production (95%) | [rna/multiomics.md](rna/multiomics.md) |
@@ -98,7 +98,7 @@ graph LR
 
 **TCGA cohort comparison for population-level genomic context**
 
-**Server:** mcp-tcga (33 cancer types, 11,000+ samples)
+**Server:** mcp-mocktcga (33 cancer types, 11,000+ samples)
 
 **Key Features:**
 - Gene expression comparison (z-scores, percentiles, p-values)
@@ -262,7 +262,7 @@ Workflow orchestration is now provided by the **external Seqera MCP server** (`@
 **Data Modalities:** Clinical (FHIR) • Genomic (VCF) • Multiomics (RNA/Protein/Phospho) • Spatial (Visium) • Imaging (H&E, MxIF) • Perturbation (scRNA-seq)
 
 **Tests:**
-- 🧬 TEST_1: Clinical data + genomic analysis (mcp-epic, mcp-genomic-results, mcp-fgbio, mcp-tcga)
+- 🧬 TEST_1: Clinical data + genomic analysis (mcp-epic, mcp-genomic-results, mcp-fgbio, mcp-mocktcga)
 - 🔬 TEST_2: Multiomics integration (mcp-multiomics)
 - 📍 TEST_3: Spatial transcriptomics (mcp-spatialtools)
 - 🖼️ TEST_4: Imaging analysis (mcp-openimagedata, mcp-deepcell)

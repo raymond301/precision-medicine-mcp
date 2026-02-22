@@ -346,7 +346,7 @@ Claude synthesizes: Immune contexture and treatment implications
 
 | API | Server | Status | Purpose |
 |-----|--------|--------|---------|
-| **GDC API** | mcp-tcga | ❌ Mocked | TCGA cohort data retrieval |
+| **GDC API** | mcp-mocktcga | ❌ Mocked | TCGA cohort data retrieval |
 | **DeepCell API** | mcp-deepcell | ✅ Real | Cell segmentation + quantification |
 
 **Production Roadmap:** Replace mocks with real API integrations (6-12 months)

@@ -117,7 +117,7 @@ print(response.content[0].text)
 
 ---
 
-## 4. mcp-tcga - Cancer Genomics Data
+## 4. mcp-mocktcga - Cancer Genomics Data
 
 **Test:** Access TCGA data
 
@@ -131,8 +131,8 @@ response = client.beta.messages.create(
     }],
     mcp_servers=[{
         "type": "url",
-        "url": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
-        "name": "tcga",
+        "url": "https://mcp-mocktcga-ondu7mwjpa-uc.a.run.app/sse",
+        "name": "mocktcga",
     }],
     tools=[{"type": "mcp_toolset", "mcp_server_name": "tcga"}],
     betas=["mcp-client-2025-11-20"]
@@ -248,7 +248,7 @@ SERVERS = {
     "fgbio": "https://mcp-fgbio-ondu7mwjpa-uc.a.run.app/sse",
     "multiomics": "https://mcp-multiomics-ondu7mwjpa-uc.a.run.app/sse",
     "spatialtools": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
-    "tcga": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
+    "mocktcga": "https://mcp-mocktcga-ondu7mwjpa-uc.a.run.app/sse",
     "openimagedata": "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app/sse",
     "deepcell": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
     "mockepic": "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app/sse",

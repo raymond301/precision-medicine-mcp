@@ -78,7 +78,7 @@ SERVERS=(
     "mcp-fgbio:3000:2Gi:2:FGBIO_LOG_LEVEL=INFO:FGBIO_DRY_RUN=false"
     "mcp-multiomics:3001:4Gi:2:MULTIOMICS_LOG_LEVEL=INFO:MULTIOMICS_DRY_RUN=false"
     "mcp-spatialtools:3002:4Gi:2:SPATIAL_LOG_LEVEL=INFO:SPATIAL_DRY_RUN=false"
-    "mcp-tcga:3003:2Gi:2:TCGA_LOG_LEVEL=INFO:TCGA_DRY_RUN=true"
+    "mcp-mocktcga:3003:2Gi:2:MOCKTCGA_LOG_LEVEL=INFO:MOCKTCGA_DRY_RUN=true"
     "mcp-openimagedata:3004:2Gi:2:IMAGE_LOG_LEVEL=INFO:IMAGE_DRY_RUN=false"
     "mcp-deepcell:3007:2Gi:1:DEEPCELL_LOG_LEVEL=INFO:DEEPCELL_DRY_RUN=true"
     "mcp-mockepic:3008:2Gi:1:EPIC_LOG_LEVEL=INFO:DEIDENTIFY_ENABLED=true"
@@ -108,7 +108,7 @@ get_service_account() {
         mcp-fgbio) echo "mcp-fgbio-sa" ;;
         mcp-multiomics) echo "mcp-multiomics-sa" ;;
         mcp-spatialtools) echo "mcp-spatialtools-sa" ;;
-        mcp-tcga) echo "mcp-tcga-sa" ;;
+        mcp-mocktcga) echo "mcp-mocktcga-sa" ;;
         mcp-openimagedata) echo "mcp-openimagedata-sa" ;;
         mcp-deepcell) echo "mcp-deepcell-sa" ;;
         mcp-epic) echo "mcp-epic-sa" ;;
@@ -199,7 +199,7 @@ check_prerequisites() {
         # Check service accounts exist
         print_info "Verifying service accounts..."
         local missing_sa=0
-        local sa_list="mcp-fgbio-sa mcp-multiomics-sa mcp-spatialtools-sa mcp-tcga-sa mcp-openimagedata-sa mcp-deepcell-sa mcp-epic-sa mcp-mockepic-sa mcp-perturbation-sa"
+        local sa_list="mcp-fgbio-sa mcp-multiomics-sa mcp-spatialtools-sa mcp-mocktcga-sa mcp-openimagedata-sa mcp-deepcell-sa mcp-epic-sa mcp-mockepic-sa mcp-perturbation-sa"
         for sa_name in $sa_list; do
             if ! gcloud iam service-accounts describe "${sa_name}@${PROJECT_ID}.iam.gserviceaccount.com" \
                     --project="${PROJECT_ID}" &> /dev/null; then

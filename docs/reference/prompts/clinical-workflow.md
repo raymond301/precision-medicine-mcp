@@ -33,7 +33,7 @@ Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-O
    - Response to initial platinum therapy
    - Current levels (evidence of resistance?)
 
-**PART 2: Genomic Analysis (use mcp-fgbio, mcp-tcga)**
+**PART 2: Genomic Analysis (use mcp-fgbio, mcp-mocktcga)**
 3. Parse somatic variants from VCF:
    - TP53 mutations (expect R175H hotspot)
    - PIK3CA mutations (expect E545K)

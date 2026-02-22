@@ -765,7 +765,7 @@ def render_optimization_view(aggregator, server_summary, cost_breakdown, live_lo
         },
         {
             "strategy": "Use Haiku for Simple Lookups",
-            "target": "mcp-fgbio, mcp-tcga",
+            "target": "mcp-fgbio, mcp-mocktcga",
             "potential_saving": "90%+",
             "complexity": "Low"
         },

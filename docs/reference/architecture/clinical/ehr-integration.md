@@ -45,7 +45,7 @@ graph TB
     subgraph "Integration"
         SPATIAL[Spatial Transcriptomics<br/>mcp-spatialtools]
         MULTI[Multi-omics<br/>mcp-multiomics]
-        TCGA[Genomic Cohorts<br/>mcp-tcga]
+        TCGA[Genomic Cohorts<br/>mcp-mocktcga]
     end
 
     EPIC --> REALEPIC
@@ -174,7 +174,7 @@ graph TB
 
 ```
 1. Get patient cancer diagnosis from mcp-epic
-2. Query matching TCGA cohort via mcp-tcga
+2. Query matching TCGA cohort via mcp-mocktcga
 3. Compare patient biomarkers to population statistics
 4. Stratify survival based on expression profiles
 ```
@@ -269,13 +269,13 @@ export DEIDENTIFY_ENABLED="true"
 
 ---
 
-### With Genomic Cohorts (mcp-tcga)
+### With Genomic Cohorts (mcp-mocktcga)
 
 **Integration Point:** Diagnosis → Cohort selection
 
 **Workflow:**
 1. Get patient diagnosis (e.g., "Ovarian Serous Cystadenocarcinoma")
-2. Query TCGA-OV cohort via mcp-tcga
+2. Query TCGA-OV cohort via mcp-mocktcga
 3. Compare patient mutation profile to cohort frequencies
 4. Stratify survival based on mutation burden
 

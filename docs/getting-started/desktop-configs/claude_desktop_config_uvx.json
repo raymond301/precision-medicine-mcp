@@ -71,17 +71,17 @@
         "EPIC_DRY_RUN": "true"
       }
     },
-    "tcga": {
+    "mocktcga": {
       "command": "uvx",
       "args": [
         "--from",
-        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-tcga",
+        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-mocktcga",
         "python",
         "-m",
-        "mcp_tcga"
+        "mcp_mocktcga"
       ],
       "env": {
-        "TCGA_DRY_RUN": "true"
+        "MOCKTCGA_DRY_RUN": "true"
       }
     },
     "multiomics": {

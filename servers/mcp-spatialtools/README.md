@@ -946,7 +946,7 @@ Part of the Precision Medicine MCP suite (demonstrated in [PatientOne](../../doc
 
 - **mcp-epic** - Clinical EHR data (FHIR)
 - **mcp-fgbio** - Genomic reference data and FASTQ validation
-- **mcp-tcga** - TCGA cancer genomics data
+- **mcp-mocktcga** - Mock TCGA cancer genomics data
 - **mcp-multiomics** - Multi-omics integration (RNA/protein/phospho)
 - **mcp-deepcell** - Cell segmentation for imaging
 

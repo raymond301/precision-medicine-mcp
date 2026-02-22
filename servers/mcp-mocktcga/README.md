@@ -1,6 +1,8 @@
-# mcp-tcga: TCGA Cancer Genomics Data Integration
+# mcp-mocktcga: Mock TCGA Cancer Genomics Data
 
-MCP server providing access to The Cancer Genome Atlas (TCGA) datasets for cancer genomics analysis and spatial transcriptomics comparison.
+Mock MCP server providing **synthetic** TCGA (The Cancer Genome Atlas) data for workflow testing and demos. This server returns realistic but fake data — it does **not** connect to the real GDC API.
+
+> **Looking for real TCGA data?** A real `mcp-tcga` server wired to the GDC Data Portal API is planned. In the meantime, the external [cBioPortal MCP server](../../docs/for-researchers/CONNECT_EXTERNAL_MCP.md) can query real TCGA data.
 
 ## Overview
 
@@ -164,11 +166,11 @@ Returns: 1097 tumor samples, molecular subtypes, key mutations
 
 > **Standard setup:** See [Server Installation Guide](../../docs/reference/shared/server-installation.md) for venv creation, pip install, and Claude Desktop config. For a complete working config with all servers, see [`docs/getting-started/desktop-configs/`](../../docs/getting-started/desktop-configs/).
 
-**Server-specific environment variables:** `TCGA_DRY_RUN`
+**Server-specific environment variables:** `MOCKTCGA_DRY_RUN`
 
 ## DRY_RUN Mode
 
-Set `TCGA_DRY_RUN=true` to use realistic mock data without requiring:
+Set `MOCKTCGA_DRY_RUN=true` to use realistic mock data without requiring:
 - GDC Data Portal API access
 - Large data downloads
 - Authentication tokens

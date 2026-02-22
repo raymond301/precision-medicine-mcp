@@ -21,7 +21,7 @@ For patient PAT001-OVC-2025 with Stage IV platinum-resistant ovarian cancer:
    - Retrieve patient demographics, BRCA1 status, CA-125 trends
    - Show platinum resistance evidence (CA-125: 1456 → 22 → 389 U/mL)
 
-2. **Molecular Profiling** (using mcp-tcga, mcp-fgbio):
+2. **Molecular Profiling** (using mcp-mocktcga, mcp-fgbio):
    - Identify key somatic mutations (TP53 R175H, PIK3CA E545K, PTEN LOH)
    - Compare to TCGA cohort to determine molecular subtype
 

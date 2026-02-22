@@ -520,7 +520,7 @@ GEARS has been validated for:
 - **mcp-spatialtools**: Spatial transcriptomics analysis
 - **mcp-multiomics**: Multi-omics integration
 - **mcp-epic**: Clinical data from FHIR
-- **mcp-tcga**: TCGA cohort data
+- **mcp-mocktcga**: Mock TCGA cohort data
 
 ---
 

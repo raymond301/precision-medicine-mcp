@@ -530,7 +530,7 @@ pytest tests/test_integration.py -v
 **Works with:**
 - `mcp-fgbio`: Reference genome data for gene annotations
 - `mcp-spatialtools`: Spatial transcriptomics analysis and clustering
-- `mcp-tcga`: Compare PDX results to TCGA cohorts
+- `mcp-mocktcga`: Compare PDX results to TCGA cohorts
 
 ## Preprocessing Requirements (IMPORTANT)
 

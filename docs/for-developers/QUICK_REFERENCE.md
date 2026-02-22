@@ -14,7 +14,7 @@ spatial-mcp/
 │   ├── mcp-spatialtools/        # Spatial transcriptomics
 │   ├── mcp-epic/                # Real Epic FHIR (local-only)
 │   ├── mcp-mockepic/            # Synthetic FHIR (demo)
-│   ├── mcp-tcga/                # Cancer cohorts (mocked)
+│   ├── mcp-mocktcga/             # Cancer cohorts (mocked)
 │   ├── mcp-perturbation/        # Perturbation prediction (production)
 │   ├── mcp-quantum-celltype-fidelity/ # Quantum cell type fidelity (production)
 │   ├── mcp-openimagedata/       # Imaging (production)

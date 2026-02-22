@@ -76,18 +76,18 @@
         "EPIC_DRY_RUN": "true"
       }
     },
-    "tcga": {
+    "mocktcga": {
       "command": "uv",
       "args": [
         "run",
         "--directory",
-        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-tcga",
+        "/ABSOLUTE/PATH/TO/spatial-mcp/servers/mcp-mocktcga",
         "python",
         "-m",
-        "mcp_tcga"
+        "mcp_mocktcga"
       ],
       "env": {
-        "TCGA_DRY_RUN": "true"
+        "MOCKTCGA_DRY_RUN": "true"
       }
     },
     "multiomics": {

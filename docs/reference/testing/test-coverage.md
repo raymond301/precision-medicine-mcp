@@ -26,7 +26,7 @@
 | 🖼️ **mcp-deepcell** | 62% | 9 | ✅ Smoke |
 | 🏥 **mcp-epic** | 58% | 12 | ✅ Complete |
 | 🖼️ **mcp-openimagedata** | 55% | 30 | ✅ Full |
-| 🧪 **mcp-tcga** | 35% | 5 | ✅ Smoke |
+| 🧪 **mcp-mocktcga** | 35% | 5 | ✅ Smoke |
 | 📍 **mcp-spatialtools** | 23% | 5 | ✅ Smoke |
 | 🔬 **mcp-cell-classify** | — | — | ✅ Smoke |
 | 🧬 **mcp-genomic-results** | — | 20 | ✅ Smoke |
@@ -70,7 +70,7 @@ DEEPCELL_DRY_RUN="true" servers/mcp-deepcell/venv/bin/python -m pytest tests/uni
 
 **Mocked servers:**
 ```bash
-TCGA_DRY_RUN="true" servers/mcp-tcga/venv/bin/python -m pytest tests/unit/mcp-tcga/ -v
+MOCKTCGA_DRY_RUN="true" servers/mcp-mocktcga/venv/bin/python -m pytest tests/unit/mcp-mocktcga/ -v
 ```
 
 ### With Coverage Report
@@ -184,7 +184,7 @@ Complete end-to-end precision medicine workflow for Stage IV ovarian cancer:
 ## 🎯 Next Steps to 60% Coverage
 
 1. **mcp-spatialtools:** Add functional tests for spatial algorithms (+5.4 point impact)
-2. **mcp-tcga:** Add TCGA API integration tests (+1.6 point impact)
+2. **mcp-mocktcga:** Add TCGA API integration tests (+1.6 point impact)
 
 **Estimated effort:** ~20-25 functional tests across 2 servers
 

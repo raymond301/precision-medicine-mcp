@@ -10,7 +10,7 @@
 
 ### Test 1: Clinical Data & Genomic Analysis (5-10 minutes)
 **File:** `TEST_1_CLINICAL_GENOMIC.txt`
-**Servers Used:** mcp-mockepic, mcp-fgbio, mcp-tcga
+**Servers Used:** mcp-mockepic, mcp-fgbio, mcp-mocktcga
 **Data Files:** 3 small files (2 JSON, 1 VCF)
 **Context Usage:** ⭐ Low
 

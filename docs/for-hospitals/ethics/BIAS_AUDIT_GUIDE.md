@@ -774,7 +774,7 @@ This checklist guides you through three phases of bias auditing:
 - mcp-spatialtools (spatial analysis)
 - mcp-multiomics (multi-omics integration)
 - mcp-openimagedata (H&E and MxIF histology)
-- mcp-tcga (cohort comparison)
+- mcp-mocktcga (cohort comparison)
 
 **Total Tool Calls:** 27 across 6 servers
 

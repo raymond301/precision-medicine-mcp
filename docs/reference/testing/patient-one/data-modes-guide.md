@@ -79,7 +79,7 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 | **mcp-fgbio** | Returns mock BAM/VCF validation | Validates real genomic files |
 | **mcp-multiomics** | Returns synthetic resistance signatures | Processes real RNA/Protein/Phospho data |
 | **mcp-spatialtools** | Returns mock spatial patterns | Analyzes real Visium/Xenium data |
-| **mcp-tcga** | Returns mock cohort comparisons | Queries real TCGA database |
+| **mcp-mocktcga** | Returns mock cohort comparisons | Queries real TCGA database |
 | **mcp-deepcell** | Returns mock segmentation | Runs DeepCell segmentation models |
 | **mcp-mockepic** | Returns mock EHR data | Queries mock EHR (always synthetic) |
 | **mcp-openimagedata** | Returns mock image metadata | Processes real histology images |
@@ -279,12 +279,12 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
         "SPATIAL_CACHE_DIR": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/data/cache"
       }
     },
-    "mcp-tcga": {
-      "command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-tcga/venv/bin/python",
-      "args": ["-m", "mcp_tcga"],
+    "mcp-mocktcga": {
+      "command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-mocktcga/venv/bin/python",
+      "args": ["-m", "mcp_mocktcga"],
       "env": {
-        "TCGA_DRY_RUN": "false"
-        // TCGA may require API configuration
+        "MOCKTCGA_DRY_RUN": "false"
+        // MOCKTCGA may require API configuration
       }
     },
     "mcp-deepcell": {

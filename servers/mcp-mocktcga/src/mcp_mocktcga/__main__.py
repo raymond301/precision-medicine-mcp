@@ -1,4 +1,4 @@
-"""Entry point for running mcp-tcga as a module."""
+"""Entry point for running mcp-mocktcga as a module."""
 
 from .server import main
 

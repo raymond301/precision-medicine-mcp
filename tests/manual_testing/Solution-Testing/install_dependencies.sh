@@ -18,7 +18,7 @@ SERVERS=(
     "mcp-openimagedata"
     "mcp-deepcell"
     "mcp-mockepic"
-    "mcp-tcga"
+    "mcp-mocktcga"
 )
 
 for server in "${SERVERS[@]}"; do

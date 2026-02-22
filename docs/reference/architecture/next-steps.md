@@ -20,7 +20,7 @@
 | 10 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
 | 11 | mcp-quantum-celltype-fidelity | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
 | 12 | mcp-spatialtools | 95% real | Harmony/Scanorama batch correction | Low |
-| 13 | mcp-tcga | Mocked | Wire up real GDC API | High |
+| 13 | mcp-mocktcga | Mocked | Wire up real GDC API (→ mcp-tcga) | High |
 
 ---
 
@@ -141,7 +141,7 @@
 | Gene ID conversion (ENSEMBL/Entrez to Symbol) | Feature | Small |
 | Performance optimization for 10K+ spots | Performance | Medium |
 
-### 13. mcp-tcga (Mocked)
+### 13. mcp-mocktcga (Mocked)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -152,7 +152,7 @@
 | Add mutation co-occurrence analysis | Feature | Medium |
 | Add CPTAC proteomics integration | Feature | Large |
 
-> **Note:** The external [cBioPortal MCP server](../../for-researchers/CONNECT_EXTERNAL_MCP.md) (12 tools) can query TCGA and cancer genomics data now, complementing this mocked server.
+> **Note:** The external [cBioPortal MCP server](../../for-researchers/CONNECT_EXTERNAL_MCP.md) (12 tools) can query TCGA and cancer genomics data now, complementing this mocked server. A real `mcp-tcga` server wired to the GDC API is planned to replace this mock.
 
 ---
 
@@ -163,7 +163,7 @@ Several community MCP servers now complement or replace internal servers. See [C
 | External Server | Tools | Complements |
 |----------------|-------|-------------|
 | Hugging Face MCP | 7 | Replaced mcp-huggingface (removed) |
-| cBioPortal MCP | 12 | mcp-tcga (TCGA data, cancer genomics) |
+| cBioPortal MCP | 12 | mcp-mocktcga (TCGA data, cancer genomics) |
 | ClinicalTrials.gov MCP | 6 | New capability (trial search/matching) |
 | bioRxiv/PubMed MCP | 3 | New capability (literature search) |
 | Seqera MCP | 7 | Replaced mcp-seqera (removed) |
@@ -174,7 +174,7 @@ Several community MCP servers now complement or replace internal servers. See [C
 
 | Enhancement | Servers Affected | Effort |
 |-------------|-----------------|--------|
-| Retry/backoff + circuit breaker for all external APIs | epic, fgbio, tcga | Medium |
+| Retry/backoff + circuit breaker for all external APIs | epic, fgbio, mocktcga | Medium |
 | FHIR R4 compliance for clinical data exchange | epic, mockepic, patient-report, genomic-results | Large |
 | GPU acceleration | quantum, perturbation, deepcell | Large |
 | Authentication on Cloud Run endpoints | perturbation, quantum | Small |

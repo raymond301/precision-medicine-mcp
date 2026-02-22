@@ -38,10 +38,10 @@ SERVERS = [
         "env": {"SPATIAL_DRY_RUN": "true"}
     },
     {
-        "name": "mcp-tcga",
-        "path": "servers/mcp-tcga",
-        "module": "mcp_tcga",
-        "env": {"TCGA_DRY_RUN": "true"}
+        "name": "mcp-mocktcga",
+        "path": "servers/mcp-mocktcga",
+        "module": "mcp_mocktcga",
+        "env": {"MOCKTCGA_DRY_RUN": "true"}
     },
     {
         "name": "mcp-openimagedata",

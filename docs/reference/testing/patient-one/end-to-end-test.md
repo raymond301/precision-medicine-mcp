@@ -80,7 +80,7 @@ cat TEST_5_INTEGRATION.txt
 ## What Gets Tested?
 
 ### TEST 1: Clinical & Genomic ✅
-**Servers:** mcp-mockepic, mcp-fgbio, mcp-tcga
+**Servers:** mcp-mockepic, mcp-fgbio, mcp-mocktcga
 - Patient demographics (Sarah Anderson, 58yo, BRCA1 mutation)
 - CA-125 tumor marker trends (1456→22→389→289 U/mL)
 - Somatic mutations (TP53 R175H, PIK3CA E545K, PTEN LOH)

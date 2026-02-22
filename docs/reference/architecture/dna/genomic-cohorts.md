@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-Genomic cohort analysis enables comparison of individual patient data against large cancer genomics datasets from The Cancer Genome Atlas (TCGA). The **mcp-tcga** server provides access to 33 cancer types with 11,000+ samples for expression comparison, mutation frequency analysis, and survival correlation.
+Genomic cohort analysis enables comparison of individual patient data against large cancer genomics datasets from The Cancer Genome Atlas (TCGA). The **mcp-mocktcga** server provides access to 33 cancer types with 11,000+ samples for expression comparison, mutation frequency analysis, and survival correlation.
 
 **Key Capabilities:**
 - Cohort discovery across 33 TCGA cancer types
@@ -29,7 +29,7 @@ graph TB
         SURV[Survival Data<br/>Clinical Outcomes]
     end
 
-    subgraph "mcp-tcga Server"
+    subgraph "mcp-mocktcga Server"
         QUERY[query_tcga_cohorts<br/>Cohort metadata]
         FETCH[fetch_expression_data<br/>Expression matrix]
         COMPARE[compare_to_cohort<br/>Statistical testing]
@@ -83,7 +83,7 @@ graph TB
 
 ## Server Architecture
 
-### mcp-tcga (TCGA Cohort Access)
+### mcp-mocktcga (TCGA Cohort Access)
 
 **Status:** ❌ Mocked (GDC API integration ready)
 **Deployment:** GCP Cloud Run (SSE transport)
@@ -103,7 +103,7 @@ graph TB
 
 **DRY_RUN Mode:** Default true - returns realistic mock data without GDC downloads
 
-**For detailed specifications:** [mcp-tcga README](../../../../servers/mcp-tcga/README.md)
+**For detailed specifications:** [mcp-mocktcga README](../../../../servers/mcp-mocktcga/README.md)
 
 ---
 
@@ -357,7 +357,7 @@ PIK3CA H1047R: 8% cohort frequency (actionable mutation)
 ## 📖 Detailed Documentation
 
 ### Server Documentation
-- **mcp-tcga:** [/servers/mcp-tcga/README.md](../../../../servers/mcp-tcga/README.md)
+- **mcp-mocktcga:** [/servers/mcp-mocktcga/README.md](../../../../servers/mcp-mocktcga/README.md)
   - Tool specifications with parameters
   - GDC API integration details
   - DRY_RUN mode configuration

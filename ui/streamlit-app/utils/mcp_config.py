@@ -45,10 +45,10 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "status": "production",
         "tools_count": 14
     },
-    "tcga": {
-        "name": "tcga",
-        "url": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "TCGA cancer genomics data",
+    "mocktcga": {
+        "name": "mocktcga",
+        "url": "https://mcp-mocktcga-ondu7mwjpa-uc.a.run.app/sse",
+        "description": "Mock TCGA cancer genomics data",
         "status": "mock",
         "tools_count": 5
     },
@@ -159,7 +159,7 @@ def get_server_categories() -> Dict[str, List[str]]:
             "patient-report"
         ],
         "Mock Servers (Workflow Demo)": [
-            "tcga",
+            "mocktcga",
             "mockepic"
         ]
     }

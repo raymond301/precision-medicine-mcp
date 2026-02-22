@@ -81,7 +81,7 @@ Each server requires specific environment variables:
 | **spatialtools** | `SPATIAL_DATA_DIR`<br>`SPATIAL_DRY_RUN` | Data directory<br>Mock execution mode |
 | **openimagedata** | `IMAGE_DATA_DIR`<br>`IMAGE_DRY_RUN` | Image storage<br>Mock execution mode |
 | **mockepic** | `EPIC_DRY_RUN` | Mock execution mode |
-| **tcga** | `TCGA_DRY_RUN` | Mock execution mode |
+| **mocktcga** | `MOCKTCGA_DRY_RUN` | Mock execution mode |
 | **multiomics** | `MULTIOMICS_DATA_DIR`<br>`MULTIOMICS_CACHE_DIR`<br>`MULTIOMICS_DRY_RUN` | Multi-omics data directory<br>Cache location<br>Mock execution mode |
 | **perturbation** | `PERTURBATION_DATA_DIR`<br>`PERTURBATION_MODEL_DIR`<br>`PERTURBATION_DRY_RUN` | Perturbation data<br>Model storage<br>Mock execution mode |
 | **quantum-celltype-fidelity** | `QUANTUM_BACKEND`<br>`QUANTUM_DATA_DIR`<br>`QUANTUM_CACHE_DIR` | CPU/GPU backend<br>Data directory<br>Cache location |

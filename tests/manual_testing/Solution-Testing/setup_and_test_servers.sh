@@ -17,7 +17,7 @@ SERVERS=(
     "mcp-openimagedata"
     "mcp-deepcell"
     "mcp-mockepic"
-    "mcp-tcga"
+    "mcp-mocktcga"
 )
 
 # Check if we should install dependencies

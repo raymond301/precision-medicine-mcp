@@ -355,8 +355,8 @@ SERVER_INFO = {
         'description': 'FASTQ/VCF QC, variant analysis'
     },
 
-    'mcp-tcga': {
-        'display_name': 'Cancer Genomics (TCGA)',
+    'mcp-mocktcga': {
+        'display_name': 'Cancer Genomics (Mock TCGA)',
         'icon': '📊',
         'color': '#f8d7da',
         'description': 'TCGA cohort comparisons'

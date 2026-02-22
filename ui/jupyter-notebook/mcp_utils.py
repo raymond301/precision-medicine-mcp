@@ -61,9 +61,9 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
         "status": "production",
         "tools_count": 14,
     },
-    "tcga": {
-        "url": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "TCGA cancer genomics data",
+    "mocktcga": {
+        "url": "https://mcp-mocktcga-ondu7mwjpa-uc.a.run.app/sse",
+        "description": "Mock TCGA cancer genomics data",
         "group": "genomics",
         "status": "mock",
         "tools_count": 5,
@@ -110,7 +110,7 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
 # Convenience groupings
 SERVER_GROUPS = {
     "imaging":     ["deepcell", "cell-classify", "openimagedata"],
-    "genomics":    ["fgbio", "multiomics", "spatialtools", "tcga", "perturbation", "genomic-results"],
+    "genomics":    ["fgbio", "multiomics", "spatialtools", "mocktcga", "perturbation", "genomic-results"],
     "clinical":    ["mockepic", "patient-report"],
     "workflow-ml": ["quantum-celltype-fidelity"],
 }

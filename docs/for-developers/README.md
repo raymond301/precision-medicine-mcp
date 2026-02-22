@@ -91,7 +91,7 @@ graph TB
         subgraph "Clinical & Genomic"
             MOCKEPIC[mcp-mockepic<br/>Mock FHIR<br/>🎭 Demo Only]
             FGBIO[mcp-fgbio<br/>FASTQ/VCF<br/>✅ Production]
-            TCGA[mcp-tcga<br/>Cancer Data<br/>🔧 Framework]
+            TCGA[mcp-mocktcga<br/>Cancer Data<br/>🔧 Framework]
         end
 
         subgraph "Multi-Omics"

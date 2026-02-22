@@ -170,8 +170,8 @@ tool_calls:
     latency_ms: 3200
     status: "success"
 
-  # Phase 6: TCGA Cohort Comparison (mcp-tcga)
-  - server: "mcp-tcga"
+  # Phase 6: TCGA Cohort Comparison (mcp-mocktcga)
+  - server: "mcp-mocktcga"
     tool: "compare_gene_expression"
     timestamp: "2025-12-29T11:33:15Z"
     input_tokens: 6800
@@ -179,7 +179,7 @@ tool_calls:
     latency_ms: 4200
     status: "success"
 
-  - server: "mcp-tcga"
+  - server: "mcp-mocktcga"
     tool: "query_mutation_frequency"
     timestamp: "2025-12-29T11:33:25Z"
     input_tokens: 4500
@@ -250,7 +250,7 @@ server_metrics:
     avg_latency_ms: 4500
     status: "production"
 
-  mcp-tcga:
+  mcp-mocktcga:
     tool_calls: 2
     input_tokens: 11300
     output_tokens: 4700
@@ -321,6 +321,6 @@ insights_generated:
 optimization_notes:
   - "mcp-multiomics has highest token usage (62.2K total) - consider caching HAllA results"
   - "mcp-spatialtools generates 6 visualizations - consider batch generation to reduce overhead"
-  - "mcp-tcga, mcp-deepcell are mocked - cost will increase in production"
+  - "mcp-mocktcga, mcp-deepcell are mocked - cost will increase in production"
   - "Average latency is 3.6s per tool call - acceptable for research workflows"
   - "Consider using Haiku for simple queries (mcp-fgbio reference lookups could save 92%)"

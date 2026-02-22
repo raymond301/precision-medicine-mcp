@@ -97,7 +97,7 @@ Tasks:
 
 **Expected:** AKT1, PIK3CA, ABCB1, BCL2L1 highly significant; PI3K/AKT pathway activated
 
-### Test 3: TCGA Comparison (mcp-tcga)
+### Test 3: TCGA Comparison (mcp-mocktcga)
 ```
 Compare patient PAT001-OVC-2025 to TCGA-OV cohort:
 
@@ -153,7 +153,7 @@ Expected outcome:
 - ✅ Top genes: AKT1, PIK3CA, ABCB1, BCL2L1
 - ✅ Pathway: PI3K/AKT/mTOR activation
 
-### TCGA Comparison (mcp-tcga)
+### TCGA Comparison (mcp-mocktcga)
 - ✅ Subtype: C1 (immunoreactive) or C2 (differentiated)
 - ✅ Cohort: BRCA-mutant HGSOC
 - ✅ Survival: Poor with Stage IV + platinum resistance
@@ -233,7 +233,7 @@ All synthetic data files have been generated and are ready for end-to-end testin
 2. **Test Multi-Omics Analysis (mcp-multiomics):**
    Use Test 2 above to analyze platinum resistance signatures
 
-3. **Test TCGA Comparison (mcp-tcga):**
+3. **Test TCGA Comparison (mcp-mocktcga):**
    Use Test 3 above to compare patient to TCGA-OV cohort
 
 4. **Test Complete Workflow:**

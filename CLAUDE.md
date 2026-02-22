@@ -21,7 +21,7 @@ precision-medicine-mcp/
 │   ├── mcp-openimagedata/     # Histology image processing (5 tools)
 │   ├── mcp-deepcell/          # Cell segmentation (3 tools)
 │   ├── mcp-cell-classify/     # Cell phenotype classification (3 tools)
-│   ├── mcp-tcga/              # TCGA cohort comparison (5 tools, mocked)
+│   ├── mcp-mocktcga/           # Mock TCGA cohort comparison (5 tools)
 │   ├── mcp-patient-report/    # PDF report generation (5 tools)
 │   ├── mcp-genomic-results/   # Somatic variant/CNV parsing (4 tools)
 │   └── mcp-server-boilerplate/# Template for new servers

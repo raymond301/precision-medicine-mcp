@@ -258,9 +258,9 @@ async def _download_file(url: str, output_path: Path):
 
 The following servers have retry utility imports and integration examples added, ready for when real API implementations are developed:
 
-#### **mcp-tcga** (Currently Mocked)
+#### **mcp-mocktcga** (Currently Mocked)
 
-**Location:** `servers/mcp-tcga/src/mcp_tcga/server.py`
+**Location:** `servers/mcp-mocktcga/src/mcp_mocktcga/server.py`
 
 **Example Integration (commented code):**
 ```python

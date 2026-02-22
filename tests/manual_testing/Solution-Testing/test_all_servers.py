@@ -16,7 +16,7 @@ servers = [
     "mcp-openimagedata",
     "mcp-deepcell",
     "mcp-mockepic",
-    "mcp-tcga"
+    "mcp-mocktcga"
 ]
 
 print("=" * 80)

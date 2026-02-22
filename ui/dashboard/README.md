@@ -243,7 +243,7 @@ print(f"Monthly: ${monthly['monthly_cost']:.2f}")
 
 **Good candidates**:
 - `mcp-fgbio.get_reference_genome_info` (reference lookups)
-- `mcp-tcga.query_mutation_frequency` (database queries)
+- `mcp-mocktcga.query_mutation_frequency` (database queries)
 - `mcp-epic.get_patient_demographics` (FHIR data retrieval)
 
 **Implementation**:

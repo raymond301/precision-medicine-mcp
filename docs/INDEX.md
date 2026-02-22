@@ -219,7 +219,7 @@ precision-medicine-mcp/
 │   ├── mcp-quantum-celltype-fidelity/ # Quantum fidelity
 │   ├── mcp-server-boilerplate/ # Template for new servers
 │   ├── mcp-spatialtools/   # Spatial transcriptomics
-│   └── mcp-tcga/           # TCGA cohort data
+│   └── mcp-mocktcga/       # Mock TCGA cohort data
 ├── shared/                 # Shared Python packages
 │   ├── common/             # Common utilities
 │   ├── models/             # Data models

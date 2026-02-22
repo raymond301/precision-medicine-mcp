@@ -25,7 +25,7 @@ Files to read:
 - patient_demographics.json (contains Sarah Anderson, age 58, BRCA1 germline mutation)
 - lab_results.json (contains CA-125 values: 1456→22→389→289 U/mL showing resistance)
 
-## PART 2: Genomic Analysis (use mcp-fgbio and mcp-tcga)
+## PART 2: Genomic Analysis (use mcp-fgbio and mcp-mocktcga)
 
 3. Parse somatic variants for patient PAT001-OVC-2025:
    Use fgbio to read the VCF file with these expected mutations:
@@ -37,7 +37,7 @@ Files to read:
    - MYC, CCNE1, AKT2 amplifications
    - RB1, CDKN2A deletions
 
-4. Compare to TCGA-OV cohort (use mcp-tcga):
+4. Compare to TCGA-OV cohort (use mcp-mocktcga):
    For a patient with:
    - BRCA1 germline mutation
    - TP53 R175H somatic mutation
