@@ -130,6 +130,15 @@ You should see all servers listed.
 
 **Done! Jump to [Usage Examples](#usage-examples) to start analyzing spatial transcriptomics data.**
 
+### Optional: External MCP Connectors
+
+The custom servers above handle core analysis. For real-world literature, trials, and genomics data, you can also connect external MCP servers:
+
+- **Anthropic connectors** (ClinicalTrials.gov, PubMed, bioRxiv, Seqera): Toggle on in Claude Desktop > Settings > Connectors — no install needed
+- **Community servers** (cBioPortal, Hugging Face): Self-hosted, requires `git clone` + `uv sync`
+
+See [Connect External MCP Servers](../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup instructions.
+
 ---
 
 ## Complete Setup

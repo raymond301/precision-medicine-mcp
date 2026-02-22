@@ -71,6 +71,7 @@
 | **Azure AD** | User authentication (SSO) | Requires Azure AD admin |
 | **Sequencing Systems** | Genomic data (VCF, FASTQ) | Existing bioinformatics infrastructure |
 | **PACS** | Imaging data (H&E, MxIF) | Optional integration |
+| **External MCP connectors** | Literature (PubMed, bioRxiv), trials (ClinicalTrials.gov), genomics (cBioPortal) | Cloud-hosted, no PHI exposure — [details](../for-researchers/CONNECT_EXTERNAL_MCP.md) |
 
 ### Personnel
 

@@ -55,7 +55,7 @@ graph LR
 
 ### Tier 2: Production Deployment ($75,000/year)
 **Deliverables:**
-- Full 15-server deployment on hospital infrastructure
+- Full 13-server deployment on hospital infrastructure
 - Epic FHIR integration (real clinical data)
 - 20 trained users (clinicians + bioinformaticians)
 - 500 patients/year capacity

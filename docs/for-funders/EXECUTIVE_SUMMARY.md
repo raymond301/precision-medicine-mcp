@@ -23,7 +23,7 @@ graph LR
     subgraph Servers["MCP Servers & Tools"]
         direction TB
         IMAGING["Imaging & Cell Analysis<br/>deepcell · cell-classify · openimagedata<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 H&E · MxIF"]
-        GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · tcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
+        GENOMICS["Genomics & Omics<br/>fgbio · multiomics · spatialtools · perturbation · mocktcga · genomic-results<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 VCF/FASTQ · RNA/Protein/Phospho · Visium · Somatic/CNV/HRD"]
         CLINICAL["Clinical<br/>epic · mockepic · patient-report<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 FHIR"]
         WORKFLOW["Workflow & ML<br/>quantum-celltype-fidelity<br/>━━━━━━━━━━━━━━━━━━━<br/>📁 Cross-modality"]
     end
@@ -45,7 +45,7 @@ graph LR
 **Key Points:**
 - **AI Orchestration**: Claude + Gemini 3 AI coordinates multiple MCP servers via natural language  
 - **Specialized Tools**: Bioinformatics tools across genomics, multi-omics, spatial, imaging, cell segmentation, perturbation prediction, quantum computing, genomic results, and patient reports with Bayesian uncertainty quantification
-- **Production Ready**: Most servers deployed to Cloud Run; 1 local-only (Epic FHIR), 1 mock by design, 3 mocked
+- **Production Ready**: Most servers deployed to Cloud Run; 1 local-only (Epic FHIR), 2 mock (mockepic by design, mocktcga synthetic)
 - **Cost Efficient**: Low per-analysis compute cost; significant per-patient cost reduction vs. traditional methods (see Financial Summary and [Cost Analysis](../reference/shared/cost-analysis.md))
 
 ---
@@ -81,13 +81,14 @@ Per-patient costs represent a significant reduction vs. traditional methods (com
 
 ## Technical Capabilities
 
-**MCP Servers and Tools** ([Server Registry](../reference/shared/server-registry.md)): most production-ready, 1 mock by design, 3 framework/utility.
+**MCP Servers and Tools** ([Server Registry](../reference/shared/server-registry.md)): 13 custom servers (74 tools) — 11 production-ready, 2 mock. Plus 6 external servers (46 tools) for literature, trials, and genomics data ([details](../for-researchers/CONNECT_EXTERNAL_MCP.md)).
 
 **Data Integration:**
 - Clinical: Epic FHIR with de-identification
 - Genomic: WES/WGS, somatic variants, CNV, germline risk
 - Spatial: 10x Visium, cell type deconvolution, microenvironment analysis
 - Imaging: H&E histopathology, multiplex immunofluorescence
+- External: Real TCGA via cBioPortal, literature via PubMed/bioRxiv, trials via ClinicalTrials.gov ([external connectors](../for-researchers/CONNECT_EXTERNAL_MCP.md))
 
 ---
 

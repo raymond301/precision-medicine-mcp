@@ -257,6 +257,25 @@ to identify concordant pathway activations.
 
 ---
 
+## External Data Sources
+
+Six external MCP servers complement the custom servers for real-world data access:
+
+| Data Need | External Server | Tools | Type |
+|-----------|----------------|-------|------|
+| **Real TCGA/cancer genomics** | cBioPortal | 12 | Community (self-hosted) |
+| **Literature search** | PubMed | 5 | Anthropic connector |
+| **Preprint search** | bioRxiv & medRxiv | 9 | Anthropic connector |
+| **Clinical trial matching** | ClinicalTrials.gov | 6 | Anthropic connector |
+| **Nextflow pipelines** | Seqera | 7 | Anthropic connector |
+| **ML models/datasets** | Hugging Face | 7 | Community (self-hosted) |
+
+**Setup & details:** [Connect External MCP Servers](CONNECT_EXTERNAL_MCP.md)
+
+> **Mock ↔ Real alternatives:** mcp-mocktcga returns synthetic data — use cBioPortal for real TCGA queries. mcp-mockepic returns synthetic EHR — use mcp-epic for real FHIR access.
+
+---
+
 ## Production-Ready Servers
 
 > **Full server details:** See [Platform Overview](../reference/shared/README.md) for the complete server status matrix.

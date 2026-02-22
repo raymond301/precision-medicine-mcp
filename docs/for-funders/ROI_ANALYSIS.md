@@ -84,7 +84,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 ### Tier 2: Production ($75,000/year)
 
 **Annual Investment:**
-- Full 15-server deployment: $25,000
+- Full 13-server deployment: $25,000
 - Epic FHIR integration: $15,000
 - Hospital IT coordination: $20,000
 - Training (20 users): $15,000
@@ -232,7 +232,7 @@ Comprehensive return on investment analysis for institutional funders and hospit
 
 **Cons:**
 - Requires initial infrastructure setup (GCP org + Azure AD prerequisites may add 3-6 months)
-- Some servers mocked or framework/utility (need real API access — see [Server Registry](../reference/shared/server-registry.md))
+- 2 of 13 servers are mocked (see [Server Registry](../reference/shared/server-registry.md)); real data available via external connectors
 - Not yet FDA-approved or clinically validated on real patient data
 - Depends on commercial AI APIs (Claude/Gemini) — mitigated by dual-provider support
 - Cost savings are modeled projections, not yet measured in production

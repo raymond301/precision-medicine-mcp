@@ -262,7 +262,24 @@ Follow: [PatientOne Guide](../reference/testing/patient-one/README.md)
 - Chain tools into workflows
 - Document reproducible methods
 
-### Activity 4: Extend Platform (Advanced, 2-3 class sessions)
+### Activity 4: Real-World Data with External Connectors (Advanced, 1 class session)
+
+**Format:** Individual or group (2-3 students)
+
+**Time:** 45-60 minutes
+
+**Assignment:**
+1. Enable external connectors (PubMed, bioRxiv, ClinicalTrials.gov) — see [Connect External MCP Servers](../for-researchers/CONNECT_EXTERNAL_MCP.md)
+2. Search PubMed for papers related to PatientOne's mutations (TP53, BRCA1, PIK3CA)
+3. Find recruiting clinical trials for platinum-resistant ovarian cancer
+4. Compare PatientOne findings to real TCGA data via cBioPortal
+
+**Learning outcomes:**
+- Understand the difference between synthetic (mock) and real data sources
+- Use literature search in a research workflow
+- Connect AI-orchestrated analysis to real-world evidence
+
+### Activity 5: Extend Platform (Advanced, 2-3 class sessions)
 
 **Format:** Individual project
 

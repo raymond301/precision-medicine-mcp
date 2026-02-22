@@ -9,7 +9,9 @@
 
 > **An estimated 40 hours of manual bioinformatics → 2-5 hours with AI-orchestrated MCP tools (8-20x faster)**
 >
-> A set of specialized MCP servers with associated analysis tools | Multi-provider AI (Claude or Gemini) | Stage IV Ovarian Cancer demo
+> 13 custom MCP servers (74 tools) + 6 external connectors (46 tools) | Multi-provider AI (Claude or Gemini) | Stage IV Ovarian Cancer demo
+>
+> External connectors provide real-world data access: ClinicalTrials.gov, PubMed, bioRxiv, Seqera, cBioPortal, and Hugging Face — [details](docs/for-researchers/CONNECT_EXTERNAL_MCP.md)
 
 ---
 

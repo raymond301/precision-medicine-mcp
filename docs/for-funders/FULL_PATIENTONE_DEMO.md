@@ -180,7 +180,7 @@ The platform supports three data modes for testing:
 ### Servers not responding
 ```
 Check server status:
-  docs/deployment/DEPLOYMENT_STATUS.md
+  docs/reference/shared/server-registry.md
 
 Verify Claude Desktop MCP configuration:
   docs/getting-started/installation.md

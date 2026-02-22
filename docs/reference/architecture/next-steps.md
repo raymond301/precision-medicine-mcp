@@ -165,7 +165,8 @@ Several community MCP servers now complement or replace internal servers. See [C
 | Hugging Face MCP | 7 | Replaced mcp-huggingface (removed) |
 | cBioPortal MCP | 12 | mcp-mocktcga (TCGA data, cancer genomics) |
 | ClinicalTrials.gov MCP | 6 | New capability (trial search/matching) |
-| bioRxiv/PubMed MCP | 3 | New capability (literature search) |
+| bioRxiv & medRxiv MCP | 9 | New capability (preprint search) |
+| PubMed MCP | 5 | New capability (literature search) |
 | Seqera MCP | 7 | Replaced mcp-seqera (removed) |
 
 ---

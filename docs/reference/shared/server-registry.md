@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 13 | **Production Ready:** 11 (85%) | **Total Tools:** 74
+**Custom Servers:** 13 (74 tools) | **Production Ready:** 11 (85%) | **External Servers:** 6 (46 tools)
 
 📁 **[Individual Server Documentation →](../../../servers/README.md)**
 
@@ -55,6 +55,23 @@
 - **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-epic, mcp-openimagedata, mcp-patient-report, mcp-genomic-results
 - **Not Ready**: mcp-mocktcga (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
+
+---
+
+## External MCP Servers
+
+Six external servers complement the custom servers above. These are either Anthropic-hosted connectors (toggle on in Claude settings) or community open-source servers (self-hosted).
+
+| Server | Tools | Type | Description |
+|--------|-------|------|-------------|
+| **ClinicalTrials.gov** | 6 | Anthropic connector | Search 500K+ trials by condition, sponsor, phase, eligibility |
+| **bioRxiv & medRxiv** | 9 | Anthropic connector | Search 260K+ preprints, track publication status |
+| **PubMed** | 5 | Anthropic connector | Search 36M+ biomedical citations, full text via PMC |
+| **Seqera** | 7 | Anthropic connector | Nextflow pipeline orchestration, nf-core modules |
+| **cBioPortal** | 12 | Community (self-hosted) | Real TCGA and cancer genomics data (replaces mcp-mocktcga for real data) |
+| **Hugging Face** | 7 | Community (self-hosted) | ML model/dataset/paper search |
+
+**Setup & details:** [Connect External MCP Servers](../../for-researchers/CONNECT_EXTERNAL_MCP.md)
 
 ---
 
