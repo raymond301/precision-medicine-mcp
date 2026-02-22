@@ -26,7 +26,6 @@ SERVERS = {
     "spatialtools": "https://mcp-spatialtools-305650208648.us-central1.run.app/sse",
     "tcga": "https://mcp-tcga-305650208648.us-central1.run.app/sse",
     "openimagedata": "https://mcp-openimagedata-305650208648.us-central1.run.app/sse",
-    "seqera": "https://mcp-seqera-305650208648.us-central1.run.app/sse",
     "deepcell": "https://mcp-deepcell-305650208648.us-central1.run.app/sse",
     "mockepic": "https://mcp-mockepic-305650208648.us-central1.run.app/sse",
 }

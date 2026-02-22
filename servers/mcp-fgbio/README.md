@@ -362,4 +362,3 @@ Part of the Precision Medicine MCP suite (demonstrated in [PatientOne](../../doc
 
 - **mcp-tcga** - TCGA cancer genomics data
 - **mcp-spatialtools** - Spatial transcriptomics processing
-- **mcp-seqera** - Nextflow workflow orchestration

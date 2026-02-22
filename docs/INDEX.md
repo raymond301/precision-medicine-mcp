@@ -217,7 +217,6 @@ precision-medicine-mcp/
 │   ├── mcp-patient-report/ # Patient-facing reports
 │   ├── mcp-perturbation/   # GEARS treatment prediction
 │   ├── mcp-quantum-celltype-fidelity/ # Quantum fidelity
-│   ├── mcp-seqera/         # Workflow orchestration
 │   ├── mcp-server-boilerplate/ # Template for new servers
 │   ├── mcp-spatialtools/   # Spatial transcriptomics
 │   └── mcp-tcga/           # TCGA cohort data

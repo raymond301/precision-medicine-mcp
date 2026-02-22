@@ -12,7 +12,6 @@ This project builds upon the work of many contributors in the precision medicine
 ### Bioinformatics Research
 - **BioinfoMCP Research Team** - Pioneering work on bioinformatics workflows with MCP ([arXiv:2510.02139](https://arxiv.org/html/2510.02139v1))
 - **FGbio Toolkit** - FASTQ and VCF quality control utilities ([GitHub](https://github.com/fulcrumgenomics/fgbio))
-- **Seqera Platform** - Nextflow workflow orchestration and execution
 
 ## Data & Algorithms
 

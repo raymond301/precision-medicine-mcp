@@ -48,7 +48,6 @@ If all servers are working correctly, you should see:
 | 5 | **deepcell** | Performs cell segmentation |
 | 6 | **spatialtools** | Processes spatial transcriptomics |
 | 8 | **multiomics** | Validates multi-omics data |
-| 9 | **seqera** | Lists workflow pipelines |
 
 ## Success Criteria
 

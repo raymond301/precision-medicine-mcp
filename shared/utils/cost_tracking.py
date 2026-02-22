@@ -1,7 +1,7 @@
 """Cost tracking and monitoring utilities for precision medicine workflows.
 
 This module provides utilities to track, estimate, and report costs for:
-- External API calls (TCGA, HuggingFace, Seqera)
+- External API calls (TCGA, HuggingFace)
 - Cloud compute resources (AWS Batch, Azure, GCP)
 - Storage costs (data caching, intermediate files)
 - AI model inference costs
@@ -63,7 +63,6 @@ PRICING = {
         "tcga_download_gb": 0.00,      # Free
         "hf_inference_small": 0.06,    # Per 1M tokens (~100M param model)
         "hf_inference_large": 0.60,    # Per 1M tokens (~1B param model)
-        "seqera_platform_hour": 0.02,  # Platform fee per compute hour
     },
 
     # Common Analysis Costs (estimated)

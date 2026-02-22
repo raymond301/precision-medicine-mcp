@@ -59,13 +59,6 @@ MCP_SERVERS: Dict[str, MCPServerConfig] = {
         "status": "production",
         "tools_count": 5
     },
-    "seqera": {
-        "name": "seqera",
-        "url": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "Nextflow workflow management",
-        "status": "mock",
-        "tools_count": 3
-    },
     "deepcell": {
         "name": "deepcell",
         "url": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
@@ -167,7 +160,6 @@ def get_server_categories() -> Dict[str, List[str]]:
         ],
         "Mock Servers (Workflow Demo)": [
             "tcga",
-            "seqera",
             "mockepic"
         ]
     }

@@ -4,7 +4,7 @@ This document describes how to integrate **Seqera's official MCP server** (`@seq
 
 ## Overview
 
-The Precision Medicine MCP platform includes a **mock** `mcp-seqera` server for demonstration purposes. For production pipeline orchestration, use Seqera's official MCP server to launch and monitor Nextflow workflows on Seqera Platform (formerly Nextflow Tower).
+The Precision Medicine MCP platform uses Seqera's official MCP server for pipeline orchestration, launching and monitoring Nextflow workflows on Seqera Platform (formerly Nextflow Tower).
 
 **Workflow:**
 ```
@@ -105,22 +105,16 @@ Generate a comprehensive genomic report with therapy recommendations.
 Create a patient-facing report for PAT001 incorporating the genomic findings.
 ```
 
-## Relationship to Mock mcp-seqera
+## Relationship to Previous Mock Server
 
-The existing `mcp-seqera` server in this repository is a **mock/demo implementation** that returns synthetic data. It is useful for:
-
-- Demonstrating the orchestration workflow without a Seqera account
-- Running in DRY_RUN mode for testing
-- CI/CD pipeline validation
-
-The official `@seqeralabs/mcp-server-seqera` provides **real** Seqera Platform integration with:
+The mocked `mcp-seqera` server (3 tools, synthetic data) has been removed from this repository. The official `@seqeralabs/mcp-server-seqera` now fully replaces it with **real** Seqera Platform integration:
 
 - Actual pipeline launches on cloud compute
 - Real-time monitoring and log streaming
 - Compute environment management
 - Dataset and pipeline management
 
-Both can coexist in the same Claude Desktop configuration. Use the mock server for demos and the official server for real analysis.
+**Setup instructions:** [CONNECT_EXTERNAL_MCP.md](../for-researchers/CONNECT_EXTERNAL_MCP.md)
 
 ## References
 

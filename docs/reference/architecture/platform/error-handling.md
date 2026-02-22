@@ -293,36 +293,6 @@ tcga_breaker = CircuitBreaker(
 )
 ```
 
-#### **mcp-seqera** (Currently Mocked)
-
-**Location:** `servers/mcp-seqera/src/mcp_seqera/server.py`
-
-**Example Integration (commented code):**
-```python
-# Retry workflow launch
-@retry_with_backoff(
-    max_retries=3,
-    base_delay=2.0,
-    max_delay=60.0,
-    exceptions=(requests.HTTPError, requests.ConnectionError)
-)
-async def _launch_seqera_workflow(pipeline_id: str, params: dict):
-    response = await httpx.post(
-        f"{SEQERA_API_URL}/workflow/launch",
-        headers={"Authorization": f"Bearer {SEQERA_TOKEN}"},
-        json={"pipeline": pipeline_id, "params": params}
-    )
-    response.raise_for_status()
-    return response.json()
-
-# Circuit breaker for Seqera Platform
-seqera_api_breaker = CircuitBreaker(
-    failure_threshold=5,
-    recovery_timeout=180.0,  # 3 minutes
-    name="Seqera-Platform-API"
-)
-```
-
 ---
 
 ## Best Practices

@@ -48,20 +48,6 @@
         "IMAGE_DRY_RUN": "true"
       }
     },
-    "seqera": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-seqera",
-        "python",
-        "-m",
-        "mcp_seqera"
-      ],
-      "env": {
-        "SEQERA_DRY_RUN": "true"
-      }
-    },
     "genomic-results": {
       "command": "uv",
       "args": [

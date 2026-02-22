@@ -19,11 +19,10 @@ Specialized MCP servers for precision medicine analysis. For current server and 
 | 🖼️ **mcp-deepcell** | 3 | ✅ 100% real (Cloud Run) | [README →](mcp-deepcell/README.md) |
 | 🔬 **mcp-cell-classify** | 3 | ✅ 100% real | [README →](mcp-cell-classify/README.md) |
 | 🧪 **mcp-tcga** | 5 | ❌ Mocked (GDC-ready) | [README →](mcp-tcga/README.md) |
-| ⚙️ **mcp-seqera** | 3 | ❌ Mocked (Seqera-ready) | — |
 | 📄 **mcp-patient-report** | 5 | ✅ 100% real | [README →](mcp-patient-report/README.md) |
 | 🧬 **mcp-genomic-results** | 4 | ✅ 100% real | [README →](mcp-genomic-results/README.md) |
 
-**Production Ready:** 11/14 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
+**Production Ready:** 11/13 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
 
 ---
 
@@ -46,7 +45,6 @@ Use these for real analysis:
 Mock implementations for workflow demonstration:
 - 🎭 **mcp-mockepic** - Synthetic FHIR data (by design)
 - 🧪 **mcp-tcga** - TCGA cohort comparison ([README](mcp-tcga/README.md))
-- ⚙️ **mcp-seqera** - Nextflow workflows
 
 ---
 

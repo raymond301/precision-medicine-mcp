@@ -82,7 +82,6 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 | **mcp-tcga** | Returns mock cohort comparisons | Queries real TCGA database |
 | **mcp-deepcell** | Returns mock segmentation | Runs DeepCell segmentation models |
 | **mcp-mockepic** | Returns mock EHR data | Queries mock EHR (always synthetic) |
-| **mcp-seqera** | Returns mock workflow status | Launches real Nextflow workflows |
 | **mcp-openimagedata** | Returns mock image metadata | Processes real histology images |
 
 ---
@@ -295,14 +294,6 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
         "DEEPCELL_DRY_RUN": "false"
       }
     },
-    "mcp-seqera": {
-      "command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-seqera/venv/bin/python",
-      "args": ["-m", "mcp_seqera"],
-      "env": {
-        "SEQERA_DRY_RUN": "false",
-        "SEQERA_ACCESS_TOKEN": "your_seqera_token_here"  // Required for Nextflow workflows
-      }
-    },
     "mcp-mockepic": {
       "command": "/Users/lynnlangit/Documents/GitHub/precision-medicine-mcp/servers/mcp-mockepic/venv/bin/python",
       "args": ["-m", "mcp_mockepic"],
@@ -326,16 +317,9 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
 **Important Notes:**
 - `mcp-mockepic` always uses synthetic EHR data (no real EHR integration)
 - `HF_TOKEN` required for HuggingFace model downloads
-- `SEQERA_ACCESS_TOKEN` required for Nextflow Tower/Seqera Platform
 - Adjust file paths to match your system
 
 #### 2. Obtain API Keys (If Using External Services)
-
-**Seqera Platform (for Nextflow workflows):**
-```bash
-# Get token from https://cloud.seqera.io → Tokens
-export SEQERA_ACCESS_TOKEN="your_token_here"
-```
 
 **TCGA API:**
 - No token required for basic queries
@@ -950,7 +934,6 @@ convert input.png output.tiff
 
 ### External Links
 - [TCGA API Documentation](https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/)
-- [Seqera Platform](https://seqera.io/platform/)
 - [DeepCell Documentation](https://deepcell.readthedocs.io/)
 
 ### Support

@@ -50,12 +50,6 @@ SERVERS = [
         "env": {"IMAGE_DRY_RUN": "true"}
     },
     {
-        "name": "mcp-seqera",
-        "path": "servers/mcp-seqera",
-        "module": "mcp_seqera",
-        "env": {"SEQERA_DRY_RUN": "true"}
-    },
-    {
         "name": "mcp-deepcell",
         "path": "servers/mcp-deepcell",
         "module": "mcp_deepcell",

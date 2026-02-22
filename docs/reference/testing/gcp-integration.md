@@ -173,35 +173,7 @@ print(response.content[0].text)
 
 ---
 
-## 6. mcp-seqera - Workflow Management
-
-**Test:** Check Seqera Platform integration
-
-```python
-response = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    messages=[{
-        "role": "user",
-        "content": "What workflow management capabilities do you provide?"
-    }],
-    mcp_servers=[{
-        "type": "url",
-        "url": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
-        "name": "seqera",
-    }],
-    tools=[{"type": "mcp_toolset", "mcp_server_name": "seqera"}],
-    betas=["mcp-client-2025-11-20"]
-)
-
-print(response.content[0].text)
-```
-
-**Expected:** Nextflow workflow submission, monitoring, data management
-
----
-
-## 7. mcp-deepcell - Cell Segmentation
+## 6. mcp-deepcell - Cell Segmentation
 
 **Test:** Cell segmentation capabilities
 
@@ -278,7 +250,6 @@ SERVERS = {
     "spatialtools": "https://mcp-spatialtools-ondu7mwjpa-uc.a.run.app/sse",
     "tcga": "https://mcp-tcga-ondu7mwjpa-uc.a.run.app/sse",
     "openimagedata": "https://mcp-openimagedata-ondu7mwjpa-uc.a.run.app/sse",
-    "seqera": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
     "deepcell": "https://mcp-deepcell-ondu7mwjpa-uc.a.run.app/sse",
     "mockepic": "https://mcp-mockepic-ondu7mwjpa-uc.a.run.app/sse",
 }

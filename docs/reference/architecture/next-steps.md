@@ -19,9 +19,8 @@
 | 9 | mcp-patient-report | Production (100% Real) | Implement `approve_patient_report` workflow | High |
 | 10 | mcp-perturbation | Production (GEARS) | GEO dataset download; GPU acceleration | Medium |
 | 11 | mcp-quantum-celltype-fidelity | Production (CPU) | GPU backend (cuQuantum); IBM Quantum hardware | Medium |
-| 12 | mcp-seqera | Mocked | Wire up real Seqera Platform API | High |
-| 13 | mcp-spatialtools | 95% real | Harmony/Scanorama batch correction | Low |
-| 14 | mcp-tcga | Mocked | Wire up real GDC API | High |
+| 12 | mcp-spatialtools | 95% real | Harmony/Scanorama batch correction | Low |
+| 13 | mcp-tcga | Mocked | Wire up real GDC API | High |
 
 ---
 
@@ -129,16 +128,7 @@
 | Amplitude amplification for rare cell types | Feature | Medium |
 | Wire up GEARS integration for combined analysis | Feature | Medium |
 
-### 12. mcp-seqera (Mocked)
-
-| Enhancement | Type | Effort |
-|-------------|------|--------|
-| Wire up real Seqera Platform API (launch, monitor) | Feature | Large |
-| Implement retry/circuit-breaker for API calls | Reliability | Small |
-| Add workflow monitoring / log retrieval tool | Feature | Medium |
-| Add compute environment management tool | Feature | Medium |
-
-### 13. mcp-spatialtools (95% real)
+### 12. mcp-spatialtools (95% real)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -151,7 +141,7 @@
 | Gene ID conversion (ENSEMBL/Entrez to Symbol) | Feature | Small |
 | Performance optimization for 10K+ spots | Performance | Medium |
 
-### 14. mcp-tcga (Mocked)
+### 13. mcp-tcga (Mocked)
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
@@ -176,7 +166,7 @@ Several community MCP servers now complement or replace internal servers. See [C
 | cBioPortal MCP | 12 | mcp-tcga (TCGA data, cancer genomics) |
 | ClinicalTrials.gov MCP | 6 | New capability (trial search/matching) |
 | bioRxiv/PubMed MCP | 3 | New capability (literature search) |
-| Seqera MCP | 7 | mcp-seqera (real Nextflow orchestration) |
+| Seqera MCP | 7 | Replaced mcp-seqera (removed) |
 
 ---
 
@@ -184,10 +174,10 @@ Several community MCP servers now complement or replace internal servers. See [C
 
 | Enhancement | Servers Affected | Effort |
 |-------------|-----------------|--------|
-| Retry/backoff + circuit breaker for all external APIs | epic, fgbio, seqera, tcga | Medium |
+| Retry/backoff + circuit breaker for all external APIs | epic, fgbio, tcga | Medium |
 | FHIR R4 compliance for clinical data exchange | epic, mockepic, patient-report, genomic-results | Large |
 | GPU acceleration | quantum, perturbation, deepcell | Large |
-| Authentication on Cloud Run endpoints | perturbation, seqera, quantum | Small |
+| Authentication on Cloud Run endpoints | perturbation, quantum | Small |
 | DICOM image format support | openimagedata, deepcell | Large |
 
 ---

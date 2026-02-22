@@ -689,7 +689,7 @@ export MULTIOMICS_DRY_RUN=false
 **A:**
 - TCGA: Always free (NIH public data)
 - HuggingFace: Free tier with rate limits (30 requests/hour)
-- Seqera: 10 compute-hours/month free
+
 
 ---
 

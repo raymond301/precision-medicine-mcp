@@ -115,7 +115,6 @@ Step-by-step checklist for deploying the Precision Medicine MCP Platform at your
 - [ ] **mcp-tcga** - TCGA cohort data (mocked for now, GDC API later)
 - [ ] **mcp-openimagedata** - Imaging data retrieval
 - [ ] **mcp-deepcell** - Cell segmentation (mocked, DeepCell API later)
-- [ ] **mcp-seqera** - Nextflow orchestration (mocked, Seqera API later)
 - [ ] **mcp-mockepic** - Synthetic FHIR data for testing
 
 ### Integration Testing

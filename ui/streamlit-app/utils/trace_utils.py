@@ -420,18 +420,6 @@ SERVER_INFO = {
         'description': 'Cell detection and quantification'
     },
 
-    'mcp-seqera': {
-        'display_name': 'Workflows (Nextflow)',
-        'icon': '⚙️',
-        'color': '#f8d7da',
-        'description': 'Pipeline orchestration'
-    },
-    'seqera': {
-        'display_name': 'Workflows (Nextflow)',
-        'icon': '⚙️',
-        'color': '#f8d7da',
-        'description': 'Pipeline orchestration'
-    }
 }
 
 

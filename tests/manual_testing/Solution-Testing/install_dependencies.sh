@@ -16,7 +16,6 @@ SERVERS=(
     "mcp-fgbio"
     "mcp-spatialtools"
     "mcp-openimagedata"
-    "mcp-seqera"
     "mcp-deepcell"
     "mcp-mockepic"
     "mcp-tcga"

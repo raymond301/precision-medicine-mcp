@@ -115,9 +115,6 @@ graph TB
             QUANTUM[mcp-quantum-celltype-fidelity<br/>Quantum PQCs<br/>✅ Production]
         end
 
-        subgraph "Workflows"
-            SEQERA[mcp-seqera<br/>Nextflow<br/>🔧 Framework]
-        end
     end
 
     subgraph "Analysis Workflow"
@@ -141,8 +138,6 @@ graph TB
     API ==> CELLCLASS
     API ==> GENOMICRES
     API ==> PATREPORT
-    API -.-> SEQERA
-
     FGBIO ==> PATIENT
     MULTI ==> PATIENT
     SPATIAL ==> PATIENT
@@ -156,8 +151,6 @@ graph TB
     CELLCLASS ==> PATIENT
     GENOMICRES ==> PATIENT
     PATREPORT ==> PATIENT
-    SEQERA -.-> PATIENT
-
     style STREAMLIT fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
     style JUPYTER fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
     style DESKTOP fill:#d1ecf1,stroke:#0c5460,stroke-width:2px
@@ -175,13 +168,12 @@ graph TB
     style GENOMICRES fill:#d4edda,stroke:#28a745,stroke-width:2px
     style PATREPORT fill:#d4edda,stroke:#28a745,stroke-width:2px
     style TCGA fill:#fff3cd,stroke:#ffc107,stroke-width:1px
-    style SEQERA fill:#fff3cd,stroke:#ffc107,stroke-width:1px
     style MOCKEPIC fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
 ```
 
 **Legend:**
 - ✅ **Production**: Real data, comprehensive tests, deployed
-- 🔧 **Framework**: API stubs ready for integration (tcga, seqera)
+- 🔧 **Framework**: API stubs ready for integration (tcga)
 - 🎭 **Mock by Design**: Intentionally synthetic for demos (mockepic)
 
 See [Server Registry](../reference/shared/server-registry.md) for current counts and status.

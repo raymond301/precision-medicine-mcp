@@ -141,7 +141,6 @@ data/patient-data/PAT001-OVC-2025/
 ```
 1-5. All above workflows
 6. Generate treatment recommendations
-7. Launch validation (mcp-seqera)
 ```
 
 ---

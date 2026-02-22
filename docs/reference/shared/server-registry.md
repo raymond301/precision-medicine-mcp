@@ -1,6 +1,6 @@
 # MCP Server Registry - Quick Reference
 
-**Total Servers:** 14 | **Production Ready:** 11 (79%) | **Total Tools:** 77
+**Total Servers:** 13 | **Production Ready:** 11 (85%) | **Total Tools:** 74
 
 📁 **[Individual Server Documentation →](../../../servers/README.md)**
 
@@ -29,7 +29,6 @@
 | Server | Tools | Purpose | Documentation |
 |--------|-------|---------|---------------|
 | **mcp-tcga** | 5 | TCGA cohort queries, survival analysis (synthetic) | [README](../../../servers/mcp-tcga/README.md) |
-| **mcp-seqera** | 3 | Nextflow workflow orchestration (demo) | [Source](../../../servers/mcp-seqera/) |
 | **mcp-mockepic** | 3 | Synthetic FHIR data for testing (by design) | [Source](../../../servers/mcp-mockepic/) |
 
 ---
@@ -52,11 +51,9 @@
 - **Imaging**: mcp-deepcell (cell segmentation + quantification), mcp-cell-classify (phenotype classification), mcp-openimagedata (histology + registration + features)
 - **Treatment**: mcp-perturbation (GEARS prediction), mcp-quantum-celltype-fidelity (quantum fidelity)
 - **Reports**: mcp-patient-report (patient-facing summaries)
-- **Workflows**: mcp-seqera (Nextflow - mocked)
-
 ### By Production Readiness
 - **Ready for Research**: mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-epic, mcp-openimagedata, mcp-patient-report, mcp-genomic-results
-- **Not Ready**: mcp-tcga, mcp-seqera (synthetic data)
+- **Not Ready**: mcp-tcga (synthetic data)
 - **Mock by Design**: mcp-mockepic (testing only)
 
 ---

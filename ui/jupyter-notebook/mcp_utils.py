@@ -98,13 +98,6 @@ MCP_SERVERS: Dict[str, Dict[str, Any]] = {
         "tools_count": 5,
     },
     # --- Workflow / ML ---
-    "seqera": {
-        "url": "https://mcp-seqera-ondu7mwjpa-uc.a.run.app/sse",
-        "description": "Nextflow workflow management",
-        "group": "workflow-ml",
-        "status": "mock",
-        "tools_count": 5,
-    },
     "quantum-celltype-fidelity": {
         "url": "https://mcp-quantum-celltype-fidelity-ondu7mwjpa-uc.a.run.app/sse",
         "description": "Quantum computing for cell type validation and immune evasion detection",
@@ -119,7 +112,7 @@ SERVER_GROUPS = {
     "imaging":     ["deepcell", "cell-classify", "openimagedata"],
     "genomics":    ["fgbio", "multiomics", "spatialtools", "tcga", "perturbation", "genomic-results"],
     "clinical":    ["mockepic", "patient-report"],
-    "workflow-ml": ["seqera", "quantum-celltype-fidelity"],
+    "workflow-ml": ["quantum-celltype-fidelity"],
 }
 
 

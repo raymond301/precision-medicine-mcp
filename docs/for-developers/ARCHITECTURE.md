@@ -46,7 +46,7 @@ The precision-medicine-mcp platform consists of 5 architectural layers:
 │                   SERVER EXECUTION LAYER                      │
 │         MCP Servers (FastMCP-based)                           │
 │         • Most production-ready (see Server Registry)        │
-│         • Some mocked (tcga, seqera, mockepic)              │
+│         • Some mocked (tcga, mockepic)                      │
 └────────────────────┬─────────────────────────────────────────┘
                      │
                      ▼
@@ -55,8 +55,7 @@ The precision-medicine-mcp platform consists of 5 architectural layers:
 │         • GCS buckets (patient data, analysis results)       │
 │         • GCP Healthcare API (FHIR stores)                   │
 │         • Reference data (genomes, pathways, ontologies)     │
-│         • External APIs (TCGA, DeepCell, HuggingFace,        │
-│           Seqera)                                             │
+│         • External APIs (TCGA, DeepCell, HuggingFace)        │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -349,7 +348,6 @@ Claude synthesizes: Immune contexture and treatment implications
 |-----|--------|--------|---------|
 | **GDC API** | mcp-tcga | ❌ Mocked | TCGA cohort data retrieval |
 | **DeepCell API** | mcp-deepcell | ✅ Real | Cell segmentation + quantification |
-| **Seqera Platform API** | mcp-seqera | ❌ Mocked | Nextflow workflow orchestration |
 
 **Production Roadmap:** Replace mocks with real API integrations (6-12 months)
 

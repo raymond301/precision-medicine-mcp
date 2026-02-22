@@ -128,7 +128,7 @@ The `annotations.py` module provides hardcoded lookup tables for HGSOC-specific 
 ```mermaid
 graph LR
     subgraph Upstream["⚙️ Upstream"]
-        Seqera[mcp-seqera<br/>nf-core/sarek]
+        Seqera[External Seqera MCP<br/>nf-core/sarek]
     end
 
     subgraph This["🧬 This Server"]
@@ -153,7 +153,7 @@ graph LR
 
 ### Pipeline Flow
 
-1. **Upstream:** Seqera/Nextflow runs the nf-core/sarek variant calling pipeline (FASTQ → aligned BAM → Mutect2 VCF + CNVkit CNS)
+1. **Upstream:** External Seqera MCP/Nextflow runs the nf-core/sarek variant calling pipeline (FASTQ → aligned BAM → Mutect2 VCF + CNVkit CNS)
 2. **This server:** Parses VCF + CNS outputs, annotates variants with ClinVar/COSMIC, classifies copy number events, calculates HRD score
 3. **Downstream:** mcp-patient-report consumes the structured findings to generate a patient-facing genomic summary
 
@@ -179,7 +179,7 @@ graph LR
 ## Related Workflows
 
 - [Genomic Cohorts (TCGA)](genomic-cohorts.md) - Population-level genomic context
-- [Workflow Orchestration (Seqera)](../platform/workflow.md) - Upstream nf-core/sarek pipeline
+- [Workflow Orchestration (External Seqera MCP)](../platform/workflow.md) - Upstream nf-core/sarek pipeline
 - [Multiomics Integration](../rna/multiomics.md) - RNA/Protein/Phospho integration
 - [PatientOne Workflow](../../testing/patient-one/README.md) - Complete end-to-end workflow
 

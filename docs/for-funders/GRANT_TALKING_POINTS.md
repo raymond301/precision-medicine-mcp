@@ -311,7 +311,7 @@ Compare to traditional: 40 hours, $6,000
 **A:** Complementary, not competitive:
 - **Galaxy/Nextflow:** Manual workflow design, requires bioinformatics expertise
 - **Our platform:** AI orchestrates workflows automatically, natural language interface
-- **Integration:** We use Nextflow internally (mcp-seqera server), but hide complexity from clinicians
+- **Integration:** We can integrate with external Nextflow/Seqera MCP servers, but hide complexity from clinicians
 
 ---
 

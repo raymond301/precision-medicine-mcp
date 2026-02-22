@@ -12,7 +12,7 @@ Procedures for rotating secrets, API keys, and service account keys used by the 
 | Secret Type | Rotation Frequency | Owner | Alert Threshold |
 | :--- | :--- | :--- | :--- |
 | **Service Account Keys** | Every 90 days | Infrastructure Admin | 14 days before expiry |
-| **API Keys** (HuggingFace, Seqera) | Every 90 days | Infrastructure Admin | 14 days before expiry |
+| **API Keys** (HuggingFace) | Every 90 days | Infrastructure Admin | 14 days before expiry |
 | **Database Credentials** | Every 90 days | Infrastructure Admin | 14 days before expiry |
 | **TLS/SSL Certificates** | Every 365 days | Infrastructure Admin | 30 days before expiry |
 | **MCP Server Tokens** | Every 90 days | Platform Editor | 14 days before expiry |
@@ -54,7 +54,6 @@ gcloud iam service-accounts keys delete OLD_KEY_ID \
 
 | Secret | Used By | Config Location |
 | :--- | :--- | :--- |
-| `SEQERA_ACCESS_TOKEN` | mcp-seqera | `claude_desktop_config.json` → env |
 | Service account keys | All servers (GCS access) | Environment or key file |
 | TLS certificates | API Gateway | Cloud-managed |
 

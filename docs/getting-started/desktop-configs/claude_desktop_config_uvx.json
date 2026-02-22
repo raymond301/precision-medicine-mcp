@@ -45,19 +45,6 @@
         "IMAGE_DRY_RUN": "true"
       }
     },
-    "seqera": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "/Users/lynnlangit/Documents/GitHub/spatial-mcp/servers/mcp-seqera",
-        "python",
-        "-m",
-        "mcp_seqera"
-      ],
-      "env": {
-        "SEQERA_DRY_RUN": "true"
-      }
-    },
     "deepcell": {
       "command": "uvx",
       "args": [

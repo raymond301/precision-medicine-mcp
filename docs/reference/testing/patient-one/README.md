@@ -652,8 +652,6 @@ After completing PatientOne:
 3. **Production Deployment:**
    - Integrate with real EHR systems
    - Connect to institutional genomic databases
-   - Deploy Nextflow pipelines via Seqera Platform
-
 4. **Read Full Architecture:**
    - [PatientOne Architecture](overview.md)
    - [Comprehensive Documentation](../../../README.md)

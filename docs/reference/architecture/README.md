@@ -24,7 +24,6 @@ graph LR
         S3[Spatial<br/>spatialtools]
         S4[Multiomics<br/>multiomics]
         S5[Imaging<br/>openimagedata<br/>deepcell/cell-classify]
-        S6[Workflows<br/>seqera]
         S7[Perturbation<br/>perturbation<br/>GEARS]
         S8[Quantum<br/>quantum-celltype-fidelity]
     end
@@ -48,7 +47,6 @@ graph LR
     S3 --> VIZ
     S4 --> INSIGHTS
     S5 --> TREAT
-    S6 --> PREDICT
     S7 --> VIZ
     S8 --> INSIGHTS
 
@@ -74,7 +72,7 @@ graph LR
 | 🎯 **Perturbation Prediction** | mcp-perturbation | 8 | ✅ Production (GEARS) | [rna/perturbation.md](rna/perturbation.md) |
 | ⚛️ **Quantum Cell Type Fidelity** | mcp-quantum-celltype-fidelity | 6 | ✅ Production (Qiskit + Bayesian UQ) | [rna/quantum-fidelity.md](rna/quantum-fidelity.md) |
 | 📄 **Patient Reports** | mcp-patient-report | 5 | ✅ Production (100%) | [servers/mcp-patient-report/README.md](../../../servers/mcp-patient-report/README.md) |
-| ⚙️ **Workflow Orchestration** | mcp-seqera | 3 | ❌ Mocked (Seqera-ready) | [platform/workflow.md](platform/workflow.md) |
+| ⚙️ **Workflow Orchestration** | External Seqera MCP | 7 | ✅ External | [platform/workflow.md](platform/workflow.md) |
 
 
 ---
@@ -125,7 +123,7 @@ graph LR
 - Simplified HRD scoring (LOH+TAI+LST) with PARP inhibitor eligibility
 - Comprehensive genomic report aggregating all findings with therapy recommendations
 
-**Workflow:** `Seqera/sarek → VCF + CNS → Parse & Annotate → HRD Score → Genomic Report → Patient Report`
+**Workflow:** `External Seqera MCP/sarek → VCF + CNS → Parse & Annotate → HRD Score → Genomic Report → Patient Report`
 
 📖 **[Detailed Architecture →](dna/genomic-results.md)**
 
@@ -249,14 +247,7 @@ See [CONNECT_EXTERNAL_MCP.md](../../../docs/for-researchers/CONNECT_EXTERNAL_MCP
 
 **Nextflow pipeline execution and monitoring via Seqera Platform**
 
-**Server:** mcp-seqera (90+ nf-core workflows)
-
-**Key Features:**
-- nf-core pipeline submission (rnaseq, sarek, spatial, etc.)
-- Multi-cloud execution (AWS, Azure, GCP, local HPC)
-- Real-time progress monitoring and resource tracking
-
-**Workflow:** `Select Pipeline → Configure → Choose Compute → Submit → Monitor → Retrieve Results`
+Workflow orchestration is now provided by the **external Seqera MCP server** (`@seqeralabs/mcp-server-seqera`, 7 tools). See [CONNECT_EXTERNAL_MCP.md](../../../docs/for-researchers/CONNECT_EXTERNAL_MCP.md) for setup.
 
 📖 **[Detailed Architecture →](platform/workflow.md)**
 

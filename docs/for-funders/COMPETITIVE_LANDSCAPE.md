@@ -295,7 +295,7 @@ graph TD
 **Technology Partners:**
 - **Anthropic** - Claude API for natural language orchestration
 - **Google Cloud** - GCP infrastructure and healthcare APIs
-- **Seqera** - Nextflow workflow orchestration integration
+
 
 **Research Partners:**
 - **NCI** - Access to TCGA and other cancer datasets

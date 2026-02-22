@@ -172,8 +172,7 @@ How do we integrate:
 | **3. Multiomics Integration** | MultiOmics | `integrate_omics_data`, `calculate_stouffer_meta`, `create_multiomics_heatmap` | Resistance gene signatures, pathway activation |
 | **4. Spatial Processing** | SpatialTools, DeepCell | `filter_quality`, `split_by_region`, `align_spatial_data`, `segment_cells` | Spatial expression maps, tissue segmentation |
 | **5. Histology Analysis** | OpenImageData, DeepCell | `fetch_histology_image`, `register_image_to_spatial`, `classify_cell_states` | Cell counts, phenotype distributions |
-| **6. Workflow Orchestration** | Seqera | `launch_nextflow_pipeline`, `monitor_workflow_status` | Reproducible pipeline execution |
-| **7. ML Inference** | HuggingFace | `predict_cell_type`, `embed_sequences` | Cell type predictions, sequence embeddings |
+| **6. ML Inference** | HuggingFace | `predict_cell_type`, `embed_sequences` | Cell type predictions, sequence embeddings |
 
 **Integration:** Seamless orchestration of all servers and tools through natural language prompts
 

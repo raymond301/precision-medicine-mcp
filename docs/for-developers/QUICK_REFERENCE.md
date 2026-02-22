@@ -21,8 +21,7 @@ spatial-mcp/
 │   ├── mcp-deepcell/            # Segmentation (production)
 │   ├── mcp-cell-classify/       # Cell phenotype classification (production)
 │   ├── mcp-patient-report/      # PDF report generation (production)
-│   ├── mcp-genomic-results/     # Somatic variant/CNV parsing (production)
-│   └── mcp-seqera/              # Nextflow (mocked)
+│   └── mcp-genomic-results/     # Somatic variant/CNV parsing (production)
 ├── tests/
 │   ├── unit/                    # Unit tests by server
 │   └── integration/             # Multi-server tests
