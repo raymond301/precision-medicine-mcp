@@ -15,7 +15,7 @@ This directory contains sample data for testing and demonstrating the Precision 
 
 ---
 
-## PAT001: Stage IV Ovarian Cancer (PatientOne)
+## PAT001: Stage IV Ovarian Cancer (Patient One)
 
 **Diagnosis:** High-Grade Serous Ovarian Carcinoma, platinum-resistant
 
@@ -28,7 +28,7 @@ This directory contains sample data for testing and demonstrating the Precision 
 
 ---
 
-## PAT002: Stage IIA Breast Cancer
+## PAT002: Stage IIA Breast Cancer (Patient Two)
 
 **Diagnosis:** ER+/PR+/HER2- Invasive Ductal Carcinoma, BRCA2 germline mutation
 
