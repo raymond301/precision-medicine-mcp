@@ -23,14 +23,17 @@ graph LR
 
 ## Quick Start (3 Paths)
 
+> **First step for all paths:** Before building anything new, check if an existing server (internal or external) already does what you need. Read [SEARCH_VS_BUILD.md](SEARCH_VS_BUILD.md) (10 min).
+
 ### 1. Building a New Modality Server (4-8 hours)
 **Goal:** Add a new server for metabolomics/radiomics/other modalities
 
-1. **Read the guide** → [ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md) (20 min)
-2. **Copy boilerplate template** → `/servers/mcp-server-boilerplate/` (5 min)
-3. **Implement tools** → Use FastMCP patterns from mcp-multiomics (3-5 hours)
-4. **Write tests** → 50%+ coverage for production servers (1-2 hours)
-5. **Deploy** → GCP Cloud Run with `./infrastructure/deployment/deploy_to_gcp.sh` (30 min)
+1. **Search first** → [SEARCH_VS_BUILD.md](SEARCH_VS_BUILD.md) — confirm no existing server covers your need (10 min)
+2. **Read the guide** → [ADD_NEW_MODALITY_SERVER.md](ADD_NEW_MODALITY_SERVER.md) (20 min)
+3. **Copy boilerplate template** → `/servers/mcp-server-boilerplate/` (5 min)
+4. **Implement tools** → Use FastMCP patterns from mcp-multiomics (3-5 hours)
+5. **Write tests** → 50%+ coverage for production servers (1-2 hours)
+6. **Deploy** → GCP Cloud Run with `./infrastructure/deployment/deploy_to_gcp.sh` (30 min)
 
 **Total Time:** 4-8 hours from template to deployed server
 
@@ -58,6 +61,7 @@ graph LR
 
 ### Getting Started
 - **[README.md](README.md)** *(this file)* - Navigation hub for developers
+- **[SEARCH_VS_BUILD.md](SEARCH_VS_BUILD.md)** - Should you search for an existing server or build a new one?
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture overview (data flow, integration)
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Cheat sheet for common tasks
 
