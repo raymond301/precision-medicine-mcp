@@ -79,10 +79,25 @@ PatientOne supports two distinct operating modes to accommodate different use ca
 | **mcp-fgbio** | Returns mock BAM/VCF validation | Validates real genomic files |
 | **mcp-multiomics** | Returns synthetic resistance signatures | Processes real RNA/Protein/Phospho data |
 | **mcp-spatialtools** | Returns mock spatial patterns | Analyzes real Visium/Xenium data |
-| **mcp-mocktcga** | Returns mock cohort comparisons | Queries real TCGA database |
+| **mcp-mocktcga** | Returns mock cohort comparisons | Returns richer mock comparisons (always synthetic — use cBioPortal connector for real TCGA data) |
 | **mcp-deepcell** | Returns mock segmentation | Runs DeepCell segmentation models |
-| **mcp-mockepic** | Returns mock EHR data | Queries mock EHR (always synthetic) |
+| **mcp-mockepic** | Returns mock EHR data | Returns mock EHR data (always synthetic — use mcp-epic for real FHIR) |
 | **mcp-openimagedata** | Returns mock image metadata | Processes real histology images |
+
+### For Real External Data
+
+Mock servers (mcp-mockepic, mcp-mocktcga) are **always synthetic** regardless of DRY_RUN setting. For real external data, connect these MCP servers/connectors:
+
+| Data Need | Mock Server | Real Alternative |
+|-----------|-------------|------------------|
+| **EHR / FHIR** | mcp-mockepic | mcp-epic (local, HIPAA-compliant) |
+| **TCGA cohort** | mcp-mocktcga | cBioPortal external connector |
+| **Clinical trials** | — | ClinicalTrials.gov MCP (Anthropic-hosted) |
+| **Literature** | — | PubMed MCP (Anthropic-hosted) |
+| **Preprints** | — | bioRxiv MCP (Anthropic-hosted) |
+| **Pipelines** | — | Seqera MCP (Anthropic-hosted) |
+
+See [Connect External MCP Servers](../../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup instructions.
 
 ---
 

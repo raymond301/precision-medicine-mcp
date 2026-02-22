@@ -6,6 +6,8 @@
 **Expected output:** Clinical reports, treatment recommendations, scientific analysis
 **Patient data:** [PatientOne Profile](../shared/patientone-profile.md) (PAT001-OVC-2025)
 
+> **Data Mode Note:** These prompts reference **mcp-mockepic** (synthetic EHR) and **mcp-mocktcga** (synthetic TCGA) — both are always synthetic regardless of DRY_RUN setting. For real data: use **mcp-epic** for FHIR EHR access (local, HIPAA-compliant) and the **cBioPortal** external connector for real TCGA cohort comparisons. See [Connect External MCP Servers](../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup.
+
 ---
 
 ## Complete PatientOne Workflow (6 Prompts)

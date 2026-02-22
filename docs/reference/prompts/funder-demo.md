@@ -7,6 +7,8 @@
 **Time per prompt:** 5-10 minutes
 **Expected output:** Business-focused metrics and clinical impact
 
+> **Demo Mode:** These demos run in **DRY_RUN mode** with synthetic data. All results are simulated — no real patient data or external API calls are involved. See [Data Modes Guide](../testing/patient-one/data-modes-guide.md) for switching to real data mode.
+
 ---
 
 ## Prompt 1: Executive Summary Demo - 5-Minute PatientOne Overview

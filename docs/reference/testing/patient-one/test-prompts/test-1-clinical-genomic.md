@@ -1,6 +1,8 @@
 TEST 1: Clinical Data and Genomic Analysis
 ===========================================
 
+> **Data Mode:** This test uses **synthetic data** — DRY_RUN mode for mcp-fgbio, plus mock servers (mcp-mockepic and mcp-mocktcga are always synthetic). For real TCGA cohort data, use the [cBioPortal external connector](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md). For real EHR data, use mcp-epic (local, HIPAA-compliant). See [Data Modes Guide](../data-modes-guide.md) for details.
+
 Patient ID: PAT001-OVC-2025
 
 ⚠️ IMPORTANT: Use the MCP server tools to read files. The data has been copied to MCP-accessible locations.
