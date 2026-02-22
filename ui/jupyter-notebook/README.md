@@ -21,7 +21,7 @@ Interactive Jupyter notebooks for testing MCP servers via Claude API. Perfect fo
 |---|---|---|
 | `00-setup-and-test.ipynb` | all | Install deps, verify API key, test connectivity |
 | `01-imaging.ipynb` | deepcell, cell-classify, openimagedata | Cell segmentation, phenotyping, MxIF images |
-| `02-genomics-omics.ipynb` | fgbio, multiomics, spatialtools, tcga, perturbation | FASTQ QC, spatial analysis, multi-omics, GEARS |
+| `02-genomics-omics.ipynb` | fgbio, multiomics, spatialtools, mocktcga, perturbation | FASTQ QC, spatial analysis, multi-omics, GEARS |
 | `03-clinical.ipynb` | mockepic, patient-report | EHR/FHIR data, patient-facing reports |
 | `04-workflow-ml.ipynb` | quantum-celltype-fidelity | Quantum fidelity |
 | `05-integration.ipynb` | cross-server | PatientOne end-to-end precision-medicine workflows |
@@ -97,7 +97,7 @@ All servers are pre-configured in `mcp_utils.py`:
 - **fgbio** - Genomic reference data and FASTQ validation (production)
 - **multiomics** - Multi-omics integration: RNA/Protein/Phospho (production)
 - **spatialtools** - Spatial transcriptomics analysis (production)
-- **tcga** - TCGA cancer genomics data (mock)
+- **mocktcga** - Mock TCGA cancer genomics data (mock)
 - **perturbation** - GEARS perturbation prediction for treatment response (production)
 
 ### Clinical

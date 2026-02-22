@@ -177,7 +177,7 @@ Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 No manual log export or custom parser needed.  The deployed service account (`mcp-dashboard-sa`) has `roles/logging.viewer` — the minimum permission required.
 
 **Monitored Services:**
-- **MCP Servers (13):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, tcga, openimagedata, mockepic, patient-report, genomic-results, epic
+- **MCP Servers (13):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, mocktcga, openimagedata, mockepic, patient-report, genomic-results, epic
 - **Streamlit Clients (3):** mcp-dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 
 ---

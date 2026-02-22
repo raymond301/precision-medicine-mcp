@@ -361,8 +361,8 @@ SERVER_INFO = {
         'color': '#f8d7da',
         'description': 'TCGA cohort comparisons'
     },
-    'tcga': {
-        'display_name': 'Cancer Genomics (TCGA)',
+    'mocktcga': {
+        'display_name': 'Cancer Genomics (Mock TCGA)',
         'icon': '📊',
         'color': '#f8d7da',
         'description': 'TCGA cohort comparisons'
