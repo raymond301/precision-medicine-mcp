@@ -7,9 +7,23 @@
 **Prerequisites:**
 - Claude Desktop with custom servers configured ([desktop-configs/](../../../../../getting-started/desktop-configs/))
 - A free Seqera Platform account ([cloud.seqera.io](https://cloud.seqera.io) — free Cloud Basic tier, no credit card)
-- Seqera connector enabled: Settings > Connectors > toggle on **Seqera** and authenticate with your Seqera account
+- Seqera connector enabled **and authenticated**: Settings > Connectors > Seqera > click Connect and complete the Seqera sign-in flow
 
 **See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [E2E + Connectors (test-8)](test-8-e2e-claude-desktop-with-connectors.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
+
+---
+
+## Verify Seqera Connector Before Running
+
+The Seqera connector connects to Seqera's infrastructure at `mcp.seqera.io` (unlike PubMed/ClinicalTrials/bioRxiv which are fully Anthropic-hosted). If authentication is incomplete, the connector will show as "connected" in the UI but expose zero tools — causing a `Failed to fetch https://mcp.seqera.io/mcp` error.
+
+**Quick verification** — paste this into a new Claude Desktop conversation first:
+
+```
+What nf-core pipelines are available for somatic variant calling?
+```
+
+If Seqera tools are working, Claude will call `nfcore_suggest_analysis` and return pipeline recommendations. If you see "Failed to fetch" or a web search fallback instead, revisit Settings > Connectors > Seqera and re-authenticate.
 
 ---
 
@@ -86,5 +100,13 @@ After generating the report, display a final summary that includes:
 - The 3 Seqera tools used (`nfcore_suggest_analysis`, `describe_nfcore_module`, `search_nfcore_module`) access the public nf-core registry only — they do not launch pipelines or incur compute costs
 - Typical runtime: 3-5 minutes (Seqera nf-core queries add ~1 minute vs the base test)
 - The report in Stage 4 is DRY_RUN (no real PDF generated) but the pipeline recommendation it references is grounded in real nf-core data
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `Failed to fetch https://mcp.seqera.io/mcp` | Connector not authenticated | Settings > Connectors > Seqera > disconnect and reconnect, complete sign-in |
+| Seqera listed as connected but tools fall back to web search | Auth token expired or tools not exposed | Disconnect, reconnect, and re-authenticate |
+| Stage 2 skipped entirely | Connector not enabled | Settings > Connectors > find Seqera > click Connect |
 
 **See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [E2E + Connectors (test-8)](test-8-e2e-claude-desktop-with-connectors.md) | [Seqera integration guide](../../../../for-developers/SEQERA_OFFICIAL_MCP.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
