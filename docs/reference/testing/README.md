@@ -28,14 +28,25 @@ Complete testing scenario using synthetic ovarian cancer patient data.
 - [End-to-End Test](./patient-one/end-to-end-test.md) - Full workflow test
 
 #### Test Prompts
-Ready-to-use test prompts for the complete PatientOne workflow:
+Ready-to-use test prompts for the complete PatientOne workflow, organized by data mode:
 
-1. [Test 1: Clinical Genomic](./patient-one/test-prompts/test-1-clinical-genomic.md)
-2. [Test 2: Multiomics Enhanced](./patient-one/test-prompts/test-2-multiomics-enhanced.md)
-3. [Test 3: Spatial](./patient-one/test-prompts/test-3-spatial.md)
-4. [Test 4: Imaging](./patient-one/test-prompts/test-4-imaging.md)
-5. [Test 5: Integration](./patient-one/test-prompts/test-5-integration.md)
-6. [Test 6: CitL Review](./patient-one/test-prompts/test-6-citl-review.md)
+**[DRY_RUN](./patient-one/test-prompts/DRY_RUN/)** — Hardcoded mock data, zero file I/O, instant responses:
+1. [Test 1: Clinical Genomic](./patient-one/test-prompts/DRY_RUN/test-1-clinical-genomic.md)
+2. [Test 2: Multiomics Enhanced](./patient-one/test-prompts/DRY_RUN/test-2-multiomics-enhanced.md)
+3. [Test 3: Spatial](./patient-one/test-prompts/DRY_RUN/test-3-spatial.md)
+4. [Test 4: Imaging](./patient-one/test-prompts/DRY_RUN/test-4-imaging.md)
+5. [Test 5: Integration](./patient-one/test-prompts/DRY_RUN/test-5-integration.md)
+6. [Test 6: CitL Review](./patient-one/test-prompts/DRY_RUN/test-6-citl-review.md)
+7. [Test 7: E2E Claude Desktop](./patient-one/test-prompts/DRY_RUN/test-7-e2e-claude-desktop.md)
+8. [Test 8: E2E + Connectors](./patient-one/test-prompts/DRY_RUN/test-8-e2e-claude-desktop-with-connectors.md)
+
+**[SYNTHETIC_DATA](./patient-one/test-prompts/SYNTHETIC_DATA/)** — Real file parsing (`*_DRY_RUN=false`):
+1. [Test 1: Clinical Genomic](./patient-one/test-prompts/SYNTHETIC_DATA/test-1-clinical-genomic.md)
+2. [Test 2: Multiomics Enhanced](./patient-one/test-prompts/SYNTHETIC_DATA/test-2-multiomics-enhanced.md)
+3. [Test 3: Spatial](./patient-one/test-prompts/SYNTHETIC_DATA/test-3-spatial.md)
+7. [Test 7: E2E Claude Desktop](./patient-one/test-prompts/SYNTHETIC_DATA/test-7-e2e-claude-desktop.md)
+
+See [test-prompts README](./patient-one/test-prompts/README.md) for details on both modes.
 
 
 ---

@@ -117,7 +117,7 @@ Given PatientOne's immune-excluded phenotype, evaluate these 5 next-gen immunoth
 5. **TIL Therapy** — Engineered tumor-infiltrating lymphocytes (NCI, multiple). CD28/IL-15 methods improve persistence from cold tumors. NCI Phase II recruiting ([NCT01174121](https://clinicaltrials.gov/study/NCT01174121)).
    - *Analysis:* Use mcp-spatialtools for CD8A at periphery; mcp-deepcell for CD8+ density assessment.
 
-> **See [Immunotherapy Reference](../immunotherapy-reference.md)** for detailed profiles, decision framework, and complete NCT ID listing.
+> **See [Immunotherapy Reference](../../immunotherapy-reference.md)** for detailed profiles, decision framework, and complete NCT ID listing.
 
 **C. Clinical Trial Opportunities:**
 
@@ -135,7 +135,7 @@ Suggest trial types:
 - TIL (tumor-infiltrating lymphocyte) adoptive cell therapy trials
 - Checkpoint inhibitor + bispecific combinations
 
-> **Note:** Use **ClinicalTrials.gov MCP** and **PubMed MCP** (Anthropic-hosted external connectors) to search for active recruiting trials. Use **bioRxiv MCP** for preprint searches on emerging therapies. For real TCGA cohort validation (instead of mcp-mocktcga synthetic data), use the **cBioPortal** external connector. See [Connect External MCP Servers](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup and [Immunotherapy Reference](../immunotherapy-reference.md) for verified NCT IDs.
+> **Note:** Use **ClinicalTrials.gov MCP** and **PubMed MCP** (Anthropic-hosted external connectors) to search for active recruiting trials. Use **bioRxiv MCP** for preprint searches on emerging therapies. For real TCGA cohort validation (instead of mcp-mocktcga synthetic data), use the **cBioPortal** external connector. See [Connect External MCP Servers](../../../../../for-researchers/CONNECT_EXTERNAL_MCP.md) for setup and [Immunotherapy Reference](../../immunotherapy-reference.md) for verified NCT IDs.
 
 ### 4. BIOMARKERS FOR MONITORING
 

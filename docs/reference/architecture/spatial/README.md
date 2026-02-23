@@ -109,7 +109,7 @@ Spatial transcriptomics component of the Precision Medicine MCP system. Processe
 
 ## Quick Start
 
-**For users:** Read [CSV_WORKFLOW.md](CSV_WORKFLOW.md) → Run [PatientOne TEST_3_SPATIAL](../../testing/patient-one/test-prompts/test-3-spatial.md)
+**For users:** Read [CSV_WORKFLOW.md](CSV_WORKFLOW.md) → Run [PatientOne TEST_3_SPATIAL](../../testing/patient-one/test-prompts/DRY_RUN/test-3-spatial.md)
 
 **For developers:** See [OVERVIEW.md](OVERVIEW.md) for architecture
 

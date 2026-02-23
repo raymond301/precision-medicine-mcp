@@ -300,7 +300,7 @@ export DEIDENTIFY_ENABLED="true"
 - Multi-omics reveals PI3K/AKT pathway activation
 - TCGA comparison: Patient in high-risk group based on mutation profile
 
-**Test File:** [TEST_1_CLINICAL](../../testing/patient-one/test-prompts/test-1-clinical-genomic.md)
+**Test File:** [TEST_1_CLINICAL](../../testing/patient-one/test-prompts/DRY_RUN/test-1-clinical-genomic.md)
 
 ---
 

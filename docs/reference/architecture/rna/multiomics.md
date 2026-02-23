@@ -278,7 +278,7 @@ Which molecular pathways drive platinum resistance in High-Grade Serous Ovarian 
 - ABCB1 overexpression (drug efflux)
 - Predicted targets: Alpelisib (PIK3CA), Venetoclax (BCL2)
 
-**Test File:** [TEST_2_MULTIOMICS](../../testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)
+**Test File:** [TEST_2_MULTIOMICS](../../testing/patient-one/test-prompts/DRY_RUN/test-2-multiomics-enhanced.md)
 
 ---
 
@@ -305,7 +305,7 @@ For detailed implementation information, see:
 
 ## Quick Start
 
-**For users:** Read the [mcp-multiomics README](../../../../servers/mcp-multiomics/README.md) → Run [PatientOne TEST_2](../../testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)
+**For users:** Read the [mcp-multiomics README](../../../../servers/mcp-multiomics/README.md) → Run [PatientOne TEST_2](../../testing/patient-one/test-prompts/DRY_RUN/test-2-multiomics-enhanced.md)
 
 **For developers:** See [server README](../../../../servers/mcp-multiomics/README.md) for tool details and implementation
 

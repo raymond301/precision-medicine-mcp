@@ -159,4 +159,4 @@ Create annotated version highlighting regions of interest.
 
 - [MXIF_WORKFLOW.md](MXIF_WORKFLOW.md) - Fluorescence cell segmentation workflow
 - [mcp-openimagedata README](../../../../servers/mcp-openimagedata/README.md) - mcp-openimagedata tools
-- [PatientOne TEST_4](../../testing/patient-one/test-prompts/test-4-imaging.md) - Complete imaging test
+- [PatientOne TEST_4](../../testing/patient-one/test-prompts/DRY_RUN/test-4-imaging.md) - Complete imaging test

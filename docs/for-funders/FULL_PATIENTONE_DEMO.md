@@ -32,11 +32,11 @@ This demo showcases the full capabilities of the platform using **PatientOne** -
 - **[Data Modes Guide →](../reference/testing/patient-one/data-modes-guide.md)** - DRY_RUN, MOCK, FULL modes
 
 ### 📝 Test Prompts
-- **[Clinical & Genomic Prompts →](../reference/testing/patient-one/test-prompts/test-1-clinical-genomic.md)**
-- **[Multi-omics Prompts →](../reference/testing/patient-one/test-prompts/test-2-multiomics-enhanced.md)**
-- **[Spatial Analysis Prompts →](../reference/testing/patient-one/test-prompts/test-3-spatial.md)**
-- **[Imaging Prompts →](../reference/testing/patient-one/test-prompts/test-4-imaging.md)**
-- **[Integration Prompts →](../reference/testing/patient-one/test-prompts/test-5-integration.md)**
+- **[Clinical & Genomic Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-1-clinical-genomic.md)**
+- **[Multi-omics Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-2-multiomics-enhanced.md)**
+- **[Spatial Analysis Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-3-spatial.md)**
+- **[Imaging Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-4-imaging.md)**
+- **[Integration Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-5-integration.md)**
 - **[End-to-End Workflow →](../reference/testing/patient-one/end-to-end-test.md)**
 
 ---

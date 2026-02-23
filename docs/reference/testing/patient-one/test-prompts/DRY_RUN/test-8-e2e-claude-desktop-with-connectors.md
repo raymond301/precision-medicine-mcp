@@ -5,10 +5,10 @@
 **Purpose:** Extended E2E test that adds literature search, clinical trial matching, and preprint discovery to the base PatientOne workflow. Uses 6 custom MCP servers (DRY_RUN) plus 3 Anthropic connectors (live data).
 
 **Prerequisites:**
-- Claude Desktop with custom servers configured ([desktop-configs/](../../../../docs/getting-started/desktop-configs/))
+- Claude Desktop with custom servers configured ([desktop-configs/](../../../../../getting-started/desktop-configs/))
 - Anthropic connectors enabled: Settings > Connectors > toggle on **ClinicalTrials.gov**, **bioRxiv & medRxiv**, and **PubMed**
 
-**See also:** [Base E2E test (no connectors)](test-e2e-claude-desktop.md) | [Connector setup guide](../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
+**See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
 
 ---
 
@@ -119,4 +119,4 @@ After generating the report, display a final summary that includes:
 - Typical runtime: 5-10 minutes (connector queries add ~2-3 minutes vs the base test)
 - The report in Stage 9 is still DRY_RUN (no real PDF generated) but the treatment recommendations and trial matches it references are grounded in real literature
 
-**See also:** [Base E2E test (no connectors)](test-e2e-claude-desktop.md) | [Connector setup guide](../../../for-researchers/CONNECT_EXTERNAL_MCP.md) | [Full demo guide](../../../for-funders/FULL_PATIENTONE_DEMO.md)
+**See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md) | [Full demo guide](../../../../for-funders/FULL_PATIENTONE_DEMO.md)

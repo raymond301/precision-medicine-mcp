@@ -288,7 +288,7 @@ Standard checkpoint inhibitors (anti-PD-1/PD-L1 monotherapy) show limited effica
 
 - **[PatientOne Quick Start Guide](./README.md)** — Complete patient overview and workflow
 - **[Data Modes Guide](./data-modes-guide.md)** — DRY_RUN vs. Actual Data configuration
-- **[TEST 5: Integration](./test-prompts/test-5-integration.md)** — Integrated analysis including immunotherapy recommendations
+- **[TEST 5: Integration](./test-prompts/DRY_RUN/test-5-integration.md)** — Integrated analysis including immunotherapy recommendations
 - **[Prompt Library: Clinical & Genomic](../../prompts/clinical-genomic.md)** — Prompt 17: Immunotherapy targets
 - **[Prompt Library: Workflows](../../prompts/workflows.md)** — Section 5b: Immunotherapy research workflow
 - **[Prompt Library README](../../prompts/README.md)** — Full prompt index

@@ -207,7 +207,7 @@ Bridge spatial findings to mcp-multiomics for cross-modality integration.
 ## Testing
 
 ### PatientOne End-to-End Test
-**File:** [TEST_3_SPATIAL](../../testing/patient-one/test-prompts/test-3-spatial.md)
+**File:** [TEST_3_SPATIAL](../../testing/patient-one/test-prompts/DRY_RUN/test-3-spatial.md)
 
 **Test execution:**
 - Duration: 3-5 minutes

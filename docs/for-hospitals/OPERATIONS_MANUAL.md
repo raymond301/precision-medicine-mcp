@@ -730,7 +730,7 @@ python servers/mcp-patient-report/scripts/finalize_patient_report.py --patient-i
 ### Related Documentation
 
 - [CITL_WORKFLOW_GUIDE.md](citl-workflows/CITL_WORKFLOW_GUIDE.md) - Complete reviewer training, examples, and review template
-- [TEST_6_CITL_REVIEW.txt](../reference/testing/patient-one/test-prompts/test-6-citl-review.md) - End-to-end test
+- [TEST_6_CITL_REVIEW.txt](../reference/testing/patient-one/test-prompts/DRY_RUN/test-6-citl-review.md) - End-to-end test
 
 ---
 

@@ -207,7 +207,7 @@ Imaging analysis component for histology and multiplexed immunofluorescence (MxI
 
 ## Quick Start
 
-**For users:** Read [HE_WORKFLOW.md](HE_WORKFLOW.md) and [MXIF_WORKFLOW.md](MXIF_WORKFLOW.md) → Run [PatientOne TEST_4_IMAGING](../../testing/patient-one/test-prompts/test-4-imaging.md)
+**For users:** Read [HE_WORKFLOW.md](HE_WORKFLOW.md) and [MXIF_WORKFLOW.md](MXIF_WORKFLOW.md) → Run [PatientOne TEST_4_IMAGING](../../testing/patient-one/test-prompts/DRY_RUN/test-4-imaging.md)
 
 **For developers:** See [mcp-openimagedata README](../../../../servers/mcp-openimagedata/README.md) and [mcp-deepcell README](../../../../servers/mcp-deepcell/README.md) for tool details
 
