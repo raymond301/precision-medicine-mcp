@@ -527,6 +527,21 @@ async def validate_fastq(
     # Resolve GCS paths to local temp files
     fastq_path = _resolve_gcs_path(fastq_path)
 
+    if _is_dry_run():
+        # Return mock validation results without requiring real files
+        return {
+            "valid": True,
+            "total_reads": 1000000,
+            "avg_quality": 32.5,
+            "avg_read_length": 150,
+            "warnings": [],
+            "metadata": {
+                "file": fastq_path,
+                "min_quality_threshold": min_quality_score,
+                "mode": "dry_run"
+            }
+        }
+
     # =========================================================================
     # VALIDATION: Check FASTQ file format before processing
     # =========================================================================
@@ -554,21 +569,6 @@ async def validate_fastq(
     # =========================================================================
 
     fastq_file = Path(fastq_path)
-
-    if _is_dry_run():
-        # Return mock validation results
-        return {
-            "valid": True,
-            "total_reads": 1000000,
-            "avg_quality": 32.5,
-            "avg_read_length": 150,
-            "warnings": [],
-            "metadata": {
-                "file": str(fastq_file),
-                "min_quality_threshold": min_quality_score,
-                "mode": "dry_run"
-            }
-        }
 
     # In a real implementation, this would call FGbio's ValidateFastq
     # For now, we'll do basic Python-based validation
@@ -683,18 +683,14 @@ async def extract_umis(
     """
     _ensure_directories()
 
-    fastq_file = Path(fastq_path)
-    if not fastq_file.exists():
-        raise IOError(f"FASTQ file not found: {fastq_path}")
-
     if umi_length < 4 or umi_length > 20:
         raise ValueError(f"UMI length {umi_length} out of valid range (4-20)")
 
+    fastq_file = Path(fastq_path)
     output_path = Path(output_dir) / f"{fastq_file.stem}_with_umis.fastq.gz"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     if _is_dry_run():
-        # Return mock results
+        # Return mock results without requiring real files
         return {
             "output_fastq": str(output_path),
             "umi_count": 45000,
@@ -705,6 +701,11 @@ async def extract_umis(
                 "mode": "dry_run"
             }
         }
+
+    if not fastq_file.exists():
+        raise IOError(f"FASTQ file not found: {fastq_path}")
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     # In a real implementation, this would call FGbio's ExtractUmisFromBam
     # For mock purposes, we'll return plausible statistics

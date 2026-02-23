@@ -249,19 +249,10 @@ async def register_image_to_spatial(
     """
     _ensure_directories()
 
-    img_path = Path(image_path)
-    if not img_path.exists():
-        raise IOError(f"Image not found: {image_path}")
-
-    coord_path = Path(spatial_coordinates_file)
-    if not coord_path.exists():
-        raise IOError(f"Coordinates file not found: {spatial_coordinates_file}")
-
     if registration_method not in ["affine", "rigid", "deformable"]:
         raise ValueError(f"Invalid registration method: {registration_method}")
 
     output_path = Path(output_file)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     if DRY_RUN:
         # Mock registration
@@ -282,6 +273,16 @@ async def register_image_to_spatial(
             },
             "mode": "dry_run"
         }
+
+    img_path = Path(image_path)
+    if not img_path.exists():
+        raise IOError(f"Image not found: {image_path}")
+
+    coord_path = Path(spatial_coordinates_file)
+    if not coord_path.exists():
+        raise IOError(f"Coordinates file not found: {spatial_coordinates_file}")
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
         start = time.time()
@@ -442,10 +443,6 @@ async def extract_image_features(
     """
     _ensure_directories()
 
-    img_path = Path(image_path)
-    if not img_path.exists():
-        raise IOError(f"Image not found: {image_path}")
-
     if feature_type not in ["texture", "morphology", "intensity"]:
         raise ValueError(f"Invalid feature type: {feature_type}")
 
@@ -466,6 +463,10 @@ async def extract_image_features(
             },
             "mode": "dry_run"
         }
+
+    img_path = Path(image_path)
+    if not img_path.exists():
+        raise IOError(f"Image not found: {image_path}")
 
     try:
         start = time.time()
