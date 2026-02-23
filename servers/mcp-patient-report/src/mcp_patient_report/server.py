@@ -155,8 +155,9 @@ async def generate_patient_report(
             file_name = f"{report_data.patient_info.patient_id}_{report_type}_report_DRAFT.pdf"
             return {
                 "status": "DRY_RUN",
-                "message": "Report generation simulated (DRY_RUN mode)",
-                "file_path": f"/reports/{file_name}",
+                "message": "Report generation simulated (DRY_RUN mode). "
+                           "No PDF was created. Set PATIENT_REPORT_DRY_RUN=false to generate a real report.",
+                "file_path": str(OUTPUT_DIR / file_name),
                 "file_name": file_name,
                 "download_url": None,  # Not available in DRY_RUN mode
                 "report_type": report_type,
