@@ -36,9 +36,11 @@ graph LR
 
 ## Anthropic Connectors (hosted)
 
-Remote MCP servers hosted by Anthropic. Enable with a toggle — no install, no config files, no API keys. Anthropic manages the infrastructure.
+Remote MCP servers hosted by Anthropic. Enable with a toggle — no install, no config files. Anthropic manages the infrastructure.
 
 **Setup (same for all connectors):** Claude Desktop > Settings > Connectors > find the connector > click Connect
+
+> **Auth note:** ClinicalTrials.gov, bioRxiv, and PubMed require no account or API key. **Seqera** requires you to authenticate with a free Seqera Platform account ([cloud.seqera.io](https://cloud.seqera.io) — free Cloud Basic tier, no credit card) during the connector setup flow. No env vars or API tokens to manage — the connector handles auth after you sign in.
 
 ### ClinicalTrials.gov
 

@@ -116,6 +116,19 @@ The mocked `mcp-seqera` server (3 tools, synthetic data) has been removed from t
 
 **Setup instructions:** [CONNECT_EXTERNAL_MCP.md](../for-researchers/CONNECT_EXTERNAL_MCP.md)
 
+## Two Integration Paths
+
+| | Anthropic Connector (test-9) | Self-hosted `npx` server (this doc) |
+|---|---|---|
+| **Use case** | nf-core pipeline discovery, module search | Pipeline launches, monitoring, dataset management |
+| **Setup** | Settings > Connectors > Seqera > sign in | `npx @seqeralabs/mcp-server-seqera` + env vars |
+| **Auth** | Seqera account via connector flow | `TOWER_ACCESS_TOKEN` env var |
+| **Compute costs** | None (queries public nf-core registry) | Yes (launches real pipelines on cloud compute) |
+| **Tools used** | `nfcore_suggest_analysis`, `describe_nfcore_module`, `search_nfcore_module` | All 7 tools including `call_seqera_api`, `search_seqera_api` |
+| **Test prompt** | [Test-9](../reference/testing/patient-one/test-prompts/DRY_RUN/test-9-e2e-seqera-connector.md) | End-to-End Workflow (above) |
+
+For most users starting out, the **Anthropic connector** path is simpler — toggle it on, sign in, and use the nf-core tools immediately. The self-hosted path is for production workflows that need to launch and monitor pipelines.
+
 ## References
 
 - [Seqera MCP Server (npm)](https://www.npmjs.com/package/@seqeralabs/mcp-server-seqera)
