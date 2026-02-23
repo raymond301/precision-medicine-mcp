@@ -70,12 +70,13 @@ Check for recent preprints on emerging approaches:
 - Note any preprints relevant to HGSOC, PARP resistance, or PI3K pathway
 
 ## Stage 9 — Patient Report (patient-report)
-Generate a patient-facing report using generate_patient_report:
-- Include findings from ALL prior stages: clinical, genomic, spatial, multi-omics
-- In treatment_options, incorporate the PubMed evidence and matching clinical trials from Stages 6-7
-- report_type: "full", output_format: "pdf"
-- The report_data_json must include: patient_info, diagnosis_summary, genomic_findings, treatment_options, monitoring_plan
-- Include a clinical_trials list with the top matching trials from Stage 7
+First call get_report_template_schema to get the exact JSON schema, then construct valid JSON and call generate_patient_report:
+1. Call get_report_template_schema — use the returned schema and example to build report_data_json
+2. Build report_data_json as a JSON string with all 5 required sections: patient_info, diagnosis_summary, genomic_findings (list), treatment_options (list), monitoring_plan
+3. Include findings from ALL prior stages: clinical, genomic, spatial, multi-omics
+4. In treatment_options, incorporate the PubMed evidence and matching clinical trials from Stages 6-7
+5. Include a clinical_trials list with the top matching trials from Stage 7
+6. Call generate_patient_report with the JSON string, report_type="full", output_format="pdf"
 
 ## IMPORTANT — Final Output
 After generating the report, display a final summary that includes:

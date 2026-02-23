@@ -28,11 +28,11 @@ Retrieve patient clinical data using mockepic:
 - Current medications
 
 ## Stage 2 — Pipeline Selection (Seqera connector)
-Use the Seqera connector to recommend and explore nf-core pipelines for this patient's analysis:
-- nfcore_suggest_analysis: Suggest an appropriate pipeline for somatic variant calling in a BRCA1-mutated HGSOC tumor sample (WES data, GRCh38 reference)
-- describe_nfcore_module: Get details on the Mutect2 module (somatic SNV/indel calling) and the CNVkit module (copy number analysis)
-- search_nfcore_module: Search for modules related to HRD scoring and BRCA-related homologous recombination deficiency analysis
-- Summarize: recommended pipeline, key modules, and why they are appropriate for this patient
+Use the Seqera connector tools (not web search) to recommend and explore nf-core pipelines for this patient's analysis. Call each tool directly:
+1. Call the Seqera `nfcore_suggest_analysis` tool — suggest an appropriate nf-core pipeline for somatic variant calling in a BRCA1-mutated HGSOC tumor sample (WES data, GRCh38 reference)
+2. Call the Seqera `describe_nfcore_module` tool twice — first for the "mutect2" module (somatic SNV/indel calling), then for the "cnvkit" module (copy number analysis)
+3. Call the Seqera `search_nfcore_module` tool — search for modules related to "HRD" or "homologous recombination deficiency"
+4. Summarize: recommended pipeline, key modules, and why they are appropriate for this patient
 
 ## Stage 3 — Somatic Variants & HRD (genomic-results)
 Parse genomic results (simulating output from the recommended pipeline):
@@ -42,12 +42,12 @@ Parse genomic results (simulating output from the recommended pipeline):
 - Summarize actionable mutations and PARP eligibility
 
 ## Stage 4 — Patient Report (patient-report)
-Generate a patient-facing report using generate_patient_report:
-- Include findings from ALL prior stages: clinical context, pipeline recommendation, genomic findings
-- In treatment_options, reference the pipeline used and genomic evidence supporting PARP inhibitor eligibility
-- report_type: "full", output_format: "pdf"
-- The report_data_json must include: patient_info, diagnosis_summary, genomic_findings, treatment_options, monitoring_plan
-- Include a pipeline_recommendation section noting the nf-core pipeline and key modules from Stage 2
+First call get_report_template_schema to get the exact JSON schema, then construct valid JSON and call generate_patient_report:
+1. Call get_report_template_schema — use the returned schema and example to build report_data_json
+2. Build report_data_json as a JSON string with all 5 required sections: patient_info, diagnosis_summary, genomic_findings (list), treatment_options (list), monitoring_plan
+3. Include findings from ALL prior stages: clinical context, pipeline recommendation, genomic findings
+4. In treatment_options, reference the pipeline used and genomic evidence supporting PARP inhibitor eligibility
+5. Call generate_patient_report with the JSON string, report_type="full", output_format="pdf"
 
 ## IMPORTANT — Final Output
 After generating the report, display a final summary that includes:
