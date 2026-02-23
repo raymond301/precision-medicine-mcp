@@ -122,3 +122,4 @@ The mocked `mcp-seqera` server (3 tools, synthetic data) has been removed from t
 - [Seqera Platform Documentation](https://docs.seqera.io/)
 - [nf-core/sarek Pipeline](https://nf-co.re/sarek)
 - [Nextflow Documentation](https://www.nextflow.io/docs/latest/)
+- [Test-9: Seqera Connector Demo](../reference/testing/patient-one/test-prompts/DRY_RUN/test-9-e2e-seqera-connector.md)

@@ -13,7 +13,7 @@ MCP servers support two layers of synthetic data. Choose the mode that fits your
 - `*_DRY_RUN=true` (the default)
 - Servers return **hardcoded inline mock data** — zero file I/O, instant responses
 - No prerequisites beyond the MCP servers themselves
-- 8 test prompts covering all modalities
+- 9 test prompts covering all modalities
 
 | # | Test | Servers |
 |---|------|---------|
@@ -25,6 +25,7 @@ MCP servers support two layers of synthetic data. Choose the mode that fits your
 | 6 | [CitL Review](DRY_RUN/test-6-citl-review.md) | patient-report |
 | 7 | [E2E Claude Desktop](DRY_RUN/test-7-e2e-claude-desktop.md) | 6 servers, single prompt |
 | 8 | [E2E + Connectors](DRY_RUN/test-8-e2e-claude-desktop-with-connectors.md) | 6 servers + PubMed, ClinicalTrials, bioRxiv |
+| 9 | [E2E Seqera Connector](DRY_RUN/test-9-e2e-seqera-connector.md) | mockepic, genomic-results, patient-report + Seqera |
 
 ### [SYNTHETIC_DATA/](SYNTHETIC_DATA/) — Real File Parsing
 

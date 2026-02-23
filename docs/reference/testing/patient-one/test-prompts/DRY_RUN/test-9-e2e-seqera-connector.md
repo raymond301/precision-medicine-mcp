@@ -1,0 +1,89 @@
+# PatientOne End-to-End Test — Seqera Connector + Genomic Analysis
+
+**Last Updated:** 2026-02-23
+
+**Purpose:** Focused E2E test that demonstrates Seqera nf-core pipeline discovery alongside custom MCP servers for genomic analysis and reporting. Uses 3 custom MCP servers (DRY_RUN) plus the Seqera connector (live nf-core queries — no Seqera Platform account required).
+
+**Prerequisites:**
+- Claude Desktop with custom servers configured ([desktop-configs/](../../../../../getting-started/desktop-configs/))
+- Seqera connector enabled: Settings > Connectors > toggle on **Seqera**
+
+**See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [E2E + Connectors (test-8)](test-8-e2e-claude-desktop-with-connectors.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
+
+---
+
+## Prompt
+
+Copy and paste the following into Claude Desktop:
+
+```
+Run a PatientOne (PAT001-OVC-2025) precision oncology analysis focusing on pipeline selection and genomic interpretation. Uses 3 custom MCP servers (DRY_RUN) plus the Seqera connector for nf-core pipeline discovery (live).
+
+Patient profile for context: 58-year-old female, Stage IV High-Grade Serous Ovarian Carcinoma (HGSOC), platinum-resistant, BRCA1 germline mutation, HRD-positive.
+
+## Stage 1 — Clinical Context (mockepic)
+Retrieve patient clinical data using mockepic:
+- Patient demographics and diagnosis
+- Lab observations (CA-125 trend, BRCA status)
+- Current medications
+
+## Stage 2 — Pipeline Selection (Seqera connector)
+Use the Seqera connector to recommend and explore nf-core pipelines for this patient's analysis:
+- nfcore_suggest_analysis: Suggest an appropriate pipeline for somatic variant calling in a BRCA1-mutated HGSOC tumor sample (WES data, GRCh38 reference)
+- describe_nfcore_module: Get details on the Mutect2 module (somatic SNV/indel calling) and the CNVkit module (copy number analysis)
+- search_nfcore_module: Search for modules related to HRD scoring and BRCA-related homologous recombination deficiency analysis
+- Summarize: recommended pipeline, key modules, and why they are appropriate for this patient
+
+## Stage 3 — Somatic Variants & HRD (genomic-results)
+Parse genomic results (simulating output from the recommended pipeline):
+- parse_somatic_variants from "/data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf"
+- parse_cnv_calls from "/data/patient-data/PAT001-OVC-2025/genomics/copy_number_results.cns"
+- calculate_hr_deficiency_score using both files
+- Summarize actionable mutations and PARP eligibility
+
+## Stage 4 — Patient Report (patient-report)
+Generate a patient-facing report using generate_patient_report:
+- Include findings from ALL prior stages: clinical context, pipeline recommendation, genomic findings
+- In treatment_options, reference the pipeline used and genomic evidence supporting PARP inhibitor eligibility
+- report_type: "full", output_format: "pdf"
+- The report_data_json must include: patient_info, diagnosis_summary, genomic_findings, treatment_options, monitoring_plan
+- Include a pipeline_recommendation section noting the nf-core pipeline and key modules from Stage 2
+
+## IMPORTANT — Final Output
+After generating the report, display a final summary that includes:
+1. A banner: "⚠️ DRAFT — REQUIRES CLINICIAN REVIEW AND APPROVAL BEFORE PATIENT DELIVERY"
+2. Key findings from each stage (1-2 bullets each)
+3. A "Pipeline Recommendation" section listing:
+   - Recommended nf-core pipeline and why
+   - Key modules (Mutect2, CNVkit, HRD-related)
+   - Any relevant modules found for BRCA/HRD analysis
+4. The report file_path from the generate_patient_report response
+5. Instructions: "Use patient-report:approve_patient_report with reviewer_name to finalize"
+6. Note which results are DRY_RUN synthetic data (Stages 1, 3, 4) vs live data (Stage 2)
+```
+
+---
+
+## Expected Results
+
+| Stage | Server/Connector | Data Source | Key Expected Output |
+|-------|-----------------|-------------|-------------------|
+| 1 | mockepic | DRY_RUN | Patient demographics, CA-125 trend, BRCA status, medications |
+| 2 | Seqera connector | **Live** | nf-core/sarek recommended, Mutect2 + CNVkit module details, HRD module search results |
+| 3 | genomic-results | DRY_RUN | TP53/PIK3CA/PTEN mutations, HRD score 44, PARP eligible |
+| 4 | patient-report | DRY_RUN | Draft PDF path, validation passed |
+
+**Final banner should read:**
+> ⚠️ DRAFT — REQUIRES CLINICIAN REVIEW AND APPROVAL BEFORE PATIENT DELIVERY
+
+---
+
+## Notes
+
+- **Custom servers** (Stages 1, 3, 4) run in DRY_RUN mode — results are synthetic, not for clinical use
+- **Seqera connector** (Stage 2) queries the live nf-core module/pipeline registry — no Seqera Platform account or API token needed
+- The 3 Seqera tools used (`nfcore_suggest_analysis`, `describe_nfcore_module`, `search_nfcore_module`) access the public nf-core registry only — they do not launch pipelines or require compute resources
+- Typical runtime: 3-5 minutes (Seqera nf-core queries add ~1 minute vs the base test)
+- The report in Stage 4 is DRY_RUN (no real PDF generated) but the pipeline recommendation it references is grounded in real nf-core data
+
+**See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [E2E + Connectors (test-8)](test-8-e2e-claude-desktop-with-connectors.md) | [Seqera integration guide](../../../../for-developers/SEQERA_OFFICIAL_MCP.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
