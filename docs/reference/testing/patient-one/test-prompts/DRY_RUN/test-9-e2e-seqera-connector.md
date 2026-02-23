@@ -2,11 +2,12 @@
 
 **Last Updated:** 2026-02-23
 
-**Purpose:** Focused E2E test that demonstrates Seqera nf-core pipeline discovery alongside custom MCP servers for genomic analysis and reporting. Uses 3 custom MCP servers (DRY_RUN) plus the Seqera connector (live nf-core queries — no Seqera Platform account required).
+**Purpose:** Focused E2E test that demonstrates Seqera nf-core pipeline discovery alongside custom MCP servers for genomic analysis and reporting. Uses 3 custom MCP servers (DRY_RUN) plus the Seqera connector (live nf-core queries).
 
 **Prerequisites:**
 - Claude Desktop with custom servers configured ([desktop-configs/](../../../../../getting-started/desktop-configs/))
-- Seqera connector enabled: Settings > Connectors > toggle on **Seqera**
+- A free Seqera Platform account ([cloud.seqera.io](https://cloud.seqera.io) — free Cloud Basic tier, no credit card)
+- Seqera connector enabled: Settings > Connectors > toggle on **Seqera** and authenticate with your Seqera account
 
 **See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [E2E + Connectors (test-8)](test-8-e2e-claude-desktop-with-connectors.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
 
@@ -81,8 +82,8 @@ After generating the report, display a final summary that includes:
 ## Notes
 
 - **Custom servers** (Stages 1, 3, 4) run in DRY_RUN mode — results are synthetic, not for clinical use
-- **Seqera connector** (Stage 2) queries the live nf-core module/pipeline registry — no Seqera Platform account or API token needed
-- The 3 Seqera tools used (`nfcore_suggest_analysis`, `describe_nfcore_module`, `search_nfcore_module`) access the public nf-core registry only — they do not launch pipelines or require compute resources
+- **Seqera connector** (Stage 2) queries the live nf-core module/pipeline registry — requires a free Seqera account for authentication ([free Cloud Basic tier](https://seqera.io/pricing/))
+- The 3 Seqera tools used (`nfcore_suggest_analysis`, `describe_nfcore_module`, `search_nfcore_module`) access the public nf-core registry only — they do not launch pipelines or incur compute costs
 - Typical runtime: 3-5 minutes (Seqera nf-core queries add ~1 minute vs the base test)
 - The report in Stage 4 is DRY_RUN (no real PDF generated) but the pipeline recommendation it references is grounded in real nf-core data
 
