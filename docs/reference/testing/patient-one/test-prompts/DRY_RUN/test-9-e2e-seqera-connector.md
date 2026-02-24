@@ -7,7 +7,9 @@
 **Prerequisites:**
 - Claude Desktop with custom servers configured ([desktop-configs/](../../../../../getting-started/desktop-configs/))
 - A free Seqera Platform account ([cloud.seqera.io](https://cloud.seqera.io) — free Cloud Basic tier, no credit card)
-- Seqera connector enabled **and authenticated**: Settings > Connectors > Seqera > click Connect and complete the Seqera sign-in flow
+
+> **IMPORTANT — Connect to Seqera before running this test:**
+> Open Claude Desktop > Settings > Connectors > find **Seqera** > click **Connect** and complete the Seqera sign-in flow. The connector must show as authenticated (not just toggled on) before the Seqera tools will be available. See [Verify Seqera Connector](#verify-seqera-connector-before-running) below.
 
 **See also:** [Base E2E test (no connectors)](test-7-e2e-claude-desktop.md) | [E2E + Connectors (test-8)](test-8-e2e-claude-desktop-with-connectors.md) | [Connector setup guide](../../../../for-researchers/CONNECT_EXTERNAL_MCP.md)
 
