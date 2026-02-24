@@ -1,5 +1,7 @@
 # Value Proposition (Canonical Reference)
 
+This platform enables **multi-modal synthesis** — integrating genomics, spatial transcriptomics, multi-omics, imaging, and clinical data in ways manual workflows cannot achieve at scale. All tools are accessible via natural language (no coding required). Every AI-generated result requires **clinician APPROVE/REVISE/REJECT** before clinical use.
+
 ## Time Savings
 
 | Mode | Traditional | MCP Platform | Speed-up |
@@ -40,9 +42,11 @@
 
 ## What Makes This Possible
 
+- **Multi-modal synthesis** — correlate spatial gene expression with protein phosphorylation, genomic variants, and clinical data in one workflow
+- **Natural language access** — complex bioinformatics tools (spatial autocorrelation, perturbation prediction, cell deconvolution) accessible without coding
+- **Clinician-in-the-Loop safety** — APPROVE/REVISE/REJECT enforced at the platform level; HIPAA-compliant with 10-year audit trails
 - **Multiple MCP servers** with specialized bioinformatics tools (see [Server Registry](server-registry.md))
-- **AI orchestration** via natural language (Claude + Gemini)
-- **Multi-modal integration** across 5 data types in a single workflow
+- **AI orchestration** via Claude + Gemini with full traceability
 - **DRY_RUN mode** for zero-risk testing and demonstrations
 
 ---

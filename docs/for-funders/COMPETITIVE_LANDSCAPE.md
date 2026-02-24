@@ -46,9 +46,12 @@ graph TD
 ```
 
 **Key Differentiators:**
+- ✅ **True multi-modal synthesis** — 5 data types analyzed together, not in silos (the only platform doing cross-modal integration at this scope)
+- ✅ **Clinician-in-the-Loop safety** — every AI result requires APPROVE/REVISE/REJECT before clinical use
+- ✅ **HIPAA-compliant** — Safe Harbor de-identification, 10-year audit trails, VPC isolation
+- ✅ **Natural language interface** — no coding required (bioinformatician oversight still required)
 - ✅ **Lowest projected cost** for comprehensive multi-modal analysis ($324-702 vs. $6,000-9,000) — modeled, pending clinical validation
 - ✅ **Fastest** estimated results (2-5 hours production vs. 5-8 days commercial; 25-35 min DRY_RUN demo)
-- ✅ **Natural language interface** (bioinformatician oversight still required)
 - ✅ **Open source** (transparent algorithms, no vendor lock-in on server layer)
 - ✅ **Team compression** — reduces minimum precision medicine team from ~10 FTEs to ~3
 - ❌ Not yet clinically validated (validated on synthetic data only)
@@ -137,7 +140,7 @@ graph TD
 - **No natural language interface**
 - **40+ hours** per patient analysis
 
-**Our Advantage:** AI orchestration reduces 40 hours → 2-5 hours (production)
+**Our Advantage:** Multi-modal synthesis via natural language with clinician APPROVE/REVISE/REJECT safety; AI orchestration reduces 40 hours → 2-5 hours
 
 #### Nextflow/nf-core
 **What They Do:**
@@ -177,7 +180,7 @@ graph TD
 - **Requires PhD-level bioinformaticians**
 - **Hard to scale** (limited personnel)
 
-**Our Advantage:** 8-20x faster (estimated, production), $3,137 modeled average savings per patient
+**Our Advantage:** Cross-modality synthesis with clinician safety controls; 8-20x faster (estimated), $3,137 modeled average savings per patient
 
 ---
 
@@ -353,12 +356,14 @@ graph TD
 ## Recommended Positioning
 
 **Primary Message:**
-> "The fastest, most affordable way to perform comprehensive multi-modal precision medicine analysis"
+> "Multi-modal synthesis for precision oncology — integrating 5 data types in one analysis with clinician authority preserved at every step"
 
 **Key Proof Points:**
+- Only platform integrating 5 modalities in true cross-modal analysis via natural language — not just side-by-side
+- Clinician APPROVE/REVISE/REJECT on every AI result — assists, never replaces
+- HIPAA-compliant with 10-year immutable audit trails
 - 8-20x faster than manual analysis (estimated: 40 hours → 2-5 hours production)
 - 10-18x cheaper than traditional analysis (projected: $324-702 vs. $6,000-9,000)
-- Only platform integrating 5 modalities with natural language interface
 - Reduces minimum precision medicine team from ~10 FTEs to ~3
 
 **Validation Status:** End-to-end workflow validated on synthetic data. Cost savings and speed claims are modeled projections; a clinical pilot is required to confirm.
@@ -377,4 +382,4 @@ graph TD
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-24

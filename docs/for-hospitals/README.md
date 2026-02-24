@@ -4,10 +4,24 @@
 
 ---
 
+## Clinician Authority Is Built In
+
+> **This is a clinical decision support tool. AI assists — clinicians decide.**
+
+Every AI-generated analysis requires explicit clinician action before clinical use:
+
+- **APPROVE** — Results are clinically sound, proceed to Molecular Tumor Board
+- **REVISE** — Results need modification, AI re-runs with clinician guidance
+- **REJECT** — Results are discarded, no clinical action taken
+
+This is not a workflow checkbox — it is a **safety guarantee** enforced at the platform level. No AI output reaches clinical use without human authorization. ([Full CITL workflow](citl-workflows/CITL_WORKFLOW_GUIDE.md))
+
+---
+
 ## What You Can Accomplish Here
 
+- ✅ **Verify safety & governance** (CITL workflow, HIPAA compliance, audit logging, encryption)
 - ✅ **Understand deployment requirements** (GCP, Epic FHIR, Azure AD)
-- ✅ **Review security & HIPAA compliance** (de-identification, audit logging, encryption)
 - ✅ **Plan 6-month deployment timeline** (infrastructure → pilot → production)
 - ✅ **Assess operational costs** (modest monthly infrastructure + low per-patient compute — [Cost Analysis](../reference/shared/cost-analysis.md))
 - ✅ **Access deployment checklist** and runbooks for common issues

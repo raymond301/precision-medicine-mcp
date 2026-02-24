@@ -1,16 +1,16 @@
 # Precision Medicine MCP: Funding & Partnership Opportunities
 
-> **40 hours of manual bioinformatics → 2-5 hours with AI-orchestrated analysis (8-20x faster)**
+> **AI-orchestrated multi-modal synthesis for precision oncology — integrating genomics, transcriptomics, spatial biology, and imaging in a single analysis. Every result requires clinician APPROVE/REVISE/REJECT before clinical use.**
 
 ---
 
 ## 💡 The Opportunity
 
-The Precision Medicine MCP Platform reduces multi-omics precision medicine analysis from **40 hours of manual work** to **2-5 hours** of AI-orchestrated analysis (production), with modeled savings of **$3,098-3,176 per patient** while maintaining HIPAA compliance. DRY_RUN demos complete in 25-35 minutes with synthetic data. Savings estimates are projected from workflow comparisons; clinical pilot validation is the next step.
+The Precision Medicine MCP Platform enables **multi-modal synthesis** that manual workflows cannot achieve at scale — correlating spatial gene expression with protein phosphorylation, genomic variants, and clinical data in a single analysis. All tools are accessible via natural language (no coding required). Reduces production analysis from 40 hours to 2-5 hours, with modeled savings of **$3,098-3,176 per patient**. DRY_RUN demos complete in 25-35 minutes with synthetic data. Savings estimates are projected from workflow comparisons; clinical pilot validation is the next step.
 
-**The Problem:** Stage IV ovarian cancer patients face platinum resistance with limited treatment options. Comprehensive multi-omics analysis (genomics + spatial transcriptomics + imaging) could identify personalized targets, but the 40-hour manual analysis time makes it clinically impractical.
+**The Problem:** Stage IV ovarian cancer patients face platinum resistance with limited treatment options. Comprehensive multi-omics analysis (genomics + spatial transcriptomics + imaging) could identify personalized targets, but data lives in silos and the 40-hour manual analysis time makes integrated analysis clinically impractical.
 
-**This Solution:** AI (Claude + Gemini 3) orchestrates specialized bioinformatics MCP servers ([Server Registry](../reference/shared/server-registry.md)) via natural language, completing production analysis in 2-5 hours (vs. 40 hours traditional).
+**This Solution:** AI (Claude + Gemini) orchestrates specialized bioinformatics MCP servers ([Server Registry](../reference/shared/server-registry.md)) via natural language, enabling cross-modality insights previously infeasible at scale. Every AI-generated result requires **clinician APPROVE/REVISE/REJECT** before clinical use — the system assists, never replaces.
 
 > **Detailed metrics:** See [Value Proposition](../reference/shared/value-proposition.md) for complete ROI analysis.
 
@@ -87,9 +87,11 @@ graph LR
 - **Limited access**: Only available at academic medical centers with dedicated bioinformatics teams
 
 **This Solution:**
-- Natural language AI orchestration reduces **40 hours → 2-5 hours** (production)
-- **$3,098-3,176 modeled savings per patient** (to be validated during pilot)
-- HIPAA-compliant architecture with 6-month deployment path to hospital pilot
+- **Multi-modal synthesis** — genomics, spatial, multi-omics, imaging, and clinical data analyzed together, not in silos
+- **Clinician-in-the-Loop safety** — every AI result requires APPROVE/REVISE/REJECT before clinical use
+- **Natural language access** — complex bioinformatics tools accessible without coding
+- **HIPAA-compliant** architecture with de-identification, 10-year audit trails, VPC isolation
+- Reduces analysis from 40 hours → 2-5 hours; modeled savings of $3,098-3,176 per patient (to be validated during pilot)
 - Reduces minimum precision medicine team from ~10 FTEs to ~3 (2 clinicians + 1-2 bioinformaticians)
 - Demonstrated with synthetic PatientOne case study (Stage IV HGSOC)
 

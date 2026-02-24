@@ -2,7 +2,7 @@
 
 > **Cost figures source:** Base figures from [Cost Analysis](../reference/shared/cost-analysis.md) and [Value Proposition](../reference/shared/value-proposition.md). Inline numbers retained for live demo script.
 
-These prompts demonstrate the platform's value in under 2 minutes for funders, grant reviewers, and hospital decision-makers.
+These prompts demonstrate the platform's value in under 2 minutes for funders, grant reviewers, and hospital decision-makers. The platform enables **multi-modal synthesis** across 5 data types via natural language, with every AI result requiring **clinician APPROVE/REVISE/REJECT** before clinical use.
 
 ---
 
@@ -171,12 +171,13 @@ See: [FUNDING.md](../for-funders/FUNDING.md) for detailed budget breakdown
 
 ## Tips for Maximum Impact
 
-1. **Start with the problem** - "40 hours is clinically impractical for urgent treatment decisions"
-2. **Show live results** - Run the prompts, don't just describe them
-3. **Emphasize natural language** - "No coding required, just ask questions"
-4. **Highlight team compression** - "Reduces the minimum precision medicine team from ~10 to ~3"
-5. **Be honest about status** - "Validated on synthetic data; next step is a 6-month clinical pilot"
-6. **End with call-to-action** - "Let's discuss a 6-month pilot at your institution"
+1. **Lead with safety** - "Every AI result requires clinician APPROVE/REVISE/REJECT — this assists doctors, never replaces them"
+2. **Show the synthesis** - "This integrates 5 data types in one analysis — something manual workflows can't do at scale"
+3. **Show live results** - Run the prompts, don't just describe them
+4. **Emphasize natural language** - "No coding required, just ask questions"
+5. **Then mention speed** - "2-5 hours vs. 40 hours makes same-day precision medicine feasible"
+6. **Be honest about status** - "Validated on synthetic data; next step is a 6-month clinical pilot"
+7. **End with call-to-action** - "Let's discuss a 6-month pilot at your institution"
 
 ---
 

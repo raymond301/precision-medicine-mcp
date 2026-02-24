@@ -6,7 +6,7 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 ## Elevator Pitch (30 seconds)
 
-> "We've developed an AI-orchestrated precision medicine platform that reduces multi-omics cancer analysis from 40 hours to 2-5 hours, with modeled savings of ~$3,137 per patient. Using natural language, clinicians can integrate clinical data, genomics, spatial transcriptomics, and imaging to identify actionable treatment targets. The platform reduces the minimum team size from ~10 FTEs to ~3, making precision oncology feasible for community hospitals. It's been validated end-to-end on synthetic data with most servers production-ready and HIPAA-compliant architecture. We're seeking [$ AMOUNT] to run a clinical pilot at [INSTITUTION] to validate cost savings and clinical concordance with real patient data."
+> "We've developed an AI-orchestrated precision medicine platform that enables multi-modal synthesis — integrating clinical data, genomics, spatial transcriptomics, and imaging in a single analysis, capabilities manual workflows can't achieve at scale. Every AI result requires clinician APPROVE/REVISE/REJECT before clinical use — the system assists, never replaces. Using natural language (no coding required), it reduces analysis from 40 hours to 2-5 hours with modeled savings of ~$3,137 per patient, and reduces the minimum team from ~10 FTEs to ~3, making precision oncology feasible for community hospitals. Validated end-to-end on synthetic data with HIPAA-compliant architecture. We're seeking [$ AMOUNT] to run a clinical pilot at [INSTITUTION] to validate clinical concordance with real patient data."
 
 ---
 
@@ -30,24 +30,29 @@ Key messages and data points for NIH, NSF, foundation grants, and institutional 
 
 **What Makes This Novel:**
 
-1. **Natural Language Orchestration**
-   - First platform to use AI (Claude API) to orchestrate bioinformatics servers
+1. **Multi-Modal Synthesis (Not Just Side-by-Side)**
+   - Only platform integrating **5 data modalities** in true cross-modal analysis:
+     - Clinical (FHIR) + Genomics (VCF/FASTQ) + Multi-omics (RNA/Protein/Phospho)
+     - Spatial Transcriptomics (10x Visium) + Imaging (H&E, MxIF)
+   - Correlate spatial gene expression with protein phosphorylation and genomic variants in one workflow
+   - Enables insights manual pipelines cannot achieve at scale
+
+2. **Clinician-in-the-Loop Safety**
+   - Every AI-generated result requires clinician **APPROVE/REVISE/REJECT** before clinical use
+   - HIPAA-compliant: Safe Harbor de-identification, 10-year immutable audit trails, VPC isolation
+   - Positioned as clinical decision support (FDA CDS exemption pathway)
+
+3. **Natural Language Orchestration**
+   - First platform to use AI (Claude + Gemini) to orchestrate bioinformatics servers
    - Clinicians describe what they need in English, not code
    - AI automatically coordinates specialized MCP servers
 
-2. **True Multi-Modal Integration**
-   - Only platform integrating **5 data modalities** in single analysis:
-     - Clinical (FHIR) + Genomics (VCF/FASTQ) + Multi-omics (RNA/Protein/Phospho)
-     - Spatial Transcriptomics (10x Visium) + Imaging (H&E, MxIF)
-   - Not just "side-by-side" but true cross-modal analysis
-
-3. **Speed & Cost Breakthrough** (modeled, pending clinical validation)
+4. **Speed & Cost Breakthrough** (modeled, pending clinical validation)
    - **8-20x faster** (estimated): 40 hours → 2-5 hours (production); 25-35 min in DRY_RUN demo
    - **10-18x cheaper** (projected): $324-702 total per patient vs. $6,000-9,000 traditional
-   - **Same-day results** enable faster clinical decision-making
    - **Team compression**: Reduces minimum precision medicine team from ~10 FTEs to ~3
 
-4. **Open Source & Transparent**
+5. **Open Source & Transparent**
    - All algorithms open source (Apache 2.0 license)
    - Reproducible analyses
    - Community contributions welcome

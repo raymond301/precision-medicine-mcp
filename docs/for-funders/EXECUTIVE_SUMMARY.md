@@ -2,9 +2,27 @@
 
 ## Overview
 
-The **Precision Medicine MCP System** is an AI-orchestrated platform integrating clinical (FHIR), genomic, spatial transcriptomics, and imaging data for precision oncology research. Built on the Model Context Protocol (MCP), this system enables AI to orchestrate complex multi-omics analyses while maintaining HIPAA compliance and cost efficiency.
+The **Precision Medicine MCP System** is an AI-orchestrated platform for precision oncology that enables **multi-modal synthesis** — integrating clinical, genomic, multi-omics, spatial transcriptomics, and imaging data in ways manual workflows cannot achieve at scale. All tools are accessible via natural language (no coding required). Every AI-generated result requires **clinician APPROVE/REVISE/REJECT** before clinical use — the system assists clinicians, never replaces them.
+
+Built on the Model Context Protocol (MCP) with HIPAA-compliant architecture (Safe Harbor de-identification, 10-year immutable audit trails, VPC isolation). Reduces production analysis from an estimated 40 hours to 2-5 hours.
 
 **Status:** POC validated on synthetic data; majority of servers are production-ready (not mocked); next step is deployment to hospital pilot
+
+---
+
+## Clinical Safety & Governance
+
+> **This is a clinical decision support tool. AI assists — clinicians decide.**
+
+| Safety Guarantee | Details |
+|-----------------|---------|
+| **Clinician-in-the-Loop** | Every AI-generated report requires clinician **APPROVE / REVISE / REJECT** before clinical use |
+| **HIPAA Safe Harbor** | All 18 PHI identifiers removed; 10-year immutable audit trails; VPC isolation |
+| **Regulatory Posture** | Designed as CDS tool exempt from FDA device clearance under 21st Century Cures Act (four criteria satisfied — confirm with regulatory counsel) |
+| **Bias Auditing** | Quarterly audits aligned with FDA AI/ML SaMD guidance; fairness metrics tracked across demographics |
+| **Full Traceability** | Every AI routing decision, tool call, parameter, and result is logged and visualizable |
+
+> **When the system is wrong:** Bayesian uncertainty quantification flags low-confidence results. Bias auditing identifies population-specific limitations. Ultimate clinical responsibility rests with the treating physician.
 
 ---
 
@@ -52,16 +70,21 @@ graph LR
 
 ## Value Proposition
 
+**Novel Capabilities (what becomes possible):**
+- **Multi-modal synthesis** — Correlate spatial gene expression with protein phosphorylation and genomic variants in a single analysis, not separate silos
+- **Cross-modality integration** — Link spatial cell-type composition to treatment response using clinical data — previously requiring weeks of manual work
+- **Accessible bioinformatics** — Complex tools (spatial autocorrelation, perturbation prediction, quantum cell-type fidelity) accessible via natural language, no coding required
+- **Automated cross-referencing** — Patient results correlated with PubMed, bioRxiv, ClinicalTrials.gov, and TCGA cohorts in real-time
+
 **For Research Hospitals:**
+- Enables community hospitals and mid-size cancer centers to offer precision oncology programs that previously required large academic medical center teams
 - Reduce minimum viable precision medicine team from ~10 FTEs to ~3 (2 clinicians + 1-2 bioinformaticians)
 - Reduce multi-omics analysis time from weeks to hours
 - Significant projected savings per patient vs. traditional manual analysis ([Value Proposition](../reference/shared/value-proposition.md))
-- HIPAA-compliant with built-in de-identification and 10-year audit logging
 - Scalable from 100-patient pilot to institutional biobank
-- Enables community hospitals and mid-size cancer centers to offer precision oncology programs that previously required large academic medical center teams
 
 **For Bioinformaticians:**
-- Unified platform for bioinformatics tools across multiple MCP servers  
+- Unified platform for bioinformatics tools across multiple MCP servers
 - Natural language interface reduces manual pipeline coding (bioinformatician oversight still required for clinical interpretation)
 - Reproducible workflows with automated orchestration
 - Bayesian uncertainty quantification for confident clinical decisions
@@ -176,19 +199,6 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 ---
 
-## Clinical Governance
-
-**Regulatory posture:** This system is designed as a **clinical decision support tool**, not a diagnostic device. Under the FDA's 21st Century Cures Act exemptions, CDS tools that present information for clinician review (without replacing clinical judgment) are exempt from FDA device clearance, provided they meet four criteria: (1) not intended to acquire or process signals from the patient, (2) intended for clinician use, (3) intended to enable the clinician to independently review the basis for recommendations, (4) not intended to replace clinical judgment. This system is designed to satisfy all four criteria. Hospitals should confirm this classification with their regulatory counsel prior to deployment.
-
-**Clinical override workflow:** All analysis outputs are presented as recommendations for clinician review — the system does not make autonomous treatment decisions. Clinicians can accept, modify, or reject any recommendation. All decisions (including overrides) are logged in the audit trail.
-
-**When the system is wrong:** Bayesian uncertainty quantification flags low-confidence results. Bias auditing identifies population-specific limitations. However, ultimate clinical responsibility rests with the treating physician. Hospitals deploying this system should establish:
-- Clear documentation that AI outputs are advisory, not prescriptive
-- A review process for cases where AI and clinician disagree
-- Incident reporting procedures for incorrect or misleading AI outputs
-
----
-
 ## Success Metrics
 
 **Technical Performance:**
@@ -208,11 +218,11 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 
 ## Competitive Advantages
 
-**vs. Traditional Pipelines:** Natural language interface, 8-20x faster (estimated), improved reproducibility through automated orchestration, built-in HIPAA compliance
+**vs. Traditional Pipelines:** Multi-modal synthesis across 5 data types in one workflow, natural language interface (no coding), built-in HIPAA compliance, 8-20x faster (estimated)
 
-**vs. Commercial Platforms:** Open-source (Apache 2.0), 75-90% compute cost reduction, multi-modal integration, hospital-controlled data — no vendor lock-in on the server layer
+**vs. Commercial Platforms:** Open-source (Apache 2.0), hospital-controlled data — no vendor lock-in on the server layer, multi-modal integration, 75-90% compute cost reduction
 
-**vs. Manual Integration:** Reproducible workflows, automated harmonization, evidence-based pathway analysis, reduced minimum team size
+**vs. Manual Integration:** Cross-modality insights previously infeasible at scale, reproducible workflows, automated harmonization, reduced minimum team size
 
 ---
 
@@ -220,18 +230,18 @@ The system incorporates comprehensive bias detection aligned with FDA AI/ML SaMD
 ## Conclusion
 
 The Precision Medicine MCP System delivers:
+- **Clinician authority preserved**: Every AI result requires APPROVE/REVISE/REJECT — no autonomous clinical decisions
+- **HIPAA-compliant architecture** with de-identification, 10-year audit trails, bias auditing, and VPC isolation
+- **Novel multi-modal synthesis**: Cross-modality insights (genomic + spatial + proteomic + clinical) previously infeasible at scale
 - **Team compression**: Reduces minimum precision medicine team from ~10 FTEs to ~3, making precision oncology feasible for mid-size hospitals
-- **Significant modeled savings per patient** vs. traditional analysis (to be validated during pilot)
-- **HIPAA-compliant architecture** with bias auditing, de-identification, and clinical governance framework
 - **6-month deployment** timeline from approval to production (assumes GCP and Azure AD prerequisites in place)
-- **Medium overall risk** with technical and compliance risks well-mitigated; adoption and AI vendor dependency require active management
-- **Strong projected ROI**: Payback in first few patients, significant annual savings ([Value Proposition](../reference/shared/value-proposition.md))
+- **Strong projected ROI**: Significant modeled savings per patient, payback in first few patients ([Value Proposition](../reference/shared/value-proposition.md))
 
 **Next step:** Fund a 6-month pilot at a single site to validate cost savings, clinical concordance, and adoption feasibility with real (de-identified) patient data.
 
 ---
 
-**Document Version:** 1.5
-**Date:** 2026-02-16
+**Document Version:** 1.6
+**Date:** 2026-02-24
 **Status:** Ready for Funding Review
 **Contact:** Lynn Langit

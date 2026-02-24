@@ -6,6 +6,8 @@ Comprehensive return on investment analysis for institutional funders and hospit
 
 ## Executive Summary
 
+This platform enables **multi-modal synthesis** — integrating genomics, spatial transcriptomics, multi-omics, imaging, and clinical data in ways manual workflows cannot achieve at scale. All tools are accessible via natural language (no coding required). Every AI-generated result requires **clinician APPROVE/REVISE/REJECT** before clinical use, with HIPAA-compliant architecture (de-identification, 10-year audit trails, VPC isolation).
+
 **Projected Payback Period:** First 2-3 patients analyzed
 **Projected Annual ROI:** $313,700 (100 patients) | $1,568,500 (500 patients)
 **Cost per Patient:** $324-702 total (compute + personnel) vs. $6,000-9,000 traditional manual analysis
@@ -225,9 +227,11 @@ Comprehensive return on investment analysis for institutional funders and hospit
 ### MCP Platform (This Solution)
 
 **Pros:**
+- Multi-modal synthesis (genomics + spatial + imaging + clinical) analyzed together — previously infeasible at scale
+- Clinician-in-the-Loop: every result requires APPROVE/REVISE/REJECT before clinical use
+- Natural language interface — no coding required for complex bioinformatics tools
+- HIPAA-compliant with de-identification, 10-year audit trails, VPC isolation
 - 2-5 hours per patient production (vs. 40 hours traditional); 25-35 min DRY_RUN demo
-- Multi-modal integration (genomics + spatial + imaging + clinical)
-- Natural language interface
 - Open source and transparent
 
 **Cons:**
@@ -318,4 +322,4 @@ Contact us to discuss your specific institutional needs and ROI projections.
 
 ---
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-02-24

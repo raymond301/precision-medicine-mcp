@@ -4,6 +4,22 @@
 
 ---
 
+## What Becomes Possible
+
+This platform doesn't just do existing analyses faster — it enables **multi-modal synthesis** that manual workflows struggle to achieve:
+
+| Previously Difficult | Now Possible |
+|---------------------|--------------|
+| Spatial transcriptomics analyzed separately from proteomics | **Correlate spatial gene expression with protein phosphorylation** in a single query |
+| Weeks to cross-reference genomic variants with pathway enrichment across modalities | **Integrate VCF variants, RNA, protein, and spatial data** into concordant pathway activation maps |
+| Cell deconvolution disconnected from patient clinical history | **Link spatial cell-type composition to treatment response** using FHIR clinical data |
+| Manual literature review for treatment options | **Automated cross-referencing** with PubMed, bioRxiv, ClinicalTrials.gov, and TCGA cohorts |
+| Complex bioinformatics tools require coding expertise | **Access all tools via natural language** — ask questions, get results |
+
+> All analyses use peer-reviewed statistical methods (Mann-Whitney U, Fisher's exact, Moran's I, Stouffer's Z, ComBat). All results require clinician APPROVE/REVISE/REJECT before clinical use.
+
+---
+
 ## What You Can Accomplish Here
 
 ```mermaid
@@ -16,10 +32,10 @@ graph LR
     style D fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
 ```
 
-> **Load:** Clinical, Genomic, Multi-omics, Spatial, Imaging  
-> **Analyze:** Diff expression, pathway enrichment, cell deconvolution, batch correction, spatial autocorrelation, multi-omics integration  
-> **Integrate:** RNA + Protein + Spatial + Clinical in one analysis  
-> **Publish:** Visualizations, statistical tests, treatment targets, reproducible methods  
+> **Load:** Clinical, Genomic, Multi-omics, Spatial, Imaging
+> **Analyze:** Diff expression, pathway enrichment, cell deconvolution, batch correction, spatial autocorrelation, multi-omics integration
+> **Integrate:** RNA + Protein + Spatial + Clinical in one analysis
+> **Publish:** Visualizations, statistical tests, treatment targets, reproducible methods
 
 ---
 
