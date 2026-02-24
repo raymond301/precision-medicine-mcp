@@ -1,6 +1,8 @@
 TEST 4: Histology and Imaging Analysis
 =======================================
 
+> **Prompt library:** This is the canonical prompt for [Clinical Workflow Prompt 4](../../../../prompts/clinical-workflow.md#prompt-4-histopathology-and-immunofluorescence). See that page for clinical interpretation context and expected output summary.
+
 Patient ID: PAT001-OVC-2025
 
 ⚠️ IMPORTANT: This test uses MICROSCOPY IMAGES (TIFF files).

@@ -1,6 +1,8 @@
 TEST 2: Multi-Omics Resistance Analysis (ENHANCED WORKFLOW)
 ================================================================
 
+> **Prompt library:** This is the canonical prompt for [Clinical Workflow Prompt 2](../../../../prompts/clinical-workflow.md#prompt-2-multi-omics-resistance-mechanisms). See that page for clinical interpretation context and expected output summary.
+
 Patient ID: PAT001-OVC-2025
 
 ⚠️ UPDATED: Now includes preprocessing pipeline and upstream regulator prediction

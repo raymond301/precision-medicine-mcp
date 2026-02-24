@@ -52,6 +52,7 @@ MCP servers support two layers of synthetic data. Choose the mode that fits your
 
 ## Related Resources
 
+- **[Prompt Library](../../../prompts/)** — 96+ reusable prompts by audience and modality (Tests 1-6 here are the canonical source for clinical-workflow.md Prompts 1-6)
 - [Data Modes Guide](../data-modes-guide.md) — DRY_RUN vs SYNTHETIC_DATA configuration
 - [Quick Test Prompts](../../quick-test-prompts.md) — Rapid single-server verification
 - [PatientOne Overview](../README.md) — Complete patient scenario walkthrough

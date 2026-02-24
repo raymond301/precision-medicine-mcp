@@ -1,6 +1,8 @@
 TEST 6: Clinician-in-the-Loop (CitL) Review & Approval
 ========================================================
 
+> **Prompt library:** This is the canonical prompt for [Clinical Workflow Prompt 6](../../../../prompts/clinical-workflow.md#prompt-6-clinician-in-the-loop-validation). See that page for clinical interpretation context and expected output summary.
+
 Patient ID: PAT001-OVC-2025
 Cancer Type: High-Grade Serous Ovarian Carcinoma (HGSOC), Stage IV, Platinum-Resistant
 

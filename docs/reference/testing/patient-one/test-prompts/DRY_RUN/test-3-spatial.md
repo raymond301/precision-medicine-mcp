@@ -1,6 +1,8 @@
 TEST 3: Spatial Transcriptomics Analysis
 =========================================
 
+> **Prompt library:** This is the canonical prompt for [Clinical Workflow Prompt 3](../../../../prompts/clinical-workflow.md#prompt-3-spatial-tumor-microenvironment-analysis). See that page for clinical interpretation context and expected output summary.
+
 Patient ID: PAT001-OVC-2025
 
 ⚠️ IMPORTANT: This test uses TABULAR DATA (CSV files), NOT images.

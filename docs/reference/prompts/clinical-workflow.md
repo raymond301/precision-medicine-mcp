@@ -12,7 +12,7 @@
 
 ## Complete PatientOne Workflow (6 Prompts)
 
-These prompts follow the TEST_1 through TEST_6 workflow for comprehensive multi-modal analysis.
+These prompts follow the TEST_1 through TEST_6 workflow for comprehensive multi-modal analysis. **Copy-paste prompt text** is maintained in the [DRY_RUN test prompts](../testing/patient-one/test-prompts/DRY_RUN/) — linked below for each prompt. Summaries and expected outputs are kept here for quick reference.
 
 > **Sample Data Location:** PatientOne data is stored in GCS at `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`. Sub-directories include `multiomics/`, `spatial/`, and `imaging/`. MCP servers on Cloud Run can access these GCS URIs directly.
 
@@ -20,40 +20,9 @@ These prompts follow the TEST_1 through TEST_6 workflow for comprehensive multi-
 
 **Time:** 5-10 minutes | **Complexity:** Medium | **Output:** Clinical summary + genomic profile
 
-```
-For patient PAT001-OVC-2025 with Stage IV high-grade serous ovarian carcinoma.
-Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
+Retrieves patient demographics, BRCA status, and CA-125 trends from mcp-mockepic, then parses somatic variants (TP53, PIK3CA, PTEN) and compares to TCGA-OV cohort using mcp-fgbio and mcp-mocktcga.
 
-**PART 1: Clinical Data (use mcp-mockepic)**
-1. Retrieve patient demographics:
-   - Age, family history of cancer
-   - BRCA1 germline mutation status
-   - Prior treatment history
-
-2. Analyze CA-125 tumor marker trends:
-   - Baseline at diagnosis
-   - Response to initial platinum therapy
-   - Current levels (evidence of resistance?)
-
-**PART 2: Genomic Analysis (use mcp-fgbio, mcp-mocktcga)**
-3. Parse somatic variants from VCF:
-   - TP53 mutations (expect R175H hotspot)
-   - PIK3CA mutations (expect E545K)
-   - PTEN alterations (expect LOH)
-   - Copy number: MYC, CCNE1, AKT2 amplifications
-
-4. Compare to TCGA-OV cohort:
-   - What molecular subtype? (C1 immunoreactive vs C2 differentiated)
-   - Prognosis for BRCA1+/TP53+ Stage IV HGSOC?
-   - Common resistance pathways?
-
-**Output Format:**
-- Patient summary (demographics, genetic risk factors)
-- CA-125 trajectory with resistance interpretation
-- Key somatic mutations with clinical significance
-- TCGA subtype and prognosis
-- Initial treatment considerations
-```
+**Copy-paste prompt:** [Test 1 — Clinical & Genomic](../testing/patient-one/test-prompts/DRY_RUN/test-1-clinical-genomic.md)
 
 **Expected Output:**
 - Patient: Sarah Anderson, 58yo, BRCA1 germline mutation
@@ -68,52 +37,9 @@ Sample data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-O
 
 **Time:** 15-25 minutes | **Complexity:** High | **Output:** Resistance pathway analysis
 
-```
-For patient PAT001-OVC-2025, analyze platinum resistance using multi-omics data.
-Data files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/multiomics/.
+Runs the complete multi-omics pipeline via mcp-multiomics: data preprocessing (batch correction, imputation), integration of RNA-seq/proteomics/phosphoproteomics from 14 PDX samples, Stouffer's meta-analysis for resistance gene identification, and upstream regulator prediction for therapeutic targets.
 
-**STEP 0: Data Preprocessing (CRITICAL)**
-1. Validate data quality (use mcp-multiomics):
-   - Check for batch effects in proteomics
-   - Identify missing value patterns
-   - Detect outlier samples
-
-2. Preprocess data:
-   - Apply ComBat batch correction
-   - KNN imputation for missing values
-   - Quantile normalization
-
-**STEP 1: Multi-Omics Integration**
-3. Integrate preprocessed data:
-   - RNA-seq (14 samples: 7 resistant, 7 sensitive PDX)
-   - Proteomics (TMT data)
-   - Phosphoproteomics
-
-**STEP 2: Resistance Gene Identification**
-4. Focus on key resistance pathways:
-   - PI3K/AKT: PIK3CA, AKT1, MTOR, PTEN
-   - Drug efflux: ABCB1 (MDR1)
-   - Anti-apoptotic: BCL2L1
-   - Tumor suppressor: TP53
-
-5. Run Stouffer's meta-analysis:
-   - Combine NOMINAL p-values across modalities
-   - Apply FDR correction AFTER combination
-   - Identify significant genes (q < 0.05)
-
-**STEP 3: Upstream Regulator Prediction**
-6. Predict therapeutic targets:
-   - Activated kinases (AKT1, MTOR, PI3K)
-   - Inhibited tumor suppressors (TP53)
-   - Drug recommendations with evidence
-
-**Output Format:**
-- Preprocessing summary (batch correction metrics)
-- Gene-level results table (7 genes: FC, Z-score, q-value)
-- Upstream regulators (kinases, TFs, drug targets)
-- Pathway interpretation (PI3K/AKT activation status)
-- Therapeutic recommendations with evidence levels
-```
+**Copy-paste prompt:** [Test 2 — Multi-Omics Enhanced](../testing/patient-one/test-prompts/DRY_RUN/test-2-multiomics-enhanced.md)
 
 **Expected Output:**
 - Batch effects REDUCED: PC1-batch 0.82 → 0.15
@@ -128,43 +54,9 @@ Data files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2
 
 **Time:** 10-15 minutes | **Complexity:** Medium | **Output:** Spatial analysis report
 
-```
-For patient PAT001-OVC-2025, analyze spatial transcriptomics (10x Visium).
-Spatial data files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/spatial/.
+Analyzes 10x Visium spatial transcriptomics data (900 spots, 6 tissue regions) via mcp-spatialtools. Assesses spatial structure, expression of 8 key genes (proliferation, resistance, immune markers) across regions, and generates 4 visualizations including spatial heatmaps and autocorrelation plots.
 
-**Data:** 900 spots across 6 tissue regions
-- tumor_core, tumor_proliferative, tumor_interface
-- stroma_immune, stroma, necrotic_hypoxic
-
-**Analysis Steps:**
-
-1. **Spatial Structure Assessment:**
-   - How many spots per region?
-   - Spatial distribution of regions?
-
-2. **Key Gene Expression by Region (focus on 8 genes):**
-   - Proliferation: MKI67, PCNA
-   - Resistance: PIK3CA, AKT1, ABCB1
-   - Immune: CD3D, CD8A, CD68
-
-3. **Spatial Patterns:**
-   - Where is proliferation highest?
-   - Are resistance markers heterogeneous?
-   - Are immune cells excluded from tumor?
-
-4. **Generate Visualizations:**
-   - Spatial heatmap (6 key genes)
-   - Region composition bar chart
-   - Gene×region expression heatmap (8×6)
-   - Spatial autocorrelation plot
-
-**Output Format:**
-- Spatial structure (900 spots, 6 regions with counts)
-- Gene expression patterns by region
-- Spatial findings (proliferation, resistance, immune exclusion)
-- Visualizations (4 figures)
-- Clinical interpretation (tumor microenvironment classification)
-```
+**Copy-paste prompt:** [Test 3 — Spatial Transcriptomics](../testing/patient-one/test-prompts/DRY_RUN/test-3-spatial.md)
 
 **Expected Output:**
 - Structure: 900 spots (tumor_core: 69, tumor_proliferative: 124, stroma_immune: 212, etc.)
@@ -179,54 +71,9 @@ Spatial data files are in GCS at gs://sample-inputs-patientone/patient-data/PAT0
 
 **Time:** 20-40 minutes | **Complexity:** High | **Output:** Imaging analysis report
 
-```
-For patient PAT001-OVC-2025, analyze histology and immunofluorescence images.
-Image files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/imaging/.
+Processes 4 microscopy images (H&E, CD8 IF, Ki67 IF, multiplex TP53/Ki67/DAPI) through the imaging pipeline: mcp-openimagedata for tissue-level analysis, mcp-deepcell for cell segmentation, and mcp-cell-classify for phenotype classification. Generates 5 visualization overlays.
 
-**Image Files:**
-1. H&E histology (PAT001_tumor_HE_20x.tiff)
-2. CD8 immunofluorescence (PAT001_tumor_IF_CD8.tiff)
-3. Ki67 immunofluorescence (PAT001_tumor_IF_KI67.tiff)
-4. Multiplex IF (PAT001_tumor_multiplex_IF_TP53_KI67_DAPI.tiff)
-
-**Analysis Steps:**
-
-1. **H&E Morphology (use mcp-openimagedata):**
-   - Estimate tumor cellularity (%)
-   - Identify necrotic regions (%)
-   - Describe tissue architecture
-   - Consistent with HGSOC diagnosis?
-
-2. **CD8 T Cell Infiltration (use mcp-openimagedata + mcp-deepcell + mcp-cell-classify):**
-   - Segment and quantify CD8+ cells (cells/mm²)
-   - Spatial distribution (peripheral vs infiltrating)
-   - Immune phenotype (hot/warm/cold)
-
-3. **Ki67 Proliferation (use mcp-openimagedata + mcp-deepcell + mcp-cell-classify):**
-   - Calculate Ki67 index (% positive cells)
-   - Distribution pattern (uniform vs heterogeneous)
-   - Proliferation level classification
-
-4. **Multiplex IF Phenotyping (use mcp-deepcell for segmentation, mcp-cell-classify for classification):**
-   - Segment cells based on DAPI (mcp-deepcell)
-   - Quantify per-cell marker intensities (mcp-deepcell)
-   - Classify: TP53+, Ki67+, TP53+/Ki67+ double-positive (mcp-cell-classify)
-   - Are TP53-mutant cells proliferating?
-
-5. **Generate Visualizations:**
-   - H&E annotation (necrosis, cellularity)
-   - CD8 segmentation overlay + density heatmap
-   - Ki67 segmentation overlay + proliferation map
-   - Multiplex composite (TP53/Ki67/DAPI channels)
-   - Cell phenotype segmentation
-
-**Output Format:**
-- H&E summary (cellularity, necrosis, architecture)
-- CD8 analysis (density, distribution, immune phenotype)
-- Ki67 index (%, pattern, level)
-- Multiplex results (cell counts, phenotypes, correlation)
-- Overall imaging interpretation
-```
+**Copy-paste prompt:** [Test 4 — Imaging](../testing/patient-one/test-prompts/DRY_RUN/test-4-imaging.md)
 
 **Expected Output:**
 - H&E: 70-80% cellularity, 15-20% necrosis, HGSOC morphology confirmed
@@ -241,56 +88,9 @@ Image files are in GCS at gs://sample-inputs-patientone/patient-data/PAT001-OVC-
 
 **Time:** 5-10 minutes | **Complexity:** Medium | **Output:** Clinical report + recommendations
 
-```
-Synthesize findings from Tests 1-4 for patient PAT001-OVC-2025.
-All PatientOne data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
+Synthesizes findings from Tests 1-4: ranks resistance mechanisms by cross-modal evidence, builds a multi-modal consistency table (TP53, PI3K, proliferation, immune exclusion), generates top-3 treatment recommendations with evidence levels, and creates an integrated 4-panel visualization.
 
-**Reference Results:**
-- Clinical/Genomic: BRCA1+, TP53 R175H, PIK3CA E545K, CA-125 resistance pattern
-- Multi-omics: PI3K/AKT pathway activated, ABCB1 upregulated
-- Spatial: Immune exclusion, resistance markers in tumor regions
-- Imaging: High Ki67, low CD8 infiltration
-
-**Integration Tasks:**
-
-1. **Identify Primary Resistance Mechanisms (rank by evidence):**
-   - Which mechanisms appear across ≥2 modalities?
-   - Evidence strength (High/Medium/Low)?
-   - Therapeutic implications?
-
-2. **Multi-Modal Consistency Assessment:**
-   - Create cross-reference table:
-     * TP53 loss: Genomics + Imaging?
-     * PI3K/AKT: Genomics + Multi-omics + Spatial?
-     * High proliferation: Multi-omics + Spatial + Imaging?
-     * Immune exclusion: Spatial + Imaging?
-
-3. **Treatment Recommendations (Top 3):**
-   - Targeted therapies with molecular evidence
-   - Immunotherapy consideration (yes/no, why?)
-   - Clinical trial opportunities
-   - Expected efficacy for each recommendation
-
-4. **Biomarkers for Monitoring:**
-   - Molecular: Which genes/proteins to track?
-   - Imaging: Ki67, CD8 infiltration trends?
-   - Clinical: CA-125 trajectory, RECIST criteria
-
-5. **Multi-Modal Visualization Synthesis:**
-   - Generate integrated 4-panel figure:
-     * Panel A: Spatial heatmap (resistance genes)
-     * Panel B: H&E annotation (morphology)
-     * Panel C: Multiplex IF (TP53/Ki67/CD8)
-     * Panel D: Gene×region expression heatmap
-
-**Output Format:**
-- Executive summary (3-4 sentences)
-- Resistance mechanisms (ranked 1-3 with evidence)
-- Multi-modal consistency table
-- Treatment recommendations (targeted, immuno, trials)
-- Monitoring strategy (molecular, imaging, clinical)
-- Integrated multi-modal figure with caption
-```
+**Copy-paste prompt:** [Test 5 — Integration](../testing/patient-one/test-prompts/DRY_RUN/test-5-integration.md)
 
 **Expected Output:**
 - Top mechanisms: (1) PI3K/AKT activation (4 modalities), (2) Drug efflux/ABCB1 (2 modalities), (3) Immune exclusion (2 modalities)
@@ -304,74 +104,9 @@ All PatientOne data is in GCS bucket gs://sample-inputs-patientone/patient-data/
 
 **Time:** 30-45 minutes (includes 20-30 min manual review) | **Complexity:** High | **Output:** Approved clinical report
 
-```
-Implement formal clinician review workflow for patient PAT001-OVC-2025.
-All PatientOne data is in GCS bucket gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/.
+Implements the full clinician-in-the-loop (CitL) workflow via mcp-patient-report: generates a draft report consolidating Tests 1-5, runs automated quality checks, presents a structured review form (10 findings, guideline compliance, treatment validation), captures digital attestation, and produces a signed final clinical report with audit trail.
 
-**STEP 1: Generate Draft Report (automated, ~30 sec)**
-- Consolidate findings from Tests 1-5
-- Run automated quality checks:
-  * Sample sizes adequate (≥30 spots/region)
-  * FDR thresholds met (q<0.05)
-  * Data completeness (>95%)
-  * Cross-modal consistency verified
-- Flag any quality issues
-
-**STEP 2: Clinician Review (manual, 20-30 min)**
-Oncologist reviews and validates:
-
-1. **High-Level Decision:**
-   - APPROVE / REVISE / REJECT
-   - Rationale (2-3 sentences)
-
-2. **Per-Finding Validation (10 top findings):**
-   For each finding, mark CONFIRMED / UNCERTAIN / INCORRECT:
-   - TP53 R175H mutation
-   - PIK3CA E545K activation
-   - BRCA1 germline pathogenic
-   - ABCB1 upregulation (4.3× log2FC)
-   - BCL2L1 anti-apoptotic signaling
-   - Immune exclusion phenotype
-   - VEGFA upregulation (hypoxia)
-   - TP53+/Ki67+ proliferative cells
-   - PI3K/AKT pathway activation
-   - MDR1 drug efflux
-
-3. **Guideline Compliance Check:**
-   - NCCN alignment: ALIGNED / PARTIAL / NOT_ALIGNED
-   - Institutional alignment: ALIGNED / PARTIAL / NOT_ALIGNED
-
-4. **Treatment Recommendations Review:**
-   For each recommendation, mark AGREE / DISAGREE:
-   - PI3K inhibitor + PARP inhibitor
-   - Anti-VEGF continuation
-   - MDR1 reversal consideration
-   - Immunotherapy (conditional)
-
-5. **Digital Attestation:**
-   - Reviewed all findings: ✓
-   - Assessed compliance: ✓
-   - Clinical judgment applied: ✓
-   - Medical record acknowledgment: ✓
-
-**STEP 3: Submit Review (automated, ~5 sec)**
-- Validate review against JSON schema
-- Generate digital signature (SHA-256)
-- Log to audit trail (10-year retention)
-
-**STEP 4: Finalize Report (automated, ~10 sec)**
-- If APPROVED: Generate final clinical report
-- Mark as "clinically_approved"
-- Include attestation and signature
-- Ready for tumor board presentation
-
-**Output Format:**
-- Draft report with quality checks
-- Completed review form (6 sections)
-- Signed review with digital signature
-- Final approved clinical report (if APPROVE)
-- Audit trail record
-```
+**Copy-paste prompt:** [Test 6 — CitL Review](../testing/patient-one/test-prompts/DRY_RUN/test-6-citl-review.md)
 
 **Expected Output:**
 - Quality checks: ALL PASS (sample sizes OK, FDR<0.05, completeness 99%)

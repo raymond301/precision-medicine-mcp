@@ -59,7 +59,7 @@ For multi-step analyses, number each step and name the MCP server to use.
 ## Related Resources
 
 - **[PatientOne Guide](../testing/patient-one/README.md)** - Complete walkthrough
-- **[Test Prompts](../testing/patient-one/test-prompts/)** - 8 DRY_RUN + 4 SYNTHETIC_DATA test scenarios
+- **[Test Prompts](../testing/patient-one/test-prompts/)** - 9 DRY_RUN + 4 SYNTHETIC_DATA test scenarios (canonical source for PatientOne Prompts 1-6)
 - **[Immunotherapy Reference](../testing/patient-one/immunotherapy-reference.md)** - Cold tumor candidates
 - **[Server Documentation](../../../servers/README.md)** - Tool reference
 - **[Connect External MCP Servers](../../for-researchers/CONNECT_EXTERNAL_MCP.md)** - ClinicalTrials.gov, PubMed, bioRxiv, Hugging Face, cBioPortal, Seqera

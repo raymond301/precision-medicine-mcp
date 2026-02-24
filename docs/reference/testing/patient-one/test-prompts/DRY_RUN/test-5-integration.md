@@ -1,6 +1,8 @@
 TEST 5: Integrated Analysis & Clinical Recommendations
 =======================================================
 
+> **Prompt library:** This is the canonical prompt for [Clinical Workflow Prompt 5](../../../../prompts/clinical-workflow.md#prompt-5-integrated-multi-modal-analysis). See that page for clinical interpretation context and expected output summary.
+
 Patient ID: PAT001-OVC-2025
 
 **GCS Data Location:** All PatientOne data is in `gs://sample-inputs-patientone/patient-data/PAT001-OVC-2025/`
