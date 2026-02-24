@@ -58,6 +58,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **[Server Status](reference/shared/server-registry.md)** - Implementation status and capabilities matrix
 - **[Clinical-Spatial Bridge](reference/architecture/clinical/clinical-spatial-bridge.md)** - Integration between clinical and spatial data
 - **[Error Handling](reference/architecture/platform/error-handling.md)** - Error handling and retry logic
+- **[Observability & Trust](reference/architecture/platform/observability.md)** - Orchestration tracing, audit logging, monitoring dashboard
 - **[References](reference/architecture/references.md)** - Technical references and citations
 
 ---
@@ -157,6 +158,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **Ensure HIPAA compliance** → [HIPAA Compliance](./for-hospitals/compliance/hipaa.md)
 - **Add a new server** → [Add New Modality Server](./for-developers/ADD_NEW_MODALITY_SERVER.md)
 - **Review patient results** → [CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)
+- **Verify AI routing is correct** → [Observability Guide](reference/architecture/platform/observability.md)
 - **Test the system** → [PatientOne Scenario](reference/testing/patient-one/README.md)
 
 ### By Role

@@ -99,8 +99,9 @@ This platform is a **clinical decision support** tool — AI assists clinicians,
 
 - **HIPAA Safe Harbor de-identification** — all 18 PHI identifiers removed before data leaves the hospital environment ([details](docs/for-hospitals/compliance/hipaa.md))
 - **Clinician-in-the-Loop (CITL)** — every AI-generated report requires clinician APPROVE/REVISE/REJECT before clinical use ([workflow](docs/for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md))
+- **Orchestration traceability** — every AI routing decision, tool call, parameter, and result is logged and visualizable ([observability guide](docs/reference/architecture/platform/observability.md))
 - **Isolated deployment** — MCP servers run inside hospital VPC; patient data never leaves the controlled network ([security](docs/for-hospitals/SECURITY_OVERVIEW.md))
-- **Immutable audit trails** — 10-year retention of all queries, tool calls, and outputs ([compliance](docs/for-hospitals/compliance/hipaa.md))
+- **Immutable audit trails** — all queries, tool calls, routing decisions, and outputs retained 10 years via Cloud Logging ([details](docs/reference/architecture/platform/observability.md))
 - **Synthetic data only** in this repository — no real PHI
 
 ---

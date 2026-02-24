@@ -393,6 +393,20 @@ raise ValueError(
 )
 ```
 
+### 6. Observability & Traceability
+
+Every tool call is logged with full context — no AI routing decision is invisible.
+
+The platform captures traceability data at three layers:
+
+1. **Structured tool logging** (`shared/common/logging.py`) — JSON-formatted logs emitted by each MCP server recording tool name, request ID, parameters, duration, and success/failure.
+2. **HIPAA audit events** (`ui/streamlit-app/utils/audit_logger.py`) — 10 event types (login, query, response, error, server/model selection, session lifecycle, benchmarks) sent to Cloud Logging with 10-year retention.
+3. **UI orchestration traces** (`ui/streamlit-app/utils/trace_utils.py` + `trace_display.py`) — per-call trace data extracted from AI responses, displayed in 4 visualization modes (log, cards, timeline, Mermaid sequence diagram), and exportable as JSON or Mermaid.
+
+A live monitoring dashboard (`ui/dashboard/`) provides server health, cost analysis, performance metrics, and optimization recommendations.
+
+**[Detailed Observability Architecture](../reference/architecture/platform/observability.md)**
+
 ---
 
 ## PatientOne Example Workflow

@@ -253,6 +253,21 @@ Workflow orchestration is now provided by the **external Seqera MCP server** (`@
 
 ---
 
+## 🔍 11. Observability & Traceability
+
+**End-to-end visibility into AI orchestration decisions**
+
+**Key Features:**
+- Structured tool call logging (server, tool, params, duration, result)
+- HIPAA-compliant audit events (10-year Cloud Logging retention)
+- 4 trace visualization modes (log, cards, timeline, Mermaid)
+- Live monitoring dashboard (health, cost, performance, optimization)
+- JSON + Mermaid trace export for compliance records
+
+📖 **[Detailed Architecture →](platform/observability.md)**
+
+---
+
 ## 🏥 End-to-End Example: PatientOne
 
 **Complete precision medicine workflow combining all MCP servers**
