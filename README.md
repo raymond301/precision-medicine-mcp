@@ -149,6 +149,6 @@ graph LR
     style Output fill:#d1ecf1
 ```
 
-Note: Precision Medicine MCP servers are designed to work with external connectors whic provide real-world data access: ClinicalTrials.gov, PubMed, bioRxiv, Seqera, cBioPortal, and Hugging Face — [details](docs/for-researchers/CONNECT_EXTERNAL_MCP.md)
+Note: Precision Medicine MCP servers are designed to work with external connectors which provide real-world data access: ClinicalTrials.gov, PubMed, bioRxiv, Seqera, cBioPortal, and Hugging Face — [details](docs/for-researchers/CONNECT_EXTERNAL_MCP.md)
 
 
