@@ -1,6 +1,6 @@
-# Patient One: Quick Start Guide
+# PatientOne: Precision Medicine Workflow
 
-Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using all MCP servers
+Comprehensive precision medicine workflow for Stage IV Ovarian Cancer using all MCP servers.
 
 ## Overview
 
@@ -16,54 +16,61 @@ PatientOne demonstrates end-to-end precision medicine analysis integrating:
 
 **All synthetic data** for demonstration purposes.
 
+**What makes PatientOne unique:** Unlike traditional bioinformatics pipelines that analyze individual data types in isolation, PatientOne shows how AI can seamlessly integrate across all modalities through **natural language** — replacing weeks of glue code with conversational requests.
+
+### Data Integration Flow
+
+```mermaid
+flowchart LR
+    subgraph Input["5 Data Modalities"]
+        CLIN[Clinical<br/>Demographics<br/>CA-125<br/>Treatment Hx]
+        GEN[Genomic<br/>VCF Mutations<br/>CNVs<br/>TCGA Compare]
+        OMICS[Multi-Omics<br/>RNA-seq<br/>Proteomics<br/>Phospho]
+        SPAT[Spatial<br/>10x Visium<br/>900 spots<br/>6 regions]
+        IMG[Imaging<br/>H&E<br/>IF markers<br/>Cell seg]
+    end
+
+    subgraph Integration["AI Integration Layer"]
+        CLAUDE[Claude Desktop<br/>MCP Orchestration]
+    end
+
+    subgraph Output["Precision Medicine Output"]
+        RES[Resistance<br/>Mechanisms]
+        TARGETS[Treatment<br/>Targets]
+        TRIALS[Clinical<br/>Trials]
+    end
+
+    CLIN --> CLAUDE
+    GEN --> CLAUDE
+    OMICS --> CLAUDE
+    SPAT --> CLAUDE
+    IMG --> CLAUDE
+
+    CLAUDE --> RES
+    CLAUDE --> TARGETS
+    CLAUDE --> TRIALS
+
+    style CLAUDE fill:#fff4e1,stroke:#ff9800,stroke-width:3px
+    style RES fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style TARGETS fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style TRIALS fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+```
 
 ---
 
-## ⚠️ IMPORTANT: Research Use Only Disclaimer
+## Research Use Only Disclaimer
 
-```
-╔═══════════════════════════════════════════════════════════════════════════╗
-║                     PATIENTONE WORKFLOW DISCLAIMER                         ║
-╚═══════════════════════════════════════════════════════════════════════════╝
+**CRITICAL:** This workflow is for RESEARCH and EDUCATIONAL purposes only.
 
-⚠️  RESEARCH USE ONLY - NOT FOR CLINICAL DECISION-MAKING ⚠️
+- **NOT clinically validated** — Do not use for actual patient care decisions
+- **NOT FDA-approved** — Not a medical device or diagnostic tool
+- **NOT a substitute for clinical judgment** — Requires expert review
+- **FOR demonstration** — Shows feasibility of AI-orchestrated precision medicine
+- **FOR research** — Hypothesis generation and method development
 
-This PatientOne workflow has NOT been clinically validated.
-Do NOT use for actual patient care decisions.
+**All data is synthetic.** Any resemblance to actual patients is coincidental.
 
-CRITICAL LIMITATIONS:
-
-1. SYNTHETIC DATA
-   This demo uses synthetic/de-identified data for demonstration.
-   Results are for educational purposes only.
-
-2. AI-GENERATED INSIGHTS
-   Claude AI orchestrates the analysis but:
-   • May misinterpret complex data
-   • May hallucinate connections not supported by data
-   • Cannot replace expert human interpretation
-   • Requires validation by qualified bioinformaticians
-
-3. VALIDATION REQUIRED
-   ALL findings must be validated before research use:
-   • Statistical findings → Independent cohort
-   • Pathway predictions → Mechanistic studies
-   • Drug targets → Experimental models
-   • Clinical recommendations → Clinical trials
-
-4. NO LIABILITY
-   The developers and AI provider assume NO liability for:
-   • Treatment decisions based on this analysis
-   • Patient outcomes
-   • Misinterpretation of results
-   • Technical errors or bugs
-
-╔═══════════════════════════════════════════════════════════════════════════╗
-║  CONSULT A QUALIFIED ONCOLOGIST BEFORE ANY CLINICAL DECISION               ║
-╚═══════════════════════════════════════════════════════════════════════════╝
-```
-
-**See [disclaimers.md](../../../for-hospitals/compliance/disclaimers.md) for complete safety guidelines.**
+**See [complete disclaimers](../../../for-hospitals/compliance/disclaimers.md)**
 
 ---
 
@@ -131,38 +138,21 @@ PatientOne can run in two modes:
 
 **Quick Mode Selection:**
 - **DRY_RUN mode** (default): No setup needed, works immediately with synthetic data
-- **Actual Data mode**: Requires data files and configuration — see [📘 Data Modes Guide](https://github.com/lynnlangit/precision-medicine-mcp/blob/8326883dcef5d52bb31d9804cb6c769f0fcfa993/docs/reference/testing/patient-one/data-modes-guide.md)
+- **Actual Data mode**: Requires data files and configuration — see [Data Modes Guide](./data-modes-guide.md)
 
-💡 **Tip:** Start with DRY_RUN mode to understand the workflow (5 min), then switch to actual data for real analysis.
+**Tip:** Start with DRY_RUN mode to understand the workflow (5 min), then switch to actual data for real analysis.
 
 ---
 
-## Try Patient One in 5 Minutes
+## Try PatientOne in 5 Minutes
 
 ### Option 1: Quick Demo (Single Test)
 
-Run **TEST_1** to see clinical + genomic integration:
+Run **Test 1** to see clinical + genomic integration:
 
 1. **Open Claude Desktop**
 
-2. **Copy/paste this prompt:**
-```
-I want to run the Patient One clinical and genomic analysis (TEST_1).
-
-Please read the following files:
-- /Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/clinical/patient_demographics.json
-- /Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/clinical/lab_results.json
-- /Users/lynnlangit/Documents/GitHub/spatial-mcp/data/patient-data/PAT001-OVC-2025/genomics/somatic_variants.vcf
-
-Then:
-1. Use mockepic server to summarize patient clinical profile (demographics, BRCA1 status)
-2. Use mockepic to analyze CA-125 tumor marker trends (evidence of platinum resistance?)
-3. Use fgbio server to parse somatic variants (expect TP53 R175H, PIK3CA E545K, PTEN LOH)
-4. Use tcga server to compare mutations to TCGA ovarian cancer cohort and identify molecular subtype
-5. Synthesize findings into a clinical summary
-
-This is TEST_1 from the Patient One workflow.
-```
+2. **Copy/paste the prompt from:** [test-prompts/DRY_RUN/test-1-clinical-genomic.md](./test-prompts/DRY_RUN/test-1-clinical-genomic.md)
 
 3. **Expected output:**
 - Patient demographics (Sarah Anderson, 58yo, Stage IV HGSOC)
@@ -175,49 +165,58 @@ This is TEST_1 from the Patient One workflow.
 
 ---
 
-### Option 2: Complete Analysis (All 5 Tests)
+### Option 2: Complete Analysis (All Tests)
 
-Run all modular tests sequentially for comprehensive precision medicine analysis:
+Run all modular tests sequentially for comprehensive precision medicine analysis.
 
-#### Demonstration Data (Small Synthetic Files)
+**See [test-prompts/README.md](./test-prompts/README.md) for the full test index.**
 
-| Test | Focus | DRY_RUN Time | Real Data Time | DRY_RUN Cost | Real Data Cost (Small Files) |
-|------|-------|--------------|----------------|--------------|------------------------------|
-| **TEST_1** | Clinical + Genomic | 3-5 min | 10-15 min | ~$1 | ~$1 |
-| **TEST_2** | Multi-Omics Resistance | 5-8 min | 15-25 min | ~$1 | $2-4 |
-| **TEST_3** | Spatial Transcriptomics | 4-6 min | 45-90 min | ~$1 | $8-17 |
-| **TEST_4** | Histology & Imaging | 3-5 min | 20-40 min | ~$1 | $3-7 |
-| **TEST_5** | Integration & Recommendations | 5-7 min | 5-10 min | ~$1 | ~$1 |
-| **TEST_6** | CitL Review & Approval | 20-30 min | ~1 min | $0 | $0 |
-| **TOTAL** | Complete Analysis | **45-65 min** | **2-4 hours** | **~$1** | **$15-45** |
+#### DRY_RUN Tests (9 tests)
 
-**Data sizes:** 315 KB spatial, 505 KB multi-omics, 4.1 MB imaging (total ~4.9 MB)
+| Test | Focus | Servers | Time |
+|------|-------|---------|------|
+| **[Test 1](./test-prompts/DRY_RUN/test-1-clinical-genomic.md)** | Clinical + Genomic | mockepic, fgbio, mocktcga | 5-10 min |
+| **[Test 2](./test-prompts/DRY_RUN/test-2-multiomics-enhanced.md)** | Multi-Omics Resistance | multiomics | 5-10 min |
+| **[Test 3](./test-prompts/DRY_RUN/test-3-spatial.md)** | Spatial Transcriptomics | spatialtools | 5-10 min |
+| **[Test 4](./test-prompts/DRY_RUN/test-4-imaging.md)** | Histology & Imaging | openimagedata, deepcell, cell-classify | 5-10 min |
+| **[Test 5](./test-prompts/DRY_RUN/test-5-integration.md)** | Integration & Recommendations | all (synthesis) | 5-10 min |
+| **[Test 6](./test-prompts/DRY_RUN/test-6-citl-review.md)** | CitL Review & Approval | patient-report | 20-30 min |
+| **[Test 7](./test-prompts/DRY_RUN/test-7-e2e-claude-desktop.md)** | E2E Claude Desktop | 6 servers, single prompt | 5-10 min |
+| **[Test 8](./test-prompts/DRY_RUN/test-8-e2e-claude-desktop-with-connectors.md)** | E2E + Connectors | 6 servers + PubMed, ClinicalTrials, bioRxiv | 10-15 min |
+| **[Test 9](./test-prompts/DRY_RUN/test-9-e2e-seqera-connector.md)** | E2E Seqera Connector | mockepic, genomic-results, patient-report + Seqera | 5-10 min |
 
-#### Production Data (Realistic Hospital Volumes)
+#### Cost Estimates
 
-| Test | Focus | Real Data Time (Pre-aligned) | Real Data Time (Raw FASTQ) | Cost (Pre-aligned) | Cost (Raw FASTQ) |
-|------|-------|------------------------------|----------------------------|-------------------|------------------|
-| **TEST_1** | Clinical + Genomic | 15-30 min | 15-30 min | ~$1-2 | ~$1-2 |
-| **TEST_2** | Multi-Omics Resistance | 30-60 min | 30-60 min | $6-20 | $6-20 |
-| **TEST_3** | Spatial Transcriptomics | 45-120 min | 90-240 min | $5-30 | $10-40 |
-| **TEST_4** | Histology & Imaging | 40-90 min | 40-90 min | $10-36 | $10-36 |
-| **TEST_5** | Integration & Recommendations | 10-20 min | 10-20 min | ~$1-2 | ~$1-2 |
-| **TOTAL (Compute + API)** | Complete Analysis | **2-4 hours** | **4-8 hours** | **$23-90** | **$28-100** |
-| **+ Claude Tokens** | - | - | - | **~$1-2** | **~$1-2** |
-| **GRAND TOTAL** | - | **2-4 hours** | **4-8 hours** | **$24-92** | **$29-104** |
-
-**Data sizes:** 100-500 MB spatial (3,000-5,000 spots × 18,000-30,000 genes), 15-20 MB multi-omics processed (or 2.7 GB raw), 500 MB - 2 GB imaging
+| Data Mode | Time | Cost |
+|-----------|------|------|
+| **DRY_RUN** (all 9 tests) | ~45-65 min | ~$1 (tokens only) |
+| **Actual Data** (small synthetic files) | 2-4 hours | $15-45 |
+| **Production Data** (hospital volumes) | 4-8 hours | $24-104 |
 
 **Cost Breakdown:**
-- **DRY_RUN:** Claude token usage only (~30K tokens) - ~$1
+- **DRY_RUN:** Claude token usage only (~30K tokens) — ~$1
 - **Real Data:** See [Cost Analysis](../../shared/cost-analysis.md) for detailed per-mode cost breakdowns
   - Token costs stay low because MCP servers return summaries, not raw 3-8 GB files!
 
 **Instructions:**
-1. Open each `TEST_*.txt` file in `implementation/` directory
+1. Open each test prompt file from [test-prompts/DRY_RUN/](./test-prompts/DRY_RUN/)
 2. Copy/paste the prompt into Claude Desktop
 3. Review results before proceeding to next test
 4. Tests build on each other but are independently runnable
+
+---
+
+## MCP Server Orchestration
+
+### How MCP Servers Contribute
+
+| Workflow Stage | MCP Servers Engaged | Tools Used | Output |
+|---|---|---|---|
+| **1. Clinical Retrieval** | Epic | `query_patient_records`, `search_diagnoses` | Demographics, CA-125 trends, ICD-10 codes |
+| **2. Genomic Analysis** | FGbio, TCGA | `validate_fastq`, `query_gene_annotations`, `compare_to_cohort`, `get_mutation_data` | VCF variants, CNV profile, TCGA subtype |
+| **3. Multiomics Integration** | MultiOmics | `integrate_omics_data`, `calculate_stouffer_meta`, `create_multiomics_heatmap` | Resistance gene signatures, pathway activation |
+| **4. Spatial Processing** | SpatialTools, DeepCell | `filter_quality`, `split_by_region`, `align_spatial_data`, `segment_cells` | Spatial expression maps, tissue segmentation |
+| **5. Histology Analysis** | OpenImageData, DeepCell | `fetch_histology_image`, `register_image_to_spatial`, `classify_cell_states` | Cell counts, phenotype distributions |
 
 ---
 
@@ -233,22 +232,19 @@ Understanding the difference between imaging types is critical for correct analy
 | **Spatial RNA-seq** | N/A (sequencing) | Tabular CSV data (no images) | SpatialTools only | Gene expression patterns across tissue |
 
 **Key Differences:**
-- **H&E:** Brightfield microscopy with colored (chromogenic) stains - NOT fluorescence
-- **IF/MxIF:** Fluorescence microscopy with fluorescent antibodies - requires different analysis
+- **H&E:** Brightfield microscopy with colored (chromogenic) stains — NOT fluorescence
+- **IF/MxIF:** Fluorescence microscopy with fluorescent antibodies — requires different analysis
 - **Spatial data:** No images, just CSV files with coordinates and expression values
 
 **What is MxIF?**
-MxIF (Multiplexed Immunofluorescence) enables imaging of multiple protein markers (2-7+) on a single tissue section through repeated rounds of staining, imaging, dye inactivation, and background subtraction. This provides:
-- High-dimensional single-cell data (multiple markers per cell)
-- Spatial context preserved across all markers (same cells in all images)
-- Quantitative phenotyping (e.g., TP53+/Ki67+ double-positive cells)
+MxIF (Multiplexed Immunofluorescence) enables imaging of multiple protein markers (2-7+) on a single tissue section through repeated rounds of staining, imaging, dye inactivation, and background subtraction.
 
 The Patient One workflow uses the **open-source DeepCell-TF library** (https://github.com/vanvalenlab/deepcell-tf) for AI-based cell segmentation in MxIF images.
 
 **When to use DeepCell in PatientOne Workflow:**
-- ✅ MxIF/IF images requiring cell segmentation and quantification (CD8, Ki67, TP53/Ki67/DAPI multiplex)
-- ❌ H&E images (used for visual morphology assessment only in this workflow)
-- ❌ Tabular spatial data (CSV files) - use SpatialTools instead
+- MxIF/IF images requiring cell segmentation and quantification (CD8, Ki67, TP53/Ki67/DAPI multiplex)
+- NOT for H&E images (used for visual morphology assessment only in this workflow)
+- NOT for tabular spatial data (CSV files) — use SpatialTools instead
 
 ---
 
@@ -269,7 +265,7 @@ The Patient One workflow uses the **open-source DeepCell-TF library** (https://g
 - Platinum-resistant disease (8-month recurrence)
 - TP53/PIK3CA/PTEN driver mutations
 - C1 immunoreactive subtype
-- BRCA1 germline mutation → HRD-positive
+- BRCA1 germline mutation — HRD-positive
 
 ---
 
@@ -310,12 +306,6 @@ The Patient One workflow uses the **open-source DeepCell-TF library** (https://g
 - Thick stromal barrier separating immune cells from tumor
 - Spatial heterogeneity in resistance markers
 
-**Expected Visualizations:**
-- Spatial heatmap showing top 6 spatially variable genes across tissue coordinates
-- Gene expression heatmap (8 key genes × 6 regions)
-- Region composition bar chart
-- Spatial autocorrelation plot (Moran's I)
-
 ---
 
 ### TEST_4: Histology & Imaging
@@ -328,28 +318,11 @@ The Patient One workflow uses the **open-source DeepCell-TF library** (https://g
 3. PAT001_tumor_IF_KI67.tiff - IF fluorescence (openimagedata + deepcell)
 4. PAT001_tumor_multiplex_IF_TP53_KI67_DAPI.tiff - MxIF 3-channel (openimagedata + deepcell)
 
-**Additional Available Files** (not used in test): CD3, DAPI, PanCK IF images
-
-**What it does:**
-- Analyzes **H&E histology** using brightfield microscopy (tissue architecture, morphology) - openimagedata ONLY
-- Processes **MxIF/IF images** using fluorescence microscopy (CD8, Ki67, TP53/Ki67/DAPI multiplex)
-- Performs cell segmentation on fluorescence images with DeepCell (using DeepCell-TF library)
-- Quantifies proliferation and immune infiltration through single-cell analysis
-- **Generates visualizations:** Segmentation overlays, spatial distribution maps, phenotype analyses, MxIF composites
-
-**Note:** H&E uses chromogenic stains (brightfield, no segmentation in this workflow), while MxIF uses fluorescent antibodies (fluorescence, requires DeepCell segmentation for quantification).
-
 **Key Findings:**
 - Tumor cellularity: 70-80%
 - Ki67 proliferation index: 45-55% (HIGH)
-- CD8+ T cell density: 5-15 cells/mm² (LOW, mostly peripheral)
-- CD3+ overall: 30-50 cells/mm² (moderate T cells, but not cytotoxic)
-
-**Expected Visualizations:**
-- **CD8 IF:** Segmentation overlay (CD8+ vs CD8-), spatial distribution heatmap
-- **Ki67 IF:** Nuclear segmentation overlay (Ki67+ vs Ki67-), proliferation heatmap
-- **Multiplex IF:** RGB channel composite, cell phenotype segmentation, scatter plot (TP53 vs KI67)
-- **H&E:** Annotated morphology showing necrotic regions and high cellularity areas
+- CD8+ T cell density: 5-15 cells/mm2 (LOW, mostly peripheral)
+- CD3+ overall: 30-50 cells/mm2 (moderate T cells, but not cytotoxic)
 
 ---
 
@@ -372,7 +345,7 @@ The Patient One workflow uses the **open-source DeepCell-TF library** (https://g
 ---
 
 ### TEST_6: Clinician-in-the-Loop (CitL) Review
-**Servers:** None (clinician validation)
+**Servers:** patient-report
 **Files:** `draft_report.json` (generated from TEST_1-5)
 
 **What it does:**
@@ -382,164 +355,169 @@ The Patient One workflow uses the **open-source DeepCell-TF library** (https://g
 - Reviews quality flags, makes decision: APPROVE / REVISE / REJECT
 - Creates HIPAA-compliant audit trail with digital signature (10-year retention)
 
-**Workflow:**
-1. Generate draft (~30s)
-2. Clinician review (20-30 min)
-3. Submit review (~5s)
-4. Finalize approved report (~10s)
-
-**Result:** `final_report_approved.json` ready for clinical decision-making
-
-See: `implementation/TEST_6_CITL_REVIEW.txt` for complete workflow
+See [citl-quick-test.md](./citl-quick-test.md) for the hands-on CitL test guide.
 
 ---
 
-## Expected Outputs
+### TEST_7-9: End-to-End Tests
 
-### For Each Test
-
-Claude Desktop will generate:
-1. **Data Summary:** Key statistics from loaded files
-2. **Tool Execution:** MCP server calls with results
-3. **Analysis:** Interpretation and synthesis
-4. **Findings:** Bullet-point key discoveries
-
-### Final Integrated Output (After TEST_5)
-
-Comprehensive report including:
-- **Executive Summary:** Patient profile and precision medicine strategy
-- **Molecular Profile:** Genomic alterations, pathway dysregulation
-- **Microenvironment:** Spatial distribution, immune landscape
-- **Resistance Mechanisms:** Multi-omics signatures
-- **Treatment Plan:** Evidence-based recommendations with rationale
+- **[Test 7](./test-prompts/DRY_RUN/test-7-e2e-claude-desktop.md):** Single-prompt E2E covering 6 servers
+- **[Test 8](./test-prompts/DRY_RUN/test-8-e2e-claude-desktop-with-connectors.md):** Test 7 + PubMed, ClinicalTrials.gov, bioRxiv connectors
+- **[Test 9](./test-prompts/DRY_RUN/test-9-e2e-seqera-connector.md):** Focused E2E with Seqera nf-core pipeline discovery
 
 ---
 
-## Bias Audit Results
+## Data Assets
 
-### Overview
+All synthetic patient data located in: `/data/patient-data/PAT001-OVC-2025/`
 
-The Patient One workflow has undergone comprehensive bias auditing to ensure algorithmic fairness across diverse patient populations. This audit demonstrates our commitment to ethical AI and compliance with FDA, AMA, and NIH standards.
+### File Inventory (18 files, ~3.2 MB total)
 
-**Audit Date:** 2026-01-12
-**Risk Level:** MEDIUM (acceptable with mitigations)
-**Auditor:** Ethics & Bias Framework Team
-**Full Report:** [Bias Audit Guide](../../../for-hospitals/ethics/BIAS_AUDIT_GUIDE.md)
+| Modality | Files | Size | Content Description |
+|----------|-------|------|---------------------|
+| **Clinical** | 2 | 10.7 KB | `patient_demographics.json`, `lab_results.json` |
+| **Genomic** | 1 | 2.3 KB | `somatic_variants.vcf` (12 key variants) |
+| **Multiomics** | 4 | 505 KB | `pdx_rna_seq.csv` (1K genes), `pdx_proteomics.csv` (500), `pdx_phosphoproteomics.csv` (300), `sample_metadata.csv` |
+| **Spatial** | 4 | 315 KB | `visium_gene_expression.csv` (900 spots x 31 genes), `visium_spatial_coordinates.csv`, `visium_region_annotations.csv` |
+| **Imaging** | 7 | 2.2 MB | H&E + IF (DAPI, CD3, CD8, Ki67, PanCK) + multiplex |
+| **TOTAL** | **18** | **~3.2 MB** | Complete precision medicine dataset |
 
-### Patient Profile (Test Case)
+---
 
-- **Demographics:** 63-year-old woman, Stage IV HGSOC, platinum-resistant
-- **Ancestry:** European
-- **Key Variant:** BRCA1 c.5266dupC (pathogenic)
-- **Spatial Data:** Ovarian tumor Visium slide (1,200 spots)
+## Key Findings from PatientOne Analysis
 
-### Findings Summary
+### 1. Molecular Resistance Mechanisms
 
-**✅ Biases Checked (5):**
-1. **Insurance Status** - PASS: No insurance data used in treatment recommendations
-2. **Geographic Location** - PASS: Postal code not used as proxy
-3. **Race/Ethnicity Coding** - PASS: Ancestry used ONLY for genomics context
-4. **Spatial Algorithms** - PASS: Moran's I is mathematical, ancestry-agnostic
-5. **PDX Models** - PASS: Limitations acknowledged, combined with patient data
+**From Multiomics Integration (MCP-MultiOmics):**
+- **PI3K/AKT/mTOR pathway activation** in carboplatin-resistant PDX samples
+- Upregulated genes/proteins: `PIK3CA`, `AKT1`, `mTOR`, `RPS6KB1` (Stouffer's combined p < 0.001)
+- Drug efflux: `ABCB1` (MDR1) overexpression (log2FC = 2.8, FDR < 0.01)
+- Anti-apoptotic: `BCL2L1` upregulation
 
-**⚠️ Biases Detected (3):**
+**From Genomic Analysis (MCP-FGbio + MCP-TCGA):**
+- `PIK3CA E545K` activating mutation (allele frequency 38%)
+- `TP53 R175H` hotspot mutation (loss of function)
+- `PTEN` loss of heterozygosity (tumor suppressor inactivation)
+- TCGA subtype: **C1 Immunoreactive** (immune infiltration expected, but...)
 
-1. **BRCA Variant Databases: Euro-centric (MEDIUM Risk)**
-   - **Issue:** ClinVar ~70% European, gnomAD 43% European
-   - **Impact:** BRCA1 c.5266dupC has 50+ studies in European ancestry, but <5 in African/Asian
-   - **Mitigation:** Flag variants with <5 studies in patient ancestry; reduce confidence by 30%
-   - **Status:** ✅ Implemented in workflow
+### 2. Tumor Microenvironment
 
-2. **GTEx Reference Ranges: 85% European (MEDIUM Risk)**
-   - **Issue:** GTEx tissue reference data is 85% European donors
-   - **Impact:** For Asian patients, reference ranges have 0% representation
-   - **Mitigation:** Document 85% European composition; validate with TOPMed/Human Cell Atlas
-   - **Status:** ✅ Documented; ongoing validation
+**From Spatial Transcriptomics (MCP-SpatialTools):**
+- **6 distinct spatial regions** identified
+- **Immune exclusion phenotype:** CD8+ T cells enriched at tumor periphery, sparse in core
+- **Proliferation gradient:** Ki67/PCNA high in tumor_proliferative region
+- **Stroma barrier:** Thick stromal band separating immune cells from tumor
 
-3. **Cell Type References: Generic (LOW Risk)**
-   - **Issue:** Using generic immune cell references (not ovarian-specific)
-   - **Impact:** May miss ovarian cancer-specific cell states
-   - **Mitigation:** Use GSE146026 (ovarian cancer single-cell atlas)
-   - **Status:** ✅ Implemented in spatial analysis
+**From Histology Imaging (MCP-OpenImageData + MCP-DeepCell):**
+- Tumor cellularity: 70-80%
+- Ki67 proliferation index: 45-55% (high)
+- CD8+ T cell density: 5-15 cells/mm2 (LOW, mostly peripheral)
+- CD3+ overall: 30-50 cells/mm2 (moderate T cell presence, but not cytotoxic)
 
-### Fairness Metrics
+### 3. Clinical-Molecular Integration
 
-**Data Representation:**
-- Patient cohort: 100 patients (pilot)
-- Ancestry distribution: 65% European, 20% Asian, 10% African, 5% Latino
-- Risk: MEDIUM (Asian 20%, African 10%, Latino 5% all below ideal 25%)
+**From Clinical Data (MCP-Epic):**
+- **CA-125 response pattern:** Initial deep response (1456 -> 22 U/mL) followed by resistance (-> 389 U/mL)
+- **BRCA1 germline mutation:** HRD-positive — PARP inhibitor candidate, BUT PIK3CA pathway may confer resistance
+- **Platinum-free interval:** 8 months — platinum-resistant category
 
-**Algorithmic Fairness:**
-- Demographic Parity: ACCEPTABLE (max disparity 7%)
-- Equalized Odds: ACCEPTABLE (TPR disparity 5%, FPR disparity 4%)
-- Calibration: ACCEPTABLE (max calibration error 0.08)
+### 4. MTB-Ready Treatment Recommendations
 
-**Proxy Features:**
-- No proxy features detected (zip code, insurance status, income not used)
+> All recommendations are presented for Molecular Tumor Board review using AMP/ASCO/CAP evidence tiers. Clinician validation is required via the [CITL workflow](../../../for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md) before clinical use.
 
-### Implemented Mitigations
+**Primary Target: PI3K/AKT Pathway** *(Tier 1 — FDA-approved biomarker)*
+- Consider: **Alpelisib** (PIK3CA inhibitor) given E545K mutation
+- Clinical trial: NCT03602859 (alpelisib + paclitaxel in ovarian cancer)
 
-**1. Ancestry-Aware Confidence Scoring**
-```python
-# Example: BRCA1 variant confidence adjustment
-Base Confidence: 0.85 (85%)
-Ancestral Studies: 2 (African ancestry)
-Adjusted Confidence: 0.595 (59.5%)  # 30% penalty for <5 studies
-Warning: "Limited data in African ancestry (<5 studies)"
+**Secondary Target: Immune Checkpoint** *(Tier 2 — evidence from other tumor types)*
+- Consider: **Anti-PD-1** (pembrolizumab, nivolumab) to overcome immune exclusion
+
+**PARP Inhibitor Re-consideration** *(Tier 1 — FDA-approved for BRCA1+ ovarian)*
+- Given BRCA1 mutation + HRD score 42, PARP inhibitor (olaparib, niraparib) remains option
+- Caution: PIK3CA pathway activation may limit efficacy
+
+---
+
+## Bias Audit Summary
+
+**Audit Date:** 2026-01-12 | **Risk Level:** MEDIUM (acceptable with mitigations)
+
+The PatientOne workflow has undergone comprehensive bias auditing. Key findings:
+
+- **5 checks passed:** Insurance status, geographic location, race/ethnicity coding, spatial algorithms, PDX models
+- **3 biases detected and mitigated:** Euro-centric BRCA variant databases (MEDIUM), GTEx reference ranges 85% European (MEDIUM), generic cell type references (LOW)
+- **Fairness metrics:** All within acceptable thresholds (<10% disparity)
+- **No proxy features** used (geographic, socioeconomic data excluded)
+
+**Full details:** [Bias Audit Guide](../../../for-hospitals/ethics/BIAS_AUDIT_GUIDE.md) | [Ethics & Bias Framework](../../../for-hospitals/ethics/ETHICS_AND_BIAS.md)
+
+---
+
+## Why PatientOne Matters
+
+### Paradigm Shift in Precision Medicine
+
+**From:** Siloed tools requiring weeks of glue code
+**To:** AI-assisted clinical decision support for Molecular Tumor Boards
+
+PatientOne demonstrates that with MCP servers, Claude can seamlessly coordinate across:
+- EHR systems (clinical context)
+- Genomic databases (molecular foundation)
+- Multi-omics platforms (functional landscape)
+- Spatial biology (tissue microenvironment)
+- Medical imaging (cellular morphology)
+- Reference cohorts (comparative context)
+
+**All in one conversational interface** — replacing weeks of glue code with natural language prompts.
+
+### Real-World Impact
+
+While PatientOne uses synthetic data, the workflow represents a **real clinical decision-making process:**
+
+1. **Tumor Board Preparation:** Integrate all available molecular data before multidisciplinary review
+2. **Clinical Trial Matching:** Identify actionable targets and match to available trials
+3. **Treatment Selection:** Evidence-based therapy recommendations accounting for resistance mechanisms
+4. **Biomarker Monitoring:** Track CA-125 and other markers to assess response
+
+---
+
+## Technical Architecture
+
+### Data Flow
+
+```
+User Prompt -> Claude Desktop -> MCP Protocol -> Server Selection
+                                    |
+                    +-------------------------------+
+                    |  All MCP Servers              |
+                    |  Each with specialized tools  |
+                    +-------------------------------+
+                                    |
+            +---------------------------------------+
+            |  Data Sources (Local Files)           |
+            |  /data/patient-data/PAT001-OVC-2025/  |
+            +---------------------------------------+
+                                    |
+            +---------------------------------------+
+            |  Tool Execution & Results             |
+            |  JSON responses with data             |
+            +---------------------------------------+
+                                    |
+            +---------------------------------------+
+            |  Claude Synthesis & Interpretation    |
+            |  Integrated insights, recommendations |
+            +---------------------------------------+
+                                    |
+                        User-friendly output
 ```
 
-**2. Reference Dataset Validation**
-- Primary: gnomAD (43% European, 21% African, 14% Latino, 9% Asian)
-- Secondary: All of Us (80% underrepresented groups)
-- Validation: TOPMed, Human Cell Atlas for spatial data
+### Reproducibility
 
-**3. Transparency Warnings**
-```
-⚠️ Limited ancestral representation for variant BRCA1:c.5266dupC
-   Studies in patient ancestry: 2 (African)
-   Confidence reduced by 30%
-   Consider genetic counseling for interpretation
-```
-
-### Audit Schedule
-
-- **Initial Audit:** Before production deployment (✅ Completed 2026-01-12)
-- **Quarterly Audits:** Q1, Q2, Q3, Q4 (every 3 months)
-- **Triggered Audits:** After workflow changes or reference dataset updates
-- **Annual Comprehensive:** December (IRB and ethics committee review)
-
-### Related Documentation
-
-**Bias Detection Framework:**
-- [Ethics & Bias Framework](../../../for-hospitals/ethics/ETHICS_AND_BIAS.md) - Comprehensive methodology
-- [Bias Audit Guide](../../../for-hospitals/ethics/BIAS_AUDIT_GUIDE.md) - Step-by-step bias audit
-
-**Operational Procedures:**
-- [Operations Manual - Bias Auditing](../../../for-hospitals/OPERATIONS_MANUAL.md#bias-auditing-procedures) - How to run audits
-
-**Tools:**
-- `shared/utils/bias_detection.py` - Bias detection utilities
-- `infrastructure/audit/audit_bias.py` - Automated audit script
-- `tests/unit/test_bias_detection.py` - Test suite
-
-### Key Takeaways
-
-**✅ Strengths:**
-- No proxy features used (geographic, socioeconomic data excluded)
-- Fairness metrics within acceptable thresholds (<10% disparity)
-- Transparency warnings implemented for low-confidence predictions
-- Regular audit schedule with 10-year report retention
-
-**⚠️ Limitations:**
-- BRCA variant databases skewed toward European ancestry
-- GTEx reference 85% European (spatial transcriptomics baseline)
-- Patient cohort diversity below ideal (need >20% per ancestry group)
-
-**🎯 Continuous Improvement:**
-- Monitor representation as patient cohort grows
-- Supplement with All of Us reference data (80% underrepresented groups)
-- Quarterly audits to detect emergent bias
-- External validation planned for Phase 2
+All PatientOne analyses are:
+- **Logged:** Complete MCP server call history
+- **Versioned:** Git-tracked data and configurations
+- **Repeatable:** Deterministic tool execution (DRY_RUN mode available)
+- **Auditable:** Full trace from raw data to recommendations
 
 ---
 
@@ -589,11 +567,7 @@ pwd  # Note current directory
 - Servers return realistic synthetic responses
 
 **To use your own data:**
-- See the [📘 Data Modes Guide](./data-modes-guide.md) for complete instructions on:
-  - Switching from DRY_RUN to Actual Data mode
-  - Configuring environment variables
-  - Setting up data file directories
-  - Obtaining required API keys
+- See the [Data Modes Guide](./data-modes-guide.md) for complete instructions
 
 ---
 
@@ -602,7 +576,7 @@ pwd  # Note current directory
 **Cause:** Trying to run all tests in single prompt
 
 **Fix:**
-- Run tests individually (TEST_1 through TEST_5)
+- Run tests individually (Test 1 through Test 5)
 - Each test designed to fit within Claude Desktop context limits
 - Do NOT combine multiple tests in one prompt
 - Clear conversation history between tests if needed
@@ -627,34 +601,37 @@ done
 
 ---
 
-## File Access Configuration
+## Expected Outputs
 
-For detailed guidance on configuring Claude Desktop for file access, see:
-- `implementation/CLAUDE_DESKTOP_FILE_ACCESS_GUIDE.md`
-- `implementation/CLAUDE_DESKTOP_FIX_SUMMARY.md`
+### For Each Test
+
+Claude Desktop will generate:
+1. **Data Summary:** Key statistics from loaded files
+2. **Tool Execution:** MCP server calls with results
+3. **Analysis:** Interpretation and synthesis
+4. **Findings:** Bullet-point key discoveries
+
+### Final Integrated Output (After TEST_5)
+
+Comprehensive report including:
+- **Executive Summary:** Patient profile and precision medicine strategy
+- **Molecular Profile:** Genomic alterations, pathway dysregulation
+- **Microenvironment:** Spatial distribution, immune landscape
+- **Resistance Mechanisms:** Multi-omics signatures
+- **Treatment Plan:** Evidence-based recommendations with rationale
 
 ---
 
-## Next Steps
+## Related Documentation
 
-After completing Patient One:
-
-1. **Explore Individual Workflows:**
-   - [Spatial Transcriptomics](../../architecture/spatial/README.md) (TEST_3)
-   - [Imaging Analysis](../../architecture/imaging/README.md) (TEST_4)
-   - [Multiomics Integration](../../architecture/rna/multiomics.md) (TEST_2)
-
-2. **Customize for Your Data:**
-   - Replace synthetic patient data with your own
-   - Adjust MCP server configurations
-   - Modify test prompts to match your analysis goals
-
-3. **Production Deployment:**
-   - Integrate with real EHR systems
-   - Connect to institutional genomic databases
-4. **Read Full Architecture:**
-   - [PatientOne Architecture](overview.md)
-   - [Comprehensive Documentation](../../../README.md)
+- **Test Prompts:** [test-prompts/README.md](./test-prompts/README.md) — Full test index (DRY_RUN and SYNTHETIC_DATA)
+- **Data Modes:** [data-modes-guide.md](./data-modes-guide.md) — DRY_RUN vs Actual Data configuration
+- **CitL Testing:** [citl-quick-test.md](./citl-quick-test.md) — Clinician-in-the-Loop workflow test
+- **Immunotherapy:** [immunotherapy-reference.md](./immunotherapy-reference.md) — Next-gen immunotherapy candidates
+- **Spatial Workflow:** [Architecture](../../architecture/spatial/README.md)
+- **Imaging Workflow:** [Architecture](../../architecture/imaging/README.md)
+- **Multiomics Workflow:** [Architecture](../../architecture/rna/multiomics.md)
+- **Main Project:** [Precision Medicine MCP Servers](../../../README.md)
 
 ---
 
@@ -665,6 +642,6 @@ After completing Patient One:
 
 ---
 
-**Last Updated:** December 29, 2025
-**Testing Status:** All 5 tests validated with synthetic data
+**Last Updated:** February 23, 2026
+**Testing Status:** 9 DRY_RUN tests + 4 SYNTHETIC_DATA tests validated
 **Data:** 100% synthetic for demonstration purposes

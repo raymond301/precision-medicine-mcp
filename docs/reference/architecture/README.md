@@ -270,8 +270,7 @@ Workflow orchestration is now provided by the **external Seqera MCP server** (`@
 - ⚛️ TEST_6: Quantum cell type fidelity (mcp-quantum-celltype-fidelity)
 - 🔄 TEST_7: Complete end-to-end workflow
 
-📖 **[PatientOne Workflow →](../testing/patient-one/README.md)**
-📖 **[PatientOne Architecture →](../testing/patient-one/overview.md)**
+📖 **[PatientOne Workflow & Architecture →](../testing/patient-one/README.md)**
 
 ___
 

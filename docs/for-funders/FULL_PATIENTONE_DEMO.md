@@ -27,9 +27,8 @@ This demo showcases the full capabilities of the platform using **PatientOne** -
 - **[5-Minute Overview Video →](https://www.youtube.com/watch?v=LUldOHHX5Yo)** - Watch the full analysis
 
 ### 📖 Complete Documentation
-- **[PatientOne Scenario README →](../reference/testing/patient-one/README.md)** - Full case study
-- **[Architecture Overview →](../reference/testing/patient-one/overview.md)** - Workflow diagrams
-- **[Data Modes Guide →](../reference/testing/patient-one/data-modes-guide.md)** - DRY_RUN, MOCK, FULL modes
+- **[PatientOne Scenario README →](../reference/testing/patient-one/README.md)** - Full case study, architecture, workflow diagrams
+- **[Data Modes Guide →](../reference/testing/patient-one/data-modes-guide.md)** - DRY_RUN vs Actual Data modes
 
 ### 📝 Test Prompts
 - **[Clinical & Genomic Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-1-clinical-genomic.md)**
@@ -37,7 +36,7 @@ This demo showcases the full capabilities of the platform using **PatientOne** -
 - **[Spatial Analysis Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-3-spatial.md)**
 - **[Imaging Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-4-imaging.md)**
 - **[Integration Prompts →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-5-integration.md)**
-- **[End-to-End Workflow →](../reference/testing/patient-one/end-to-end-test.md)**
+- **[E2E Test Prompt →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-7-e2e-claude-desktop.md)**
 
 ---
 
@@ -121,7 +120,7 @@ This demo showcases the full capabilities of the platform using **PatientOne** -
 ### Pathway 4: Full Multi-Modal Analysis (35 minutes)
 **Goal:** Complete precision medicine analysis integrating all modalities
 
-**See:** [End-to-End Test →](../reference/testing/patient-one/end-to-end-test.md)
+**See:** [E2E Test Prompt →](../reference/testing/patient-one/test-prompts/DRY_RUN/test-7-e2e-claude-desktop.md)
 
 This workflow demonstrates:
 - Clinical context extraction

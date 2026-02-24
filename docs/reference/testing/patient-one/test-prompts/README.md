@@ -53,7 +53,7 @@ MCP servers support two layers of synthetic data. Choose the mode that fits your
 ## Related Resources
 
 - [Data Modes Guide](../data-modes-guide.md) — DRY_RUN vs SYNTHETIC_DATA configuration
-- [Quick Test Prompts](../quick-test-prompts.md) — Rapid single-server verification
+- [Quick Test Prompts](../../quick-test-prompts.md) — Rapid single-server verification
 - [PatientOne Overview](../README.md) — Complete patient scenario walkthrough
 - [Server Registry](../../shared/server-registry.md) — Canonical server and tool counts
 

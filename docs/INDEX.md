@@ -104,9 +104,8 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **[Test Coverage & Guidelines](reference/testing/test-coverage.md)** - Test structure and best practices
 - **[Manual Testing](reference/testing)** - Quick test prompts and verification
 - **[PatientOne Scenario](reference/testing/patient-one)** - Complete end-to-end testing scenario
-  - [Quick Reference](reference/testing/patient-one/quick-reference.md)
   - [CITL Quick Test](reference/testing/patient-one/citl-quick-test.md)
-  - [Test Prompts](reference/testing/patient-one/test-prompts) - Ready-to-use test prompts (6 tests)
+  - [Test Prompts](reference/testing/patient-one/test-prompts) - Ready-to-use test prompts (9 DRY_RUN + 4 SYNTHETIC_DATA)
 - **[Integration Testing](reference/testing)** - GCP and API testing
 
 ---
@@ -144,7 +143,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 ### Quick Links
 
 - **Installation:** [5-Minute Quick Start](./getting-started/installation.md#quick-start-5-minutes)
-- **Test It:** [PatientOne Quick Test](reference/testing/patient-one/quick-reference.md)
+- **Test It:** [PatientOne Scenario](reference/testing/patient-one/README.md)
 - **Costs:** [Cost Overview](./for-hospitals/operations/cost-and-budget.md#cost-overview)
 - **HIPAA:** [HIPAA Quick Reference](./for-hospitals/compliance/hipaa.md#executive-summary)
 

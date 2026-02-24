@@ -19,13 +19,10 @@ Testing deployed servers via Claude API.
 ### [PatientOne Scenario](./patient-one/)
 Complete testing scenario using synthetic ovarian cancer patient data.
 
-- [Overview](./patient-one/README.md) - PatientOne testing scenario
-- [Architecture Overview](./patient-one/overview.md) - Architecture overview
-- [Quick Reference](./patient-one/quick-reference.md) - Quick test reference
+- [Overview](./patient-one/README.md) - PatientOne testing scenario (architecture, test descriptions, troubleshooting)
 - [CITL Quick Test](./patient-one/citl-quick-test.md) - Clinician-in-the-Loop workflow test
-- [Data Modes Guide](./patient-one/data-modes-guide.md) - Data mode configuration
-- [Test All Servers](./patient-one/test-all-servers.md) - Complete server testing
-- [End-to-End Test](./patient-one/end-to-end-test.md) - Full workflow test
+- [Data Modes Guide](./patient-one/data-modes-guide.md) - DRY_RUN vs Actual Data configuration
+- [Immunotherapy Reference](./patient-one/immunotherapy-reference.md) - Next-gen immunotherapy candidates
 
 #### Test Prompts
 Ready-to-use test prompts for the complete PatientOne workflow, organized by data mode:
@@ -39,6 +36,7 @@ Ready-to-use test prompts for the complete PatientOne workflow, organized by dat
 6. [Test 6: CitL Review](./patient-one/test-prompts/DRY_RUN/test-6-citl-review.md)
 7. [Test 7: E2E Claude Desktop](./patient-one/test-prompts/DRY_RUN/test-7-e2e-claude-desktop.md)
 8. [Test 8: E2E + Connectors](./patient-one/test-prompts/DRY_RUN/test-8-e2e-claude-desktop-with-connectors.md)
+9. [Test 9: E2E Seqera Connector](./patient-one/test-prompts/DRY_RUN/test-9-e2e-seqera-connector.md)
 
 **[SYNTHETIC_DATA](./patient-one/test-prompts/SYNTHETIC_DATA/)** — Real file parsing (`*_DRY_RUN=false`):
 1. [Test 1: Clinical Genomic](./patient-one/test-prompts/SYNTHETIC_DATA/test-1-clinical-genomic.md)
