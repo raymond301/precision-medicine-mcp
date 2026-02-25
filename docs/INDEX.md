@@ -195,12 +195,12 @@ precision-medicine-mcp/
 │   ├── for-patients/       # Patient-friendly resources
 │   ├── getting-started/    # Installation, quick start, desktop-configs
 │   ├── book/               # Quarto book: AI-Orchestrated Precision Oncology
-│   └── reference/          # Technical reference (architecture, deployment, prompts, tests)
+│   └── reference/          # Technical reference (architecture, prompts, tests)
 │       ├── architecture/   # System design & modality workflows
-│       ├── deployment/     # GCP deployment status & guides
-│       ├── prompts/ # 20+ ready-to-use clinical prompts
+│       ├── prompts/        # 20+ ready-to-use clinical prompts
 │       ├── shared/         # Canonical single-source-of-truth files
-│       └── testing/      # Testing guides & PatientOne scenarios
+│       ├── skills/         # AI skills for coding assistants
+│       └── testing/        # Testing guides & PatientOne scenarios
 ├── infrastructure/         # Deployment, audit, environment setup
 │   ├── deployment/         # GCP deployment scripts
 │   ├── docker/             # Base Docker images for Cloud Run
