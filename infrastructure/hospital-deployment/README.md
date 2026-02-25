@@ -858,6 +858,6 @@ See main repository LICENSE file.
 
 ---
 
-**Last Updated**: 2025-12-30
+**Last Updated**: 2026-02
 **Version**: 1.0.0
 **Contact**: See `/docs/for-hospitals/OPERATIONS_MANUAL.md` for support contacts

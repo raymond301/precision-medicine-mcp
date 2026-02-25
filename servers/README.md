@@ -22,7 +22,7 @@ Specialized MCP servers for precision medicine analysis. For current server and 
 | 📄 **mcp-patient-report** | 5 | ✅ 100% real | [README →](mcp-patient-report/README.md) |
 | 🧬 **mcp-genomic-results** | 4 | ✅ 100% real | [README →](mcp-genomic-results/README.md) |
 
-**Production Ready:** 11/13 servers (mcp-epic, mcp-fgbio, mcp-multiomics, mcp-spatialtools, mcp-perturbation, mcp-quantum-celltype-fidelity, mcp-deepcell, mcp-cell-classify, mcp-openimagedata, mcp-patient-report, mcp-genomic-results)
+**Production Ready:** See [Server Registry](../docs/reference/shared/server-registry.md) for current production readiness status.
 
 ---
 

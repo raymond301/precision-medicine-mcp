@@ -2,8 +2,8 @@
 
 **Last Updated:** 2026-02-22
 
-**Purpose:** Single-prompt E2E test for Claude Desktop with all 13 MCP servers in DRY_RUN mode.
-Covers 6 servers across clinical, genomic, spatial, multi-omics, and reporting modalities.
+**Purpose:** Single-prompt E2E test for Claude Desktop with all custom MCP servers ([Server Registry](../../../../../../docs/reference/shared/server-registry.md)) in DRY_RUN mode.
+Covers servers across clinical, genomic, spatial, multi-omics, and reporting modalities.
 
 **Setup:** See [desktop-configs/](../../../../../getting-started/desktop-configs/) for Claude Desktop configuration.
 

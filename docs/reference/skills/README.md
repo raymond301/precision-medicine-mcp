@@ -42,7 +42,7 @@ Reference this directory in your AI tool's project configuration (e.g., CLAUDE.m
 
 ## Project Context
 
-This project has 13 custom MCP servers (plus a boilerplate template) in `servers/`. Each server exposes bioinformatics tools via the FastMCP framework. All servers use `uv` for dependency management and support DRY_RUN mode for safe testing with synthetic data.
+This project has multiple custom MCP servers (plus a boilerplate template) in `servers/` — see the [Server Registry](../shared/server-registry.md) for current counts. Each server exposes bioinformatics tools via the FastMCP framework. All servers use `uv` for dependency management and support DRY_RUN mode for safe testing with synthetic data.
 
 ## Directory Structure
 

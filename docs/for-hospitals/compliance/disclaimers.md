@@ -533,6 +533,6 @@ Disclaimer version: 1.0 (2025-12-27)
 
 ---
 
-**Last Updated:** December 27, 2025
+**Last Updated:** February 2026
 **Maintained by:** Precision Medicine MCP Team
 **Review Schedule:** Update before any production deployment or change in use case

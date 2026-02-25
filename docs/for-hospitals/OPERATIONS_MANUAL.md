@@ -132,7 +132,7 @@ The Precision Medicine MCP system provides AI-powered analysis of spatial transc
 
 See [Server Registry](../reference/shared/server-registry.md) for the complete list of servers and tools.
 
-**Deployment summary:** 13 MCP servers on Cloud Run + 2 local-only (mcp-epic, mcp-genomic-results). Most servers use 2Gi/2vCPU; larger servers (spatialtools, perturbation, deepcell, openimagedata) use 4Gi/2vCPU. All scale to zero by default (min-instances=0).
+**Deployment summary:** MCP servers on Cloud Run (see [Server Registry](../reference/shared/server-registry.md) for current count). Most servers use 2Gi/2vCPU; larger servers (spatialtools, perturbation, deepcell, openimagedata) use 4Gi/2vCPU. All scale to zero by default (min-instances=0).
 
 ### User Interfaces
 
