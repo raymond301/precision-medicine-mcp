@@ -1,6 +1,6 @@
 # Next Steps & Enhancements by MCP Server
 
-**Last Updated:** 2026-02-21
+**Last Updated:** 2026-02-25
 
 ---
 
@@ -12,7 +12,7 @@
 | 2 | mcp-mockepic | Mock (by design) | FHIR R4-compliant output format | Low |
 | 3 | mcp-cell-classify | Production | FlowSOM/Leiden clustering methods | Medium |
 | 4 | mcp-deepcell | Production (Phase 1) | Morphology, tracking, export tools (Phase 2) | High |
-| 5 | mcp-fgbio | Production (95% Real) | Finish `fetch_reference_genome`; add BAM tools | Medium |
+| 5 | mcp-fgbio | Production (95% Real) | Add BAM/CRAM consensus calling tools | Medium |
 | 6 | mcp-genomic-results | Production (100% Real) | TMB calculation; MSI detection | High |
 | 7 | mcp-multiomics | ~95% real | Replace hardcoded upstream regulator DBs with live API | Medium |
 | 8 | mcp-openimagedata | Production | OpenSlide WSI support (.svs, .ndpi) | Medium |
@@ -65,7 +65,7 @@
 
 | Enhancement | Type | Effort |
 |-------------|------|--------|
-| Finish `fetch_reference_genome` real download path | Fix | Small |
+| ~~Finish `fetch_reference_genome` real download path~~ | ~~Fix~~ | Done |
 | Add `index_reference_genome` (BWA/STAR/bowtie2) | Feature | Medium |
 | Add BAM/CRAM consensus calling tools (fgbio Java) | Feature | Large |
 | Add retry/backoff for NCBI FTP downloads | Reliability | Small |
