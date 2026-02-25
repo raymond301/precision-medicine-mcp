@@ -7,7 +7,7 @@ graph LR
     subgraph hosted[Anthropic Connectors]
         CT[ClinicalTrials.gov<br/>6 tools]
         BIO[bioRxiv & medRxiv<br/>9 tools]
-        PM[PubMed<br/>5 capabilities]
+        PM[PubMed<br/>5 tools]
         SQ[Seqera<br/>7 tools]
     end
     subgraph local[Community Servers]

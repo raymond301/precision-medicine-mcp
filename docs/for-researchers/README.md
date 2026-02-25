@@ -84,7 +84,7 @@ graph LR
 | **Genomics** | VCF: TP53, PIK3CA, PTEN, BRCA1 variants | Whole exome sequencing (WES) |
 | **Multi-omics** | 15 samples, 38 KB matrices | 15 samples, 2.7 GB raw (15-20 MB processed) |
 | **Spatial** | 900 spots × 31 genes (315 KB) | 3,000-5,000 spots × 18,000-30,000 genes (100-500 MB) |
-| **Imaging** | H&E, MxIF placeholders (4.1 MB) | Full resolution slides (500 MB - 2 GB) |
+| **Imaging** | Synthetic H&E, MxIF demo data (4.1 MB) | Full resolution slides (500 MB - 2 GB) |
 
 **PatientTwo (PAT002)** adds pre/post treatment comparison, BRCA2 germline testing, and ER/PR/HER2 receptor workflows. See [PAT002 README](../../data/patient-data/PAT002-BC-2026/README.md).
 
@@ -100,7 +100,7 @@ graph LR
 
 1. **Set up environment** → [Installation Guide](../getting-started/installation.md) (10 min)
 2. **Run PatientOne workflow** → [PatientOne Guide](../reference/testing/patient-one/README.md) (25-35 min)
-3. **Review results** → results depend on which mcp servers are used in analysis, see detail below  
+3. **Review results** → outputs vary by server (visualizations, statistical summaries, PDF reports)
 
 **What you'll analyze:**
 - Clinical: Stage IV HGSOC, platinum-resistant
@@ -535,7 +535,7 @@ infiltration with spatial pathway enrichment scores."
 - Meta-analysis: Stouffer's Z-score
 - Batch correction: ComBat
 
-See: Statistical Methods
+See: [Architecture References](../reference/architecture/references.md)
 
 ### "How do I cite this platform?"
 **A:** Citation information will be provided upon publication. For now, reference the GitHub repository and specific tool versions used.
