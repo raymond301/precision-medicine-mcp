@@ -36,7 +36,7 @@ PRICING = {
     "claude-haiku-4-20250924": ModelPricing(
         input_price=0.25,
         output_price=1.25,
-        name="Claude Haiku 4"
+        name="Claude Haiku 4.5"
     ),
     # Claude aliases for convenience
     "sonnet": ModelPricing(
@@ -52,7 +52,7 @@ PRICING = {
     "haiku": ModelPricing(
         input_price=0.25,
         output_price=1.25,
-        name="Claude Haiku 4"
+        name="Claude Haiku 4.5"
     ),
 
     # ── Google Gemini 3 Models ───────────────────────────────────────────────

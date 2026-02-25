@@ -170,14 +170,14 @@ aggregator = MetricsAggregator("path/to/your/metrics.yaml")
 
 Toggle **Live Mode** in the sidebar.  The dashboard automatically:
 
-1. **Health-polls** all 18 Cloud Run services (all MCP servers + 3 Streamlit clients) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
+1. **Health-polls** all 15 Cloud Run services (12 MCP servers + 3 Streamlit clients — see [Server Registry](../../docs/reference/shared/server-registry.md)) via root `/` endpoint (10 s timeout, 2 retries) and displays status badges (healthy / degraded / unhealthy).
 2. **Queries GCP Cloud Logging** for the selected time window (1 h – 7 d) and surfaces per-service request counts, avg/p95 latency, and error rates.
 3. **Queries mcp-audit-log** for actual token usage and costs logged by Streamlit clients via `audit_logger.py`. Shows total tokens, costs, and per-MCP-server breakdown.
 
 No manual log export or custom parser needed.  The deployed service account (`mcp-dashboard-sa`) has `roles/logging.viewer` — the minimum permission required.
 
 **Monitored Services:**
-- **MCP Servers (13):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, mocktcga, openimagedata, mockepic, patient-report, genomic-results, epic
+- **MCP Servers (12 deployed):** fgbio, multiomics, spatialtools, perturbation, quantum-celltype-fidelity, deepcell, cell-classify, mocktcga, openimagedata, mockepic, patient-report, genomic-results (note: mcp-epic is local-only, not on Cloud Run)
 - **Streamlit Clients (3):** mcp-dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 
 ---
@@ -201,7 +201,7 @@ for model, data in comparison.items():
 # Output:
 # Claude Sonnet 4.5: $0.0600
 # Claude Opus 4.5: $0.3000
-# Claude Haiku 4: $0.0050
+# Claude Haiku 4.5: $0.0050
 
 # Project monthly costs
 monthly = estimate_monthly_cost(
@@ -221,7 +221,7 @@ print(f"Monthly: ${monthly['monthly_cost']:.2f}")
 |-------|----------------------|------------------------|
 | Claude Sonnet 4.5 | $3.00 | $15.00 |
 | Claude Opus 4.5 | $15.00 | $75.00 |
-| Claude Haiku 4 | $0.25 | $1.25 |
+| Claude Haiku 4.5 | $0.25 | $1.25 |
 
 **Google Gemini 3 Models:**
 
@@ -400,7 +400,7 @@ streamlit run streamlit_app.py
 
 **Issue**: Dashboard costs are estimates only
 
-**Solution**: Pricing in `cost_calculator.py` reflects Anthropic's published rates (Jan 2025). Verify with:
+**Solution**: Pricing in `cost_calculator.py` reflects Anthropic's published rates (Feb 2026). Verify with:
 ```bash
 python cost_calculator.py
 ```
@@ -472,7 +472,7 @@ fig.show()
 - ✅ Streamlit dashboard with 4 views
 - ✅ Optimization recommendations
 - ✅ Export reports (TXT, CSV)
-- ✅ Live Mode: health-polling all 15 Cloud Run MCP servers (async, 10 s timeout, 2 retries)
+- ✅ Live Mode: health-polling all 15 Cloud Run services (12 MCP servers + 3 Streamlit clients; async, 10 s timeout, 2 retries)
 - ✅ Live Mode: GCP Cloud Logging integration — per-server request counts, avg/p95 latency, error rates
 - ✅ Live Mode: server-health badges, live traffic chart, Avg vs P95 latency chart, error-signal warnings
 - ✅ Dedicated service account (`mcp-dashboard-sa`) with least-privilege `roles/logging.viewer`
@@ -481,7 +481,7 @@ fig.show()
 - ✅ **Gemini 3 pricing** added to cost calculator (Flash: $0.50/$3.00, Pro: $2.00/$12.00)
 - ✅ **Streamlit client monitoring** — dashboard, streamlit-mcp-chat, streamlit-mcp-chat-students
 - ✅ **Live token usage & costs** — queries mcp-audit-log for actual LLM usage from Streamlit clients
-- ✅ **18 services monitored** — all MCP servers + 3 Streamlit clients
+- ✅ **15 services monitored** — 12 deployed MCP servers + 3 Streamlit clients
 - ✅ **Improved health checks** — uses root `/` endpoint, treats any HTTP response as healthy
 - ✅ **High-cost server detection** — flags servers >$0.50/24h in optimization view
 
