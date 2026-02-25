@@ -225,12 +225,10 @@ graph TB
 ## Support & Escalation
 
 ### Normal Business Hours (9am-5pm ET)
-- **Email:** [support placeholder]
 - **Response Time:** 4 hours
 - **Slack Channel:** #precision-medicine-mcp (optional)
 
 ### After Hours / Urgent (Severity 1)
-- **On-Call:** [phone placeholder]
 - **Severity 1:** Production system down, patient safety impact
 - **Response Time:** 1 hour
 
@@ -276,4 +274,4 @@ graph TB
 
 ---
 
-**Last Updated:** 2026-02-19
+**Last Updated:** 2026-02-25
