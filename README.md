@@ -8,8 +8,7 @@
 <img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/repo-image.png">
 
 > **AI-orchestrated multi-modal synthesis: integrate genomics, transcriptomics, spatial biology, and imaging in a single analysis — capabilities that manual workflows cannot achieve at scale.**
->
-> Estimated 40 hours of manual bioinformatics → 2-5 hours (8-20x faster).
+
 
 What's here?
 - Multi-modal integration across 5 data types via natural language — no coding required
