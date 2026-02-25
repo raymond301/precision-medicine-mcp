@@ -10,7 +10,7 @@ These prompts demonstrate the platform's value in under 2 minutes for funders, g
 
 **Choose ONE of the following:**
 - ✅ **Option A:** Claude Desktop with MCP servers configured ([setup guide](../getting-started/installation.md))
-- ✅ **Option B:** Deployed Streamlit UI ([deployment guide](../reference/deployment/GCP_TESTING_GUIDE.md))
+- ✅ **Option B:** Deployed Streamlit UI ([deployment guide](../reference/testing/gcp-integration.md))
 - ✅ **Option C:** Jupyter notebook ([notebook guide](../../ui/jupyter-notebook/README.md))
 
 **Data:** Uses synthetic PAT001-OVC-2025 patient data (100% safe for demos, no PHI)
@@ -133,7 +133,7 @@ Annual Savings:
 - ✅ **Azure AD SSO** for user authentication
 - ✅ **SOC 2 Type II** compliant infrastructure (GCP Cloud Run)
 
-See: [Security Overview](../reference/deployment/security.md) | [HIPAA Compliance](../for-hospitals/compliance/hipaa.md)
+See: [Security Overview](../for-developers/security.md) | [HIPAA Compliance](../for-hospitals/compliance/hipaa.md)
 
 ### "How much does deployment cost?"
 
@@ -204,9 +204,9 @@ See: [FUNDING.md](../for-funders/FUNDING.md) for detailed budget breakdown
 - Technical Q&A: [Executive Summary](EXECUTIVE_SUMMARY.md)
 
 **For Hospital IT:**
-- Security review: [Security Guide](../reference/deployment/security.md)
+- Security review: [Security Guide](../for-developers/security.md)
 - HIPAA compliance: [HIPAA Guide](../for-hospitals/compliance/hipaa.md)
-- Deployment guide: [GCP Deployment Guide](../reference/deployment/GCP_TESTING_GUIDE.md)
+- Deployment guide: [GCP Integration Guide](../reference/testing/gcp-integration.md)
 
 ---
 

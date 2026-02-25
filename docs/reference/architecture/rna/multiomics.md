@@ -296,7 +296,7 @@ For detailed implementation information, see:
 
 ### Deployment & Operations
 - **Current Status:** [Server Status](../../shared/server-registry.md)
-- **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
+- **GCP Deployment:** [GCP Integration Guide](../../testing/gcp-integration.md)
 
 ### Additional Resources
 - **Data Governance:** [data-governance.md](../../../for-hospitals/compliance/data-governance.md)

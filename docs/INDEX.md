@@ -89,7 +89,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 
 **Deployment guides and infrastructure:**
 
-- **[Security Guide](reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
+- **[Security Guide](for-developers/security.md)** - API keys, secrets management, GCP Secret Manager
 - **[Hospital Deployment](./for-hospitals/)** - Enterprise deployment
   - [Operations Manual](./for-hospitals/OPERATIONS_MANUAL.md)
   - [User Guide](./for-hospitals/USER_GUIDE.md)
@@ -154,7 +154,7 @@ Canonical single-source-of-truth documents referenced across the repository:
 - **Install the system** → [Installation Guide](./getting-started/installation.md)
 - **Run my first analysis** → [Quick Test Prompts](reference/testing/quick-test-prompts.md)
 - **Understand costs** → [Cost and Budget Guide](./for-hospitals/operations/cost-and-budget.md)
-- **Deploy to production** → [GCP Deployment Guide](reference/deployment/GCP_TESTING_GUIDE.md)
+- **Deploy to production** → [GCP Integration Guide](reference/testing/gcp-integration.md)
 - **Ensure HIPAA compliance** → [HIPAA Compliance](./for-hospitals/compliance/hipaa.md)
 - **Add a new server** → [Add New Modality Server](./for-developers/ADD_NEW_MODALITY_SERVER.md)
 - **Review patient results** → [CITL Workflow](./for-hospitals/citl-workflows/CITL_WORKFLOW_GUIDE.md)

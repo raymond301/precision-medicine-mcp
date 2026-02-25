@@ -2,10 +2,10 @@
 
 For comprehensive deployment information, see:
 
-## 🧪 [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
+## [GCP Integration Guide](../../testing/gcp-integration.md)
 How to test deployed servers using Claude API (HTTP/SSE remote access).
 
-## 🔒 [Security Guide](../../deployment/security.md)
+## [Security Guide](../../../for-developers/security.md)
 API key and secrets management, GCP Secret Manager integration.
 
 ---
@@ -29,4 +29,4 @@ API key and secrets management, GCP Secret Manager integration.
 
 ---
 
-For deployment procedures, testing, and troubleshooting, see the [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md).
+For deployment procedures, testing, and troubleshooting, see the [GCP Integration Guide](../../testing/gcp-integration.md).

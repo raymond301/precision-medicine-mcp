@@ -165,7 +165,7 @@ gcloud secrets describe anthropic-api-key
 
 ### **Step 2: Deploy with Secret**
 
-Update `deploy_to_gcp.sh` for production:
+Update `infrastructure/deployment/deploy_to_gcp.sh` for production:
 
 ```bash
 # Production deployment with secrets
@@ -375,5 +375,5 @@ gcloud logging read "resource.type=secretmanager.googleapis.com" \
 
 ---
 
-**Last Updated:** December 29, 2025
+**Last Updated:** February 2026
 **Security Contact:** Review GCP audit logs and Anthropic Console regularly

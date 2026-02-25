@@ -504,7 +504,7 @@ main() {
         echo -e "${YELLOW}Development Deployment:${NC}"
         echo -e "${YELLOW}1. Copy deployment_urls.txt URLs for Claude API config${NC}"
         echo -e "${YELLOW}2. Test servers: curl \${SERVICE_URL}/health${NC}"
-        echo -e "${YELLOW}3. See GCP_TESTING_GUIDE.md for integration${NC}"
+        echo -e "${YELLOW}3. See docs/reference/testing/gcp-integration.md for integration${NC}"
         echo -e "${YELLOW}4. Deploy to production: ./deploy_to_gcp.sh --production${NC}"
     fi
     echo ""

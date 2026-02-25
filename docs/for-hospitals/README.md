@@ -46,12 +46,12 @@ This is not a workflow checkbox — it is a **safety guarantee** enforced at the
 - **[SECURITY_OVERVIEW.md](SECURITY_OVERVIEW.md)** - One-page security architecture summary
 - **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Step-by-step deployment requirements
 - **[Operations Manual](OPERATIONS_MANUAL.md)** - Day-to-day operations guide
-- **[GCP Deployment Guide](../reference/deployment/GCP_TESTING_GUIDE.md)** - Deployment and testing
+- **[GCP Integration Guide](../reference/testing/gcp-integration.md)** - Deployment and testing
 
 ### Security & Compliance
 - **[HIPAA Compliance](compliance/hipaa.md)** - De-identification, audit logging, encryption
 - **[Data Governance](compliance/data-governance.md)** - Data retention, privacy policies
-- **[Security Guide](../reference/deployment/security.md)** - API keys, secrets management, GCP Secret Manager
+- **[Security Guide](../for-developers/security.md)** - API keys, secrets management, GCP Secret Manager
 
 ### User & Operations
 - **[User Guide](USER_GUIDE.md)** - For clinicians and researchers

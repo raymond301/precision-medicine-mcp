@@ -364,7 +364,7 @@ PIK3CA H1047R: 8% cohort frequency (actionable mutation)
   - Example queries and outputs
 
 ### Deployment & Operations
-- **GCP Deployment:** [GCP Testing Guide](../../deployment/GCP_TESTING_GUIDE.md)
+- **GCP Deployment:** [GCP Integration Guide](../../testing/gcp-integration.md)
 - **Server Status:** [Server Implementation Status](../../shared/server-registry.md)
 
 ---

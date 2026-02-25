@@ -158,7 +158,7 @@ The server automatically scales down when idle, so you only pay for actual usage
 
 - [README.md](README.md) - Comprehensive documentation
 - [ARCHITECTURE.md](ARCHITECTURE.md) - System architecture with diagrams
-- [GCP Deployment Guide](../../docs/reference/deployment/GCP_TESTING_GUIDE.md) - Deployment and testing
+- [GCP Integration Guide](../../docs/reference/testing/gcp-integration.md) - Deployment and testing
 
 ---
 
