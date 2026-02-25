@@ -37,7 +37,6 @@ We write for different stakeholders. Always follow the established styles:
 - [ ] Biological terms are accurately linked to citations.
 - [ ] PHI/PII is strictly excluded from all public docs.
 - [ ] New servers are added to the `Server Registry`.
-- [ ] Architecture changes follow the **ADR Process** defined in **@universal-collaboration** (Sub-Skill 2).
 - [ ] Mermaid diagrams remain under 100 nodes for readability.
 
 ---

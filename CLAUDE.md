@@ -83,7 +83,7 @@ When `*_DRY_RUN=true`, servers return synthetic/simulated data without requiring
 - **Synthetic data only** — no real patient data in repo (HIPAA safe)
 - **Line length:** 100 chars (black + ruff)
 - **Async:** All MCP tool functions are async
-- **AI Skills:** `.agent/skills/` contains project-specific instruction sets (e.g., server patterns, compliance, testing, data ops) that AI coding assistants can reference by name
+- **AI Skills:** `docs/reference/skills/` contains project-specific instruction sets (e.g., compliance, testing, data ops) that AI coding assistants can reference by name
 
 ## Common Tasks
 

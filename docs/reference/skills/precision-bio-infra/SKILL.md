@@ -14,7 +14,7 @@ This skill ensures that the platform is deployed securely and efficiently on Goo
 Standard deployment uses Cloud Run and Cloud Build:
 - **Service Account**: Use the dedicated compute service account with `roles/run.invoker` and `roles/storage.objectViewer`.
 - **Scaling**: Most servers scale to zero (`min-instances 0`) to save costs, except for heavy-use multiomics servers.
-- **Automation**: Use `deploy.sh` and `cloudbuild.yaml` in each server directory.
+- **Automation**: Use `deploy.sh` where provided (currently mcp-deepcell, mcp-cell-classify) and `cloudbuild.yaml` where provided (currently mcp-deepcell only).
 
 ## 🏥 Hospital & Clinical Deployment
 

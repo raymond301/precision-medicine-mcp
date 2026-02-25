@@ -27,12 +27,12 @@ When adding or modifying LLM providers:
 
 - **Orchestration Trace**: Supports Log, Card, Timeline, and Sequence Diagram (Mermaid) views.
 - **Bio-Data Rendering**: Use Streamlit's `st.dataframe` for large genomic tables and `st.image` for GCS-hosted UMAPs/PCA plots.
-- **Complexity**: Keep the sidebar clean—use `st.expander` for advanced settings like n_latent or n_hvg.
+- **Complexity**: Keep the sidebar clean—use `st.expander` for advanced settings.
 
 ## ⚙️ Configuration
 
 - Ensure all new features are togglable via `.env` or the sidebar (e.g., `USE_MOCK_MCP`).
-- Maintain the 14+ example prompts in `utils/mcp_config.py`.
+- Example prompts are maintained in `utils/mcp_config.py`.
 
 ---
 
