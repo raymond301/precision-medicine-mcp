@@ -7,16 +7,7 @@
 
 <img src="https://github.com/lynnlangit/precision-medicine-mcp/blob/main/data/images/repo-image.png">
 
-> **AI-orchestrated multi-modal synthesis: integrate genomics, transcriptomics, spatial biology, and imaging in a single analysis — capabilities that manual workflows cannot achieve at scale.**
-
-
-What's here?
-- Multi-modal integration across 5 data types via natural language — no coding required
-- Clinician-in-the-Loop safety: every AI result requires human APPROVE/REVISE/REJECT
-- Orchestrated by multi-provider AI (Claude or Gemini) with full audit trails
-- Example for Stage IV Ovarian Cancer (synthetic data, HIPAA-safe)
-
----
+> AI-orchestrated multi-modal synthesis: integrate genomics, transcriptomics, spatial biology, and imaging in a single analysis — capabilities that manual workflows cannot achieve at scale.
 
 ## How It Works: The User Experience
 
